@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary</item>
+        <item name="android:divider">@color/divider</item>
+        <item name="colorAccent">@color/material_blue_665</item>
+        <item name="android:textColorHint">@color/material_grey_d5</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:itemBackground">@color/item_color</item>
+    </style>
+
+    <style name="AppTheme.LauncherAppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

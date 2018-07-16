@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.main.ui.MainActivity">
+
+    <com.vexanium.vexgift.widget.CustomViewPager
+        android:id="@+id/custom_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/custom_tabbarview">
+
+    </com.vexanium.vexgift.widget.CustomViewPager>
+
+    <com.vexanium.vexgift.widget.CustomTabBarView
+        android:id="@id/custom_tabbarview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_bar_height"
+        android:layout_alignParentBottom="true">
+
+    </com.vexanium.vexgift.widget.CustomTabBarView>
+
+</RelativeLayout>

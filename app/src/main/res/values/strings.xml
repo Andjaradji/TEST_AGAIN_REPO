@@ -1,0 +1,71 @@
+<resources>
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="common_exit_msg">If you click once again, the app will be closed</string>
+    <string name="image_content_description">Image</string>
+
+    <string name="notif_expired">[%s] was expired</string>
+    <string name="notif_expire_soon">[%s] will expire soon! Use this coupon before 10 April 2018</string>
+    <string name="notif_is_available">[%s] is available now! Go and claim yours!</string>
+
+    <string name="notif_item_time_now">Just now</string>
+    <string name="notif_item_time_hour">%d hr ago</string>
+    <string name="notif_item_time_day">%d d ago</string>
+    <string name="notif_item_time_week">%d w ago</string>
+
+    <string name="coupon_exp_date_title">Expiration Date:</string>
+    <string name="coupon_fragment_active">Active</string>
+    <string name="coupon_fragment_expired">Expired</string>
+
+    <string name="home_hot_coupon_title">Most Popular</string>
+    <string name="home_brand_coupon_title">Merchant Brands</string>
+
+    <string name="see_more_title">Show All</string>
+
+    <string name="coupon_detail_availability">Coupon Availability</string>
+    <string name="coupon_detail_desc_title">Coupon Descriptions</string>
+    <string name="coupon_detail_desc">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
+    <string name="coupon_detail_terms_title">Terms &amp; Conditions</string>
+    <string name="coupon_detail_terms">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
+    <string name="coupon_detail_claim">REDEEEM COUPON</string>
+
+    <string name="home_filter_title">Filters</string>
+    <string name="home_filter_reset">RESET</string>
+    <string name="home_filter_all_cities">All Cities</string>
+    <string name="home_filter_city">By City</string>
+    <string name="home_filter_time">By Time</string>
+    <string name="home_filter_time_new">newest</string>
+    <string name="home_filter_time_old">oldest</string>
+    <string name="home_filter_category">By Category</string>
+    <string name="home_filter_brand">By Brand</string>
+    <string name="home_filter_or">or</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_password_forgot"><u>Forgot password?</u></string>
+    <string name="login_button_login">LOGIN</string>
+    <string name="login_button_fb_login">Login with Facebook</string>
+    <string name="login_button_google_login">Login with Google</string>
+
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_repassword">Re enter password</string>
+    <string name="register_phone">Phone Number</string>
+    <string name="register_button_register">REGISTER</string>
+    <string name="register_button_fb_login">Login with Facebook</string>
+    <string name="register_button_google_login">Login with Google</string>
+    <string name="my_profile">My Profile</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="gender">Gender</string>
+    <string name="apply_profile">Apply</string>
+
+    <string name="wallet">Wallet</string>
+    <string name="send">Send</string>
+    <string name="receive">Receive</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
