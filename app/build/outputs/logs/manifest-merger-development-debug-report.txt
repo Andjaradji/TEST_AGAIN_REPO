@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
 MERGED from [com.android.support:design:28.0.0-alpha3] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/design-28.0.0-alpha3.aar/248bca2bad19549f3170e8e3f3685e00/AndroidManifest.xml:17:1-24:12
 MERGED from [com.facebook.android:facebook-android-sdk:4.34.0] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.34.0.aar/97b254e2ed976f4ef7f0dd03db70f10f/AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-login:4.34.0] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-login-4.34.0.aar/0689d2d1bc60748428494339c7252c49/AndroidManifest.xml:21:1-31:12
@@ -53,25 +53,25 @@ MERGED from [com.android.support:localbroadcastmanager:28.0.0-alpha3] /Users/hiz
 MERGED from [com.android.support:print:28.0.0-alpha3] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/print-28.0.0-alpha3.aar/fd4bd0a88890b3eae260f3dce1790481/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/24ef3d2861081579207735675f9aad2d/AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.6.1.aar/832ddaf30cd72ea545ddad244e364f75/AndroidManifest.xml:2:1-11:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
 	package
 		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:3:5-35
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
+		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12
+		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12
 		INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:11-69
 application
-ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:5:5-22:19
+ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:5:5-23:19
 MERGED from [com.android.support:design:28.0.0-alpha3] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/design-28.0.0-alpha3.aar/248bca2bad19549f3170e8e3f3685e00/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:28.0.0-alpha3] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/design-28.0.0-alpha3.aar/248bca2bad19549f3170e8e3f3685e00/AndroidManifest.xml:22:5-20
 MERGED from [com.facebook.android:facebook-android-sdk:4.34.0] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.34.0.aar/97b254e2ed976f4ef7f0dd03db70f10f/AndroidManifest.xml:28:5-29:19
@@ -135,9 +135,13 @@ ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/ap
 	android:name
 		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:18:27-74
 activity#com.vexanium.vexgift.module.login.ui.LoginActivity
-ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:21:9-76
+ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:21:9-67
 	android:name
 		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:21:19-64
+activity#com.vexanium.vexgift.module.register.ui.RegisterActivity
+ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:22:9-82
+	android:name
+		ADDED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:22:19-70
 uses-sdk
 INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml
@@ -281,7 +285,7 @@ ADDED from [com.github.zhaokaiqiang.klog:library:1.6.0] /Users/hizkialemuel/.gra
 	android:name
 		ADDED from [com.github.zhaokaiqiang.klog:library:1.6.0] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/library-1.6.0.aar/e4ab3bb01df6561ab9870c28a6c42e79/AndroidManifest.xml:11:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-24:12 reason: com.socks.klog requested WRITE_EXTERNAL_STORAGE
+IMPLIED from /Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/src/main/AndroidManifest.xml:2:1-25:12 reason: com.socks.klog requested WRITE_EXTERNAL_STORAGE
 provider#com.facebook.marketing.internal.MarketingInitProvider
 ADDED from [com.facebook.android:facebook-marketing:4.34.0] /Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-marketing-4.34.0.aar/43ecba14162ef88a312ada0b8a5e2e8c/AndroidManifest.xml:29:9-32:40
 	android:authorities

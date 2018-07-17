@@ -22,10 +22,10 @@
         android:layout_below="@id/iv_coupon_image"
         android:layout_marginBottom="6dp"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/padding_main"
-        android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main"
-        android:paddingStart="@dimen/padding_main">
+        android:paddingEnd="@dimen/interval_main"
+        android:paddingLeft="@dimen/interval_main"
+        android:paddingRight="@dimen/interval_main"
+        android:paddingStart="@dimen/interval_main">
 
         <TextView
             android:id="@+id/tv_coupon_title"
@@ -37,8 +37,8 @@
             android:layout_toLeftOf="@+id/ll_banner_exp_info"
             android:layout_toStartOf="@+id/ll_banner_exp_info"
             android:maxLines="2"
-            android:paddingEnd="@dimen/padding_main"
-            android:paddingRight="@dimen/padding_main"
+            android:paddingEnd="@dimen/interval_main"
+            android:paddingRight="@dimen/interval_main"
             android:tag="bold"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
@@ -78,7 +78,7 @@
                 android:id="@+id/tv_coupon_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginTop="@dimen/interval_small"
                 android:tag="light"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_xtiny" />
