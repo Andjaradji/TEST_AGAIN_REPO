@@ -44,4 +44,14 @@
     <dimen name="home_card_padding">16sp</dimen>
 
     <dimen name="padding_medium">22dp</dimen>
+
+    <dimen name="margin_splash">12dp</dimen>
+
+    <dimen name="main_icon_width">116dp</dimen>
+    <dimen name="main_icon_height">113dp</dimen>
+
+    <dimen name="walkthrough_indicator_padding">6dp</dimen>
+    <dimen name="walkthrough_indicator_radius">4dp</dimen>
+    <dimen name="walkthrough_text">36dp</dimen>
+
 </resources>
