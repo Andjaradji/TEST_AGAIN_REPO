@@ -1,6 +1,9 @@
 package com.vexanium.vexgift.module.home.ui;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -25,17 +29,19 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
-import com.yarolegovich.discretescrollview.DSVOrientation;
-import com.yarolegovich.discretescrollview.DiscreteScrollView;
-import com.yarolegovich.discretescrollview.transform.Pivot;
-import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
+import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
+import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
+import com.vexanium.vexgift.widget.discretescrollview.transform.Pivot;
+import com.vexanium.vexgift.widget.discretescrollview.transform.ScaleTransformer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.vexanium.vexgift.app.StaticGroup.HOT_COUPON;
+import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
+import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
+import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView{
@@ -56,7 +62,38 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     protected void initView(View fragmentRootView) {
+        random = new Random();
 
+        mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.home_recyclerview);
+        layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
+        layoutListManager.setItemPrefetchEnabled(false);
+
+        final AppBarLayout appBarLayout = fragmentRootView.findViewById(R.id.app_bar);
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(10,0);
+        animator.setDuration(300);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                appBarLayout.setElevation((float)valueAnimator.getAnimatedValue());
+                appBarLayout.requestLayout();
+            }
+        });
+
+        loadData();
+        initHomeList();
+
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(mRecyclerview.computeVerticalScrollOffset() == 0 && appBarLayout.getElevation() != 0){
+                    animator.start();
+                }else if(mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation()!= 10){
+                    appBarLayout.setElevation(10);
+                }
+            }
+        });
     }
 
     @Override
@@ -76,7 +113,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
         hotVoucherList = FixtureData.showCaseVoucherResponse;
-        data.add(0, new VoucherResponse(HOT_COUPON));
+        data.add(0, new VoucherResponse(SHORTCUT_BAR));
+        data.add(1, new VoucherResponse(HOT_LIST));
+        data.add(2, new VoucherResponse(EXPLORE_BAR));
     }
 
     public void initHomeList() {
@@ -89,8 +128,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public int getItemLayoutId(int viewType) {
                 switch (viewType) {
-                    case HOT_COUPON:
+                    case SHORTCUT_BAR:
+                        return R.layout.item_shortcut_bar;
+                    case HOT_LIST:
                         return R.layout.item_hot_coupon_pager;
+                    case EXPLORE_BAR:
+                        return R.layout.item_explore_bar;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -100,8 +143,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
                 switch (getItemViewType(position)) {
-                    case HOT_COUPON:
+                    case SHORTCUT_BAR:
+                        break;
+                    case HOT_LIST:
                         setHotVoucherList(holder, hotVoucherList);
+                        break;
+                    case EXPLORE_BAR:
                         break;
                     case NORMAL_COUPON:
                     default:
@@ -149,6 +196,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     public void setHotVoucherList(BaseRecyclerViewHolder holder, ArrayList<VoucherResponse> couponList) {
         DiscreteScrollView discreteScrollView = (DiscreteScrollView) holder.getView(R.id.scrollView);
+        IndefinitePagerIndicator pagerIndicator = (IndefinitePagerIndicator) holder.getView(R.id.recyclerview_pager_indicator);
         GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         layoutManager.setItemPrefetchEnabled(false);
         mHotAdapter = new BaseRecyclerAdapter<VoucherResponse>(getActivity(), couponList, layoutManager) {
@@ -187,6 +235,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 .setPivotY(Pivot.Y.CENTER)
                 .build()
         );
+        pagerIndicator.attachToRecyclerView(discreteScrollView);
         discreteScrollView.scrollToPosition(1);
     }
 
