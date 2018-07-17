@@ -61,14 +61,6 @@ public class IconTextTabView extends LinearLayout {
         this.idx = idx;
     }
 
-    public int getSelectedIcon() {
-        return selectedIcon;
-    }
-
-    public void setSelectedIcon(int selectedIcon) {
-        this.selectedIcon = selectedIcon;
-    }
-
     public int getIcon() {
         return icon;
     }
@@ -92,7 +84,7 @@ public class IconTextTabView extends LinearLayout {
     }
 
     public void updateView(boolean isSelected) {
-        ivIcon.setImageResource(isSelected ? selectedIcon : icon);
+        ivIcon.setAlpha(isSelected ? 1f : 0.6f);
         tvTitle.setTextColor(isSelected? context.getResources().getColor(R.color.material_black) : context.getResources().getColor(R.color.material_grey_a6));
     }
 

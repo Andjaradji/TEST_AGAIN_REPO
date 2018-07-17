@@ -44,8 +44,8 @@ public class BoxFragment extends BaseFragment {
         mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
         mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
 
-        mTabBarView.addTabView(0, R.drawable.home, R.drawable.home_active,"My Voucher");
-        mTabBarView.addTabView(1, R.drawable.box, R.drawable.box_active, "My Token");
+        mTabBarView.addTabView(0, R.drawable.box_voucher,"My Voucher");
+        mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
         mViewPager.setAdapter(boxPagerAdapter);
@@ -53,7 +53,6 @@ public class BoxFragment extends BaseFragment {
         mViewPager.setCurrentItem(0, false);
 
         mTabBarView.setViewPager(mViewPager);
-
 
         setPagerListener();
     }

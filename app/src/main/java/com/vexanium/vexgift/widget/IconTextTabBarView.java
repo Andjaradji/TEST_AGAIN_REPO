@@ -61,12 +61,11 @@ public class IconTextTabBarView extends RelativeLayout {
         tabViews = new ArrayList<>();
     }
 
-    public void addTabView(final int idx, int icon, int selectedIcon, String title) {
+    public void addTabView(final int idx, int icon, String title) {
         if (tabViews != null) {
             final IconTextTabView tabView = new IconTextTabView(context);
             tabView.setIdx(idx);
             tabView.setIcon(icon);
-            tabView.setSelectedIcon(selectedIcon);
             tabView.setText(title);
             tabView.setOnClickListener(new OnClickListener() {
                 @Override

@@ -19,7 +19,6 @@
                 android:id="@+id/toolbar_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_margin="0dp"
                 android:contentInsetEnd="0dp"
                 android:contentInsetLeft="0dp"
@@ -38,21 +37,22 @@
 
             </android.support.v7.widget.Toolbar>
 
+            <com.vexanium.vexgift.widget.IconTextTabBarView
+                android:id="@+id/ittbv_tabview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_bar_height">
+
+            </com.vexanium.vexgift.widget.IconTextTabBarView>
+
         </android.support.design.widget.AppBarLayout>
 
-        <com.vexanium.vexgift.widget.IconTextTabBarView
-            android:id="@+id/ittbv_tabview"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_bar_height"
-            android:layout_below="@id/app_bar">
 
-        </com.vexanium.vexgift.widget.IconTextTabBarView>
 
         <com.vexanium.vexgift.widget.CustomViewPager
             android:id="@+id/vp_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/ittbv_tabview">
+            android:layout_below="@id/app_bar">
 
         </com.vexanium.vexgift.widget.CustomViewPager>
 
