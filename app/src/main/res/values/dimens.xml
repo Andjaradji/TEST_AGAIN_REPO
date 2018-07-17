@@ -27,12 +27,15 @@
     <dimen name="icon_toolbar">16dp</dimen>
     <dimen name="icon_post">15dp</dimen>
 
-    <dimen name="padding_big">32dp</dimen>
-    <dimen name="padding_main">16dp</dimen>
-    <dimen name="padding_submain">12dp</dimen>
-    <dimen name="padding_content">8dp</dimen>
-    <dimen name="padding_small">4dp</dimen>
-    <dimen name="padding_xsmall">2dp</dimen>
+    <dimen name="interval_big">32dp</dimen>
+    <dimen name="interval_medium">24dp</dimen>
+    <dimen name="interval_main">16dp</dimen>
+    <dimen name="interval_submain">12dp</dimen>
+    <dimen name="interval_content">8dp</dimen>
+    <dimen name="interval_small">4dp</dimen>
+    <dimen name="interval_xsmall">2dp</dimen>
+
+    <dimen name="input_field_padding">14dp</dimen>
 
     <dimen name="margin_more_list">8dp</dimen>
     <dimen name="margin_more_line">12dp</dimen>
