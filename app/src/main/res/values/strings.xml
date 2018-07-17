@@ -1,5 +1,13 @@
 <resources>
 
+    <string name="app_title">Vexgift</string>
+    <string name="app_copyright">Copyright © 2017</string>
+
+    <string name="walkthrough_first">Get The Best</string>
+    <string name="walkthrough_second">Get Free Token</string>
+    <string name="walkthrough_third">To De Mun</string>
+    <string name="walkthrough_fourth">Sign Up Now</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
