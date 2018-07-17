@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/incremental/mergeDevelopmentDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexanium-android-v2\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/e3f5c4b5e787f5b05e7d5bfd53cf9b10/res/values-sw600dp-v13/values-sw600dp-v13.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,124,193,263,337,413,472,543",
-                        "endColumns": "68,68,69,73,75,58,70,67",
-                        "endOffsets": "119,188,258,332,408,467,538,606"
-                    }
-                },
-                {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/design-28.0.0-alpha3.aar/248bca2bad19549f3170e8e3f3685e00/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0-alpha3.aar\\f5807a98abd5409b33ce4213c70fdd7e\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -30,6 +20,16 @@
                         "endLines": "10,11,12,13,14,15,17,18,19,23",
                         "endColumns": "59,69,70,71,57,57,10,63,62,10",
                         "endOffsets": "666,736,807,879,937,995,1104,1168,1231,1403"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,124,193,263,337,413,472,543",
+                        "endColumns": "68,68,69,73,75,58,70,67",
+                        "endOffsets": "119,188,258,332,408,467,538,606"
                     }
                 }
             ]

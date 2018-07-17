@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/incremental/mergeDevelopmentDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexanium-android-v2\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-h720dp-v13\\values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/e3f5c4b5e787f5b05e7d5bfd53cf9b10/res/values-h720dp-v13/values-h720dp-v13.xml",
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

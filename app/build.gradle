@@ -47,7 +47,7 @@ dependencies {
     final RETROFIT_VERSION = '2.1.0'
     final OKHTTP_VERSION = '3.5.0'
     final GLIDE_VERSION = '4.0.0'
-
+    
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"

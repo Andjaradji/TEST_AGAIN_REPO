@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.walkthrough.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.FadePageTransformer;
 
@@ -63,6 +65,10 @@ public class WalkthroughActivity extends BaseActivity {
                 int currPos = mCustomViewPager.getCurrentItem();
                 if(currPos != PAGE_COUNT-1){
                     mCustomViewPager.setCurrentItem(currPos+1,true);
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(WalkthroughActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
