@@ -25,6 +25,7 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.widget.CustomViewPager;
+import com.vexanium.vexgift.widget.FadePageTransformer;
 
 /**
  * Created by Amang on 16/07/2018.
@@ -45,11 +46,8 @@ public class WalkthroughActivity extends BaseActivity {
     private FourthFragment fourthFragment;
 
     private CustomViewPager mCustomViewPager;
-    private ImageView mBackground;
     private LinearLayout mNextButton;
 
-    private TransitionDrawable transition;
-    private Drawable lastBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +55,6 @@ public class WalkthroughActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        mBackground = (ImageView)findViewById(R.id.v_background);
-        lastBackground = mBackground.getDrawable();
 
         mNextButton = (LinearLayout) findViewById(R.id.ll_walkthrough_next);
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +80,7 @@ public class WalkthroughActivity extends BaseActivity {
         WalkthroughAdapter walkthroughAdapter = new WalkthroughAdapter(getSupportFragmentManager());
         mCustomViewPager = (CustomViewPager) findViewById(R.id.cvp_walkthrough);
         mCustomViewPager.setAdapter(walkthroughAdapter);
+        mCustomViewPager.setPageTransformer(true,new FadePageTransformer());
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mCustomViewPager.setPagingEnabled(true);
         mCustomViewPager.setCurrentItem(0, false);
@@ -99,26 +95,7 @@ public class WalkthroughActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(lastBackground!=null) {
-                    /*ColorDrawable transparent = new ColorDrawable(Color.TRANSPARENT);
-                    TransitionDrawable preTransition = new TransitionDrawable(new Drawable[]{lastBackground, transparent});
-                    mBackground.setImageDrawable(preTransition);
-                    preTransition.startTransition(300);*/
 
-                    final Drawable newBackground = getNewBackground(position);
-
-                    transition = new TransitionDrawable(new Drawable[]{lastBackground, newBackground});
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mBackground.setImageDrawable(transition);
-                            transition.startTransition(300);
-                            lastBackground = newBackground;
-                        }
-                    },0);
-                }
-                KLog.i("scroll Page: " + position);
             }
 
             @Override
@@ -127,21 +104,6 @@ public class WalkthroughActivity extends BaseActivity {
             }
         });
     }
-
-    private Drawable getNewBackground(int position){
-        if(position == 0){
-            return getResources().getDrawable(R.drawable.shape_walkthrough1_bg);
-        }else if(position == 1){
-            return getResources().getDrawable(R.drawable.shape_walkthrough2_bg);
-        }else if(position == 2){
-            return getResources().getDrawable(R.drawable.shape_walkthrough3_bg);
-        }else if(position == 3){
-            return getResources().getDrawable(R.drawable.shape_walkthrough4_bg);
-        }else{
-            return getResources().getDrawable(R.drawable.shape_walkthrough1_bg);
-        }
-    }
-
 
     public class WalkthroughAdapter extends FragmentStatePagerAdapter {
 

@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vexanium.vexgift.callback.OnItemClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import vex.vexairdrop.callback.OnItemClickListener;
 
 /**
  * Created by mac on 11/16/17.
