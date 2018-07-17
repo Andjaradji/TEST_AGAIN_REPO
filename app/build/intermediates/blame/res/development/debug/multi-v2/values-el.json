@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexanium-android-v2\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-el\\values-el.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-el\\values-el.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.34.0.aar\\07d144915da5a35ad51573a2225c7392\\res\\values-el\\values-el.xml",

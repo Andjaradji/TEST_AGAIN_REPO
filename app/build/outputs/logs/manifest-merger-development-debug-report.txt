@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
 MERGED from [com.android.support:design:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha3.aar\f5807a98abd5409b33ce4213c70fdd7e\AndroidManifest.xml:17:1-24:12
 MERGED from [com.facebook.android:facebook-android-sdk:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.34.0.aar\927c3d7e3f0c63b42b570a41ef1ca54d\AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-login:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-login-4.34.0.aar\07d144915da5a35ad51573a2225c7392\AndroidManifest.xml:21:1-31:12
@@ -53,25 +53,25 @@ MERGED from [com.android.support:localbroadcastmanager:28.0.0-alpha3] C:\Users\A
 MERGED from [com.android.support:print:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\print-28.0.0-alpha3.aar\32c30a63a92b4a7ba444acd1bd851a1c\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\8563b7ab1a73bd03ea069e1252cb5628\AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\8a7188191b94b0b068175d3ecbee83be\AndroidManifest.xml:2:1-11:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
 	package
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:3:5-35
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:3:5-35
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:5:5-26:19
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:5:5-26:19
 MERGED from [com.android.support:design:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha3.aar\f5807a98abd5409b33ce4213c70fdd7e\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha3.aar\f5807a98abd5409b33ce4213c70fdd7e\AndroidManifest.xml:22:5-20
 MERGED from [com.facebook.android:facebook-android-sdk:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.34.0.aar\927c3d7e3f0c63b42b570a41ef1ca54d\AndroidManifest.xml:28:5-29:19
@@ -105,53 +105,53 @@ MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\Amang\.gradle\
 	android:appComponentFactory
 		ADDED from [com.android.support:support-compat:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0-alpha3.aar\648ea1a474190234114114951f908286\AndroidManifest.xml:22:18-91
 	android:supportsRtl
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:10:9-35
 	android:label
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:8:9-41
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:8:9-41
 	android:roundIcon
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:9:9-54
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:9:9-54
 	android:icon
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:7:9-43
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:7:9-43
 	android:allowBackup
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:6:9-35
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:6:9-35
 	android:theme
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:11:9-40
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:11:9-40
 activity#com.vexanium.vexgift.module.splash.ui.SplashActivity
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:12:9-21:20
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:12:9-21:20
 	android:label
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:14:13-45
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:14:13-45
 	android:theme
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:15:13-61
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:15:13-61
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:13:13-60
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:13:13-60
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:16:13-20:29
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:17:17-69
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:17:17-69
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:17:25-66
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:17:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:19:17-77
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:19:17-77
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:19:27-74
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:19:27-74
 activity#com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:22:9-23:73
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:22:9-23:73
 	android:theme
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:23:13-61
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:23:13-61
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:22:19-76
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:22:19-76
 activity#com.vexanium.vexgift.module.main.ui.MainActivity
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:24:9-74
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:24:9-74
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:24:19-62
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:24:19-62
 activity#com.vexanium.vexgift.module.login.ui.LoginActivity
-ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:25:9-76
+ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:25:9-76
 	android:name
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:25:19-64
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:25:19-64
 uses-sdk
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 MERGED from [com.android.support:design:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha3.aar\f5807a98abd5409b33ce4213c70fdd7e\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:design:28.0.0-alpha3] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\design-28.0.0-alpha3.aar\f5807a98abd5409b33ce4213c70fdd7e\AndroidManifest.xml:20:5-44
 MERGED from [com.facebook.android:facebook-android-sdk:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.34.0.aar\927c3d7e3f0c63b42b570a41ef1ca54d\AndroidManifest.xml:24:5-26:41
@@ -250,16 +250,16 @@ MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Amang\.gradle\cach
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\8563b7ab1a73bd03ea069e1252cb5628\AndroidManifest.xml:20:5-44
 MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\8a7188191b94b0b068175d3ecbee83be\AndroidManifest.xml:5:5-7:41
 MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\8a7188191b94b0b068175d3ecbee83be\AndroidManifest.xml:5:5-7:41
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		ADDED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
-		INJECTED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml
 activity#com.facebook.FacebookActivity
 ADDED from [com.facebook.android:facebook-common:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-common-4.34.0.aar\8a5fe896c99b7aeed486c870d0e1c312\AndroidManifest.xml:29:9-32:66
 	android:configChanges
@@ -291,7 +291,7 @@ ADDED from [com.github.zhaokaiqiang.klog:library:1.6.0] C:\Users\Amang\.gradle\c
 	android:name
 		ADDED from [com.github.zhaokaiqiang.klog:library:1.6.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\library-1.6.0.aar\9145356cbdcdbd23e77c91518e9e7329\AndroidManifest.xml:11:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from D:\Projects\AndroidStudio\Kendra\vexanium-android-v2\app\src\main\AndroidManifest.xml:2:1-28:12 reason: com.socks.klog requested WRITE_EXTERNAL_STORAGE
+IMPLIED from D:\Projects\AndroidStudio\Kendra\vexgift-android\app\src\main\AndroidManifest.xml:2:1-28:12 reason: com.socks.klog requested WRITE_EXTERNAL_STORAGE
 provider#com.facebook.marketing.internal.MarketingInitProvider
 ADDED from [com.facebook.android:facebook-marketing:4.34.0] C:\Users\Amang\.gradle\caches\transforms-1\files-1.1\facebook-marketing-4.34.0.aar\64ead996edec381d175ffb8351468b6a\AndroidManifest.xml:29:9-32:40
 	android:authorities

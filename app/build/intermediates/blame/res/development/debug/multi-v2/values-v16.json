@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexanium-android-v2\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0-alpha3.aar\\648ea1a474190234114114951f908286\\res\\values-v16\\values-v16.xml",
