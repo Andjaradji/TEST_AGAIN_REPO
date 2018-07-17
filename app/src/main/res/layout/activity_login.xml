@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="272dp">
+        android:layout_height="250dp">
 
         <ImageView
             android:layout_width="93dp"
@@ -33,7 +33,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/login_email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +51,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/login_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +73,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/login_forgot_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_submain"
@@ -76,98 +81,108 @@
         android:layout_marginRight="@dimen/interval_medium"
         android:text="@string/login_password_forgot"
         android:textAlignment="textEnd"
-        android:textColor="@color/material_white" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_dont_have_account"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/interval_small"
-            android:layout_marginStart="@dimen/interval_small"
-            android:text="@string/login_sign_up_here"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_small" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:text="@string/login_button_or"
-        android:textAlignment="center"
         android:textColor="@color/material_white"
-        android:textSize="@dimen/text_small" />
+        android:textSize="@dimen/text_tiny" />
 
     <LinearLayout
-        android:id="@+id/login_fake_fb_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/interval_small"
-        android:paddingEnd="@dimen/interval_medium"
-        android:paddingLeft="@dimen/interval_medium"
-        android:layout_marginBottom="@dimen/interval_small"
-        android:paddingRight="@dimen/interval_medium"
-        android:paddingStart="@dimen/interval_medium"
-        android:paddingTop="@dimen/interval_small">
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_fb_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout_marginBottom="@dimen/interval_small"
+            android:gravity="center_horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/icon_tiny"
-            android:layout_height="@dimen/icon_tiny"
-            android:layout_marginRight="@dimen/interval_content"
-            android:src="@drawable/ic_fb" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_dont_have_account"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_tiny" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_button_fb_login"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/interval_small"
-        android:paddingEnd="@dimen/interval_medium"
-        android:paddingLeft="@dimen/interval_medium"
-        android:paddingRight="@dimen/interval_medium"
-        android:paddingStart="@dimen/interval_medium"
-        android:paddingTop="@dimen/interval_small">
-
-        <ImageView
-            android:layout_width="@dimen/icon_tiny"
-            android:layout_height="@dimen/icon_tiny"
-            android:layout_marginRight="@dimen/interval_content"
-            android:src="@drawable/ic_gg" />
+            <TextView
+                android:id="@+id/login_signup_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interval_small"
+                android:layout_marginStart="@dimen/interval_small"
+                android:text="@string/login_sign_up_here"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_tiny" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_button_google_login"
+            android:layout_marginBottom="@dimen/interval_submain"
+            android:text="@string/login_button_or"
+            android:textAlignment="center"
             android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
+            android:textSize="@dimen/text_tiny" />
+
+        <LinearLayout
+            android:id="@+id/login_fake_fb_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_small"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingEnd="@dimen/interval_medium"
+            android:paddingLeft="@dimen/interval_medium"
+            android:paddingRight="@dimen/interval_medium"
+            android:paddingStart="@dimen/interval_medium"
+            android:paddingTop="@dimen/interval_content">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_fb_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_tiny"
+                android:layout_height="@dimen/icon_tiny"
+                android:layout_marginRight="@dimen/interval_content"
+                android:src="@drawable/ic_fb" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_button_fb_login"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_big"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingEnd="@dimen/interval_medium"
+            android:paddingLeft="@dimen/interval_medium"
+            android:paddingRight="@dimen/interval_medium"
+            android:paddingStart="@dimen/interval_medium"
+            android:paddingTop="@dimen/interval_content">
+
+            <ImageView
+                android:layout_width="@dimen/icon_tiny"
+                android:layout_height="@dimen/icon_tiny"
+                android:layout_marginRight="@dimen/interval_content"
+                android:src="@drawable/ic_gg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_button_google_login"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
     </LinearLayout>
 
 

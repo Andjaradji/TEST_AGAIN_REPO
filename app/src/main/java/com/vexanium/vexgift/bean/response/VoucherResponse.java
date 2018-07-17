@@ -58,4 +58,8 @@ public class VoucherResponse implements Serializable {
     public VoucherResponse() {
 
     }
+
+    public VoucherResponse(int type) {
+        this.type = type;
+    }
 }

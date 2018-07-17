@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.socks.library.KLog;
 
 /**
@@ -39,6 +41,8 @@ public class App extends Application {
         mApplicationContext = this;
 
         setupCustomFont();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     private void setupCustomFont() {

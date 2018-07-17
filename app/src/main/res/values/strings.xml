@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="facebook_app_id">2076704542595981</string>
+    <string name="fb_login_protocol_scheme">fb2076704542595981</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -47,7 +50,7 @@
     <string name="login_password_forgot"><u>Forgot password?</u></string>
     <string name="login_button_login">Login</string>
     <string name="login_dont_have_account">Don\'t have an account?</string>
-    <string name="login_sign_up_here"><ul>Sign up here</ul></string>
+    <string name="login_sign_up_here"><u>Sign up here</u></string>
     <string name="login_button_fb_login">Login with Facebook</string>
     <string name="login_button_google_login">Login with Google</string>
     <string name="login_button_or">or Login with</string>
@@ -57,7 +60,9 @@
     <string name="register_password">Password</string>
     <string name="register_repassword">Re enter password</string>
     <string name="register_phone">Phone Number</string>
-    <string name="register_button_register">REGISTER</string>
+    <string name="register_button_register">Register</string>
+    <string name="register_already_have_account">Already have an account?</string>
+    <string name="register_login_here"><u>Login here</u></string>
     <string name="register_button_fb_login">Sign Up with Facebook</string>
     <string name="register_button_google_login">Sign Up with Google</string>
     <string name="register_button_or">or Sign Up with</string>
