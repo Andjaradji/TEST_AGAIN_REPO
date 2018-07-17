@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/incremental/mergeDevelopmentDebugResources/merged.dir/values-es-rES/values-es-rES.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-es-rES\\values-es-rES.xml",
             "map": [
                 {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-login-4.34.0.aar/0689d2d1bc60748428494339c7252c49/res/values-es-rES/values-es-rES.xml",
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.34.0.aar\\07d144915da5a35ad51573a2225c7392\\res\\values-es-rES\\values-es-rES.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

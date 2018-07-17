@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/incremental/mergeDevelopmentDebugResources/merged.dir/values-fr/values-fr.xml",
+            "outputFile": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\incremental\\mergeDevelopmentDebugResources\\merged.dir\\values-fr\\values-fr.xml",
             "map": [
                 {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/facebook-login-4.34.0.aar/0689d2d1bc60748428494339c7252c49/res/values-fr/values-fr.xml",
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0-alpha3.aar\\648ea1a474190234114114951f908286\\res\\values-fr\\values-fr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "53",
+                        "startColumns": "4",
+                        "startOffsets": "5586",
+                        "endColumns": "100",
+                        "endOffsets": "5682"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.34.0.aar\\07d144915da5a35ad51573a2225c7392\\res\\values-fr\\values-fr.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/e3f5c4b5e787f5b05e7d5bfd53cf9b10/res/values-fr/values-fr.xml",
+                    "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\values-fr\\values-fr.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -35,23 +52,6 @@
                         "startOffsets": "105,216,331,442,524,630,760,843,923,1014,1107,1206,1301,1402,1495,1588,1683,1774,1865,1951,2061,2173,2276,2387,2494,2601,2760,5500",
                         "endColumns": "110,114,110,81,105,129,82,79,90,92,98,94,100,92,92,94,90,90,85,109,111,102,110,106,106,158,98,85",
                         "endOffsets": "211,326,437,519,625,755,838,918,1009,1102,1201,1296,1397,1490,1583,1678,1769,1860,1946,2056,2168,2271,2382,2489,2596,2755,2854,5581"
-                    }
-                },
-                {
-                    "source": "/Users/hizkialemuel/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/654823ec2311709a5e8c2933dffb375a/res/values-fr/values-fr.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "53",
-                        "startColumns": "4",
-                        "startOffsets": "5586",
-                        "endColumns": "100",
-                        "endOffsets": "5682"
                     }
                 }
             ]
