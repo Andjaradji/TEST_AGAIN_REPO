@@ -240,6 +240,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\layout\\select_dialog_singlechoice_material.xml"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_ic_gg.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\ic_gg.png"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\color_abc_btn_colored_borderless_text_material.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\color\\abc_btn_colored_borderless_text_material.xml"
     },
@@ -552,6 +556,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-mdpi-v4\\abc_list_pressed_holo_dark.9.png"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_item_coupon_list.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\layout\\item_coupon_list.xml"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xhdpi-v4_abc_list_longpressed_holo.9.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-xhdpi-v4\\abc_list_longpressed_holo.9.png"
     },
@@ -578,6 +586,10 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\color_abc_background_cache_hint_selector_material_light.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_activity_register.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\layout\\activity_register.xml"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xxhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
@@ -888,6 +900,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\layout\\abc_screen_content_include.xml"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_content_toolbar_box.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\layout\\content_toolbar_box.xml"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-xhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
@@ -1100,6 +1116,10 @@
         "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\box.png"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_item_hot_coupon_pager.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\layout\\item_hot_coupon_pager.xml"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\color_mtrl_chip_background_color.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0-alpha3.aar\\f5807a98abd5409b33ce4213c70fdd7e\\res\\color\\mtrl_chip_background_color.xml"
     },
@@ -1142,6 +1162,10 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_logo_main.png.flat",
         "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\logo_main.png"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_ic_fb.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\ic_fb.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_activity_login.xml.flat",
@@ -1512,6 +1536,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0-alpha3.aar\\f5807a98abd5409b33ce4213c70fdd7e\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_shape_white_border_button.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\shape_white_border_button.xml"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi-v4_com_facebook_close.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.34.0.aar\\8a5fe896c99b7aeed486c870d0e1c312\\res\\drawable-mdpi-v4\\com_facebook_close.png"
     },
@@ -1756,6 +1784,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\color\\abc_tint_spinner.xml"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_shape_field_input.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\shape_field_input.xml"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-mdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
     },
@@ -1852,16 +1884,16 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_light.png"
     },
     {
-        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-hdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-hdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi_ic_notifications_black_24dp.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\generated\\res\\pngs\\development\\debug\\drawable-mdpi\\ic_notifications_black_24dp.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-hdpi-v4_messenger_bubble_large_blue.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.34.0.aar\\a43d05998bf10ffae7b3e51520d1cf56\\res\\drawable-hdpi-v4\\messenger_bubble_large_blue.png"
     },
     {
-        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi_ic_notifications_black_24dp.png.flat",
-        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\generated\\res\\pngs\\development\\debug\\drawable-mdpi\\ic_notifications_black_24dp.png"
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-hdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable-hdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-hdpi-v4_com_facebook_button_send_icon_blue.png.flat",
@@ -1870,6 +1902,10 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_shape_white_underline.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\shape_white_underline.xml"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
@@ -1978,6 +2014,10 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xhdpi-v4_com_facebook_tooltip_blue_bottomnub.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.34.0.aar\\07d144915da5a35ad51573a2225c7392\\res\\drawable-xhdpi-v4\\com_facebook_tooltip_blue_bottomnub.png"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_placeholder.jpg.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\placeholder.jpg"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
@@ -2116,6 +2156,10 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0-alpha3.aar\\cd5d0e0b16ca30e57ad9d2d39b2aac0c\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_bg.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\bg.png"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-hdpi-v4_messenger_bubble_small_blue.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.34.0.aar\\a43d05998bf10ffae7b3e51520d1cf56\\res\\drawable-hdpi-v4\\messenger_bubble_small_blue.png"
     },
@@ -2150,6 +2194,14 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\anim_design_bottom_sheet_slide_out.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0-alpha3.aar\\f5807a98abd5409b33ce4213c70fdd7e\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_item_icon_text_tab_view.xml.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\layout\\item_icon_text_tab_view.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_search.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\search.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\layout_abc_screen_simple.xml.flat",
@@ -2252,8 +2304,16 @@
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.34.0.aar\\a43d05998bf10ffae7b3e51520d1cf56\\res\\drawable-xhdpi-v4\\messenger_bubble_small_white.png"
     },
     {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_history.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\history.png"
+    },
+    {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-mdpi-v4_com_facebook_tooltip_blue_topnub.png.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.34.0.aar\\07d144915da5a35ad51573a2225c7392\\res\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_big_logo.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\big_logo.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-v21_avd_show_password.xml.flat",
@@ -2598,6 +2658,10 @@
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\color_mtrl_btn_ripple_color.xml.flat",
         "source": "C:\\Users\\Amang\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0-alpha3.aar\\f5807a98abd5409b33ce4213c70fdd7e\\res\\color\\mtrl_btn_ripple_color.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable_logo_medium.png.flat",
+        "source": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\src\\main\\res\\drawable\\logo_medium.png"
     },
     {
         "merged": "D:\\Projects\\AndroidStudio\\Kendra\\vexgift-android\\app\\build\\intermediates\\res\\merged\\development\\debug\\drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",

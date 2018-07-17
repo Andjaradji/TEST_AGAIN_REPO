@@ -47,7 +47,7 @@ public class WalkthroughActivity extends BaseActivity {
     private ThirdFragment thirdFragment;
     private FourthFragment fourthFragment;
 
-    private CustomViewPager mCustomViewPager;
+    private ViewPager mCustomViewPager;
     private LinearLayout mNextButton;
 
 
@@ -84,11 +84,10 @@ public class WalkthroughActivity extends BaseActivity {
 
     private void setWalkthroughPager(){
         WalkthroughAdapter walkthroughAdapter = new WalkthroughAdapter(getSupportFragmentManager());
-        mCustomViewPager = (CustomViewPager) findViewById(R.id.cvp_walkthrough);
+        mCustomViewPager = (ViewPager) findViewById(R.id.cvp_walkthrough);
         mCustomViewPager.setAdapter(walkthroughAdapter);
-        mCustomViewPager.setPageTransformer(true,new FadePageTransformer());
+        mCustomViewPager.setPageTransformer(false,new FadePageTransformer());
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
-        mCustomViewPager.setPagingEnabled(true);
         mCustomViewPager.setCurrentItem(0, false);
     }
 

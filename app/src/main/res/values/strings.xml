@@ -74,6 +74,8 @@
     <string name="register_button_google_login">Sign Up with Google</string>
     <string name="register_button_or">or Sign Up with</string>
 
+    <string name="box_title">My Box</string>
+
     <string name="my_profile">My Profile</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>

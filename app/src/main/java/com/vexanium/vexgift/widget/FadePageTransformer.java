@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.vexanium.vexgift.R;
+
 /**
  * Created by Amang on 17/07/2018.
  */
@@ -22,7 +24,6 @@ public class FadePageTransformer implements ViewPager.PageTransformer {
         }else{
             page.setAlpha(1 - Math.abs(position));
         }
-
 
     }
 }

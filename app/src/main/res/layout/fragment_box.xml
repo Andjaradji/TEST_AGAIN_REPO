@@ -34,19 +34,28 @@
                 app:elevation="4dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                <include layout="@layout/content_toolbar_main" />
+                <include layout="@layout/content_toolbar_box" />
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <com.vexanium.vexgift.widget.IconTextTabBarView
+            android:id="@+id/ittbv_tabview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/home_recyclerview"
+            android:layout_height="@dimen/tab_bar_height"
             android:layout_below="@id/app_bar">
 
-        </android.support.v7.widget.RecyclerView>
+        </com.vexanium.vexgift.widget.IconTextTabBarView>
+
+        <com.vexanium.vexgift.widget.CustomViewPager
+            android:id="@+id/vp_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ittbv_tabview">
+
+        </com.vexanium.vexgift.widget.CustomViewPager>
+
     </RelativeLayout>
 
 </FrameLayout>
