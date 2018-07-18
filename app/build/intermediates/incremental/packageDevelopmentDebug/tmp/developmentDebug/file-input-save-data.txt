@@ -1,16 +1,17 @@
 #Internal package file, do not edit.
-#Tue Jul 17 15:42:13 WIB 2018
+#Wed Jul 18 01:16:02 WIB 2018
 4.path=fonts/Lato-Bold.ttf
 13.baseType=DIRECTORY
 8.set=ASSET
 6.path=classes.dex
 0.baseType=DIRECTORY
-10.path=fonts/Roboto-Medium.ttf
+10.path=fonts/HelveticaNeueMed.ttf
 5.baseType=DIRECTORY
 1.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
 8.path=fonts/Roboto-Bold.ttf
-12.path=fonts/Roboto-Regular.ttf
+12.path=fonts/Lato-Regular.ttf
 3.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/transforms/dexMerger/development/debug/12
+14.path=fonts/HelveticaNeue-BlackCond.ttf
 4.set=ASSET
 5.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
 7.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/transforms/dexMerger/development/debug/11
@@ -20,8 +21,10 @@
 1.baseType=DIRECTORY
 11.set=ASSET
 0.set=ASSET
+14.baseType=DIRECTORY
 6.baseType=DIRECTORY
 7.set=DEX
+14.set=ASSET
 3.set=DEX
 2.baseType=DIRECTORY
 10.baseType=DIRECTORY
@@ -32,11 +35,11 @@
 5.path=fonts/SourceSansPro-Regular.ttf
 0.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
 7.path=classes.dex
-11.path=fonts/Lato-Regular.ttf
+11.path=fonts/Roboto-Medium.ttf
 9.path=fonts/SourceSansPro-Bold.ttf
 6.set=DEX
 2.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/transforms/dexMerger/development/debug/13
-13.path=fonts/HelveticaNeue-BlackCond.ttf
+13.path=fonts/Roboto-Regular.ttf
 11.baseType=DIRECTORY
 4.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
 3.baseType=DIRECTORY
@@ -47,8 +50,9 @@
 2.set=DEX
 8.baseType=DIRECTORY
 12.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
+14.base=/Users/hizkialemuel/Documents/Development/Android/vexanium-android/app/build/intermediates/assets/development/debug
 9.set=ASSET
-count=14
+count=15
 12.baseType=DIRECTORY
 4.baseType=DIRECTORY
 5.set=ASSET
