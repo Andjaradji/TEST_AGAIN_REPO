@@ -33,6 +33,8 @@ public class App extends Application {
     private static Typeface latoRegular;
     private static Typeface light;
     private static Typeface sspBold;
+    private static Typeface hnBoldCond;
+    private static Typeface hnMed;
 
     @Override
     public void onCreate() {
@@ -53,6 +55,8 @@ public class App extends Application {
         latoRegular = Typeface.createFromAsset(this.getAssets(), "fonts/Lato-Regular.ttf");
         light = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Light.ttf");
         sspBold = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Bold.ttf");
+        hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
+        hnMed = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueMed.ttf");
     }
 
     public static void setTextViewStyle(ViewGroup root) {
@@ -78,6 +82,10 @@ public class App extends Application {
                         ((TextView) child).setTypeface(light);
                     else if (tagObj.equals("sspBold"))
                         ((TextView) child).setTypeface(sspBold);
+                    else if (tagObj.equals("hnBoldCond"))
+                        ((TextView) child).setTypeface(hnBoldCond);
+                    else if (tagObj.equals("hnMed"))
+                        ((TextView) child).setTypeface(hnMed);
                     else
                         ((TextView) child).setTypeface(latoRegular);
                 }

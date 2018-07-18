@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="dsv_ex_msg_dont_set_lm">You should not set LayoutManager on DiscreteScrollView.class instance. Library uses a special one. Just don\'t call the method.</string>
+    <string name="dsv_ex_msg_adapter_wrong_recycler">InfiniteScrollAdapter is supposed to work only with DiscreteScrollView</string>
+
     <string name="facebook_app_id">2076704542595981</string>
     <string name="fb_login_protocol_scheme">fb2076704542595981</string>
     <string name="app_title">Vexgift</string>
@@ -86,6 +89,19 @@
     <string name="wallet">Wallet</string>
     <string name="send">Send</string>
     <string name="receive">Receive</string>
+
+    <string name="shortcut_my_voucher">MY VOUCHER</string>
+    <string name="shortcut_my_token">MY TOKEN</string>
+    <string name="shortcut_my_wallet">MY WALLET</string>
+
+    <string name="home_explore_voucher">GIFT VOUCHER</string>
+    <string name="home_explore_voucher_desc">Various of \nGift Voucher</string>
+    <string name="home_explore_token">TOKEN AIRDROP</string>
+    <string name="home_explore_token_desc">Various of \nToken Airdrop</string>
+    <string name="home_explore_get_button">Get Now</string>
+
+    <string name="voucher_title">GIFT VOUCHER</string>
+    <string name="token_title">TOKEN AIRDROP</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

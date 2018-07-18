@@ -19,7 +19,7 @@
             android:scaleType="fitCenter"
             android:layout_width="@dimen/main_icon_width"
             android:layout_height="@dimen/main_icon_height"
-            android:src="@drawable/logo_main"
+            android:src="@drawable/big_logo"
             android:layout_marginBottom="@dimen/margin_splash"/>
 
         <!--font hasnt been set-->
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xlarge"
+            android:visibility="gone"
             android:textColor="@color/material_white"
             android:text="@string/app_title"
             android:textAllCaps="true"/>

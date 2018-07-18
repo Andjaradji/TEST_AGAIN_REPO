@@ -9,6 +9,9 @@ public class Voucher  implements Serializable {
     private String id;
     @JsonProperty("photo")
     private String photo;
+    @JsonProperty("brand")
+    private Brand brand;
+
     @JsonProperty("title")
     private String title;
     @JsonProperty("desc")
@@ -56,6 +59,14 @@ public class Voucher  implements Serializable {
 
     public void setExpiredDate(String expiredDate) {
         this.expiredDate = expiredDate;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public Voucher(String photo, String title, String expiredDate) {

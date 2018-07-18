@@ -8,19 +8,18 @@ import android.view.ViewGroup;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
+import com.vexanium.vexgift.util.ViewUtil;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_more)
 public class MoreFragment extends BaseFragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     @Override
     protected void initView(View fragmentRootView) {
+        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"More");
 
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 
     @Override

@@ -26,6 +26,7 @@
     <dimen name="icon_xtiny">12dp</dimen>
     <dimen name="icon_toolbar">16dp</dimen>
     <dimen name="icon_post">15dp</dimen>
+    <dimen name="icon_shortcut">26dp</dimen>
 
     <dimen name="interval_big">32dp</dimen>
     <dimen name="interval_medium">24dp</dimen>

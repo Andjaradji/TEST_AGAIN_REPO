@@ -2,58 +2,57 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vexanium.vexgift">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".module.main.ui.MainActivity"
-            android:label="@string/app_name">
-
-        </activity>
-         <activity
-            android:name=".module.splash.ui.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.LauncherAppTheme">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".module.register.ui.RegisterActivity"></activity>
-
-        <activity android:name=".module.walkthrough.ui.WalkthroughActivity"
-            android:theme="@style/AppTheme.LauncherAppTheme"></activity>
-        <activity android:name=".module.login.ui.LoginActivity"></activity>
-
+        <activity
+            android:name=".module.splash.ui.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.LauncherAppTheme" />
+        <activity android:name=".module.register.ui.RegisterActivity" />
+        <activity
+            android:name=".module.walkthrough.ui.WalkthroughActivity"
+            android:theme="@style/AppTheme.LauncherAppTheme" />
+        <activity android:name=".module.login.ui.LoginActivity" />
+        <activity android:name=".module.token.ui.TokenActivity" />
+        <activity android:name=".module.voucher.ui.VoucherActivity"></activity>
     </application>
-
-
 
 </manifest>
