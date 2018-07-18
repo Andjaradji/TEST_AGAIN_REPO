@@ -1,17 +1,12 @@
 package com.vexanium.vexgift.module.main.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +15,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxFragment;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
@@ -35,7 +31,7 @@ public class MainActivity extends BaseActivity {
     private CustomViewPager mCustomViewPager;
 
     private HomeFragment homeFragment;
-    private BoxFragment boxFragment;
+    private BoxBaseFragment boxBaseFragment;
     private WalletFragment walletFragment;
     private NotifFragment notifFragment;
     private MoreFragment moreFragment;
@@ -46,6 +42,8 @@ public class MainActivity extends BaseActivity {
     public static final int NOTIF_FRAGMENT = 3;
     public static final int MORE_FRAGMENT = 4;
     public static final int PAGE_COUNT = 5;
+
+    private MainScreenPagerAdapter mainScreenPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,13 +123,17 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setCustomTabs() {
-        MainScreenPagerAdapter mainScreenPagerAdapter = new MainScreenPagerAdapter(getSupportFragmentManager());
+        mainScreenPagerAdapter = new MainScreenPagerAdapter(getSupportFragmentManager());
         mCustomViewPager = (CustomViewPager) findViewById(R.id.custom_viewpager);
         mCustomViewPager.setAdapter(mainScreenPagerAdapter);
         mCustomTabBarView.setViewPager(mCustomViewPager);
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mCustomViewPager.setPagingEnabled(true);
         mCustomViewPager.setCurrentItem(0, false);
+    }
+
+    public void changeBoxFragment(Fragment targetFragment){
+
     }
 
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
@@ -149,10 +151,10 @@ public class MainActivity extends BaseActivity {
                     }
                     return homeFragment;
                 case BOX_FRAGMENT:
-                    if (boxFragment == null) {
-                        boxFragment = BoxFragment.newInstance();
+                    if (boxBaseFragment == null) {
+                        boxBaseFragment = BoxBaseFragment.newInstance();
                     }
-                    return boxFragment;
+                    return boxBaseFragment;
                 case WALLET_FRAGMENT:
                     if (walletFragment == null) {
                         walletFragment = WalletFragment.newInstance();
