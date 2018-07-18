@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_small_medium"
+        android:tag="hnBoldCond"
         android:textColor="@color/material_grey_a6"
         android:textAllCaps="true"/>
 

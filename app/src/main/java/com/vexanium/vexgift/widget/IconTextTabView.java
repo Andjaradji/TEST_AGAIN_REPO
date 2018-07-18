@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.app.App;
 
 /**
  * Created by mac on 11/17/17.
@@ -80,6 +82,8 @@ public class IconTextTabView extends LinearLayout {
         view = View.inflate(context, R.layout.item_icon_text_tab_view, this);
         ivIcon = (ImageView) view.findViewById(R.id.iv_tab_icon);
         tvTitle = (TextView) view.findViewById(R.id.tv_tab_title);
+
+        App.setTextViewStyle((ViewGroup)view);
 
     }
 

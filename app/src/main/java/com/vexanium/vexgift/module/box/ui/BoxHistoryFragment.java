@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.box.ui.helper.BoxFragmentChangeListener;
 import com.vexanium.vexgift.widget.CustomViewPager;
@@ -61,6 +62,8 @@ public class BoxHistoryFragment extends BaseFragment {
         mTabBarView.setViewPager(mViewPager);
 
         setPagerListener();
+
+        App.setTextViewStyle((ViewGroup)fragmentRootView);
     }
 
     @Override
