@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.bean.fixture;
 
+import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
@@ -138,6 +139,19 @@ public class FixtureData {
 //        }
 //    };
 
+    public static final ArrayList<Brand> getRandomBrands(int brandCount) {
+        ArrayList<Brand> brands = new ArrayList<>();
+        for (int i = 0; i < brandCount; i++) {
+            brands.add(new Brand(getRandomData(brandPhotoUrl), getRandomData(brandTitle)));
+        }
+        return brands;
+    }
+
+    public static final Brand getRandomBrand() {
+         return new Brand(getRandomData(brandPhotoUrl), getRandomData(brandTitle));
+    }
+
+
     public static ArrayList<String> getRandomData(int count, ArrayList<String> arr) {
         ArrayList<String> list = new ArrayList<>();
         int i = 0;
@@ -194,9 +208,9 @@ public class FixtureData {
 
     public static final ArrayList<VoucherResponse> getRandomVoucherResponse(int voucherCount, boolean active) {
         ArrayList<VoucherResponse> vouchers = new ArrayList<>();
-        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
-            vouchers.add(voucherResponse);
-        }
+//        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
+//            vouchers.add(voucherResponse);
+//        }
         for (int i = 0; i < voucherCount; i++) {
             VoucherResponse voucherResponse = new VoucherResponse();
             voucherResponse.setVoucher(new Voucher(

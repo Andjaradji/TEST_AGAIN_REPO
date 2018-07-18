@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.home.ui;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -23,10 +24,13 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
+import com.vexanium.vexgift.module.token.ui.TokenActivity;
+import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
@@ -38,19 +42,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
-public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView{
+public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
     private Toolbar toolbar;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
-    private BaseRecyclerAdapter<VoucherResponse> mAdapter;
-    private ArrayList<VoucherResponse> data;
+    private ArrayList<HomeFeedResponse> data;
     private Random random;
 
     private ArrayList<VoucherResponse> hotVoucherList;
@@ -70,12 +74,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         final AppBarLayout appBarLayout = fragmentRootView.findViewById(R.id.app_bar);
 
-        final ValueAnimator animator = ValueAnimator.ofFloat(10,0);
+        final ValueAnimator animator = ValueAnimator.ofFloat(10, 0);
         animator.setDuration(300);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                appBarLayout.setElevation((float)valueAnimator.getAnimatedValue());
+                appBarLayout.setElevation((float) valueAnimator.getAnimatedValue());
                 appBarLayout.requestLayout();
             }
         });
@@ -87,9 +91,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(mRecyclerview.computeVerticalScrollOffset() == 0 && appBarLayout.getElevation() != 0){
+                if (mRecyclerview.computeVerticalScrollOffset() == 0 && appBarLayout.getElevation() != 0) {
                     animator.start();
-                }else if(mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation()!= 10){
+                } else if (mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation() != 10) {
                     appBarLayout.setElevation(10);
                 }
             }
@@ -109,17 +113,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     public void loadData() {
-        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
+//        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
 //        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
         hotVoucherList = FixtureData.showCaseVoucherResponse;
-        data.add(0, new VoucherResponse(SHORTCUT_BAR));
-        data.add(1, new VoucherResponse(HOT_LIST));
-        data.add(2, new VoucherResponse(EXPLORE_BAR));
+        data = new ArrayList<>();
+        data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
+        data.add(1, new HomeFeedResponse(HOT_LIST, hotVoucherList));
+        data.add(2, new HomeFeedResponse(EXPLORE_BAR));
+        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Voucher", "Today"));
+        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Token", "Today"));
     }
 
     public void initHomeList() {
-        mAdapter = new BaseRecyclerAdapter<VoucherResponse>(getActivity(), data, layoutListManager) {
+        BaseRecyclerAdapter<HomeFeedResponse> mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
             @Override
             public int getItemViewType(int position) {
                 return data.get(position).type;
@@ -134,6 +141,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_hot_coupon_pager;
                     case EXPLORE_BAR:
                         return R.layout.item_explore_bar;
+                    case CATEGORY_BAR:
+                        return R.layout.item_category_home;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -141,34 +150,96 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+            public void bindData(BaseRecyclerViewHolder holder, int position, final HomeFeedResponse item) {
                 switch (getItemViewType(position)) {
                     case SHORTCUT_BAR:
                         break;
                     case HOT_LIST:
-                        setHotVoucherList(holder, hotVoucherList);
+                        setHotVoucherList(holder, (ArrayList<VoucherResponse>) item.object);
                         break;
                     case EXPLORE_BAR:
-                        break;
-                    case NORMAL_COUPON:
-                    default:
-                        holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                        holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                        if (item.getAvail() == 0)
-                            holder.setText(R.id.tv_banner_quota, "Out of stock");
-                        else
-                            holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
-                        holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
-                        holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                        holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+                            public void onClick(View view) {
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), TokenActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                startActivity(intent);
                             }
                         });
                         break;
+                    case CATEGORY_BAR:
+                        holder.setText(R.id.tv_category_title, item.title);
+                        holder.setText(R.id.tv_category_desc, item.desc);
+                        setVoucherList(holder, (ArrayList<VoucherResponse>) item.object);
+                        break;
+                    case NORMAL_COUPON:
+                    default:
+                        break;
                 }
+            }
+        };
+        mAdapter.setHasStableIds(true);
+        mRecyclerview.setLayoutManager(layoutListManager);
+        mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerview.getItemAnimator().setAddDuration(250);
+        mRecyclerview.getItemAnimator().setMoveDuration(250);
+        mRecyclerview.getItemAnimator().setChangeDuration(250);
+        mRecyclerview.getItemAnimator().setRemoveDuration(250);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setItemViewCacheSize(30);
+        mRecyclerview.setDrawingCacheEnabled(true);
+        mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mRecyclerview.setAdapter(mAdapter);
+        mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                App.setTextViewStyle(mRecyclerview);
+            }
+        });
+    }
+
+    public void setVoucherList(BaseRecyclerViewHolder holder, final ArrayList<VoucherResponse> data) {
+        final RecyclerView mRecyclerview = holder.getRecyclerView(R.id.recylerview);
+        GridLayoutManager layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
+        layoutListManager.setItemPrefetchEnabled(false);
+        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(getActivity(), data, layoutListManager) {
+            @Override
+            public int getItemViewType(int position) {
+                return data.get(position).type;
+            }
+
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.item_coupon_list;
+            }
+
+            @Override
+            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
+                if (item.getAvail() == 0)
+                    holder.setText(R.id.tv_banner_quota, "Out of stock");
+                else
+                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
+//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+//                                goToVoucherDetailActivity(item);
+                    }
+                });
+
             }
         };
         mAdapter.setHasStableIds(true);

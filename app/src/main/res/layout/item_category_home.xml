@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_coupon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:padding="@dimen/interval_main">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="32dp"
+        android:paddingLeft="@dimen/interval_main"
+        android:paddingRight="@dimen/interval_main"
+        android:paddingEnd="@dimen/interval_main"
+        android:paddingStart="@dimen/interval_main">
+
         <TextView
             android:id="@+id/tv_category_title"
             android:layout_width="wrap_content"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/text_primary"
-            android:text="Best Voucher"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:tag="hnMed"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_big_medium" />
+
         <TextView
+            android:id="@+id/tv_category_desc"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/interval_content"
+            android:layout_marginStart="@dimen/interval_content"
+            android:layout_toEndOf="@id/tv_category_title"
+            android:layout_toRightOf="@id/tv_category_title"
+            android:textSize="@dimen/text_xtiny" />
+
+        <TextView
+            android:id="@+id/category_show_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/see_more_title"
+            android:textSize="@dimen/text_xtiny" />
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recylerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/interval_main">
+
+    </android.support.v7.widget.RecyclerView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/interval_main"
         android:background="@color/lineColor"></View>
+
 
 </LinearLayout>
