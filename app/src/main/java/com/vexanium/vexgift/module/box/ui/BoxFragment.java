@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -91,9 +92,8 @@ public class BoxFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle bundle = getArguments();
-        if(bundle!=null){
-            listener = (BoxFragmentChangeListener)bundle.getSerializable("listener");
+        if(getParentFragment() instanceof BoxFragmentChangeListener){
+            listener = (BoxFragmentChangeListener)getParentFragment();
         }
 
         mHistoryButton.setOnClickListener(new View.OnClickListener() {
@@ -170,11 +170,12 @@ public class BoxFragment extends BaseFragment {
 
     }
 
-    public static BoxFragment newInstance(BoxFragmentChangeListener listener) {
-        BoxFragment boxFragment = new BoxFragment();
+    public static BoxFragment newInstance() {
+        /*BoxFragment boxFragment = new BoxFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("listener", listener);
         boxFragment.setArguments(bundle);
-        return boxFragment;
+        return boxFragment;*/
+        return new BoxFragment();
     }
 }
