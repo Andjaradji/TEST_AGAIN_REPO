@@ -44,6 +44,13 @@
     <dimen name="home_card_padding">16sp</dimen>
 
     <dimen name="padding_medium">22dp</dimen>
+    <dimen name="padding_big">32dp</dimen>
+    <dimen name="padding_main">16dp</dimen>
+    <dimen name="padding_submain">12dp</dimen>
+    <dimen name="padding_content">8dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_xsmall">2dp</dimen>
+
 
     <dimen name="margin_splash">12dp</dimen>
 
