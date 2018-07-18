@@ -28,7 +28,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:letterSpacing="1.57"
                 android:tag="hnBoldCond"
                 android:text="@string/home_explore_voucher"
                 android:textColor="@color/material_white"
@@ -69,7 +68,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:letterSpacing="1.57"
                 android:tag="hnBoldCond"
                 android:text="@string/home_explore_token"
                 android:textColor="@color/material_white"

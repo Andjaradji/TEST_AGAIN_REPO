@@ -85,7 +85,6 @@ public class MainActivity extends BaseActivity {
     public void setFragmentToolbar(int fragment) {
         TextView textView = findViewById(R.id.tv_toolbar_title);
         ImageView logo = findViewById(R.id.iv_vex_logo);
-        LinearLayout btnSearch = findViewById(R.id.btn_search);
 
         switch (fragment) {
             case HOME_FRAGMENT:

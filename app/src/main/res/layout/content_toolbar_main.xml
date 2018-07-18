@@ -20,26 +20,44 @@
         android:id="@+id/iv_vex_logo"
         android:layout_width="94dp"
         android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/logo"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/logo" />
 
     <LinearLayout
-        android:id="@+id/btn_search"
+        android:id="@+id/home_vp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp">
+        android:layout_marginRight="12dp"
+        android:background="@drawable/shape_vp_bg"
+        android:orientation="horizontal">
 
-        <ImageView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/interval_content"
+            android:layout_marginRight="@dimen/interval_content"
+            android:tag="hnBoldCond"
+            android:text="VP"
+            android:textColor="@color/material_white_trans_df"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
             android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="8dp"
-            android:contentDescription="@string/image_content_description"/>
+            android:layout_height="wrap_content"
+            android:maxWidth="50dp"
+            android:minWidth="20dp"
+            android:tag="hnBoldCond"
+            android:text="10"
+            android:textAlignment="textEnd"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_small" />
+
     </LinearLayout>
 
 </RelativeLayout>

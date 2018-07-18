@@ -97,6 +97,9 @@
     <string name="home_explore_token_desc">Various of \nToken Airdrop</string>
     <string name="home_explore_get_button">Get Now</string>
 
+    <string name="voucher_title">GIFT VOUCHER</string>
+    <string name="token_title">TOKEN AIRDROP</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

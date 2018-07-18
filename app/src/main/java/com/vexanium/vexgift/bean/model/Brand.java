@@ -1,25 +1,23 @@
 package com.vexanium.vexgift.bean.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class Voucher  implements Serializable {
+/**
+ * Created by hizkia on 12/03/18.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Brand implements Serializable {
     @JsonProperty("id")
     private String id;
     @JsonProperty("photo")
     private String photo;
-    @JsonProperty("brand")
-    private Brand brand;
-
     @JsonProperty("title")
     private String title;
     @JsonProperty("desc")
     private String decription;
-    @JsonProperty("exp")
-    private String expiredDate;
-
-    public boolean active = true;
 
     public String getId() {
         return id;
@@ -53,32 +51,8 @@ public class Voucher  implements Serializable {
         this.decription = decription;
     }
 
-    public String getExpiredDate() {
-        return expiredDate;
-    }
-
-    public void setExpiredDate(String expiredDate) {
-        this.expiredDate = expiredDate;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public Voucher(String photo, String title, String expiredDate) {
+    public Brand(String photo, String title) {
         this.photo = photo;
         this.title = title;
-        this.expiredDate = expiredDate;
-    }
-
-    public Voucher(String photo, String title, String expiredDate, boolean active) {
-        this.photo = photo;
-        this.title = title;
-        this.expiredDate = expiredDate;
-        this.active = active;
     }
 }
