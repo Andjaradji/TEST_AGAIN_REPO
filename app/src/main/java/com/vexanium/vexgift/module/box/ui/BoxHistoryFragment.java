@@ -75,8 +75,8 @@ public class BoxHistoryFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
-        if(bundle!=null){
-            listener = (BoxFragmentChangeListener)bundle.getSerializable("listener");
+        if(getParentFragment() instanceof BoxFragmentChangeListener){
+            listener = (BoxFragmentChangeListener)getParentFragment();
         }
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -140,12 +140,8 @@ public class BoxHistoryFragment extends BaseFragment {
 
         }
 
-    public static BoxHistoryFragment newInstance(BoxFragmentChangeListener listener) {
-        BoxHistoryFragment boxHistoryFragment = new BoxHistoryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("listener",listener);
-        boxHistoryFragment.setArguments(bundle);
-        return boxHistoryFragment;
+    public static BoxHistoryFragment newInstance() {
+        return new BoxHistoryFragment();
     }
 
 

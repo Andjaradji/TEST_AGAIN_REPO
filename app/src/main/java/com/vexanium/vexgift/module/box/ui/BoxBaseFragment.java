@@ -34,8 +34,8 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     @Override
     protected void initView(View fragmentRootView) {
         mContainer = (FrameLayout) fragmentRootView.findViewById(R.id.fl_container);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(mContainer.getId(), BoxFragment.newInstance(BoxBaseFragment.this)).commit();
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.add(mContainer.getId(), BoxFragment.newInstance()).commit();
 
     }
 
@@ -48,11 +48,11 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     }
 
     private void changeFragment(boolean toHistory){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         if(toHistory) {
-            ft.replace(mContainer.getId(), BoxHistoryFragment.newInstance(BoxBaseFragment.this)).commit();
+            ft.replace(mContainer.getId(), BoxHistoryFragment.newInstance()).commit();
         }else{
-            ft.replace(mContainer.getId(), BoxFragment.newInstance(BoxBaseFragment.this)).commit();
+            ft.replace(mContainer.getId(), BoxFragment.newInstance()).commit();
         }
     }
 

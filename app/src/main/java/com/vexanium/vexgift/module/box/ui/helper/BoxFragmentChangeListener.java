@@ -9,6 +9,6 @@ import java.io.Serializable;
  * Created by Amang on 18/07/2018.
  */
 
-public interface BoxFragmentChangeListener extends Serializable{
+public interface BoxFragmentChangeListener{
     void onClick(boolean toHistory);
 }
