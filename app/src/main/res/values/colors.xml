@@ -5,10 +5,10 @@
     <color name="background">@color/material_grey_ed</color>
 
     //theme properties mentioned here
-    <color name="colorPrimary">#5CCDD5</color>
-    <color name="colorPrimaryDark">#5C91D5</color>
+    <color name="colorPrimary">@color/material_orange_9f00</color>
+    <color name="colorPrimaryDark">#FAA105</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="colorSecondaryDark">#7691DB</color>
+    <color name="colorSecondaryDark">#DB3069</color>
 
     <color name="text_primary">#0A0A0A</color>
     <color name="text_secondary">#808080</color>

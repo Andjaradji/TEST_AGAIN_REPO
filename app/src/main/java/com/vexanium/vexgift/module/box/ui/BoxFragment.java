@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
@@ -44,6 +46,9 @@ public class BoxFragment extends BaseFragment {
 
     private ImageButton mSearchButton;
     private ImageButton mHistoryButton;
+    private RelativeLayout mNotifBar;
+    private TextView mNotifText;
+    private TextView mNotifSeeMore;
 
     private BoxFragmentChangeListener listener;
 
@@ -56,6 +61,10 @@ public class BoxFragment extends BaseFragment {
 
         mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
         mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
+
+        mNotifBar = (RelativeLayout) fragmentRootView.findViewById(R.id.rl_notif_info);
+        mNotifText = (TextView) fragmentRootView.findViewById(R.id.tv_notif_info);
+        mNotifSeeMore = (TextView) fragmentRootView.findViewById(R.id.tv_notif_see_all);
 
         mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
@@ -106,6 +115,11 @@ public class BoxFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 KLog.i("Page: " + position);
                 mTabBarView.onPageSelected(position);
+                if(position == 0){
+                    changeNotifBarVisibility(true,"You Have 10 Expired and 8 Used Voucher");
+                }else{
+                    changeNotifBarVisibility(false,"You Have 10 Expired and 8 Used Voucher");
+                }
             }
 
             @Override
@@ -113,6 +127,15 @@ public class BoxFragment extends BaseFragment {
                 mTabBarView.onPageScrollStateChanged(state);
             }
         });
+    }
+
+    private void changeNotifBarVisibility(boolean isVisible, String text){
+        mNotifText.setText(text);
+        if(isVisible){
+            mNotifBar.setVisibility(View.VISIBLE);
+        }else{
+            mNotifBar.setVisibility(View.GONE);
+        }
     }
 
     public class BoxPagerAdapter extends FragmentStatePagerAdapter {
