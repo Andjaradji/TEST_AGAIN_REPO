@@ -6,27 +6,22 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.box.ui.helper.BoxFragmentChangeListener;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
-@ActivityFragmentInject(contentViewId = R.layout.fragment_box)
-public class BoxFragment extends BaseFragment {
+@ActivityFragmentInject(contentViewId = R.layout.fragment_box_history)
+public class BoxHistoryFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -43,12 +38,7 @@ public class BoxFragment extends BaseFragment {
 
     private IconTextTabBarView mTabBarView;
     private CustomViewPager mViewPager;
-
-    private ImageButton mSearchButton;
-    private ImageButton mHistoryButton;
-    private RelativeLayout mNotifBar;
-    private TextView mNotifText;
-    private TextView mNotifSeeMore;
+    private ImageButton mBackButton;
 
     private BoxFragmentChangeListener listener;
 
@@ -56,17 +46,11 @@ public class BoxFragment extends BaseFragment {
     @Override
     protected void initView(View fragmentRootView) {
 
-        mHistoryButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_history);
-        mSearchButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_search);
-
         mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
         mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
+        mBackButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_back);
 
-        mNotifBar = (RelativeLayout) fragmentRootView.findViewById(R.id.rl_notif_info);
-        mNotifText = (TextView) fragmentRootView.findViewById(R.id.tv_notif_info);
-        mNotifSeeMore = (TextView) fragmentRootView.findViewById(R.id.tv_notif_see_all);
-
-        mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
+        mTabBarView.addTabView(0, R.drawable.box_voucher,"My Voucher");
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
@@ -77,7 +61,6 @@ public class BoxFragment extends BaseFragment {
         mTabBarView.setViewPager(mViewPager);
 
         setPagerListener();
-
     }
 
     @Override
@@ -96,12 +79,13 @@ public class BoxFragment extends BaseFragment {
             listener = (BoxFragmentChangeListener)bundle.getSerializable("listener");
         }
 
-        mHistoryButton.setOnClickListener(new View.OnClickListener() {
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(true);
+                listener.onClick(false);
             }
         });
+
     }
 
     private void setPagerListener() {
@@ -115,11 +99,6 @@ public class BoxFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 KLog.i("Page: " + position);
                 mTabBarView.onPageSelected(position);
-                if(position == 0){
-                    changeNotifBarVisibility(true,"You Have 10 Expired and 8 Used Voucher");
-                }else{
-                    changeNotifBarVisibility(false,"You Have 10 Expired and 8 Used Voucher");
-                }
             }
 
             @Override
@@ -127,15 +106,6 @@ public class BoxFragment extends BaseFragment {
                 mTabBarView.onPageScrollStateChanged(state);
             }
         });
-    }
-
-    private void changeNotifBarVisibility(boolean isVisible, String text){
-        mNotifText.setText(text);
-        if(isVisible){
-            mNotifBar.setVisibility(View.VISIBLE);
-        }else{
-            mNotifBar.setVisibility(View.GONE);
-        }
     }
 
     public class BoxPagerAdapter extends FragmentStatePagerAdapter {
@@ -168,13 +138,16 @@ public class BoxFragment extends BaseFragment {
             return PAGE_COUNT;
         }
 
+        }
+
+    public static BoxHistoryFragment newInstance(BoxFragmentChangeListener listener) {
+        BoxHistoryFragment boxHistoryFragment = new BoxHistoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("listener",listener);
+        boxHistoryFragment.setArguments(bundle);
+        return boxHistoryFragment;
     }
 
-    public static BoxFragment newInstance(BoxFragmentChangeListener listener) {
-        BoxFragment boxFragment = new BoxFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("listener", listener);
-        boxFragment.setArguments(bundle);
-        return boxFragment;
+
+
     }
-}

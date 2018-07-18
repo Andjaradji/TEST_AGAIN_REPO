@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent"
     tools:context=".module.walkthrough.ui.FirstFragment">
+
+    <View
+        android:id="@+id/v_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_walkthrough1_bg">
+    </View>
 
     <!--havent set font-->
     <TextView

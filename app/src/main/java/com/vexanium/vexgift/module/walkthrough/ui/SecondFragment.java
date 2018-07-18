@@ -15,7 +15,7 @@ import com.vexanium.vexgift.base.BaseFragment;
  * Created by Amang on 16/07/2018.
  */
 
-@ActivityFragmentInject(contentViewId = R.layout.fragment_first)
+@ActivityFragmentInject(contentViewId = R.layout.fragment_second)
 public class SecondFragment extends BaseFragment {
 
     TextView mTvWalkthrough;
@@ -33,7 +33,6 @@ public class SecondFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        mTvWalkthrough = (TextView) fragmentRootView.findViewById(R.id.tv_walkthrough);
-        mTvWalkthrough.setText(getActivity().getString(R.string.walkthrough_second));
+
     }
 }

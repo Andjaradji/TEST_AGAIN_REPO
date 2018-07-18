@@ -5,18 +5,17 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context=".module.walkthrough.ui.WalkthroughActivity">
 
     <ImageView
         android:id="@+id/v_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/shape_walkthrough1_bg">
+        android:src="@drawable/bg">
 
     </ImageView>
 
-    <com.vexanium.vexgift.widget.CustomViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/cvp_walkthrough"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +23,7 @@
         app:piv_dynamicCount="true"
         app:piv_interactiveAnimation="true">
 
-    </com.vexanium.vexgift.widget.CustomViewPager>
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/ll_walkthrough_next"

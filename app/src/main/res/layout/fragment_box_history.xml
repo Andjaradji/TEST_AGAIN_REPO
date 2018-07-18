@@ -33,7 +33,7 @@
                 app:elevation="4dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                <include layout="@layout/content_toolbar_box" />
+                <include layout="@layout/content_toolbar_box_history" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -46,44 +46,13 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl_notif_info"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="#e86c26"
-            android:layout_below="@id/app_bar">
 
-            <TextView
-                android:id="@+id/tv_notif_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="You have 10 Expired and 8 Used Voucher"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/material_white"
-                android:paddingLeft="20dp"
-                android:paddingRight="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/tv_notif_see_all"
-                android:text="@string/box_notif_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_xtiny"
-                android:paddingRight="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                />
-
-        </RelativeLayout>
 
         <com.vexanium.vexgift.widget.CustomViewPager
             android:id="@+id/vp_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rl_notif_info">
+            android:layout_below="@id/app_bar">
 
         </com.vexanium.vexgift.widget.CustomViewPager>
 
