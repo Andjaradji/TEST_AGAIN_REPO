@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:tag="bold"
+        android:tag="hnBoldCond"
         android:textAllCaps="true"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />

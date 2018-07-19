@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -56,8 +57,26 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        changeFragment(false);
+    }
+
+    @Override
     public void onClick(boolean toHistory) {
         changeFragment(toHistory);
+    }
+
+    public void changeBoxTab(int page){
+        Fragment currFragment = getChildFragmentManager().findFragmentById(mContainer.getId());
+        if(currFragment instanceof BoxFragment) {
+            ((BoxFragment)currFragment).changeTab(page);
+        }
     }
 
     public static BoxBaseFragment newInstance() {

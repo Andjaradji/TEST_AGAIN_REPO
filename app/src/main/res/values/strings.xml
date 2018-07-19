@@ -105,6 +105,16 @@
     <string name="voucher_title">GIFT VOUCHER</string>
     <string name="token_title">TOKEN AIRDROP</string>
 
+    <string name="reset">Reset</string>
+    <string name="sort_title">Sort</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_popularity">Popularity</string>
+    <string name="sort_recent">Recent</string>
+
+    <string name="filter_title">Filters</string>
+    <string name="filter_category">Category</string>
+    <string name="filter_location">Location</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

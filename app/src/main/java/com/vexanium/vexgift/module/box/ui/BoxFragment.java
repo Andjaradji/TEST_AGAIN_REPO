@@ -141,6 +141,10 @@ public class BoxFragment extends BaseFragment {
         }
     }
 
+    public void changeTab(int page){
+        mViewPager.setCurrentItem(page,false);
+    }
+
     public class BoxPagerAdapter extends FragmentStatePagerAdapter {
 
         BoxPagerAdapter(FragmentManager fm) {

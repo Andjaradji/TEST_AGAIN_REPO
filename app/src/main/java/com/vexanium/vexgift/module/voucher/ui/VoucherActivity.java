@@ -6,7 +6,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -18,7 +21,7 @@ import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
-import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.LockableScrollView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,6 +31,9 @@ public class VoucherActivity extends BaseActivity {
     private ArrayList<VoucherResponse> data;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
+    SlidingUpPanelLayout mSlidePanel;
+    LinearLayout mDragView;
+    LockableScrollView mPanelScrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +42,56 @@ public class VoucherActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mSlidePanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
+        mDragView = findViewById(R.id.dragview);
         mRecyclerview = findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
         Random random = new Random();
-        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
+        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 12, true);
         setVoucherList(data);
 
         findViewById(R.id.back_button).setOnClickListener(this);
+        findViewById(R.id.token_open_filter_button).setOnClickListener(this);
+
+        mSlidePanel.setAnchorPoint(0.6f);
+        mSlidePanel.setOverlayed(true);
+        mSlidePanel.setShadowHeight(0);
+        mSlidePanel.setDragView(mDragView);
+        mSlidePanel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+
+                /*//  Toast.makeText(getApplicationContext(),newState.name().toString(),Toast.LENGTH_SHORT).show();
+                if(newState.name().toString().equalsIgnoreCase("Collapsed")){
+
+                    //action when collapsed
+
+                }else if(newState.name().equalsIgnoreCase("Expanded")){
+
+
+                }
+*/
+                if(newState.name().equalsIgnoreCase("Expanded")){
+
+                    //action when expanded
+                    mPanelScrollview.setScrollingEnabled(true);
+                }else{
+                    mPanelScrollview.setScrollingEnabled(false);
+                }
+
+            }
+        });
+
+        mPanelScrollview.setScrollingEnabled(false);
+
     }
 
     @Override
@@ -53,6 +100,9 @@ public class VoucherActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.token_open_filter_button:
+                mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
         }
     }
@@ -111,5 +161,14 @@ public class VoucherActivity extends BaseActivity {
                 App.setTextViewStyle(mRecyclerview);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mSlidePanel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+            super.onBackPressed();
+        }else{
+            mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        }
     }
 }
