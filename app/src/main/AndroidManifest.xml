@@ -54,6 +54,7 @@
         <activity android:name=".module.login.ui.LoginActivity" />
         <activity android:name=".module.token.ui.TokenActivity" />
         <activity android:name=".module.voucher.ui.VoucherActivity"></activity>
+        <activity android:name=".module.vexpoint.ui.VexPointActivity"></activity>
     </application>
 
 </manifest>

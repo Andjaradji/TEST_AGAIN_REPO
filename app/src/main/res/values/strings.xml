@@ -92,6 +92,8 @@
     <string name="send">Send</string>
     <string name="receive">Receive</string>
 
+    <string name="vexpoint_title">VEX POINT</string>
+
     <string name="shortcut_my_voucher">MY VOUCHER</string>
     <string name="shortcut_my_token">MY TOKEN</string>
     <string name="shortcut_my_wallet">MY WALLET</string>
