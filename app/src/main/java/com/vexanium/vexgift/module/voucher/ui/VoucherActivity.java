@@ -1,8 +1,10 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -19,6 +21,7 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.LockableScrollView;
@@ -30,7 +33,9 @@ import java.util.Random;
 public class VoucherActivity extends BaseActivity {
     private ArrayList<VoucherResponse> data;
     GridLayoutManager layoutListManager;
-    RecyclerView mRecyclerview;
+
+    RecyclerView mRecyclerview, mRvCategory, mRvLocation;
+    FilterAdapter mAdapterCategory, mAdapterLocation;
     SlidingUpPanelLayout mSlidePanel;
     LinearLayout mDragView;
     LockableScrollView mPanelScrollview;
@@ -48,6 +53,33 @@ public class VoucherActivity extends BaseActivity {
         mRecyclerview = findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
+
+        mRvCategory = findViewById(R.id.rv_filter_category);
+        mRvLocation = findViewById(R.id.rv_filter_location);
+
+        mRvCategory.setLayoutManager(new GridLayoutManager(this,1, GridLayoutManager.HORIZONTAL,false));
+        mRvLocation.setLayoutManager(new GridLayoutManager(this,1, GridLayoutManager.HORIZONTAL,false));
+
+        // dummy
+        ArrayList<String> dataList = new ArrayList<>();
+        dataList.add("Food");
+        dataList.add("Beverages");
+        dataList.add("Sehat");
+        dataList.add("Food");
+        dataList.add("Beverages");
+        dataList.add("Sehat");
+        dataList.add("Food");
+        dataList.add("Beverages");
+        dataList.add("Sehat");
+        dataList.add("Food");
+        dataList.add("Beverages");
+        dataList.add("Sehat");
+
+        mAdapterCategory = new FilterAdapter(this,dataList);
+        mAdapterLocation = new FilterAdapter(this,dataList);
+
+        mRvCategory.setAdapter(mAdapterCategory);
+        mRvLocation.setAdapter(mAdapterLocation);
 
         Random random = new Random();
         data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 12, true);
