@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +25,8 @@ import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.widget.CustomTabBarView;
 import com.vexanium.vexgift.widget.CustomViewPager;
+
+import org.jetbrains.annotations.Nullable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -102,6 +106,8 @@ public class MainActivity extends BaseActivity {
 
     private void setPagerListener() {
         mCustomViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            private int lastPagePosition = 0;
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mCustomTabBarView.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -112,6 +118,9 @@ public class MainActivity extends BaseActivity {
                 KLog.i("Page: " + position);
                 mCustomTabBarView.onPageSelected(position);
                 setFragmentToolbar(position);
+                mainScreenPagerAdapter.getRegisteredFragment(position).onResume();
+                mainScreenPagerAdapter.getRegisteredFragment(lastPagePosition).onPause();
+                lastPagePosition = position;
             }
 
             @Override
@@ -131,11 +140,23 @@ public class MainActivity extends BaseActivity {
         mCustomViewPager.setCurrentItem(0, false);
     }
 
-    public void changeBoxFragment(Fragment targetFragment){
 
+    public void gotoPage(int page,int secondaryPage){
+        mCustomViewPager.setCurrentItem(page,false);
+
+        //for boxframent
+        if(page == 1){
+            Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(1);
+            if(fragment instanceof BoxBaseFragment){
+                ((BoxBaseFragment) fragment).changeBoxTab(secondaryPage);
+            }
+        }
     }
 
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
+
+        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+
 
         MainScreenPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -178,6 +199,23 @@ public class MainActivity extends BaseActivity {
         @Override
         public int getCount() {
             return PAGE_COUNT;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            registeredFragments.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            registeredFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
+
+        public Fragment getRegisteredFragment(int position) {
+            return registeredFragments.get(position);
         }
     }
 

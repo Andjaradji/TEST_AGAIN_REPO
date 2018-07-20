@@ -32,6 +32,7 @@ import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -157,6 +158,18 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             public void bindData(BaseRecyclerViewHolder holder, int position, final HomeFeedResponse item) {
                 switch (getItemViewType(position)) {
                     case SHORTCUT_BAR:
+                        holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ((MainActivity)getActivity()).gotoPage(1,0);
+                            }
+                        });
+                        holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ((MainActivity)getActivity()).gotoPage(1,1);
+                            }
+                        });
                         break;
                     case HOT_LIST:
                         setHotVoucherList(holder, (ArrayList<VoucherResponse>) item.object);

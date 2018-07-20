@@ -51,7 +51,7 @@ public class BoxHistoryFragment extends BaseFragment {
         mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
         mBackButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_back);
 
-        mTabBarView.addTabView(0, R.drawable.box_voucher,"My Voucher");
+        mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
@@ -63,7 +63,7 @@ public class BoxHistoryFragment extends BaseFragment {
 
         setPagerListener();
 
-        App.setTextViewStyle((ViewGroup)fragmentRootView);
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class BoxHistoryFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
-        if(getParentFragment() instanceof BoxFragmentChangeListener){
-            listener = (BoxFragmentChangeListener)getParentFragment();
+        if (getParentFragment() instanceof BoxFragmentChangeListener) {
+            listener = (BoxFragmentChangeListener) getParentFragment();
         }
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -141,12 +141,10 @@ public class BoxHistoryFragment extends BaseFragment {
             return PAGE_COUNT;
         }
 
-        }
+    }
 
     public static BoxHistoryFragment newInstance() {
         return new BoxHistoryFragment();
     }
-
-
 
     }

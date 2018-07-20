@@ -68,7 +68,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -80,7 +80,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -92,7 +92,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <View
@@ -120,7 +120,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -132,7 +132,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -144,7 +144,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -156,7 +156,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -168,7 +168,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -180,7 +180,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
@@ -192,7 +192,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
                 <View
@@ -211,7 +211,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/bg_ripple_transparent"
+                    android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
 
