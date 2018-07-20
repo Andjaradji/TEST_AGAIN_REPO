@@ -42,7 +42,7 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("NotifFragment onCreateView");
+        KLog.v("BoxBaseFragment onCreateView");
         context = getActivity();
         return super.onCreateView(inflater, container, savedInstanceState);
     }

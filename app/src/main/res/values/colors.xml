@@ -142,4 +142,7 @@
     <color name="material_orange">#FF8540</color>
     <color name="material_orange_9f00">#FF9F00</color>
 
+    <color name="vexpoint_plus">#22B24C</color>
+    <color name="vexpoint_minus">#EF8484</color>
+
 </resources>

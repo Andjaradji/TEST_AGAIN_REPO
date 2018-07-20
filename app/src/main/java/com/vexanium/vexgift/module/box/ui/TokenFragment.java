@@ -45,7 +45,7 @@ public class TokenFragment extends BaseFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("FourthFragment onCreateView");
+        KLog.v("Token onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }

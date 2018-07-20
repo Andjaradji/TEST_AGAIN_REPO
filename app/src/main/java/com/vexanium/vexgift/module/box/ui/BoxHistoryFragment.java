@@ -68,7 +68,7 @@ public class BoxHistoryFragment extends BaseFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("NotifFragment onCreateView");
+        KLog.v("BoxHistoryFragment onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }

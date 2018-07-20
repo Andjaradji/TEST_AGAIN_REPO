@@ -2,10 +2,6 @@ package com.vexanium.vexgift.widget.tag;
 
 import android.graphics.drawable.Drawable;
 
-import asia.vibe.R;
-import asia.vibe.app.App;
-import asia.vibe.util.ColorUtil;
-
 /**
  * Created by mac on 7/27/17.
  */
@@ -34,7 +30,7 @@ public class Tag {
                 TagConstant.DEFAULT_TAG_RADIUS, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_SIZE, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_COLOR, false);
     }
 
-    public Tag(String text, boolean isSelected) {
+    /*public Tag(String text, boolean isSelected) {
         init(
                 0,
                 text,
@@ -47,7 +43,7 @@ public class Tag {
                 isSelected ? ColorUtil.getColor(App.getContext(), R.color.point_color) : TagConstant.DEFAULT_TAG_LAYOUT_BORDER_COLOR,
                 isSelected
         );
-    }
+    }*/
 
     private void init(int id, String text, int tagTextColor, float tagTextSize,
                       int layoutColor, int layoutColorPress, float radius, float layoutBorderSize, int layoutBorderColor, boolean isSelected) {
