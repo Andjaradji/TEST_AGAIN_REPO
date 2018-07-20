@@ -2,9 +2,10 @@ package com.vexanium.vexgift.widget.tag;
 
 import android.graphics.drawable.Drawable;
 
-import asia.vibe.R;
-import asia.vibe.app.App;
-import asia.vibe.util.ColorUtil;
+import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.util.ColorUtil;
+
 
 /**
  * Created by mac on 7/27/17.
