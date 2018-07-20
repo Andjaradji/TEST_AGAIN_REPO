@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/rl_coupon"
-    android:layout_marginLeft="@dimen/interval_main"
-    android:layout_marginStart="@dimen/interval_main"
-    android:layout_marginEnd="@dimen/interval_main"
-    android:layout_marginRight="@dimen/interval_main"
-    android:layout_marginTop="@dimen/interval_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/interval_content"
-    android:layout_height="wrap_content">
+    android:layout_marginEnd="@dimen/interval_main"
+    android:layout_marginLeft="@dimen/interval_main"
+    android:layout_marginRight="@dimen/interval_main"
+    android:layout_marginStart="@dimen/interval_main"
+    android:layout_marginTop="@dimen/interval_content">
 
     <ImageView
         android:id="@+id/iv_coupon_image"
         android:layout_width="match_parent"
         android:layout_height="147dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:transitionName="voucher_image" />
 
     <RelativeLayout
         android:id="@+id/rl_banner_info"
@@ -32,15 +33,15 @@
             android:id="@+id/tv_coupon_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/ll_banner_exp_info"
             android:layout_toStartOf="@+id/ll_banner_exp_info"
-            android:tag="bold"
+            android:maxLines="2"
             android:paddingEnd="@dimen/interval_main"
             android:paddingRight="@dimen/interval_main"
-            android:maxLines="2"
+            android:tag="bold"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
 
@@ -50,8 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:gravity="end"
             android:layout_centerVertical="true"
+            android:gravity="end"
             android:orientation="vertical">
 
             <LinearLayout
@@ -79,8 +80,8 @@
                 android:id="@+id/tv_coupon_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="bold"
                 android:layout_marginTop="@dimen/interval_small"
+                android:tag="bold"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_xtiny" />
 
@@ -98,9 +99,9 @@
     <LinearLayout
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:visibility="gone"
         android:layout_margin="16dp"
-        android:background="@drawable/shape_white_round_rect">
+        android:background="@drawable/shape_white_round_rect"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_brand_image"

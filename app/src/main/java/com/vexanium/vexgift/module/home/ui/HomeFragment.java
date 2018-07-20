@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
@@ -27,11 +29,13 @@ import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
@@ -223,7 +227,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 if (item.getAvail() == 0)
@@ -236,7 +240,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+                                goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -308,6 +312,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         );
         pagerIndicator.attachToRecyclerView(discreteScrollView);
         discreteScrollView.scrollToPosition(1);
+    }
+
+    private void goToVoucherDetailActivity(VoucherResponse voucherResponse, ImageView ivVoucher) {
+        Intent intent = new Intent(this.getActivity(), VoucherDetailActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
+        startActivity(intent, options.toBundle());
     }
 
 }

@@ -60,7 +60,7 @@
                     android:textSize="@dimen/text_title" />
 
                 <TextView
-                    android:id="@+id/button_my_profile"
+                    android:id="@+id/more_myprofile_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -72,6 +72,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_setting_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -83,6 +84,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_change_password_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -110,6 +112,7 @@
                     android:textSize="@dimen/text_title" />
 
                 <TextView
+                    android:id="@+id/more_merchant_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -121,6 +124,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_feedback_buttton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -132,6 +136,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_problem_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -143,6 +148,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_gp_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -154,6 +160,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_about_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -165,6 +172,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -176,6 +184,7 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_terms_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
@@ -194,6 +203,7 @@
                     android:background="@color/lineColor" />
 
                 <TextView
+                    android:id="@+id/more_logout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"

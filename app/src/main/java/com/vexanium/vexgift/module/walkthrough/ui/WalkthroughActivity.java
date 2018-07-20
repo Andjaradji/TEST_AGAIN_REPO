@@ -25,6 +25,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.FadePageTransformer;
@@ -67,7 +68,8 @@ public class WalkthroughActivity extends BaseActivity {
                     mCustomViewPager.setCurrentItem(currPos+1,true);
                 }else{
                     Intent intent = new Intent();
-                    intent.setClass(WalkthroughActivity.this, MainActivity.class);
+                    intent.setClass(WalkthroughActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             }

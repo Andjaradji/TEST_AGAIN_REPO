@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -112,6 +113,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             case R.id.login_fake_fb_button:
                 requestFacebookLogin();
                 break;
+            case R.id.login_button:
+                doLogin();
+                break;
             case R.id.login_signup_button:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -121,6 +125,16 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             default:
         }
         super.onClick(v);
+    }
+
+    public void doLogin(){
+        User user = new User();
+        String email = ((EditText)findViewById(R.id.et_email)).getText().toString();
+        String pass = ((EditText)findViewById(R.id.et_pass)).getText().toString();
+        user.setEmail(email);
+        user.setPassword(pass);
+
+        mPresenter.requestLogin(user);
     }
 
     private void generateKeyHash() {
@@ -138,7 +152,12 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
 
     private boolean checkLoginInfo() {
-        return false;
+        User user  = User.getCurrentUser(this.getApplicationContext());
+
+        // TODO: 19/07/18 check facebook access token
+
+//        return user!=null;
+        return true;
     }
 
     private void executeMain(boolean isAlreadyLogin) {

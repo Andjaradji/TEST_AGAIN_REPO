@@ -162,13 +162,14 @@ public class RetrofitManager {
     public Observable<HttpResponse<UserLoginResponse>> requestLogin(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        params.put("name", user.getName());
-        params.put("password", user.getPassword() == null ? "a" : user.getPassword());
         if (user.getFamilyName() != null) {
             params.put("last_name", user.getFamilyName());
         }
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            params.put("password", user.getPassword());
         }
         if (user.getDescription() != null) {
             params.put("description", user.getDescription());

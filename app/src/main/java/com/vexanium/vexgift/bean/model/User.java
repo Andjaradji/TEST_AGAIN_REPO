@@ -145,6 +145,7 @@ public class User implements Serializable {
         TpUtil tpUtil = new TpUtil(context);
         String userStr = tpUtil.getString(TpUtil.KEY_CURRENT_LOGGED_IN_USER, "");
 
+        currentUser = null;
         if (!TextUtils.isEmpty(userStr)) {
             currentUser = (User) JsonUtil.toObject(userStr, User.class);
         }

@@ -1,0 +1,109 @@
+package com.vexanium.vexgift.module.detail.ui;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.model.Brand;
+import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.ViewUtil;
+
+@ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)
+public class VoucherDetailActivity extends BaseActivity {
+
+    private VoucherResponse voucherResponse;
+    private CollapsingToolbarLayout toolbarLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initView() {
+        if (getIntent().hasExtra("voucher")) {
+            if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
+                voucherResponse = (VoucherResponse) JsonUtil.toObject(getIntent().getStringExtra("voucher"), VoucherResponse.class);
+            }
+        }
+
+        toolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsingToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        ((AppBarLayout)toolbarLayout.getParent()).addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                if(state == State.COLLAPSED){
+                    findViewById(R.id.voucher_title).setVisibility(View.VISIBLE);
+                    ((ImageView)findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_black));
+                    ((ImageView)findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_black));
+                }else{
+                    findViewById(R.id.voucher_title).setVisibility(View.GONE);
+                    ((ImageView)findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_white));
+                    ((ImageView)findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_white));
+                }
+            }
+        });
+        if (voucherResponse != null) {
+            Brand brand = FixtureData.getRandomBrand();
+            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_coupon_image, voucherResponse.getVoucher().getPhoto(), R.drawable.placeholder);
+            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_brand_image, brand.getPhoto(), R.drawable.placeholder);
+            ViewUtil.setText(this.getDecorView(), R.id.tv_brand, brand.getTitle());
+            ViewUtil.setText(this.getDecorView(), R.id.tv_coupon_title, voucherResponse.getVoucher().getTitle());
+            ViewUtil.setText(this.getDecorView(), R.id.tv_time, voucherResponse.getVoucher().getExpiredDate());
+            ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(FixtureData.getRandomBrand().getTitle());
+            toolbarLayout.setTitle(brand.getTitle());
+        }
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
+    }
+
+    public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+
+        private State mCurrentState = State.IDLE;
+
+        @Override
+        public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+            if (i == 0) {
+                if (mCurrentState != State.EXPANDED) {
+                    onStateChanged(appBarLayout, State.EXPANDED);
+                }
+                mCurrentState = State.EXPANDED;
+            } else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
+                if (mCurrentState != State.COLLAPSED) {
+                    onStateChanged(appBarLayout, State.COLLAPSED);
+                }
+                mCurrentState = State.COLLAPSED;
+            } else {
+                if (mCurrentState != State.IDLE) {
+                    onStateChanged(appBarLayout, State.IDLE);
+                }
+                mCurrentState = State.IDLE;
+            }
+        }
+
+        public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+    }
+}

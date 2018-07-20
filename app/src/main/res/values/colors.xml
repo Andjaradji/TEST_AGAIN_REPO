@@ -25,7 +25,7 @@
     //for pre-lollipop gradient color
     <color name="pre_lollipop_shadow_color">#40000000</color>
 
-    <color name="transparent">#00000000</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="primary">@color/material_white</color>
     <color name="primary_dark">#000000</color>
     <color name="primary_text">#555555</color>

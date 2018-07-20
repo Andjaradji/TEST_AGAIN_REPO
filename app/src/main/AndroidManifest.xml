@@ -35,8 +35,8 @@
         <activity
             android:name=".module.splash.ui.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.LauncherAppTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.LauncherAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,14 +46,19 @@
         <activity
             android:name=".module.main.ui.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".module.register.ui.RegisterActivity" />
         <activity
             android:name=".module.walkthrough.ui.WalkthroughActivity"
             android:theme="@style/AppTheme.LauncherAppTheme" />
         <activity android:name=".module.login.ui.LoginActivity" />
         <activity android:name=".module.token.ui.TokenActivity" />
-        <activity android:name=".module.voucher.ui.VoucherActivity"></activity>
+        <activity android:name=".module.voucher.ui.VoucherActivity" />
+        <activity android:name=".module.detail.ui.VoucherDetailActivity" />
+        <activity android:name=".module.redeem.ui.VoucherRedeemActivity" />
+        <activity android:name=".module.profile.ui.MyProfileActivity" />
+        <activity android:name=".module.profile.ui.EditProfileActivity" />
+        <activity android:name=".module.profile.ui.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

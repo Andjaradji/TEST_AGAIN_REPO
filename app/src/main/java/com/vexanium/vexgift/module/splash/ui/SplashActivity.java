@@ -12,6 +12,7 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -53,7 +54,7 @@ public class SplashActivity extends BaseActivity {
             //TODO set destination to walkthrough and set KEY_WALKTHROUGH to false
             destination = WalkthroughActivity.class;
         }else{
-            destination = MainActivity.class;
+            destination = LoginActivity.class;
         }
 
         return destination;
@@ -74,6 +75,7 @@ public class SplashActivity extends BaseActivity {
 
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, DestinationActivity);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             }

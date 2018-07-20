@@ -17,8 +17,14 @@ import rx.Observable;
 
 public interface UserService {
     @FormUrlEncoded
-    @POST("api/auth/signup")
+    @POST("user/auth")
     Observable<HttpResponse<UserLoginResponse>> requestLogin(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user")
+    Observable<HttpResponse<UserLoginResponse>> requestRegister(
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 }

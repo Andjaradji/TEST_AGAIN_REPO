@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:src="@drawable/ic_back"
+        android:tint="@color/material_white" />
+
+    <LinearLayout
+        android:id="@+id/voucher_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:layout_toEndOf="@id/back_button"
+        android:layout_toLeftOf="@id/share_button"
+        android:layout_toRightOf="@id/back_button"
+        android:visibility="gone"
+        android:layout_toStartOf="@+id/share_button"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="hnBoldCond"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_big_medium" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@id/share_button"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginRight="@dimen/interval_main"
+        android:src="@drawable/ic_search"
+        android:tint="@color/material_white" />
+
+</RelativeLayout>
