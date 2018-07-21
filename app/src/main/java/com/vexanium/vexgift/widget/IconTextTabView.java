@@ -69,7 +69,11 @@ public class IconTextTabView extends LinearLayout {
 
     public void setIcon(int icon) {
         this.icon = icon;
-        ivIcon.setImageResource(icon);
+        if(icon!=-1) {
+            ivIcon.setImageResource(icon);
+        }else{
+            ivIcon.setVisibility(GONE);
+        }
     }
 
     public void setText(String text){

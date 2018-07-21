@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
@@ -34,6 +35,7 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
+import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -57,6 +59,7 @@ import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
     private Toolbar toolbar;
+    private LinearLayout mVexPointButton;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
     private ArrayList<HomeFeedResponse> data;
@@ -73,6 +76,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     protected void initView(View fragmentRootView) {
         random = new Random();
 
+        mVexPointButton = (LinearLayout) fragmentRootView.findViewById(R.id.home_vp_button);
         mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.home_recyclerview);
         layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
@@ -101,6 +105,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 } else if (mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation() != 10) {
                     appBarLayout.setElevation(10);
                 }
+            }
+        });
+
+        mVexPointButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), VexPointActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -176,7 +189,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                ((MainActivity)getActivity()).gotoPage(2);
+                                ((MainActivity)getActivity()).gotoPage(2,0);
                             }
                         });
                         break;

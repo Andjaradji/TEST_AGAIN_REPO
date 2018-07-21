@@ -61,6 +61,8 @@
         <activity android:name=".module.profile.ui.ChangePasswordActivity" />
         <activity android:name=".module.setting.ui.SettingActivity" />
         <activity android:name=".module.security.ui.SecurityActivity"></activity>
+        <activity android:name=".module.vexpoint.ui.VexPointActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

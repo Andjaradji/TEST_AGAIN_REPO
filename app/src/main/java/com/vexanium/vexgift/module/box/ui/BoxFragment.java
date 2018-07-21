@@ -86,7 +86,7 @@ public class BoxFragment extends BaseFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("NotifFragment onCreateView");
+        KLog.v("BoxFragment onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -178,11 +178,6 @@ public class BoxFragment extends BaseFragment {
     }
 
     public static BoxFragment newInstance() {
-        /*BoxFragment boxFragment = new BoxFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("listener", listener);
-        boxFragment.setArguments(bundle);
-        return boxFragment;*/
         return new BoxFragment();
     }
 }

@@ -67,6 +67,7 @@ public class IconTextTabBarView extends RelativeLayout {
             tabView.setIdx(idx);
             tabView.setIcon(icon);
             tabView.setText(title);
+            //tabView.setBackgroundResource(R.drawable.shape_ripple_transparent);
             tabView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
