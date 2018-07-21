@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.socks.klog.BuildConfig;
@@ -31,6 +32,7 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -87,22 +89,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
         }
 
-//        if(!(this instanceof FilterActivity)){
-//            setTheme(R.style.BaseAppTheme_AppTheme);
-//        }
         setContentView(mContentViewId);
 
-//        copySystemUiVisibility();
-//
-//        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         handleStatusView();
         handleAppBarLayoutOffset();
 
         initFinishRxBus();
 
-//        initToolbar();
+        initToolbar();
 
         initView();
 
@@ -157,51 +154,25 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         ViewUtil.fixInputMethodManagerLeak(this);
     }
 
-//    private void initToolbar() {
-//        final View statusView = findViewById(R.id.status_view);
-//        if (statusView != null) {
-//            statusView.getLayoutParams().height = MeasureUtil.getStatusBarHeight(this);
-//        }
-//
-//        if (toolbar != null) {
-//            toolbar.setContentInsetStartWithNavigation(0);
-//            setSupportActionBar(toolbar);
-//            if (getSupportActionBar() != null) {
-//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            }
-//            if (mToolbarTitle != -1) {
-//                setToolbarTitle(mToolbarTitle);
-//            } else {
-//                setToolbarTitle("");
-//            }
-//            if (mToolbarIndicator != -1) {
-//                setToolbarIndicator(mToolbarIndicator);
-//            } else {
-//                setToolbarIndicator(R.drawable.ic_menu_back);
-//            }
-//
-////
-////            RelativeLayout customToolbarLayout = (RelativeLayout) findViewById(R.id.custom_toolbar_layout);
-////            if (false) {
-////                customToolbarLayout.setVisibility(View.VISIBLE);
-////                findViewById(R.id.custom_toolbar_back_button).setOnClickListener(new View.OnClickListener() {
-////                                                                                     @Override
-////                                                                                     public void onClick(View v) {
-////                                                                                         if(ClickUtil.isFastDoubleClick())return;
-////                                                                                         finish();
-////                                                                                     }
-////                                                                                 });
-////
-////                        setToolbarIndicator(0);
-////                toolbar.setContentInsetsAbsolute(0, 0);
-////                toolbar.setPadding(0, 0, 0, 0);
-////
-////            } else if (customToolbarLayout != null) {
-////                customToolbarLayout.setVisibility(View.GONE);
-////            }
-//        }
-//
-//    }
+    private void initToolbar() {
+
+        if (toolbar != null && mToolbarTitle!= -1) {
+            if (mToolbarTitle != -1) {
+                setToolbarTitle(mToolbarTitle);
+            } else {
+                setToolbarTitle("");
+            }
+
+            toolbar.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(ClickUtil.isFastDoubleClick()) return;
+                    finish();
+                }
+            });
+        }
+
+    }
 
     protected void setToolbarIndicator(int resId) {
         if (getSupportActionBar() != null) {
@@ -214,15 +185,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
     }
 
-    protected void setToolbarTitle(String str) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(str);
+    protected void setToolbarTitle( String str) {
+        if (toolbar.findViewById(R.id.tv_toolbar_title) != null) {
+            ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(str);
         }
     }
 
     protected void setToolbarTitle(int strId) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(strId);
+        if (toolbar.findViewById(R.id.tv_toolbar_title) != null) {
+            ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(getString(strId));
         }
     }
 
@@ -282,52 +253,33 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        KLog.v("onOptionsItemSelected : " + mToolbarIndicator);
-//        if (item.getItemId() == android.R.id.home
-//                && (mToolbarIndicator == -1 || mToolbarIndicator == R.drawable.ic_menu_back || mToolbarIndicator == R.drawable.ic_menu_back_white)) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                finishAfterTransition();
-//            } else {
-//                finish();
-//            }
-//        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-//            if (this instanceof MainActivity) {
-//                if (!mBack2Flag && !isFinishing()) {
-//                    Toast.makeText(this, getResources().getString(R.string.common_exit_msg), Toast.LENGTH_SHORT).show();
-//                    mBack2Flag = true;
-//                    Observable.timer(2000, TimeUnit.MILLISECONDS)
-//                            .subscribe(new Action1<Object>() {
-//                                @Override
-//                                public void call(Object o) {
-//                                    mBack2Flag = false;
-//                                }
-//                            }, new Action1<Throwable>() {
-//                                @Override
-//                                public void call(Throwable throwable) {
-//                                }
-//                            }, new Action0() {
-//                                @Override
-//                                public void call() {
-//                                }
-//                            });
-//                    return false;
-//                } else {
-//                    RxBus.get().post(RxBus.KEY_APP_FINISH, true);
-//                }
-//                return true;
-//            }
+            if (this instanceof MainActivity) {
+                if (!mBack2Flag && !isFinishing()) {
+                    Toast.makeText(this, getResources().getString(R.string.common_exit_msg), Toast.LENGTH_SHORT).show();
+                    mBack2Flag = true;
+                    Observable.timer(2000, TimeUnit.MILLISECONDS)
+                            .subscribe(new Action1<Object>() {
+                                @Override
+                                public void call(Object o) {
+                                    mBack2Flag = false;
+                                }
+                            }, new Action1<Throwable>() {
+                                @Override
+                                public void call(Throwable throwable) {
+                                }
+                            }, new Action0() {
+                                @Override
+                                public void call() {
+                                }
+                            });
+                    return false;
+                } else {
+                    RxBus.get().post(RxBus.KEY_APP_FINISH, true);
+                }
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

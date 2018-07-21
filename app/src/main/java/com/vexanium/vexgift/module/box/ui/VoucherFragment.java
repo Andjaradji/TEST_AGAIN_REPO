@@ -1,7 +1,9 @@
 package com.vexanium.vexgift.module.box.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -20,7 +23,10 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
+import com.vexanium.vexgift.module.redeem.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 
 import java.util.ArrayList;
@@ -80,7 +86,7 @@ public class VoucherFragment extends BaseFragment {
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 if (item.getAvail() == 0)
@@ -93,7 +99,7 @@ public class VoucherFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+                                goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -120,5 +126,13 @@ public class VoucherFragment extends BaseFragment {
                 App.setTextViewStyle(mRecyclerview);
             }
         });
+    }
+
+    private void goToVoucherDetailActivity(VoucherResponse voucherResponse, ImageView ivVoucher) {
+        Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
+        startActivity(intent, options.toBundle());
     }
 }

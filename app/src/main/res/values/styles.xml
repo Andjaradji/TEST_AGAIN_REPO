@@ -8,7 +8,7 @@
         <item name="android:textColorPrimary">@color/primary_text</item>
         <item name="android:textColorSecondary">@color/secondary</item>
         <item name="android:divider">@color/divider</item>
-        <item name="colorAccent">@color/material_blue_665</item>
+        <item name="colorAccent">@color/vex_orange</item>
         <item name="android:textColorHint">@color/material_grey_d5</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
         <item name="windowActionModeOverlay">true</item>
@@ -22,5 +22,21 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.VexSwitch" parent="AppTheme">
+        <item name="android:paddingTop">@dimen/setting_push_margin</item>
+        <item name="android:paddingBottom">@dimen/setting_push_margin</item>
+        <item name="android:paddingLeft">@dimen/more_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/more_padding_horizontal</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_tiny</item>
+        <item name="android:track">@drawable/shape_switch_track</item>
+        <item name="trackTint">@color/vex_orange</item>
+        <item name="android:switchMinWidth">0dp</item>
+        <item name="android:textOff">""</item>
+        <item name="android:textOn">""</item>
+        <item name="android:background">@drawable/shape_ripple_transparent</item>
+
+    </style>
 
 </resources>

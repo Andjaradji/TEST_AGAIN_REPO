@@ -13,11 +13,14 @@ import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -65,8 +68,27 @@ public class VoucherDetailActivity extends BaseActivity {
             ViewUtil.setText(this.getDecorView(), R.id.tv_time, voucherResponse.getVoucher().getExpiredDate());
             ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(FixtureData.getRandomBrand().getTitle());
             toolbarLayout.setTitle(brand.getTitle());
+        }else{
+
         }
 
+        findViewById(R.id.back_button).setOnClickListener(this);
+        findViewById(R.id.share_button).setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(ClickUtil.isFastDoubleClick()) return;
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.back_button:
+                finish();
+                break;
+            case R.id.share_button:
+                StaticGroup.shareWithShareDialog(App.getContext(), "Best Voucher from Vexanium","Vex Gift");
+                break;
+        }
     }
 
     @Override

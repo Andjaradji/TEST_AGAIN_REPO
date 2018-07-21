@@ -153,6 +153,14 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void gotoPage(int page){
+        mCustomViewPager.setCurrentItem(page,false);
+
+        if(page >= 0 && page < PAGE_COUNT){
+            Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(page);
+        }
+    }
+
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
 
         SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
