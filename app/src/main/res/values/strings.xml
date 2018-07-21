@@ -123,6 +123,34 @@
     <string name="filter_category">Category</string>
     <string name="filter_location">Location</string>
 
+    <string name="myprofile_toolbar_title">My Profile</string>
+    <string name="myprofile_basic_info">Basic Information</string>
+    <string name="myprofile_user_info">User Information</string>
+    <string name="myprofile_id_info">Identity Document</string>
+    <string name="myprofile_username">Username</string>
+    <string name="myprofile_username_desc">Your username here</string>
+    <string name="myprofile_email">Email</string>
+    <string name="myprofile_email_desc">Your email here</string>
+    <string name="myprofile_firstname">First Name</string>
+    <string name="myprofile_firstname_desc">Your first name here</string>
+    <string name="myprofile_lastname">Last Name</string>
+    <string name="myprofile_lastname_desc">Your last name here</string>
+    <string name="myprofile_country">Country and Region</string>
+    <string name="myprofile_country_desc"></string>
+    <string name="myprofile_document_type">Document Type</string>
+    <string name="myprofile_document_type_desc">ex : ID Card, Driving Card</string>
+    <string name="myprofile_id_number">ID Number</string>
+    <string name="myprofile_id_number_desc">Your identity number</string>
+    <string name="myprofile_id_front">Front view of your identity document</string>
+    <string name="myprofile_id_front_desc">Front View</string>
+    <string name="myprofile_id_back">Back view of your identity document</string>
+    <string name="myprofile_id_back_desc">Back View</string>
+
+    <string name="change_password_toolbar_title">Change Password</string>
+    <string name="edit_profile_toolbar_title">Edit Profile</string>
+    <string name="security_toolbar_title">Security</string>
+    <string name="setting_toolbar_title">Setting</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

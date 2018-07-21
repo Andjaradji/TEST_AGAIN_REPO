@@ -13,7 +13,10 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
+import com.vexanium.vexgift.module.profile.ui.ChangePasswordActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
+import com.vexanium.vexgift.module.security.ui.SecurityActivity;
+import com.vexanium.vexgift.module.setting.ui.SettingActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -23,6 +26,14 @@ public class MoreFragment extends BaseFragment {
     @Override
     protected void initView(View fragmentRootView) {
         ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"More");
+
+        fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_change_password_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_security_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_problem_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
@@ -40,17 +51,26 @@ public class MoreFragment extends BaseFragment {
             return;
         }
         super.onClick(v);
+        Intent intent;
         switch (v.getId()){
             case R.id.more_myprofile_button:
-                Intent intent = new Intent(MoreFragment.this.getActivity(), MyProfileActivity.class);
+                intent = new Intent(MoreFragment.this.getActivity(), MyProfileActivity.class);
                 startActivity(intent);
                 break;
             case R.id.more_setting_button:
+                intent = new Intent(MoreFragment.this.getActivity(), SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.more_change_password_button:
+                intent = new Intent(MoreFragment.this.getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.more_security_button:
+                intent = new Intent(MoreFragment.this.getActivity(), SecurityActivity.class);
+                startActivity(intent);
                 break;
             case R.id.more_merchant_button:
-                break;
+            break;
             case R.id.more_feedback_buttton:
                 break;
             case R.id.more_problem_button:

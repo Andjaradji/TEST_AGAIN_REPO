@@ -161,13 +161,22 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
                                 ((MainActivity)getActivity()).gotoPage(1,0);
                             }
                         });
                         holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
                                 ((MainActivity)getActivity()).gotoPage(1,1);
+                            }
+                        });
+                        holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                ((MainActivity)getActivity()).gotoPage(2);
                             }
                         });
                         break;
@@ -178,6 +187,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), TokenActivity.class);
                                 startActivity(intent);
                             }
@@ -185,6 +195,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
                                 startActivity(intent);
                             }
