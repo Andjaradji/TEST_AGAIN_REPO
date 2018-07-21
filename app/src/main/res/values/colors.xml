@@ -13,6 +13,9 @@
     <color name="text_primary">#0A0A0A</color>
     <color name="text_secondary">#808080</color>
 
+    <color name="text_primary_white">#FFFFFF</color>
+    <color name="text_secondary_white">#D4FFFFFF</color>
+
     <color name="lineColor">#EBEBEB</color>
 
     <color name="main_color">@color/material_orange_9f00</color>

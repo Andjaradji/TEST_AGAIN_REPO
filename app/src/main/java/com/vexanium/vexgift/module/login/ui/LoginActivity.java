@@ -70,6 +70,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
         findViewById(R.id.login_signup_button).setOnClickListener(this);
+        findViewById(R.id.login_forgot_button).setOnClickListener(this);
 
         initialize();
 
@@ -109,6 +110,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     @Override
     public void onClick(View v) {
         if (ClickUtil.isFastDoubleClick()) return;
+        Intent intent;
         switch (v.getId()) {
             case R.id.login_fake_fb_button:
                 requestFacebookLogin();
@@ -117,10 +119,13 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 doLogin();
                 break;
             case R.id.login_signup_button:
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                 intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginActivity.this.startActivity(intent);
-//                LoginActivity.this.finish();
+                break;
+            case R.id.login_forgot_button:
+                 intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                LoginActivity.this.startActivity(intent);
                 break;
             default:
         }
@@ -156,8 +161,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         // TODO: 19/07/18 check facebook access token
 
-//        return user!=null;
-        return true;
+        if(user != null){
+            return true;
+        }else{
+            return true;
+        }
     }
 
     private void executeMain(boolean isAlreadyLogin) {
