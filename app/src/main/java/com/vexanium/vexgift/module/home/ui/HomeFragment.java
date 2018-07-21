@@ -1,11 +1,13 @@
 package com.vexanium.vexgift.module.home.ui;
 
 import android.animation.ValueAnimator;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
@@ -60,6 +63,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     private Toolbar toolbar;
     private LinearLayout mVexPointButton;
+    private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
     private ArrayList<HomeFeedResponse> data;
@@ -77,6 +81,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         random = new Random();
 
         mVexPointButton = (LinearLayout) fragmentRootView.findViewById(R.id.home_vp_button);
+        mVexPointText = (TextView) fragmentRootView.findViewById(R.id.home_vp_amount);
         mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.home_recyclerview);
         layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
@@ -111,9 +116,19 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mVexPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), VexPointActivity.class);
-                startActivity(intent);
+
+                Intent intent = new Intent(getActivity(), VexPointActivity.class);
+
+                Pair<View,String> p1 = Pair.create((View)mVexPointButton, "vexpoint_button");
+                Pair<View,String> p2 = Pair.create((View)mVexPointText, "vexpoint_amount");
+
+
+                final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        getActivity(),p1,p2);
+
+                //ActivityOptionsCompat options = ActivityOptionsCompat.
+                //        makeSceneTransitionAnimation(getActivity(), mVexPointButton, "vexpoint_button");
+                startActivity(intent, options.toBundle());
             }
         });
     }

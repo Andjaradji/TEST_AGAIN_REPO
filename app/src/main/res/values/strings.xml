@@ -127,6 +127,18 @@
     <string name="filter_category">Category</string>
     <string name="filter_location">Location</string>
 
+    <string name="change_password_title">Change Password</string>
+    <string name="last_password">Last Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+
+    <string name="push_notification_title">Push Notification</string>
+    <string name="push_new_coupon">New Coupon</string>
+    <string name="push_expire_soon">Expire Soon</string>
+    <string name="push_most_popular">Most Popular</string>
+    <string name="push_sound">Sound</string>
+    <string name="push_vibrate">Vibrate</string>
+
     <string name="myprofile_toolbar_title">My Profile</string>
     <string name="myprofile_basic_info">Basic Information</string>
     <string name="myprofile_user_info">User Information</string>

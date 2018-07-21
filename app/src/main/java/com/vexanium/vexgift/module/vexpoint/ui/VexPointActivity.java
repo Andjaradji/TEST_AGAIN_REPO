@@ -5,15 +5,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.SharedElementCallback;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import android.transition.Transition;
+import android.transition.TransitionListenerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -21,18 +25,12 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.base.BaseRecyclerAdapter;
-import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
-import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
-import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
-import com.vexanium.vexgift.util.ClickUtil;
-import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 import com.vexanium.vexgift.widget.LockableScrollView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint)
@@ -49,6 +47,8 @@ public class VexPointActivity extends BaseActivity {
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
 
+    private View mVpShadow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +61,11 @@ public class VexPointActivity extends BaseActivity {
         mTabVp = findViewById(R.id.tab_vexpoint);
         mPagerVp = findViewById(R.id.vp_vexpoint);
 
+        mVpShadow = findViewById(R.id.v_vexpoint_shadow);
+
         String pointRecord = getResources().getString(R.string.vexpoint_point_record);
         String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
+
 
         mTabVp.addTabView(0, -1, pointRecord);
         mTabVp.addTabView(1, -1,  invitePoint);
@@ -77,6 +80,10 @@ public class VexPointActivity extends BaseActivity {
 
         findViewById(R.id.back_button).setOnClickListener(this);
 
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f,1f);
+        alphaAnimation.setDuration(1500);
+        alphaAnimation.setFillAfter(true);
+        mVpShadow.startAnimation(alphaAnimation);
 
     }
 
@@ -146,4 +153,10 @@ public class VexPointActivity extends BaseActivity {
         }
 
     }
+
+    /*@Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        Toast.makeText(VexPointActivity.this, "ended", Toast.LENGTH_SHORT).show();
+    }*/
 }

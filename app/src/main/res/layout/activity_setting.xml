@@ -42,7 +42,55 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/push_notification_title"
+                    android:textSize="@dimen/text_title"
+                    android:textColor="@color/material_black"
+                    android:tag="hnMed"
+                    android:paddingLeft="@dimen/more_padding_horizontal"
+                    android:paddingRight="@dimen/more_padding_horizontal"
+                    android:layout_marginBottom="15dp"/>
+
+                <Switch
+                    android:id="@+id/sw_new_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.VexSwitch"
+                    android:text="@string/push_new_coupon" />
+
+                <Switch
+                    android:id="@+id/sw_expire_soon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.VexSwitch"
+                    android:text="@string/push_expire_soon" />
+
+                <Switch
+                    android:id="@+id/sw_most_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.VexSwitch"
+                    android:text="@string/push_most_popular" />
+
+                <Switch
+                    android:id="@+id/sw_sound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.VexSwitch"
+                    android:text="@string/push_sound" />
+
+                <Switch
+                    android:id="@+id/sw_vibrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.VexSwitch"
+                    android:text="@string/push_vibrate" />
 
             </LinearLayout>
         </ScrollView>

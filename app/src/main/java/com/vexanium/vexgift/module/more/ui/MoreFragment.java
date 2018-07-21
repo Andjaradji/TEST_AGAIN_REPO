@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -52,23 +53,19 @@ public class MoreFragment extends BaseFragment {
             return;
         }
         super.onClick(v);
-        Intent intent;
         switch (v.getId()){
             case R.id.more_myprofile_button:
-                intent = new Intent(MoreFragment.this.getActivity(), MyProfileActivity.class);
-                startActivity(intent);
+                intentToActivity(MyProfileActivity.class);
+
                 break;
             case R.id.more_setting_button:
-                intent = new Intent(MoreFragment.this.getActivity(), SettingActivity.class);
-                startActivity(intent);
+                intentToActivity(SettingActivity.class);
                 break;
             case R.id.more_change_password_button:
-                intent = new Intent(MoreFragment.this.getActivity(), ChangePasswordActivity.class);
-                startActivity(intent);
+                intentToActivity(ChangePasswordActivity.class);
                 break;
             case R.id.more_security_button:
-                intent = new Intent(MoreFragment.this.getActivity(), SecurityActivity.class);
-                startActivity(intent);
+                intentToActivity(SecurityActivity.class);
                 break;
             case R.id.more_merchant_button:
             break;
@@ -85,6 +82,11 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_logout_button:
                 break;
         }
+    }
+
+    private void intentToActivity(Class<? extends Activity> activity){
+        Intent intent = new Intent(MoreFragment.this.getActivity(), activity);
+        startActivity(intent);
     }
 
     public static MoreFragment newInstance(){

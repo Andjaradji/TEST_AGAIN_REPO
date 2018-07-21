@@ -67,4 +67,7 @@
     <dimen name="walkthrough_indicator_radius">4dp</dimen>
     <dimen name="walkthrough_text">36dp</dimen>
 
+    <dimen name="more_padding_horizontal">24dp</dimen>
+    <dimen name="setting_push_margin">12dp</dimen>
+
 </resources>
