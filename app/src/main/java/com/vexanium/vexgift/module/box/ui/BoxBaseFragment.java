@@ -47,7 +47,7 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private void changeFragment(boolean toHistory){
+    public void changeFragment(boolean toHistory){
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         if(toHistory) {
             ft.replace(mContainer.getId(), BoxHistoryFragment.newInstance()).commit();
@@ -73,10 +73,14 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     }
 
     public void changeBoxTab(int page){
-        Fragment currFragment = getChildFragmentManager().findFragmentById(mContainer.getId());
+        Fragment currFragment = getCurrentFragment();
         if(currFragment instanceof BoxFragment) {
             ((BoxFragment)currFragment).changeTab(page);
         }
+    }
+
+    public Fragment getCurrentFragment(){
+        return getChildFragmentManager().findFragmentById(mContainer.getId());
     }
 
     public static BoxBaseFragment newInstance() {

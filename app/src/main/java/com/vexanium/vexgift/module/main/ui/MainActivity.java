@@ -19,6 +19,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxFragment;
+import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
@@ -159,6 +160,18 @@ public class MainActivity extends BaseActivity {
         if(page >= 0 && page < PAGE_COUNT){
             Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(page);
         }
+    }
+
+    public boolean isEligibleToExit(){
+        Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(mCustomViewPager.getCurrentItem());
+        if(fragment instanceof BoxBaseFragment){
+            BoxBaseFragment boxBaseFragment = (BoxBaseFragment)fragment;
+            if(boxBaseFragment.getCurrentFragment() instanceof BoxHistoryFragment) {
+                boxBaseFragment.changeFragment(false);
+                return false;
+            }
+        }
+        return true;
     }
 
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
