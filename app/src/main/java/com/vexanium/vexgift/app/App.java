@@ -26,15 +26,15 @@ public class App extends Application {
         return mApplicationContext;
     }
 
-    private static Typeface bold;
-    private static Typeface regular;
-    private static Typeface medium;
-    private static Typeface latoBold;
-    private static Typeface latoRegular;
-    private static Typeface light;
-    private static Typeface sspBold;
-    private static Typeface hnBoldCond;
-    private static Typeface hnMed;
+    public static Typeface bold;
+    public static Typeface regular;
+    public static Typeface medium;
+    public static Typeface latoBold;
+    public static Typeface latoRegular;
+    public static Typeface light;
+    public static Typeface sspBold;
+    public static Typeface hnBoldCond;
+    public static Typeface hnMed;
 
     @Override
     public void onCreate() {
@@ -90,6 +90,12 @@ public class App extends Application {
                         ((TextView) child).setTypeface(latoRegular);
                 }
             }
+        }
+    }
+
+    public static void setTextViewStyle(Typeface typeface, TextView... textView) {
+        for (TextView tv : textView) {
+            tv.setTypeface(typeface);
         }
     }
 }

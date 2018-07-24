@@ -126,6 +126,7 @@
     <string name="filter_title">Filters</string>
     <string name="filter_category">Category</string>
     <string name="filter_location">Location</string>
+    <string name="filter_type">Type</string>
 
     <string name="change_password_title">Change Password</string>
     <string name="last_password">Last Password</string>
@@ -178,6 +179,8 @@
     <string name="google2fa_button">Submit</string>
     <string name="google2fa_help">Need Help?</string>
     <string name="google2fa_help_button"><u>Ask here</u></string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

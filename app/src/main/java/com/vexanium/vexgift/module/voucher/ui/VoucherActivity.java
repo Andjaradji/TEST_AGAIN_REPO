@@ -1,32 +1,47 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.socks.library.KLog;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.ConstantGroup;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.LockableScrollView;
+import com.vexanium.vexgift.widget.select.MultiSelectActivity;
+import com.vexanium.vexgift.widget.tag.Tag;
+import com.vexanium.vexgift.widget.tag.TagView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
@@ -39,6 +54,8 @@ public class VoucherActivity extends BaseActivity {
     SlidingUpPanelLayout mSlidePanel;
     LinearLayout mDragView;
     LockableScrollView mPanelScrollview;
+
+    SortFilterCondition sortFilterCondition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,33 +71,7 @@ public class VoucherActivity extends BaseActivity {
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
-        mRvCategory = findViewById(R.id.rv_filter_category);
-        mRvLocation = findViewById(R.id.rv_filter_location);
-
-        mRvCategory.setLayoutManager(new GridLayoutManager(this,1, GridLayoutManager.HORIZONTAL,false));
-        mRvLocation.setLayoutManager(new GridLayoutManager(this,1, GridLayoutManager.HORIZONTAL,false));
-
-        // dummy
-        ArrayList<String> dataList = new ArrayList<>();
-        dataList.add("Food");
-        dataList.add("Beverages");
-        dataList.add("Sehat");
-        dataList.add("Food");
-        dataList.add("Beverages");
-        dataList.add("Sehat");
-        dataList.add("Food");
-        dataList.add("Beverages");
-        dataList.add("Sehat");
-        dataList.add("Food");
-        dataList.add("Beverages");
-        dataList.add("Sehat");
-
-        mAdapterCategory = new FilterAdapter(this,dataList);
-        mAdapterLocation = new FilterAdapter(this,dataList);
-
-        mRvCategory.setAdapter(mAdapterCategory);
-        mRvLocation.setAdapter(mAdapterLocation);
-
+        sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
         data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 12, true);
         setVoucherList(data);
@@ -111,11 +102,11 @@ public class VoucherActivity extends BaseActivity {
 
                 }
 */
-                if(newState.name().equalsIgnoreCase("Expanded")){
+                if (newState.name().equalsIgnoreCase("Expanded")) {
 
                     //action when expanded
                     mPanelScrollview.setScrollingEnabled(true);
-                }else{
+                } else {
                     mPanelScrollview.setScrollingEnabled(false);
                 }
 
@@ -124,12 +115,18 @@ public class VoucherActivity extends BaseActivity {
 
         mPanelScrollview.setScrollingEnabled(false);
 
+        setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, "category");
+        setFilterItem(R.id.tg_type, R.id.iv_filter_type_add_more, "type");
+        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, "location");
+
+        mSlidePanel.getChildAt(1).setOnClickListener(null);
+
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.back_button:
                 finish();
                 break;
@@ -137,6 +134,41 @@ public class VoucherActivity extends BaseActivity {
                 mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
         }
+    }
+
+    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, final String listType) {
+        findViewById(addButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                Intent intent = new Intent(VoucherActivity.this, MultiSelectActivity.class);
+                intent.putExtra("type", listType);
+                intent.putExtra("condition", JsonUtil.toString(sortFilterCondition));
+                startActivityForResult(intent, ConstantGroup.EDIT_FILTER);
+            }
+        });
+
+        TagView tagView = findViewById(tagview);
+        tagView.removeAll();
+
+        List<String> selectedItems = new ArrayList<>();
+
+        if (listType.equalsIgnoreCase("category")) {
+            selectedItems = sortFilterCondition.getCategory();
+        } else if (listType.equalsIgnoreCase("location")) {
+            selectedItems = sortFilterCondition.getLocation();
+        } else if (listType.equalsIgnoreCase("type")) {
+            selectedItems = sortFilterCondition.getType();
+        }
+
+        List<Tag> addedTagList = new ArrayList<>();
+        for (String item : selectedItems) {
+            String itemName = item;
+            Tag tag = new Tag(itemName);
+            addedTagList.add(tag);
+        }
+
+        tagView.addTags(addedTagList);
     }
 
     public void setVoucherList(final ArrayList<VoucherResponse> data) {
@@ -153,7 +185,7 @@ public class VoucherActivity extends BaseActivity {
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 if (item.getAvail() == 0)
@@ -166,7 +198,7 @@ public class VoucherActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+                        StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -197,10 +229,33 @@ public class VoucherActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(mSlidePanel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED){
+        if (mSlidePanel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.onBackPressed();
-        }else{
+        } else {
             mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ConstantGroup.EDIT_FILTER) {
+            if(data.hasExtra("condition")){
+                String condition = data.getStringExtra("condition");
+                sortFilterCondition = (SortFilterCondition) JsonUtil.toObject(condition, SortFilterCondition.class);
+            }
+            switch (resultCode) {
+                case ConstantGroup.EDIT_FILTER_CATEGORY_RESULT_CODE:
+                    break;
+                case ConstantGroup.EDIT_FILTER_TYPE_RESULT_CODE:
+                    break;
+                case ConstantGroup.EDIT_FILTER_LOCATION_RESULT_CODE:
+                    break;
+            }
+            setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, "category");
+            setFilterItem(R.id.tg_type, R.id.iv_filter_type_add_more, "type");
+            setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, "location");
         }
     }
 }

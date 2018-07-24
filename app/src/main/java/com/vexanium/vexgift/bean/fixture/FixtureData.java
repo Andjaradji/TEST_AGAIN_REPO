@@ -32,6 +32,36 @@ public class FixtureData {
         }
     };
 
+    public static final ArrayList<String> typeList = new ArrayList<String>() {
+        {
+            add("Free");
+            add("Pay With Vex Point");
+            add("Coming soon");
+            add("Cashback");
+            add("Premium");
+        }
+    };
+
+    public static final ArrayList<String> categoryList = new ArrayList<String>() {
+        {
+            add("Food and Beverages");
+            add("Holiday");
+            add("Beauty and Spa");
+            add("Sport");
+            add("Entertainment");
+            add("Activity");
+        }
+    };
+
+    public static final ArrayList<String> locationList = new ArrayList<String>() {
+        {
+            add("Indonesia");
+            add("Singapore");
+            add("Malaysia");
+            add("Philipine");
+        }
+    };
+
     public static final ArrayList<String> notifTypes = new ArrayList<String>() {
         {
             add("exp");

@@ -1,10 +1,16 @@
 package com.vexanium.vexgift.app;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.widget.ImageView;
 
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
+import com.vexanium.vexgift.util.JsonUtil;
 
 import java.util.ArrayList;
 
@@ -39,6 +45,14 @@ public class StaticGroup {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void goToVoucherDetailActivity(Activity activity,  VoucherResponse voucherResponse, ImageView ivVoucher) {
+        Intent intent = new Intent(activity, VoucherDetailActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(activity, ivVoucher, "voucher_image");
+        activity.startActivity(intent, options.toBundle());
     }
 
 

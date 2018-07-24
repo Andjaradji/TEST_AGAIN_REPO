@@ -164,7 +164,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if(user != null){
             return true;
         }else{
-            return true;
+            return false;
         }
     }
 
