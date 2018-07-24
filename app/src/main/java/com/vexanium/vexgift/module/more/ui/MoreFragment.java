@@ -30,7 +30,6 @@ public class MoreFragment extends BaseFragment {
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
-        fragmentRootView.findViewById(R.id.more_change_password_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_security_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
@@ -60,9 +59,6 @@ public class MoreFragment extends BaseFragment {
                 break;
             case R.id.more_setting_button:
                 intentToActivity(SettingActivity.class);
-                break;
-            case R.id.more_change_password_button:
-                intentToActivity(ChangePasswordActivity.class);
                 break;
             case R.id.more_security_button:
                 intentToActivity(SecurityActivity.class);

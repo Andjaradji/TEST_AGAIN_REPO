@@ -120,7 +120,14 @@ public class MainActivity extends BaseActivity {
                 mCustomTabBarView.onPageSelected(position);
                 setFragmentToolbar(position);
                 mainScreenPagerAdapter.getRegisteredFragment(position).onResume();
-                mainScreenPagerAdapter.getRegisteredFragment(lastPagePosition).onPause();
+
+                Fragment lastFragment = mainScreenPagerAdapter.getRegisteredFragment(lastPagePosition);
+                lastFragment.onPause();
+
+                if(lastFragment instanceof BoxBaseFragment){
+                    ((BoxBaseFragment)lastFragment).onCustomPause();
+                }
+
                 lastPagePosition = position;
             }
 

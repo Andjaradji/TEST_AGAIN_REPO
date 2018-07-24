@@ -56,6 +56,10 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
         }
     }
 
+    public void onCustomPause(){
+        changeFragment(false);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -64,7 +68,7 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     @Override
     public void onPause() {
         super.onPause();
-        changeFragment(false);
+        //changeFragment(false);
     }
 
     @Override

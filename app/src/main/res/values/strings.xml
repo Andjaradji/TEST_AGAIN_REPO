@@ -139,6 +139,25 @@
     <string name="push_sound">Sound</string>
     <string name="push_vibrate">Vibrate</string>
 
+    <string name="more_account">Account</string>
+    <string name="more_myprofile">My Profile</string>
+    <string name="more_setting">Setting</string>
+    <string name="more_security">Security</string>
+    <string name="more_others">Others</string>
+    <string name="more_merchant_list">Merchant List</string>
+    <string name="more_send_feedback">Send Feedback</string>
+    <string name="more_report_problem">Report a Problem</string>
+    <string name="more_rate_us">Rate Us On Google Play</string>
+    <string name="more_about_us">About Us</string>
+    <string name="more_privacy_policy">Privacy Policy</string>
+    <string name="more_terms_of_service">Terms of Service</string>
+    <string name="more_log_out">Log Out</string>
+
+    <string name="security_change_password">Change Password</string>
+    <string name="security_google_auth">Google Authentication</string>
+    <string name="security_fingerprint">Fingerprint</string>
+
+
     <string name="myprofile_toolbar_title">My Profile</string>
     <string name="myprofile_basic_info">Basic Information</string>
     <string name="myprofile_user_info">User Information</string>
