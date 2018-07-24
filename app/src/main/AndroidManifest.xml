@@ -66,8 +66,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".module.login.ui.ForgotPasswordActivity" />
         <activity android:name=".module.login.ui.GoogleAuthActivity" />
-        <activity android:name=".module.profile.ui.KyvActivity" />
         <activity android:name=".widget.select.MultiSelectActivity"></activity>
+        <activity android:name=".module.profile.ui.KycActivity"></activity>
     </application>
 
 </manifest>

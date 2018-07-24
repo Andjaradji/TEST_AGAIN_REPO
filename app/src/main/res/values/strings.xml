@@ -163,6 +163,8 @@
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
 
+    <string name="myprofile_kyc">KYC</string>
+
     <string name="change_password_toolbar_title">Change Password</string>
     <string name="edit_profile_toolbar_title">Edit Profile</string>
     <string name="security_toolbar_title">Security</string>
