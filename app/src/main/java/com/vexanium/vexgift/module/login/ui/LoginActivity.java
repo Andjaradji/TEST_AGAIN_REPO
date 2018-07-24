@@ -71,6 +71,10 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
         findViewById(R.id.login_signup_button).setOnClickListener(this);
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
+        findViewById(R.id.login_button).setOnClickListener(this);
+
+        ((EditText)findViewById(R.id.et_email)).setText("asd@asd.com");
+        ((EditText)findViewById(R.id.et_pass)).setText("asdasd");
 
         initialize();
 
@@ -102,8 +106,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             executeMain(false);
         }else if(errorResponse != null){
             hideProgress();
-            KLog.v("LoginActivity handleResult error : "+errorResponse.getMsg());
-            toast(errorResponse.getCode()+" : "+ errorResponse.getMsg());
+            KLog.v("LoginActivity handleResult error : "+errorResponse.getMeta().getMessage());
+            toast(errorResponse.getMeta().getStatus()+" : "+ errorResponse.getMeta().getMessage());
         }
     }
 
@@ -136,10 +140,23 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         User user = new User();
         String email = ((EditText)findViewById(R.id.et_email)).getText().toString();
         String pass = ((EditText)findViewById(R.id.et_pass)).getText().toString();
-        user.setEmail(email);
-        user.setPassword(pass);
 
-        mPresenter.requestLogin(user);
+        boolean isValid = true;
+        if(TextUtils.isEmpty(email)){
+            ((EditText)findViewById(R.id.et_email)).setError("This Field can't be empty");
+            isValid = false;
+        }
+        if(TextUtils.isEmpty(pass)){
+            ((EditText)findViewById(R.id.et_pass)).setError("This Field can't be empty");
+            isValid = false;
+        }
+
+        if(isValid) {
+            user.setEmail(email);
+            user.setPassword(pass);
+
+            mPresenter.requestLogin(user);
+        }
     }
 
     private void generateKeyHash() {
@@ -164,7 +181,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if(user != null){
             return true;
         }else{
-            return false;
+            return true;
         }
     }
 

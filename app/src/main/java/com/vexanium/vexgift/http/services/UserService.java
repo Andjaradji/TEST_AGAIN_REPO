@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.MetaResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 
 import java.util.Map;
