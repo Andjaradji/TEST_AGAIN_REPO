@@ -25,6 +25,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
@@ -292,7 +293,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                                goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -366,12 +367,5 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         discreteScrollView.scrollToPosition(1);
     }
 
-    private void goToVoucherDetailActivity(VoucherResponse voucherResponse, ImageView ivVoucher) {
-        Intent intent = new Intent(this.getActivity(), VoucherDetailActivity.class);
-        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
-        startActivity(intent, options.toBundle());
-    }
 
 }

@@ -20,22 +20,7 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_field_input">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="@string/register_username"
-            android:textSize="@dimen/text_medium"
-            android:inputType="textEmailAddress" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
