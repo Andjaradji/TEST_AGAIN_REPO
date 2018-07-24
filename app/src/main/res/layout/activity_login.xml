@@ -24,20 +24,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_submain"
+        android:layout_marginEnd="@dimen/interval_medium"
         android:layout_marginLeft="@dimen/interval_medium"
         android:layout_marginRight="@dimen/interval_medium"
+        android:layout_marginStart="@dimen/interval_medium"
         android:background="@drawable/shape_field_input">
 
         <EditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/login_email"
             android:inputType="textEmailAddress"
-            android:id="@+id/et_email"
             android:textColor="@color/material_white"
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/interval_medium"
+        android:layout_marginRight="@dimen/interval_medium"
+        android:text="This" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,10 +57,10 @@
         android:background="@drawable/shape_field_input">
 
         <EditText
+            android:id="@+id/et_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:id="@+id/et_pass"
             android:hint="@string/login_password"
             android:inputType="textPassword"
             android:textColor="@color/material_white"

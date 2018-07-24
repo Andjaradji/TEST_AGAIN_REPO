@@ -27,7 +27,7 @@ public class TagConstant {
     public static final float DEFAULT_TAG_TEXT_SIZE = 14f;
     public static final float DEFAULT_TAG_DELETE_INDICATOR_SIZE = 14f;
     public static final float DEFAULT_TAG_LAYOUT_BORDER_SIZE = 1f;
-    public static final float DEFAULT_TAG_RADIUS = MeasureUtil.dip2px(App.getContext(), 14);
+    public static final float DEFAULT_TAG_RADIUS = MeasureUtil.dip2px(App.getContext(), 4);
     public static final int DEFAULT_TAG_LAYOUT_COLOR = ColorUtil.getColor(App.getContext(), R.color.material_white);
     public static final int DEFAULT_TAG_LAYOUT_COLOR_PRESS = ColorUtil.getColor(App.getContext(), R.color.material_white);
     public static final int DEFAULT_TAG_TEXT_COLOR = ColorUtil.getColor(App.getContext(), R.color.material_black_text_color);

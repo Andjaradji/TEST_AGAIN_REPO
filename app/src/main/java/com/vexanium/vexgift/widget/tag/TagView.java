@@ -199,7 +199,6 @@ public class TagView extends RelativeLayout {
             // tag text
             TextView tagView = (TextView) tagLayout.findViewById(R.id.tv_tag_item_contain);
             tagView.setText(tag.text);
-            App.setTextViewStyle((ViewGroup)((View) tagView));
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tagView.getLayoutParams();
             params.setMargins(textPaddingLeft, textPaddingTop, textPaddingRight, textPaddingBottom);
             tagView.setLayoutParams(params);
