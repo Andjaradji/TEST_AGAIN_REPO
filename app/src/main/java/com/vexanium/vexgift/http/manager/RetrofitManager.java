@@ -8,6 +8,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.MetaResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
@@ -194,5 +195,42 @@ public class RetrofitManager {
         params.put("age", user.getAge());
 
         return mUserService.requestLogin(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLoginResponse>> requestRegister(User user) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        if (user.getFamilyName() != null) {
+            params.put("last_name", user.getFamilyName());
+        }
+        if (user.getEmail() != null) {
+            params.put("email", user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            params.put("password", user.getPassword());
+        }
+        if (user.getDescription() != null) {
+            params.put("description", user.getDescription());
+        }
+        if (user.getLocale() != null) {
+            params.put("locale", user.getLocale());
+        }
+        if (user.getPhoto() != null) {
+            params.put("photo", user.getPhoto());
+        }
+        if (user.getFacebookUid() != null) {
+            params.put("fb_uid", user.getFacebookUid());
+        }
+        if (user.getFacebookAccessToken() != null) {
+            params.put("fb_token", user.getFacebookAccessToken());
+        }
+        if (user.getLocale() != null) {
+            params.put("fb_loc", user.getLocale());
+        }
+
+        params.put("fb_friend_count", user.getFacebookFriendCount());
+        params.put("age", user.getAge());
+
+        return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 }

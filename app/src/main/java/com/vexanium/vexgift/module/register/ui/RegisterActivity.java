@@ -96,8 +96,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             executeMain(false);
         }else if(errorResponse != null){
             hideProgress();
-            KLog.v("LoginActivity handleResult error : "+errorResponse.getMsg());
-            toast(errorResponse.getCode()+" : "+ errorResponse.getMsg());
+            KLog.v("LoginActivity handleResult error : "+errorResponse.getMeta().getMessage());
+            toast(errorResponse.getMeta().getStatus()+" : "+ errorResponse.getMeta().getMessage());
         }
     }
 
