@@ -83,9 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_firstname"
@@ -100,10 +98,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_lastname"
@@ -118,10 +113,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_country"
@@ -147,9 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_document_type"
@@ -164,10 +154,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/myprofile_id_number"
@@ -183,7 +170,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
                 android:orientation="vertical">
 
                 <TextView

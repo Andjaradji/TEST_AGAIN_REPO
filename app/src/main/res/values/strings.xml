@@ -201,6 +201,16 @@
     <string name="google2fa_help">Need Help?</string>
     <string name="google2fa_help_button"><u>Ask here</u></string>
 
+    <string name="home_item_complete_profile">Complete Your Profile</string>
+    <string name="home_item_fill_kyc">Fill Your KYC Form</string>
+    <string name="home_item_fill_kyc_detail">Fill your KYC form yo get several benefits</string>
+    <string name="home_item_fill_now">Fill Now</string>
+
+    <string name="home_item_connect_account">Connect Account With Facebook</string>
+    <string name="home_item_connect_fb">Connect with Facebook</string>
+    <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
+    <string name="home_item_connect_now">Connect Now</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
