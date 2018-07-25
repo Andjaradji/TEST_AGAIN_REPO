@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.security.ui.GoogleAuthEnableActivity">
+    tools:context=".module.security.ui.GoogleAuthStateActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -47,15 +47,17 @@
             android:padding="@dimen/interval_main">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_content"
-                android:tag="hnMedium"
+                android:tag="bold"
                 android:text="@string/google2fa_enable_input"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
 
             <TextView
+                android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="hnRegular"
@@ -75,9 +77,9 @@
                     android:id="@+id/et_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:background="@color/transparent"
                     android:hint="@string/google2fa_enable_input_field"
+                    android:inputType="number"
                     android:textSize="@dimen/text_small_medium" />
             </LinearLayout>
 
@@ -91,6 +93,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/tv_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_submain"

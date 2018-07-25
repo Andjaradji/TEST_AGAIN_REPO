@@ -7,6 +7,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
@@ -161,15 +162,19 @@ public class RetrofitManager {
     }
 
     @NonNull
-    private String getApiKey(){
+    private String getApiKey() {
         return Api.API_KEY;
     }
 
     public Observable<HttpResponse<UserLoginResponse>> requestLogin(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        if (user.getFamilyName() != null) {
-            params.put("last_name", user.getFamilyName());
+        if (user.getLastName() != null) {
+            params.put("last_name", user.getLastName());
+        }
+
+        if (user.getLastName() != null) {
+            params.put("first_name", user.getFirstName());
         }
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
@@ -177,27 +182,37 @@ public class RetrofitManager {
         if (user.getPassword() != null) {
             params.put("password", user.getPassword());
         }
-        if (user.getDescription() != null) {
-            params.put("description", user.getDescription());
-        }
         if (user.getLocale() != null) {
             params.put("locale", user.getLocale());
         }
         if (user.getPhoto() != null) {
-            params.put("photo", user.getPhoto());
+            params.put("cover", user.getPhoto());
         }
         if (user.getFacebookUid() != null) {
-            params.put("fb_uid", user.getFacebookUid());
+            params.put("social_media_id", user.getFacebookUid());
         }
         if (user.getFacebookAccessToken() != null) {
-            params.put("fb_token", user.getFacebookAccessToken());
+            params.put("fb_access_token", user.getFacebookAccessToken());
         }
         if (user.getLocale() != null) {
-            params.put("fb_loc", user.getLocale());
+            params.put("locale", user.getLocale());
+        }
+        if (user.getLocale() != null) {
+            params.put("timezone", user.getTimezone());
+        }
+        if (user.getLocale() != null) {
+            params.put("gender", user.getGender());
+        }
+        if (user.getGoogleToken() != null) {
+            params.put("google_id_token", user.getGoogleToken());
         }
 
         params.put("fb_friend_count", user.getFacebookFriendCount());
         params.put("age", user.getAge());
+
+        KLog.v("--------------------------------------------Request Login Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response Login Param End----------------------------------------------------");
 
         return mUserService.requestLogin(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
@@ -205,8 +220,11 @@ public class RetrofitManager {
     public Observable<HttpResponse<UserLoginResponse>> requestRegister(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        if (user.getFamilyName() != null) {
-            params.put("last_name", user.getFamilyName());
+        if (user.getLastName() != null) {
+            params.put("last_name", user.getLastName());
+        }
+        if (user.getLastName() != null) {
+            params.put("first_name", user.getFirstName());
         }
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
@@ -214,36 +232,64 @@ public class RetrofitManager {
         if (user.getPassword() != null) {
             params.put("password", user.getPassword());
         }
-        if (user.getDescription() != null) {
-            params.put("description", user.getDescription());
+        if (user.getBirthDay() != null) {
+            params.put("birthday", user.getEmail());
         }
         if (user.getLocale() != null) {
             params.put("locale", user.getLocale());
         }
         if (user.getPhoto() != null) {
-            params.put("photo", user.getPhoto());
+            params.put("cover", user.getPhoto());
         }
         if (user.getFacebookUid() != null) {
-            params.put("fb_uid", user.getFacebookUid());
+            params.put("social_media_id", user.getFacebookUid());
         }
         if (user.getFacebookAccessToken() != null) {
-            params.put("fb_token", user.getFacebookAccessToken());
+            params.put("fb_access_token", user.getFacebookAccessToken());
         }
         if (user.getLocale() != null) {
-            params.put("fb_loc", user.getLocale());
+            params.put("locale", user.getLocale());
+        }
+        if (user.getLocale() != null) {
+            params.put("timezone", user.getTimezone());
+        }
+        if (user.getLocale() != null) {
+            params.put("gender", user.getGender());
+        }
+
+        if (user.getGoogleToken() != null) {
+            params.put("google_id_token", user.getGoogleToken());
         }
 
         params.put("fb_friend_count", user.getFacebookFriendCount());
         params.put("age", user.getAge());
 
+        KLog.v("--------------------------------------------Request Register Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response Register Param End----------------------------------------------------");
+
         return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
-    public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id){
+    public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
 
         return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
+
+    public Observable<HttpResponse<EmptyResponse>> requestGoogle2faUpdateState(int id, String authCode, String token, boolean isSetToEnable) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("authenticator_code", authCode);
+        params.put("token", token);
+
+        if (isSetToEnable)
+            return mUserService.requestGoogleAuthEnable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        else
+            return mUserService.requestGoogleAuthDisable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
 }

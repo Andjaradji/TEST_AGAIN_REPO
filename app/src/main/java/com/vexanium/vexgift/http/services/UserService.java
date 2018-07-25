@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
@@ -38,13 +39,15 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("user/2fa/enable")
-    Observable<HttpResponse<Google2faResponse>> requestGoogleAuthEnable(
+    Observable<HttpResponse<EmptyResponse>> requestGoogleAuthEnable(
+            @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user/2fa/disable")
-    Observable<HttpResponse<Google2faResponse>> requestGoogleAuthDisable(
+    Observable<HttpResponse<EmptyResponse>> requestGoogleAuthDisable(
+            @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 

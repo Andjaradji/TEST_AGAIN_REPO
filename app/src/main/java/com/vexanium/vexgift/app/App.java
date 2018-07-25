@@ -29,8 +29,6 @@ public class App extends Application {
     public static Typeface bold;
     public static Typeface regular;
     public static Typeface medium;
-    public static Typeface latoBold;
-    public static Typeface latoRegular;
     public static Typeface light;
     public static Typeface sspBold;
     public static Typeface hnBoldCond;
@@ -51,8 +49,6 @@ public class App extends Application {
         bold = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Bold.ttf");
         regular = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Regular.ttf");
         medium = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Medium.ttf");
-        latoBold = Typeface.createFromAsset(this.getAssets(), "fonts/Lato-Bold.ttf");
-        latoRegular = Typeface.createFromAsset(this.getAssets(), "fonts/Lato-Regular.ttf");
         light = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Light.ttf");
         sspBold = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Bold.ttf");
         hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
@@ -74,10 +70,6 @@ public class App extends Application {
                         ((TextView) child).setTypeface(bold);
                     else if (tagObj.equals("medium"))
                         ((TextView) child).setTypeface(medium);
-                    else if (tagObj.equals("latoBold"))
-                        ((TextView) child).setTypeface(latoBold);
-                    else if (tagObj.equals("latoRegular"))
-                        ((TextView) child).setTypeface(latoRegular);
                     else if (tagObj.equals("light"))
                         ((TextView) child).setTypeface(light);
                     else if (tagObj.equals("sspBold"))
@@ -87,7 +79,7 @@ public class App extends Application {
                     else if (tagObj.equals("hnMed"))
                         ((TextView) child).setTypeface(hnMed);
                     else
-                        ((TextView) child).setTypeface(latoRegular);
+                        ((TextView) child).setTypeface(regular);
                 }
             }
         }

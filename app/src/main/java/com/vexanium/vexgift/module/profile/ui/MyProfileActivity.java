@@ -18,4 +18,8 @@ public class MyProfileActivity extends BaseActivity {
     protected void initView() {
 
     }
+
+    private void setUserData(){
+
+    }
 }

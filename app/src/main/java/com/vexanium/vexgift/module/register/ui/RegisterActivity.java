@@ -72,29 +72,17 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         KLog.v("RegisterActivity handleResult : "+ JsonUtil.toString(data));
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
-            String session = "";
-            if(!TextUtils.isEmpty(response.session)){
-                session = response.session;
-            }
 
-            String uid = "";
-            if (response.user != null ) {
-                if (!TextUtils.isEmpty(response.user.getId()) ){
-                    uid = response.user.getId();
-                }
-
+            if (response.user != null) {
+                String session = response.user.getSessionKey();
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
 
-//            StaticGroup.currentUser = FixtureData.getRandomUser();
-//            StaticGroup.currentUser.setUser(response.user);
-
-            hideProgress();
             executeMain(false);
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
             hideProgress();
-            KLog.v("LoginActivity handleResult error : "+errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus()+" : "+ errorResponse.getMeta().getMessage());
+            KLog.v("RegisterActivity handleResult error : " + errorResponse.getMeta().getMessage());
+            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
         }
     }
 

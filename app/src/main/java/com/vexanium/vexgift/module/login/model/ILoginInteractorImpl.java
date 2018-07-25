@@ -29,5 +29,19 @@ public class ILoginInteractorImpl implements ILoginInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+    @Override
+    public Subscription requestRegister(RequestCallback callback, User user) {
+        KLog.json("KIRIM", JsonUtil.toString(user));
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestRegister(user).compose(RxUtil.<UserLoginResponse>handleResult())
+                .flatMap(new Func1<UserLoginResponse, Observable<UserLoginResponse>>() {
+                    @Override
+                    public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
+                        return Observable.just(userLoginResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
 }
 

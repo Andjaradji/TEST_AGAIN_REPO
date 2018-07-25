@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.facebook.AccessToken;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
@@ -29,28 +30,9 @@ public class User implements Serializable {
 
     @JsonProperty("uid")
     private String id;
-    @JsonProperty("photo")
-    private String photo;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("last_name")
-    private String lastName;
     @JsonProperty("password")
     private String password;
-    @JsonProperty("age")
-    private int age;
-    @JsonProperty("gender")
-    private String gender;
-    @JsonProperty("name")
-    private String fullName;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("city")
-    private String city;
-    @JsonProperty("level")
-    private int level;
-    @JsonProperty("locale")
-    private String locale;
+
     @JsonProperty("register")
     private String registerTime;
 
@@ -61,19 +43,13 @@ public class User implements Serializable {
     @JsonProperty("device_name")
     private String deviceName;
 
-    @JsonProperty("sess")
+    @JsonProperty("access_token")
     private String sessionKey;
-    @JsonProperty("gid")
-    private String googleToken;
-    @JsonProperty("last")
-    private long lastTimestamp;
+    @JsonProperty("vex_point")
+    private int vexPoint;
 
-    @JsonProperty("liked")
-    private ArrayList<String> likedList = new ArrayList<>();
-    @JsonProperty("bookmarked")
-    private ArrayList<String> bookmarkList = new ArrayList<>();
-    @JsonProperty("vote")
-    private ArrayList<String> vote = new ArrayList<>();
+    @JsonProperty("last_login")
+    private String lastTimestamp;
 
     @JsonProperty("config")
     private SettingCondition config;
@@ -85,54 +61,43 @@ public class User implements Serializable {
     @JsonProperty("profile_images")
     private List<String> profileList = new ArrayList<>();
 
-    @JsonProperty("instagram_user_name")
-    private String instagramUserName;
-    @JsonProperty("instagram_images")
-    private List<String> instagramMedias;
-
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("dob")
-    private String birthDay;
-    @JsonProperty("verified")
-    private boolean verified;
-    @JsonProperty("timezone")
-    private int timezone;
+    @JsonProperty("first_name")
+    private String firstName;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("last_name")
+    private String lastName;
+    @JsonProperty("fb_access_token")
+    private String facebookAccessToken;
     @JsonProperty("fb_link")
     private String facebookLink;
-
-    @JsonProperty("fb_uid")
+    @JsonProperty("social_media_id")
     private String facebookUid;
+    @JsonProperty("photo")
+    private String photo;
+    @JsonProperty("age")
+    private int age;
+    @JsonProperty("gender")
+    private String gender;
+    @JsonProperty("locale")
+    private String locale;
+    @JsonProperty("timezone")
+    private int timezone;
+    @JsonProperty("birthday")
+    private String birthDay;
 
-    @JsonProperty("fb_token")
-    private String facebookAccessToken;
+    @JsonProperty("google_id_token")
+    private String googleToken;
+
     private List<String> facebookLocationIdList;
     @JsonProperty("fb_friend_count")
     private int facebookFriendCount;
     private List<Album> albumList = new ArrayList<>();
 
-    private String instagramAccessToken;
-
     private static User currentUser;
-
-    public User(String photo, String name, String city) {
-        this.photo = photo;
-        this.name = name;
-        this.city = city;
-    }
-
-    public User(String photo, String name, String city, int level) {
-        this.photo = photo;
-        this.name = name;
-        this.city = city;
-        this.level = level;
-    }
-
-    public User(String photo, String name) {
-        this.photo = photo;
-        this.name = name;
-    }
 
     public User() {
     }
@@ -163,26 +128,25 @@ public class User implements Serializable {
             updateInfo.setFacebookUid(existUser.getFacebookUid());
             updateInfo.setFacebookFriendCount(existUser.getFacebookFriendCount());
             updateInfo.setEmail(existUser.getEmail());
-
-//            if (!TextUtils.isEmpty(existUser.getInstagramUserName())) {
-//                updateInfo.setInstagramUserName(existUser.getInstagramUserName());
-//            }
-//            if (!TextUtils.isEmpty(existUser.getInstagramAccessToken())) {
-//                updateInfo.setInstagramAccessToken(existUser.getInstagramAccessToken());
-//            }
-//            if (existUser.getInstagramMedias().size() != 0) {
-//                updateInfo.setInstagramMedias(existUser.getInstagramMedias());
-//            }
         }
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, JsonUtil.toString(updateInfo));
     }
 
+    public static User createWithGoogle(GoogleSignInAccount account) {
+        final User user = new User();
+
+        user.setEmail(account.getEmail());
+        user.setFirstName(account.getDisplayName());
+        user.setGoogleToken(account.getId());
+
+        return user;
+    }
+
     public static User createWithFacebook(JSONObject userInfo) {
         final User user = new User();
         user.facebookLocationIdList = new ArrayList<>();
-
         try {
             if (!TextUtils.isEmpty(userInfo.getString("id"))) {
                 user.setFacebookUid(userInfo.getString("id"));
@@ -192,19 +156,18 @@ public class User implements Serializable {
         }
         try {
             if (!TextUtils.isEmpty(userInfo.getString("first_name"))) {
-                user.setName(userInfo.getString("first_name"));
+                user.setFirstName(userInfo.getString("first_name"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
             if (!TextUtils.isEmpty(userInfo.getString("last_name"))) {
-                user.setFamilyName(userInfo.getString("last_name"));
+                user.setLastName(userInfo.getString("last_name"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (!TextUtils.isEmpty(userInfo.getString("email"))) {
                 user.setEmail(userInfo.getString("email"));
@@ -212,7 +175,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (!TextUtils.isEmpty(userInfo.getString("birthday"))) {
                 user.setBirthDay(userInfo.getString("birthday"));
@@ -224,7 +186,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (!TextUtils.isEmpty(userInfo.getString("gender"))) {
                 user.setGender(userInfo.getString("gender"));
@@ -232,7 +193,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (!TextUtils.isEmpty(userInfo.getString("locale"))) {
                 user.setLocale(userInfo.getString("locale"));
@@ -240,7 +200,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (userInfo.has("timezone")) {
                 user.setTimezone(userInfo.getInt("timezone"));
@@ -248,23 +207,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            if (userInfo.has("about")) {
-                user.setDescription(userInfo.getString("about"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            if (userInfo.has("verified")) {
-                user.setVerified(userInfo.getBoolean("verified"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         List<String> profileList = new ArrayList<>();
         try {
             JSONArray albumsArr = userInfo.getJSONObject("albums").getJSONArray("data");
@@ -340,7 +282,7 @@ public class User implements Serializable {
             e.printStackTrace();
         }
 
-        KLog.v("user.facebookLocationIdList : " + user.facebookLocationIdList);
+//        KLog.v("user.facebookLocationIdList : " + user.facebookLocationIdList);
 
         final AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null && !TextUtils.isEmpty(accessToken.getToken())) {
@@ -348,49 +290,6 @@ public class User implements Serializable {
         }
 
         return user;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getFullName() {
-
-        if(TextUtils.isEmpty(fullName))
-            if (TextUtils.isEmpty(lastName))
-                fullName = name;
-            else
-                fullName = name +" "+ lastName;
-        return fullName;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getLocale() {
@@ -449,28 +348,12 @@ public class User implements Serializable {
         this.googleToken = googleToken;
     }
 
-    public long getLastTimestamp() {
+    public String getLastTimestamp() {
         return lastTimestamp;
     }
 
-    public void setLastTimestamp(long lastTimestamp) {
+    public void setLastTimestamp(String lastTimestamp) {
         this.lastTimestamp = lastTimestamp;
-    }
-
-    public ArrayList<String> getLikedList() {
-        return likedList;
-    }
-
-    public void setLikedList(ArrayList<String> likedList) {
-        this.likedList = likedList;
-    }
-
-    public ArrayList<String> getBookmarkList() {
-        return bookmarkList;
-    }
-
-    public void setBookmarkList(ArrayList<String> bookmarkList) {
-        this.bookmarkList = bookmarkList;
     }
 
     public SettingCondition getConfig() {
@@ -497,30 +380,6 @@ public class User implements Serializable {
         this.friendList = friendList;
     }
 
-    public String getInstagramUserName() {
-        return instagramUserName;
-    }
-
-    public void setInstagramUserName(String instagramUserName) {
-        this.instagramUserName = instagramUserName;
-    }
-
-    public List<String> getInstagramMedias() {
-        return instagramMedias;
-    }
-
-    public void setInstagramMedias(List<String> instagramMedias) {
-        this.instagramMedias = instagramMedias;
-    }
-
-    public String getFamilyName() {
-        return lastName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.lastName = familyName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -535,14 +394,6 @@ public class User implements Serializable {
 
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
     }
 
     public int getTimezone() {
@@ -601,14 +452,6 @@ public class User implements Serializable {
         this.albumList = albumList;
     }
 
-    public String getInstagramAccessToken() {
-        return instagramAccessToken;
-    }
-
-    public void setInstagramAccessToken(String instagramAccessToken) {
-        this.instagramAccessToken = instagramAccessToken;
-    }
-
     public List<String> getProfileList() {
         return profileList;
     }
@@ -655,19 +498,47 @@ public class User implements Serializable {
         this.photo = photo;
     }
 
-    public String getCity() {
-        return city;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public int getLevel() {
-        return level;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getVexPoint() {
+        return vexPoint;
+    }
+
+    public void setVexPoint(int vexPoint) {
+        this.vexPoint = vexPoint;
     }
 }

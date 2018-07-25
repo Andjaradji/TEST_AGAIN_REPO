@@ -39,7 +39,6 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -56,7 +55,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         String google2fa = tpUtil.getString(TpUtil.KEY_GOOGLE2FA,"");
         if(!TextUtils.isEmpty(google2fa)){
             google2faResponse = (Google2faResponse) JsonUtil.toObject(google2fa, Google2faResponse.class);
-            setQRCode(google2faResponse);
+            setCode(google2faResponse);
         }
 
         if (google2faResponse == null) {
@@ -70,7 +69,9 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         switch (v.getId()){
             case R.id.btn_next:
                 if (google2faResponse != null) {
-                    intentToActivity(GoogleAuthEnableActivity.class);
+                    Intent intent = new Intent(this, GoogleAuthStateActivity.class);
+                    intent.putExtra("state",false);
+                    startActivity(intent);
                 }
                 break;
             case R.id.tv_code:
@@ -92,8 +93,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
                 TpUtil tpUtil = new TpUtil(GoogleAuthSettingActivity.this);
                 tpUtil.put(TpUtil.KEY_GOOGLE2FA, JsonUtil.toString(google2faResponse));
 
-                setQRCode(google2faResponse);
-                ((TextView) findViewById(R.id.tv_code)).setText(google2faResponse.getAuthenticationCode());
+                setCode(google2faResponse);
             }
         }else if(errorResponse != null){
             hideProgress();
@@ -102,7 +102,8 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         }
     }
 
-    private void setQRCode(Google2faResponse google2faResponse){
+    private void setCode(Google2faResponse google2faResponse){
+        ((TextView) findViewById(R.id.tv_code)).setText(google2faResponse.getAuthenticationCode());
         Bitmap bitmap = QRCode.from(google2faResponse.getAuthenticationUrl()).withSize(150,150).bitmap();
         ImageView view = findViewById( R.id.iv_qr_code);
         Glide.with(App.getContext())
@@ -115,8 +116,4 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
                 .into(view);
     }
 
-    private void intentToActivity(Class<? extends Activity> activity){
-        Intent intent = new Intent(this, activity);
-        startActivity(intent);
-    }
 }
