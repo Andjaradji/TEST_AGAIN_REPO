@@ -182,7 +182,25 @@
     <string name="google2fa_help">Need Help?</string>
     <string name="google2fa_help_button"><u>Ask here</u></string>
 
+    <string name="security_google_auth_label">Google Authentication</string>
+    <string name="security_off">OFF</string>
+    <string name="security_on">ON</string>
+    <string name="security_change_password_label">Change Password</string>
 
+    <string name="security_google2fa_copy_key">Copy Security Key</string>
+    <string name="security_google2fa_copy_key_desc">Copy this code to your clipboard</string>
+    <string name="security_google2fa_copy_key_note">Please back up the security key to a safety place</string>
+    <string name="security_google2fa_copy_key_button">Copy to Clipboard</string>
+    <string name="security_google2fa_next">Next</string>
+    <string name="security_google2fa_disable">Disable</string>
+    <string name="security_google2fa_enable">Enable</string>
+    <string name="google2fa_disable">Disable Google Authentication</string>
+    <string name="google2fa_disable_desc">Please open Google Authenticator and input the code</string>
+    <string name="google2fa_enable_input">Input the code to Google Authenticator</string>
+    <string name="google2fa_enable_input_desc">Please open Google Authenticator and input the code</string>
+    <string name="google2fa_enable_input_field">Google Authenticator code</string>
+
+    <string name="security_google2fa_copy_message">Copied.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

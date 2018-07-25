@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,10 +26,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
-import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
@@ -38,9 +35,7 @@ import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.TpUtil;
 
 import org.json.JSONObject;
 
@@ -113,7 +108,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
     @Override
     public void onClick(View v) {
-        if (ClickUtil.isFastDoubleClick()) return;
         Intent intent;
         switch (v.getId()) {
             case R.id.login_fake_fb_button:
@@ -144,6 +138,10 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         boolean isValid = true;
         if(TextUtils.isEmpty(email)){
             ((EditText)findViewById(R.id.et_email)).setError("This Field can't be empty");
+            isValid = false;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+            ((EditText)findViewById(R.id.et_email)).setError("This is not valid email");
             isValid = false;
         }
         if(TextUtils.isEmpty(pass)){

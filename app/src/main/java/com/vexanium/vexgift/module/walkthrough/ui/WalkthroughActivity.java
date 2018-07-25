@@ -1,33 +1,20 @@
 package com.vexanium.vexgift.module.walkthrough.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Interpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Scroller;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.FadePageTransformer;
 
 /**

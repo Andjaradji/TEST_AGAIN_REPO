@@ -4,18 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
-import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 
 /**

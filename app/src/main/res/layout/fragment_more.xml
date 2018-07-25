@@ -72,6 +72,19 @@
                     android:textSize="@dimen/text_small_medium" />
 
                 <TextView
+                    android:id="@+id/more_security_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_more_list"
+                    android:text="Security"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="@color/material_black_text_color"
+                    android:background="@drawable/shape_ripple_transparent"
+                    android:textSize="@dimen/text_small_medium" />
+
+
+                <TextView
                     android:id="@+id/more_setting_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,29 +96,6 @@
                     android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
 
-                <TextView
-                    android:id="@+id/more_change_password_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_more_list"
-                    android:text="Change Password"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/shape_ripple_transparent"
-                    android:textSize="@dimen/text_small_medium" />
-
-                <TextView
-                    android:id="@+id/more_security_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_more_list"
-                    android:text="Security"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:textColor="@color/material_black_text_color"
-                    android:background="@drawable/shape_ripple_transparent"
-                    android:textSize="@dimen/text_small_medium" />
 
                 <View
                     android:layout_width="match_parent"

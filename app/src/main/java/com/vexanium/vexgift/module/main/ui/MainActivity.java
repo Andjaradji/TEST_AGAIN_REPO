@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
@@ -18,15 +17,12 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
-import com.vexanium.vexgift.module.box.ui.BoxFragment;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.widget.CustomTabBarView;
 import com.vexanium.vexgift.widget.CustomViewPager;
-
-import org.jetbrains.annotations.Nullable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {

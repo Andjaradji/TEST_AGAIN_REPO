@@ -43,6 +43,10 @@
     <dimen name="margin_more_line">12dp</dimen>
 
 
+    <dimen name="margin_common_list">12dp</dimen>
+    <dimen name="margin_common_line">12dp</dimen>
+
+
     <dimen name="margin_myprofile_list">10dp</dimen>
     <dimen name="margin_myprofile_line">12dp</dimen>
 

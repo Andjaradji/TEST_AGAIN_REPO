@@ -1,18 +1,19 @@
 package com.vexanium.vexgift.app;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.util.JsonUtil;
-
-import java.util.ArrayList;
 
 
 /**
@@ -53,6 +54,20 @@ public class StaticGroup {
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, ivVoucher, "voucher_image");
         activity.startActivity(intent, options.toBundle());
+    }
+
+    public static void copyToClipboard(Context context, String content) {
+        try {
+            if (!TextUtils.isEmpty(content)) {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", content);
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(context, R.string.security_google2fa_copy_message, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

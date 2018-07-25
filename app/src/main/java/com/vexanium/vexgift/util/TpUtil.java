@@ -17,5 +17,6 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_CURRENT_UID = "key_current_uid";
     public static String KEY_SESSION_KEY = "key_current_key";
     public static String KEY_WALKTHROUGH = "key_walkthrough";
+    public static String KEY_GOOGLE2FA = "key_google2fa";
 
 }

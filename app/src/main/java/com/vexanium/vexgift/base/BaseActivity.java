@@ -11,8 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +18,13 @@ import android.widget.Toast;
 
 import com.socks.klog.BuildConfig;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.ViewUtil;
 
 import java.util.Hashtable;
 import java.util.Stack;
@@ -28,14 +33,6 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Action1;
-import com.vexanium.vexgift.R;
-import com.vexanium.vexgift.annotation.ActivityFragmentInject;
-import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.util.ClickUtil;
-import com.vexanium.vexgift.util.MeasureUtil;
-import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.ViewUtil;
 
 /**
  * Created by mac on 11/16/17.
@@ -286,6 +283,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void onClick(View v) {
+        if(ClickUtil.isFastDoubleClick())return;
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.vexanium.vexgift.bean.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vexanium.vexgift.bean.model.Voucher;
-
 import java.io.Serializable;
 
 public class HomeFeedResponse implements Serializable {

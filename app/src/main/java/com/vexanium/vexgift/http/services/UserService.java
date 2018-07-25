@@ -1,7 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.MetaResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 
 import java.util.Map;
@@ -28,4 +28,25 @@ public interface UserService {
     Observable<HttpResponse<UserLoginResponse>> requestRegister(
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/2fa")
+    Observable<HttpResponse<Google2faResponse>> requestGoogleAuthCode(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/2fa/enable")
+    Observable<HttpResponse<Google2faResponse>> requestGoogleAuthEnable(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/2fa/disable")
+    Observable<HttpResponse<Google2faResponse>> requestGoogleAuthDisable(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+
 }

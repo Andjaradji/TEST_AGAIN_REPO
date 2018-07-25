@@ -7,8 +7,8 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.MetaResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
@@ -160,6 +160,11 @@ public class RetrofitManager {
         return NetworkUtil.isOnline(App.getContext()) ? CACHE_CONTROL_NETWORK : CACHE_CONTROL_CACHE;
     }
 
+    @NonNull
+    private String getApiKey(){
+        return Api.API_KEY;
+    }
+
     public Observable<HttpResponse<UserLoginResponse>> requestLogin(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -232,5 +237,13 @@ public class RetrofitManager {
         params.put("age", user.getAge());
 
         return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+    }
+
+    public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id){
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
 }

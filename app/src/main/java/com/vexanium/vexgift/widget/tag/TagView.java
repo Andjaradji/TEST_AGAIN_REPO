@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
-import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.util.MeasureUtil;
 
 import java.util.ArrayList;

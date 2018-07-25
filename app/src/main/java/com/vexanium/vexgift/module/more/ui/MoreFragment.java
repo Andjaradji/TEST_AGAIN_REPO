@@ -1,20 +1,17 @@
 package com.vexanium.vexgift.module.more.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
-import com.vexanium.vexgift.module.profile.ui.ChangePasswordActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.setting.ui.SettingActivity;
@@ -30,7 +27,6 @@ public class MoreFragment extends BaseFragment {
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
-        fragmentRootView.findViewById(R.id.more_change_password_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_security_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
@@ -56,13 +52,9 @@ public class MoreFragment extends BaseFragment {
         switch (v.getId()){
             case R.id.more_myprofile_button:
                 intentToActivity(MyProfileActivity.class);
-
                 break;
             case R.id.more_setting_button:
                 intentToActivity(SettingActivity.class);
-                break;
-            case R.id.more_change_password_button:
-                intentToActivity(ChangePasswordActivity.class);
                 break;
             case R.id.more_security_button:
                 intentToActivity(SecurityActivity.class);
@@ -92,6 +84,5 @@ public class MoreFragment extends BaseFragment {
     public static MoreFragment newInstance(){
         return new MoreFragment();
     }
-
 
 }

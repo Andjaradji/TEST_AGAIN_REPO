@@ -2,7 +2,6 @@ package com.vexanium.vexgift.util;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.MetaResponse;
 import com.vexanium.vexgift.http.ApiException;
 
 import rx.Observable;
