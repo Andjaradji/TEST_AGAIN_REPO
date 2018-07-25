@@ -30,12 +30,12 @@ public class BoxHistoryFragment extends BaseFragment {
     private String mParam2;
 
 
-    private static final int VOUCHER_FRAGMENT = 0;
-    private static final int TOKEN_FRAGMENT = 1;
+    private static final int VOUCHER_HISTORY_FRAGMENT = 0;
+    private static final int TOKEN_HISTORY_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
 
-    private VoucherFragment voucherFragment;
-    private TokenFragment tokenFragment;
+    private VoucherHistoryFragment voucherHistoryFragment;
+    private TokenHistoryFragment tokenHistoryFragment;
 
     private IconTextTabBarView mTabBarView;
     private CustomViewPager mViewPager;
@@ -120,16 +120,16 @@ public class BoxHistoryFragment extends BaseFragment {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case VOUCHER_FRAGMENT:
-                    if (voucherFragment == null) {
-                        voucherFragment = VoucherFragment.newInstance();
+                case VOUCHER_HISTORY_FRAGMENT:
+                    if (voucherHistoryFragment == null) {
+                        voucherHistoryFragment = VoucherHistoryFragment.newInstance();
                     }
-                    return voucherFragment;
-                case TOKEN_FRAGMENT:
-                    if (tokenFragment == null) {
-                        tokenFragment = TokenFragment.newInstance();
+                    return voucherHistoryFragment;
+                case TOKEN_HISTORY_FRAGMENT:
+                    if (tokenHistoryFragment == null) {
+                        tokenHistoryFragment = TokenHistoryFragment.newInstance();
                     }
-                    return tokenFragment;
+                    return tokenHistoryFragment;
 
                 default:
                     return null;

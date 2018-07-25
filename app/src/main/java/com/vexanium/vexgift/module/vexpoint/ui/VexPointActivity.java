@@ -62,10 +62,11 @@ public class VexPointActivity extends BaseActivity {
 
         findViewById(R.id.back_button).setOnClickListener(this);
 
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f,1f);
-        alphaAnimation.setDuration(1500);
-        alphaAnimation.setFillAfter(true);
-        mVpShadow.startAnimation(alphaAnimation);
+        //AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f,1f);
+        //alphaAnimation.setDuration(1500);
+        //alphaAnimation.setFillAfter(true);
+        mVpShadow.setVisibility(View.VISIBLE);
+        //mVpShadow.animate().alpha(1).setDuration(1000);
 
     }
 

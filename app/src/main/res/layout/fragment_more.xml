@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
                     android:tag="bold"
-                    android:text="Account"
+                    android:text="@string/more_account"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_title" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="My Profile"
+                    android:text="@string/more_myprofile"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -82,7 +82,6 @@
                     android:textColor="@color/material_black_text_color"
                     android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
-
 
                 <TextView
                     android:id="@+id/more_setting_button"
@@ -109,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
                     android:tag="bold"
-                    android:text="Others"
+                    android:text="@string/more_others"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_title" />
 
@@ -118,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Merchant List"
+                    android:text="@string/more_merchant_list"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -130,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Send Feedback"
+                    android:text="@string/more_send_feedback"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -142,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Report a Problem"
+                    android:text="@string/more_report_problem"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -154,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Rate Us On Google Play"
+                    android:text="@string/more_rate_us"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -166,7 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="About Us"
+                    android:text="@string/more_about_us"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -178,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Privacy Policy"
+                    android:text="@string/more_privacy_policy"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -190,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Terms of Service"
+                    android:text="@string/more_terms_of_service"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
@@ -209,13 +208,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_more_list"
-                    android:text="Log Out"
+                    android:text="@string/more_log_out"
                     android:clickable="true"
                     android:focusable="true"
                     android:textColor="@color/material_black_text_color"
                     android:background="@drawable/shape_ripple_transparent"
                     android:textSize="@dimen/text_small_medium" />
-
 
             </LinearLayout>
         </ScrollView>

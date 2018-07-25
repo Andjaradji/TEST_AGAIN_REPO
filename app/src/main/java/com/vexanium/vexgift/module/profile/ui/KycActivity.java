@@ -6,8 +6,8 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_kyv)
-public class KyvActivity extends BaseActivity {
+@ActivityFragmentInject(contentViewId = R.layout.activity_kyc,toolbarTitle = R.string.myprofile_kyc)
+public class KycActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

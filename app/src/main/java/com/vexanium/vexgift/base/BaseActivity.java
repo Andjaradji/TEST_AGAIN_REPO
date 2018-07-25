@@ -254,23 +254,25 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             if (this instanceof MainActivity) {
                 if (!mBack2Flag && !isFinishing()) {
-                    Toast.makeText(this, getResources().getString(R.string.common_exit_msg), Toast.LENGTH_SHORT).show();
-                    mBack2Flag = true;
-                    Observable.timer(2000, TimeUnit.MILLISECONDS)
-                            .subscribe(new Action1<Object>() {
-                                @Override
-                                public void call(Object o) {
-                                    mBack2Flag = false;
-                                }
-                            }, new Action1<Throwable>() {
-                                @Override
-                                public void call(Throwable throwable) {
-                                }
-                            }, new Action0() {
-                                @Override
-                                public void call() {
-                                }
-                            });
+                    if(((MainActivity)this).isEligibleToExit()) {
+                        Toast.makeText(this, getResources().getString(R.string.common_exit_msg), Toast.LENGTH_SHORT).show();
+                        mBack2Flag = true;
+                        Observable.timer(2000, TimeUnit.MILLISECONDS)
+                                .subscribe(new Action1<Object>() {
+                                    @Override
+                                    public void call(Object o) {
+                                        mBack2Flag = false;
+                                    }
+                                }, new Action1<Throwable>() {
+                                    @Override
+                                    public void call(Throwable throwable) {
+                                    }
+                                }, new Action0() {
+                                    @Override
+                                    public void call() {
+                                    }
+                                });
+                    }
                     return false;
                 } else {
                     RxBus.get().post(RxBus.KEY_APP_FINISH, true);
