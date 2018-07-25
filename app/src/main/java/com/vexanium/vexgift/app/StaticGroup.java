@@ -26,6 +26,8 @@ public class StaticGroup {
     public static final int EXPLORE_BAR = 3;
     public static final int CATEGORY_BAR = 4;
     public static final int NORMAL_COUPON = 5;
+    public static final int COMPLETE_FORM = 6;
+    public static final int CONNECT_FB = 7;
 
     public static UserLoginResponse currentUser;
 

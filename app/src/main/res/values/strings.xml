@@ -185,6 +185,10 @@
     <string name="myprofile_id_back_desc">Back View</string>
 
     <string name="myprofile_kyc">KYC</string>
+    <string name="myprofile_upload">upload</string>
+    <string name="myprofile_submit">Submit</string>
+
+    <string name="term_agree">I have read &amp; agree to the terms of use</string>
 
     <string name="change_password_toolbar_title">Change Password</string>
     <string name="edit_profile_toolbar_title">Edit Profile</string>
@@ -222,6 +226,16 @@
     <string name="google2fa_enable_input_field">Google Authenticator code</string>
 
     <string name="security_google2fa_copy_message">Copied.</string>
+    <string name="home_item_complete_profile">Complete Your Profile</string>
+    <string name="home_item_fill_kyc">Fill Your KYC Form</string>
+    <string name="home_item_fill_kyc_detail">Fill your KYC form yo get several benefits</string>
+    <string name="home_item_fill_now">Fill Now</string>
+
+    <string name="home_item_connect_account">Connect Account With Facebook</string>
+    <string name="home_item_connect_fb">Connect with Facebook</string>
+    <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
+    <string name="home_item_connect_now">Connect Now</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

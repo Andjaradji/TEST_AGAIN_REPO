@@ -46,29 +46,6 @@
             android:orientation="vertical"
             android:padding="@dimen/interval_main">
 
-            <!--<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
-
-                <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/small_logo"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VEX"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/text_large"
-                    android:textColor="@color/material_black"/>
-
-
-            </LinearLayout>-->
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,54 +59,46 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginTop="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_small_medium"
+                    android:hint="@string/myprofile_firstname"
                     android:inputType="text"
-                    android:hint="@string/myprofile_firstname"/>
+                    android:textSize="@dimen/text_small_medium" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_small_medium"
+                    android:hint="@string/myprofile_lastname"
                     android:inputType="text"
-                    android:hint="@string/myprofile_lastname"/>
+                    android:textSize="@dimen/text_small_medium" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_small_medium"
+                    android:hint="@string/myprofile_country"
                     android:inputType="text"
-                    android:hint="@string/myprofile_country"/>
+                    android:textSize="@dimen/text_small_medium" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -137,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
+                android:layout_marginTop="@dimen/interval_main"
                 android:tag="bold"
                 android:text="@string/myprofile_id_info"
                 android:textColor="@color/material_black_text_color"
@@ -146,36 +115,31 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginTop="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/et_myprofile_document_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_small_medium"
+                    android:hint="@string/myprofile_document_type"
                     android:inputType="text"
-                    android:hint="@string/myprofile_document_type"/>
+                    android:textSize="@dimen/text_small_medium" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="@dimen/more_padding_horizontal"
-                android:paddingRight="@dimen/more_padding_horizontal">
+                android:layout_marginBottom="10dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/myprofile_id_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_small_medium"
+                    android:hint="@string/myprofile_id_number"
                     android:inputType="text"
-                    android:hint="@string/myprofile_id_number"/>
+                    android:textSize="@dimen/text_small_medium" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -194,11 +158,47 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="@dimen/text_xtiny" />
 
-                <ImageView
-                    android:id="@+id/iv_document_front"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:background="@drawable/shape_id_placeholder" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp">
+
+                    <ImageView
+                        android:id="@+id/iv_document_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_id_placeholder" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_document_front_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:background="@drawable/shape_ripple_transparent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_upload"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/myprofile_upload"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_big_medium"
+                            android:layout_marginLeft="@dimen/interval_small" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -216,11 +216,88 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="@dimen/text_xtiny" />
 
-                <ImageView
-                    android:id="@+id/iv_document_back"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp">
+
+                    <ImageView
+                        android:id="@+id/iv_document_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_id_placeholder" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_document_back_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:background="@drawable/shape_ripple_transparent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/icon_upload" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/myprofile_upload"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_big_medium"
+                            android:layout_marginLeft="@dimen/interval_small" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:text="@string/term_agree" />
+
+                <LinearLayout
+                    android:id="@id/white_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:background="@drawable/shape_id_placeholder" />
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/more_padding_horizontal"
+                    android:paddingRight="@dimen/more_padding_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btn_claim"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/interval_main"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:layout_marginTop="@dimen/interval_small"
+                        android:background="@drawable/shape_ripple_main_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_submain"
+                            android:tag="bold"
+                            android:text="@string/myprofile_submit"
+                            android:textAllCaps="true"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_medium" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

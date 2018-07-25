@@ -275,7 +275,9 @@
             android:layout_marginRight="@dimen/interval_main"
             android:layout_marginStart="@dimen/interval_main"
             android:layout_marginTop="@dimen/interval_small"
-            android:background="@drawable/shape_main_button"
+            android:background="@drawable/shape_ripple_main_button"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center">
 
             <TextView

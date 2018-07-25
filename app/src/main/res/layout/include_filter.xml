@@ -163,7 +163,8 @@
             <com.vexanium.vexgift.widget.tag.TagView
                 android:id="@+id/tg_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_submain">
 
             </com.vexanium.vexgift.widget.tag.TagView>
         </LinearLayout>
@@ -213,7 +214,8 @@
             <com.vexanium.vexgift.widget.tag.TagView
                 android:id="@+id/tg_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_submain">
 
             </com.vexanium.vexgift.widget.tag.TagView>
         </LinearLayout>
@@ -265,7 +267,10 @@
             <com.vexanium.vexgift.widget.tag.TagView
                 android:id="@+id/tg_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.vexanium.vexgift.widget.tag.TagView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_submain">
+
+            </com.vexanium.vexgift.widget.tag.TagView>
 
         </LinearLayout>
 

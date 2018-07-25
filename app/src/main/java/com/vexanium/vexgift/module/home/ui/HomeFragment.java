@@ -35,6 +35,7 @@ import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.profile.ui.KycActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -50,6 +51,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
+import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
+import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
@@ -153,6 +156,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data.add(2, new HomeFeedResponse(EXPLORE_BAR));
         data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Voucher", "Today"));
         data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Token", "Today"));
+        data.add(5, new HomeFeedResponse(COMPLETE_FORM));
+        data.add(6, new HomeFeedResponse(CONNECT_FB));
     }
 
     public void initHomeList() {
@@ -173,6 +178,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_explore_bar;
                     case CATEGORY_BAR:
                         return R.layout.item_category_home;
+                    case COMPLETE_FORM:
+                        return R.layout.item_fill_kyc;
+                    case CONNECT_FB:
+                        return R.layout.item_connect_fb;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -230,6 +239,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         holder.setText(R.id.tv_category_title, item.title);
                         holder.setText(R.id.tv_category_desc, item.desc);
                         setVoucherList(holder, (ArrayList<VoucherResponse>) item.object);
+                        break;
+                    case COMPLETE_FORM:
+                        holder.setOnClickListener(R.id.ll_fill_kyc_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), KycActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                         break;
                     case NORMAL_COUPON:
                     default:
