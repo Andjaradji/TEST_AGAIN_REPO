@@ -171,6 +171,9 @@
     <string name="myprofile_email_desc">Your email here</string>
     <string name="myprofile_firstname">First Name</string>
     <string name="myprofile_firstname_desc">Your first name here</string>
+
+    <string name="myprofile_name">Name</string>
+    <string name="myprofile_name_desc">Your name here</string>
     <string name="myprofile_lastname">Last Name</string>
     <string name="myprofile_lastname_desc">Your last name here</string>
     <string name="myprofile_country">Country and Region</string>
@@ -183,6 +186,9 @@
     <string name="myprofile_id_front_desc">Front View</string>
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
+
+    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document and statement;</string>
+    <string name="myprofile_id_selfie_desc">Selfie View</string>
 
     <string name="myprofile_kyc">KYC</string>
     <string name="myprofile_upload">upload</string>
@@ -228,13 +234,24 @@
     <string name="security_google2fa_copy_message">Copied.</string>
     <string name="home_item_complete_profile">Complete Your Profile</string>
     <string name="home_item_fill_kyc">Fill Your KYC Form</string>
-    <string name="home_item_fill_kyc_detail">Fill your KYC form yo get several benefits</string>
+    <string name="home_item_fill_kyc_detail">Fill your KYC form to get several benefits</string>
     <string name="home_item_fill_now">Fill Now</string>
 
     <string name="home_item_connect_account">Connect Account With Facebook</string>
     <string name="home_item_connect_fb">Connect with Facebook</string>
     <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
     <string name="home_item_connect_now">Connect Now</string>
+
+    <string name="myprofile_kyc_none">Complete Your Profile</string>
+    <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>
+    <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>
+    <string name="myprofile_kyc_pending">Please Wait</string>
+    <string name="myprofile_kyc_pending_title">Your KYC is Being Review</string>
+    <string name="myprofile_kyc_pending_desc">Our Team currently review your KYC submission</string>
+    <string name="myprofile_kyc_rejected">We Are Sorry</string>
+    <string name="myprofile_kyc_rejected_title">Your KYC is Being Rejected</string>
+    <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible,  Please try again </string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -215,6 +215,20 @@ public class ViewUtil {
                 .into(view);
     }
 
+    public static void setImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
+        ImageView view = activity.findViewById( viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .placeholder(errorImage)
+                        .error(ContextCompat.getDrawable(App.getContext(), errorImage))
+                        .centerCrop()
+                )
+                .load(imgUrl)
+                .into(view);
+    }
+
     public static void setCircleImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
         ImageView view = findViewById(activity, viewId);
         Glide.with(App.getContext())

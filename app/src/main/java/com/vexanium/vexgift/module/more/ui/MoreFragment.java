@@ -11,6 +11,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
@@ -23,7 +24,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"More");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "More");
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
@@ -31,6 +32,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_problem_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
@@ -45,11 +47,11 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        if(ClickUtil.isFastDoubleClick()){
+        if (ClickUtil.isFastDoubleClick()) {
             return;
         }
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.more_myprofile_button:
                 intentToActivity(MyProfileActivity.class);
                 break;
@@ -60,7 +62,7 @@ public class MoreFragment extends BaseFragment {
                 intentToActivity(SecurityActivity.class);
                 break;
             case R.id.more_merchant_button:
-            break;
+                break;
             case R.id.more_feedback_buttton:
                 break;
             case R.id.more_problem_button:
@@ -72,16 +74,17 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_privacy_policy:
                 break;
             case R.id.more_logout_button:
+                StaticGroup.logOutClear(MoreFragment.this.getActivity(), 0);
                 break;
         }
     }
 
-    private void intentToActivity(Class<? extends Activity> activity){
+    private void intentToActivity(Class<? extends Activity> activity) {
         Intent intent = new Intent(MoreFragment.this.getActivity(), activity);
         startActivity(intent);
     }
 
-    public static MoreFragment newInstance(){
+    public static MoreFragment newInstance() {
         return new MoreFragment();
     }
 

@@ -18,6 +18,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.security.presenter.IGoogleAuthSettingPresenter;
@@ -52,25 +53,27 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         findViewById(R.id.iv_qr_code).setOnClickListener(this);
 
         TpUtil tpUtil = new TpUtil(this);
-        String google2fa = tpUtil.getString(TpUtil.KEY_GOOGLE2FA,"");
-        if(!TextUtils.isEmpty(google2fa)){
+        String google2fa = tpUtil.getString(TpUtil.KEY_GOOGLE2FA, "");
+        if (!TextUtils.isEmpty(google2fa)) {
             google2faResponse = (Google2faResponse) JsonUtil.toObject(google2fa, Google2faResponse.class);
             setCode(google2faResponse);
         }
 
         if (google2faResponse == null) {
-            mPresenter.requestCode(7);
+            User user = User.getCurrentUser(App.getContext());
+            if (user != null)
+                mPresenter.requestCode(user.getId());
         }
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_next:
                 if (google2faResponse != null) {
                     Intent intent = new Intent(this, GoogleAuthStateActivity.class);
-                    intent.putExtra("state",false);
+                    intent.putExtra("state", false);
                     startActivity(intent);
                 }
                 break;
@@ -78,7 +81,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
             case R.id.iv_qr_code:
             case R.id.btn_copy:
                 if (google2faResponse != null) {
-                    StaticGroup.copyToClipboard(GoogleAuthSettingActivity.this,google2faResponse.getAuthenticationCode());
+                    StaticGroup.copyToClipboard(GoogleAuthSettingActivity.this, google2faResponse.getAuthenticationCode());
                 }
                 break;
         }
@@ -86,26 +89,26 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        KLog.v("GoogleAuthSettingActivity","handleResult: "+ JsonUtil.toString(data));
-        if(data!= null){
+        KLog.v("GoogleAuthSettingActivity", "handleResult: " + JsonUtil.toString(data));
+        if (data != null) {
             google2faResponse = (Google2faResponse) data;
-            if(google2faResponse!= null){
+            if (google2faResponse != null) {
                 TpUtil tpUtil = new TpUtil(GoogleAuthSettingActivity.this);
                 tpUtil.put(TpUtil.KEY_GOOGLE2FA, JsonUtil.toString(google2faResponse));
 
                 setCode(google2faResponse);
             }
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
             hideProgress();
-            KLog.v("GoogleAuthSettingActivity handleResult error : "+errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus()+" : "+ errorResponse.getMeta().getMessage());
+            KLog.v("GoogleAuthSettingActivity handleResult error : " + errorResponse.getMeta().getMessage());
+            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
         }
     }
 
-    private void setCode(Google2faResponse google2faResponse){
+    private void setCode(Google2faResponse google2faResponse) {
         ((TextView) findViewById(R.id.tv_code)).setText(google2faResponse.getAuthenticationCode());
-        Bitmap bitmap = QRCode.from(google2faResponse.getAuthenticationUrl()).withSize(150,150).bitmap();
-        ImageView view = findViewById( R.id.iv_qr_code);
+        Bitmap bitmap = QRCode.from(google2faResponse.getAuthenticationUrl()).withSize(150, 150).bitmap();
+        ImageView view = findViewById(R.id.iv_qr_code);
         Glide.with(App.getContext())
                 .asBitmap()
                 .apply(RequestOptions

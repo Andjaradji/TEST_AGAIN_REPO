@@ -28,8 +28,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 
-    @JsonProperty("uid")
-    private String id;
+    @JsonProperty("id")
+    private int id;
     @JsonProperty("password")
     private String password;
 
@@ -102,8 +102,12 @@ public class User implements Serializable {
     public User() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static User getCurrentUser(Context context) {
@@ -139,7 +143,7 @@ public class User implements Serializable {
 
         user.setEmail(account.getEmail());
         user.setFirstName(account.getDisplayName());
-        user.setGoogleToken(account.getId());
+        user.setGoogleToken(account.getIdToken());
 
         return user;
     }
@@ -498,10 +502,6 @@ public class User implements Serializable {
         this.photo = photo;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -540,5 +540,9 @@ public class User implements Serializable {
 
     public void setVexPoint(int vexPoint) {
         this.vexPoint = vexPoint;
+    }
+
+    public boolean isLoginByFacebook(){
+        return !TextUtils.isEmpty(getFacebookAccessToken());
     }
 }

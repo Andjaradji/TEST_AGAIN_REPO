@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -51,5 +52,17 @@ public interface UserService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("user/kyc")
+    Observable<HttpResponse<Kyc>> submitKyc(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("user/kyc/get-last-kyc")
+    Observable<HttpResponse<Kyc>> requestKyc(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 }

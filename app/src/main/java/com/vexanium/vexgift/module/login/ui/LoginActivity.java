@@ -34,6 +34,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -51,6 +52,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_login)
@@ -95,6 +97,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
             if (response.user != null) {
                 String session = response.user.getSessionKey();
+                StaticGroup.userSession = session;
 
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
@@ -148,8 +151,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
+            KLog.json("HPtes google", JsonUtil.toString(account));
             User user = User.createWithGoogle(account);
-            KLog.json("HPtes", JsonUtil.toString(user));
             if (user != null)
                 if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
@@ -207,9 +210,16 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private boolean checkLoginInfo() {
         User user = User.getCurrentUser(this.getApplicationContext());
 
-        // TODO: 19/07/18 check facebook access token
-
         if (user != null) {
+            if (!TextUtils.isEmpty(user.getFacebookAccessToken())) {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                if (accessToken != null) {
+                    Date now = new Date();
+                    if (accessToken.getExpires() != null && accessToken.getExpires().getTime() < now.getTime()) {
+                        AccessToken.refreshCurrentAccessTokenAsync();
+                    }
+                }
+            }
             return true;
         } else {
             return false;
@@ -249,6 +259,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
     private void initGoogle() {
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(ConstantGroup.GOOGLE_CLIENT_ID)
                 .requestEmail().build();
 
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {

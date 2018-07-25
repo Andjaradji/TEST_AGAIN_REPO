@@ -40,4 +40,8 @@
 
     </style>
 
+    <style name="TextAppearence.App.TextInputLayout"  parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/material_black_text_color</item>
+    </style>
+
 </resources>

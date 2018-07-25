@@ -25,6 +25,10 @@
     <color name="vex_orange">#FAA105</color>
     <color name="vex_pink">#DB3069</color>
 
+    <item name="colorControlNormal">@color/material_black_sub_text_color</item>
+    <item name="colorControlActivated">@color/accent</item>
+    <item name="colorControlHighlight">@color/accent</item>
+
     //for pre-lollipop gradient color
     <color name="pre_lollipop_shadow_color">#40000000</color>
 

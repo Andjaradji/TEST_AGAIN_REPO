@@ -61,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
                 android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,166 +109,308 @@
                 android:background="@color/lineColor" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:tag="bold"
-                android:text="@string/myprofile_user_info"
-                android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_title" />
-
             <LinearLayout
+                android:id="@+id/kyc_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/tv_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_firstname"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
-
-                <TextView
-                    android:id="@+id/tv_firstname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_lastname"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
-
-                <TextView
-                    android:id="@+id/tv_lastname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_country"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
-
-                <TextView
-                    android:id="@+id/tv_coutry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/margin_more_line"
-                android:layout_marginTop="@dimen/margin_more_line"
-                android:background="@color/lineColor" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:tag="bold"
-                android:text="@string/myprofile_id_info"
-                android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_title" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_document_type"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
-
-                <TextView
-                    android:id="@+id/tv_document_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_id_number"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
-
-                <TextView
-                    android:id="@+id/tv_id_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_submain"
-                    android:text="@string/myprofile_id_front"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xtiny" />
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:tag="hnMed"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_medium" />
 
                 <ImageView
-                    android:id="@+id/tv_document_front"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:background="@drawable/shape_id_placeholder" />
+                    android:layout_width="181dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/kyc_illustration" />
+
+                <TextView
+                    android:id="@+id/tv_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_small"
+                    android:layout_marginTop="@dimen/interval_content"
+                    android:tag="hnMed"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tv_info_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:textAlignment="center"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_small" />
+
+                <LinearLayout
+                    android:id="@+id/btn_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:background="@drawable/shape_main_button"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/home_item_fill_now"
+                        android:textAllCaps="true"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_xtiny" />
+                </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kyc_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:tag="bold"
+                    android:text="@string/myprofile_user_info"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_firstname"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_firstname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_name"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_lastname"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_lastname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_country"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_coutry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/margin_more_line"
+                    android:layout_marginTop="@dimen/margin_more_line"
+                    android:background="@color/lineColor" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:tag="bold"
+                    android:text="@string/myprofile_id_info"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_document_type"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_document_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_id_number"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_id_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_id_front"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <ImageView
+                        android:id="@+id/iv_document_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@drawable/shape_id_placeholder" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_id_back"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <ImageView
+                        android:id="@+id/iv_document_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@drawable/shape_id_placeholder" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_myprofile_list"
+                    android:layout_marginTop="@dimen/margin_myprofile_list"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/myprofile_id_front"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <ImageView
+                        android:id="@+id/iv_document_selfie"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@drawable/shape_id_placeholder" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

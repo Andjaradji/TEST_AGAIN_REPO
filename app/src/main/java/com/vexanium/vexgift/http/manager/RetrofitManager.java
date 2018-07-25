@@ -5,7 +5,9 @@ import android.util.SparseArray;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
+import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
@@ -163,7 +165,7 @@ public class RetrofitManager {
 
     @NonNull
     private String getApiKey() {
-        return Api.API_KEY;
+        return StaticGroup.getUserSession();
     }
 
     public Observable<HttpResponse<UserLoginResponse>> requestLogin(User user) {
@@ -290,6 +292,26 @@ public class RetrofitManager {
             return mUserService.requestGoogleAuthEnable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
         else
             return mUserService.requestGoogleAuthDisable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<Kyc>> requestKyc(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
+    public Observable<HttpResponse<Kyc>> submitKyc(Kyc kyc) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", kyc.getId());
+        params.put("identity_type", kyc.getIdType());
+        params.put("identity_name", kyc.getIdName());
+        params.put("identity_number", kyc.getIdNumber());
+
+
+        return mUserService.submitKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
 }
