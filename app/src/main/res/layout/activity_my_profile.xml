@@ -61,21 +61,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
                 android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_submain"
                     android:text="@string/myprofile_username"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="@color/material_black_sub_text_color"
                     android:textSize="@dimen/text_xtiny" />
 
                 <TextView
                     android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/material_black_text_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -202,37 +203,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-<<<<<<< HEAD
-                    android:textColor="@color/text_primary" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/margin_more_line"
-                android:layout_marginTop="@dimen/margin_more_line"
-                android:background="@color/lineColor"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:tag="bold"
-                android:text="@string/myprofile_id_info"
-                android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_title" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-=======
                     android:layout_marginBottom="@dimen/margin_myprofile_list"
                     android:layout_marginTop="@dimen/margin_myprofile_list"
                     android:visibility="gone"
@@ -255,7 +225,6 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
->>>>>>> master
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_myprofile_list"
                     android:layout_marginTop="@dimen/margin_myprofile_list"
