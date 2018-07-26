@@ -107,7 +107,6 @@
                 android:layout_marginTop="@dimen/margin_more_line"
                 android:background="@color/lineColor" />
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,14 +183,12 @@
                     android:textColor="@color/text_primary" />
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="@dimen/margin_more_line"
                 android:layout_marginTop="@dimen/margin_more_line"
-                android:background="@color/lineColor" />
-
+                android:background="@color/lineColor"/>
 
             <TextView
                 android:layout_width="match_parent"
