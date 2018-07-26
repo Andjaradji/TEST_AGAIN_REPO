@@ -53,9 +53,5 @@ public class ILoginPresenterImpl extends BasePresenterImpl<ILoginView, Serializa
         compositeSubscription.add(subscription);
     }
 
-    @Override
-    public void requestRegister(User user) {
-        Subscription subscription = mLoginInteractor.requestRegister(this, user);
-        compositeSubscription.add(subscription);
-    }
+
 }

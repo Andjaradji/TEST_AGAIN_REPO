@@ -60,22 +60,27 @@
             android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:layout_marginLeft="@dimen/interval_medium"
         android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_white_border_button"
-        android:gravity="center_horizontal">
+        android:background="@drawable/shape_white_border_button">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_ripple_transparent"></View>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/login_button_login"
             android:textColor="@color/material_white" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/login_forgot_button"

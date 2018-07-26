@@ -20,8 +20,6 @@
     </RelativeLayout>
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,12 +29,14 @@
         android:background="@drawable/shape_field_input">
 
         <EditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/register_email"
-            android:textSize="@dimen/text_medium"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,12 +48,14 @@
         android:background="@drawable/shape_field_input">
 
         <EditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/register_password"
-            android:textSize="@dimen/text_medium"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,15 +67,18 @@
         android:background="@drawable/shape_field_input">
 
         <EditText
+            android:id="@+id/et_re_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/register_repassword"
-            android:textSize="@dimen/text_medium"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
@@ -82,12 +87,18 @@
         android:background="@drawable/shape_white_border_button"
         android:gravity="center_horizontal">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_ripple_transparent"></View>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/register_button_register"
             android:textColor="@color/material_white" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -163,6 +174,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/login_google_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_big"

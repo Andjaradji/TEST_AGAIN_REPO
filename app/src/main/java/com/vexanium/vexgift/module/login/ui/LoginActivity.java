@@ -55,10 +55,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_login)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
-    private static final int SIGN_IN_REQUEST_CODE = 114;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
