@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/material_white">
 
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/content_error_view">
+
+    </include>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_vexpoint"
         android:layout_width="match_parent"

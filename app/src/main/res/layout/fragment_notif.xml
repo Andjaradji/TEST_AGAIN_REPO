@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_white"
     tools:context=".module.notif.ui.NotifFragment">
 
     <RelativeLayout
@@ -38,12 +39,19 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <include
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            layout="@layout/content_error_view"
+            android:layout_below="@id/app_bar">
+
+        </include>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/notif_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/app_bar"
-            android:background="@color/material_white">
+            android:layout_below="@id/app_bar">
 
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>

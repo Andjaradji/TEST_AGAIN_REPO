@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
@@ -46,6 +48,10 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         return new NotifFragment();
     }
 
+    LinearLayout mErrorView;
+    ImageView mIvError;
+    TextView mTvErrorHead,mTvErrorBody;
+
     private BaseRecyclerAdapter<Notification> mNotifListAdapter;
     private GridLayoutManager layoutListManager;
 
@@ -69,6 +75,11 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     protected void initView(View fragmentRootView) {
         random = new Random();
 
+        mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
+        mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
+        mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
+        mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
+
         mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.notif_recyclerview);
         layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
@@ -87,7 +98,8 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     }
 
     public void loadData() {
-        data = FixtureData.notifs;
+        //data = FixtureData.notifs;
+        data = new ArrayList<>();
     }
 
     private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
@@ -194,5 +206,15 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 App.setTextViewStyle(mRecyclerview);
             }
         });
+
+        if(data.size() <= 0) {
+            mErrorView.setVisibility(View.VISIBLE);
+            mIvError.setImageResource(R.drawable.notif_empty);
+            mTvErrorHead.setText(getString(R.string.error_notif_empty_header));
+            //mTvErrorBody.setVisibility(View.GONE);
+            mTvErrorBody.setText(getString(R.string.error_notif_empty_body));
+
+            mRecyclerview.setVisibility(View.GONE);
+        }
     }
 }

@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -22,14 +25,22 @@ import java.util.ArrayList;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_vexpoint)
 public class PointRecordFragment extends BaseFragment {
 
-    private RecyclerView mRecycler;
+    LinearLayout mErrorView;
+    ImageView mIvError;
+    TextView mTvErrorHead,mTvErrorBody;
 
+    private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
 
     @Override
     protected void initView(View fragmentRootView) {
         mRecycler = fragmentRootView.findViewById(R.id.rv_vexpoint);
+
+        mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
+        mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
+        mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
+        mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         mRecycler.setLayoutManager(linearLayoutManager);
@@ -42,9 +53,14 @@ public class PointRecordFragment extends BaseFragment {
         dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         mRecycler.addItemDecoration(dividerItemDecoration);
 
+        populateData();
+
+    }
+
+    private void populateData(){
         ArrayList<VexPointRecord> dataList = new ArrayList<>();
 
-        VexPointRecord data = new VexPointRecord("Beli Pulsa","16-08-2018 15:00 GMT",1,1500);
+        /*VexPointRecord data = new VexPointRecord("Beli Pulsa","16-08-2018 15:00 GMT",1,1500);
         VexPointRecord data1 = new VexPointRecord("Jual Pulsa","16-08-2018 15:00 GMT",0,1500);
 
         dataList.add(data);
@@ -54,11 +70,20 @@ public class PointRecordFragment extends BaseFragment {
         dataList.add(data);
         dataList.add(data1);
         dataList.add(data);
-        dataList.add(data1);
+        dataList.add(data1);*/
 
-        mAdapter.addItemList(dataList);
-        mAdapter.notifyDataSetChanged();
+        if(dataList.size() <= 0) {
+            mErrorView.setVisibility(View.VISIBLE);
+            mIvError.setImageResource(R.drawable.vp_empty);
+            mTvErrorHead.setText(getString(R.string.error_vp_point_record_empty_header));
+            mTvErrorBody.setVisibility(View.GONE);
+            //mTvErrorBody.setText(getString(R.string.error_my_voucher_empty_body));
 
+            mRecycler.setVisibility(View.GONE);
+        }else {
+            mAdapter.addItemList(dataList);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
