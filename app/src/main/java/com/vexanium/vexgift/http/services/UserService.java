@@ -8,10 +8,14 @@ import com.vexanium.vexgift.bean.response.UserLoginResponse;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import rx.Observable;
 
 /**
@@ -52,12 +56,15 @@ public interface UserService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("user/kyc")
     Observable<HttpResponse<Kyc>> submitKyc(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
-            @FieldMap Map<String, Object> params);
+            @PartMap Map<String, Object> params,
+            @Part MultipartBody.Part frontImage,
+            @Part MultipartBody.Part backImage,
+            @Part MultipartBody.Part selfieImage);
 
     @FormUrlEncoded
     @POST("user/kyc/get-last-kyc")

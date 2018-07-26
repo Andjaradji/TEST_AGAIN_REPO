@@ -5,14 +5,19 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.util.glide.CircleCropTransformation;
 
 import java.lang.reflect.Field;
@@ -215,8 +221,20 @@ public class ViewUtil {
                 .into(view);
     }
 
+    public static void setImageUrl(Activity root, int viewId, Uri imgUrl) {
+        ImageView view = findViewById(root, viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .centerCrop()
+                )
+                .load(imgUrl)
+                .into(view);
+    }
+
     public static void setImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
-        ImageView view = activity.findViewById( viewId);
+        ImageView view = activity.findViewById(viewId);
         Glide.with(App.getContext())
                 .asBitmap()
                 .apply(RequestOptions
@@ -261,6 +279,24 @@ public class ViewUtil {
     public static void setText(Activity activity, int viewId, CharSequence text) {
         TextView tv = findViewById(activity, viewId);
         tv.setText(text);
+    }
+
+    public static void setOnClickListener(Activity activity, View.OnClickListener onClickListener, @IdRes int... idRes) {
+        for (int id : idRes) {
+            findViewById(activity, id).setOnClickListener(onClickListener);
+        }
+    }
+
+    public static boolean validateEmpty(Activity activity, String errorMsg, @IdRes int... ids){
+        boolean isValid = true;
+        for(int id: ids){
+            String s = ((EditText) findViewById(activity, id)).getText().toString();
+            if(TextUtils.isEmpty(s)){
+                isValid = false;
+                ((EditText) findViewById(activity, id)).setError(errorMsg);
+            }
+        }
+        return isValid;
     }
 
 }

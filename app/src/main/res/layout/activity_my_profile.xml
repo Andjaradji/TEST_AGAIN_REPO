@@ -69,14 +69,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_submain"
                     android:text="@string/myprofile_username"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="@color/material_black_sub_text_color"
                     android:textSize="@dimen/text_xtiny" />
 
                 <TextView
                     android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/material_black_text_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,14 +91,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_submain"
                     android:text="@string/myprofile_email"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="@color/material_black_sub_text_color"
                     android:textSize="@dimen/text_xtiny" />
 
                 <TextView
                     android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" />
+                    android:textColor="@color/material_black_text_color" />
             </LinearLayout>
 
             <View
@@ -203,14 +203,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_firstname"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_firstname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -225,14 +225,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_name"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -248,14 +248,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_lastname"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_lastname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -270,14 +270,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_country"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_coutry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
 
@@ -311,14 +311,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_document_type"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_document_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -333,14 +333,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_id_number"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
                         android:id="@+id/tv_id_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary" />
+                        android:textColor="@color/material_black_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -355,7 +355,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_id_front"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <ImageView
@@ -377,7 +377,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_id_back"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <ImageView
@@ -399,7 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:text="@string/myprofile_id_front"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
                     <ImageView

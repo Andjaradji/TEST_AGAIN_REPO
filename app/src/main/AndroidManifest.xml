@@ -4,6 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".app.App"
@@ -52,25 +62,57 @@
         <activity
             android:name=".module.walkthrough.ui.WalkthroughActivity"
             android:theme="@style/AppTheme.LauncherAppTheme" />
-        <activity android:name=".module.login.ui.LoginActivity" />
-        <activity android:name=".module.token.ui.TokenActivity" />
-        <activity android:name=".module.voucher.ui.VoucherActivity" />
-        <activity android:name=".module.detail.ui.VoucherDetailActivity" />
-        <activity android:name=".module.redeem.ui.VoucherRedeemActivity" />
-        <activity android:name=".module.profile.ui.MyProfileActivity" />
-        <activity android:name=".module.profile.ui.EditProfileActivity" />
-        <activity android:name=".module.profile.ui.ChangePasswordActivity" />
-        <activity android:name=".module.setting.ui.SettingActivity" />
-        <activity android:name=".module.security.ui.SecurityActivity" />
+        <activity
+            android:name=".module.login.ui.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.token.ui.TokenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.voucher.ui.VoucherActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.detail.ui.VoucherDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.redeem.ui.VoucherRedeemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.profile.ui.MyProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.profile.ui.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.profile.ui.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.setting.ui.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.security.ui.SecurityActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.vexpoint.ui.VexPointActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.login.ui.ForgotPasswordActivity" />
-        <activity android:name=".module.login.ui.GoogleAuthActivity" />
-        <activity android:name=".widget.select.MultiSelectActivity" />
-        <activity android:name=".module.security.ui.GoogleAuthSettingActivity" />
-        <activity android:name=".module.security.ui.GoogleAuthStateActivity" />
-        <activity android:name=".module.profile.ui.KycActivity"></activity>
+        <activity
+            android:name=".module.login.ui.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.login.ui.GoogleAuthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".widget.select.MultiSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.security.ui.GoogleAuthSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.security.ui.GoogleAuthStateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.profile.ui.KycActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

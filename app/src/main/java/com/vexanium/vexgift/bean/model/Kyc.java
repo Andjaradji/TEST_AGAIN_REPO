@@ -17,11 +17,13 @@ public class Kyc implements Serializable{
     private String idName;
     @JsonProperty("identity_id")
     private String idNumber;
+    @JsonProperty("identity_country")
+    private String idCountry;
     @JsonProperty("identity_image_front")
     private String idImageFront;
     @JsonProperty("identity_image_back")
     private String idImageBack;
-    @JsonProperty("identitiy_image_selfie")
+    @JsonProperty("identity_image_selfie")
     private String idImageSelfie;
     @JsonProperty("status")
     private String status;
@@ -106,5 +108,13 @@ public class Kyc implements Serializable{
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getIdCountry() {
+        return idCountry;
+    }
+
+    public void setIdCountry(String idCountry) {
+        this.idCountry = idCountry;
     }
 }

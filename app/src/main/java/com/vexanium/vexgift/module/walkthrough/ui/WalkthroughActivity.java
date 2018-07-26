@@ -16,6 +16,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.FadePageTransformer;
 
 /**
@@ -55,6 +56,8 @@ public class WalkthroughActivity extends BaseActivity {
                 if(currPos != PAGE_COUNT-1){
                     mCustomViewPager.setCurrentItem(currPos+1,true);
                 }else{
+                    setWalkthroughFinish();
+
                     Intent intent = new Intent();
                     intent.setClass(WalkthroughActivity.this, LoginActivity.class);
 //                    intent.setClass(WalkthroughActivity.this, MainActivity.class);
@@ -71,6 +74,11 @@ public class WalkthroughActivity extends BaseActivity {
     @Override
     protected void initView() {
 
+    }
+
+    private void setWalkthroughFinish(){
+        TpUtil tpUtil = new TpUtil(this);
+        tpUtil.put(TpUtil.KEY_WALKTHROUGH, false);
     }
 
     private void setWalkthroughPager(){

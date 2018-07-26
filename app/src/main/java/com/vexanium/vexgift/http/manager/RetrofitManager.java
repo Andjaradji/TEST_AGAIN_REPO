@@ -30,8 +30,10 @@ import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -306,12 +308,31 @@ public class RetrofitManager {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", kyc.getId());
+        params.put("identity_country", kyc.getIdCountry());
         params.put("identity_type", kyc.getIdType());
         params.put("identity_name", kyc.getIdName());
-        params.put("identity_number", kyc.getIdNumber());
+        params.put("identity_id", kyc.getIdNumber());
+        params.put("identity_image_front", kyc.getIdImageFront());
+        params.put("identity_image_back", kyc.getIdImageBack());
+        params.put("identity_image_selfie", kyc.getIdImageSelfie());
 
+        File frontImageFile = new File(kyc.getIdImageFront());
+        RequestBody frontReqFile = RequestBody.create(MediaType.parse("image/*"), frontImageFile);
+        MultipartBody.Part frontBody = MultipartBody.Part.createFormData("identity_image_front", "identity_image_front", frontReqFile);
 
-        return mUserService.submitKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        File backImageFile = new File(kyc.getIdImageBack());
+        RequestBody backReqFile = RequestBody.create(MediaType.parse("image/*"), backImageFile);
+        MultipartBody.Part backBody = MultipartBody.Part.createFormData("identity_image_back", "identity_image_back", backReqFile);
+
+        File selfieImageFile = new File(kyc.getIdImageSelfie());
+        RequestBody selfieReqFile = RequestBody.create(MediaType.parse("image/*"), selfieImageFile);
+        MultipartBody.Part selfieBody = MultipartBody.Part.createFormData("identity_image_selfie", "identity_image_selfie", selfieReqFile);
+
+        KLog.v("--------------------------------------------Request submitKyc Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response submitKyc Param End----------------------------------------------------");
+
+        return mUserService.submitKyc(getApiKey(), getCacheControl(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
 }

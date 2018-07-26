@@ -32,6 +32,22 @@ public class FixtureData {
         }
     };
 
+    public static final ArrayList<String> documentType = new ArrayList<String>(){
+        {
+            add("ID Card");
+            add("Passport");
+            add("Driving Licence");
+        }
+    };
+
+    public static final ArrayList<String> countries = new ArrayList<String>(){
+        {
+            add("Indonesia");
+            add("Singapore");
+            add("Malaysia");
+        }
+    };
+
     public static final ArrayList<String> typeList = new ArrayList<String>() {
         {
             add("Free");
