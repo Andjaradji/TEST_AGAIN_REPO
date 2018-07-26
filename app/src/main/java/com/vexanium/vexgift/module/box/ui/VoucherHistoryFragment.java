@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -21,7 +23,6 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.redeem.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -39,6 +40,10 @@ import java.util.Random;
 public class VoucherHistoryFragment extends BaseFragment {
 
     private Context context;
+
+    LinearLayout mErrorView;
+    ImageView mIvError;
+    TextView mTvErrorHead,mTvErrorBody;
 
     private ArrayList<VoucherResponse> data;
     GridLayoutManager layoutListManager;
@@ -61,12 +66,20 @@ public class VoucherHistoryFragment extends BaseFragment {
             context = getActivity();
         }
 
+        mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
+        mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
+        mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
+        mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
+
         mRecyclerview = fragmentRootView.findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
         Random random = new Random();
-        data = FixtureData.getRandomVoucherResponse(random.nextInt(5) + 2, true);
+        //data = FixtureData.getRandomVoucherResponse(random.nextInt(5) + 2, true);
+        //setVoucherList(data);
+
+        data = new ArrayList<>();
         setVoucherList(data);
 
     }
@@ -125,6 +138,15 @@ public class VoucherHistoryFragment extends BaseFragment {
                 App.setTextViewStyle(mRecyclerview);
             }
         });
+
+        if(data.size() <= 0){
+            mErrorView.setVisibility(View.VISIBLE);
+            mIvError.setImageResource(R.drawable.voucher_empty);
+            mTvErrorHead.setText(getString(R.string.error_voucher_empty_header));
+            mTvErrorBody.setText(getString(R.string.error_history_voucher_empty_body));
+
+            mRecyclerview.setVisibility(View.GONE);
+        }
     }
 
     private void goToVoucherDetailActivity(VoucherResponse voucherResponse, ImageView ivVoucher) {

@@ -247,10 +247,24 @@
     <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
     <string name="home_item_connect_now">Connect Now</string>
 
-    <string name="error_voucher_empty_header">No Gift Voucher Found</string>
-    <string name="error_token_empty_header">No Token Airdrop Found</string>
+    <string name="error_voucher_gift_empty_header">No Gift Voucher Found</string>
+    <string name="error_token_airdrop_empty_header">No Token Airdrop Found</string>
     <string name="error_voucher_empty_body">There is nothing here</string>
     <string name="error_token_empty_body">There is nothing here</string>
+
+    <string name="error_voucher_empty_header">No Voucher Found</string>
+    <string name="error_token_empty_header">No Token Found</string>
+
+    <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
+    <string name="error_my_token_empty_body">You don\'t have any token</string>
+    <string name="error_history_voucher_empty_body">You haven\'t redeemed any voucher</string>
+    <string name="error_history_token_empty_body">You haven\t redeemed any token</string>
+
+    <string name="error_vp_point_record_empty_header">No Record Found</string>
+    <string name="error_vp_invite_point_empty_header">No Point Found</string>
+
+    <string name="error_notif_empty_header">No Notification</string>
+    <string name="error_notif_empty_body">You have no new notification at the moment</string>
 
     <string name="myprofile_kyc_none">Complete Your Profile</string>
     <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>

@@ -130,11 +130,11 @@ public class BoxFragment extends BaseFragment {
 
     private void changeNotifBarVisibility(boolean isVisible, String text){
         mNotifText.setText(text);
-        if(isVisible){
+        /*if(isVisible){
             mNotifBar.setVisibility(View.VISIBLE);
         }else{
             mNotifBar.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     public void changeTab(int page){

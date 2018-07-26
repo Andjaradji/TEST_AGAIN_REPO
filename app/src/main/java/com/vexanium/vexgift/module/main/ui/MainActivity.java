@@ -115,13 +115,18 @@ public class MainActivity extends BaseActivity {
                 KLog.i("Page: " + position);
                 mCustomTabBarView.onPageSelected(position);
                 setFragmentToolbar(position);
-                mainScreenPagerAdapter.getRegisteredFragment(position).onResume();
+                Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(position);
+                if(fragment!=null) {
+                    fragment.onResume();
+                }
 
                 Fragment lastFragment = mainScreenPagerAdapter.getRegisteredFragment(lastPagePosition);
-                lastFragment.onPause();
+                if(lastFragment!=null) {
+                    lastFragment.onPause();
 
-                if(lastFragment instanceof BoxBaseFragment){
-                    ((BoxBaseFragment)lastFragment).onCustomPause();
+                    if (lastFragment instanceof BoxBaseFragment) {
+                        ((BoxBaseFragment) lastFragment).onCustomPause();
+                    }
                 }
 
                 lastPagePosition = position;

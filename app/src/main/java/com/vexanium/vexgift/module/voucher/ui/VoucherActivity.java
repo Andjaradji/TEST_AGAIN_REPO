@@ -239,7 +239,7 @@ public class VoucherActivity extends BaseActivity {
         if(data.size() <= 0){
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.voucher_empty);
-            mTvErrorHead.setText(getString(R.string.error_voucher_empty_header));
+            mTvErrorHead.setText(getString(R.string.error_voucher_gift_empty_header));
             mTvErrorBody.setText(getString(R.string.error_voucher_empty_body));
 
             mRecyclerview.setVisibility(View.GONE);

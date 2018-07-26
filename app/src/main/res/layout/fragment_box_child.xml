@@ -3,15 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.box.ui.VoucherFragment">
+    tools:context=".module.box.ui.VoucherFragment"
+    android:background="@color/material_white">
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/content_error_view">
+
+    </include>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recylerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar"
-        tools:listitem="@layout/item_coupon_list"
-        android:background="@color/material_white">
+        tools:listitem="@layout/item_coupon_list">
 
     </android.support.v7.widget.RecyclerView>
 
