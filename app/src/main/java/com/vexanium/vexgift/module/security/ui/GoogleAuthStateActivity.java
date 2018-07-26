@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.security.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -88,15 +89,27 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
                 toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             }
         } else {
-            RxBus.get().post("kycStatusUpdate", true);
+            isEnable = !isEnable;
+
+            RxBus.get().post("google2faStateUpdate", true);
+            TpUtil tpUtil = new TpUtil(GoogleAuthStateActivity.this);
+            tpUtil.put(TpUtil.KEY_GOOGLE2FA_STATE, isEnable);
+
+            RxBus.get().post("google2faUpdateState", isEnable);
+
             new VexDialog.Builder(GoogleAuthStateActivity.this)
                     .optionType(DialogOptionType.OK)
                     .okText("OK")
                     .title("Success")
-                    .content(getString(isEnable ? R.string.google2fa_disable_success : R.string.google2fa_enable_success))
+                    .content(getString(!isEnable ? R.string.google2fa_disable_success : R.string.google2fa_enable_success))
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            if (!isEnable) {
+                                Intent intent = getIntent();
+                                intent.putExtra("nested", true);
+                                setResult(Activity.RESULT_OK, intent);
+                            }
                             finish();
                         }
                     })

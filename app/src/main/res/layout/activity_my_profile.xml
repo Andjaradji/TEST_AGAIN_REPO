@@ -171,7 +171,7 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/tv_button"
+                        android:id="@+id/tv_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/interval_submain"

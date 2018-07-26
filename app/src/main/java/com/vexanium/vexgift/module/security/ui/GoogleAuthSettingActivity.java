@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +31,8 @@ import com.vexanium.vexgift.util.TpUtil;
 import net.glxn.qrgen.android.QRCode;
 
 import java.io.Serializable;
+
+import static com.vexanium.vexgift.app.ConstantGroup.GOOGLE2FA_STATE_RESULT_CODE;
 
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_google_auth_setting, toolbarTitle = R.string.security_google_auth_label)
@@ -74,7 +77,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
                 if (google2faResponse != null) {
                     Intent intent = new Intent(this, GoogleAuthStateActivity.class);
                     intent.putExtra("state", false);
-                    startActivity(intent);
+                    startActivityForResult(intent, GOOGLE2FA_STATE_RESULT_CODE);
                 }
                 break;
             case R.id.tv_code:
@@ -102,6 +105,18 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
             hideProgress();
             KLog.v("GoogleAuthSettingActivity handleResult error : " + errorResponse.getMeta().getMessage());
             toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GOOGLE2FA_STATE_RESULT_CODE){
+            if(requestCode == Activity.RESULT_OK){
+                if(data.hasExtra("nested")){
+                    finish();
+                }
+            }
         }
     }
 

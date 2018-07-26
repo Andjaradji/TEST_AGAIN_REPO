@@ -307,6 +307,19 @@ public class RetrofitManager {
         return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> checkToken(int id, String token) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("token", token);
+
+        KLog.v("--------------------------------------------Request checkToken Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response checkToken Param End----------------------------------------------------");
+
+        return mUserService.checkGoogleAuthToken(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
     public Observable<HttpResponse<Kyc>> submitKyc(Kyc kyc) {
         Map<String, Object> params = Api.getBasicParam();
 

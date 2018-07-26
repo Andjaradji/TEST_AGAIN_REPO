@@ -43,6 +43,13 @@ public interface UserService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("user/2fa/check")
+    Observable<HttpResponse<EmptyResponse>> checkGoogleAuthToken(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @POST("user/2fa/enable")
     Observable<HttpResponse<EmptyResponse>> requestGoogleAuthEnable(
             @Header("X-Vexanium-Key") String key,

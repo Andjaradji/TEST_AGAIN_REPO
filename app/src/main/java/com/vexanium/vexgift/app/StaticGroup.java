@@ -40,6 +40,8 @@ public class StaticGroup {
     public static final int COMPLETE_FORM = 6;
     public static final int CONNECT_FB = 7;
 
+    public static final int SLEEP_SIGN_TIME = 30 * 60000;
+
     public static UserLoginResponse currentUser;
     public static String userSession;
 

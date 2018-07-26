@@ -19,9 +19,9 @@ public class ConstantGroup {
 
     public static final int SIGN_IN_REQUEST_CODE = 114;
 
-    public static final int KYC_PHOTO_RESULT_CODE = 1234;
     public static final int KYC_FRONT_PHOTO_RESULT_CODE = 1222;
     public static final int KYC_BACK_PHOTO_RESULT_CODE = 1223;
     public static final int KYC_SELFIE_PHOTO_RESULT_CODE = 1224;
-    public static int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 100;
+
+    public static final int GOOGLE2FA_STATE_RESULT_CODE = 1124;
 }

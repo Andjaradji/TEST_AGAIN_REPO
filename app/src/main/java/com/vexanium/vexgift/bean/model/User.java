@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 
@@ -136,6 +138,46 @@ public class User implements Serializable {
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, JsonUtil.toString(updateInfo));
+    }
+
+    public static boolean isLocalSessionEnded() {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+
+        Date date = new Date();
+        long lastActiveTime = tpUtil.getLong(TpUtil.KEY_LAST_ACTIVE_TIME, 0);
+
+        long now = date.getTime();
+
+        KLog.v("User","isLocalSessionEnded: now ["+now+"] - last["+lastActiveTime+"] ("+(now-lastActiveTime)+")");
+        if(now - lastActiveTime > StaticGroup.SLEEP_SIGN_TIME){
+            tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, true);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isGoogle2faLocked(){
+        boolean isGoogle2faLocked;
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        isGoogle2faLocked = tpUtil.getBoolean(TpUtil.KEY_GOOGLE2FA_LOCK, false);
+        KLog.v("User","isGoogle2faLocked: "+isGoogle2faLocked);
+        return isGoogle2faLocked;
+    }
+
+    public static boolean isGoogle2faEnable(){
+        boolean isGoogle2faEnable;
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        isGoogle2faEnable = tpUtil.getBoolean(TpUtil.KEY_GOOGLE2FA_STATE, false);
+        KLog.v("User","isGoogle2faEnable: "+isGoogle2faEnable);
+        return isGoogle2faEnable;
+    }
+
+    public static void setLastActiveTime() {
+        Date now = new Date();
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        tpUtil.put(TpUtil.KEY_LAST_ACTIVE_TIME,
+                now.getTime());
     }
 
     public static User createWithGoogle(GoogleSignInAccount account) {
@@ -542,7 +584,7 @@ public class User implements Serializable {
         this.vexPoint = vexPoint;
     }
 
-    public boolean isLoginByFacebook(){
+    public boolean isLoginByFacebook() {
         return !TextUtils.isEmpty(getFacebookAccessToken());
     }
 }

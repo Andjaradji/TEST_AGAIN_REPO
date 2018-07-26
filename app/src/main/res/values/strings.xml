@@ -193,7 +193,7 @@
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
 
-    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document and statement;</string>
+    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document and statement</string>
     <string name="myprofile_id_selfie_desc">Selfie View</string>
 
     <string name="myprofile_kyc">KYC</string>
@@ -223,7 +223,8 @@
     <string name="security_google_auth_label">Google Authentication</string>
     <string name="security_off">OFF</string>
     <string name="security_on">ON</string>
-    <string name="security_change_password_label">Change Password</string>
+    <string name="security_change_password_label">Account Password</string>
+    <string name="security_note">We strongly suggest you turn on Google Authenticator to improve account security.</string>
 
     <string name="security_google2fa_copy_key">Copy Security Key</string>
     <string name="security_google2fa_copy_key_desc">Copy this code to your clipboard</string>
