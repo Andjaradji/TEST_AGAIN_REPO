@@ -26,6 +26,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import me.echodev.resizer.Resizer;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -221,8 +222,10 @@ public class RetrofitManager {
         return mUserService.requestLogin(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
-    public Observable<HttpResponse<UserLoginResponse>> requestRegister(User user) {
+    public Observable<HttpResponse<EmptyResponse>> requestRegister(User user) {
         Map<String, Object> params = Api.getBasicParam();
+
+        params.put("name", "undefined");
 
         if (user.getLastName() != null) {
             params.put("last_name", user.getLastName());
@@ -272,7 +275,7 @@ public class RetrofitManager {
         KLog.json(params.toString());
         KLog.v("--------------------------------------------Response Register Param End----------------------------------------------------");
 
-        return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+        return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id) {
@@ -316,15 +319,30 @@ public class RetrofitManager {
         params.put("identity_image_back", kyc.getIdImageBack());
         params.put("identity_image_selfie", kyc.getIdImageSelfie());
 
-        File frontImageFile = new File(kyc.getIdImageFront());
+        File frontImageFile;
+        try {
+            frontImageFile = new Resizer(App.getContext()).setTargetLength(1080).setQuality(80).setSourceImage(new File(kyc.getIdImageFront())).getResizedFile();
+        } catch (Exception e) {
+            frontImageFile = new File(kyc.getIdImageFront());
+        }
         RequestBody frontReqFile = RequestBody.create(MediaType.parse("image/*"), frontImageFile);
         MultipartBody.Part frontBody = MultipartBody.Part.createFormData("identity_image_front", "identity_image_front", frontReqFile);
 
-        File backImageFile = new File(kyc.getIdImageBack());
+        File backImageFile;
+        try {
+            backImageFile = new Resizer(App.getContext()).setTargetLength(1080).setQuality(80).setSourceImage(new File(kyc.getIdImageBack())).getResizedFile();
+        } catch (Exception e) {
+            backImageFile = new File(kyc.getIdImageFront());
+        }
         RequestBody backReqFile = RequestBody.create(MediaType.parse("image/*"), backImageFile);
         MultipartBody.Part backBody = MultipartBody.Part.createFormData("identity_image_back", "identity_image_back", backReqFile);
 
-        File selfieImageFile = new File(kyc.getIdImageSelfie());
+        File selfieImageFile;
+        try {
+            selfieImageFile = new Resizer(App.getContext()).setTargetLength(1080).setQuality(80).setSourceImage(new File(kyc.getIdImageSelfie())).getResizedFile();
+        } catch (Exception e) {
+            selfieImageFile = new File(kyc.getIdImageFront());
+        }
         RequestBody selfieReqFile = RequestBody.create(MediaType.parse("image/*"), selfieImageFile);
         MultipartBody.Part selfieBody = MultipartBody.Part.createFormData("identity_image_selfie", "identity_image_selfie", selfieReqFile);
 

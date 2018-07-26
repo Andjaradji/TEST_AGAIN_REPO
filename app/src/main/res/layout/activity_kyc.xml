@@ -59,9 +59,9 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_main"
                 android:visibility="gone"
-                android:layout_marginTop="10dp"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                 <android.support.design.widget.TextInputEditText
@@ -77,8 +77,8 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_main"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                 <android.support.design.widget.TextInputEditText
@@ -94,7 +94,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/interval_main"
                 android:visibility="gone"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
@@ -166,7 +166,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/interval_main"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
                 <android.support.design.widget.TextInputEditText
@@ -368,6 +368,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/interval_submain"

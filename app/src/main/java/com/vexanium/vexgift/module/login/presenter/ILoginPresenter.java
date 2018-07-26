@@ -5,5 +5,4 @@ import com.vexanium.vexgift.bean.model.User;
 
 public interface ILoginPresenter extends BasePresenter{
     void requestLogin(User user);
-    void requestRegister(User user);
 }

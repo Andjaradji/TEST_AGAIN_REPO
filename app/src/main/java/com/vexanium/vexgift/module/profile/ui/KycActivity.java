@@ -32,11 +32,17 @@ import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.File;
 import java.io.Serializable;
@@ -81,9 +87,25 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         KLog.v("KycActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
 
+
         } else if (errorResponse != null) {
             KLog.v("MyProfileActivity handleResult error : " + errorResponse.getMeta().getMessage());
             toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+        }else{
+            RxBus.get().post("kycStatusUpdate", true);
+            new VexDialog.Builder(KycActivity.this)
+                    .optionType(DialogOptionType.OK)
+                    .okText("OK")
+                    .title("Submit Success")
+                    .content("Your KYC submission has been submit. Please wait, our Team will review your submission")
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    })
+                    .cancelable(false)
+                    .show();
         }
     }
 

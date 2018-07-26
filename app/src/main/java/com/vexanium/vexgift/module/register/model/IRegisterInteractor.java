@@ -6,5 +6,6 @@ import com.vexanium.vexgift.callback.RequestCallback;
 import rx.Subscription;
 
 public interface IRegisterInteractor<T> {
+    Subscription requestLogin(RequestCallback<T> callback, User user);
     Subscription requestRegister(RequestCallback<T> callback, User user);
 }

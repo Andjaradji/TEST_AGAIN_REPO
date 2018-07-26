@@ -31,7 +31,7 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("user")
-    Observable<HttpResponse<UserLoginResponse>> requestRegister(
+    Observable<HttpResponse<EmptyResponse>> requestRegister(
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 

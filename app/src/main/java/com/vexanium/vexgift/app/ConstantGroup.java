@@ -17,6 +17,8 @@ public class ConstantGroup {
 
     public static final String GOOGLE_CLIENT_ID = "921534519059-4mvbmmtq1gr5773td5obeg6ofse6div7.apps.googleusercontent.com";
 
+    public static final int SIGN_IN_REQUEST_CODE = 114;
+
     public static final int KYC_PHOTO_RESULT_CODE = 1234;
     public static final int KYC_FRONT_PHOTO_RESULT_CODE = 1222;
     public static final int KYC_BACK_PHOTO_RESULT_CODE = 1223;
