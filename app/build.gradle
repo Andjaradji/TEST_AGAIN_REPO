@@ -92,6 +92,7 @@ dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
     implementation 'com.github.kenglxn.QRGen:android:2.5.0'
+    implementation 'com.github.hkk595:Resizer:v1.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
