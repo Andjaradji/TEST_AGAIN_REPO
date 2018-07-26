@@ -1,10 +1,8 @@
 package com.vexanium.vexgift.widget;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.app.App;
 

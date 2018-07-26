@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -29,13 +28,11 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
-import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenter;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenterImpl;
 import com.vexanium.vexgift.module.register.view.IRegisterView;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 
 import org.json.JSONObject;
@@ -75,35 +72,22 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         KLog.v("RegisterActivity handleResult : "+ JsonUtil.toString(data));
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
-            String session = "";
-            if(!TextUtils.isEmpty(response.session)){
-                session = response.session;
-            }
 
-            String uid = "";
-            if (response.user != null ) {
-                if (!TextUtils.isEmpty(response.user.getId()) ){
-                    uid = response.user.getId();
-                }
-
+            if (response.user != null) {
+                String session = response.user.getSessionKey();
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
 
-//            StaticGroup.currentUser = FixtureData.getRandomUser();
-//            StaticGroup.currentUser.setUser(response.user);
-
-            hideProgress();
             executeMain(false);
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
             hideProgress();
-            KLog.v("LoginActivity handleResult error : "+errorResponse.getMsg());
-            toast(errorResponse.getCode()+" : "+ errorResponse.getMsg());
+            KLog.v("RegisterActivity handleResult error : " + errorResponse.getMeta().getMessage());
+            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (ClickUtil.isFastDoubleClick()) return;
         switch (v.getId()) {
             case R.id.login_fake_fb_button:
                 requestFacebookLogin();

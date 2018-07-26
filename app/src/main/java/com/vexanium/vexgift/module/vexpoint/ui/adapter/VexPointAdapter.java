@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
-import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 
 import java.util.ArrayList;
 

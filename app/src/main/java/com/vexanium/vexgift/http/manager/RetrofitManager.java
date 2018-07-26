@@ -5,8 +5,12 @@ import android.util.SparseArray;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
+import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.http.Api;
@@ -26,8 +30,10 @@ import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -159,11 +165,20 @@ public class RetrofitManager {
         return NetworkUtil.isOnline(App.getContext()) ? CACHE_CONTROL_NETWORK : CACHE_CONTROL_CACHE;
     }
 
+    @NonNull
+    private String getApiKey() {
+        return StaticGroup.getUserSession();
+    }
+
     public Observable<HttpResponse<UserLoginResponse>> requestLogin(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        if (user.getFamilyName() != null) {
-            params.put("last_name", user.getFamilyName());
+        if (user.getLastName() != null) {
+            params.put("last_name", user.getLastName());
+        }
+
+        if (user.getLastName() != null) {
+            params.put("first_name", user.getFirstName());
         }
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
@@ -171,28 +186,153 @@ public class RetrofitManager {
         if (user.getPassword() != null) {
             params.put("password", user.getPassword());
         }
-        if (user.getDescription() != null) {
-            params.put("description", user.getDescription());
-        }
         if (user.getLocale() != null) {
             params.put("locale", user.getLocale());
         }
         if (user.getPhoto() != null) {
-            params.put("photo", user.getPhoto());
+            params.put("cover", user.getPhoto());
         }
         if (user.getFacebookUid() != null) {
-            params.put("fb_uid", user.getFacebookUid());
+            params.put("social_media_id", user.getFacebookUid());
         }
         if (user.getFacebookAccessToken() != null) {
-            params.put("fb_token", user.getFacebookAccessToken());
+            params.put("fb_access_token", user.getFacebookAccessToken());
         }
         if (user.getLocale() != null) {
-            params.put("fb_loc", user.getLocale());
+            params.put("locale", user.getLocale());
+        }
+        if (user.getLocale() != null) {
+            params.put("timezone", user.getTimezone());
+        }
+        if (user.getLocale() != null) {
+            params.put("gender", user.getGender());
+        }
+        if (user.getGoogleToken() != null) {
+            params.put("google_id_token", user.getGoogleToken());
         }
 
         params.put("fb_friend_count", user.getFacebookFriendCount());
         params.put("age", user.getAge());
 
+        KLog.v("--------------------------------------------Request Login Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response Login Param End----------------------------------------------------");
+
         return mUserService.requestLogin(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
+
+    public Observable<HttpResponse<UserLoginResponse>> requestRegister(User user) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        if (user.getLastName() != null) {
+            params.put("last_name", user.getLastName());
+        }
+        if (user.getLastName() != null) {
+            params.put("first_name", user.getFirstName());
+        }
+        if (user.getEmail() != null) {
+            params.put("email", user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            params.put("password", user.getPassword());
+        }
+        if (user.getBirthDay() != null) {
+            params.put("birthday", user.getEmail());
+        }
+        if (user.getLocale() != null) {
+            params.put("locale", user.getLocale());
+        }
+        if (user.getPhoto() != null) {
+            params.put("cover", user.getPhoto());
+        }
+        if (user.getFacebookUid() != null) {
+            params.put("social_media_id", user.getFacebookUid());
+        }
+        if (user.getFacebookAccessToken() != null) {
+            params.put("fb_access_token", user.getFacebookAccessToken());
+        }
+        if (user.getLocale() != null) {
+            params.put("locale", user.getLocale());
+        }
+        if (user.getLocale() != null) {
+            params.put("timezone", user.getTimezone());
+        }
+        if (user.getLocale() != null) {
+            params.put("gender", user.getGender());
+        }
+
+        if (user.getGoogleToken() != null) {
+            params.put("google_id_token", user.getGoogleToken());
+        }
+
+        params.put("fb_friend_count", user.getFacebookFriendCount());
+        params.put("age", user.getAge());
+
+        KLog.v("--------------------------------------------Request Register Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response Register Param End----------------------------------------------------");
+
+        return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+    }
+
+    public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestGoogle2faUpdateState(int id, String authCode, String token, boolean isSetToEnable) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("authenticator_code", authCode);
+        params.put("token", token);
+
+        if (isSetToEnable)
+            return mUserService.requestGoogleAuthEnable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        else
+            return mUserService.requestGoogleAuthDisable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<Kyc>> requestKyc(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
+    public Observable<HttpResponse<Kyc>> submitKyc(Kyc kyc) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", kyc.getId());
+        params.put("identity_country", kyc.getIdCountry());
+        params.put("identity_type", kyc.getIdType());
+        params.put("identity_name", kyc.getIdName());
+        params.put("identity_id", kyc.getIdNumber());
+        params.put("identity_image_front", kyc.getIdImageFront());
+        params.put("identity_image_back", kyc.getIdImageBack());
+        params.put("identity_image_selfie", kyc.getIdImageSelfie());
+
+        File frontImageFile = new File(kyc.getIdImageFront());
+        RequestBody frontReqFile = RequestBody.create(MediaType.parse("image/*"), frontImageFile);
+        MultipartBody.Part frontBody = MultipartBody.Part.createFormData("identity_image_front", "identity_image_front", frontReqFile);
+
+        File backImageFile = new File(kyc.getIdImageBack());
+        RequestBody backReqFile = RequestBody.create(MediaType.parse("image/*"), backImageFile);
+        MultipartBody.Part backBody = MultipartBody.Part.createFormData("identity_image_back", "identity_image_back", backReqFile);
+
+        File selfieImageFile = new File(kyc.getIdImageSelfie());
+        RequestBody selfieReqFile = RequestBody.create(MediaType.parse("image/*"), selfieImageFile);
+        MultipartBody.Part selfieBody = MultipartBody.Part.createFormData("identity_image_selfie", "identity_image_selfie", selfieReqFile);
+
+        KLog.v("--------------------------------------------Request submitKyc Param Start----------------------------------------------------");
+        KLog.json(params.toString());
+        KLog.v("--------------------------------------------Response submitKyc Param End----------------------------------------------------");
+
+        return mUserService.submitKyc(getApiKey(), getCacheControl(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
 }

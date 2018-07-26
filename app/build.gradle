@@ -6,8 +6,8 @@ android {
         applicationId "com.vexanium.vexgift"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 600
+        versionName "0.6.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,12 +30,14 @@ android {
         development {
             buildConfigField "String", "TARGET_ENV", "\"development\""
             resValue 'string', 'app_name', "\"VexGift dev\""
+            resValue "string", "tray__authority", "$applicationId"
             buildConfigField "String", "VEX_HOST", "\"73f9ce4e.ngrok.io/\""
             dimension "mode"
         }
         production {
             buildConfigField "String", "TARGET_ENV", "\"production\""
             resValue 'string', 'app_name', "\"VexGift\""
+            resValue "string", "tray__authority", "$applicationId"
             buildConfigField "String", "VEX_HOST", "\"73f9ce4e.ngrok.io\""
             dimension "mode"
         }
@@ -81,12 +83,15 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
     implementation 'com.romandanylyk:pageindicatorview:1.0.1'
     implementation 'com.ryanjeffreybrooks:indefinitepagerindicator:1.0.9'
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
+    implementation 'com.github.kenglxn.QRGen:android:2.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -1,5 +1,9 @@
 <resources>
 
+    <string name="net_error_title">Error Network</string>
+    <string name="validate_empty_field">This field cannot be empty</string>
+    <string name="validate_all">All field must be filled</string>
+
     <string name="dsv_ex_msg_dont_set_lm">You should not set LayoutManager on DiscreteScrollView.class instance. Library uses a special one. Just don\'t call the method.</string>
     <string name="dsv_ex_msg_adapter_wrong_recycler">InfiniteScrollAdapter is supposed to work only with DiscreteScrollView</string>
 
@@ -154,6 +158,9 @@
     <string name="more_terms_of_service">Terms of Service</string>
     <string name="more_log_out">Log Out</string>
 
+    <string name="logout_title">Logout</string>
+    <string name="logout_desc">Are you sure?</string>
+
     <string name="security_change_password">Change Password</string>
     <string name="security_google_auth">Google Authentication</string>
     <string name="security_fingerprint">Fingerprint</string>
@@ -169,6 +176,9 @@
     <string name="myprofile_email_desc">Your email here</string>
     <string name="myprofile_firstname">First Name</string>
     <string name="myprofile_firstname_desc">Your first name here</string>
+
+    <string name="myprofile_name">Name</string>
+    <string name="myprofile_name_desc">Your name here</string>
     <string name="myprofile_lastname">Last Name</string>
     <string name="myprofile_lastname_desc">Your last name here</string>
     <string name="myprofile_country">Country and Region</string>
@@ -181,6 +191,9 @@
     <string name="myprofile_id_front_desc">Front View</string>
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
+
+    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document and statement;</string>
+    <string name="myprofile_id_selfie_desc">Selfie View</string>
 
     <string name="myprofile_kyc">KYC</string>
     <string name="myprofile_upload">upload</string>
@@ -205,9 +218,28 @@
     <string name="google2fa_help">Need Help?</string>
     <string name="google2fa_help_button"><u>Ask here</u></string>
 
+    <string name="security_google_auth_label">Google Authentication</string>
+    <string name="security_off">OFF</string>
+    <string name="security_on">ON</string>
+    <string name="security_change_password_label">Change Password</string>
+
+    <string name="security_google2fa_copy_key">Copy Security Key</string>
+    <string name="security_google2fa_copy_key_desc">Copy this code to your clipboard</string>
+    <string name="security_google2fa_copy_key_note">Please back up the security key to a safety place</string>
+    <string name="security_google2fa_copy_key_button">Copy to Clipboard</string>
+    <string name="security_google2fa_next">Next</string>
+    <string name="security_google2fa_disable">Disable</string>
+    <string name="security_google2fa_enable">Enable</string>
+    <string name="google2fa_disable">Disable Google Authentication</string>
+    <string name="google2fa_disable_desc">Please open Google Authenticator and input the code</string>
+    <string name="google2fa_enable_input">Input the code to Google Authenticator</string>
+    <string name="google2fa_enable_input_desc">Please open Google Authenticator and input the code</string>
+    <string name="google2fa_enable_input_field">Google Authenticator code</string>
+
+    <string name="security_google2fa_copy_message">Copied.</string>
     <string name="home_item_complete_profile">Complete Your Profile</string>
     <string name="home_item_fill_kyc">Fill Your KYC Form</string>
-    <string name="home_item_fill_kyc_detail">Fill your KYC form yo get several benefits</string>
+    <string name="home_item_fill_kyc_detail">Fill your KYC form to get several benefits</string>
     <string name="home_item_fill_now">Fill Now</string>
 
     <string name="home_item_connect_account">Connect Account With Facebook</string>
@@ -219,6 +251,18 @@
     <string name="error_token_empty_header">No Token Airdrop Found</string>
     <string name="error_voucher_empty_body">There is nothing here</string>
     <string name="error_token_empty_body">There is nothing here</string>
+
+    <string name="myprofile_kyc_none">Complete Your Profile</string>
+    <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>
+    <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>
+    <string name="myprofile_kyc_pending">Please Wait</string>
+    <string name="myprofile_kyc_pending_title">Your KYC is Being Review</string>
+    <string name="myprofile_kyc_pending_desc">Our Team currently review your KYC submission</string>
+    <string name="myprofile_kyc_rejected">We Are Sorry</string>
+    <string name="myprofile_kyc_rejected_title">Your KYC is Being Rejected</string>
+    <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible,  Please try again </string>
+
+    <string name="notif_kyc">You haven’t fill KYC yet</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -50,38 +50,47 @@
                 android:id="@+id/security_change_password_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_more_list"
-                android:text="@string/security_change_password"
+                android:background="@drawable/shape_ripple_transparent"
                 android:clickable="true"
                 android:focusable="true"
+                android:padding="@dimen/margin_common_list"
+                android:text="Change Password"
                 android:textColor="@color/material_black_text_color"
-                android:background="@drawable/shape_ripple_transparent"
                 android:textSize="@dimen/text_small_medium" />
 
-            <TextView
+            <RelativeLayout
                 android:id="@+id/security_google_auth_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_more_list"
-                android:text="@string/security_google_auth"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColor="@color/material_black_text_color"
                 android:background="@drawable/shape_ripple_transparent"
-                android:textSize="@dimen/text_small_medium" />
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:layout_toLeftOf="@+id/google_auth_status"
+                    android:layout_toStartOf="@+id/google_auth_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_ripple_transparent"
+                    android:padding="@dimen/margin_common_list"
+                    android:text="Google Authentication"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
 
-            <TextView
-                android:id="@+id/security_fingerprint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_more_list"
-                android:text="@string/security_fingerprint"
-                android:clickable="true"
-                android:focusable="true"
-                android:textColor="@color/material_black_text_color"
-                android:background="@drawable/shape_ripple_transparent"
-                android:textSize="@dimen/text_small_medium"
-                android:visibility="gone"/>
+                <TextView
+                    android:id="@id/google_auth_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/shape_ripple_transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="@dimen/margin_common_list"
+                    android:text="OFF"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

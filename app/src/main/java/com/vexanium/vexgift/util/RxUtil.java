@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.util;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.http.ApiException;
 
@@ -18,12 +19,13 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<HttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(HttpResponse<T> tHttpResponse) {
-//                        if(tHttpResponse.getCode() > 0) {
-//                            return Observable.error(new ApiException(tHttpResponse.getMsg()));
-//                        } else {
-//                            return createData(tHttpResponse.getData());
-//                        }
-                        return null;
+                        KLog.v("HPtes status1 "+tHttpResponse.getMeta().getMessage());
+                        if(tHttpResponse.getMeta().getStatus() != 200) {
+                            KLog.v("HPtes status "+tHttpResponse.getMeta().getMessage());
+                            return Observable.error(new ApiException(tHttpResponse.getMeta().getMessage()));
+                        } else {
+                            return createData(tHttpResponse.getMeta().getData());
+                        }
                     }
                 });
             }

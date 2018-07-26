@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class UserLoginResponse implements Serializable {
     @JsonProperty("user")
     public User user;
-    @JsonProperty("session")
-    public String session;
+    @JsonProperty("is_password_set")
+    public Boolean isPasswordSet;
 
 }

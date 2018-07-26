@@ -1,10 +1,9 @@
 package com.vexanium.vexgift.module.redeem.ui;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,8 +17,6 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
-import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -75,7 +72,6 @@ public class VoucherRedeemActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        if(ClickUtil.isFastDoubleClick()) return;
         super.onClick(v);
         switch (v.getId()){
             case R.id.back_button:
