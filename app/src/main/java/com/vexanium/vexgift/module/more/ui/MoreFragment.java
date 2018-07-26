@@ -3,6 +3,8 @@ package com.vexanium.vexgift.module.more.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,29 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.setting.ui.SettingActivity;
+import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
+
+
+import rx.Observable;
+import rx.functions.Action1;
+
+import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
+import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_more)
 public class MoreFragment extends BaseFragment {
 
+    private Observable<Boolean> mNotifObservable;
+    private View notifView;
+
     @Override
-    protected void initView(View fragmentRootView) {
+    protected void initView(final View fragmentRootView) {
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "More");
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
@@ -35,6 +52,41 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
+
+        notifView = fragmentRootView.findViewById(R.id.rl_notif_info);
+        notifView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ClickUtil.isFastDoubleClick())return;
+                intentToActivity(MyProfileActivity.class);
+            }
+        });
+
+        mNotifObservable = RxBus.get().register("startNotifSlideDown", Boolean.class);
+        mNotifObservable.subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                AnimUtil.transTopIn(notifView,true, 300);
+            }
+        });
+
+        // TODO: 26/07/18 get KYC Status
+        int kycStatus = StaticGroup.kycStatus;
+        if(kycStatus == KYC_NONE){
+            ViewUtil.setText(notifView, R.id.tv_notif_info,getString(R.string.notif_kyc));
+            CountDownTimer countDownTimer = new CountDownTimer(2000,500) {
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    RxBus.get().post("startNotifSlideDown", true);
+                }
+            };
+            countDownTimer.start();
+        }
     }
 
     @Override
@@ -74,7 +126,7 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_privacy_policy:
                 break;
             case R.id.more_logout_button:
-                StaticGroup.logOutClear(MoreFragment.this.getActivity(), 0);
+                doLogout();
                 break;
         }
     }
@@ -83,6 +135,28 @@ public class MoreFragment extends BaseFragment {
         Intent intent = new Intent(MoreFragment.this.getActivity(), activity);
         startActivity(intent);
     }
+
+    private void doLogout(){
+        new VexDialog.Builder(MoreFragment.this.getActivity())
+                .title(getString(R.string.logout_title))
+                .content(getString(R.string.logout_desc))
+                .optionType(DialogOptionType.YES_NO)
+                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        StaticGroup.logOutClear(MoreFragment.this.getActivity(), 0);
+                    }
+                })
+                .autoDismiss(true).show();
+
+    }
+
 
     public static MoreFragment newInstance() {
         return new MoreFragment();

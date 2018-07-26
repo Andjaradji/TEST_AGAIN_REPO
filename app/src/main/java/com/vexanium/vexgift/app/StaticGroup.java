@@ -23,6 +23,9 @@ import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 
+import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
+import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
+
 
 /**
  * Created by hizkia on 12/03/18.
@@ -39,6 +42,8 @@ public class StaticGroup {
 
     public static UserLoginResponse currentUser;
     public static String userSession;
+
+    public static int kycStatus = KYC_NONE;
 
     public static String getUserSession(){
         if(userSession == null){
@@ -113,8 +118,11 @@ public class StaticGroup {
         KLog.v("================= logOutClear =================");
 
         User user = User.getCurrentUser(context);
-        if (user.isLoginByFacebook())
+        // TODO: 26/07/18 remind amang facebook token
+//        if (user.isLoginByFacebook()) {
+//            KLog.v("StaticGroup","logOutClear: isLoginByFacebook");
             LoginManager.getInstance().logOut();
+//        }
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.removePrivate();

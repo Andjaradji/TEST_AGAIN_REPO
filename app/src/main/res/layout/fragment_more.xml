@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".module.more.ui.MoreFragment">
@@ -43,6 +43,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/app_bar"
             android:background="@color/material_white">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,31 +53,35 @@
                     android:id="@+id/rl_notif_info"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
+                    android:visibility="gone"
                     android:background="#e86c26">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_ripple_transparent"></View>
 
                     <TextView
                         android:id="@+id/tv_notif_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="You have 10 Expired and 8 Used Voucher"
-                        android:textSize="@dimen/text_small_medium"
-                        android:textColor="@color/material_white"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:paddingLeft="20dp"
                         android:paddingRight="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"/>
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/tv_notif_see_all"
-                        android:text="@string/box_notif_see_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/material_white"
-                        android:textSize="@dimen/text_xtiny"
-                        android:paddingRight="20dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        />
+                        android:paddingRight="20dp"
+                        android:text="@string/box_notif_see_all"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_xtiny" />
 
                 </RelativeLayout>
 
@@ -85,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="@dimen/interval_main">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -98,36 +104,36 @@
                         android:id="@+id/more_myprofile_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_myprofile"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_myprofile"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_security_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="Security"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="Security"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_setting_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="Setting"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="Setting"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
 
@@ -151,84 +157,84 @@
                         android:id="@+id/more_merchant_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_merchant_list"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_merchant_list"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_feedback_buttton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_send_feedback"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_send_feedback"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_problem_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_report_problem"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_report_problem"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_gp_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_rate_us"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_rate_us"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_about_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_about_us"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_about_us"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_privacy_policy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_privacy_policy"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_privacy_policy"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/more_terms_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_terms_of_service"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_terms_of_service"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
 
                     <View
@@ -242,19 +248,18 @@
                         android:id="@+id/more_logout_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_more_list"
-                        android:text="@string/more_log_out"
+                        android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="@string/more_log_out"
                         android:textColor="@color/material_black_text_color"
-                        android:background="@drawable/shape_ripple_transparent"
                         android:textSize="@dimen/text_small_medium" />
                 </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-
 
 
 </FrameLayout>

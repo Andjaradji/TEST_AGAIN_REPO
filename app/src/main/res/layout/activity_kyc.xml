@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
-                android:layout_marginTop="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_big"
                 android:tag="bold"
                 android:text="@string/myprofile_id_info"
                 android:textColor="@color/material_black_text_color"
