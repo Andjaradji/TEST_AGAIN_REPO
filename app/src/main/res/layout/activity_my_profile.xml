@@ -108,6 +108,16 @@
                 android:layout_marginTop="@dimen/margin_more_line"
                 android:background="@color/lineColor" />
 
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_myprofile_list"
+                android:layout_marginTop="@dimen/margin_myprofile_list"
+                android:tag="bold"
+                android:text="@string/myprofile_user_info"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_title" />-->
+
 
             <LinearLayout
                 android:id="@+id/kyc_info"

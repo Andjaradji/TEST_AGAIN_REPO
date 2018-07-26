@@ -9,7 +9,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
@@ -21,7 +23,6 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
@@ -42,6 +43,10 @@ public class VoucherActivity extends BaseActivity {
     private ArrayList<VoucherResponse> data;
     GridLayoutManager layoutListManager;
 
+    LinearLayout mErrorView;
+    ImageView mIvError;
+    TextView mTvErrorHead,mTvErrorBody;
+
     RecyclerView mRecyclerview, mRvCategory, mRvLocation;
     FilterAdapter mAdapterCategory, mAdapterLocation;
     SlidingUpPanelLayout mSlidePanel;
@@ -61,16 +66,28 @@ public class VoucherActivity extends BaseActivity {
         mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
         mDragView = findViewById(R.id.dragview);
         mRecyclerview = findViewById(R.id.recylerview);
+
+        mErrorView = findViewById(R.id.ll_error_view);
+        mIvError = findViewById(R.id.iv_error_view);
+        mTvErrorHead = findViewById(R.id.tv_error_head);
+        mTvErrorBody = findViewById(R.id.tv_error_body);
+
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 12, true);
+        //data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 12, true);
+        //setVoucherList(data);
+
+        data = new ArrayList<>();
         setVoucherList(data);
 
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.token_open_filter_button).setOnClickListener(this);
+
+        ((ImageView)findViewById(R.id.iv_toolbar_logo)).setImageResource(R.drawable.ic_gift);
+        ((TextView)findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.voucher_title));
 
         mSlidePanel.setAnchorPoint(0.6f);
         mSlidePanel.setOverlayed(true);
@@ -218,6 +235,16 @@ public class VoucherActivity extends BaseActivity {
                 App.setTextViewStyle(mRecyclerview);
             }
         });
+
+        if(data.size() <= 0){
+            mErrorView.setVisibility(View.VISIBLE);
+            mIvError.setImageResource(R.drawable.voucher_empty);
+            mTvErrorHead.setText(getString(R.string.error_voucher_empty_header));
+            mTvErrorBody.setText(getString(R.string.error_voucher_empty_body));
+
+            mRecyclerview.setVisibility(View.GONE);
+            findViewById(R.id.token_open_filter_button).setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -251,6 +251,11 @@
     <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
     <string name="home_item_connect_now">Connect Now</string>
 
+    <string name="error_voucher_empty_header">No Gift Voucher Found</string>
+    <string name="error_token_empty_header">No Token Airdrop Found</string>
+    <string name="error_voucher_empty_body">There is nothing here</string>
+    <string name="error_token_empty_body">There is nothing here</string>
+
     <string name="myprofile_kyc_none">Complete Your Profile</string>
     <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>
     <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>
