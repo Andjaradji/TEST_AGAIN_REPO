@@ -18,10 +18,15 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
@@ -31,6 +36,8 @@ import static com.vexanium.vexgift.app.ConstantGroup.KYC_REJECTED;
 @ActivityFragmentInject(contentViewId = R.layout.activity_my_profile, toolbarTitle = R.string.myprofile_toolbar_title)
 public class MyProfileActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
 
+    private Observable<Boolean> mKycStatusUpdateObservable;
+    private int kycStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,17 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             mPresenter.requestKyc(user.getId());
         }
 
+        mKycStatusUpdateObservable = RxBus.get().register("kycStatusUpdate", Boolean.class);
+        mKycStatusUpdateObservable.subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                User user = User.getCurrentUser(App.getContext());
+                if (user != null) {
+                    mPresenter.requestKyc(user.getId());
+                }
+            }
+        });
+
         findViewById(R.id.btn_next).setOnClickListener(this);
     }
 
@@ -54,9 +72,13 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("MyProfileActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-            setKycInfo(KYC_ACCEPTED);
             Kyc kyc = (Kyc) data;
             if (kyc != null) {
+                if(kyc.getStatus().equalsIgnoreCase("pending")){
+                    setKycInfo(KYC_PENDING);
+                }else{
+                    setKycInfo(KYC_ACCEPTED);
+                }
                 setKycContent(kyc);
             }
         } else if (errorResponse != null) {
@@ -94,11 +116,12 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
     }
 
     private void setKycInfo(int status) {
-        LinearLayout llInfo = findViewById(R.id.kyc_info);
-        LinearLayout llcontent = findViewById(R.id.kyc_content);
+        final LinearLayout llInfo = findViewById(R.id.kyc_info);
+        final LinearLayout llcontent = findViewById(R.id.kyc_content);
         TextView tvInfo = findViewById(R.id.tv_info);
         TextView tvTitle = findViewById(R.id.tv_info_title);
         TextView tvDesc = findViewById(R.id.tv_info_desc);
+        TextView tvNext = findViewById(R.id.tv_next);
         LinearLayout btnNext = findViewById(R.id.btn_next);
 
         switch (status) {
@@ -112,7 +135,8 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
                 tvInfo.setText(getString(R.string.myprofile_kyc_none));
                 tvTitle.setText(getString(R.string.myprofile_kyc_none_title));
                 tvDesc.setText(getString(R.string.myprofile_kyc_none_desc));
-                btnNext.setVisibility(View.VISIBLE);
+                tvNext.setText(getString(R.string.myprofile_submit));
+                btnNext.setOnClickListener(this);
                 break;
             case KYC_PENDING:
                 llcontent.setVisibility(View.GONE);
@@ -120,7 +144,16 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
                 tvInfo.setText(getString(R.string.myprofile_kyc_pending));
                 tvTitle.setText(getString(R.string.myprofile_kyc_pending_title));
                 tvDesc.setText(getString(R.string.myprofile_kyc_pending_desc));
-                btnNext.setVisibility(View.GONE);
+                tvNext.setText(getString(R.string.myprofile_view));
+                btnNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(ClickUtil.isFastDoubleClick())return;
+                        llcontent.setVisibility(View.VISIBLE);
+                        llInfo.setVisibility(View.GONE);
+                    }
+                });
+
                 break;
             case KYC_REJECTED:
                 llcontent.setVisibility(View.GONE);
@@ -128,7 +161,10 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
                 tvInfo.setText(getString(R.string.myprofile_kyc_rejected));
                 tvTitle.setText(getString(R.string.myprofile_kyc_rejected_title));
                 tvDesc.setText(getString(R.string.myprofile_kyc_rejected_desc));
-                btnNext.setVisibility(View.VISIBLE);
+                tvNext.setText(getString(R.string.myprofile_submit));
+                btnNext.setOnClickListener(this);
+
+
                 break;
         }
     }
