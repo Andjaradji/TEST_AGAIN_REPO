@@ -215,7 +215,10 @@
     <string name="home_item_connect_fb_detail">Connect with Facebook to easily login to your account</string>
     <string name="home_item_connect_now">Connect Now</string>
 
-
+    <string name="error_voucher_empty_header">No Gift Voucher Found</string>
+    <string name="error_token_empty_header">No Token Airdrop Found</string>
+    <string name="error_voucher_empty_body">There is nothing here</string>
+    <string name="error_token_empty_body">There is nothing here</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

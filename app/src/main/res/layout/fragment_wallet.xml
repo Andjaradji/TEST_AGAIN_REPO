@@ -10,14 +10,12 @@
         android:background="@color/material_white"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:src="@drawable/wallet_soon"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Coming Soon"
-            android:layout_centerInParent="true"
-            android:textSize="20sp"/>
+            android:scaleType="fitCenter"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
-
-
 
 </FrameLayout>

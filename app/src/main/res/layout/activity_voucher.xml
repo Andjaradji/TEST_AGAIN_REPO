@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     app:umanoPanelHeight="0dp"
+    android:background="@color/material_white"
     tools:context=".module.voucher.ui.VoucherActivity">
 
     <RelativeLayout
@@ -42,13 +43,48 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/app_bar"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_error_view"
+                android:src="@drawable/token_empty"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/tv_error_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_voucher_empty_header"
+                android:layout_marginTop="@dimen/interval_main"
+                android:textSize="@dimen/text_big_medium"
+                android:textColor="@color/text_secondary"/>
+
+            <TextView
+                android:id="@+id/tv_error_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_voucher_empty_body"
+                android:layout_marginTop="@dimen/interval_small"
+                android:textSize="@dimen/text_small_medium"
+                android:textColor="@color/material_grey_400"/>
+
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/app_bar"
-            tools:listitem="@layout/item_coupon_list"
-            android:background="@color/material_white">
+            tools:listitem="@layout/item_coupon_list">
 
         </android.support.v7.widget.RecyclerView>
 
