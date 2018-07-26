@@ -3,6 +3,7 @@
     <string name="net_error_title">Error Network</string>
     <string name="validate_empty_field">This field cannot be empty</string>
     <string name="validate_all">All field must be filled</string>
+    <string name="succsess">Success</string>
 
     <string name="dsv_ex_msg_dont_set_lm">You should not set LayoutManager on DiscreteScrollView.class instance. Library uses a special one. Just don\'t call the method.</string>
     <string name="dsv_ex_msg_adapter_wrong_recycler">InfiniteScrollAdapter is supposed to work only with DiscreteScrollView</string>
@@ -198,6 +199,7 @@
     <string name="myprofile_kyc">KYC</string>
     <string name="myprofile_upload">upload</string>
     <string name="myprofile_submit">Submit</string>
+    <string name="myprofile_view">View My Submission</string>
 
     <string name="term_agree">I have read &amp; agree to the terms of use</string>
 
@@ -235,6 +237,8 @@
     <string name="google2fa_enable_input">Input the code to Google Authenticator</string>
     <string name="google2fa_enable_input_desc">Please open Google Authenticator and input the code</string>
     <string name="google2fa_enable_input_field">Google Authenticator code</string>
+    <string name="google2fa_enable_success">Your Google Authenticator has been Enable</string>
+    <string name="google2fa_disable_success">Your Google Authenticator has been Disable</string>
 
     <string name="security_google2fa_copy_message">Copied.</string>
     <string name="home_item_complete_profile">Complete Your Profile</string>
