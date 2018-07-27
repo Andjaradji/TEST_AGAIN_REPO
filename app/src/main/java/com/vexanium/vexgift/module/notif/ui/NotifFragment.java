@@ -87,7 +87,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         loadData();
         initNotifList();
 
-        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"Notification");
+        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"NOTIFICATION");
         App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 

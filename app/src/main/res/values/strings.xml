@@ -271,6 +271,8 @@
     <string name="error_notif_empty_header">No Notification</string>
     <string name="error_notif_empty_body">You have no new notification at the moment</string>
 
+    <string name="error_wallet_empty_header">No Transaction Yet</string>
+
     <string name="myprofile_kyc_none">Complete Your Profile</string>
     <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>
     <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>
