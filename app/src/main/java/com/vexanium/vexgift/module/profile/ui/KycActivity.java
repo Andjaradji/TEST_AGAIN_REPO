@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -66,12 +67,28 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         findViewById(R.id.btn_next).setOnClickListener(this);
 
         Spinner spDocType = findViewById(R.id.sp_document_type);
-        ArrayAdapter<String> spDocTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.documentType);
+        ArrayAdapter<String> spDocTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.documentType){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view =  super.getView(position, convertView, parent);
+                view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
+                return view;
+            }
+        };
         spDocTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDocType.setAdapter(spDocTypeAdapter);
 
         Spinner spCountry = findViewById(R.id.sp_country);
-        ArrayAdapter<String> spCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.countries);
+        ArrayAdapter<String> spCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.countries){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view =  super.getView(position, convertView, parent);
+                view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
+                return view;
+            }
+        };
         spCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCountry.setAdapter(spCountryAdapter);
 

@@ -98,7 +98,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     }
 
     public void loadData() {
-        //data = FixtureData.notifs;
+        data = FixtureData.notifs;
         data = new ArrayList<>();
     }
 

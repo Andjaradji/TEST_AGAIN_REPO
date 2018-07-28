@@ -11,6 +11,7 @@
         android:layout_height="32dp"
         android:paddingLeft="@dimen/interval_main"
         android:paddingRight="@dimen/interval_main"
+        android:background="@drawable/shape_ripple_transparent"
         android:paddingEnd="@dimen/interval_main"
         android:paddingStart="@dimen/interval_main">
 
@@ -18,8 +19,8 @@
             android:id="@+id/tv_category_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="bold"
             android:layout_alignParentBottom="true"
-            android:tag="hnMed"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/text_big_medium" />
 
@@ -57,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/interval_main"
+        android:layout_marginBottom="@dimen/interval_main"
         android:background="@color/lineColor"></View>
 
 

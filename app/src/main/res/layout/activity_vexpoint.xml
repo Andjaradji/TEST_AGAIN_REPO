@@ -72,17 +72,57 @@
                     android:layout_margin="25dp"
                     android:background="@drawable/shape_vexpoint_bg"
                     android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_ask_me"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/interval_content"/>
 
-                    <TextView
-                        android:id="@+id/tv_vexpoint"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="bold"
-                        android:text="1500"
-                        android:transitionName="vexpoint_amount"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/material_white"
-                        android:textSize="@dimen/text_xlarge"/>
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:id="@+id/tv_vexpoint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="hnBoldCond"
+                            android:text="1.500"
+                            android:transitionName="vexpoint_amount"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_xlarge"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#ABFFFFFF"
+                                android:textSize="@dimen/text_small"
+                                android:text="@string/vexpoint_estimate_reward"
+                                android:layout_marginRight="@dimen/interval_content"
+                                android:tag="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/material_white"
+                                android:textSize="@dimen/text_small"
+                                android:tag="hnBoldCond"
+                                android:text="1500"/>
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_marginLeft="@dimen/interval_small"
+                                android:src="@drawable/ic_triangle"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </RelativeLayout>
 

@@ -237,9 +237,10 @@
                         android:textSize="@dimen/text_tiny" />
 
                     <CheckBox
+                        android:id="@+id/cb_aggree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="I Agree" />
+                        android:text="@string/term_agree" />
 
                 </LinearLayout>
 

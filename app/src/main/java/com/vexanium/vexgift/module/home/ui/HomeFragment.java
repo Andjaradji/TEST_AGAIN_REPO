@@ -150,18 +150,18 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
         hotVoucherList = FixtureData.showCaseVoucherResponse;
+
         data = new ArrayList<>();
         data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
-        /*data.add(1, new HomeFeedResponse(HOT_LIST, hotVoucherList));
+        data.add(1, new HomeFeedResponse(HOT_LIST, hotVoucherList));
         data.add(2, new HomeFeedResponse(EXPLORE_BAR));
-        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Voucher", "Today"));
-        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.getRandomVoucherResponse(3, true), "Best Token", "Today"));
+        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse,"Best Token","Today"));
+        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse,"Best Voucher","Today"));
         data.add(5, new HomeFeedResponse(COMPLETE_FORM));
-        data.add(6, new HomeFeedResponse(CONNECT_FB));*/
 
-        data.add(1, new HomeFeedResponse(EXPLORE_BAR));
-        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
-        data.add(3, new HomeFeedResponse(CONNECT_FB));
+//        data.add(1, new HomeFeedResponse(EXPLORE_BAR));
+//        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
+//        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }
 
     public void initHomeList() {
