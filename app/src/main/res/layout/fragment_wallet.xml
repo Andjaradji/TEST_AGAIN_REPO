@@ -120,7 +120,7 @@
                     android:id="@+id/ll_btn_vex_send"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/shape_ripple_small_button"
+                    android:background="@drawable/shape_ripple_primary_button"
                     android:padding="@dimen/interval_submain"
                     android:layout_marginBottom="24dp"
                     android:clickable="true"
@@ -149,7 +149,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_btn_vex_receieve"
+                    android:id="@+id/ll_btn_vex_receive"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_ripple_secondary_button"

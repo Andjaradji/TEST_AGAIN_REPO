@@ -132,10 +132,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_main"
-                    android:layout_marginTop="@dimen/interval_small"
+                    android:layout_marginTop="@dimen/interval_main"
                     android:tag="hnMed"
                     android:textColor="@color/material_black_text_color"
-                    android:textSize="@dimen/text_medium" />
+                    android:textSize="@dimen/text_big_medium" />
 
                 <ImageView
                     android:layout_width="181dp"
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_small"
-                    android:layout_marginTop="@dimen/interval_content"
+                    android:layout_marginTop="@dimen/interval_main"
                     android:tag="hnMed"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_small" />
@@ -167,14 +167,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_main"
                     android:layout_marginTop="@dimen/interval_small"
-                    android:background="@drawable/shape_main_button"
+                    android:paddingTop="@dimen/interval_submain"
+                    android:paddingBottom="@dimen/interval_submain"
+                    android:paddingLeft="@dimen/interval_medium"
+                    android:paddingRight="@dimen/interval_medium"
+                    android:background="@drawable/shape_ripple_small_button"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_next"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/interval_submain"
                         android:tag="bold"
                         android:text="@string/home_item_fill_now"
                         android:textAllCaps="true"
