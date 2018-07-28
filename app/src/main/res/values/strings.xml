@@ -3,6 +3,9 @@
     <string name="net_error_title">Error Network</string>
     <string name="validate_empty_field">This field cannot be empty</string>
     <string name="validate_all">All field must be filled</string>
+    <string name="validate_checkbox_aggree_title">Sorry</string>
+    <string name="validate_checkbox_aggree_content">You need to check terms and agreement first</string>
+
     <string name="succsess">Success</string>
 
     <string name="dsv_ex_msg_dont_set_lm">You should not set LayoutManager on DiscreteScrollView.class instance. Library uses a special one. Just don\'t call the method.</string>
@@ -108,6 +111,8 @@
     <string name="vexpoint_title">VEX POINT</string>
     <string name="vexpoint_point_record">Point Record</string>
     <string name="vexpoint_invite_point">Invite Point</string>
+    <string name="vexpoint_countdown_time_label"></string>
+    <string name="vexpoint_estimate_reward">EST. REWARD</string>
 
     <string name="shortcut_my_voucher">MY VOUCHER</string>
     <string name="shortcut_my_token">MY TOKEN</string>
@@ -284,6 +289,14 @@
     <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible,  Please try again </string>
 
     <string name="notif_kyc">You haven’t fill KYC yet</string>
+
+    <string name="dialog_get_now">Get Now</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <string name="captcha_field">Enter captcha code here</string>
+    <string name="captcha_validation_message">Captcha code is invalid</string>
+    <string name="captcha_dialog_title">Get Voucher</string>
+    <string name="captcha_dialog_content">Please write captcha to get the voucher</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

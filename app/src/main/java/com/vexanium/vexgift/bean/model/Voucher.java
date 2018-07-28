@@ -69,16 +69,18 @@ public class Voucher  implements Serializable {
         this.brand = brand;
     }
 
-    public Voucher(String photo, String title, String expiredDate) {
+    public Voucher(String photo, String title, String expiredDate, Brand brand) {
         this.photo = photo;
         this.title = title;
         this.expiredDate = expiredDate;
+        this.brand = brand;
     }
 
-    public Voucher(String photo, String title, String expiredDate, boolean active) {
+    public Voucher(String photo, String title, String expiredDate, boolean active, Brand brand) {
         this.photo = photo;
         this.title = title;
         this.expiredDate = expiredDate;
         this.active = active;
+        this.brand = brand;
     }
 }

@@ -282,7 +282,7 @@ public class FixtureData {
     public static final ArrayList<String> voucherTitle = new ArrayList<String>() {
         {
 
-            add("Buy 1 Get 1 VexBread All Varians");
+            add("Buy 1 Get 1 VexBread All Variants");
             add("Harga Spesial Vex Essential Facial Spa Untuk Semua Jenis Kulit seharga Rp. 125.000");
             add("Diskon 50% Gel Polish dari The Vex Nail Shop");
         }
@@ -304,6 +304,9 @@ public class FixtureData {
             add("Vexanium");
             add("Vexbook");
             add("Vexipedia");
+            add("Achain");
+            add("Kcash");
+            add("Tokenomy");
         }
     };
 
@@ -311,6 +314,7 @@ public class FixtureData {
         {
             add("https://www.overleaf.com/assets/logos/overleaf_og_logo.png");
             add("http://scdn.ctree.id/f/180314/1521038888014_piz.webp");
+            add("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png");
         }
     };
 
@@ -318,19 +322,11 @@ public class FixtureData {
         {
             add(new VoucherResponse(
                             new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
-                                    "FREE 10 COINS! Achain Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018"),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
                                     "Be Her Early Valentine, 15% off Discount",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018"),
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+                                            "Flower Advisor")),
                             (random.nextInt(10) + 10) * 50,
                             (random.nextInt(10)) * 50,
                             NORMAL_COUPON
@@ -340,7 +336,37 @@ public class FixtureData {
                             new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
                                     "Orori Instant Voucher Rp750.000,-",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018"),
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
+                            (random.nextInt(10) + 10) * 50,
+                            (random.nextInt(10)) * 50,
+                            NORMAL_COUPON
+                    )
+            );
+            add(new VoucherResponse(
+                            new Voucher(
+                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
+                                    "Buy 1 Get 1 VexPizza All Variants",
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
+                                            "VexPizza")),
+                            (random.nextInt(10) + 10) * 50,
+                            (random.nextInt(10)) * 50,
+                            NORMAL_COUPON
+                    )
+            );
+        }
+    };
+
+    public static final ArrayList<VoucherResponse> showCaseTokenResponse = new ArrayList<VoucherResponse>() {
+        {
+            add(new VoucherResponse(
+                            new Voucher(
+                                    "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
+                                    "FREE 10 COINS! Achain Airdrop",
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                     new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+                                             "Achain")),
                             (random.nextInt(10) + 10) * 50,
                             (random.nextInt(10)) * 50,
                             NORMAL_COUPON
@@ -350,7 +376,9 @@ public class FixtureData {
                             new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
                                     "FREE 10 COINS! KCash Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018"),
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+                                            "Kcash")),
                             (random.nextInt(10) + 10) * 50,
                             (random.nextInt(10)) * 50,
                             NORMAL_COUPON
@@ -360,7 +388,9 @@ public class FixtureData {
                             new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521570502012_tokenomy.webp",
                                     "FREE 20 COINS! Tokenomy Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018"),
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://www.tokenomy.com/images/tokenomy/LOGO_FIX_GRAM.pngk",
+                                            "Tokenomy")),
                             (random.nextInt(10) + 10) * 50,
                             (random.nextInt(10)) * 50,
                             NORMAL_COUPON
@@ -447,20 +477,20 @@ public class FixtureData {
 
     public static final ArrayList<VoucherResponse> getRandomVoucherResponse(int voucherCount, boolean active) {
         ArrayList<VoucherResponse> vouchers = new ArrayList<>();
-//        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
-//            vouchers.add(voucherResponse);
-//        }
-        for (int i = 0; i < voucherCount; i++) {
-            VoucherResponse voucherResponse = new VoucherResponse();
-            voucherResponse.setVoucher(new Voucher(
-                    getRandomData(voucherPhotoUrl), getRandomData(voucherTitle), (random.nextInt(29) + 1) + " April 2018",
-                     active)
-            );
-            voucherResponse.setStock((random.nextInt(19) + 1) * 50);
-            voucherResponse.setAvail(voucherResponse.getStock() - random.nextInt(50));
-
+        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
             vouchers.add(voucherResponse);
         }
+//        for (int i = 0; i < voucherCount; i++) {
+//            VoucherResponse voucherResponse = new VoucherResponse();
+//            voucherResponse.setVoucher(new Voucher(
+//                    getRandomData(voucherPhotoUrl), getRandomData(voucherTitle), (random.nextInt(29) + 1) + " April 2018",
+//                     active)
+//            );
+//            voucherResponse.setStock((random.nextInt(19) + 1) * 50);
+//            voucherResponse.setAvail(voucherResponse.getStock() - random.nextInt(50));
+//
+//            vouchers.add(voucherResponse);
+//        }
 
         return vouchers;
     }

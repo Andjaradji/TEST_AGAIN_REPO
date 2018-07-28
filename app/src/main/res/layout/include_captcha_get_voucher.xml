@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_captcha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_captcha_border">
+
+        <com.vexanium.vexgift.widget.CaptchaImageView
+            android:id="@+id/iv_captcha"
+            android:layout_width="156dp"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="11dp"
+            android:tint="@color/material_black_sub_text_color"
+            android:src="@drawable/ic_refresh" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/ll_captcha"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/shape_voucher_availability"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/interval_main">
+
+        <EditText
+            android:id="@+id/et_captcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:hint="@string/captcha_field"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_small_medium" />
+    </LinearLayout>
+
+
+</RelativeLayout>

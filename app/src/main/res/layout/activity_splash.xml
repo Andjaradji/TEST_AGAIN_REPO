@@ -7,6 +7,12 @@
     android:background="@drawable/shape_main_bg"
     tools:context=".module.splash.ui.SplashActivity">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/decoration"></View>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,23 +25,11 @@
             android:scaleType="fitCenter"
             android:layout_width="@dimen/main_icon_width"
             android:layout_height="@dimen/main_icon_height"
-            android:src="@drawable/big_logo"
-            android:layout_marginBottom="@dimen/margin_splash"/>
-
-        <!--font hasnt been set-->
-        <TextView
-            android:id="@+id/tv_main_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_xlarge"
-            android:visibility="gone"
-            android:textColor="@color/material_white"
-            android:text="@string/app_title"
-            android:textAllCaps="true"/>
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/tes"/>
 
     </LinearLayout>
 
-    <!--font hasnt been set-->
     <TextView
         android:id="@+id/tv_main_copyright"
         android:layout_width="wrap_content"
@@ -43,6 +37,7 @@
         android:textSize="@dimen/text_tiny"
         android:textColor="@color/material_white"
         android:text="@string/app_copyright"
+        android:tag="light"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/margin_splash"/>

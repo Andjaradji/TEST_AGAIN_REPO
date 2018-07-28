@@ -21,6 +21,7 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
@@ -76,10 +77,11 @@ public class TokenActivity extends BaseActivity {
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        //data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
+        data = FixtureData.showCaseTokenResponse;
+        data.addAll(data);
         //setVoucherList(data);
 
-        data = new ArrayList<>();
+//        data = new ArrayList<>();
         setVoucherList(data);
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -112,7 +114,6 @@ public class TokenActivity extends BaseActivity {
                 }
 */
                 if(newState.name().equalsIgnoreCase("Expanded")){
-
                     //action when expanded
                     mPanelScrollview.setScrollingEnabled(true);
                 }else{

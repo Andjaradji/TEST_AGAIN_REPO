@@ -30,7 +30,6 @@ public class App extends Application {
     public static Typeface regular;
     public static Typeface medium;
     public static Typeface light;
-    public static Typeface sspBold;
     public static Typeface hnBoldCond;
     public static Typeface hnMed;
 
@@ -50,7 +49,6 @@ public class App extends Application {
         regular = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Regular.ttf");
         medium = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Medium.ttf");
         light = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Light.ttf");
-        sspBold = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Bold.ttf");
         hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
         hnMed = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueMed.ttf");
     }
@@ -72,8 +70,6 @@ public class App extends Application {
                         ((TextView) child).setTypeface(medium);
                     else if (tagObj.equals("light"))
                         ((TextView) child).setTypeface(light);
-                    else if (tagObj.equals("sspBold"))
-                        ((TextView) child).setTypeface(sspBold);
                     else if (tagObj.equals("hnBoldCond"))
                         ((TextView) child).setTypeface(hnBoldCond);
                     else if (tagObj.equals("hnMed"))

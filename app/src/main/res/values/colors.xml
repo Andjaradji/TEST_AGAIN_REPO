@@ -5,8 +5,8 @@
     <color name="background">@color/material_grey_ed</color>
 
     //theme properties mentioned here
-    <color name="colorPrimary">@color/material_orange_9f00</color>
-    <color name="colorPrimaryDark">#FAA105</color>
+    <color name="colorPrimary">@color/material_black_text_color</color>
+    <color name="colorPrimaryDark">@color/material_black_text_color</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorSecondaryDark">#DB3069</color>
 
@@ -32,7 +32,7 @@
     <color name="primary">@color/material_white</color>
     <color name="primary_dark">#000000</color>
     <color name="primary_text">#555555</color>
-    <color name="secondary">#00ADAD</color>
+    <color name="secondary">@color/material_black_text_color</color>
     <color name="tertiary">#929CFF</color>
     <color name="tertiary_dark">#6A61E7</color>
     <color name="tertiary_more_dark">#665cf5</color>
