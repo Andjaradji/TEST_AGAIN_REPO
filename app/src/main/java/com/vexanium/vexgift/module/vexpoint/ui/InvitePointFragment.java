@@ -69,8 +69,8 @@ public class InvitePointFragment extends BaseFragment {
         if(dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.vp_empty);
-            mTvErrorHead.setText(getString(R.string.error_vp_invite_point_empty_header));
-            mTvErrorBody.setVisibility(View.GONE);
+            mTvErrorBody.setText(getString(R.string.error_vp_invite_point_empty_header));
+            mTvErrorHead.setVisibility(View.GONE);
             //mTvErrorBody.setText(getString(R.string.error_my_voucher_empty_body));
 
             mRecycler.setVisibility(View.GONE);

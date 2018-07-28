@@ -41,7 +41,7 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initView(final View fragmentRootView) {
-        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "More");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "MORE");
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
