@@ -64,6 +64,10 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         dataList.addAll(item);
     }
 
+    public void setItemList(ArrayList<VexPointRecord> itemList){
+        dataList = itemList;
+    }
+
     public void removeAll(){
         dataList.clear();
     }

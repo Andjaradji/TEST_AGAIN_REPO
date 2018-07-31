@@ -143,17 +143,15 @@ public class User implements Serializable {
     public static boolean isLocalSessionEnded() {
         TpUtil tpUtil = new TpUtil(App.getContext());
 
-        Date date = new Date();
         long lastActiveTime = tpUtil.getLong(TpUtil.KEY_LAST_ACTIVE_TIME, 0);
 
-        long now = date.getTime();
+        long now = System.currentTimeMillis();
 
         KLog.v("User","isLocalSessionEnded: now ["+now+"] - last["+lastActiveTime+"] ("+(now-lastActiveTime)+")");
         if(now - lastActiveTime > StaticGroup.SLEEP_SIGN_TIME){
             tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, true);
             return true;
         }
-
         return false;
     }
 
@@ -327,8 +325,6 @@ public class User implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        KLog.v("user.facebookLocationIdList : " + user.facebookLocationIdList);
 
         final AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null && !TextUtils.isEmpty(accessToken.getToken())) {

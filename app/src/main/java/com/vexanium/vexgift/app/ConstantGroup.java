@@ -24,4 +24,5 @@ public class ConstantGroup {
     public static final int KYC_SELFIE_PHOTO_RESULT_CODE = 1224;
 
     public static final int GOOGLE2FA_STATE_RESULT_CODE = 1124;
+    public static final int ID_LOCAL_PUSH = 412;
 }

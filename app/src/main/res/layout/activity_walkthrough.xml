@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".module.walkthrough.ui.WalkthroughActivity">
 
-    <ImageView
-        android:id="@+id/v_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/bg">
-
-    </ImageView>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/cvp_walkthrough"

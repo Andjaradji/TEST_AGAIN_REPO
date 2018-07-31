@@ -19,6 +19,7 @@ import rx.subjects.Subject;
 
 public class RxBus {
     public static final String KEY_APP_FINISH = "key_app_finish";
+    public static final String KEY_VP_RECORD_ADDED = "key_vp_record_added";
     public static final String KEY_ENABLE_REFRESH_LAYOUT_OR_SCROLL_RECYCLER_VIEW = "key_enable_refresh_layout_or_scroll_recycler_view";
 
     public static final String KEY_NETWORK_STATUS_CHANGE = "key_netwok_status_change";

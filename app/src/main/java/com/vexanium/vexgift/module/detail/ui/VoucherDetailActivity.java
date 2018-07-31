@@ -27,6 +27,12 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Action1;
+
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)
 public class VoucherDetailActivity extends BaseActivity {
 
@@ -128,16 +134,16 @@ public class VoucherDetailActivity extends BaseActivity {
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        if (!TextUtils.isEmpty(etCaptcha.getText().toString())) {
+                        if (TextUtils.isEmpty(etCaptcha.getText().toString())) {
                             etCaptcha.setError(getString(R.string.validate_empty_field));
-
-
+                            captchaImageView.regenerate();
                         } else if (!etCaptcha.getText().toString().equalsIgnoreCase(captchaImageView.getCaptchaCode())) {
                             etCaptcha.setError(getString(R.string.captcha_validation_message));
+                            etCaptcha.setText("");
+                            captchaImageView.regenerate();
                         } else {
-//                            doGetVoucher();
-                            simulateGetVoucher();
                             dialog.dismiss();
+                            simulateGetVoucher();
                         }
                     }
                 })
@@ -147,6 +153,7 @@ public class VoucherDetailActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 })
+                .autoDismiss(false)
                 .canceledOnTouchOutside(false)
                 .show();
     }
@@ -156,6 +163,19 @@ public class VoucherDetailActivity extends BaseActivity {
 
     private void simulateGetVoucher() {
 //        showProgress();
+        Observable.timer(1000, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        new VexDialog.Builder(VoucherDetailActivity.this.getApplicationContext())
+                                .optionType(DialogOptionType.OK)
+                                .title("Get Voucher Success")
+                                .content("Congratulation! You get the voucher")
+                                .autoDismiss(true)
+                                .show();
+                        StaticGroup.sendLocalNotification(App.getContext(),"Get Voucher Success", "Congratulation! You get the voucher. ","");
+                    }
+                });
     }
 
     @Override

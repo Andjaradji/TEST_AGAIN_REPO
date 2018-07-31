@@ -1,19 +1,29 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint)
 public class VexPointActivity extends BaseActivity {
@@ -26,10 +36,13 @@ public class VexPointActivity extends BaseActivity {
     private InvitePointFragment invitePointFragment;
 
     private TextView mTvVp;
+    private TextView mTvCountdownVp;
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
-
+    private Observable<Integer> mVpObservable;
     private View mVpShadow;
+
+    private View notifView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +63,7 @@ public class VexPointActivity extends BaseActivity {
 
 
         mTabVp.addTabView(0, -1, pointRecord);
-        mTabVp.addTabView(1, -1,  invitePoint);
+        mTabVp.addTabView(1, -1, invitePoint);
 
         VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getSupportFragmentManager());
         mPagerVp.setAdapter(vpPagerAdapter);
@@ -68,6 +81,50 @@ public class VexPointActivity extends BaseActivity {
         mVpShadow.setVisibility(View.VISIBLE);
         //mVpShadow.animate().alpha(1).setDuration(1000);
 
+        notifView = findViewById(R.id.rl_notif_info);
+
+        mTvCountdownVp = findViewById(R.id.tv_countdown);
+
+        mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
+        mVpObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vp) {
+                String message = String.format(Locale.getDefault(), getString(R.string.vp_get_vp_from_snapshoot), vp);
+                ((TextView)notifView.findViewById(R.id.tv_notif_info)).setText(message);
+                AnimUtil.transTopIn(notifView,true, 300);
+            }
+        });
+
+        long remainTime ;
+
+        Calendar now  = Calendar.getInstance();
+
+
+        CountDownTimer countDownTimer = new CountDownTimer(150000, 1000) {
+            @Override
+            public void onTick(long l) {
+                String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
+                        TimeUnit.MILLISECONDS.toHours(l),
+                        TimeUnit.MILLISECONDS.toMinutes(l) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(l)),
+                        TimeUnit.MILLISECONDS.toSeconds(l) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                mTvCountdownVp.setText(time);
+            }
+
+            @Override
+            public void onFinish() {
+                long l = 0;
+                String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
+                        TimeUnit.MILLISECONDS.toHours(l),
+                        TimeUnit.MILLISECONDS.toMinutes(l) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(l)),
+                        TimeUnit.MILLISECONDS.toSeconds(l) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                mTvCountdownVp.setText(time);
+                RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, 150);
+
+            }
+        };
+        countDownTimer.start();
     }
 
     private void setPagerListener() {
@@ -93,7 +150,7 @@ public class VexPointActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.back_button:
                 finish();
                 break;

@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.vexpoint.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +20,13 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
+import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.RxBus;
 
 import java.util.ArrayList;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_vexpoint)
 public class PointRecordFragment extends BaseFragment {
@@ -32,6 +38,10 @@ public class PointRecordFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
+
+    private Observable<Integer> mVpObservable;
+
+    ArrayList<VexPointRecord> dataList = new ArrayList<>();
 
     @Override
     protected void initView(View fragmentRootView) {
@@ -52,25 +62,36 @@ public class PointRecordFragment extends BaseFragment {
                 linearLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         mRecycler.addItemDecoration(dividerItemDecoration);
+        mRecycler.setItemAnimator(new DefaultItemAnimator());
+        mRecycler.getItemAnimator().setAddDuration(250);
+        mRecycler.getItemAnimator().setMoveDuration(250);
+        mRecycler.getItemAnimator().setChangeDuration(250);
+        mRecycler.getItemAnimator().setRemoveDuration(250);
+
+        mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
+        mVpObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vp) {
+
+                mRecycler.setVisibility(View.VISIBLE);
+                mTvErrorHead.setVisibility(View.GONE);
+                mErrorView.setVisibility(View.GONE);
+
+                KLog.v("PointRecordFragment","call: called HPtes");
+                VexPointRecord data = new VexPointRecord("Vex Point from Snapshoot","05-08-2018 00:00 GMT",0,vp);
+                dataList.add(data);
+                mAdapter.setItemList(dataList);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
         populateData();
 
     }
 
     private void populateData(){
-        ArrayList<VexPointRecord> dataList = new ArrayList<>();
-
-        /*VexPointRecord data = new VexPointRecord("Beli Pulsa","16-08-2018 15:00 GMT",1,1500);
-        VexPointRecord data1 = new VexPointRecord("Jual Pulsa","16-08-2018 15:00 GMT",0,1500);
-
-        dataList.add(data);
-        dataList.add(data1);
-        dataList.add(data);
-        dataList.add(data1);
-        dataList.add(data);
-        dataList.add(data1);
-        dataList.add(data);
-        dataList.add(data1);*/
+        mAdapter.addItemList(dataList);
+        mAdapter.notifyDataSetChanged();
 
         if(dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
@@ -80,9 +101,6 @@ public class PointRecordFragment extends BaseFragment {
             //mTvErrorBody.setText(getString(R.string.error_my_voucher_empty_body));
 
             mRecycler.setVisibility(View.GONE);
-        }else {
-            mAdapter.addItemList(dataList);
-            mAdapter.notifyDataSetChanged();
         }
     }
 
