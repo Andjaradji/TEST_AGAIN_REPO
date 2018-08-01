@@ -153,7 +153,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         data = new ArrayList<>();
         data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
-        data.add(1, new HomeFeedResponse(HOT_LIST, hotVoucherList));
+        data.add(1, new HomeFeedResponse(HOT_LIST, FixtureData.showCaseVoucherResponse));
         data.add(2, new HomeFeedResponse(EXPLORE_BAR));
         data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse,"Best Token","Today"));
         data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse,"Best Voucher","Today"));

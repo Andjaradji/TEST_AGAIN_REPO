@@ -7,11 +7,11 @@
     android:background="@drawable/shape_main_bg"
     tools:context=".module.splash.ui.SplashActivity">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/decoration"></View>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="150dp"-->
+        <!--android:background="@drawable/decoration"></View>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_width="@dimen/main_icon_width"
             android:layout_height="@dimen/main_icon_height"
             android:layout_marginBottom="80dp"
-            android:src="@drawable/tes"/>
+            android:src="@drawable/big_logo"/>
 
     </LinearLayout>
 
