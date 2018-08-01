@@ -5,20 +5,49 @@
     android:layout_height="match_parent"
     tools:context=".module.walkthrough.ui.SecondFragment">
 
+    <ImageView
+        android:id="@+id/v_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg2">
+
+    </ImageView>
+
     <View
         android:id="@+id/v_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_walkthrough2_bg">
-    </View>
+        android:background="@drawable/shape_walkthrough2_bg"></View>
 
     <!--havent set font-->
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/material_white"
-        android:textSize="@dimen/walkthrough_text"
-        android:text="Get Free Token"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="64dp">
+
+        <TextView
+            android:id="@+id/tv_walkthrough"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="bold"
+            android:text="Get Free"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/walkthrough_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="light"
+            android:text="Token Airdrop"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/walkthrough_text_sub" />
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 
 /**
@@ -30,6 +31,6 @@ public class ThirdFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 }

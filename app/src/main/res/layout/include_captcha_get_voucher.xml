@@ -8,8 +8,8 @@
         android:id="@+id/ll_captcha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_main"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/interval_content"
         android:background="@drawable/shape_captcha_border">
 
         <com.vexanium.vexgift.widget.CaptchaImageView
@@ -22,17 +22,18 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="11dp"
-            android:tint="@color/material_black_sub_text_color"
-            android:src="@drawable/ic_refresh" />
+            android:src="@drawable/ic_refresh"
+            android:tint="@color/material_black_sub_text_color" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@id/ll_captcha"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginEnd="21dp"
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp"
-        android:layout_marginEnd="21dp"
         android:layout_marginStart="21dp"
         android:background="@drawable/shape_voucher_availability"
         android:gravity="left|center_vertical"

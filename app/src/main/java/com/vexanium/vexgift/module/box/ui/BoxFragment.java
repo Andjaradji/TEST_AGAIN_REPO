@@ -114,11 +114,11 @@ public class BoxFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 KLog.i("Page: " + position);
                 mTabBarView.onPageSelected(position);
-                if(position == 0){
-                    changeNotifBarVisibility(true,"You Have 10 Expired and 8 Used Voucher");
-                }else{
-                    changeNotifBarVisibility(false,"You Have 10 Expired and 8 Used Voucher");
-                }
+//                if(position == 0){
+//                    changeNotifBarVisibility(true,"You Have 10 Expired and 8 Used Voucher");
+//                }else{
+//                    changeNotifBarVisibility(false,"You Have 10 Expired and 8 Used Voucher");
+//                }
             }
 
             @Override

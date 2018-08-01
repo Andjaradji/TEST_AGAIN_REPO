@@ -298,6 +298,9 @@
     <string name="captcha_dialog_title">Get Voucher</string>
     <string name="captcha_dialog_content">Please write captcha to get the voucher</string>
 
+    <string name="vp_time_snapshoot">TIME UNTIL NEXT SNAPSHOOT : </string>
+    <string name="vp_get_vp_from_snapshoot">You got %d VP from Snapshoot</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

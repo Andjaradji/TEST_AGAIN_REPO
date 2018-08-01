@@ -1,11 +1,18 @@
 package com.vexanium.vexgift.app;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -20,8 +27,13 @@ import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
+
+import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
@@ -45,12 +57,14 @@ public class StaticGroup {
     public static UserLoginResponse currentUser;
     public static String userSession;
 
+    public static NotificationManager notificationManager;
+
     public static int kycStatus = KYC_NONE;
 
-    public static String getUserSession(){
-        if(userSession == null){
+    public static String getUserSession() {
+        if (userSession == null) {
             User user = User.getCurrentUser(App.getContext());
-            if(user!= null)
+            if (user != null)
                 userSession = user.getSessionKey();
         }
         return userSession;
@@ -120,11 +134,10 @@ public class StaticGroup {
         KLog.v("================= logOutClear =================");
 
         User user = User.getCurrentUser(context);
-        // TODO: 26/07/18 remind amang facebook token
-//        if (user.isLoginByFacebook()) {
-//            KLog.v("StaticGroup","logOutClear: isLoginByFacebook");
-            LoginManager.getInstance().logOut();
-//        }
+
+        //facebook logout
+        LoginManager.getInstance().logOut();
+
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.removePrivate();
@@ -138,6 +151,88 @@ public class StaticGroup {
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public static void sendLocalNotification(Context context, String title, String message, String url) {
+        NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
+        Intent targetIntent;
+        //TODO  asign targetIntent
+        if (!getRecentTaskInfo(context)) {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } else {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+        targetIntent.putExtra("t_type", "noti");
+        targetIntent.putExtra("t_url", url);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
+
+        Notification notification = builder.build();
+        manager.cancel(ConstantGroup.ID_LOCAL_PUSH);
+        manager.notify(ConstantGroup.ID_LOCAL_PUSH, notification);
+
+//        try {
+//            if (SettingCondition.getCurrentSettingCondition(App.getContext()).isNotifSoundEnabled())
+//                StaticGroup.goSoundEffectSound(context, R.raw.twinkle);
+//        } catch (TimeoutException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public static NotificationCompat.Builder getDefaultNotificationBuilder(Context context, String message, String title, Intent targetIntent, long whenTimeStamp, int badgeNumber, boolean autoCancel) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setSmallIcon(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_logo_notif : R.mipmap.ic_launcher);
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+            builder.setColor(ColorUtil.getColor(context, R.color.point_color));
+        }
+
+        if (autoCancel) {
+            builder.setAutoCancel(true);
+        }
+
+        if (context.getResources() != null && TextUtils.isEmpty(title)) {
+            title = context.getResources().getString(R.string.app_name);
+        }
+        builder.setContentTitle(title);
+
+        if (targetIntent == null) {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        builder.setWhen(whenTimeStamp);
+        if (badgeNumber > 0) {
+            builder.setNumber(badgeNumber);
+        }
+        //----------------------------//
+        builder.setTicker(message);
+        builder.setContentText(message);
+
+        return builder;
+    }
+
+    public static boolean getRecentTaskInfo(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RecentTaskInfo> recentTaskList = am.getRecentTasks(100, Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (recentTaskList != null) {
+            for (ActivityManager.RecentTaskInfo recentTask : recentTaskList) {
+                Intent intent = recentTask.baseIntent;
+                ComponentName cName = intent.getComponent();
+                if (cName.getPackageName().contains("com.vexanium")) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 

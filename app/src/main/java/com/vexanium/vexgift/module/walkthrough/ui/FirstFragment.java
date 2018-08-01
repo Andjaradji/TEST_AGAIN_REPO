@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 
 /**
@@ -36,5 +37,7 @@ public class FirstFragment extends BaseFragment {
     protected void initView(View fragmentRootView) {
         mTvWalkthrough = (TextView) fragmentRootView.findViewById(R.id.tv_walkthrough);
         mTvWalkthrough.setText(getActivity().getString(R.string.walkthrough_first));
+
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 }

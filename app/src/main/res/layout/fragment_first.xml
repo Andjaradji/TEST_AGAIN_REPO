@@ -5,21 +5,49 @@
     android:layout_height="match_parent"
     tools:context=".module.walkthrough.ui.FirstFragment">
 
+    <ImageView
+        android:id="@+id/v_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1">
+
+    </ImageView>
+
     <View
         android:id="@+id/v_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_walkthrough1_bg">
-    </View>
+        android:background="@drawable/shape_walkthrough1_bg"></View>
 
     <!--havent set font-->
-    <TextView
-        android:id="@+id/tv_walkthrough"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/material_white"
-        android:textSize="@dimen/walkthrough_text"
-        android:text="Get The Best"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="64dp">
+
+        <TextView
+            android:id="@+id/tv_walkthrough"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="bold"
+            android:text="Get The Best"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/walkthrough_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="light"
+            android:text="Voucher Deal"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/walkthrough_text_sub" />
+    </LinearLayout>
+
 
 </RelativeLayout>

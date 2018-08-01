@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.WalletRecord;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
@@ -57,6 +58,7 @@ public class WalletFragment extends BaseFragment {
 
         setRecordlist(new ArrayList<WalletRecord>());
 
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 
     @Override

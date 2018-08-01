@@ -98,8 +98,8 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     }
 
     public void loadData() {
-        data = FixtureData.notifs;
         data = new ArrayList<>();
+        data = FixtureData.notifs;
     }
 
     private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
