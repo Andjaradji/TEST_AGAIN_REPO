@@ -19,7 +19,7 @@
         android:textSize="@dimen/text_big_medium" />
 
     <LinearLayout
-        android:id="@+id/btn_search"
+        android:id="@+id/ll_ic_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -29,8 +29,8 @@
         android:layout_marginRight="12dp">
 
         <ImageButton
-            android:id="@+id/ib_search"
-            android:src="@drawable/search"
+            android:id="@+id/ib_receive"
+            android:src="@drawable/ic_receive"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:layout_width="48dp"

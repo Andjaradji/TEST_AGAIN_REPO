@@ -268,7 +268,7 @@
     <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
     <string name="error_my_token_empty_body">You don\'t have any token</string>
     <string name="error_history_voucher_empty_body">You haven\'t redeemed any voucher</string>
-    <string name="error_history_token_empty_body">You haven\t redeemed any token</string>
+    <string name="error_history_token_empty_body">You haven\'t redeemed any token</string>
 
     <string name="error_vp_point_record_empty_header">No Record Found</string>
     <string name="error_vp_invite_point_empty_header">No Point Found</string>
@@ -300,6 +300,12 @@
 
     <string name="vp_time_snapshoot">TIME UNTIL NEXT SNAPSHOOT : </string>
     <string name="vp_get_vp_from_snapshoot">You got %d VP from Snapshoot</string>
+
+    <string name="exchange_receive_voucher">RECEIVE VOUCHER</string>
+    <string name="exchange_send_voucher">SEND VOUCHER</string>
+    <string name="exchange_receive_voucher_guide">Enter the voucher code to receive voucher</string>
+    <string name="exchange_receive_voucher_prompt_text">Enter code</string>
+    <string name="exchange_receive_voucher_button_get">Get Voucher</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

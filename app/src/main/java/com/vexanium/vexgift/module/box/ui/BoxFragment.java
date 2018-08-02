@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.box.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.box.ui.helper.BoxFragmentChangeListener;
+import com.vexanium.vexgift.module.exchange.ui.ReceiveVoucherActivity;
 import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
@@ -42,7 +44,7 @@ public class BoxFragment extends BaseFragment {
     private IconTextTabBarView mTabBarView;
     private CustomViewPager mViewPager;
 
-    private ImageButton mSearchButton;
+    private ImageButton mReceiveButton;
     private ImageButton mHistoryButton;
     private RelativeLayout mNotifBar;
     private TextView mNotifText;
@@ -55,7 +57,7 @@ public class BoxFragment extends BaseFragment {
     protected void initView(View fragmentRootView) {
 
         mHistoryButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_history);
-        mSearchButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_search);
+        mReceiveButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_receive);
 
         mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
         mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
@@ -95,12 +97,8 @@ public class BoxFragment extends BaseFragment {
             listener = (BoxFragmentChangeListener)getParentFragment();
         }
 
-        mHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onClick(true);
-            }
-        });
+        mHistoryButton.setOnClickListener(this);
+        mReceiveButton.setOnClickListener(this);
     }
 
     private void setPagerListener() {
@@ -135,6 +133,22 @@ public class BoxFragment extends BaseFragment {
         }else{
             mNotifBar.setVisibility(View.GONE);
         }*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.ib_history:
+                if(listener!=null) {
+                    listener.onClick(true);
+                }
+                break;
+            case R.id.ib_receive:
+                Intent intent = new Intent(getActivity(), ReceiveVoucherActivity.class);
+                startActivity(intent);
+
+        }
     }
 
     public void changeTab(int page){
