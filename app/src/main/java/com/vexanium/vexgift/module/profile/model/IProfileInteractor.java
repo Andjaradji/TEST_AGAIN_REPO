@@ -9,4 +9,5 @@ import rx.Subscription;
 public interface IProfileInteractor<T> {
     Subscription requestKyc(RequestCallback<T> callback, int id);
     Subscription submitKyc(RequestCallback<T> callback, Kyc kyc);
+    Subscription changePassword(RequestCallback<T> callback, int id, String password, String newPassword);
 }

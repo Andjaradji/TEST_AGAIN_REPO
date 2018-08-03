@@ -9,11 +9,22 @@ import net.grandcentrix.tray.TrayPreferences;
  */
 
 public class TpUtil extends TrayPreferences {
+    Context context;
+    private static TpUtil _tpUtil;
+
     public TpUtil(final Context context) {
         super(context, "TpUtil", 1);
     }
 
+    public static TpUtil getInstance(Context context){
+        if(_tpUtil == null){
+            _tpUtil = new TpUtil(context);
+        }
+        return _tpUtil;
+    }
+
     public static String KEY_CURRENT_LOGGED_IN_USER = "key_current_logged_in_user";
+    public static String KEY_IS_PASS_SET = "key_is_pass_set";
     public static String KEY_SESSION_KEY = "key_current_key";
     public static String KEY_WALKTHROUGH = "key_walkthrough";
     public static String KEY_GOOGLE2FA = "key_google2fa";

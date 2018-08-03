@@ -43,5 +43,10 @@ public class IProfileInteractorImpl implements IProfileInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
+    @Override
+    public Subscription changePassword(RequestCallback callback, int id, String password, String newPassword) {
+        return null;
+    }
 }
 

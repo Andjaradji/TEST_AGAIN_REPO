@@ -320,6 +320,48 @@ public class FixtureData {
 
     public static final ArrayList<VoucherResponse> showCaseVoucherResponse = new ArrayList<VoucherResponse>() {
         {
+            clear();
+            add(new VoucherResponse(
+                            new Voucher(
+                                    "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
+                                    "Be Her Early Valentine, 15% off Discount",
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+                                            "Flower Advisor")),
+                            (random.nextInt(10) + 10) * 50,
+                            (random.nextInt(10)) * 50,
+                            NORMAL_COUPON
+                    )
+            );
+            add(new VoucherResponse(
+                            new Voucher(
+                                    "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
+                                    "Orori Instant Voucher Rp750.000,-",
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
+                            (random.nextInt(10) + 10) * 50,
+                            (random.nextInt(10)) * 50,
+                            NORMAL_COUPON
+                    )
+            );
+            add(new VoucherResponse(
+                            new Voucher(
+                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
+                                    "Buy 1 Get 1 VexPizza All Variants",
+                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
+                                            "VexPizza")),
+                            (random.nextInt(10) + 10) * 50,
+                            (random.nextInt(10)) * 50,
+                            NORMAL_COUPON
+                    )
+            );
+        }
+    };
+
+    public static final ArrayList<VoucherResponse> hotVoucherResponse = new ArrayList<VoucherResponse>() {
+        {
+            clear();
             add(new VoucherResponse(
                             new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
@@ -360,6 +402,7 @@ public class FixtureData {
 
     public static final ArrayList<VoucherResponse> showCaseTokenResponse = new ArrayList<VoucherResponse>() {
         {
+            clear();
             add(new VoucherResponse(
                             new Voucher(
                                     "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",

@@ -168,6 +168,7 @@
     <string name="logout_desc">Are you sure?</string>
 
     <string name="security_change_password">Change Password</string>
+    <string name="security_add_password">Add Password</string>
     <string name="security_google_auth">Google Authentication</string>
     <string name="security_fingerprint">Fingerprint</string>
 
@@ -209,6 +210,7 @@
     <string name="term_agree">I have read &amp; agree to the terms of use</string>
 
     <string name="change_password_toolbar_title">Change Password</string>
+    <string name="add_password_toolbar_title">Set Account Password</string>
     <string name="edit_profile_toolbar_title">Edit Profile</string>
     <string name="security_toolbar_title">Security</string>
     <string name="setting_toolbar_title">Setting</string>
@@ -300,6 +302,10 @@
 
     <string name="vp_time_snapshoot">TIME UNTIL NEXT SNAPSHOOT : </string>
     <string name="vp_get_vp_from_snapshoot">You got %d VP from Snapshoot</string>
+
+    <string name="addnewpas_password">Password</string>
+    <string name="addnewpass_repassword">Re enter password</string>
+    <string name="addnewpass_button">Submit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

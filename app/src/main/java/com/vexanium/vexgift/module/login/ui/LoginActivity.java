@@ -99,6 +99,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             if (response.user != null) {
                 String session = response.user.getSessionKey();
                 StaticGroup.userSession = session;
+                StaticGroup.isPasswordSet = response.isPasswordSet;
 
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
