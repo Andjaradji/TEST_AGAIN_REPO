@@ -120,7 +120,7 @@
                     android:id="@+id/ll_btn_vex_send"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/shape_ripple_small_button"
+                    android:background="@drawable/shape_ripple_primary_button"
                     android:padding="@dimen/interval_submain"
                     android:layout_marginBottom="24dp"
                     android:clickable="true"
@@ -149,7 +149,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_btn_vex_receieve"
+                    android:id="@+id/ll_btn_vex_receive"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_ripple_secondary_button"
@@ -186,18 +186,6 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_more_line"
                 android:background="@color/lineColor" />
-
-            <!--<TextView
-                android:id="@+id/tv_transaction_records"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transaction Records"
-                android:textAllCaps="true"
-                android:textColor="@color/material_black"
-                android:textSize="@dimen/text_big_medium"
-                android:padding="@dimen/interval_main"
-                android:layout_gravity="center_horizontal"
-                android:tag="bold"/>-->
 
             <TextView
                 android:id="@+id/tv_transaction_records"
