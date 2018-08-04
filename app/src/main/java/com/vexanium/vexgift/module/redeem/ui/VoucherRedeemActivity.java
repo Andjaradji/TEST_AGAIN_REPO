@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.redeem.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,6 +18,7 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.exchange.ui.SendVoucherActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -47,11 +49,11 @@ public class VoucherRedeemActivity extends BaseActivity {
                 if(state == VoucherRedeemActivity.State.COLLAPSED){
                     findViewById(R.id.voucher_title).setVisibility(View.VISIBLE);
                     ((ImageView)findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_black));
-                    ((ImageView)findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_black));
+                    ((ImageView)findViewById(R.id.send_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_black));
                 }else{
                     findViewById(R.id.voucher_title).setVisibility(View.GONE);
                     ((ImageView)findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_white));
-                    ((ImageView)findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_white));
+                    ((ImageView)findViewById(R.id.send_button)).setColorFilter(ContextCompat.getColor(App.getContext(), R.color.material_white));
                 }
             }
         });
@@ -77,8 +79,9 @@ public class VoucherRedeemActivity extends BaseActivity {
             case R.id.back_button:
                 finish();
                 break;
-            case R.id.share_button:
-                StaticGroup.shareWithShareDialog(App.getContext(), "Best Voucher from Vexanium","Vex Gift");
+            case R.id.send_button:
+                Intent intent = new Intent(VoucherRedeemActivity.this, SendVoucherActivity.class);
+                startActivity(intent);
                 break;
         }
     }
