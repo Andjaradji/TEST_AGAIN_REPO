@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -136,8 +137,18 @@ public class User implements Serializable {
             updateInfo.setEmail(existUser.getEmail());
         }
 
-        TpUtil tpUtil = new TpUtil(context);
+        TpUtil tpUtil = TpUtil.getInstance(context);
         tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, JsonUtil.toString(updateInfo));
+    }
+
+    public static void setIsPasswordSet(Context context, boolean isPasswordSet){
+        TpUtil tpUtil = TpUtil.getInstance(context);
+        tpUtil.put(TpUtil.KEY_IS_PASS_SET,isPasswordSet);
+    }
+
+    public static boolean getIsPasswordSet(Context context){
+        TpUtil tpUtil = TpUtil.getInstance(context);
+        return tpUtil.getBoolean(TpUtil.KEY_IS_PASS_SET, false);
     }
 
     public static boolean isLocalSessionEnded() {
@@ -223,7 +234,7 @@ public class User implements Serializable {
             if (!TextUtils.isEmpty(userInfo.getString("birthday"))) {
                 user.setBirthDay(userInfo.getString("birthday"));
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
                 Date birthday = dateFormat.parse(userInfo.getString("birthday"));
                 user.setAge(calculateAge(birthday));
             }
@@ -319,8 +330,7 @@ public class User implements Serializable {
         try {
             JSONObject friendTotalInfo = userInfo.getJSONObject("friends");
             if (friendTotalInfo != null) {
-                int friendTotalCount = friendTotalInfo.getJSONObject("summary").getInt("total_count");
-                user.facebookFriendCount = friendTotalCount;
+                user.facebookFriendCount =  friendTotalInfo.getJSONObject("summary").getInt("total_count");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -522,6 +532,10 @@ public class User implements Serializable {
         }
 
         return age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

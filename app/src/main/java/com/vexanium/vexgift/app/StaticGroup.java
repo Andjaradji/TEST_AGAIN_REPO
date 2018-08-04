@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.PowerManager;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -60,6 +61,7 @@ public class StaticGroup {
     public static NotificationManager notificationManager;
 
     public static int kycStatus = KYC_NONE;
+    public static Boolean isPasswordSet;
 
     public static String getUserSession() {
         if (userSession == null) {
@@ -137,7 +139,6 @@ public class StaticGroup {
 
         //facebook logout
         LoginManager.getInstance().logOut();
-
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.removePrivate();
@@ -233,6 +234,15 @@ public class StaticGroup {
         }
 
         return false;
+    }
+
+    public static boolean isScreenOn(Context context, boolean defaultValue) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm != null) {
+            return pm.isInteractive();
+        }
+
+        return defaultValue;
     }
 
 

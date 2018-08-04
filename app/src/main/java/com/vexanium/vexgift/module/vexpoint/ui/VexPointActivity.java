@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,17 +11,21 @@ import android.widget.TextView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint)
@@ -44,6 +47,8 @@ public class VexPointActivity extends BaseActivity {
 
     private View notifView;
 
+    private Subscription timeSubsription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +65,6 @@ public class VexPointActivity extends BaseActivity {
 
         String pointRecord = getResources().getString(R.string.vexpoint_point_record);
         String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
-
 
         mTabVp.addTabView(0, -1, pointRecord);
         mTabVp.addTabView(1, -1, invitePoint);
@@ -94,37 +98,10 @@ public class VexPointActivity extends BaseActivity {
                 AnimUtil.transTopIn(notifView,true, 300);
             }
         });
-
-        long remainTime ;
-
-        Calendar now  = Calendar.getInstance();
-
-
-        CountDownTimer countDownTimer = new CountDownTimer(150000, 1000) {
-            @Override
-            public void onTick(long l) {
-                String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
-                        TimeUnit.MILLISECONDS.toHours(l),
-                        TimeUnit.MILLISECONDS.toMinutes(l) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(l)),
-                        TimeUnit.MILLISECONDS.toSeconds(l) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                mTvCountdownVp.setText(time);
-            }
-
-            @Override
-            public void onFinish() {
-                long l = 0;
-                String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
-                        TimeUnit.MILLISECONDS.toHours(l),
-                        TimeUnit.MILLISECONDS.toMinutes(l) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(l)),
-                        TimeUnit.MILLISECONDS.toSeconds(l) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                mTvCountdownVp.setText(time);
-                RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, 150);
-
-            }
-        };
-        countDownTimer.start();
+        
+        if(NetworkUtil.isOnline(this)){
+            // TODO: 02/08/18 doSomething on VexPoint 
+        }
     }
 
     private void setPagerListener() {
@@ -160,6 +137,94 @@ public class VexPointActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        KLog.v("VexPointActivity","onPause: ");
+        super.onPause();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+            timeSubsription = null;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        KLog.v("VexPointActivity","onStart: ");
+        super.onStart();
+        startDateTimer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        KLog.v("VexPointActivity","onDestroy: ");
+        super.onDestroy();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+        }
+        if(mVpObservable != null){
+            RxBus.get().unregister(RxBus.KEY_VP_RECORD_ADDED, mVpObservable);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        KLog.v("VexPointActivity","onResume: ");
+        super.onResume();
+        startDateTimer();
+    }
+
+    private void startDateTimer() {
+        if (timeSubsription == null && StaticGroup.isScreenOn(this, true)) {
+            timeSubsription = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        @Override
+                        public void call(Object o) {
+                            //KLog.v("Date Time called");
+                            if (!StaticGroup.isScreenOn(VexPointActivity.this, true)) {
+                                if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+                                    timeSubsription.unsubscribe();
+                                }
+                            } else {
+                                setWatchText();
+                            }
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
+                        }
+                    });
+        }
+    }
+
+    private void setWatchText() {
+        Calendar now  = Calendar.getInstance();
+        Calendar nextSnapshoot  = Calendar.getInstance();
+        if(now.get(Calendar.HOUR_OF_DAY) >= 12){
+            nextSnapshoot.add(Calendar.DATE,1);
+            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+        }else{
+            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
+        }
+        nextSnapshoot.set(Calendar.MINUTE, 0);
+        nextSnapshoot.set(Calendar.SECOND, 0);
+        nextSnapshoot.set(Calendar.MILLISECOND, 0);
+
+        long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
+
+        String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
+                TimeUnit.MILLISECONDS.toHours(remainTime),
+                TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
+                TimeUnit.MILLISECONDS.toSeconds(remainTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
+        mTvCountdownVp.setText(time);
     }
 
     public class VpPagerAdapter extends FragmentStatePagerAdapter {

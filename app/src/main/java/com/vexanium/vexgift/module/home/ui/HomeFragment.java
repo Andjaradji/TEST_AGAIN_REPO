@@ -10,7 +10,6 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
@@ -57,11 +57,11 @@ import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
+import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
-    private Toolbar toolbar;
     private LinearLayout mVexPointButton;
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
@@ -80,9 +80,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     protected void initView(View fragmentRootView) {
         random = new Random();
 
-        mVexPointButton = (LinearLayout) fragmentRootView.findViewById(R.id.home_vp_button);
-        mVexPointText = (TextView) fragmentRootView.findViewById(R.id.home_vp_amount);
-        mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.home_recyclerview);
+        mVexPointButton = fragmentRootView.findViewById(R.id.home_vp_button);
+        mVexPointText = fragmentRootView.findViewById(R.id.home_vp_amount);
+        mRecyclerview = fragmentRootView.findViewById(R.id.home_recyclerview);
         layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
@@ -97,6 +97,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 appBarLayout.requestLayout();
             }
         });
+
+        User user = User.getCurrentUser(HomeFragment.this.getActivity());
+        mVexPointText.setText(user.getVexPoint());
+
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
 
         loadData();
         initHomeList();
@@ -119,12 +124,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
                 Intent intent = new Intent(getActivity(), VexPointActivity.class);
 
-                Pair<View,String> p1 = Pair.create((View)mVexPointButton, "vexpoint_button");
-                Pair<View,String> p2 = Pair.create((View)mVexPointText, "vexpoint_amount");
+                Pair<View, String> p1 = Pair.create((View) mVexPointButton, "vexpoint_button");
+                Pair<View, String> p2 = Pair.create((View) mVexPointText, "vexpoint_amount");
 
 
                 final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),p1,p2);
+                        getActivity(), p1, p2);
 
                 //ActivityOptionsCompat options = ActivityOptionsCompat.
                 //        makeSceneTransitionAnimation(getActivity(), mVexPointButton, "vexpoint_button");
@@ -149,14 +154,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
 //        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
-        hotVoucherList = FixtureData.showCaseVoucherResponse;
+        hotVoucherList = FixtureData.hotVoucherResponse;
 
         data = new ArrayList<>();
         data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
         data.add(1, new HomeFeedResponse(HOT_LIST, FixtureData.showCaseVoucherResponse));
         data.add(2, new HomeFeedResponse(EXPLORE_BAR));
-        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse,"Best Token","Today"));
-        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseVoucherResponse,"Best Voucher","Today"));
+        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse, "Best Token", "Today"));
+        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseVoucherResponse, "Best Voucher", "Today"));
         data.add(5, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(1, new HomeFeedResponse(EXPLORE_BAR));
@@ -200,21 +205,21 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                ((MainActivity)getActivity()).gotoPage(1,0);
+                                ((MainActivity) getActivity()).gotoPage(1, 0);
                             }
                         });
                         holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                ((MainActivity)getActivity()).gotoPage(1,1);
+                                ((MainActivity) getActivity()).gotoPage(1, 1);
                             }
                         });
                         holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                ((MainActivity)getActivity()).gotoPage(2,0);
+                                ((MainActivity) getActivity()).gotoPage(2, 0);
                             }
                         });
                         break;
@@ -312,7 +317,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -353,7 +358,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
@@ -366,7 +371,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                        goToVoucherDetailActivity(item);
+                        goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
             }

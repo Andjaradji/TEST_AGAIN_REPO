@@ -286,6 +286,16 @@ public class RetrofitManager {
         return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> requestChangePass(int id, String oldpass, String pass) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("password", pass);
+        params.put("old_password", oldpass);
+
+        return mUserService.requestChangePassword(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
     public Observable<HttpResponse<EmptyResponse>> requestGoogle2faUpdateState(int id, String authCode, String token, boolean isSetToEnable) {
         Map<String, Object> params = Api.getBasicParam();
 

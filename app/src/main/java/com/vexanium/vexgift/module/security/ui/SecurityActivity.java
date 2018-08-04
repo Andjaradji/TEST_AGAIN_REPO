@@ -33,9 +33,12 @@ public class SecurityActivity extends BaseActivity {
     private Observable<Boolean> mNotifObservable;
     private Observable<Boolean> mGoogle2faObservable;
     private View notifView;
+    private User user;
 
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
+
         findViewById(R.id.security_change_password_button).setOnClickListener(this);
         findViewById(R.id.security_google_auth_button).setOnClickListener(this);
 
@@ -75,12 +78,19 @@ public class SecurityActivity extends BaseActivity {
             };
             countDownTimer.start();
         }
+
+        boolean isPassSet = User.getIsPasswordSet(this);
+
+        if (isPassSet) {
+            ViewUtil.setText(this, R.id.tv_change_pass, getString(R.string.security_change_password));
+        } else {
+            ViewUtil.setText(this, R.id.tv_change_pass, getString(R.string.security_add_password));
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
