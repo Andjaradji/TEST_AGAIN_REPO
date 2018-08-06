@@ -15,6 +15,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.setting.ui.SettingActivity;
@@ -46,6 +47,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_setting_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_security_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_premium_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_problem_button).setOnClickListener(this);
@@ -112,6 +114,9 @@ public class MoreFragment extends BaseFragment {
                 break;
             case R.id.more_security_button:
                 intentToActivity(SecurityActivity.class);
+                break;
+                case R.id.more_premium_button:
+                intentToActivity(PremiumMemberActivity.class);
                 break;
             case R.id.more_merchant_button:
                 break;

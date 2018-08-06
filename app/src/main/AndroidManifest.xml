@@ -119,6 +119,9 @@
         <activity
             android:name=".module.exchange.ui.SendVoucherActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.premium.ui.PremiumMemberActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

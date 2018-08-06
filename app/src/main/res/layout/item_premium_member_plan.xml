@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_premium_plan_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/interval_main"
+    android:paddingRight="@dimen/interval_main"
+    android:paddingTop="@dimen/interval_main"
+    android:paddingBottom="@dimen/interval_main">
+
+    <LinearLayout
+        android:id="@+id/ll_premium_plan_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_premium_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_small_medium"
+            android:textColor="@color/material_black"
+            android:layout_marginBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_premium_plan_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_xxtiny"
+            android:textColor="@color/material_grey_8080" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_premium_plan_buy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/interval_small"
+        android:paddingBottom="@dimen/interval_small"
+        android:paddingLeft="@dimen/interval_main"
+        android:paddingRight="@dimen/interval_main"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/shape_ripple_premium_plan_buy">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_small_medium"
+            android:textColor="@color/material_white"
+            android:textAlignment="center"
+            android:text="BUY"
+            android:tag="bold"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

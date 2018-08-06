@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
 
         User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText(user.getVexPoint());
+        mVexPointText.setText(""+user.getVexPoint());
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
