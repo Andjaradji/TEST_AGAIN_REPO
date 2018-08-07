@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.profile.ui.ChangePasswordActivity">
-
+    tools:context=".module.vexpoint.ui.VexAddressActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -48,10 +47,11 @@
             android:paddingTop="20dp">
 
             <LinearLayout
-                android:id="@+id/ll_changepass"
+                android:id="@+id/ll_fill_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -62,10 +62,10 @@
                     android:paddingRight="@dimen/more_padding_horizontal">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_last_password"
+                        android:id="@+id/et_vex_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/last_password"
+                        android:hint="VEX Address"
                         android:inputType="textPassword"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -80,28 +80,10 @@
                     android:paddingRight="@dimen/more_padding_horizontal">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_new_password"
+                        android:id="@+id/et_ga_pin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/new_password"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/text_small_medium" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="@dimen/more_padding_horizontal"
-                    android:paddingRight="@dimen/more_padding_horizontal">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_confirm_new_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/confirm_new_password"
+                        android:hint="Google Authenticator PIN"
                         android:inputType="textPassword"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -112,89 +94,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/btn_changepass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/interval_main"
-                        android:layout_marginEnd="@dimen/interval_main"
-                        android:layout_marginLeft="@dimen/interval_main"
-                        android:layout_marginRight="@dimen/interval_main"
-                        android:layout_marginStart="@dimen/interval_main"
-                        android:layout_marginTop="@dimen/interval_small"
-                        android:background="@drawable/shape_ripple_main_button"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/interval_submain"
-                            android:tag="bold"
-                            android:text="@string/change_password_title"
-                            android:textAllCaps="true"
-                            android:textColor="@color/material_white"
-                            android:textSize="@dimen/text_medium" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_addpass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/more_padding_horizontal"
                     android:paddingRight="@dimen/more_padding_horizontal">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/addnewpas_password"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/text_small_medium" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="@dimen/more_padding_horizontal"
-                    android:paddingRight="@dimen/more_padding_horizontal">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_confirm_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/addnewpass_repassword"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/text_small_medium" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:id="@id/white_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="vertical">
-
                     <LinearLayout
-                        android:id="@+id/btn_addpass"
+                        android:id="@+id/btn_submit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -221,6 +126,113 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_wait_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_info_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="hnMed"
+                        android:text="@string/vexpoint_need_address_subtitle"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_main"
+                        android:tag="bold"
+                        android:text="15:30"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="36sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_main"
+                        android:layout_marginEnd="@dimen/interval_big"
+                        android:layout_marginLeft="@dimen/interval_big"
+                        android:layout_marginRight="@dimen/interval_big"
+                        android:layout_marginStart="@dimen/interval_big"
+                        android:layout_marginTop="@dimen/interval_content"
+                        android:text="@string/vexpoint_address_verif"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_black_sub_text_color"
+                        android:textSize="@dimen/text_small" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_content"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:background="@drawable/shape_voucher_availability"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_main"
+                            android:lines="2"
+                            android:tag="bold"
+                            android:text="ACT1234123123141241512312312a3ACT1234123123141241512312312a3ACT1234123123141241512312312a3"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@id/white_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/btn_copy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/interval_main"
+                            android:layout_marginEnd="@dimen/interval_main"
+                            android:layout_marginLeft="@dimen/interval_main"
+                            android:layout_marginRight="@dimen/interval_main"
+                            android:layout_marginStart="@dimen/interval_main"
+                            android:layout_marginTop="@dimen/interval_small"
+                            android:background="@drawable/shape_ripple_main_button"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/interval_submain"
+                                android:tag="bold"
+                                android:text="@string/addnewpass_button"
+                                android:textAllCaps="true"
+                                android:textColor="@color/material_white"
+                                android:textSize="@dimen/text_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

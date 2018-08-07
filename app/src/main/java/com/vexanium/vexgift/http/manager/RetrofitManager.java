@@ -376,4 +376,20 @@ public class RetrofitManager {
         return mUserService.submitKyc(getApiKey(), getCacheControl(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
+    public Observable<HttpResponse<Kyc>> requestGetActAddress(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
+    public Observable<HttpResponse<Kyc>> requestSetActAddress(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
 }

@@ -114,6 +114,16 @@
     <string name="vexpoint_countdown_time_label"></string>
     <string name="vexpoint_estimate_reward">EST. REWARD</string>
 
+    <string name="vexpoint_fill_address">Fill Vex Address</string>
+
+    <string name="vexpoint_address_verif">Please kindly send 1 VEX to this address in certain time for verification</string>
+    <string name="vexpoint_address_verif_time"></string>
+
+    <string name="vexpoint_need_address_title">We Are Sorry</string>
+    <string name="vexpoint_need_address_subtitle">Vex Address is Required</string>
+    <string name="vexpoint_need_address_desc">You need to fill Vex Address to access Vex Point feature</string>
+    <string name="vexpoint_need_address_button">Fill Now</string>
+
     <string name="shortcut_my_voucher">MY VOUCHER</string>
     <string name="shortcut_my_token">MY TOKEN</string>
     <string name="shortcut_my_wallet">MY WALLET</string>
@@ -171,7 +181,6 @@
     <string name="security_add_password">Add Password</string>
     <string name="security_google_auth">Google Authentication</string>
     <string name="security_fingerprint">Fingerprint</string>
-
 
     <string name="myprofile_toolbar_title">My Profile</string>
     <string name="myprofile_basic_info">Basic Information</string>
@@ -312,6 +321,12 @@
     <string name="exchange_receive_voucher_guide">Enter the voucher code to receive voucher</string>
     <string name="exchange_receive_voucher_prompt_text">Enter code</string>
     <string name="exchange_receive_voucher_button_get">Get Voucher</string>
+
+    <string name="appversion_need_update_title">We are sorry</string>
+    <string name="appversion_need_update_subtitle">Update is Required</string>
+    <string name="appversion_need_update_desc">Using an outdated version will cause trouble in using the service. Get more Cash by updating to latest version now.</string>
+    <string name="appversion_need_update_goto_gp">Go to Google Play in %ds.</string>
+    <string name="appversion_need_update_button">Update now</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

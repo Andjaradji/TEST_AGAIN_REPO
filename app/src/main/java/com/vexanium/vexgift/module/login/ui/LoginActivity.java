@@ -46,6 +46,7 @@ import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.ViewUtil;
 
 import org.json.JSONObject;
 
@@ -54,6 +55,12 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
@@ -63,6 +70,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
+    int currentCountdown = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +95,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         initialize();
+
+        checkAppVersion();
 
     }
 
@@ -195,6 +205,45 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
     }
 
+    private void checkAppVersion() {
+        boolean isNeedUpdate = false;
+        boolean isNeedForceUpdate = false;
+
+        if(isNeedUpdate){
+            findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_login).setVisibility(View.GONE);
+        }
+    }
+
+    private void startCoundownTimer(){
+        currentCountdown = 5;
+        Observable.interval(1000, 1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp),currentCountdown);
+                        ViewUtil.setText(LoginActivity.this, R.id.tv_goto, msg);
+
+                        if (currentCountdown > 0) {
+                            currentCountdown--;
+                        } else {
+                            StaticGroup.openVexgiftGooglePlay(LoginActivity.this);
+                            finish();
+                            throw new NullPointerException();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                    }
+                });
+    }
+
     private void generateKeyHash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
@@ -207,7 +256,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             e.printStackTrace();
         }
     }
-
 
     private boolean checkLoginInfo() {
         User user = User.getCurrentUser(this.getApplicationContext());

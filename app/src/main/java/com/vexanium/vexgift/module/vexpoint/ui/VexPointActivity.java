@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,9 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
@@ -39,6 +42,7 @@ public class VexPointActivity extends BaseActivity {
     private InvitePointFragment invitePointFragment;
 
     private TextView mTvVp;
+    private TextView mTvVpGen;
     private TextView mTvCountdownVp;
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
@@ -48,57 +52,78 @@ public class VexPointActivity extends BaseActivity {
     private View notifView;
 
     private Subscription timeSubsription;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
 
-        mTvVp = findViewById(R.id.tv_vexpoint);
-        mTabVp = findViewById(R.id.tab_vexpoint);
-        mPagerVp = findViewById(R.id.vp_vexpoint);
+        if(!User.getIsVexAddressSet(this)){
+            findViewById(R.id.rl_vp).setVisibility(View.GONE);
+            findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
 
-        mVpShadow = findViewById(R.id.v_vexpoint_shadow);
+            findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(ClickUtil.isFastDoubleClick())return;
+                    Intent intent = new Intent(VexPointActivity.this, VexAddressActivity.class );
+                    startActivity(intent);
+                }
+            });
 
-        String pointRecord = getResources().getString(R.string.vexpoint_point_record);
-        String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
+        }else {
 
-        mTabVp.addTabView(0, -1, pointRecord);
-        mTabVp.addTabView(1, -1, invitePoint);
+            mTvVp = findViewById(R.id.tv_vexpoint);
+            mTvVpGen = findViewById(R.id.tv_vexpoint_generated);
+            mTabVp = findViewById(R.id.tab_vexpoint);
+            mPagerVp = findViewById(R.id.vp_vexpoint);
 
-        VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getSupportFragmentManager());
-        mPagerVp.setAdapter(vpPagerAdapter);
-        mPagerVp.setOffscreenPageLimit(PAGE_COUNT);
-        mPagerVp.setCurrentItem(0, false);
+            mTvVp.setText(user.getVexPoint());
 
-        mTabVp.setViewPager(mPagerVp);
-        setPagerListener();
+            mVpShadow = findViewById(R.id.v_vexpoint_shadow);
 
-        findViewById(R.id.back_button).setOnClickListener(this);
+            String pointRecord = getResources().getString(R.string.vexpoint_point_record);
+            String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
 
-        //AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f,1f);
-        //alphaAnimation.setDuration(1500);
-        //alphaAnimation.setFillAfter(true);
-        mVpShadow.setVisibility(View.VISIBLE);
-        //mVpShadow.animate().alpha(1).setDuration(1000);
+            mTabVp.addTabView(0, -1, pointRecord);
+            mTabVp.addTabView(1, -1, invitePoint);
 
-        notifView = findViewById(R.id.rl_notif_info);
+            VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getSupportFragmentManager());
+            mPagerVp.setAdapter(vpPagerAdapter);
+            mPagerVp.setOffscreenPageLimit(PAGE_COUNT);
+            mPagerVp.setCurrentItem(0, false);
 
-        mTvCountdownVp = findViewById(R.id.tv_countdown);
+            mTabVp.setViewPager(mPagerVp);
+            setPagerListener();
 
-        mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
-        mVpObservable.subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer vp) {
-                String message = String.format(Locale.getDefault(), getString(R.string.vp_get_vp_from_snapshoot), vp);
-                ((TextView)notifView.findViewById(R.id.tv_notif_info)).setText(message);
-                AnimUtil.transTopIn(notifView,true, 300);
-            }
-        });
-        
+            findViewById(R.id.back_button).setOnClickListener(this);
+
+            //AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f,1f);
+            //alphaAnimation.setDuration(1500);
+            //alphaAnimation.setFillAfter(true);
+            mVpShadow.setVisibility(View.VISIBLE);
+            //mVpShadow.animate().alpha(1).setDuration(1000);
+
+            notifView = findViewById(R.id.rl_notif_info);
+
+            mTvCountdownVp = findViewById(R.id.tv_countdown);
+
+            mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
+            mVpObservable.subscribe(new Action1<Integer>() {
+                @Override
+                public void call(Integer vp) {
+                    String message = String.format(Locale.getDefault(), getString(R.string.vp_get_vp_from_snapshoot), vp);
+                    ((TextView) notifView.findViewById(R.id.tv_notif_info)).setText(message);
+                    AnimUtil.transTopIn(notifView, true, 300);
+                }
+            });
+        }
         if(NetworkUtil.isOnline(this)){
             // TODO: 02/08/18 doSomething on VexPoint 
         }

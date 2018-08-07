@@ -151,6 +151,31 @@ public class User implements Serializable {
         return tpUtil.getBoolean(TpUtil.KEY_IS_PASS_SET, false);
     }
 
+    public static void setIsVexAddressSet(Context context, boolean isPasswordSet){
+        TpUtil tpUtil = TpUtil.getInstance(context);
+        tpUtil.put(TpUtil.KEY_IS_VEX_ADD_SET,isPasswordSet);
+    }
+
+    public static boolean getIsVexAddressSet(Context context){
+        TpUtil tpUtil = TpUtil.getInstance(context);
+        return tpUtil.getBoolean(TpUtil.KEY_IS_VEX_ADD_SET, false);
+    }
+
+    public static boolean isVexAddVerifTimeEnded() {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+
+        long fillTime = tpUtil.getLong(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME, 0);
+        long now = System.currentTimeMillis();
+
+        if(fillTime > 0) {
+            KLog.v("User", "isVexAddVerifTimeEnded: now [" + now + "] - last[" + fillTime + "] (" + (now - fillTime) + ")");
+            if (now - fillTime > StaticGroup.VEX_ADDRESS_VERIF_TIME) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isLocalSessionEnded() {
         TpUtil tpUtil = new TpUtil(App.getContext());
 
@@ -186,6 +211,13 @@ public class User implements Serializable {
         Date now = new Date();
         TpUtil tpUtil = new TpUtil(App.getContext());
         tpUtil.put(TpUtil.KEY_LAST_ACTIVE_TIME,
+                now.getTime());
+    }
+
+    public static void setVexAddressSubmitTime() {
+        Date now = new Date();
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        tpUtil.put(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME,
                 now.getTime());
     }
 

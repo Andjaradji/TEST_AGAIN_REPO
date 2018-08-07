@@ -9,7 +9,12 @@ import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -33,6 +38,7 @@ import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -54,6 +60,7 @@ public class StaticGroup {
     public static final int CONNECT_FB = 7;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
+    public static final int VEX_ADDRESS_VERIF_TIME = 60 * 60000;
 
     public static UserLoginResponse currentUser;
     public static String userSession;
@@ -62,6 +69,25 @@ public class StaticGroup {
 
     public static int kycStatus = KYC_NONE;
     public static Boolean isPasswordSet;
+
+    public static String os = Build.VERSION.RELEASE;
+    public static String VERSION = null;
+    public static long VERSION_CODE = 0;
+    public static String reg_id = "";
+
+
+    public static void initialize(Context context) {
+        try {
+            PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            VERSION = i.versionName;
+            VERSION_CODE = i.getLongVersionCode();
+            KLog.v("VERSION : " + VERSION + " " + VERSION_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public static String getUserSession() {
         if (userSession == null) {
@@ -246,4 +272,94 @@ public class StaticGroup {
     }
 
 
+    public static void openVexgiftGooglePlay(Context context) {
+        String storeUrl = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift";
+        StaticGroup.openGooglePlay(context, storeUrl);
+    }
+
+    public static void openGooglePlay(Context context, String marketUrl) {
+        if (!TextUtils.isEmpty(marketUrl)) {
+            try {
+                context.getPackageManager().getPackageInfo("com.android.vending", 0);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(marketUrl));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                KLog.v("openGooglePlay via market : " + marketUrl);
+                context.startActivity(intent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                String replacedUrl;
+                if (marketUrl.startsWith("market://")) {
+                    String detailUrl = marketUrl.replace("market://", "");
+                    replacedUrl = "https://play.google.com/store/apps/" + detailUrl;
+                } else {
+                    replacedUrl = marketUrl;
+                }
+                KLog.v("openGooglePlay via browser : " + replacedUrl);
+                openAndroidBrowser(context, replacedUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void openAndroidBrowser(Context context, String url) {
+        if (context == null || TextUtils.isEmpty(url)) return;
+
+        try {
+            final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            PackageManager packageManager = context.getPackageManager();
+            Intent fakeIntent = new Intent();
+            fakeIntent.setAction("android.intent.action.VIEW");
+            fakeIntent.setData(Uri.parse("http://www.google.com"));
+
+            ResolveInfo selectedBrowserInfo = packageManager.resolveActivity(fakeIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+            ActivityInfo targetBrowserInfo = null;
+
+            if (selectedBrowserInfo != null && selectedBrowserInfo.activityInfo != null && !selectedBrowserInfo.activityInfo.name.endsWith("ResolverActivity")) {
+                targetBrowserInfo = selectedBrowserInfo.activityInfo;
+                KLog.v("Browser Process", "Default Browser package name : " + targetBrowserInfo.applicationInfo.packageName);
+
+            } else {
+                fakeIntent.addCategory("android.intent.category.BROWSABLE");
+                List<ResolveInfo> localBrowserList = packageManager.queryIntentActivities(fakeIntent, 0);
+
+                if (localBrowserList.size() > 0) {
+                    ArrayList<String> browserList = new ArrayList<>();
+                    browserList.add("com.UCMobile.intl");
+                    browserList.add("com.android.chrome");
+                    browserList.add("com.android.browser");
+                    browserList.add("com.opera.browser");
+
+                    outerLoop:
+                    for (String packageName : browserList) {
+                        for (ResolveInfo resolveInfo : localBrowserList) {
+                            if (resolveInfo != null) {
+                                final ActivityInfo activity = resolveInfo.activityInfo;
+                                if (activity != null) {
+                                    String pkgName = activity.applicationInfo.packageName;
+                                    if (pkgName != null && pkgName.equalsIgnoreCase(packageName)) {
+                                        targetBrowserInfo = activity;
+                                        break outerLoop;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (targetBrowserInfo != null && !TextUtils.isEmpty(targetBrowserInfo.name) && !TextUtils.isEmpty(targetBrowserInfo.applicationInfo.packageName)) {
+                KLog.v("Browser Process", "Browser package name : " + targetBrowserInfo.applicationInfo.packageName);
+                browserIntent.setClassName(targetBrowserInfo.applicationInfo.packageName, targetBrowserInfo.name);
+            } else {
+                KLog.v("Browser Process", "Default Browser or Select dialog opened");
+            }
+
+            context.startActivity(browserIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -86,4 +86,18 @@ public interface UserService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/vex-point/get-act-address")
+    Observable<HttpResponse<Kyc>> getActAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/vex-point/update-act-address")
+    Observable<HttpResponse<Kyc>> setActAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 }
