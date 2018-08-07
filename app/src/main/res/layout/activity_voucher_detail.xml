@@ -39,7 +39,7 @@
                     <ImageView
                         android:id="@+id/iv_coupon_image"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="185dp"
                         android:transitionName="voucher_image" />
 
                     <View

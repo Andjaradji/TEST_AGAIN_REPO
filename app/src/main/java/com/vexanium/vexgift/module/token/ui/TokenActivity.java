@@ -77,7 +77,7 @@ public class TokenActivity extends BaseActivity {
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        data = FixtureData.showCaseTokenResponse;
+        data = FixtureData.tokenAirdropTokenResponse();
         data.addAll(data);
         //setVoucherList(data);
 

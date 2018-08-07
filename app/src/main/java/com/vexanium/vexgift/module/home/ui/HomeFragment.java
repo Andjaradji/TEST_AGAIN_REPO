@@ -178,8 +178,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
         data.add(1, new HomeFeedResponse(HOT_LIST, FixtureData.showCaseVoucherResponse));
         data.add(2, new HomeFeedResponse(EXPLORE_BAR));
-        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseTokenResponse, "Best Token", "Today"));
-        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.showCaseVoucherResponse, "Best Voucher", "Today"));
+        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.newShowCaseVoucherResponse(), "Best Voucher", "Today"));
+        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.newShowCaseTokenResponse(), "Best Token", "Today"));
         data.add(5, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(1, new HomeFeedResponse(EXPLORE_BAR));

@@ -78,7 +78,7 @@ public class VoucherActivity extends BaseActivity {
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        data = FixtureData.showCaseVoucherResponse;
+        data = FixtureData.giftVoucherVoucherResponse();
         data.addAll(data);
         //setVoucherList(data);
 
