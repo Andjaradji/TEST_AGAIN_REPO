@@ -122,6 +122,12 @@
         <activity
             android:name=".module.premium.ui.PremiumMemberActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.privacy.ui.PrivacyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.term.ui.TermActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

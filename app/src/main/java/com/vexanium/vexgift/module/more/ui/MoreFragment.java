@@ -16,9 +16,11 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
+import com.vexanium.vexgift.module.privacy.ui.PrivacyActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.setting.ui.SettingActivity;
+import com.vexanium.vexgift.module.term.ui.TermActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -51,6 +53,8 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_problem_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_privacy_policy).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_terms_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
@@ -129,6 +133,10 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_about_button:
                 break;
             case R.id.more_privacy_policy:
+                intentToActivity(PrivacyActivity.class);
+                break;
+            case R.id.more_terms_button:
+                intentToActivity(TermActivity.class);
                 break;
             case R.id.more_logout_button:
                 doLogout();

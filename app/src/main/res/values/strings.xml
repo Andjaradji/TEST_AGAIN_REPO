@@ -324,6 +324,9 @@
     <string name="premium_airdrop_token">Free Airdrop Token</string>
     <string name="premium_plan">Premium Plan</string>
 
+    <string name="privacy_policy">PRIVACY POLICY</string>
+    <string name="term_and_condition">TERM &amp; CONDITION</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
