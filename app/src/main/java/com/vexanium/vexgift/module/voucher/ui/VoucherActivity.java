@@ -2,8 +2,11 @@ package com.vexanium.vexgift.module.voucher.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,8 +51,8 @@ public class VoucherActivity extends BaseActivity {
     ImageView mIvError;
     TextView mTvErrorHead,mTvErrorBody;
 
-    RecyclerView mRecyclerview, mRvCategory, mRvLocation;
-    FilterAdapter mAdapterCategory, mAdapterLocation;
+    SwipeRefreshLayout mRefreshLayout;
+    RecyclerView mRecyclerview;
     SlidingUpPanelLayout mSlidePanel;
     LinearLayout mDragView;
     LockableScrollView mPanelScrollview;
@@ -63,6 +66,7 @@ public class VoucherActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_refresh);
         mSlidePanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
         mDragView = findViewById(R.id.dragview);
@@ -133,6 +137,27 @@ public class VoucherActivity extends BaseActivity {
 
         mSlidePanel.getChildAt(1).setOnClickListener(null);
 
+        // Setup refresh listener which triggers new data loading
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+                updateData();//update data here
+
+            }
+        });
+
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                mRefreshLayout.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
+            }
+        });
+
     }
 
     @Override
@@ -146,6 +171,15 @@ public class VoucherActivity extends BaseActivity {
                 mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
         }
+    }
+
+    private void updateData(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(false);
+            }
+        },3000);
     }
 
     private void setFilterItem(@IdRes int tagview, @IdRes int addButton, final String listType) {
