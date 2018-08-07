@@ -96,6 +96,8 @@ dependencies {
     implementation 'com.github.kenglxn.QRGen:android:2.5.0'
     implementation 'com.github.hkk595:Resizer:v1.5'
 
+    implementation 'com.asksira.android:loopingviewpager:1.1.2'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

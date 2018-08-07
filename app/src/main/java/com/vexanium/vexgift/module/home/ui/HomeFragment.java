@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,6 +63,7 @@ import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
+    private SwipeRefreshLayout mSrlHome;
     private LinearLayout mVexPointButton;
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
@@ -80,6 +82,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     protected void initView(View fragmentRootView) {
         random = new Random();
 
+        mSrlHome = fragmentRootView.findViewById(R.id.srl_home);
         mVexPointButton = fragmentRootView.findViewById(R.id.home_vp_button);
         mVexPointText = fragmentRootView.findViewById(R.id.home_vp_amount);
         mRecyclerview = fragmentRootView.findViewById(R.id.home_recyclerview);
@@ -99,7 +102,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
 
         User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText(user.getVexPoint());
+        mVexPointText.setText(""+user.getVexPoint());
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -136,6 +139,21 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 startActivity(intent, options.toBundle());
             }
         });
+
+        // Setup refresh listener which triggers new data loading
+        mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+            }
+        });
+        // Configure the refreshing colors
+        mSrlHome.setColorSchemeResources(R.color.vex_orange,
+                R.color.vex_pink);
+
     }
 
     @Override

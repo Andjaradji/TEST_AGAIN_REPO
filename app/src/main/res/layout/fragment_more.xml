@@ -136,6 +136,18 @@
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 
+                    <TextView
+                        android:id="@+id/more_premium_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_ripple_transparent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
+                        android:text="Premium Member"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
+
 
                     <View
                         android:layout_width="match_parent"

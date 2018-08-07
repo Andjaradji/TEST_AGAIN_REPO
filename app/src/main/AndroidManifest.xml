@@ -117,7 +117,20 @@
         <activity
             android:name=".module.exchange.ui.ReceiveVoucherActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.vexpoint.ui.VexAddressActivity"></activity>
+        <activity android:name=".module.vexpoint.ui.VexAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.exchange.ui.SendVoucherActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.premium.ui.PremiumMemberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.privacy.ui.PrivacyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.term.ui.TermActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".fcm.VexFirebaseMessagingService">
@@ -131,6 +144,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/vex_orange" />
+
     </application>
 
 </manifest>

@@ -67,7 +67,7 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:titleTextColor="@color/material_black">
 
-                    <include layout="@layout/content_toolbar_voucher_detail" />
+                    <include layout="@layout/content_toolbar_voucher_redeem" />
 
                 </android.support.v7.widget.Toolbar>
 
