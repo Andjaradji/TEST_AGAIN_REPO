@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.premium.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +19,9 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
+import com.vexanium.vexgift.widget.FixedSpeedScroller;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member)
@@ -76,6 +79,18 @@ public class PremiumMemberActivity extends BaseActivity {
 
         PremiumPlanAdapter adapter = new PremiumPlanAdapter(this,itemList);
         mRvPremiumPlan.setAdapter(adapter);
+
+        try {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(mVpPremium.getContext(), null);
+            // scroller.setFixedDuration(5000);
+            mScroller.set(mVpPremium, scroller);
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException e) {
+        }
 
     }
 
