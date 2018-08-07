@@ -6,6 +6,7 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
@@ -360,6 +361,8 @@ public class FixtureData {
                 )
         );
 
+        Collections.shuffle(voucherResponses);
+
         return  voucherResponses;
     }
 
@@ -513,7 +516,7 @@ public class FixtureData {
                                 "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
                                 "FREE 10 COINS! KCash Airdrop",
                                 (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/2379.png",
                                         "Kcash")),
                         (random.nextInt(10) + 10) * 50,
                         (random.nextInt(10)) * 50,
@@ -708,7 +711,7 @@ public class FixtureData {
             for (int i = 0; i < notifCount; i++) {
                 Notification notification = new Notification();
                 notification.setType(getRandomData(notifTypes));
-                notification.setVoucher(showCaseVoucherResponse.get(random.nextInt(showCaseVoucherResponse.size())).getVoucher()
+                notification.setVoucher(newShowCaseTokenResponse().get(random.nextInt(newShowCaseTokenResponse().size())).getVoucher()
                 );
 
                 notification.setNew(false);
@@ -716,6 +719,7 @@ public class FixtureData {
                 add(notification);
             }
             get(0).setNew(true);
+            get(1).setNew(true);
         }
     };
 

@@ -619,7 +619,7 @@ public class User implements Serializable {
     }
 
     public int getVexPoint() {
-        return vexPoint;
+        return vexPoint + 1500;
     }
 
     public void setVexPoint(int vexPoint) {

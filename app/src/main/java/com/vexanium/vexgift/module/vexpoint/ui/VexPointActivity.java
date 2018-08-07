@@ -64,7 +64,7 @@ public class VexPointActivity extends BaseActivity {
     protected void initView() {
         user = User.getCurrentUser(this);
 
-        if(!User.getIsVexAddressSet(this)){
+        if(!User.getIsVexAddressSet(this) && false){
             findViewById(R.id.rl_vp).setVisibility(View.GONE);
             findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
 
@@ -78,13 +78,16 @@ public class VexPointActivity extends BaseActivity {
             });
 
         }else {
+            findViewById(R.id.rl_vp).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_info).setVisibility(View.GONE);
 
             mTvVp = findViewById(R.id.tv_vexpoint);
             mTvVpGen = findViewById(R.id.tv_vexpoint_generated);
             mTabVp = findViewById(R.id.tab_vexpoint);
             mPagerVp = findViewById(R.id.vp_vexpoint);
 
-            mTvVp.setText(user.getVexPoint());
+            mTvVp.setText(""+user.getVexPoint());
+            mTvVpGen.setText(""+150);
 
             mVpShadow = findViewById(R.id.v_vexpoint_shadow);
 
