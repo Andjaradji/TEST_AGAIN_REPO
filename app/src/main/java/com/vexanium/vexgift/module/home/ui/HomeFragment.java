@@ -119,6 +119,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 } else if (mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation() != 10) {
                     appBarLayout.setElevation(10);
                 }
+                mSrlHome.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
             }
         });
 
@@ -152,16 +153,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 updateData();
             }
         });
-        // Configure the refreshing colors
-        mSrlHome.setColorSchemeResources(R.color.vex_orange,
-                R.color.vex_pink);
+
+
 
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("NotifFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
+        KLog.v("HomeFragment onCreateView");
+        //super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

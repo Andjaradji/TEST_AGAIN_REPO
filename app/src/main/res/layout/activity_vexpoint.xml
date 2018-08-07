@@ -238,6 +238,7 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
+        android:background="@color/material_white"
         android:visibility="gone">
 
         <TextView
