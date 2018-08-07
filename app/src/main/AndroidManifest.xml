@@ -68,7 +68,7 @@
             android:name=".module.login.ui.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.token.ui.TokenActivity_"
+            android:name=".module.token.ui.TokenActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.voucher.ui.VoucherActivity"
