@@ -28,6 +28,7 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -160,8 +161,9 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 }
 
                 setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
-                holder.setText(R.id.tv_brand, FixtureData.getRandomBrand().getTitle());
-                holder.setRoundImageUrl(R.id.iv_photo, FixtureData.getRandomBrand().getPhoto(), R.drawable.placeholder);
+                Brand brand = item.getVoucher().getBrand();
+                holder.setText(R.id.tv_brand, brand.getTitle());
+                holder.setRoundImageUrl(R.id.iv_photo, brand.getPhoto(), R.drawable.placeholder);
                 holder.setViewGone(R.id.iv_red_dot, !item.isNew());
                 if (item.isNew()) {
                     holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.colorPrimaryDark));

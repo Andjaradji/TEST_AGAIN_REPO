@@ -31,7 +31,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="170dp"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7">
@@ -39,13 +39,19 @@
                     <ImageView
                         android:id="@+id/iv_coupon_image"
                         android:layout_width="match_parent"
-                        android:layout_height="185dp"
+                        android:layout_height="170dp"
                         android:transitionName="voucher_image" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_black_trans"></View>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/lineColor"></View>
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
