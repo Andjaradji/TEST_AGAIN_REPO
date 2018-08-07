@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.home.ui;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -148,6 +149,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 //fetchTimelineAsync(0);
+                updateData();
             }
         });
         // Configure the refreshing colors
@@ -165,6 +167,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+
+    }
+
+    public void updateData(){
+        //update data here
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSrlHome.setRefreshing(false);
+            }
+        },3000);
 
     }
 
