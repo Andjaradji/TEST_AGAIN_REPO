@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
@@ -97,6 +98,8 @@ dependencies {
     implementation 'com.github.hkk595:Resizer:v1.5'
 
     implementation 'com.asksira.android:loopingviewpager:1.1.2'
+
+    implementation 'org.greenrobot:greendao:3.2.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

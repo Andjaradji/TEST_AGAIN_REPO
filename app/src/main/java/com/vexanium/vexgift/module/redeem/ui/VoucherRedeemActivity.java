@@ -58,14 +58,14 @@ public class VoucherRedeemActivity extends BaseActivity {
             }
         });
         if (voucherResponse != null) {
-            Brand brand = FixtureData.getRandomBrand();
-            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_coupon_image, voucherResponse.getVoucher().getPhoto(), R.drawable.placeholder);
-            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_brand_image, brand.getPhoto(), R.drawable.placeholder);
-            ViewUtil.setText(this.getDecorView(), R.id.tv_brand, brand.getTitle());
-            ViewUtil.setText(this.getDecorView(), R.id.tv_coupon_title, voucherResponse.getVoucher().getTitle());
-            ViewUtil.setText(this.getDecorView(), R.id.tv_time, voucherResponse.getVoucher().getExpiredDate());
-            ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(FixtureData.getRandomBrand().getTitle());
-            toolbarLayout.setTitle(brand.getTitle());
+//            Brand brand = FixtureData.getRandomBrand();
+//            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_coupon_image, voucherResponse.getVoucher().getPhoto(), R.drawable.placeholder);
+//            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_brand_image, brand.getPhoto(), R.drawable.placeholder);
+//            ViewUtil.setText(this.getDecorView(), R.id.tv_brand, brand.getTitle());
+//            ViewUtil.setText(this.getDecorView(), R.id.tv_coupon_title, voucherResponse.getVoucher().getTitle());
+//            ViewUtil.setText(this.getDecorView(), R.id.tv_time, voucherResponse.getVoucher().getExpiredDate());
+//            ((TextView)toolbar.findViewById(R.id.tv_toolbar_title)).setText(FixtureData.getRandomBrand().getTitle());
+//            toolbarLayout.setTitle(brand.getTitle());
         }else{
 
         }

@@ -100,7 +100,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     public void loadData() {
         data = new ArrayList<>();
-        data = FixtureData.notifs;
+//        data = FixtureData.notifs;
     }
 
     private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
@@ -161,29 +161,29 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 }
 
                 setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
-                Brand brand = item.getVoucher().getBrand();
-                holder.setText(R.id.tv_brand, brand.getTitle());
-                holder.setRoundImageUrl(R.id.iv_photo, brand.getPhoto(), R.drawable.placeholder);
-                holder.setViewGone(R.id.iv_red_dot, !item.isNew());
-                if (item.isNew()) {
-                    holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                    holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                }
-                int ranInt = random.nextInt(24 * 7 * 100);
-                if (ranInt <= 100) {
-                    holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
-                } else if (ranInt <= 24 * 100) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 100));
-                } else if (ranInt <= 24 * 100 * 7) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 2400));
-                }
-                holder.setOnClickListener(R.id.iv_photo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+//                Brand brand = item.getVoucher().getBrand();
+//                holder.setText(R.id.tv_brand, brand.getTitle());
+//                holder.setRoundImageUrl(R.id.iv_photo, brand.getPhoto(), R.drawable.placeholder);
+//                holder.setViewGone(R.id.iv_red_dot, !item.isNew());
+//                if (item.isNew()) {
+//                    holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//                    holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//                    holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//                }
+//                int ranInt = random.nextInt(24 * 7 * 100);
+//                if (ranInt <= 100) {
+//                    holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
+//                } else if (ranInt <= 24 * 100) {
+//                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 100));
+//                } else if (ranInt <= 24 * 100 * 7) {
+//                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 2400));
+//                }
+//                holder.setOnClickListener(R.id.iv_photo, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
             }
         };
 

@@ -25,7 +25,10 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -41,7 +44,7 @@ import java.util.Random;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
 public class VoucherActivity extends BaseActivity {
-    private ArrayList<VoucherResponse> data;
+    private ArrayList<Voucher> data;
     GridLayoutManager layoutListManager;
 
     LinearLayout mErrorView;
@@ -78,11 +81,13 @@ public class VoucherActivity extends BaseActivity {
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        data = FixtureData.giftVoucherVoucherResponse();
-        data.addAll(data);
+//        data = FixtureData.giftVoucherVoucherResponse();
+
+//        data.addAll(data);
         //setVoucherList(data);
 
-//        data = new ArrayList<>();
+        data = TableContentDaoUtil.getInstance().getVouchers() ;
+        if(data==null) data = new ArrayList<>();
         setVoucherList(data);
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -183,13 +188,9 @@ public class VoucherActivity extends BaseActivity {
         tagView.addTags(addedTagList);
     }
 
-    public void setVoucherList(final ArrayList<VoucherResponse> data) {
+    public void setVoucherList(final ArrayList<Voucher> data) {
 
-        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(this, data, layoutListManager) {
-            @Override
-            public int getItemViewType(int position) {
-                return data.get(position).type;
-            }
+        BaseRecyclerAdapter<Voucher> mAdapter = new BaseRecyclerAdapter<Voucher>(this, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -197,15 +198,15 @@ public class VoucherActivity extends BaseActivity {
             }
 
             @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                if (item.getAvail() == 0)
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getTitle());
+                if (item.getQtyAvailable() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");
                 else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
+                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
 //                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

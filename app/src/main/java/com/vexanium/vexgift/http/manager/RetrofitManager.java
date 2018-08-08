@@ -9,14 +9,17 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.interceptor.RxErrorHandlingCallAdapterFactory;
 import com.vexanium.vexgift.http.services.UserService;
+import com.vexanium.vexgift.http.services.VoucherService;
 import com.vexanium.vexgift.util.NetworkUtil;
 
 import java.io.File;
@@ -58,6 +61,7 @@ public class RetrofitManager {
     private static SparseArray<RetrofitManager> sInstanceManager = new SparseArray<>(HostType.TYPE_COUNT);
 
     private UserService mUserService;
+    private VoucherService mVoucherService;
 
     private Interceptor mRewriteCacheControlInterceptor = new Interceptor() {
         @Override
@@ -128,6 +132,7 @@ public class RetrofitManager {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
 
         mUserService = retrofit.create(UserService.class);
+        mVoucherService = retrofit.create(VoucherService.class);
     }
 
 
@@ -390,6 +395,14 @@ public class RetrofitManager {
         params.put("user_id", id);
 
         return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+    }
+
+    public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id){
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
     }
 
 }

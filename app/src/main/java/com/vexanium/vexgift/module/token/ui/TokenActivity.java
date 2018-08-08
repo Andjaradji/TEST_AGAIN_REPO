@@ -77,11 +77,11 @@ public class TokenActivity extends BaseActivity {
 
         sortFilterCondition = new SortFilterCondition();
         Random random = new Random();
-        data = FixtureData.tokenAirdropTokenResponse();
-        data.addAll(data);
+//        data = FixtureData.tokenAirdropTokenResponse();
+//        data.addAll(data);
         //setVoucherList(data);
 
-//        data = new ArrayList<>();
+        data = new ArrayList<>();
         setVoucherList(data);
 
         findViewById(R.id.back_button).setOnClickListener(this);

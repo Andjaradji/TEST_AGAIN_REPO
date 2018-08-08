@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
+import android.support.annotation.IntRange;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -29,6 +30,7 @@ import com.facebook.login.LoginManager;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
@@ -40,6 +42,7 @@ import com.vexanium.vexgift.util.TpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
@@ -117,9 +120,9 @@ public class StaticGroup {
         }
     }
 
-    public static void goToVoucherDetailActivity(Activity activity, VoucherResponse voucherResponse, ImageView ivVoucher) {
+    public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
-        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        intent.putExtra("voucher", JsonUtil.toString(voucher));
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, ivVoucher, "voucher_image");
         activity.startActivity(intent, options.toBundle());
@@ -208,6 +211,16 @@ public class StaticGroup {
 //        } catch (TimeoutException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public static boolean isInIDLocale() {
+        boolean ret = true;
+
+        if (Locale.getDefault() != null && !TextUtils.isEmpty(Locale.getDefault().toString())) {
+            ret = Locale.getDefault().toString().contains("in");
+        }
+
+        return ret;
     }
 
     public static NotificationCompat.Builder getDefaultNotificationBuilder(Context context, String message, String title, Intent targetIntent, long whenTimeStamp, int badgeNumber, boolean autoCancel) {
@@ -361,5 +374,13 @@ public class StaticGroup {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Voucher> getVouchers(ArrayList<Voucher> origin,  int count){
+        ArrayList<Voucher> vouchers = new ArrayList<>();
+        for(int i = 0; i < count; i++){
+            vouchers.add(origin.get(i));
+        }
+        return vouchers;
     }
 }

@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity {
         TpUtil tpUtil = new TpUtil(context);
         boolean isFirstTime = tpUtil.getBoolean(TpUtil.KEY_WALKTHROUGH, true);
 
-        if (isFirstTime || true) {
+        if (isFirstTime ) {
             //TODO set destination to walkthrough and set KEY_WALKTHROUGH to false
             destination = WalkthroughActivity.class;
         }else{

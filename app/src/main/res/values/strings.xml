@@ -47,7 +47,9 @@
 
     <string name="coupon_redeem_availability">Coupon will Expired in :</string>
     <string name="coupon_detail_availability">Coupon Availability</string>
-    <string name="coupon_detail_desc_title">Coupon Descriptions</string>
+    <string name="coupon_detail_desc_title">Coupon Description</string>
+    <string name="voucher_detail_desc_title">Voucher Description</string>
+    <string name="token_detail_desc_title">Token Description</string>
     <string name="coupon_detail_desc">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
     <string name="coupon_detail_terms_title">Terms &amp; Conditions</string>
     <string name="coupon_detail_terms">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
@@ -55,6 +57,7 @@
     <string name="coupon_detail_claim_token">Get Token</string>
     <string name="coupon_redeem_token">Redeem Token</string>
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
+    <string name="voucher_availability">%d out of %d</string>
 
     <string name="coupon_redeem_voucher_code">Voucher Code</string>
     <string name="coupon_redeem_voucher_code_field">Enter coupon code here</string>

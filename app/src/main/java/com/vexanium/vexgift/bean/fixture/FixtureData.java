@@ -319,350 +319,350 @@ public class FixtureData {
         }
     };
 
-    public static final ArrayList<VoucherResponse> newHotVoucherResponse(){
-        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
-                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vexbucks")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
-                                "FREE 20 COINS! Avecoin Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
-                                        "Avecoin")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
-                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Donalds")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
-                                "FREE 10 COINS! Achain Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                        "Achain")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-
-        Collections.shuffle(voucherResponses);
-
-        return  voucherResponses;
-    }
-
-    public static final ArrayList<VoucherResponse> giftVoucherVoucherResponse(){
-        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks2.webp",
-                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vexbucks")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds2.webp",
-                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Donalds")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza2.webp",
-                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Pizza")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
-                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vexbucks")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
-                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Donalds")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza.webp",
-                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Pizza")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-
-        return  voucherResponses;
-    }
-
-    public static final ArrayList<VoucherResponse> newShowCaseVoucherResponse(){
-        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
-                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vexbucks")),
-        (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
-                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Donalds")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza.webp",
-                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                        "Vex Pizza")),
-                (random.nextInt(10) + 10) * 50,
-                (random.nextInt(10)) * 50,
-                NORMAL_COUPON));
-
-
-        return  voucherResponses;
-    }
-
-    public static final ArrayList<VoucherResponse> tokenAirdropTokenResponse(){
-        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
-                                "FREE 10 COINS! Achain Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                        "Achain")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
-                                "FREE 10 COINS! KCash Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                        "Kcash")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
-                                "FREE 20 COINS! Avecoin Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
-                                        "Avecoin")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-
-
-        return  voucherResponses;
-    }
-
-    public static final ArrayList<VoucherResponse> newShowCaseTokenResponse(){
-        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
-                                "FREE 10 COINS! Achain Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                        "Achain")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
-                                "FREE 10 COINS! KCash Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/2379.png",
-                                        "Kcash")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-        voucherResponses.add(new VoucherResponse(
-                        new Voucher(
-                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
-                                "FREE 20 COINS! Avecoin Airdrop",
-                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
-                                        "Avecoin")),
-                        (random.nextInt(10) + 10) * 50,
-                        (random.nextInt(10)) * 50,
-                        NORMAL_COUPON
-                )
-        );
-
-
-        return  voucherResponses;
-    }
-
-    public static final ArrayList<VoucherResponse> showCaseVoucherResponse = new ArrayList<VoucherResponse>() {
-        {
-            clear();
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
-                                    "Be Her Early Valentine, 15% off Discount",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                                            "Flower Advisor")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
-                                    "Orori Instant Voucher Rp750.000,-",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
-                                    "Buy 1 Get 1 VexPizza All Variants",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
-                                            "VexPizza")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-        }
-    };
-
-    public static final ArrayList<VoucherResponse> hotVoucherResponse = new ArrayList<VoucherResponse>() {
-        {
-            clear();
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
-                                    "Be Her Early Valentine, 15% off Discount",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
-                                            "Flower Advisor")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
-                                    "Orori Instant Voucher Rp750.000,-",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
-                                    "Buy 1 Get 1 VexPizza All Variants",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
-                                            "VexPizza")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-        }
-    };
-
-    public static final ArrayList<VoucherResponse> showCaseTokenResponse = new ArrayList<VoucherResponse>() {
-        {
-            clear();
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
-                                    "FREE 10 COINS! Achain Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                     new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                             "Achain")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
-                                    "FREE 10 COINS! KCash Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
-                                            "Kcash")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-            add(new VoucherResponse(
-                            new Voucher(
-                                    "http://scdn.ctree.id/f/180321/1521570502012_tokenomy.webp",
-                                    "FREE 20 COINS! Tokenomy Airdrop",
-                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
-                                    new Brand("https://www.tokenomy.com/images/tokenomy/LOGO_FIX_GRAM.pngk",
-                                            "Tokenomy")),
-                            (random.nextInt(10) + 10) * 50,
-                            (random.nextInt(10)) * 50,
-                            NORMAL_COUPON
-                    )
-            );
-        }
-    };
+//    public static final ArrayList<VoucherResponse> newHotVoucherResponse(){
+//        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
+//                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vexbucks")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
+//                                "FREE 20 COINS! Avecoin Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
+//                                        "Avecoin")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
+//                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Donalds")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
+//                                "FREE 10 COINS! Achain Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                        "Achain")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//
+//        Collections.shuffle(voucherResponses);
+//
+//        return  voucherResponses;
+//    }
+//
+//    public static final ArrayList<VoucherResponse> giftVoucherVoucherResponse(){
+//        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks2.webp",
+//                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vexbucks")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds2.webp",
+//                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Donalds")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza2.webp",
+//                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Pizza")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
+//                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vexbucks")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
+//                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Donalds")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza.webp",
+//                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Pizza")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//
+//        return  voucherResponses;
+//    }
+//
+//    public static final ArrayList<VoucherResponse> newShowCaseVoucherResponse(){
+//        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexbucks.webp",
+//                "Free Coffee from Vexbucks",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vexbucks")),
+//        (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexdonalds.webp",
+//                "Free Burger from Vex Donalds",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Donalds")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//        voucherResponses.add(new VoucherResponse(new Voucher("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/vexpizza.webp",
+//                "Free Pizza from Vex Pizza",(random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                        "Vex Pizza")),
+//                (random.nextInt(10) + 10) * 50,
+//                (random.nextInt(10)) * 50,
+//                NORMAL_COUPON));
+//
+//
+//        return  voucherResponses;
+//    }
+//
+//    public static final ArrayList<VoucherResponse> tokenAirdropTokenResponse(){
+//        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
+//
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
+//                                "FREE 10 COINS! Achain Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                        "Achain")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
+//                                "FREE 10 COINS! KCash Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                        "Kcash")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
+//                                "FREE 20 COINS! Avecoin Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
+//                                        "Avecoin")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//
+//
+//        return  voucherResponses;
+//    }
+//
+//    public static final ArrayList<VoucherResponse> newShowCaseTokenResponse(){
+//        ArrayList<VoucherResponse> voucherResponses = new ArrayList<>();
+//
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
+//                                "FREE 10 COINS! Achain Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                        "Achain")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
+//                                "FREE 10 COINS! KCash Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/2379.png",
+//                                        "Kcash")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//        voucherResponses.add(new VoucherResponse(
+//                        new Voucher(
+//                                "https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/Artboard.webp",
+//                                "FREE 20 COINS! Avecoin Airdrop",
+//                                (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                new Brand("https://s3-ap-southeast-1.amazonaws.com/vexgift/dummy_voucher/logo.webp",
+//                                        "Avecoin")),
+//                        (random.nextInt(10) + 10) * 50,
+//                        (random.nextInt(10)) * 50,
+//                        NORMAL_COUPON
+//                )
+//        );
+//
+//
+//        return  voucherResponses;
+//    }
+//
+//    public static final ArrayList<VoucherResponse> showCaseVoucherResponse = new ArrayList<VoucherResponse>() {
+//        {
+//            clear();
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
+//                                    "Be Her Early Valentine, 15% off Discount",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                                            "Flower Advisor")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
+//                                    "Orori Instant Voucher Rp750.000,-",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
+//                                    "Buy 1 Get 1 VexPizza All Variants",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
+//                                            "VexPizza")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//        }
+//    };
+//
+//    public static final ArrayList<VoucherResponse> hotVoucherResponse = new ArrayList<VoucherResponse>() {
+//        {
+//            clear();
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521569916569_flower advisor.webp",
+//                                    "Be Her Early Valentine, 15% off Discount",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png",
+//                                            "Flower Advisor")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521570356638_Orori Voucher.webp",
+//                                    "Orori Instant Voucher Rp750.000,-",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://www.overleaf.com/assets/logos/overleaf_og_logo.png", "Orori")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180314/1521038749930_pizza.webp",
+//                                    "Buy 1 Get 1 VexPizza All Variants",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("http://scdn.ctree.id/f/180314/1521038888014_piz.webp",
+//                                            "VexPizza")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//        }
+//    };
+//
+//    public static final ArrayList<VoucherResponse> showCaseTokenResponse = new ArrayList<VoucherResponse>() {
+//        {
+//            clear();
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521569817922_achain.webp",
+//                                    "FREE 10 COINS! Achain Airdrop",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                     new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                             "Achain")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521570226785_kcash.webp",
+//                                    "FREE 10 COINS! KCash Airdrop",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://s2.coinmarketcap.com/static/img/coins/200x200/1918.png",
+//                                            "Kcash")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//            add(new VoucherResponse(
+//                            new Voucher(
+//                                    "http://scdn.ctree.id/f/180321/1521570502012_tokenomy.webp",
+//                                    "FREE 20 COINS! Tokenomy Airdrop",
+//                                    (random.nextInt(27) + 1) + " " + getRandomData(monthList) + " 2018",
+//                                    new Brand("https://www.tokenomy.com/images/tokenomy/LOGO_FIX_GRAM.pngk",
+//                                            "Tokenomy")),
+//                            (random.nextInt(10) + 10) * 50,
+//                            (random.nextInt(10)) * 50,
+//                            NORMAL_COUPON
+//                    )
+//            );
+//        }
+//    };
 
 //    public static final ArrayList<Brand> showCaseBrand = new ArrayList<Brand>() {
 //        {
@@ -706,22 +706,22 @@ public class FixtureData {
 
     }
 
-    public static final ArrayList<Notification> notifs = new ArrayList<Notification>() {
-        {
-            for (int i = 0; i < notifCount; i++) {
-                Notification notification = new Notification();
-                notification.setType(getRandomData(notifTypes));
-                notification.setVoucher(newShowCaseTokenResponse().get(random.nextInt(newShowCaseTokenResponse().size())).getVoucher()
-                );
-
-                notification.setNew(false);
-
-                add(notification);
-            }
-            get(0).setNew(true);
-            get(1).setNew(true);
-        }
-    };
+//    public static final ArrayList<Notification> notifs = new ArrayList<Notification>() {
+//        {
+//            for (int i = 0; i < notifCount; i++) {
+//                Notification notification = new Notification();
+//                notification.setType(getRandomData(notifTypes));
+//                notification.setVoucher(newShowCaseTokenResponse().get(random.nextInt(newShowCaseTokenResponse().size())).getVoucher()
+//                );
+//
+//                notification.setNew(false);
+//
+//                add(notification);
+//            }
+//            get(0).setNew(true);
+//            get(1).setNew(true);
+//        }
+//    };
 
 //    public static final ArrayList<Brand> getRandomBrand(int brandCount) {
 //        ArrayList<Brand> brands = new ArrayList<>();
@@ -731,33 +731,33 @@ public class FixtureData {
 //        return brands;
 //    }
 
-    public static final ArrayList<Voucher> getRandomVoucher(int voucherCount, boolean active) {
-        ArrayList<Voucher> vouchers = new ArrayList<>();
-        for (int i = 0; i < voucherCount; i++) {
-            Voucher voucher = showCaseVoucherResponse.get(random.nextInt(showCaseVoucherResponse.size())).getVoucher();
-            voucher.active = active;
-            vouchers.add(voucher);
-        }
-        return vouchers;
-    }
-
-    public static final ArrayList<VoucherResponse> getRandomVoucherResponse(int voucherCount, boolean active) {
-        ArrayList<VoucherResponse> vouchers = new ArrayList<>();
-        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
-            vouchers.add(voucherResponse);
-        }
+//    public static final ArrayList<Voucher> getRandomVoucher(int voucherCount, boolean active) {
+//        ArrayList<Voucher> vouchers = new ArrayList<>();
 //        for (int i = 0; i < voucherCount; i++) {
-//            VoucherResponse voucherResponse = new VoucherResponse();
-//            voucherResponse.setVoucher(new Voucher(
-//                    getRandomData(voucherPhotoUrl), getRandomData(voucherTitle), (random.nextInt(29) + 1) + " April 2018",
-//                     active)
-//            );
-//            voucherResponse.setStock((random.nextInt(19) + 1) * 50);
-//            voucherResponse.setAvail(voucherResponse.getStock() - random.nextInt(50));
+//            Voucher voucher = showCaseVoucherResponse.get(random.nextInt(showCaseVoucherResponse.size())).getVoucher();
+//            voucher.active = active;
+//            vouchers.add(voucher);
+//        }
+//        return vouchers;
+//    }
 //
+//    public static final ArrayList<VoucherResponse> getRandomVoucherResponse(int voucherCount, boolean active) {
+//        ArrayList<VoucherResponse> vouchers = new ArrayList<>();
+//        for (VoucherResponse voucherResponse : showCaseVoucherResponse) {
 //            vouchers.add(voucherResponse);
 //        }
-
-        return vouchers;
-    }
+////        for (int i = 0; i < voucherCount; i++) {
+////            VoucherResponse voucherResponse = new VoucherResponse();
+////            voucherResponse.setVoucher(new Voucher(
+////                    getRandomData(voucherPhotoUrl), getRandomData(voucherTitle), (random.nextInt(29) + 1) + " April 2018",
+////                     active)
+////            );
+////            voucherResponse.setStock((random.nextInt(19) + 1) * 50);
+////            voucherResponse.setAvail(voucherResponse.getStock() - random.nextInt(50));
+////
+////            vouchers.add(voucherResponse);
+////        }
+//
+//        return vouchers;
+//    }
 }

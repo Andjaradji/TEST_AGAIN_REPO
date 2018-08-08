@@ -10,6 +10,13 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.BuildConfig;
+import com.vexanium.vexgift.database.DaoMaster;
+import com.vexanium.vexgift.database.DaoSession;
+import com.vexanium.vexgift.database.DatabaseUpgradeHelper;
+
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
 
 /**
  * Created by hizkia on 12/03/18.
@@ -33,6 +40,8 @@ public class App extends Application {
     public static Typeface hnBoldCond;
     public static Typeface hnMed;
 
+    private DaoSession mDaoSession;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,8 +49,24 @@ public class App extends Application {
         mApplicationContext = this;
 
         setupCustomFont();
+        setupDatabase();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+    }
+
+    public DaoSession getDaoSession() {
+        return mDaoSession;
+    }
+    private void setupDatabase() {
+        DatabaseUpgradeHelper helper = new DatabaseUpgradeHelper(this, ConstantGroup.DB_NAME);
+        Database db = helper.getWritableDb();
+
+        DaoMaster daoMaster = new DaoMaster(db);
+        mDaoSession = daoMaster.newSession();
+
+        QueryBuilder.LOG_SQL = BuildConfig.DEBUG;
+        QueryBuilder.LOG_VALUES = BuildConfig.DEBUG;
     }
 
     private void setupCustomFont() {

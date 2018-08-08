@@ -17,9 +17,8 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
-import com.vexanium.vexgift.bean.model.Brand;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.bean.model.Vendor;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.CaptchaImageView;
@@ -36,7 +35,7 @@ import rx.functions.Action1;
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)
 public class VoucherDetailActivity extends BaseActivity {
 
-    private VoucherResponse voucherResponse;
+    private Voucher voucher;
     private CollapsingToolbarLayout toolbarLayout;
 
     @Override
@@ -48,11 +47,11 @@ public class VoucherDetailActivity extends BaseActivity {
     protected void initView() {
         if (getIntent().hasExtra("voucher")) {
             if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
-                voucherResponse = (VoucherResponse) JsonUtil.toObject(getIntent().getStringExtra("voucher"), VoucherResponse.class);
+                voucher = (Voucher) JsonUtil.toObject(getIntent().getStringExtra("voucher"), Voucher.class);
             }
         }
 
-        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
+        toolbarLayout = findViewById(R.id.collapsingToolbar);
         toolbar = findViewById(R.id.toolbar);
         ((AppBarLayout) toolbarLayout.getParent()).addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
@@ -68,15 +67,18 @@ public class VoucherDetailActivity extends BaseActivity {
                 }
             }
         });
-        if (voucherResponse != null) {
-            Brand brand = voucherResponse.getVoucher().getBrand();
-            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_coupon_image, voucherResponse.getVoucher().getPhoto(), R.drawable.placeholder);
-            ViewUtil.setImageUrl(this.getDecorView(), R.id.iv_brand_image, brand.getPhoto(), R.drawable.placeholder);
-            ViewUtil.setText(this.getDecorView(), R.id.tv_brand, brand.getTitle());
-            ViewUtil.setText(this.getDecorView(), R.id.tv_coupon_title, voucherResponse.getVoucher().getTitle());
-            ViewUtil.setText(this.getDecorView(), R.id.tv_time, voucherResponse.getVoucher().getExpiredDate());
-            ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(brand.getTitle());
-            toolbarLayout.setTitle(brand.getTitle());
+        if (voucher != null) {
+            Vendor vendor = voucher.getVendor();
+            ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+            ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
+            ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
+            ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
+            ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
+            ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
+            ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
+            ViewUtil.setText(this, R.id.tv_avail,  String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyTotal()));
+            ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
+            toolbarLayout.setTitle(vendor.getName());
         } else {
 
         }
@@ -99,9 +101,9 @@ public class VoucherDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_claim:
                 CheckBox cbAggree = findViewById(R.id.cb_aggree);
-                if(cbAggree.isChecked()) {
+                if (cbAggree.isChecked()) {
                     doCaptcha();
-                }else{
+                } else {
                     new VexDialog.Builder(this)
                             .optionType(DialogOptionType.OK)
                             .title(getString(R.string.validate_checkbox_aggree_title))
@@ -173,7 +175,7 @@ public class VoucherDetailActivity extends BaseActivity {
                                 .content("Congratulation! You get the voucher")
                                 .autoDismiss(true)
                                 .show();
-                        StaticGroup.sendLocalNotification(App.getContext(),"Get Voucher Success", "Congratulation! You get the voucher. ","");
+                        StaticGroup.sendLocalNotification(App.getContext(), "Get Voucher Success", "Congratulation! You get the voucher. ", "");
                     }
                 });
     }

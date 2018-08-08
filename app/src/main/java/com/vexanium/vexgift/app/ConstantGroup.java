@@ -25,4 +25,5 @@ public class ConstantGroup {
 
     public static final int GOOGLE2FA_STATE_RESULT_CODE = 1124;
     public static final int ID_LOCAL_PUSH = 412;
+    public static String DB_NAME = "VexGiftDb";
 }

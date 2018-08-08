@@ -174,11 +174,12 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_avail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/interval_content"
                         android:tag="bold"
-                        android:text="100 out of 150"
+                        android:text="@string/voucher_availability"
                         android:textSize="@dimen/text_medium" />
                 </LinearLayout>
 
@@ -208,7 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tag="bold"
-                        android:text="@string/coupon_detail_desc_title"
+                        android:text="@string/voucher_detail_desc_title"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_title" />
 
@@ -218,7 +219,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:layout_marginTop="4dp"
-                        android:text="@string/coupon_detail_desc"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_tiny" />
 
@@ -238,7 +238,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_main"
                         android:layout_marginTop="4dp"
-                        android:text="@string/coupon_detail_terms"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_tiny" />
 

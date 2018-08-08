@@ -8,6 +8,8 @@ import com.vexanium.vexgift.module.home.view.IHomeView;
 
 import java.io.Serializable;
 
+import rx.Subscription;
+
 public class IHomePresenterImpl  extends BasePresenterImpl<IHomeView, Serializable> implements IHomePresenter {
     private IHomeInteractor<Serializable> mHomeInteractor;
     private boolean mHasInit;
@@ -44,5 +46,9 @@ public class IHomePresenterImpl  extends BasePresenterImpl<IHomeView, Serializab
         }
     }
 
-
+    @Override
+    public void requestVoucherList(int id) {
+        Subscription subscription = mHomeInteractor.requestVoucherList(this, id);
+        compositeSubscription.add(subscription);
+    }
 }

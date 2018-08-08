@@ -31,10 +31,14 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
+import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.KycActivity;
@@ -42,6 +46,7 @@ import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
@@ -69,11 +74,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
+
+    private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
+    private ArrayList<Voucher> vouchers;
     private Random random;
 
-    private ArrayList<VoucherResponse> hotVoucherList;
-    private BaseRecyclerAdapter<VoucherResponse> mHotAdapter;
+    private ArrayList<Voucher> hotVoucherList;
+    private BaseRecyclerAdapter<Voucher> mHotAdapter;
+    private User user;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -81,7 +90,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     protected void initView(View fragmentRootView) {
+        mPresenter = new IHomePresenterImpl(this);
         random = new Random();
+        user = User.getCurrentUser(this.getActivity());
 
         mSrlHome = fragmentRootView.findViewById(R.id.srl_home);
         mVexPointButton = fragmentRootView.findViewById(R.id.home_vp_button);
@@ -102,13 +113,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
         });
 
-        User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText(""+user.getVexPoint());
-
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
-        loadData();
-        initHomeList();
+        User user = User.getCurrentUser(HomeFragment.this.getActivity());
+        mVexPointText.setText("" + user.getVexPoint());
+
+
+        vouchers = TableContentDaoUtil.getInstance().getVouchers();
+        if(vouchers != null) {
+            loadData(vouchers);
+            initHomeList();
+        }
 
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -154,7 +169,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
         });
 
-
+        mPresenter.requestVoucherList(user.getId());
 
     }
 
@@ -167,33 +182,55 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            if (data instanceof VouchersResponse) {
+                VouchersResponse vouchersResponse = (VouchersResponse) data;
+                TableContentDaoUtil.getInstance().saveToDb(JsonUtil.toString(vouchersResponse));
+                vouchers = vouchersResponse.getVouchers();
+
+                loadData(vouchers);
+                if (mAdapter == null) {
+                    initHomeList();
+                }
+                mAdapter.notifyDataSetChanged();
+                toast("Data updated");
+            }
+        } else if (errorResponse != null) {
+
+        }
 
     }
 
-    public void updateData(){
+    public void updateData() {
         //update data here
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mSrlHome.setRefreshing(false);
             }
-        },3000);
+        }, 3000);
 
     }
 
-    public void loadData() {
+    public void loadData(ArrayList<Voucher> vouchers) {
 //        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
 //        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
-        hotVoucherList = FixtureData.hotVoucherResponse;
+        hotVoucherList = StaticGroup.getVouchers(vouchers, 4);
 
         data = new ArrayList<>();
-        data.add(0, new HomeFeedResponse(SHORTCUT_BAR));
-        data.add(1, new HomeFeedResponse(HOT_LIST, FixtureData.newHotVoucherResponse()));
-        data.add(2, new HomeFeedResponse(EXPLORE_BAR));
-        data.add(3, new HomeFeedResponse(CATEGORY_BAR, FixtureData.newShowCaseVoucherResponse(), "Best Voucher", "Today"));
-        data.add(4, new HomeFeedResponse(CATEGORY_BAR, FixtureData.newShowCaseTokenResponse(), "Best Token", "Today"));
-        data.add(5, new HomeFeedResponse(COMPLETE_FORM));
+        int idx = 0;
+
+        data.add(idx, new HomeFeedResponse(SHORTCUT_BAR));
+        if (hotVoucherList != null && hotVoucherList.size() > 0) {
+            data.add(++idx, new HomeFeedResponse(HOT_LIST, hotVoucherList));
+        }
+        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
+//        data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, new ArrayList<>(), "Best Voucher", "Today"));
+//        data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, new ArrayList<>(), "Best Token", "Today"));
+
+        // TODO: 08/08/18 validate kyc status
+        data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(1, new HomeFeedResponse(EXPLORE_BAR));
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
@@ -201,7 +238,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     public void initHomeList() {
-        BaseRecyclerAdapter<HomeFeedResponse> mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
+        mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
             @Override
             public int getItemViewType(int position) {
                 return data.get(position).type;
@@ -255,7 +292,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         });
                         break;
                     case HOT_LIST:
-                        setHotVoucherList(holder, (ArrayList<VoucherResponse>) item.object);
+                        setHotVoucherList(holder, (ArrayList<Voucher>) item.object);
                         break;
                     case EXPLORE_BAR:
                         holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
@@ -278,7 +315,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     case CATEGORY_BAR:
                         holder.setText(R.id.tv_category_title, item.title);
                         holder.setText(R.id.tv_category_desc, item.desc);
-                        setVoucherList(holder, (ArrayList<VoucherResponse>) item.object);
+                        setVoucherList(holder, (ArrayList<Voucher>) item.object);
                         break;
                     case COMPLETE_FORM:
                         holder.setOnClickListener(R.id.ll_fill_kyc_button, new View.OnClickListener() {
@@ -319,31 +356,26 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
     }
 
-    public void setVoucherList(BaseRecyclerViewHolder holder, final ArrayList<VoucherResponse> data) {
+    public void setVoucherList(BaseRecyclerViewHolder holder, final ArrayList<Voucher> data) {
         final RecyclerView mRecyclerview = holder.getRecyclerView(R.id.recylerview);
         GridLayoutManager layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
-        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(getActivity(), data, layoutListManager) {
-            @Override
-            public int getItemViewType(int position) {
-                return data.get(position).type;
-            }
-
+        BaseRecyclerAdapter<Voucher> mAdapter = new BaseRecyclerAdapter<Voucher>(getActivity(), data, layoutListManager) {
             @Override
             public int getItemLayoutId(int viewType) {
                 return R.layout.item_coupon_list;
             }
 
             @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                if (item.getAvail() == 0)
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getTitle());
+                if (item.getQtyAvailable() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");
                 else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
+                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
 //                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -377,27 +409,27 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
     }
 
-    public void setHotVoucherList(BaseRecyclerViewHolder holder, ArrayList<VoucherResponse> couponList) {
+    public void setHotVoucherList(BaseRecyclerViewHolder holder, ArrayList<Voucher> couponList) {
         DiscreteScrollView discreteScrollView = (DiscreteScrollView) holder.getView(R.id.scrollView);
         IndefinitePagerIndicator pagerIndicator = (IndefinitePagerIndicator) holder.getView(R.id.recyclerview_pager_indicator);
         GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         layoutManager.setItemPrefetchEnabled(false);
-        mHotAdapter = new BaseRecyclerAdapter<VoucherResponse>(getActivity(), couponList, layoutManager) {
+        mHotAdapter = new BaseRecyclerAdapter<Voucher>(getActivity(), couponList, layoutManager) {
             @Override
             public int getItemLayoutId(int viewType) {
                 return R.layout.item_hot_list;
             }
 
             @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
-                if (item.getAvail() == 0)
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getTitle());
+                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                if (item.getQtyAvailable() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");
                 else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-//                holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
+                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
+//                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
