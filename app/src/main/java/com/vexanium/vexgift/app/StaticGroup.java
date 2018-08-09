@@ -3,6 +3,7 @@ package com.vexanium.vexgift.app;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ClipData;
@@ -14,9 +15,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.BitmapFactory;
+import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
+import android.provider.Telephony;
 import android.support.annotation.IntRange;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
@@ -36,6 +39,7 @@ import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.util.AlarmUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
@@ -77,6 +81,7 @@ public class StaticGroup {
     public static String VERSION = null;
     public static long VERSION_CODE = 0;
     public static String reg_id = "";
+    private static String CHANNEL_ID = "1121";
 
 
     public static void initialize(Context context) {
@@ -107,7 +112,7 @@ public class StaticGroup {
         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
         sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         sendIntent.setType("text/plain");
-        String title = dialogTitle.isEmpty() ? "" : dialogTitle;
+        String title = dialogTitle.isEmpty() ? "Share" : dialogTitle;
 
         try {
             if (context != null) {
@@ -118,6 +123,35 @@ public class StaticGroup {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean openShareIntent(Context context, String packageName, String message, String gaLabel, String alterPackageName) {
+        if (context != null && !TextUtils.isEmpty(packageName)) {
+            try {
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+
+                if (intent != null) {
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.setPackage(packageName);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+                    shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        KLog.v("openShareIntent : " + packageName);
+                        context.startActivity(shareIntent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (!TextUtils.isEmpty(alterPackageName)) {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
     }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
@@ -198,8 +232,11 @@ public class StaticGroup {
         targetIntent.putExtra("t_url", url);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
+
+        createNotificationChannel(context);
 
         Notification notification = builder.build();
         manager.cancel(ConstantGroup.ID_LOCAL_PUSH);
@@ -211,6 +248,225 @@ public class StaticGroup {
 //        } catch (TimeoutException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    private static void createNotificationChannel(Context context) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = ConstantGroup.NOTIF_CHANNEL_NAME;
+            String description = ConstantGroup.NOTIF_CHANNEL_DESC;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private static String[] findPackNameClass(Context context, String pkName) {
+        String[] packName = null;
+        PackageManager mPm = context.getPackageManager();
+
+        final Intent mainIntent = new Intent(Intent.ACTION_SEND, null);
+        mainIntent.setType("image/jpeg");
+        List<ResolveInfo> resolveInfoList = mPm.queryIntentActivities(mainIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        for (ResolveInfo resolveInfo : resolveInfoList) {
+            if (resolveInfo != null) {
+                String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
+                String className = resolveInfo.activityInfo.name;
+                ComponentName componentName = new ComponentName(pkgName, className);
+                CharSequence title = resolveInfo.loadLabel(mPm);
+                KLog.v(pkgName + " " + className + " " + componentName + " " + title);
+
+                if (pkgName.equalsIgnoreCase(pkName)) {
+                    packName = new String[2];
+                    packName[0] = pkgName;
+                    packName[1] = className;
+                    break;
+                }
+            }
+        }
+
+        return packName;
+    }
+
+    private static boolean isGoogleMarketUrl(String url) {
+        return url.startsWith("market://") || ((url.startsWith("http://") || url.startsWith("https://")) && url.contains("play.google.com"));
+    }
+
+    public static void shareWithEmail(Context context, String address, String subject, String message) {
+        try {
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("message/rfc822");
+            if (!TextUtils.isEmpty(address)) {
+                KLog.v("address : " + address);
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{address});
+            }
+            if (!TextUtils.isEmpty(subject)) {
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            }
+            if (!TextUtils.isEmpty(message)) {
+                emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+            }
+
+            try {
+                String[] pkName = StaticGroup.findPackNameClass(context, "com.google.android.gm");
+                if (pkName != null) {
+                    if (!TextUtils.isEmpty(pkName[0])) {
+                        emailIntent.setComponent(new ComponentName(pkName[0], pkName[1]));                // 패키지명, 클래스명
+                        context.startActivity(emailIntent);
+                    } else {
+                        // TODO: 09/08/18 update string res
+                        context.startActivity(Intent.createChooser(emailIntent, "Report Select"));
+                    }
+                } else {
+                    // TODO: 09/08/18 update string res
+                    context.startActivity(Intent.createChooser(emailIntent, "Report Select"));
+                }
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void shareWithSms(Context context, String message) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(context);
+
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.setType("text/plain");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            if (defaultSmsPackageName != null) {
+                sendIntent.setPackage(defaultSmsPackageName);
+            }
+            try {
+                context.startActivity(sendIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+            sendIntent.setData(Uri.parse("sms:"));
+            //sendIntent.setType("vnd.android-dir/mms-sms");
+            sendIntent.putExtra("sms_body", message);
+            try {
+                context.startActivity(sendIntent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static boolean handleUrl(Context context, String url) {
+        boolean isAlreadyHandled = false;
+        if (isGoogleMarketUrl(url)) {
+            StaticGroup.openGooglePlay(context, url);
+            isAlreadyHandled = true;
+        } else if (url.startsWith("http://") || url.startsWith("https://")) {
+            isAlreadyHandled = false;
+        } else if (url.startsWith("vexgift://link")) {
+            isAlreadyHandled = false;
+        } else if (url.startsWith("vexgift://open.web")) {
+            try {
+                Uri uri = Uri.parse(url);
+                String content = uri.getQueryParameter("url");
+                StaticGroup.openAndroidBrowser(context, content);
+                isAlreadyHandled = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (url.startsWith("vexgift://share")) {
+            try {
+                Uri uri = Uri.parse(url);
+                String method = uri.getQueryParameter("mt");
+                String packageName = uri.getQueryParameter("pn");
+                String alternativePackageName = uri.getQueryParameter("apn");
+                String content = uri.getQueryParameter("msg");
+
+                if (!TextUtils.isEmpty(content)) {
+                    if (!TextUtils.isEmpty(method)) {
+                        if (method.equalsIgnoreCase("sms")) {
+                            StaticGroup.shareWithSms(context, content);
+                            return true;
+                        } else if (method.equalsIgnoreCase("email")) {
+                            StaticGroup.shareWithEmail(context, "", "", content);
+                            return true;
+                        } else if (method.equalsIgnoreCase("copy")) {
+                            StaticGroup.copyToClipboard(context, content);
+                            return true;
+                        }
+                    }
+
+                    if (!TextUtils.isEmpty(packageName)) {
+                        if (packageName.contains("facebook")) {
+                            StaticGroup.copyToClipboard(context, content);
+                        }
+                        StaticGroup.shareWithPackageName(context, packageName, content, method, alternativePackageName);
+                    } else {
+                        // TODO: 09/08/18 update string res
+                        StaticGroup.shareWithShareDialog(context, content, "Share link");
+                    }
+                    isAlreadyHandled = true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (url.startsWith("mailto")) {
+            final Activity activity = (Activity) context;
+            if (activity != null) {
+                MailTo mt = MailTo.parse(url);
+                StaticGroup.shareWithEmail(context, mt.getTo(), mt.getSubject(), mt.getBody());
+                isAlreadyHandled = true;
+                KLog.v("to2 : " + mt.getTo() + "\nsubject2 : " + mt.getSubject() + "\nbody2 : " + mt.getBody());
+            }
+
+        } else if (url.startsWith("vexgift://mail")) {
+            try {
+                Uri uri = Uri.parse(url);
+                String to = uri.getQueryParameter("to");
+                String subject = uri.getQueryParameter("subject");
+                String body = uri.getQueryParameter("body");
+                StaticGroup.shareWithEmail(context, to, subject, body);
+                isAlreadyHandled = true;
+                KLog.v("to : " + to + "\nsubject : " + subject + "\nbody : " + body);
+            } catch (Exception e) {
+                KLog.v("e : " + e.getMessage());
+            }
+
+        } else if (url.startsWith("vexgift://notification")) {
+            try {
+                Uri uri = Uri.parse(url);
+
+                String title = uri.getQueryParameter("title");
+                String message = uri.getQueryParameter("msg");
+                String timeStampStr = uri.getQueryParameter("at");
+                long timeStamp = TextUtils.isEmpty(timeStampStr) ? System.currentTimeMillis() : Long.parseLong(timeStampStr) * 1000;
+                String targetUrl = uri.getQueryParameter("url");
+
+                KLog.v("timeStamp : " + timeStampStr + " / " + timeStamp);
+
+                AlarmUtil.getInstance().startLocalNotiAlarm(context, title, message, targetUrl, timeStamp);
+                isAlreadyHandled = true;
+            } catch (Exception e) {
+                KLog.v("e : " + e.getMessage());
+            }
+
+        }
+
+        return isAlreadyHandled;
     }
 
     public static boolean isInIDLocale() {
@@ -227,8 +483,9 @@ public class StaticGroup {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_logo_notif : R.mipmap.ic_launcher);
         if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_logo_notif));
             builder.setColor(ColorUtil.getColor(context, R.color.point_color));
+
         }
 
         if (autoCancel) {
@@ -314,6 +571,15 @@ public class StaticGroup {
         }
     }
 
+    public static void shareWithPackageName(Context context, String packageName, String message, String gaLabel, String alterPackageName) {
+        if (context != null && !TextUtils.isEmpty(packageName)) {
+            boolean isCompleted = openShareIntent(context, packageName, message, gaLabel, alterPackageName);
+            if (!isCompleted) {
+                openShareIntent(context, alterPackageName, message, gaLabel, "");
+            }
+        }
+    }
+
     public static void openAndroidBrowser(Context context, String url) {
         if (context == null || TextUtils.isEmpty(url)) return;
 
@@ -376,9 +642,9 @@ public class StaticGroup {
         }
     }
 
-    public static ArrayList<Voucher> getVouchers(ArrayList<Voucher> origin,  int count){
+    public static ArrayList<Voucher> getVouchers(ArrayList<Voucher> origin, int count) {
         ArrayList<Voucher> vouchers = new ArrayList<>();
-        for(int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             vouchers.add(origin.get(i));
         }
         return vouchers;

@@ -33,6 +33,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_GOOGLE2FA_STATE = "key_google2fa_state";
     public static String KEY_LAST_ACTIVE_TIME = "key_last_active_time";
     public static String KEY_VEX_ADDRESS_VERIF_TIME = "key_vex_address_verif_time";
+    public static String KEY_REFERRER = "key_referrer";
 
     public void removePrivate(){
         put(TpUtil.KEY_CURRENT_LOGGED_IN_USER,"");

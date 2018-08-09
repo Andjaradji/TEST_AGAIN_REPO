@@ -19,8 +19,8 @@ public class CaptchaImageView extends android.support.v7.widget.AppCompatImageVi
     public static final int TYPE_ITALIC = 100;
     public static final int TYPE_PLAIN_TEXT = 101;
     private CaptchaGenerator.Captcha generatedCaptcha;
-    private int captchaLength = 6;
-    private int captchaType = CaptchaGenerator.NUMBERS;
+    private int captchaLength = 4;
+    private int captchaType = CaptchaGenerator.BOTH;
     private int width, height;
     private boolean isDot;
     private boolean isRedraw;

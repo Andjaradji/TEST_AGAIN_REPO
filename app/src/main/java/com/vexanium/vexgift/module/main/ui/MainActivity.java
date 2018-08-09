@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.main.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
@@ -149,6 +151,23 @@ public class MainActivity extends BaseActivity {
         mCustomViewPager.setCurrentItem(0, false);
     }
 
+    public void openDeepLink(String url){
+        KLog.v("MainActivity","openDeepLink: "+url);
+
+        // TODO: 09/08/18 handle Deeplink 
+        boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
+        if(!isAlreadyHandled){
+            Uri uri = Uri.parse(url);
+            if (url.startsWith("vexgift://main")) {
+
+            } else if (url.startsWith("vexgift://voucher")) {
+                String id = uri.getQueryParameter("id");
+                
+            } else if (url.startsWith("http://") || url.startsWith("https://")) {
+                StaticGroup.openAndroidBrowser(this, url);
+            }
+        }
+    }
 
     public void gotoPage(int page,int secondaryPage){
         mCustomViewPager.setCurrentItem(page,false);

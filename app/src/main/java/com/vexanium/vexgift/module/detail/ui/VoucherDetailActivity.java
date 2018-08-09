@@ -161,20 +161,14 @@ public class VoucherDetailActivity extends BaseActivity {
     }
 
     private void doGetVoucher() {
+
     }
 
     private void simulateGetVoucher() {
-//        showProgress();
         Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
-                        new VexDialog.Builder(VoucherDetailActivity.this.getApplicationContext())
-                                .optionType(DialogOptionType.OK)
-                                .title("Get Voucher Success")
-                                .content("Congratulation! You get the voucher")
-                                .autoDismiss(true)
-                                .show();
                         StaticGroup.sendLocalNotification(App.getContext(), "Get Voucher Success", "Congratulation! You get the voucher. ", "");
                     }
                 });
