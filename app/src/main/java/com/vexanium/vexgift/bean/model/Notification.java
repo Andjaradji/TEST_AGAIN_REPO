@@ -11,6 +11,10 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Notification implements Serializable {
+    public static final String TYPE_EXPIRED = "exp";
+    public static final String TYPE_EXPIRED_SOON = "exp_soon";
+    public static final String TYPE_GET_SUCCESS = "get_success";
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("voucher")
@@ -18,9 +22,11 @@ public class Notification implements Serializable {
     @JsonProperty("type")
     private String type;
     @JsonProperty("time")
-    private String time;
+    private long time;
     @JsonProperty("new")
     private boolean isNew;
+    @JsonProperty("url")
+    private String url;
 
     public String getId() {
         return id;
@@ -46,11 +52,11 @@ public class Notification implements Serializable {
         this.type = type;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -60,5 +66,13 @@ public class Notification implements Serializable {
 
     public void setNew(boolean aNew) {
         isNew = aNew;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

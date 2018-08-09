@@ -20,9 +20,12 @@ import rx.subjects.Subject;
 public class RxBus {
     public static final String KEY_APP_FINISH = "key_app_finish";
     public static final String KEY_VP_RECORD_ADDED = "key_vp_record_added";
+    public static final String KEY_NOTIF_ADDED = "key_notif_added";
+    public static final String KEY_BOX_HISTORY_ADDED = "key_box_history_added";
+    public static final String KEY_BOX_CHANGED = "key_box_changed";
     public static final String KEY_ENABLE_REFRESH_LAYOUT_OR_SCROLL_RECYCLER_VIEW = "key_enable_refresh_layout_or_scroll_recycler_view";
 
-    public static final String KEY_NETWORK_STATUS_CHANGE = "key_netwok_status_change";
+    public static final String KEY_NETWORK_STATUS_CHANGE = "key_network_status_change";
 
     private volatile static RxBus sInstance;
 

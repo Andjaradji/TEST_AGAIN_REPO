@@ -9,6 +9,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
@@ -30,16 +32,29 @@ import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Brand;
 import com.vexanium.vexgift.bean.model.Notification;
+import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenter;
 import com.vexanium.vexgift.module.notif.view.INotifView;
+import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Random;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
@@ -51,7 +66,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
+    TextView mTvErrorHead, mTvErrorBody;
 
     private BaseRecyclerAdapter<Notification> mNotifListAdapter;
     private GridLayoutManager layoutListManager;
@@ -59,6 +74,9 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     private RecyclerView mRecyclerview;
     private ArrayList<Notification> data;
     private Random random;
+
+    private Observable<Integer> mNotifObservable;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,24 +105,54 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
         loadData();
         initNotifList();
+        StaticGroup.setAllNotifToAbsolute(data);
 
-        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"NOTIFICATION");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "NOTIFICATION");
         App.setTextViewStyle((ViewGroup) fragmentRootView);
+
+        mNotifObservable = RxBus.get().register(RxBus.KEY_NOTIF_ADDED, Integer.class);
+        mNotifObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vp) {
+                KLog.v("NotifFragment", "call: HPtes masuk");
+                loadData();
+                mNotifListAdapter.setData(data);
+                mNotifListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         KLog.v("NotifFragment onDestroyView");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mNotifObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_NOTIF_ADDED, mNotifObservable);
+            mNotifObservable = null;
+        }
     }
 
     public void loadData() {
-        data = new ArrayList<>();
-//        data = FixtureData.notifs;
+        data = TableContentDaoUtil.getInstance().getNotifs();
+        if (data == null)
+            data = new ArrayList<>();
+        Collections.sort(data, new Comparator<Notification>() {
+            @Override
+            public int compare(Notification notification, Notification t1) {
+                return Long.compare(t1.getTime(), notification.getTime());
+            }
+        });
+        KLog.json("HPtes", JsonUtil.toString(data));
     }
 
     private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
-        content = String.format(content, voucher.getTitle());
+
         int i1 = content.indexOf("[");
         int i2 = content.indexOf("]") - 1;
         content = content.replace("[", "<b>").replace("]", "</b>");
@@ -148,42 +196,56 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 String content;
                 switch (item.getType()) {
                     case "exp":
-                        content = getString(R.string.notif_expired);
+                        content = String.format(getString(R.string.notif_expired), item.getVoucher().getTitle());
                         break;
                     case "exp_soon":
-                        content = getString(R.string.notif_expire_soon);
+                        content = String.format(getString(R.string.notif_expire_soon), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
+                        break;
+                    case Notification.TYPE_GET_SUCCESS:
+                        content = String.format(getString(R.string.notif_success_claim), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
                         break;
                     case "avail":
-                        content = getString(R.string.notif_is_available);
+                        content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
                         break;
                     default:
-                        content = getString(R.string.notif_is_available);
+                        content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
                 }
 
                 setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
-//                Brand brand = item.getVoucher().getBrand();
-//                holder.setText(R.id.tv_brand, brand.getTitle());
-//                holder.setRoundImageUrl(R.id.iv_photo, brand.getPhoto(), R.drawable.placeholder);
-//                holder.setViewGone(R.id.iv_red_dot, !item.isNew());
-//                if (item.isNew()) {
-//                    holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-//                    holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-//                    holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-//                }
-//                int ranInt = random.nextInt(24 * 7 * 100);
-//                if (ranInt <= 100) {
-//                    holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
-//                } else if (ranInt <= 24 * 100) {
-//                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 100));
-//                } else if (ranInt <= 24 * 100 * 7) {
-//                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), ranInt / 2400));
-//                }
-//                holder.setOnClickListener(R.id.iv_photo, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                });
+                Vendor vendor = item.getVoucher().getVendor();
+                holder.setText(R.id.tv_brand, vendor.getName());
+                holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.placeholder);
+                holder.setViewGone(R.id.iv_red_dot, !item.isNew());
+                if (item.isNew()) {
+                    holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                    holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                    holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                }
+                long timeInterval = (System.currentTimeMillis() - item.getTime()) / 1000;
+//                KLog.v("NotifFragment", "HPtes  now [" + System.currentTimeMillis() + "] - time [" + item.getTime() + "] = " + timeInterval + " ");
+                if (timeInterval <= 60) {
+                    holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
+                } else if (timeInterval <= 60 * 60) {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_min), timeInterval / 60));
+                } else if (timeInterval <= 24 * 60 * 60) {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), timeInterval / (60 * 60)));
+                } else if (timeInterval <= 7 * 24 * 60 * 60) {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_day), timeInterval / (24 * 60 * 60)));
+                } else if (timeInterval <= 30 * 24 * 60 * 60) {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_week), timeInterval / (7 * 24 * 60 * 60)));
+                } else if (timeInterval <= 365 * 24 * 60 * 60) {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_month), timeInterval / (30 * 24 * 60 * 60)));
+                } else {
+                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_year), timeInterval / (365 * 24 * 60 * 60)));
+                }
+                holder.setOnClickListener(R.id.root, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(ClickUtil.isFastDoubleClick())return;
+                        if (!TextUtils.isEmpty(item.getUrl()))
+                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                    }
+                });
             }
         };
 
@@ -209,7 +271,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             }
         });
 
-        if(data.size() <= 0) {
+        if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.notif_empty);
             mTvErrorHead.setText(getString(R.string.error_notif_empty_header));

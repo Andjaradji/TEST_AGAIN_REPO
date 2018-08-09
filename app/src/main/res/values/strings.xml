@@ -1,7 +1,10 @@
 <resources>
+    <string name="code">GHy45SD1GrF11</string>
 
     <string name="net_error_title">Error Network</string>
     <string name="validate_empty_field">This field cannot be empty</string>
+    <string name="validate_merchant_code_not_valid">Merchant Code is not valid\nThis merchant code will be entered by cashier</string>
+    <string name="validate_merchant_code_empty">Merchant Code cannot be empty\nThis merchant code will be entered by cashier</string>
     <string name="validate_all">All field must be filled</string>
     <string name="validate_checkbox_aggree_title">Sorry</string>
     <string name="validate_checkbox_aggree_content">You need to check terms and agreement first</string>
@@ -28,13 +31,19 @@
     <string name="image_content_description">Image</string>
 
     <string name="notif_expired">[%s] was expired</string>
-    <string name="notif_expire_soon">[%s] will expire soon! Use this coupon before 10 April 2018</string>
+    <string name="notif_success_claim">Congrats! You got [%s] , Use this coupon before <b>%s</b></string>
+    <string name="notif_expire_soon">[%s] will expire soon! Use this coupon before <b>%s</b></string>
     <string name="notif_is_available">[%s] is available now! Go and claim yours!</string>
 
     <string name="notif_item_time_now">Just now</string>
+    <string name="notif_item_time_min">%d min ago</string>
     <string name="notif_item_time_hour">%d hr ago</string>
     <string name="notif_item_time_day">%d d ago</string>
     <string name="notif_item_time_week">%d w ago</string>
+    <string name="notif_item_time_month">%d m ago</string>
+    <string name="notif_item_time_year">%d yr ago</string>
+
+    <string name="days">%d Day(s)</string>
 
     <string name="coupon_exp_date_title">Expiration Date:</string>
     <string name="coupon_fragment_active">Active</string>
@@ -45,9 +54,11 @@
 
     <string name="see_more_title">Show All</string>
 
-    <string name="coupon_redeem_availability">Coupon will Expired in :</string>
-    <string name="coupon_detail_availability">Coupon Availability</string>
-    <string name="coupon_detail_desc_title">Coupon Description</string>
+    <string name="coupon_redeem_availability">Voucher will Expired in :</string>
+    <string name="coupon_redeemed">Voucher has been redeemed in :</string>
+    <string name="coupon_expired">Voucher has been expired in :</string>
+    <string name="coupon_detail_availability">Voucher Availability</string>
+    <string name="coupon_detail_desc_title">Voucher Description</string>
     <string name="voucher_detail_desc_title">Voucher Description</string>
     <string name="token_detail_desc_title">Token Description</string>
     <string name="coupon_detail_desc">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
@@ -57,11 +68,15 @@
     <string name="coupon_detail_claim_token">Get Token</string>
     <string name="coupon_redeem_token">Redeem Token</string>
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
+    <string name="coupon_deactivated_voucher">Deactivated</string>
     <string name="voucher_availability">%d out of %d</string>
 
     <string name="coupon_redeem_voucher_code">Voucher Code</string>
-    <string name="coupon_redeem_voucher_code_field">Enter coupon code here</string>
+    <string name="coupon_redeem_voucher_code_field">Merchant code</string>
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>
+
+    <string name="merchant_info_title">Voucher Usage Guidance</string>
+    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system. \n If there is any problem or suspicious activity please inform us at 0812345678 | support@vexgift.com</string>
 
     <string name="home_filter_title">Filters</string>
     <string name="home_filter_reset">RESET</string>

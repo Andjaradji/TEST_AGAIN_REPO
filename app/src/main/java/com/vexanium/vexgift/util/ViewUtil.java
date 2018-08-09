@@ -33,6 +33,8 @@ import com.vexanium.vexgift.util.glide.CircleCropTransformation;
 
 import java.lang.reflect.Field;
 
+import jp.wasabeef.glide.transformations.GrayscaleTransformation;
+
 
 /**
  * Created by mac on 11/16/17.
@@ -246,6 +248,21 @@ public class ViewUtil {
                 .load(imgUrl)
                 .into(view);
     }
+
+    public static void setBnwImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
+        ImageView view = activity.findViewById(viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .error(ContextCompat.getDrawable(App.getContext(), errorImage))
+                        .format(DecodeFormat.PREFER_RGB_565)
+                        .bitmapTransform(new GrayscaleTransformation()))
+                .load(imgUrl)
+                .into(view);
+    }
+
+
 
     public static void setCircleImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
         ImageView view = findViewById(activity, viewId);

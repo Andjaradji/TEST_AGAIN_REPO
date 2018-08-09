@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.main.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -55,6 +57,7 @@ public class MainActivity extends BaseActivity {
         setCustomTabs();
         setPagerListener();
 
+        handlePushAction();
     }
 
     @Override
@@ -151,10 +154,17 @@ public class MainActivity extends BaseActivity {
         mCustomViewPager.setCurrentItem(0, false);
     }
 
+    private void handlePushAction() {
+        String url = getIntent().getStringExtra("t_url");
+        if(!TextUtils.isEmpty(url)){
+            openDeepLink(url);
+        }
+    }
+
     public void openDeepLink(String url){
         KLog.v("MainActivity","openDeepLink: "+url);
 
-        // TODO: 09/08/18 handle Deeplink 
+        // TODO: 09/08/18 handle Deeplink
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
         if(!isAlreadyHandled){
             Uri uri = Uri.parse(url);
@@ -163,6 +173,10 @@ public class MainActivity extends BaseActivity {
             } else if (url.startsWith("vexgift://voucher")) {
                 String id = uri.getQueryParameter("id");
                 
+            } else if(url.startsWith("vexgift://notif")){
+                gotoPage(NOTIF_FRAGMENT);
+            } else if(url.startsWith("vexgift://box")){
+                gotoPage(BOX_FRAGMENT);
             } else if (url.startsWith("http://") || url.startsWith("https://")) {
                 StaticGroup.openAndroidBrowser(this, url);
             }
@@ -204,7 +218,6 @@ public class MainActivity extends BaseActivity {
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
 
         SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-
 
         MainScreenPagerAdapter(FragmentManager fm) {
             super(fm);

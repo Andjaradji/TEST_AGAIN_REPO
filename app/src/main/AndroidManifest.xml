@@ -77,7 +77,7 @@
             android:name=".module.detail.ui.VoucherDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.redeem.ui.VoucherRedeemActivity"
+            android:name=".module.voucher.ui.VoucherRedeemActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.profile.ui.MyProfileActivity"

@@ -120,7 +120,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
 
         vouchers = TableContentDaoUtil.getInstance().getVouchers();
-        if(vouchers != null) {
+        if (vouchers != null) {
             loadData(vouchers);
             initHomeList();
         }
@@ -185,7 +185,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         if (data != null) {
             if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
-                TableContentDaoUtil.getInstance().saveToDb(JsonUtil.toString(vouchersResponse));
+                TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
                 vouchers = vouchersResponse.getVouchers();
 
                 loadData(vouchers);
@@ -218,21 +218,27 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
         hotVoucherList = StaticGroup.getVouchers(vouchers, 4);
 
-        data = new ArrayList<>();
-        int idx = 0;
+        ArrayList<Voucher> voucherArrayList = StaticGroup.getVouchers(vouchers, 3);
 
-        data.add(idx, new HomeFeedResponse(SHORTCUT_BAR));
+
+        data = new ArrayList<>();
+        int idx = -1;
+
+        data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
+
         if (hotVoucherList != null && hotVoucherList.size() > 0) {
             data.add(++idx, new HomeFeedResponse(HOT_LIST, hotVoucherList));
         }
+
         data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
-//        data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, new ArrayList<>(), "Best Voucher", "Today"));
-//        data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, new ArrayList<>(), "Best Token", "Today"));
+
+        if (voucherArrayList != null && voucherArrayList.size() > 0) {
+            data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, voucherArrayList, "Best Voucher", "Today"));
+        }
 
         // TODO: 08/08/18 validate kyc status
         data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
-//        data.add(1, new HomeFeedResponse(EXPLORE_BAR));
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }

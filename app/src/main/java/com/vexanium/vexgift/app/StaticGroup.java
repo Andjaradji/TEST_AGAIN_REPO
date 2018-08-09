@@ -36,6 +36,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
@@ -221,18 +222,19 @@ public class StaticGroup {
         NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
         Intent targetIntent;
         //TODO  asign targetIntent
-        if (!getRecentTaskInfo(context)) {
-            targetIntent = new Intent(context, MainActivity.class);
-            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else {
-            targetIntent = new Intent(context, MainActivity.class);
-            targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        }
+//        if (!getRecentTaskInfo(context)) {
+//            targetIntent = new Intent(context, MainActivity.class);
+//            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        } else {
+        targetIntent = new Intent(context, MainActivity.class);
+        targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        }
         targetIntent.putExtra("t_type", "noti");
         targetIntent.putExtra("t_url", url);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setCategory(Notification.CATEGORY_MESSAGE);
+        builder.setPriority(2);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
 
@@ -648,5 +650,16 @@ public class StaticGroup {
             vouchers.add(origin.get(i));
         }
         return vouchers;
+    }
+
+    public static ArrayList<com.vexanium.vexgift.bean.model.Notification> setAllNotifToAbsolute(ArrayList<com.vexanium.vexgift.bean.model.Notification> notifs){
+        ArrayList<com.vexanium.vexgift.bean.model.Notification> arrayList = new ArrayList<>();
+        for(com.vexanium.vexgift.bean.model.Notification n : notifs){
+            n.setNew(false);
+            arrayList.add(n);
+        }
+
+        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(arrayList));
+        return arrayList;
     }
 }

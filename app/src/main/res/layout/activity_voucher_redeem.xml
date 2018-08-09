@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".module.redeem.ui.VoucherRedeemActivity">
+    tools:context=".module.voucher.ui.VoucherRedeemActivity">
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -32,7 +32,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="170dp"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7">
@@ -40,13 +40,14 @@
                     <ImageView
                         android:id="@+id/iv_coupon_image"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="170dp"
                         android:transitionName="voucher_image" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_black_trans"></View>
+
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
@@ -78,14 +79,19 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/material_white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/material_white"
                 android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor"></View>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -150,81 +156,152 @@
                     android:background="@color/lineColor" />
 
                 <LinearLayout
+                    android:id="@+id/ll_voucher_show_to_merchant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_medium"
-                    android:layout_marginEnd="@dimen/interval_main"
-                    android:layout_marginLeft="@dimen/interval_main"
-                    android:layout_marginRight="@dimen/interval_main"
-                    android:layout_marginStart="@dimen/interval_main"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_qr_code"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:background="@drawable/shape_white_round_rect_with_grey_border"
+                        android:contentDescription="@string/image_content_description"
+                        android:scaleType="centerCrop" />
 
                     <TextView
+                        android:id="@+id/tv_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/coupon_redeem_availability"
-                        android:textColor="@color/material_black_text_color"
                         android:layout_marginBottom="@dimen/interval_small"
-                        android:textSize="@dimen/text_tiny" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="30 Days"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="bold"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="23:59:59"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_title" />
-
+                        android:textSize="@dimen/text_medium" />
 
                 </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/ll_voucher_inactived"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/interval_main"
-                        android:text="@string/coupon_redeem_voucher_code"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_tiny" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
+                        android:id="@+id/tv_voucher_inactive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/interval_main"
-                        android:text="@string/coupon_redeem_voucher_code_warning"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="bold"
+                        android:text="@string/coupon_redeemed"
                         android:textColor="@color/material_black_text_color"
-                        android:layout_alignParentRight="true"
-                        android:textSize="@dimen/text_tiny" />
-                </RelativeLayout>
+                        android:textSize="@dimen/text_medium" />
 
+                    <TextView
+                        android:id="@+id/tv_inactive_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_main"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small" />
+                </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_voucher_active"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="@dimen/interval_medium"
-                    android:layout_marginEnd="@dimen/interval_main"
-                    android:layout_marginLeft="@dimen/interval_main"
-                    android:layout_marginRight="@dimen/interval_main"
-                    android:layout_marginStart="@dimen/interval_main"
-                    android:paddingLeft="@dimen/interval_main"
-                    android:background="@drawable/shape_voucher_availability"
-                    android:gravity="left|center_vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                    <EditText
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/transparent"
-                        android:hint="@string/coupon_redeem_voucher_code_field"
-                        android:textSize="@dimen/text_small_medium" />
+                        android:layout_marginBottom="@dimen/interval_medium"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/coupon_redeem_availability"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_tiny" />
+
+                        <TextView
+                            android:id="@+id/tv_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_hour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_title" />
+
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_main"
+                            android:text="@string/coupon_redeem_voucher_code"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_tiny" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="@dimen/interval_main"
+                            android:tag="light"
+                            android:text="@string/coupon_redeem_voucher_code_warning"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_tiny" />
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="@dimen/interval_medium"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:background="@drawable/shape_voucher_availability"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="@dimen/interval_main">
+
+                        <EditText
+                            android:id="@+id/et_merchant_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:hint="@string/coupon_redeem_voucher_code_field"
+                            android:textSize="@dimen/text_small_medium" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <View
@@ -239,6 +316,39 @@
                     android:background="@color/lineColor" />
 
                 <LinearLayout
+                    android:id="@+id/ll_merchant_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingEnd="@dimen/interval_main"
+                    android:paddingLeft="@dimen/interval_main"
+                    android:paddingRight="@dimen/interval_main"
+                    android:paddingStart="@dimen/interval_main">
+
+                    <TextView
+                        android:id="@+id/tv_merchant_info_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:text="@string/merchant_info_title"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_merchant_info_desc"
+                        android:layout_width="wrap_content"
+                        android:text="@string/merchant_info_desc"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_voucher_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="100dp"
@@ -263,7 +373,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:layout_marginTop="4dp"
-                        android:text="@string/coupon_detail_desc"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_tiny" />
 
@@ -283,14 +392,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_main"
                         android:layout_marginTop="4dp"
-                        android:text="@string/coupon_detail_terms"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_tiny" />
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="I Agree" />
 
                 </LinearLayout>
 
@@ -301,45 +404,54 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_above="@+id/white_bg"
-        android:background="@drawable/shape_white_trans_button_bg"></View>
-
     <LinearLayout
-        android:id="@id/white_bg"
+        android:id="@+id/ll_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/material_white"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_white_trans_button_bg"></View>
+
         <LinearLayout
-            android:id="@+id/btn_claim"
+            android:id="@id/white_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/interval_main"
-            android:layout_marginEnd="@dimen/interval_main"
-            android:layout_marginLeft="@dimen/interval_main"
-            android:layout_marginRight="@dimen/interval_main"
-            android:layout_marginStart="@dimen/interval_main"
-            android:layout_marginTop="@dimen/interval_small"
-            android:background="@drawable/shape_ripple_main_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center">
+            android:background="@color/material_white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/btn_redeem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/interval_submain"
-                android:tag="bold"
-                android:text="@string/coupon_redeem_voucher"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_title" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_small"
+                android:background="@drawable/shape_ripple_main_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_submain"
+                    android:tag="bold"
+                    android:text="@string/coupon_redeem_voucher"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_title" />
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
+
 
 </RelativeLayout>
