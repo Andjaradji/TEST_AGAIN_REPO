@@ -18,6 +18,7 @@ public class TableContent {
     private long createdTime;
     private long updatedTime;
 
+
     @Generated(hash = 1459931542)
     public TableContent(long id, String vouchers, String tokens, String notifs,
             String myBoxs, long createdTime, long updatedTime) {
@@ -33,6 +34,7 @@ public class TableContent {
     @Generated(hash = 1207901501)
     public TableContent() {
     }
+   
 
     public long getId() {
         return id;
