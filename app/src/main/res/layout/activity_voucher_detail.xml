@@ -47,11 +47,6 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_black_trans"></View>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/lineColor"></View>
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
@@ -91,6 +86,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/material_white"
                 android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor"></View>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

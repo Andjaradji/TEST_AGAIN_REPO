@@ -16,6 +16,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.about.ui.AboutActivity;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.privacy.ui.PrivacyActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -36,15 +37,24 @@ import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
+import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_more)
 public class MoreFragment extends BaseFragment {
 
     private Observable<Boolean> mNotifObservable;
     private View notifView;
+    private User user;
+
+    private String subject;
+    private String message;
+
+    public MoreFragment() {
+    }
 
     @Override
     protected void initView(final View fragmentRootView) {
+        user = User.getCurrentUser(this.getActivity());
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "MORE");
 
         fragmentRootView.findViewById(R.id.more_myprofile_button).setOnClickListener(this);
@@ -65,7 +75,7 @@ public class MoreFragment extends BaseFragment {
         notifView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ClickUtil.isFastDoubleClick())return;
+                if (ClickUtil.isFastDoubleClick()) return;
                 intentToActivity(MyProfileActivity.class);
             }
         });
@@ -74,15 +84,15 @@ public class MoreFragment extends BaseFragment {
         mNotifObservable.subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean aBoolean) {
-                AnimUtil.transTopIn(notifView,true, 300);
+                AnimUtil.transTopIn(notifView, true, 300);
             }
         });
 
         // TODO: 26/07/18 get KYC Status
         int kycStatus = StaticGroup.kycStatus;
-        if(kycStatus == KYC_NONE){
-            ViewUtil.setText(notifView, R.id.tv_notif_info,getString(R.string.notif_kyc));
-            CountDownTimer countDownTimer = new CountDownTimer(2000,500) {
+        if (kycStatus == KYC_NONE) {
+            ViewUtil.setText(notifView, R.id.tv_notif_info, getString(R.string.notif_kyc));
+            CountDownTimer countDownTimer = new CountDownTimer(2000, 500) {
                 @Override
                 public void onTick(long l) {
 
@@ -121,16 +131,24 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_security_button:
                 intentToActivity(SecurityActivity.class);
                 break;
-                case R.id.more_premium_button:
+            case R.id.more_premium_button:
                 intentToActivity(PremiumMemberActivity.class);
                 break;
             case R.id.more_merchant_button:
+                toast("Merchant list is not available");
                 break;
             case R.id.more_feedback_buttton:
+                subject = String.format("[FEEDBACK] #%04d", user.getId());
+                message = "Hi Vexgift Support!\nI've feedback with ...";
+                StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_problem_button:
+                subject = String.format("[PROBLEM] #%04d", user.getId());
+                message = "Hi Vexgift Support!\nI've problem with...";
+                StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_gp_button:
+                toast("Google Play is not available");
                 break;
             case R.id.more_about_button:
                 intentToActivity(AboutActivity.class);
@@ -152,7 +170,7 @@ public class MoreFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    private void doLogout(){
+    private void doLogout() {
         new VexDialog.Builder(MoreFragment.this.getActivity())
                 .title(getString(R.string.logout_title))
                 .content(getString(R.string.logout_desc))

@@ -10,6 +10,8 @@ import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxUtil;
 
+import java.util.Collections;
+
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Func1;
@@ -22,7 +24,7 @@ public class IHomeInteractorImpl implements IHomeInteractor{
                 .flatMap(new Func1<VouchersResponse, Observable<VouchersResponse>>() {
                     @Override
                     public Observable<VouchersResponse> call(VouchersResponse vouchersResponse) {
-
+                        Collections.shuffle(vouchersResponse.getVouchers());
                         return Observable.just(vouchersResponse);
                     }
                 })

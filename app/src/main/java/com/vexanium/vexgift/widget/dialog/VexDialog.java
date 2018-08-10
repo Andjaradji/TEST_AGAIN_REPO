@@ -446,11 +446,6 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
             return this;
         }
 
-        public Builder onTodayClose(@NonNull MaterialDialogButtonCallback callback) {
-            this.onTodayCloseCallback = callback;
-            return this;
-        }
-
         public Builder onPositive(@NonNull MaterialDialogButtonCallback callback) {
             this.onPositiveCallback = callback;
             return this;

@@ -8,9 +8,13 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {
+    public boolean isRedeemed = false;
+    public long redeemedTime;
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("category_id")
@@ -28,9 +32,21 @@ public class Voucher implements Serializable {
     private String termsAndCond;
 
     @JsonProperty("payment_type")
-    private String paymentType;
+    private PaymentType paymentType;
+
+    /*
+    * Free
+    * Pay with Vex Point
+    *
+    */
+
     @JsonProperty("voucher_type")
-    private String voucherType;
+    private MemberType memberType;
+
+    /*
+    * All
+    * Premium
+    * Non Premium*/
 
     @JsonProperty("price")
     private int price;
@@ -111,6 +127,15 @@ public class Voucher implements Serializable {
         return dateFormat.format(calendar.getTime());
     }
 
+    public String getRedeemedDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(redeemedTime);
+        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMM dd yyyy") + "  hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
+
+        return dateFormat.format(calendar.getTime());
+    }
+
     public String getCategoryId() {
         return categoryId;
     }
@@ -143,20 +168,20 @@ public class Voucher implements Serializable {
         this.termsAndCond = termsAndCond;
     }
 
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
-    public String getVoucherType() {
-        return voucherType;
+    public MemberType getMemberType() {
+        return memberType;
     }
 
-    public void setVoucherType(String voucherType) {
-        this.voucherType = voucherType;
+    public void setMemberType(MemberType memberType) {
+        this.memberType = memberType;
     }
 
     public int getPrice() {
@@ -184,6 +209,12 @@ public class Voucher implements Serializable {
     }
 
     public long getValidUntil() {
+        Random random = new Random();
+        if(System.currentTimeMillis() > validUntil){
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30));
+            validUntil = calendar.getTimeInMillis();
+        }
         return validUntil;
     }
 

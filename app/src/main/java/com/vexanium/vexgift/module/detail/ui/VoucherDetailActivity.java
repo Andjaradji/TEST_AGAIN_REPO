@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.detail.ui;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,20 +13,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.database.TableContent;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.CaptchaImageView;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -76,7 +84,7 @@ public class VoucherDetailActivity extends BaseActivity {
             ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
-            ViewUtil.setText(this, R.id.tv_avail,  String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyTotal()));
+            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyTotal()));
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
         } else {
@@ -165,13 +173,74 @@ public class VoucherDetailActivity extends BaseActivity {
     }
 
     private void simulateGetVoucher() {
-        Observable.timer(1000, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Long>() {
-                    @Override
-                    public void call(Long aLong) {
-                        StaticGroup.sendLocalNotification(App.getContext(), "Get Voucher Success", "Congratulation! You get the voucher. ", "");
-                    }
-                });
+        CountDownTimer countDownTimer = new CountDownTimer(1000, 500) {
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                new VexDialog.Builder(VoucherDetailActivity.this)
+                        .optionType(DialogOptionType.OK)
+                        .title("Get Voucher")
+                        .content("Your request is in queue. We will inform you through notification.")
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                VoucherDetailActivity.this.finish();
+                                simulateGetVoucherSuccess();
+                            }
+                        })
+                        .cancelable(false)
+                        .autoDismiss(true)
+                        .show();
+            }
+        };
+        countDownTimer.start();
+    }
+
+    private void simulateGetVoucherSuccess() {
+        Notification notification = new Notification();
+        notification.setVoucher(voucher);
+        notification.setType(Notification.TYPE_GET_SUCCESS);
+        notification.setTime(System.currentTimeMillis());
+        notification.setUrl("vexgift://box");
+        notification.setNew(true);
+
+        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
+        if(notifications == null) notifications = new ArrayList<>();
+        notifications.add(notification);
+
+        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
+
+        VouchersResponse vouchersResponse = TableContentDaoUtil.getInstance().getMyBoxContent();
+        if(vouchersResponse == null) vouchersResponse = new VouchersResponse();
+        vouchersResponse.getVouchers().add(voucher);
+        TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
+
+
+        KLog.v("Post","call: HPtes masuk");
+        RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
+        RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
+
+        CountDownTimer countDownTimer = new CountDownTimer(2000, 500) {
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                String title = "Get Voucher Success";
+                String message = String.format("Congratulation! You got %s ", voucher.getTitle());
+                String url = "vexgift://notif";
+
+                StaticGroup.sendLocalNotification(App.getContext(), title, message, url);
+            }
+        };
+        countDownTimer.start();
     }
 
     @Override

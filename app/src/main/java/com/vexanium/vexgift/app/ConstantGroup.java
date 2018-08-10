@@ -29,4 +29,6 @@ public class ConstantGroup {
 
     public static final String NOTIF_CHANNEL_NAME = "VexGift" ;
     public static final String NOTIF_CHANNEL_DESC = "VexGift Notification Channel" ;
+
+    public static final String SUPPORT_EMAIL = "support@vexgift.com";
 }

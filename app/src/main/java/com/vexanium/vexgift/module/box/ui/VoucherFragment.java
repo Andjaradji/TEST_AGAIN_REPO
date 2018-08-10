@@ -23,14 +23,21 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
-import com.vexanium.vexgift.module.redeem.ui.VoucherRedeemActivity;
+import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by Amang on 16/07/2018.
@@ -43,11 +50,14 @@ public class VoucherFragment extends BaseFragment {
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
+    TextView mTvErrorHead, mTvErrorBody;
 
-    private ArrayList<VoucherResponse> data;
+    private ArrayList<Voucher> data;
+    BaseRecyclerAdapter<Voucher> mAdapter;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
+
+    Observable<Integer> mVoucherObservable;
 
     public static VoucherFragment newInstance() {
         return new VoucherFragment();
@@ -62,7 +72,7 @@ public class VoucherFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             context = getActivity();
         }
 
@@ -75,22 +85,37 @@ public class VoucherFragment extends BaseFragment {
         layoutListManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
-        Random random = new Random();
-        //data = FixtureData.getRandomVoucherResponse(random.nextInt(5) + 2, true);
-        //setVoucherList(data);
+        loadData();
+        setVoucherList();
 
-        data = new ArrayList<>();
-        setVoucherList(data);
-
+        mVoucherObservable = RxBus.get().register(RxBus.KEY_BOX_CHANGED, Integer.class);
+        mVoucherObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer i) {
+                KLog.v("VoucherFragment", "call: HPtes masuk");
+                loadData();
+                mAdapter.setData(data);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
-    public void setVoucherList(final ArrayList<VoucherResponse> data) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mVoucherObservable != null){
+            RxBus.get().unregister(RxBus.KEY_BOX_HISTORY_ADDED, mVoucherObservable);
+            mVoucherObservable = null;
+        }
+    }
 
-        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(context, data, layoutListManager) {
-            @Override
-            public int getItemViewType(int position) {
-                return data.get(position).type;
-            }
+    public void loadData() {
+        data = TableContentDaoUtil.getInstance().getMyBoxContent().getActiveVoucher();
+        if (data == null) data = new ArrayList<>();
+    }
+
+    public void setVoucherList() {
+        mAdapter = new BaseRecyclerAdapter<Voucher>(context, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -98,20 +123,16 @@ public class VoucherFragment extends BaseFragment {
             }
 
             @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                if (item.getAvail() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getTitle());
+                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                holder.setViewInvisible(R.id.ll_qty, true);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                                goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -139,7 +160,7 @@ public class VoucherFragment extends BaseFragment {
             }
         });
 
-        if(data.size() <= 0){
+        if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.voucher_empty);
             mTvErrorHead.setText(getString(R.string.error_voucher_empty_header));
@@ -149,7 +170,7 @@ public class VoucherFragment extends BaseFragment {
         }
     }
 
-    private void goToVoucherDetailActivity(VoucherResponse voucherResponse, ImageView ivVoucher) {
+    private void goToVoucherDetailActivity(Voucher voucherResponse, ImageView ivVoucher) {
         Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
         ActivityOptionsCompat options = ActivityOptionsCompat.

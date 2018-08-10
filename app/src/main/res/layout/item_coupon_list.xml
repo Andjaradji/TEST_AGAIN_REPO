@@ -58,6 +58,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/ll_qty"
                 android:orientation="horizontal">
 
                 <ImageView
