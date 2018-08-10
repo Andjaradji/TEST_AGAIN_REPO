@@ -36,8 +36,7 @@
         android:layout_marginRight="21dp"
         android:layout_marginStart="21dp"
         android:background="@drawable/shape_voucher_availability"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="@dimen/interval_main">
+        android:gravity="left|center_vertical">
 
         <EditText
             android:id="@+id/et_captcha"
@@ -45,6 +44,9 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/captcha_field"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:singleLine="true"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
     </LinearLayout>

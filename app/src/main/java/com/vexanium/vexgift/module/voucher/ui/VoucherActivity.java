@@ -142,6 +142,13 @@ public class VoucherActivity extends BaseActivity {
 
         mSlidePanel.getChildAt(1).setOnClickListener(null);
 
+        mSlidePanel.setFadeOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
+
         // Setup refresh listener which triggers new data loading
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

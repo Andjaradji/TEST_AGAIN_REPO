@@ -17,7 +17,7 @@ public class TermActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mWvPrivacy = (WebView) findViewById(R.id.wv_privacy);
+        mWvPrivacy = (WebView) findViewById(R.id.webview);
 
         final ProgressDialog pd = ProgressDialog.show(this, "", "Loading...",true);
 

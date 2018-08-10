@@ -132,6 +132,9 @@
         <activity
             android:name=".module.term.ui.TermActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.about.ui.AboutActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".fcm.VexFirebaseMessagingService">
