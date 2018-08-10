@@ -64,7 +64,7 @@ public class VexPointActivity extends BaseActivity {
     protected void initView() {
         user = User.getCurrentUser(this);
 
-        if(!User.getIsVexAddressSet(this) && false){
+        if(!User.getIsVexAddressSet(this)){
             findViewById(R.id.rl_vp).setVisibility(View.GONE);
             findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
 
