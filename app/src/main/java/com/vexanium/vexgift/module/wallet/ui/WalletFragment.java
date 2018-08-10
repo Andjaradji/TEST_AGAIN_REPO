@@ -34,6 +34,10 @@ public class WalletFragment extends BaseFragment {
     private LinearLayoutManager linearLayoutManager;
     private WalletAdapter mAdapter;
 
+    private LinearLayout mMainContainer, mButtonContainer, mRecordContainer;
+    private ImageView mIvComingSoon;
+
+
     @Override
     protected void initView(View fragmentRootView) {
         ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"MY WALLET");
@@ -45,20 +49,33 @@ public class WalletFragment extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        mRecycler.setLayoutManager(linearLayoutManager);
+        mMainContainer = fragmentRootView.findViewById(R.id.ll_vex_main);
+        mButtonContainer = fragmentRootView.findViewById(R.id.ll_vex_button_container);
+        mRecordContainer = fragmentRootView.findViewById(R.id.ll_vex_record_container);
+        mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
 
-        mAdapter = new WalletAdapter(getActivity());
-        mRecycler.setAdapter(mAdapter);
+        //Coming soon view
+        mIvComingSoon.setVisibility(View.VISIBLE);
+        mMainContainer.setVisibility(View.GONE);
+        mButtonContainer.setVisibility(View.GONE);
+        mRecordContainer.setVisibility(View.GONE);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                linearLayoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
-        mRecycler.addItemDecoration(dividerItemDecoration);
+        if(mIvComingSoon.getVisibility() != View.VISIBLE) {
+            linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+            mRecycler.setLayoutManager(linearLayoutManager);
 
-        setRecordlist(new ArrayList<WalletRecord>());
+            mAdapter = new WalletAdapter(getActivity());
+            mRecycler.setAdapter(mAdapter);
 
-        App.setTextViewStyle((ViewGroup) fragmentRootView);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                    linearLayoutManager.getOrientation());
+            dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
+            mRecycler.addItemDecoration(dividerItemDecoration);
+
+            setRecordlist(new ArrayList<WalletRecord>());
+
+            App.setTextViewStyle((ViewGroup) fragmentRootView);
+        }
     }
 
     @Override

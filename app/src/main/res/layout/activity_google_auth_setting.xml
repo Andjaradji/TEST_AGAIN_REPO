@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
                 android:layout_marginTop="@dimen/interval_main"
-                android:background="@drawable/shape_white_button"
+                android:background="@drawable/shape_ripple_white_button"
                 android:gravity="center">
 
                 <TextView
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_main"
                 android:layout_marginTop="@dimen/interval_small"
-                android:background="@drawable/shape_main_button"
+                android:background="@drawable/shape_ripple_main_button"
                 android:gravity="center">
 
                 <TextView

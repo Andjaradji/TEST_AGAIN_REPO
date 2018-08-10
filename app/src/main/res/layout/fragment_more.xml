@@ -169,6 +169,7 @@
                         android:id="@+id/more_merchant_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"

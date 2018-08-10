@@ -15,6 +15,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
+import com.vexanium.vexgift.module.about.ui.AboutActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.privacy.ui.PrivacyActivity;
@@ -63,6 +64,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_merchant_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_feedback_buttton).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_problem_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_about_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_privacy_policy).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_terms_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
@@ -149,6 +151,7 @@ public class MoreFragment extends BaseFragment {
                 toast("Google Play is not available");
                 break;
             case R.id.more_about_button:
+                intentToActivity(AboutActivity.class);
                 break;
             case R.id.more_privacy_policy:
                 intentToActivity(PrivacyActivity.class);
