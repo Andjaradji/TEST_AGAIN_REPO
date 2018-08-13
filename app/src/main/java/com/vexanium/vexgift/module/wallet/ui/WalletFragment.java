@@ -73,9 +73,9 @@ public class WalletFragment extends BaseFragment {
             mRecycler.addItemDecoration(dividerItemDecoration);
 
             setRecordlist(new ArrayList<WalletRecord>());
-
-            App.setTextViewStyle((ViewGroup) fragmentRootView);
         }
+
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
     }
 
     @Override

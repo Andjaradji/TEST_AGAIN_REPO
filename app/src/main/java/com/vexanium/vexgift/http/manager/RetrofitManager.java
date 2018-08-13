@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.http.Api;
@@ -381,20 +382,22 @@ public class RetrofitManager {
         return mUserService.submitKyc(getApiKey(), getCacheControl(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
-    public Observable<HttpResponse<Kyc>> requestGetActAddress(int id) {
+    public Observable<HttpResponse<UserAddressResponse>> requestGetActAddress(int id) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
 
-        return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
-    public Observable<HttpResponse<Kyc>> requestSetActAddress(int id) {
+    public Observable<HttpResponse<UserAddressResponse>> requestSetActAddress(int id, String token, String actAddress) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
+        params.put("token", token);
+        params.put("act_address", actAddress);
 
-        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        return mUserService.setActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
     public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id){

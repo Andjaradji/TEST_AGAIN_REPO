@@ -91,10 +91,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
 
-        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.com");
+        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
-
-        initialize();
 
         checkAppVersion();
 
@@ -209,20 +207,22 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         boolean isNeedUpdate = false;
         boolean isNeedForceUpdate = false;
 
-        if(isNeedUpdate){
+        if (isNeedUpdate) {
             findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_login).setVisibility(View.GONE);
+        }else{
+            initialize();
         }
     }
 
-    private void startCoundownTimer(){
+    private void startCoundownTimer() {
         currentCountdown = 5;
         Observable.interval(1000, 1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object o) {
-                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp),currentCountdown);
+                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp), currentCountdown);
                         ViewUtil.setText(LoginActivity.this, R.id.tv_goto, msg);
 
                         if (currentCountdown > 0) {
@@ -277,7 +277,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     }
 
     private void executeMain(boolean isAlreadyLogin) {
-        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) &&  User.isGoogle2faEnable()) {
+        User user = User.getCurrentUser(this);
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
@@ -402,17 +403,17 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         parameterStr.append("name,");
         parameterStr.append("first_name,");
         parameterStr.append("last_name,");
-        parameterStr.append("age_range,");
-        parameterStr.append("link,");
-        parameterStr.append("gender,");
-        parameterStr.append("locale,");
-        parameterStr.append("picture.type(large),");
-        parameterStr.append("timezone,");
-        parameterStr.append("updated_time,");
-        parameterStr.append("birthday,");
-        parameterStr.append("albums{photos.limit(6){webp_images},name},");
-        parameterStr.append("friends,");
-        parameterStr.append("location");
+//        parameterStr.append("age_range,");
+//        parameterStr.append("link,");
+//        parameterStr.append("gender,");
+//        parameterStr.append("locale,");
+//        parameterStr.append("picture.type(large),");
+//        parameterStr.append("timezone,");
+//        parameterStr.append("updated_time,");
+//        parameterStr.append("birthday,");
+//        parameterStr.append("albums{photos.limit(6){webp_images},name},");
+//        parameterStr.append("friends,");
+//        parameterStr.append("location");
         parameters.putString("fields", parameterStr.toString());
 
         return parameters;
@@ -421,11 +422,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private List<String> getFacebookPermission() {
         return Arrays.asList(
                 "email",
-                "public_profile",
-                "user_birthday",
-                "user_friends",
-                "user_location",
-                "user_photos"
+                "public_profile"
+//                "user_birthday",
+//                "user_friends",
+//                "user_location",
+//                "user_photos"
         );
     }
 }

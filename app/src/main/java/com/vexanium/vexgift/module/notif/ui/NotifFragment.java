@@ -1,7 +1,9 @@
 package com.vexanium.vexgift.module.notif.ui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +41,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenter;
 import com.vexanium.vexgift.module.notif.view.INotifView;
+import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -170,7 +173,8 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
-
+                if (ClickUtil.isFastDoubleClick()) return;
+                goToVoucherDetailActivity(voucher);
             }
 
             @Override
@@ -241,7 +245,23 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 holder.setOnClickListener(R.id.root, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(ClickUtil.isFastDoubleClick())return;
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        if (!TextUtils.isEmpty(item.getUrl()))
+                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                    }
+                });
+                holder.setOnClickListener(R.id.tv_brand, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        if (!TextUtils.isEmpty(item.getUrl()))
+                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                    }
+                });
+                holder.setOnClickListener(R.id.tv_content, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ClickUtil.isFastDoubleClick()) return;
                         if (!TextUtils.isEmpty(item.getUrl()))
                             ((MainActivity) getActivity()).openDeepLink(item.getUrl());
                     }
@@ -280,5 +300,11 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
             mRecyclerview.setVisibility(View.GONE);
         }
+    }
+
+    private void goToVoucherDetailActivity(Voucher voucherResponse) {
+        Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        startActivity(intent);
     }
 }

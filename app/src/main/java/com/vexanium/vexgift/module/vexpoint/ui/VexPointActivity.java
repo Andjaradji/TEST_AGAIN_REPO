@@ -15,12 +15,22 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.UserAddress;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
+import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
+import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +42,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint)
-public class VexPointActivity extends BaseActivity {
+public class VexPointActivity extends BaseActivity<IVexpointPresenter> implements IVexpointView {
 
     private static final int POINT_RECORD_FRAGMENT = 0;
     private static final int INVITE_POINT_FRAGMENT = 1;
@@ -43,16 +53,18 @@ public class VexPointActivity extends BaseActivity {
 
     private TextView mTvVp;
     private TextView mTvVpGen;
-    private TextView mTvCountdownVp;
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
     private Observable<Integer> mVpObservable;
+    private Observable<Integer> mVexAddressObservable;
     private View mVpShadow;
 
     private View notifView;
 
     private Subscription timeSubsription;
     private User user;
+
+    Calendar verifTimeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +74,7 @@ public class VexPointActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new IVexpointPresenterImpl(this);
         user = User.getCurrentUser(this);
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,30 +82,105 @@ public class VexPointActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        if(!User.getIsVexAddressSet(this)){
-            findViewById(R.id.rl_vp).setVisibility(View.GONE);
-            findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
+        verifTimeLeft = Calendar.getInstance();
 
-            findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(ClickUtil.isFastDoubleClick())return;
-                    Intent intent = new Intent(VexPointActivity.this, VexAddressActivity.class );
-                    startActivity(intent);
+        updateView();
+
+        if (User.getUserAddressStatus() != 1) {
+            mPresenter.requestGetActAddress(user.getId());
+        }
+
+        findViewById(R.id.back_button).setOnClickListener(this);
+
+        if (NetworkUtil.isOnline(this)) {
+            // TODO: 02/08/18 doSomething on VexPoint 
+        }
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            if (data instanceof UserAddressResponse) {
+                UserAddressResponse userAddressResponse = (UserAddressResponse) data;
+
+                if (userAddressResponse != null && userAddressResponse.getUserAddress() != null) {
+                    UserAddress userAddress = userAddressResponse.getUserAddress();
+                    TpUtil tpUtil = new TpUtil(this);
+                    tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
+
+                    if (userAddress.getStatus() == 1) {
+                        User.setIsVexAddressSet(this, true);
+                    } else {
+                        User.setIsVexAddressSet(this, false);
+                    }
+
+                    updateView();
                 }
-            });
+            }
+        } else if (errorResponse != null) {
+            if (errorResponse.getMeta().getStatus() == 404) {
+                User.setIsVexAddressSet(this, false);
+            }
 
-        }else {
+            updateView();
+        }
+    }
+
+    private void updateView() {
+        if (!User.getIsVexAddressSet(this)) {
+            findViewById(R.id.rl_vp).setVisibility(View.GONE);
+
+            if (User.getUserAddressStatus() == 0) {
+                findViewById(R.id.ll_info).setVisibility(View.GONE);
+                findViewById(R.id.ll_wait_address).setVisibility(View.VISIBLE);
+
+                final UserAddress userAddress = User.getUserAddress();
+                KLog.v("VexPointActivity", "updateView: HPtes masuk sini");
+                if (userAddress != null) {
+                    verifTimeLeft.setTimeInMillis((userAddress.getRemainingTime()*1000) + Calendar.getInstance().getTimeInMillis());
+                    ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
+                    ViewUtil.setText(this, R.id.tv_vex_count, userAddress.getAmount() + "");
+                    ViewUtil.setText(this, R.id.tv_address_send_to, userAddress.getTransferTo());
+
+                    findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getTransferTo());
+                        }
+                    });
+                }
+            } else {
+                findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_wait_address).setVisibility(View.GONE);
+                findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        Intent intent = new Intent(VexPointActivity.this, VexAddressActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                if (User.getUserAddressStatus() == 2) {
+                    ViewUtil.setText(this, R.id.tv_info_title, getString(R.string.vexpoint_need_address_subtitle_rejected));
+                    ViewUtil.setText(this, R.id.tv_info_desc, getString(R.string.vexpoint_need_address_desc_rejected));
+                }
+            }
+
+        } else {
             findViewById(R.id.rl_vp).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_info).setVisibility(View.GONE);
+            findViewById(R.id.ll_wait_address).setVisibility(View.GONE);
+
 
             mTvVp = findViewById(R.id.tv_vexpoint);
             mTvVpGen = findViewById(R.id.tv_vexpoint_generated);
             mTabVp = findViewById(R.id.tab_vexpoint);
             mPagerVp = findViewById(R.id.vp_vexpoint);
 
-            mTvVp.setText(""+user.getVexPoint());
-            mTvVpGen.setText(""+150);
+            mTvVp.setText("" + user.getVexPoint());
+            mTvVpGen.setText("" + 150);
 
             mVpShadow = findViewById(R.id.v_vexpoint_shadow);
 
@@ -120,8 +208,6 @@ public class VexPointActivity extends BaseActivity {
 
             notifView = findViewById(R.id.rl_notif_info);
 
-            mTvCountdownVp = findViewById(R.id.tv_countdown);
-
             mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
             mVpObservable.subscribe(new Action1<Integer>() {
                 @Override
@@ -131,9 +217,6 @@ public class VexPointActivity extends BaseActivity {
                     AnimUtil.transTopIn(notifView, true, 300);
                 }
             });
-        }
-        if(NetworkUtil.isOnline(this)){
-            // TODO: 02/08/18 doSomething on VexPoint 
         }
     }
 
@@ -174,7 +257,7 @@ public class VexPointActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        KLog.v("VexPointActivity","onPause: ");
+        KLog.v("VexPointActivity", "onPause: ");
         super.onPause();
         if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
             timeSubsription.unsubscribe();
@@ -184,26 +267,26 @@ public class VexPointActivity extends BaseActivity {
 
     @Override
     protected void onStart() {
-        KLog.v("VexPointActivity","onStart: ");
+        KLog.v("VexPointActivity", "onStart: ");
         super.onStart();
         startDateTimer();
     }
 
     @Override
     protected void onDestroy() {
-        KLog.v("VexPointActivity","onDestroy: ");
+        KLog.v("VexPointActivity", "onDestroy: ");
         super.onDestroy();
         if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
             timeSubsription.unsubscribe();
         }
-        if(mVpObservable != null){
+        if (mVpObservable != null) {
             RxBus.get().unregister(RxBus.KEY_VP_RECORD_ADDED, mVpObservable);
         }
     }
 
     @Override
     protected void onResume() {
-        KLog.v("VexPointActivity","onResume: ");
+        KLog.v("VexPointActivity", "onResume: ");
         super.onResume();
         startDateTimer();
     }
@@ -223,6 +306,7 @@ public class VexPointActivity extends BaseActivity {
                                 }
                             } else {
                                 setWatchText();
+                                setVerifTimeText();
                             }
                         }
                     }, new Action1<Throwable>() {
@@ -238,12 +322,13 @@ public class VexPointActivity extends BaseActivity {
     }
 
     private void setWatchText() {
-        Calendar now  = Calendar.getInstance();
-        Calendar nextSnapshoot  = Calendar.getInstance();
-        if(now.get(Calendar.HOUR_OF_DAY) >= 12){
-            nextSnapshoot.add(Calendar.DATE,1);
+        TextView mTvCountdownVp = findViewById(R.id.tv_countdown);
+        Calendar now = Calendar.getInstance();
+        Calendar nextSnapshoot = Calendar.getInstance();
+        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
+            nextSnapshoot.add(Calendar.DATE, 1);
             nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
-        }else{
+        } else {
             nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
         }
         nextSnapshoot.set(Calendar.MINUTE, 0);
@@ -257,7 +342,24 @@ public class VexPointActivity extends BaseActivity {
                 TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
                 TimeUnit.MILLISECONDS.toSeconds(remainTime) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
+
         mTvCountdownVp.setText(time);
+    }
+
+    private void setVerifTimeText() {
+        TextView tvHour = findViewById(R.id.tv_time_left);
+
+        Calendar now = Calendar.getInstance();
+
+        long remainTime = verifTimeLeft.getTimeInMillis() - now.getTimeInMillis();
+        remainTime = remainTime - TimeUnit.DAYS.toMillis(TimeUnit.MILLISECONDS.toDays(remainTime));
+
+        String time = String.format(Locale.getDefault(), "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
+                TimeUnit.MILLISECONDS.toSeconds(remainTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
+
+        tvHour.setText(time);
     }
 
     public class VpPagerAdapter extends FragmentStatePagerAdapter {

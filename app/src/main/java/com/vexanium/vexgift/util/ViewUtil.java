@@ -257,11 +257,11 @@ public class ViewUtil {
                         .diskCacheStrategyOf(DiskCacheStrategy.ALL)
                         .error(ContextCompat.getDrawable(App.getContext(), errorImage))
                         .format(DecodeFormat.PREFER_RGB_565)
-                        .bitmapTransform(new GrayscaleTransformation()))
+                        .bitmapTransform(new GrayscaleTransformation())
+                        .centerCrop())
                 .load(imgUrl)
                 .into(view);
     }
-
 
 
     public static void setCircleImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
@@ -304,11 +304,11 @@ public class ViewUtil {
         }
     }
 
-    public static boolean validateEmpty(Activity activity, String errorMsg, @IdRes int... ids){
+    public static boolean validateEmpty(Activity activity, String errorMsg, @IdRes int... ids) {
         boolean isValid = true;
-        for(int id: ids){
+        for (int id : ids) {
             String s = ((EditText) findViewById(activity, id)).getText().toString();
-            if(TextUtils.isEmpty(s)){
+            if (TextUtils.isEmpty(s)) {
                 isValid = false;
                 ((EditText) findViewById(activity, id)).setError(errorMsg);
             }

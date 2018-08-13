@@ -76,7 +76,7 @@
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>
 
     <string name="merchant_info_title">Voucher Usage Guidance</string>
-    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system. \n If there is any problem or suspicious activity please inform us at 0812345678 | support@vexgift.com</string>
+    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system.\nIf there is any problem or suspicious activity please inform us at \nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
     <string name="home_filter_title">Filters</string>
     <string name="home_filter_reset">RESET</string>
@@ -134,13 +134,24 @@
 
     <string name="vexpoint_fill_address">Fill Vex Address</string>
 
-    <string name="vexpoint_address_verif">Please kindly send 1 VEX to this address in certain time for verification</string>
-    <string name="vexpoint_address_verif_time"></string>
+    <string name="vexpoint_address_verif_desc">To verify your address below :</string>
+    <string name="vexpoint_address_verif_note">note : You must use this address to send</string>
+    <string name="vexpoint_address_verif_title">Vex Address Verification</string>
+    <string name="vexpoint_address_verif_copy_btn">Copy Address</string>
+    <string name="vexpoint_address_verif_time_title">Time left for verification :</string>
+    <string name="vexpoint_address_verif_vex_count">Please kindly send :</string>
+    <string name="vexpoint_address_verif_address_send_to">to below address :</string>
+
+    <string name="vexpoint_address_need_g2fa_dialog_title">Google Authenticator is Required</string>
+    <string name="vexpoint_address_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to submit vex address</string>
+    <string name="vexpoint_address_need_g2fa_dialog_button">Setup Now</string>
 
     <string name="vexpoint_need_address_title">We Are Sorry</string>
     <string name="vexpoint_need_address_subtitle">Vex Address is Required</string>
-    <string name="vexpoint_need_address_desc">You need to fill Vex Address to access Vex Point feature</string>
-    <string name="vexpoint_need_address_button">Fill Now</string>
+    <string name="vexpoint_need_address_subtitle_rejected">Vex Address Submission is Rejected</string>
+    <string name="vexpoint_need_address_desc">You need to submit Vex Address to access Vex Point feature</string>
+    <string name="vexpoint_need_address_desc_rejected">Please re-submit Vex Address to access Vex Point feature</string>
+    <string name="vexpoint_need_address_button">Submit Now</string>
 
     <string name="shortcut_my_voucher">MY VOUCHER</string>
     <string name="shortcut_my_token">MY TOKEN</string>
@@ -366,6 +377,8 @@
     <string name="appversion_need_update_desc">Using an outdated version will cause trouble in using the service. Get more Cash by updating to latest version now.</string>
     <string name="appversion_need_update_goto_gp">Go to Google Play in %ds.</string>
     <string name="appversion_need_update_button">Update now</string>
+    <string name="appversion_need_update_version_current">Current version : %s</string>
+    <string name="appversion_need_update_version_new">Newest version : %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

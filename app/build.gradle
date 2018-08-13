@@ -12,8 +12,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
+            debuggable false
             minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,6 +34,9 @@ android {
         exclude '.readme'
     }
     flavorDimensions "mode"
+    lintOptions {
+        abortOnError false
+    }
     productFlavors {
         development {
             buildConfigField "String", "TARGET_ENV", "\"development\""
@@ -42,6 +52,11 @@ android {
             buildConfigField "String", "VEX_HOST", "\"73f9ce4e.ngrok.io\""
             dimension "mode"
         }
+    }
+    dexOptions {
+        preDexLibraries = false
+        jumboMode true
+        javaMaxHeapSize "4g"
     }
 }
 

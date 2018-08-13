@@ -15,8 +15,7 @@ import java.util.HashMap;
  */
 
 public class Api {
-//    public static final String API_HOST = BuildConfig.KULIVER_HOST;
-    public static final String API_HOST = "http://178.128.209.52";
+    public static final String API_HOST = "http://api.vexgift.com/";
     public static final String TEST_HOST = "https://s3-ap-southeast-1.amazonaws.com/";
     public static final String WEB_HOST = "http://www.vexanium.com/";
     public static final String STATIC_CDN_HOST = "http://cdn.vexanium.com/";

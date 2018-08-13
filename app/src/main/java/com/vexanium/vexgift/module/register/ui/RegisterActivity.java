@@ -218,7 +218,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     }
 
     private void executeMain(boolean isAlreadyLogin) {
-        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) &&  User.isGoogle2faEnable()) {
+        User user = User.getCurrentUser(this);
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);

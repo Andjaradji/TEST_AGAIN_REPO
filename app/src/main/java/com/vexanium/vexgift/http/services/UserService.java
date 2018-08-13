@@ -4,6 +4,7 @@ import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 
 import java.util.Map;
@@ -89,14 +90,14 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("user/vex-point/get-act-address")
-    Observable<HttpResponse<Kyc>> getActAddress(
+    Observable<HttpResponse<UserAddressResponse>> getActAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user/vex-point/update-act-address")
-    Observable<HttpResponse<Kyc>> setActAddress(
+    Observable<HttpResponse<UserAddressResponse>> setActAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
