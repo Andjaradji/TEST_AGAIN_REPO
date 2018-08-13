@@ -209,20 +209,20 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         boolean isNeedUpdate = false;
         boolean isNeedForceUpdate = false;
 
-        if(isNeedUpdate){
+        if (isNeedUpdate) {
             findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_login).setVisibility(View.GONE);
         }
     }
 
-    private void startCoundownTimer(){
+    private void startCoundownTimer() {
         currentCountdown = 5;
         Observable.interval(1000, 1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
                     @Override
                     public void call(Object o) {
-                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp),currentCountdown);
+                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp), currentCountdown);
                         ViewUtil.setText(LoginActivity.this, R.id.tv_goto, msg);
 
                         if (currentCountdown > 0) {
@@ -277,7 +277,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     }
 
     private void executeMain(boolean isAlreadyLogin) {
-        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) &&  User.isGoogle2faEnable()) {
+        User user = User.getCurrentUser(this);
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
