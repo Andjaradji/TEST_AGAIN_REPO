@@ -1,7 +1,7 @@
 <resources>
     <string name="code">GHy45SD1GrF11</string>
 
-    <string name="net_error_title">Error Network</string>
+    <string name="net_error_title">Network Errpr</string>
     <string name="validate_empty_field">This field cannot be empty</string>
     <string name="validate_merchant_code_not_valid">Merchant Code is not valid\nThis merchant code will be entered by cashier</string>
     <string name="validate_merchant_code_empty">Merchant Code cannot be empty\nThis merchant code will be entered by cashier</string>
@@ -342,6 +342,11 @@
     <string name="exchange_send_voucher_guide">Click the button below to generate code and copy the code to the recipient user</string>
     <string name="exchange_send_voucher_button_generate_code">Generate Code</string>
     <string name="exchange_send_voucher_button_generate">Generate</string>
+    <string name="exchange_send_voucher_ga_title">Google Authenticator</string>
+    <string name="exchange_send_voucher_ga_body">Please enter your Google Authenticator PIN</string>
+    <string name="exchange_send_voucher_button_cancel">Cancel</string>
+    <string name="exchange_send_voucher_ga_hint">Google Authenticator PIN</string>
+
 
     <string name="premium_member">PREMIUM MEMBER</string>
     <string name="premium_become">Become Premium</string>

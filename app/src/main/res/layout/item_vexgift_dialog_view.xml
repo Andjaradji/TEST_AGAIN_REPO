@@ -94,7 +94,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_margin="5dp"
-                                android:background="@drawable/shape_ripple_white_button">
+                                android:background="@drawable/shape_ripple_black_button">
 
                                 <TextView
                                     android:id="@+id/negative_button_txt"

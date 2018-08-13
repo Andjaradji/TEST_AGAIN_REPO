@@ -63,7 +63,12 @@ public class VexPointActivity extends BaseActivity {
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
-
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         if(!User.getIsVexAddressSet(this)){
             findViewById(R.id.rl_vp).setVisibility(View.GONE);
             findViewById(R.id.ll_info).setVisibility(View.VISIBLE);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/shape_voucher_availability"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_ga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:hint="@string/exchange_send_voucher_ga_hint"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_small_medium" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -6,11 +6,12 @@
 
     <ImageView
         android:id="@+id/back_button"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:padding="@dimen/interval_small"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/interval_main"
-        android:layout_marginStart="@dimen/interval_main"
+        android:layout_marginLeft="@dimen/interval_submain"
+        android:layout_marginStart="@dimen/interval_submain"
         android:src="@drawable/ic_back" />
 
     <LinearLayout
