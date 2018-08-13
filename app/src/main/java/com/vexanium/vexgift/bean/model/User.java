@@ -67,6 +67,9 @@ public class User implements Serializable {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("authenticator_enable")
+    private boolean authenticatorEnable;
+
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("name")
@@ -128,35 +131,27 @@ public class User implements Serializable {
     public static void updateCurrentUser(Context context, User updateInfo) {
         User existUser = getCurrentUser(context);
         KLog.v("updateCurrentUser1 : " + existUser);
-        if (existUser != null && updateInfo != null) {
-            KLog.v("updateCurrentUser2 : " + existUser.getFacebookLocationIdList());
-            updateInfo.setFacebookLocationIdList(existUser.getFacebookLocationIdList());
-            updateInfo.setFacebookAccessToken(existUser.getFacebookAccessToken());
-            updateInfo.setFacebookUid(existUser.getFacebookUid());
-            updateInfo.setFacebookFriendCount(existUser.getFacebookFriendCount());
-            updateInfo.setEmail(existUser.getEmail());
-        }
 
         TpUtil tpUtil = TpUtil.getInstance(context);
         tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, JsonUtil.toString(updateInfo));
     }
 
-    public static void setIsPasswordSet(Context context, boolean isPasswordSet){
+    public static void setIsPasswordSet(Context context, boolean isPasswordSet) {
         TpUtil tpUtil = TpUtil.getInstance(context);
-        tpUtil.put(TpUtil.KEY_IS_PASS_SET,isPasswordSet);
+        tpUtil.put(TpUtil.KEY_IS_PASS_SET, isPasswordSet);
     }
 
-    public static boolean getIsPasswordSet(Context context){
+    public static boolean getIsPasswordSet(Context context) {
         TpUtil tpUtil = TpUtil.getInstance(context);
         return tpUtil.getBoolean(TpUtil.KEY_IS_PASS_SET, false);
     }
 
-    public static void setIsVexAddressSet(Context context, boolean isPasswordSet){
+    public static void setIsVexAddressSet(Context context, boolean isPasswordSet) {
         TpUtil tpUtil = TpUtil.getInstance(context);
-        tpUtil.put(TpUtil.KEY_IS_VEX_ADD_SET,isPasswordSet);
+        tpUtil.put(TpUtil.KEY_IS_VEX_ADD_SET, isPasswordSet);
     }
 
-    public static boolean getIsVexAddressSet(Context context){
+    public static boolean getIsVexAddressSet(Context context) {
         TpUtil tpUtil = TpUtil.getInstance(context);
         return tpUtil.getBoolean(TpUtil.KEY_IS_VEX_ADD_SET, false);
     }
@@ -167,13 +162,14 @@ public class User implements Serializable {
         long fillTime = tpUtil.getLong(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME, 0);
         long now = System.currentTimeMillis();
 
-        if(fillTime > 0) {
+        if (fillTime > 0) {
             KLog.v("User", "isVexAddVerifTimeEnded: now [" + now + "] - last[" + fillTime + "] (" + (now - fillTime) + ")");
             if (now - fillTime > StaticGroup.VEX_ADDRESS_VERIF_TIME) {
                 return true;
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean isLocalSessionEnded() {
@@ -183,28 +179,28 @@ public class User implements Serializable {
 
         long now = System.currentTimeMillis();
 
-        KLog.v("User","isLocalSessionEnded: now ["+now+"] - last["+lastActiveTime+"] ("+(now-lastActiveTime)+")");
-        if(now - lastActiveTime > StaticGroup.SLEEP_SIGN_TIME){
+        KLog.v("User", "isLocalSessionEnded: now [" + now + "] - last[" + lastActiveTime + "] (" + (now - lastActiveTime) + ")");
+        if (now - lastActiveTime > StaticGroup.SLEEP_SIGN_TIME) {
             tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, true);
             return true;
         }
         return false;
     }
 
-    public static boolean isGoogle2faLocked(){
+    public static boolean isGoogle2faLocked() {
         boolean isGoogle2faLocked;
         TpUtil tpUtil = new TpUtil(App.getContext());
         isGoogle2faLocked = tpUtil.getBoolean(TpUtil.KEY_GOOGLE2FA_LOCK, false);
-        KLog.v("User","isGoogle2faLocked: "+isGoogle2faLocked);
+        KLog.v("User", "isGoogle2faLocked: " + isGoogle2faLocked);
         return isGoogle2faLocked;
     }
 
-    public static boolean isGoogle2faEnable(){
-        boolean isGoogle2faEnable;
-        TpUtil tpUtil = new TpUtil(App.getContext());
-        isGoogle2faEnable = tpUtil.getBoolean(TpUtil.KEY_GOOGLE2FA_STATE, false);
-        KLog.v("User","isGoogle2faEnable: "+isGoogle2faEnable);
-        return isGoogle2faEnable;
+    public boolean isAuthenticatorEnable() {
+        return authenticatorEnable;
+    }
+
+    public void setAuthenticatorEnable(boolean authenticatorEnable) {
+        this.authenticatorEnable = authenticatorEnable;
     }
 
     public static void setLastActiveTime() {
@@ -362,7 +358,7 @@ public class User implements Serializable {
         try {
             JSONObject friendTotalInfo = userInfo.getJSONObject("friends");
             if (friendTotalInfo != null) {
-                user.facebookFriendCount =  friendTotalInfo.getJSONObject("summary").getInt("total_count");
+                user.facebookFriendCount = friendTotalInfo.getJSONObject("summary").getInt("total_count");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -127,6 +127,9 @@ public class VexPointActivity extends BaseActivity {
                 }
             });
         }
+
+        findViewById(R.id.back_button).setOnClickListener(this);
+
         if(NetworkUtil.isOnline(this)){
             // TODO: 02/08/18 doSomething on VexPoint 
         }

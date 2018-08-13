@@ -91,9 +91,9 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
         } else {
             isEnable = !isEnable;
 
-            RxBus.get().post("google2faStateUpdate", true);
-            TpUtil tpUtil = new TpUtil(GoogleAuthStateActivity.this);
-            tpUtil.put(TpUtil.KEY_GOOGLE2FA_STATE, isEnable);
+            User updatedUser = User.getCurrentUser(this);
+            updatedUser.setAuthenticatorEnable(isEnable);
+            User.updateCurrentUser(this, updatedUser);
 
             RxBus.get().post("google2faUpdateState", isEnable);
 

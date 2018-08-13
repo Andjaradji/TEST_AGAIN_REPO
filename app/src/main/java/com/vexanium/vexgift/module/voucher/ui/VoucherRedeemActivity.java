@@ -386,8 +386,6 @@ public class VoucherRedeemActivity extends BaseActivity {
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
         tvDay.setText(day);
         tvHour.setText(time);
-
-
     }
 
     public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {

@@ -60,7 +60,7 @@ public class SecurityActivity extends BaseActivity {
             }
         });
 
-        isGoogle2faEnable = User.isGoogle2faEnable();
+        isGoogle2faEnable = user.isAuthenticatorEnable();
         updateSecurityItemView(isGoogle2faEnable);
 
         if (!isGoogle2faEnable) {

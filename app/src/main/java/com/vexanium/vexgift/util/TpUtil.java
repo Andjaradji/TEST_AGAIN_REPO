@@ -30,7 +30,6 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_WALKTHROUGH = "key_walkthrough";
     public static String KEY_GOOGLE2FA = "key_google2fa";
     public static String KEY_GOOGLE2FA_LOCK = "key_google2fa_lock";
-    public static String KEY_GOOGLE2FA_STATE = "key_google2fa_state";
     public static String KEY_LAST_ACTIVE_TIME = "key_last_active_time";
     public static String KEY_VEX_ADDRESS_VERIF_TIME = "key_vex_address_verif_time";
     public static String KEY_REFERRER = "key_referrer";
@@ -47,9 +46,6 @@ public class TpUtil extends TrayPreferences {
 
         put(TpUtil.KEY_GOOGLE2FA_LOCK,"");
         remove(TpUtil.KEY_GOOGLE2FA_LOCK);
-
-        put(TpUtil.KEY_GOOGLE2FA_STATE,"");
-        remove(TpUtil.KEY_GOOGLE2FA_STATE);
 
         put(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME,"");
         remove(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME);

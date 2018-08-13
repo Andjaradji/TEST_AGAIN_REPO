@@ -196,7 +196,6 @@
             android:id="@+id/rl_notif_info"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:layout_below="@id/app_bar"
             android:background="#e86c26"
             android:visibility="gone">
 

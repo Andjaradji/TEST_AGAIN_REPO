@@ -76,7 +76,7 @@
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>
 
     <string name="merchant_info_title">Voucher Usage Guidance</string>
-    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system. \n If there is any problem or suspicious activity please inform us at 0812345678 | support@vexgift.com</string>
+    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system.\nIf there is any problem or suspicious activity please inform us at \nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
     <string name="home_filter_title">Filters</string>
     <string name="home_filter_reset">RESET</string>
@@ -134,8 +134,13 @@
 
     <string name="vexpoint_fill_address">Fill Vex Address</string>
 
-    <string name="vexpoint_address_verif">Please kindly send 1 VEX to this address in certain time for verification</string>
-    <string name="vexpoint_address_verif_time"></string>
+    <string name="vexpoint_address_verif_desc">To verify your address below :</string>
+    <string name="vexpoint_address_verif_note">note : You must use this address to send</string>
+    <string name="vexpoint_address_verif_title">Vex Address Verification</string>
+    <string name="vexpoint_address_verif_copy_btn">Copy Address</string>
+    <string name="vexpoint_address_verif_time_title">Time left for verification :</string>
+    <string name="vexpoint_address_verif_vex_count">Please kindly send :</string>
+    <string name="vexpoint_address_verif_address_send_to">to below address :</string>
 
     <string name="vexpoint_need_address_title">We Are Sorry</string>
     <string name="vexpoint_need_address_subtitle">Vex Address is Required</string>

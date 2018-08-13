@@ -255,11 +255,11 @@ public class CaptchaImageView extends android.support.v7.widget.AppCompatImageVi
             for (int index = 0; index < length; index++) {
                 String temp = generateRandomText(type);
                 generatedCaptcha = generatedCaptcha + temp;
-                paint.setTextSize(textSizeRange[random.nextInt(textSizeRange.length)]);
+                paint.setTextSize(textSizeRange[random.nextInt(textSizeRange.length)]+20);
                 if (isDot)
-                    canvas.drawText(temp, textX + (index * 25), textY, paint);
+                    canvas.drawText(temp, textX + (index * 45), textY, paint);
                 else
-                    canvas.drawText(temp, textX + (index * 20), textY, paint);
+                    canvas.drawText(temp, textX + (index * 40), textY, paint);
             }
             return generatedCaptcha;
         }

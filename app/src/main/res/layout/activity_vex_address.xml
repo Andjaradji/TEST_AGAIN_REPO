@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -127,112 +127,165 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_wait_address"
+            <LinearLayout
+                android:id="@+id/ll_wait_address"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_small"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:tag="bold"
+                    android:text="@string/vexpoint_address_verif_title"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:tag="light"
+                    android:text="@string/vexpoint_address_verif_time_title"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/tv_time_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_content"
+                    android:tag="bold"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="36sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginEnd="@dimen/interval_big"
+                    android:layout_marginLeft="@dimen/interval_big"
+                    android:layout_marginRight="@dimen/interval_big"
+                    android:layout_marginStart="@dimen/interval_big"
+                    android:text="@string/vexpoint_address_verif_desc"
+                    android:textAlignment="center"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_small" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_big"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:background="@drawable/shape_vex_address"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_info_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_small"
-                        android:layout_marginTop="@dimen/interval_main"
-                        android:tag="hnMed"
-                        android:text="@string/vexpoint_need_address_subtitle"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/interval_main"
-                        android:tag="bold"
-                        android:text="15:30"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="36sp" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_main"
-                        android:layout_marginEnd="@dimen/interval_big"
-                        android:layout_marginLeft="@dimen/interval_big"
-                        android:layout_marginRight="@dimen/interval_big"
-                        android:layout_marginStart="@dimen/interval_big"
-                        android:layout_marginTop="@dimen/interval_content"
-                        android:text="@string/vexpoint_address_verif"
-                        android:textAlignment="center"
-                        android:textColor="@color/material_black_sub_text_color"
-                        android:textSize="@dimen/text_small" />
-
-                    <LinearLayout
+                        android:id="@+id/tv_vex_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_content"
                         android:layout_marginEnd="@dimen/interval_main"
                         android:layout_marginLeft="@dimen/interval_main"
                         android:layout_marginRight="@dimen/interval_main"
                         android:layout_marginStart="@dimen/interval_main"
-                        android:background="@drawable/shape_voucher_availability"
-                        android:gravity="center">
+                        android:layout_marginTop="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_black_sub_text_color"
+                        android:textSize="@dimen/text_xtiny" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/interval_main"
-                            android:lines="2"
-                            android:tag="bold"
-                            android:text="ACT1234123123141241512312312a3ACT1234123123141241512312312a3ACT1234123123141241512312312a3"
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_xtiny" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@id/white_bg"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/btn_copy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/interval_main"
-                            android:layout_marginEnd="@dimen/interval_main"
-                            android:layout_marginLeft="@dimen/interval_main"
-                            android:layout_marginRight="@dimen/interval_main"
-                            android:layout_marginStart="@dimen/interval_main"
-                            android:layout_marginTop="@dimen/interval_small"
-                            android:background="@drawable/shape_ripple_main_button"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/interval_submain"
-                                android:tag="bold"
-                                android:text="@string/addnewpass_button"
-                                android:textAllCaps="true"
-                                android:textColor="@color/material_white"
-                                android:textSize="@dimen/text_medium" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="@string/vexpoint_address_verif_note"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_red_more_text"
+                        android:textSize="@dimen/text_xtiny" />
                 </LinearLayout>
 
-            </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:text="@string/vexpoint_address_verif_vex_count"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/tv_vex_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:tag="bold"
+                    android:textSize="@dimen/text_small_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_content"
+                    android:text="@string/vexpoint_address_verif_address_send_to"
+                    android:textSize="@dimen/text_tiny" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:background="@drawable/shape_voucher_availability"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_address_send_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:lines="2"
+                        android:tag="bold"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/text_xtiny" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_copy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:background="@drawable/shape_ripple_main_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/vexpoint_address_verif_copy_btn"
+                        android:textAllCaps="true"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
