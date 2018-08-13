@@ -390,12 +390,14 @@ public class RetrofitManager {
         return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
-    public Observable<HttpResponse<Kyc>> requestSetActAddress(int id) {
+    public Observable<HttpResponse<UserAddressResponse>> requestSetActAddress(int id, String token, String actAddress) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
+        params.put("token", token);
+        params.put("act_address", actAddress);
 
-        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        return mUserService.setActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
     public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id){

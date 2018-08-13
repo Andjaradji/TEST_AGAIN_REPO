@@ -97,7 +97,7 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("user/vex-point/update-act-address")
-    Observable<HttpResponse<Kyc>> setActAddress(
+    Observable<HttpResponse<UserAddressResponse>> setActAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

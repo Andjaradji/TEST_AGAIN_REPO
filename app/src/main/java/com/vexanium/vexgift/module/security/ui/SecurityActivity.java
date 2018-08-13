@@ -56,12 +56,13 @@ public class SecurityActivity extends BaseActivity {
         mGoogle2faObservable.subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean aBoolean) {
-                updateSecurityItemView(aBoolean);
+                isGoogle2faEnable = aBoolean;
+                updateSecurityItemView();
             }
         });
 
         isGoogle2faEnable = user.isAuthenticatorEnable();
-        updateSecurityItemView(isGoogle2faEnable);
+        updateSecurityItemView();
 
         if (!isGoogle2faEnable) {
             ViewUtil.setText(notifView, R.id.tv_notif_info, getString(R.string.security_note));
@@ -109,22 +110,18 @@ public class SecurityActivity extends BaseActivity {
                     intent.putExtra("state", true);
                     startActivity(intent);
                 }
-                break;
-//            case R.id.security_fingerprint:
-//
-//                break;
 
         }
     }
 
-    private void updateSecurityItemView(boolean isGoogle2faEnable) {
+    private void updateSecurityItemView() {
         TextView tvStatus = findViewById(R.id.google_auth_status);
         if (isGoogle2faEnable) {
+            notifView.setVisibility(View.GONE);
             tvStatus.setText(getString(R.string.security_on));
             tvStatus.setTypeface(App.bold);
             tvStatus.setTextColor(ColorUtil.getColor(App.getContext(), R.color.vex_orange));
         } else {
-            notifView.setVisibility(View.GONE);
             tvStatus.setText(getString(R.string.security_off));
             tvStatus.setTypeface(App.regular);
             tvStatus.setTextColor(ColorUtil.getColor(App.getContext(), R.color.material_black_sub_text_color));

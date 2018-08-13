@@ -91,10 +91,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
 
-        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.com");
+        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
-
-        initialize();
 
         checkAppVersion();
 
@@ -212,6 +210,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (isNeedUpdate) {
             findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_login).setVisibility(View.GONE);
+        }else{
+            initialize();
         }
     }
 
@@ -403,17 +403,17 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         parameterStr.append("name,");
         parameterStr.append("first_name,");
         parameterStr.append("last_name,");
-        parameterStr.append("age_range,");
-        parameterStr.append("link,");
-        parameterStr.append("gender,");
-        parameterStr.append("locale,");
-        parameterStr.append("picture.type(large),");
-        parameterStr.append("timezone,");
-        parameterStr.append("updated_time,");
-        parameterStr.append("birthday,");
-        parameterStr.append("albums{photos.limit(6){webp_images},name},");
-        parameterStr.append("friends,");
-        parameterStr.append("location");
+//        parameterStr.append("age_range,");
+//        parameterStr.append("link,");
+//        parameterStr.append("gender,");
+//        parameterStr.append("locale,");
+//        parameterStr.append("picture.type(large),");
+//        parameterStr.append("timezone,");
+//        parameterStr.append("updated_time,");
+//        parameterStr.append("birthday,");
+//        parameterStr.append("albums{photos.limit(6){webp_images},name},");
+//        parameterStr.append("friends,");
+//        parameterStr.append("location");
         parameters.putString("fields", parameterStr.toString());
 
         return parameters;
@@ -422,11 +422,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private List<String> getFacebookPermission() {
         return Arrays.asList(
                 "email",
-                "public_profile",
-                "user_birthday",
-                "user_friends",
-                "user_location",
-                "user_photos"
+                "public_profile"
+//                "user_birthday",
+//                "user_friends",
+//                "user_location",
+//                "user_photos"
         );
     }
 }

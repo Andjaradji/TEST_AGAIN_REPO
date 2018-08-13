@@ -7,12 +7,12 @@
 
     <ImageView
         android:id="@+id/back_button"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:padding="10dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/interval_submain"
-        android:layout_marginStart="@dimen/interval_submain"
+        android:layout_marginLeft="@dimen/interval_content"
+        android:layout_marginStart="@dimen/interval_content"
         android:src="@drawable/ic_back" />
 
     <TextView
@@ -28,6 +28,5 @@
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />
 
-
-
+    
 </RelativeLayout>

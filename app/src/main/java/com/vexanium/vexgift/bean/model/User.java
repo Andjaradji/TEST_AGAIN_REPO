@@ -146,9 +146,9 @@ public class User implements Serializable {
         return tpUtil.getBoolean(TpUtil.KEY_IS_PASS_SET, false);
     }
 
-    public static void setIsVexAddressSet(Context context, boolean isPasswordSet) {
+    public static void setIsVexAddressSet(Context context, boolean isVexAddSet) {
         TpUtil tpUtil = TpUtil.getInstance(context);
-        tpUtil.put(TpUtil.KEY_IS_VEX_ADD_SET, isPasswordSet);
+        tpUtil.put(TpUtil.KEY_IS_VEX_ADD_SET, isVexAddSet);
     }
 
     public static boolean getIsVexAddressSet(Context context) {
@@ -156,13 +156,29 @@ public class User implements Serializable {
         return tpUtil.getBoolean(TpUtil.KEY_IS_VEX_ADD_SET, false);
     }
 
+    public static UserAddress getUserAddress() {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        String sAddress = tpUtil.getString(TpUtil.KEY_USER_ADDRESS, "");
+        UserAddress userAddress = (UserAddress) JsonUtil.toObject(sAddress, UserAddress.class);
+        return userAddress;
+    }
+
+    public static int getUserAddressStatus() {
+        UserAddress userAddress= getUserAddress();
+        if (userAddress == null) {
+            return -1;
+        } else {
+            return userAddress.getStatus();
+        }
+    }
+
     public static boolean isVexAddVerifTimeEnded() {
         TpUtil tpUtil = new TpUtil(App.getContext());
-
-        long fillTime = tpUtil.getLong(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME, 0);
-        long now = System.currentTimeMillis();
-
-        if (fillTime > 0) {
+        String sAddress = tpUtil.getString(TpUtil.KEY_USER_ADDRESS, "");
+        UserAddress userAddress = (UserAddress) JsonUtil.toObject(sAddress, UserAddress.class);
+        if (userAddress != null) {
+            long fillTime = userAddress.getCountdownStart();
+            long now = System.currentTimeMillis();
             KLog.v("User", "isVexAddVerifTimeEnded: now [" + now + "] - last[" + fillTime + "] (" + (now - fillTime) + ")");
             if (now - fillTime > StaticGroup.VEX_ADDRESS_VERIF_TIME) {
                 return true;
@@ -207,13 +223,6 @@ public class User implements Serializable {
         Date now = new Date();
         TpUtil tpUtil = new TpUtil(App.getContext());
         tpUtil.put(TpUtil.KEY_LAST_ACTIVE_TIME,
-                now.getTime());
-    }
-
-    public static void setVexAddressSubmitTime() {
-        Date now = new Date();
-        TpUtil tpUtil = new TpUtil(App.getContext());
-        tpUtil.put(TpUtil.KEY_VEX_ADDRESS_VERIF_TIME,
                 now.getTime());
     }
 
