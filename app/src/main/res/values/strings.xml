@@ -68,7 +68,7 @@
     <string name="coupon_detail_claim_token">Get Token</string>
     <string name="coupon_redeem_token">Redeem Token</string>
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
-    <string name="coupon_deactivated_voucher">Deactivated</string>
+    <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
 
     <string name="coupon_redeem_voucher_code">Voucher Code</string>

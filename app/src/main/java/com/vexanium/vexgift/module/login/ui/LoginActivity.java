@@ -13,7 +13,10 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -47,6 +50,7 @@ import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONObject;
 
@@ -67,6 +71,11 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 @ActivityFragmentInject(contentViewId = R.layout.activity_login)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
+    private LinearLayout mAviContainer;
+    private AVLoadingIndicatorView mAvi;
+
+    private Animation mFadeIn, mFadeOut;
+
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
@@ -83,7 +92,30 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     protected void initView() {
         mPresenter = new ILoginPresenterImpl(this);
 
+        mAviContainer = (LinearLayout) findViewById(R.id.ll_avi_container);
+        mAvi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         fbLoginButton = (LoginButton) findViewById(R.id.login_fb_button);
+
+        mFadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
+        mFadeOut = AnimationUtils.loadAnimation(this,R.anim.fade_out_anim);
+
+        mFadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
         findViewById(R.id.login_google_button).setOnClickListener(this);
@@ -95,6 +127,15 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
+
+    }
+
+    @Override
+    public void showProgress() {
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 
@@ -198,7 +239,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (isValid) {
             user.setEmail(email);
             user.setPassword(pass);
-
+            mAviContainer.setVisibility(View.VISIBLE);
+            mAviContainer.startAnimation(mFadeIn);
             mPresenter.requestLogin(user);
         }
     }

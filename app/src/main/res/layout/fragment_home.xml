@@ -6,6 +6,7 @@
     android:id="@+id/srl_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_white"
     tools:context=".module.home.ui.HomeFragment">
 
     <RelativeLayout
@@ -40,12 +41,21 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            app:indicatorName="TriangleSkewSpinIndicator"
+            app:indicatorColor="@color/vex_orange" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/home_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/app_bar"
-            android:background="@color/material_white">
+            android:layout_below="@id/app_bar">
 
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
