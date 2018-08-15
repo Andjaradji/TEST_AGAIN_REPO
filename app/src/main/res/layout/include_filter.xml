@@ -119,35 +119,35 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/filter_type"
+            android:id="@+id/filter_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/interval_main"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/rl_filter_type_header"
+                android:id="@+id/rl_filter_payment_header"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
 
                 <TextView
-                    android:id="@+id/tv_filter_type"
+                    android:id="@+id/tv_filter_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:paddingBottom="4dp"
-                    android:text="@string/filter_type"
+                    android:text="@string/filter_payment"
                     android:textColor="@color/material_grey_8080"
                     android:textSize="@dimen/text_small_medium" />
 
                 <ImageView
-                    android:id="@+id/iv_filter_type_add_more"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/iv_filter_payment_add_more"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/interval_small"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_more">
 
@@ -161,7 +161,7 @@
             </RelativeLayout>
 
             <com.vexanium.vexgift.widget.tag.TagView
-                android:id="@+id/tg_type"
+                android:id="@+id/tg_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_submain">
@@ -170,35 +170,35 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/filter_category"
+            android:id="@+id/filter_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/interval_main"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/rl_filter_category_header"
+                android:id="@+id/rl_filter_member_header"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
 
                 <TextView
-                    android:id="@+id/tv_filter_category"
+                    android:id="@+id/tv_filter_member"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:paddingBottom="4dp"
-                    android:text="@string/filter_category"
+                    android:text="@string/filter_member"
                     android:textColor="@color/material_grey_8080"
                     android:textSize="@dimen/text_small_medium" />
 
                 <ImageView
-                    android:id="@+id/iv_filter_category_add_more"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/iv_filter_member_add_more"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/interval_small"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_more">
 
@@ -212,7 +212,7 @@
             </RelativeLayout>
 
             <com.vexanium.vexgift.widget.tag.TagView
-                android:id="@+id/tg_category"
+                android:id="@+id/tg_member"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_submain">
@@ -246,11 +246,11 @@
 
                 <ImageView
                     android:id="@+id/iv_filter_location_add_more"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/interval_small"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_more">
 

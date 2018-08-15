@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "921534519059",
+    "firebase_url": "https://vexanium-1532524963963.firebaseio.com",
+    "project_id": "vexanium-1532524963963",
+    "storage_bucket": "vexanium-1532524963963.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921534519059:android:054b9f8c907d8b19",
+        "android_client_info": {
+          "package_name": "com.vexanium.vexgift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921534519059-q1c1ca4h0urq3ees7i5aii0143umhgph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vexanium.vexgift",
+            "certificate_hash": "29d411f5c59dace7d249a73b77566314d5910165"
+          }
+        },
+        {
+          "client_id": "921534519059-3tp8gg9oke4s8d8vkpdk2puk7i46sdi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr82Gb_cXy_-QlGMbMCbA5ncFdDCoKrDg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921534519059-3tp8gg9oke4s8d8vkpdk2puk7i46sdi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

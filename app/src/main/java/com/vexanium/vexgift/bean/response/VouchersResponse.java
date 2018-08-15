@@ -21,38 +21,12 @@ public class VouchersResponse implements Serializable {
         return vouchers;
     }
 
-    public ArrayList<Voucher> getActiveVoucher(){
-        ArrayList<Voucher> activeVouchers = new ArrayList<>();
+
+    public void updateVoucherState(int id, boolean isRedeemed){
         if(vouchers == null) vouchers = new ArrayList<>();
 
         for (Voucher voucher : vouchers){
-            if(!(voucher.isRedeemed || voucher.getValidUntil() < System.currentTimeMillis())){
-                activeVouchers.add(voucher);
-            }
-        }
-
-        return activeVouchers;
-    }
-
-    public ArrayList<Voucher> getInactiveVoucher(){
-        ArrayList<Voucher> activeVouchers = new ArrayList<>();
-        if(vouchers == null) vouchers = new ArrayList<>();
-
-        for (Voucher voucher : vouchers){
-            if((voucher.isRedeemed || voucher.getValidUntil() < System.currentTimeMillis())){
-                activeVouchers.add(voucher);
-            }
-        }
-
-        return activeVouchers;
-    }
-
-    public void  updateVoucherState(String id, boolean isRedeemed){
-
-        if(vouchers == null) vouchers = new ArrayList<>();
-
-        for (Voucher voucher : vouchers){
-            if(voucher.getId().equalsIgnoreCase(id)){
+            if(voucher.getId() == id){
                 voucher.isRedeemed = isRedeemed;
             }
         }

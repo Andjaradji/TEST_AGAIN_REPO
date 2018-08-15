@@ -23,7 +23,7 @@ import com.vexanium.vexgift.util.JsonUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_multi_select, toolbarTitle = R.string.filter_category)
+@ActivityFragmentInject(contentViewId = R.layout.activity_multi_select, toolbarTitle = R.string.filter_payment)
 public class MultiSelectActivity extends BaseActivity {
 
     private ListView listView;
@@ -49,14 +49,14 @@ public class MultiSelectActivity extends BaseActivity {
         }
 
         if (listType != null) {
-            if (listType.equalsIgnoreCase("category")) {
-                selectedItems = sortFilterCondition.getCategory();
+            if (listType.equalsIgnoreCase("member")) {
+                selectedItems = sortFilterCondition.getMemberType();
                 rawList = FixtureData.categoryList;
             } else if (listType.equalsIgnoreCase("location")) {
                 selectedItems = sortFilterCondition.getLocation();
                 rawList = FixtureData.locationList;
-            } else if (listType.equalsIgnoreCase("type")) {
-                selectedItems = sortFilterCondition.getType();
+            } else if (listType.equalsIgnoreCase("payment")) {
+                selectedItems = sortFilterCondition.getPaymentType();
                 rawList = FixtureData.typeList;
             }
 
@@ -185,12 +185,12 @@ public class MultiSelectActivity extends BaseActivity {
                         }
                     }
 
-                    if (listType.equalsIgnoreCase("category")) {
-                        sortFilterCondition.setCategory(selectedItems);
+                    if (listType.equalsIgnoreCase("member")) {
+                        sortFilterCondition.setMemberType(selectedItems);
                     } else if (listType.equalsIgnoreCase("location")) {
                         sortFilterCondition.setLocation(selectedItems);
-                    } else if (listType.equalsIgnoreCase("type")) {
-                        sortFilterCondition.setType(selectedItems);
+                    } else if (listType.equalsIgnoreCase("payment")) {
+                        sortFilterCondition.setPaymentType(selectedItems);
                     }
 
                     notifyDataSetChanged();

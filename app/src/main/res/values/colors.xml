@@ -95,6 +95,7 @@
     <color name="material_green_trans_3422">#AA34BF22</color>
     <color name="material_green_trans_light">#24B5CE9E</color>
     <color name="material_green_trans">#DDEB60</color>
+    <color name="material_green">#6DBF79</color>
     <color name="material_grey_a2">#A2A2A2</color>
     <color name="material_grey_300">#e0e0e0</color>
     <color name="material_grey_400">#bdbdbd</color>
@@ -144,6 +145,7 @@
 
     <color name="material_orange">#FF8540</color>
     <color name="material_orange_9f00">#FF9F00</color>
+    <color name="material_orange_722b">#ED722B</color>
 
     <color name="vexpoint_plus">#22B24C</color>
     <color name="vexpoint_minus">#EF8484</color>

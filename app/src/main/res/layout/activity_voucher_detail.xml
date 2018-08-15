@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/material_white"
                 android:orientation="vertical">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -141,6 +142,36 @@
 
                     </LinearLayout>
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/margin_more_line"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/margin_more_line"
+                    android:background="@color/lineColor" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/material_black_text_color"
+                    android:tag="bold"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_title" />
+
+                <TextView
+                    android:id="@+id/tv_price_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="light"
+                    android:text="@string/coupon_detail_get_with_vp"
+                    android:textAlignment="center"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
 
                 <View
                     android:layout_width="match_parent"

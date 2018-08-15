@@ -24,7 +24,11 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.model.VoucherCode;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
+import com.vexanium.vexgift.module.box.view.IBoxView;
 import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -32,6 +36,7 @@ import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -44,7 +49,7 @@ import rx.functions.Action1;
  */
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
-public class VoucherFragment extends BaseFragment {
+public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBoxView {
 
     private Context context;
 
@@ -52,8 +57,8 @@ public class VoucherFragment extends BaseFragment {
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
 
-    private ArrayList<Voucher> data;
-    BaseRecyclerAdapter<Voucher> mAdapter;
+    private ArrayList<VoucherCode> data;
+    BaseRecyclerAdapter<VoucherCode> mAdapter;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
 
@@ -101,6 +106,15 @@ public class VoucherFragment extends BaseFragment {
     }
 
     @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if(data!= null){
+
+        }else if(errorResponse != null){
+
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if(mVoucherObservable != null){
@@ -115,7 +129,7 @@ public class VoucherFragment extends BaseFragment {
     }
 
     public void setVoucherList() {
-        mAdapter = new BaseRecyclerAdapter<Voucher>(context, data, layoutListManager) {
+        mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -123,16 +137,17 @@ public class VoucherFragment extends BaseFragment {
             }
 
             @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getTitle());
-                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
+                final Voucher voucher = item.getVoucher();
+                holder.setImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, voucher.getTitle());
+                holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
                 holder.setViewInvisible(R.id.ll_qty, true);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherDetailActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherDetailActivity(voucher, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 

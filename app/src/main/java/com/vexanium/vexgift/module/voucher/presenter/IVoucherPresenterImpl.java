@@ -1,23 +1,24 @@
 package com.vexanium.vexgift.module.voucher.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.register.model.IRegisterInteractor;
 import com.vexanium.vexgift.module.register.model.IRegisterInteractorImpl;
 import com.vexanium.vexgift.module.register.view.IRegisterView;
+import com.vexanium.vexgift.module.voucher.model.IVoucherInteractor;
+import com.vexanium.vexgift.module.voucher.model.IVoucherInteractorImpl;
+import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 
 import java.io.Serializable;
 
 import rx.Subscription;
 
-public class IVoucherPresenterImpl extends BasePresenterImpl<IRegisterView, Serializable> implements IVoucherPresenter {
-    private IRegisterInteractor<Serializable> mRegisterInteractor;
+public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Serializable> implements IVoucherPresenter {
+    private IVoucherInteractor<Serializable> mInteractor;
     private boolean mHasInit;
 
-    public IVoucherPresenterImpl(IRegisterView view) {
+    public IVoucherPresenterImpl(IVoucherView view) {
         super(view);
-        mRegisterInteractor = new IRegisterInteractorImpl();
+        mInteractor = new IVoucherInteractorImpl();
     }
 
     @Override
@@ -48,13 +49,20 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IRegisterView, Seri
     }
 
     @Override
-    public void requestLogin(User user) {
-        Subscription subscription = mRegisterInteractor.requestRegister(this, user);
+    public void requestMemberType(int userId) {
+        Subscription subscription = mInteractor.requestMemberType(this, userId);
         compositeSubscription.add(subscription);
     }
+
     @Override
-    public void requestRegister(User user) {
-        Subscription subscription = mRegisterInteractor.requestRegister(this, user);
+    public void requestPaymentType(int userId) {
+        Subscription subscription = mInteractor.requestPaymentType(this, userId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestLocation(int userId) {
+        Subscription subscription = mInteractor.requestLocation(this, userId);
         compositeSubscription.add(subscription);
     }
 }

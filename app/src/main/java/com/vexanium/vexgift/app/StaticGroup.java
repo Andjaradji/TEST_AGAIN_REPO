@@ -36,6 +36,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
@@ -163,6 +164,12 @@ public class StaticGroup {
         activity.startActivity(intent, options.toBundle());
     }
 
+    public static void goToVoucherDetailActivity(Activity activity, Voucher voucher) {
+        Intent intent = new Intent(activity, VoucherDetailActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucher));
+        activity.startActivity(intent);
+    }
+
     public static void copyToClipboard(Context context, String content) {
         try {
             if (!TextUtils.isEmpty(content)) {
@@ -206,6 +213,8 @@ public class StaticGroup {
 
         TpUtil tpUtil = new TpUtil(context);
         tpUtil.removePrivate();
+
+        TableContentDaoUtil.getInstance().clearAllCache();
 
         clearCookies(context);
 
@@ -650,6 +659,14 @@ public class StaticGroup {
             vouchers.add(origin.get(i));
         }
         return vouchers;
+    }
+
+    public static Voucher getVoucherById(ArrayList<Voucher> origin, int id) {
+        ArrayList<Voucher> vouchers = new ArrayList<>();
+        for (Voucher voucher : origin) {
+            if(voucher.getId() == id) return voucher;
+        }
+        return null;
     }
 
     public static ArrayList<com.vexanium.vexgift.bean.model.Notification> setAllNotifToAbsolute(ArrayList<com.vexanium.vexgift.bean.model.Notification> notifs){

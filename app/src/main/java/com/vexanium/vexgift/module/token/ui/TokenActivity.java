@@ -26,7 +26,9 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
+import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -40,10 +42,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
 public class TokenActivity extends BaseActivity {
 
-    private ArrayList<VoucherResponse> data;
+    private ArrayList<Voucher> data;
     GridLayoutManager layoutListManager;
 
     LinearLayout mErrorView;
@@ -129,9 +133,9 @@ public class TokenActivity extends BaseActivity {
 
         mPanelScrollview.setScrollingEnabled(false);
 
-        setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, "category");
-        setFilterItem(R.id.tg_type, R.id.iv_filter_type_add_more, "type");
-        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, "location");
+        setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
+        setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
+        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
 
         mSlidePanel.getChildAt(1).setOnClickListener(null);
 
@@ -188,8 +192,8 @@ public class TokenActivity extends BaseActivity {
         },3000);
     }
 
-    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, final String listType) {
-        findViewById(addButton).setOnClickListener(new View.OnClickListener() {
+    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, @IdRes int rootView, final String listType) {
+        findViewById(rootView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
@@ -205,12 +209,12 @@ public class TokenActivity extends BaseActivity {
 
         List<String> selectedItems = new ArrayList<>();
 
-        if (listType.equalsIgnoreCase("category")) {
-            selectedItems = sortFilterCondition.getCategory();
+        if (listType.equalsIgnoreCase("member")) {
+            selectedItems = sortFilterCondition.getMemberType();
         } else if (listType.equalsIgnoreCase("location")) {
             selectedItems = sortFilterCondition.getLocation();
-        } else if (listType.equalsIgnoreCase("type")) {
-            selectedItems = sortFilterCondition.getType();
+        } else if (listType.equalsIgnoreCase("payment")) {
+            selectedItems = sortFilterCondition.getPaymentType();
         }
 
         List<Tag> addedTagList = new ArrayList<>();
@@ -223,13 +227,9 @@ public class TokenActivity extends BaseActivity {
         tagView.addTags(addedTagList);
     }
 
-    public void setVoucherList(final ArrayList<VoucherResponse> data) {
+    public void setVoucherList(final ArrayList<Voucher> data) {
 
-        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(this, data, layoutListManager) {
-            @Override
-            public int getItemViewType(int position) {
-                return data.get(position).type;
-            }
+        BaseRecyclerAdapter<Voucher> mAdapter = new BaseRecyclerAdapter<Voucher>(this, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -237,20 +237,24 @@ public class TokenActivity extends BaseActivity {
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                if (item.getAvail() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, item.getTitle());
+                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+
+                if (item.getQtyAvailable() == 0) {
+                    holder.setText(R.id.tv_price, "Out of stock");
+                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                } else
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
+//                    holder.setText(R.id.tv_price, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
+//                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+                        goToVoucherDetailActivity(TokenActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 

@@ -156,11 +156,6 @@ public class VoucherRedeemActivity extends BaseActivity {
                         voucher.redeemedTime = System.currentTimeMillis();
                         voucher.isRedeemed = true;
 
-                        VouchersResponse vouchersResponse = TableContentDaoUtil.getInstance().getMyBoxContent();
-                        if(vouchersResponse ==null) vouchersResponse = new VouchersResponse();
-                        vouchersResponse.updateVoucherState(voucher.getId(), true);
-                        TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
-
                         RxBus.get().post(RxBus.KEY_BOX_HISTORY_ADDED,1);
                         RxBus.get().post(RxBus.KEY_BOX_CHANGED,1);
 

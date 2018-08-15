@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/shape_voucher_availability"
+        android:gravity="left|center_vertical">
+
+        <EditText
+            android:id="@+id/et_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:hint="@string/google2fa_dialog_field"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="number"
+            android:paddingLeft="@dimen/interval_main"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_small_medium" />
+    </LinearLayout>
+
+
+</RelativeLayout>

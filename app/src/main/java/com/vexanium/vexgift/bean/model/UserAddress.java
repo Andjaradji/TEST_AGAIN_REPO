@@ -26,7 +26,7 @@ public class UserAddress implements Serializable {
     @JsonProperty("remaining_time")
     private long remainingTime;
     @JsonProperty("current_time")
-    private String currentTime;
+    private long currentTime;
 
     public String getId() {
         return id;
@@ -108,11 +108,11 @@ public class UserAddress implements Serializable {
         this.remainingTime = remainingTime;
     }
 
-    public String getCurrentTime() {
+    public long getCurrentTime() {
         return currentTime;
     }
 
-    public void setCurrentTime(String currentTime) {
+    public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
     }
 }

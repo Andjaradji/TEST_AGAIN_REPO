@@ -49,28 +49,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:gravity="end"
             android:layout_centerVertical="true"
+            android:gravity="end"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/voucher"
-                    android:tint="@color/material_black_text_color" />
-
                 <TextView
-                    android:id="@+id/tv_banner_quota"
+                    android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:tag="bold"
-                    android:textColor="@color/material_black_text_color"
+                    android:textColor="@color/material_white"
                     android:textSize="@dimen/text_xtiny" />
             </LinearLayout>
 
@@ -98,8 +92,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="16dp"
-        android:visibility="gone"
-        android:background="@drawable/shape_white_round_rect">
+        android:background="@drawable/shape_white_round_rect"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_brand_image"

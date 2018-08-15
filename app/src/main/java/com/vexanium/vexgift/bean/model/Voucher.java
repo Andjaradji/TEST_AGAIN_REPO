@@ -16,7 +16,7 @@ public class Voucher implements Serializable {
     public long redeemedTime;
 
     @JsonProperty("id")
-    private String id;
+    private int id;
     @JsonProperty("category_id")
     private String categoryId;
     @JsonProperty("vendor_id")
@@ -86,11 +86,11 @@ public class Voucher implements Serializable {
 
     public boolean active = true;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -126,6 +126,16 @@ public class Voucher implements Serializable {
 
         return dateFormat.format(calendar.getTime());
     }
+
+    public String getCreatedDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(validFrom);
+        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMM dd yyyy") + "  hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
+
+        return dateFormat.format(calendar.getTime());
+    }
+
 
     public String getRedeemedDate() {
         Calendar calendar = Calendar.getInstance();

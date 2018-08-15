@@ -17,31 +17,18 @@ import rx.functions.Func1;
 
 public class IVoucherInteractorImpl implements IVoucherInteractor {
     @Override
-    public Subscription requestLogin(RequestCallback callback, User user) {
-        KLog.json("KIRIM", JsonUtil.toString(user));
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestLogin(user).compose(RxUtil.<UserLoginResponse>handleResult())
-                .flatMap(new Func1<UserLoginResponse, Observable<UserLoginResponse>>() {
-                    @Override
-                    public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {
-
-                        KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
-                        return Observable.just(userLoginResponse);
-                    }
-                })
-                .subscribe(new BaseSubscriber<>(callback));
+    public Subscription requestMemberType(RequestCallback callback, int id) {
+        return null;
     }
-    @Override
-    public Subscription requestRegister(RequestCallback callback, User user) {
-        KLog.json("KIRIM", JsonUtil.toString(user));
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestRegister(user).compose(RxUtil.<EmptyResponse>handleResult())
-                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
-                    @Override
-                    public Observable<EmptyResponse> call(EmptyResponse userLoginResponse) {
 
-                        return Observable.just(userLoginResponse);
-                    }
-                })
-                .subscribe(new BaseSubscriber<>(callback));
+    @Override
+    public Subscription requestPaymentType(RequestCallback callback, int id) {
+        return null;
+    }
+
+    @Override
+    public Subscription requestLocation(RequestCallback callback, int id) {
+        return null;
     }
 }
 

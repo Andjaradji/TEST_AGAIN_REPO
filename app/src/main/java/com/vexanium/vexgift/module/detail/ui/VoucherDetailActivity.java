@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.detail.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -20,11 +21,18 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.Notification;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContent;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.detail.presenter.IDetailPresenter;
+import com.vexanium.vexgift.module.detail.presenter.IDetailPresenterImpl;
+import com.vexanium.vexgift.module.detail.view.IDetailView;
+import com.vexanium.vexgift.module.security.ui.SecurityActivity;
+import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -33,6 +41,7 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -41,10 +50,11 @@ import rx.functions.Action1;
 
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)
-public class VoucherDetailActivity extends BaseActivity {
+public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implements IDetailView {
 
     private Voucher voucher;
     private CollapsingToolbarLayout toolbarLayout;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,9 @@ public class VoucherDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new IDetailPresenterImpl(this);
+        user = User.getCurrentUser(this);
+
         if (getIntent().hasExtra("voucher")) {
             if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
                 voucher = (Voucher) JsonUtil.toObject(getIntent().getStringExtra("voucher"), Voucher.class);
@@ -82,6 +95,12 @@ public class VoucherDetailActivity extends BaseActivity {
             ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
             ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
+            if (voucher.getPrice() == 0) {
+                ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
+                findViewById(R.id.tv_price_info).setVisibility(View.GONE);
+            } else {
+                ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
+            }
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
             ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyTotal()));
@@ -105,12 +124,39 @@ public class VoucherDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.share_button:
-                StaticGroup.shareWithShareDialog(App.getContext(), "Best Voucher from Vexanium", "Vex Gift");
+                String deepUrl = String.format("vexgift://voucher?id=%d", voucher.getId());
+                String message = String.format(getString(R.string.share_voucher_template), deepUrl);
+                StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
                 break;
             case R.id.btn_claim:
                 CheckBox cbAggree = findViewById(R.id.cb_aggree);
                 if (cbAggree.isChecked()) {
-                    doCaptcha();
+                    if (!user.isAuthenticatorEnable()) {
+                        new VexDialog.Builder(this)
+                                .title(getString(R.string.get_voucher_need_g2fa_dialog_title))
+                                .content(getString(R.string.get_voucher_need_g2fa_dialog_desc))
+                                .positiveText(getString(R.string.get_voucher_need_g2fa_dialog_button))
+                                .negativeText(getString(R.string.dialog_cancel))
+                                .optionType(DialogOptionType.YES_NO)
+                                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                        Intent intent = new Intent(VoucherDetailActivity.this, SecurityActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    }
+                                })
+                                .canceledOnTouchOutside(false)
+                                .cancelable(false)
+                                .autoDismiss(true)
+                                .show();
+                    } else {
+                        doGoogle2fa();
+                    }
                 } else {
                     new VexDialog.Builder(this)
                             .optionType(DialogOptionType.OK)
@@ -121,6 +167,73 @@ public class VoucherDetailActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            toast("HPtes");
+            KLog.v("VoucherDetailActivity", "handleResult: " + JsonUtil.toString(data));
+        } else if (errorResponse != null) {
+            if (errorResponse.getMeta() != null) {
+                if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                    new VexDialog.Builder(this)
+                            .optionType(DialogOptionType.OK)
+                            .title("We are sorry")
+                            .content(errorResponse.getMeta().getMessage())
+                            .autoDismiss(true)
+                            .show();
+                }
+            }
+        } else {
+            new VexDialog.Builder(VoucherDetailActivity.this)
+                    .optionType(DialogOptionType.OK)
+                    .title("Get Voucher")
+                    .content("Successfully get voucher")
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            VoucherDetailActivity.this.finish();
+                            simulateGetVoucherSuccess();
+                        }
+                    })
+                    .cancelable(false)
+                    .autoDismiss(true)
+                    .show();
+        }
+    }
+
+    private void doGoogle2fa() {
+        View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
+        final EditText etPin = view.findViewById(R.id.et_pin);
+
+        new VexDialog.Builder(this)
+                .optionType(DialogOptionType.YES_NO)
+                .title(getString(R.string.google2fa_dialog_title))
+                .content(getString(R.string.google2fa_dialog_desc))
+                .addCustomView(view)
+                .positiveText(getString(R.string.dialog_get_now))
+                .negativeText(getString(R.string.dialog_cancel))
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        if (TextUtils.isEmpty(etPin.getText().toString())) {
+                            etPin.setError(getString(R.string.validate_empty_field));
+                        } else {
+                            dialog.dismiss();
+                            doGetVoucher(etPin.getText().toString());
+                        }
+                    }
+                })
+                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .autoDismiss(false)
+                .canceledOnTouchOutside(false)
+                .show();
     }
 
     private void doCaptcha() {
@@ -168,8 +281,10 @@ public class VoucherDetailActivity extends BaseActivity {
                 .show();
     }
 
-    private void doGetVoucher() {
-
+    private void doGetVoucher(String pin) {
+        User user = User.getCurrentUser(this);
+        mPresenter.requestBuyVoucher(user.getId(), voucher.getId(), pin);
+//        simulateGetVoucher();
     }
 
     private void simulateGetVoucher() {
@@ -200,6 +315,31 @@ public class VoucherDetailActivity extends BaseActivity {
         countDownTimer.start();
     }
 
+    private void getVoucherSuccess() {
+        Notification notification = new Notification();
+        notification.setVoucher(voucher);
+        notification.setType(Notification.TYPE_GET_SUCCESS);
+        notification.setTime(System.currentTimeMillis());
+        notification.setUrl("vexgift://box");
+        notification.setNew(true);
+
+        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
+        if (notifications == null) notifications = new ArrayList<>();
+        notifications.add(notification);
+
+        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
+
+        RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
+        RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
+
+        String title = "Get Voucher Success";
+        String message = String.format("Congratulation! You got %s ", voucher.getTitle());
+        String url = "vexgift://notif";
+
+        StaticGroup.sendLocalNotification(App.getContext(), title, message, url);
+
+    }
+
     private void simulateGetVoucherSuccess() {
         Notification notification = new Notification();
         notification.setVoucher(voucher);
@@ -209,18 +349,12 @@ public class VoucherDetailActivity extends BaseActivity {
         notification.setNew(true);
 
         ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
-        if(notifications == null) notifications = new ArrayList<>();
+        if (notifications == null) notifications = new ArrayList<>();
         notifications.add(notification);
 
         TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
 
-        VouchersResponse vouchersResponse = TableContentDaoUtil.getInstance().getMyBoxContent();
-        if(vouchersResponse == null) vouchersResponse = new VouchersResponse();
-        vouchersResponse.getVouchers().add(voucher);
-        TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
-
-
-        KLog.v("Post","call: HPtes masuk");
+        KLog.v("Post", "call: HPtes masuk");
         RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
         RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
 
@@ -279,5 +413,15 @@ public class VoucherDetailActivity extends BaseActivity {
         }
 
         public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+    }
+
+    @Override
+    public void showProgress() {
+        super.showProgress();
+    }
+
+    @Override
+    public void hideProgress() {
+        super.hideProgress();
     }
 }

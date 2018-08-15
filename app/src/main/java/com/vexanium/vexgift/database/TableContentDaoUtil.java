@@ -5,6 +5,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.util.JsonUtil;
 
@@ -50,11 +51,11 @@ public class TableContentDaoUtil extends BaseDaoUtil {
                 (VouchersResponse) JsonUtil.toObject(query.list().get(0).getVouchers(), new TypeToken<VouchersResponse>() {}.getType()) : null;
     }
 
-    public VouchersResponse getMyBoxContent(){
+    public UserVouchersResponse getMyBoxContent(){
         QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
 
         return query.list().size() > 0 && query.list().get(0).getMyBoxs() != null?
-                (VouchersResponse) JsonUtil.toObject(query.list().get(0).getMyBoxs(), new TypeToken<VouchersResponse>() {}.getType()) : new VouchersResponse();
+                (UserVouchersResponse) JsonUtil.toObject(query.list().get(0).getMyBoxs(), new TypeToken<UserVouchersResponse>() {}.getType()) : new UserVouchersResponse();
     }
 
     public ArrayList<Notification> getNotifs(){

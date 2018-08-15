@@ -20,6 +20,8 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
@@ -28,6 +30,14 @@ import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.widget.CustomTabBarView;
 import com.vexanium.vexgift.widget.CustomViewPager;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -63,6 +73,31 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         setToolbar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Observable.timer(1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+                            Uri uri = getIntent().getData();
+                            getIntent().setData(null);
+                            openDeepLink(uri.toString());
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                    }
+                });
     }
 
     public void setToolbar() {
@@ -121,12 +156,12 @@ public class MainActivity extends BaseActivity {
                 mCustomTabBarView.onPageSelected(position);
                 setFragmentToolbar(position);
                 Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(position);
-                if(fragment!=null) {
+                if (fragment != null) {
                     fragment.onResume();
                 }
 
                 Fragment lastFragment = mainScreenPagerAdapter.getRegisteredFragment(lastPagePosition);
-                if(lastFragment!=null) {
+                if (lastFragment != null) {
                     lastFragment.onPause();
 
                     if (lastFragment instanceof BoxBaseFragment) {
@@ -156,26 +191,34 @@ public class MainActivity extends BaseActivity {
 
     private void handlePushAction() {
         String url = getIntent().getStringExtra("t_url");
-        if(!TextUtils.isEmpty(url)){
+        if (!TextUtils.isEmpty(url)) {
             openDeepLink(url);
         }
     }
 
-    public void openDeepLink(String url){
-        KLog.v("MainActivity","openDeepLink: "+url);
+    public void openDeepLink(String url) {
+        KLog.v("MainActivity", "openDeepLink: " + url);
 
         // TODO: 09/08/18 handle Deeplink
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
-        if(!isAlreadyHandled){
+        if (!isAlreadyHandled) {
             Uri uri = Uri.parse(url);
             if (url.startsWith("vexgift://main")) {
 
             } else if (url.startsWith("vexgift://voucher")) {
-                String id = uri.getQueryParameter("id");
-                
-            } else if(url.startsWith("vexgift://notif")){
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                }
+                ArrayList<Voucher> vouchers = TableContentDaoUtil.getInstance().getVouchers();
+                Voucher voucher = StaticGroup.getVoucherById(vouchers, id);
+                StaticGroup.goToVoucherDetailActivity(this, voucher);
+
+            } else if (url.startsWith("vexgift://notif")) {
                 gotoPage(NOTIF_FRAGMENT);
-            } else if(url.startsWith("vexgift://box")){
+            } else if (url.startsWith("vexgift://box")) {
                 gotoPage(BOX_FRAGMENT);
             } else if (url.startsWith("http://") || url.startsWith("https://")) {
                 StaticGroup.openAndroidBrowser(this, url);
@@ -183,31 +226,31 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void gotoPage(int page,int secondaryPage){
-        mCustomViewPager.setCurrentItem(page,false);
+    public void gotoPage(int page, int secondaryPage) {
+        mCustomViewPager.setCurrentItem(page, false);
 
         //for boxframent
-        if(page == 1){
+        if (page == 1) {
             Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(1);
-            if(fragment instanceof BoxBaseFragment){
+            if (fragment instanceof BoxBaseFragment) {
                 ((BoxBaseFragment) fragment).changeBoxTab(secondaryPage);
             }
         }
     }
 
-    public void gotoPage(int page){
-        mCustomViewPager.setCurrentItem(page,false);
+    public void gotoPage(int page) {
+        mCustomViewPager.setCurrentItem(page, false);
 
-        if(page >= 0 && page < PAGE_COUNT){
+        if (page >= 0 && page < PAGE_COUNT) {
             Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(page);
         }
     }
 
-    public boolean isEligibleToExit(){
+    public boolean isEligibleToExit() {
         Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(mCustomViewPager.getCurrentItem());
-        if(fragment instanceof BoxBaseFragment){
-            BoxBaseFragment boxBaseFragment = (BoxBaseFragment)fragment;
-            if(boxBaseFragment.getCurrentFragment() instanceof BoxHistoryFragment) {
+        if (fragment instanceof BoxBaseFragment) {
+            BoxBaseFragment boxBaseFragment = (BoxBaseFragment) fragment;
+            if (boxBaseFragment.getCurrentFragment() instanceof BoxHistoryFragment) {
                 boxBaseFragment.changeFragment(false);
                 return false;
             }

@@ -376,11 +376,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
-                if (item.getQtyAvailable() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
+                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_bg : R.drawable.shape_price_bg);
+
+                if (item.getQtyAvailable() == 0) {
+                    holder.setText(R.id.tv_price, "Out of stock");
+                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                } else
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
@@ -431,10 +433,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
-                if (item.getQtyAvailable() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
+                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+
+                if (item.getQtyAvailable() == 0) {
+                    holder.setText(R.id.tv_price, "Out of stock");
+                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                } else
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
+//                    holder.setText(R.id.tv_price, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
 //                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override

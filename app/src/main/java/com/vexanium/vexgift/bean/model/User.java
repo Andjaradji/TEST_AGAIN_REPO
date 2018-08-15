@@ -165,7 +165,7 @@ public class User implements Serializable {
 
     public static int getUserAddressStatus() {
         UserAddress userAddress= getUserAddress();
-        if (userAddress == null) {
+        if (userAddress == null || userAddress.getRemainingTime() <= 0) {
             return -1;
         } else {
             return userAddress.getStatus();
@@ -624,7 +624,7 @@ public class User implements Serializable {
     }
 
     public int getVexPoint() {
-        return vexPoint + 1500;
+        return vexPoint;
     }
 
     public void setVexPoint(int vexPoint) {

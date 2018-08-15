@@ -4,6 +4,7 @@ import com.vexanium.vexgift.base.BasePresenter;
 import com.vexanium.vexgift.bean.model.User;
 
 public interface IVoucherPresenter extends BasePresenter{
-    void requestLogin(User user);
-    void requestRegister(User user);
+    void requestMemberType(int userId);
+    void requestPaymentType(int userId);
+    void requestLocation(int userId);
 }

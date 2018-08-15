@@ -66,6 +66,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
     Calendar verifTimeLeft;
 
+    private boolean isTimeUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +133,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 final UserAddress userAddress = User.getUserAddress();
                 KLog.v("VexPointActivity", "updateView: HPtes masuk sini");
                 if (userAddress != null) {
-                    verifTimeLeft.setTimeInMillis((userAddress.getRemainingTime()*1000) + Calendar.getInstance().getTimeInMillis());
+                    verifTimeLeft.setTimeInMillis((userAddress.getRemainingTime() * 1000) + Calendar.getInstance().getTimeInMillis());
                     ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
                     ViewUtil.setText(this, R.id.tv_vex_count, userAddress.getAmount() + "");
                     ViewUtil.setText(this, R.id.tv_address_send_to, userAddress.getTransferTo());
@@ -347,6 +349,13 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         long remainTime = verifTimeLeft.getTimeInMillis() - now.getTimeInMillis();
         remainTime = remainTime - TimeUnit.DAYS.toMillis(TimeUnit.MILLISECONDS.toDays(remainTime));
+
+        if (remainTime < 0 && !isTimeUp) {
+            isTimeUp = true;
+            mPresenter.requestGetActAddress(user.getId());
+        } else if (remainTime > 0) {
+            isTimeUp = false;
+        }
 
         String time = String.format(Locale.getDefault(), "%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),

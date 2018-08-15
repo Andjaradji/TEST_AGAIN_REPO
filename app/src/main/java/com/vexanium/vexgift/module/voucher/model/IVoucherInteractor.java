@@ -6,7 +6,8 @@ import com.vexanium.vexgift.callback.RequestCallback;
 import rx.Subscription;
 
 public interface IVoucherInteractor<T> {
-    Subscription requestLogin(RequestCallback<T> callback, User user);
-    Subscription requestRegister(RequestCallback<T> callback, User user);
+    Subscription requestMemberType(RequestCallback<T> callback, int id);
+    Subscription requestPaymentType(RequestCallback<T> callback, int id);
+    Subscription requestLocation(RequestCallback<T> callback, int id);
 
 }

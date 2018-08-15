@@ -66,6 +66,7 @@
     <string name="coupon_detail_terms">In this digital generation where information can be easily obtained within seconds, business cards still have retained their importance in the achievement of increased business exposure and business sales. If your business already has a bunch of printed cards distributed to a number of potential customers and yet you do not see any improvement in your market reach, then it’s high time to revamp your old business card. </string>
     <string name="coupon_detail_claim_voucher">Get Voucher</string>
     <string name="coupon_detail_claim_token">Get Token</string>
+    <string name="coupon_detail_get_with_vp">Get with Vex Point</string>
     <string name="coupon_redeem_token">Redeem Token</string>
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
     <string name="coupon_deactivated_voucher">Deactivated</string>
@@ -146,9 +147,13 @@
     <string name="vexpoint_address_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to submit vex address</string>
     <string name="vexpoint_address_need_g2fa_dialog_button">Setup Now</string>
 
+    <string name="get_voucher_need_g2fa_dialog_title">Google Authenticator is Required</string>
+    <string name="get_voucher_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to get voucher</string>
+    <string name="get_voucher_need_g2fa_dialog_button">Setup Now</string>
+
     <string name="vexpoint_need_address_title">We Are Sorry</string>
     <string name="vexpoint_need_address_subtitle">Vex Address is Required</string>
-    <string name="vexpoint_need_address_subtitle_rejected">Vex Address Submission is Rejected</string>
+    <string name="vexpoint_need_address_subtitle_rejected">Vex Address Submission  is Rejected</string>
     <string name="vexpoint_need_address_desc">You need to submit Vex Address to access Vex Point feature</string>
     <string name="vexpoint_need_address_desc_rejected">Please re-submit Vex Address to access Vex Point feature</string>
     <string name="vexpoint_need_address_button">Submit Now</string>
@@ -173,9 +178,9 @@
     <string name="sort_recent">Recent</string>
 
     <string name="filter_title">Filters</string>
-    <string name="filter_category">Category</string>
+    <string name="filter_payment">Payment Type</string>
     <string name="filter_location">Location</string>
-    <string name="filter_type">Type</string>
+    <string name="filter_member">Member Type</string>
 
     <string name="change_password_title">Change Password</string>
     <string name="last_password">Last Password</string>
@@ -338,6 +343,10 @@
     <string name="captcha_dialog_title">Get Voucher</string>
     <string name="captcha_dialog_content">Please write captcha to get the voucher</string>
 
+    <string name="google2fa_dialog_title">Google Authenticator</string>
+    <string name="google2fa_dialog_desc">Please enter your Google Authenticator PIN</string>
+    <string name="google2fa_dialog_field">Google Authenticator PIN</string>
+
     <string name="vp_time_snapshoot">TIME UNTIL NEXT SNAPSHOOT : </string>
     <string name="vp_get_vp_from_snapshoot">You got %d VP from Snapshoot</string>
 
@@ -366,6 +375,8 @@
     <string name="term_and_condition">TERM &amp; CONDITION</string>
     <string name="about_us">ABOUT US</string>
 
+    <string name="free">Free</string>
+
 
     <string name="appversion_need_update_title">We are sorry</string>
     <string name="appversion_need_update_subtitle">Update is Required</string>
@@ -375,6 +386,7 @@
     <string name="appversion_need_update_version_current">Current version : %s</string>
     <string name="appversion_need_update_version_new">Newest version : %s</string>
 
+    <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -28,11 +28,17 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.home.ui.HomeFragment;
+import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
+import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
+import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -41,12 +47,15 @@ import com.vexanium.vexgift.widget.select.MultiSelectActivity;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
-public class VoucherActivity extends BaseActivity {
+public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
     private ArrayList<Voucher> data;
     GridLayoutManager layoutListManager;
 
@@ -62,6 +71,8 @@ public class VoucherActivity extends BaseActivity {
 
     SortFilterCondition sortFilterCondition;
 
+    User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +80,9 @@ public class VoucherActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new IVoucherPresenterImpl(this);
+        user = User.getCurrentUser(this);
+
         mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_refresh);
         mSlidePanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
@@ -136,10 +150,6 @@ public class VoucherActivity extends BaseActivity {
 
         mPanelScrollview.setScrollingEnabled(false);
 
-        setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, "category");
-        setFilterItem(R.id.tg_type, R.id.iv_filter_type_add_more, "type");
-        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, "location");
-
         mSlidePanel.getChildAt(1).setOnClickListener(null);
 
         mSlidePanel.setFadeOnClickListener(new View.OnClickListener() {
@@ -170,6 +180,17 @@ public class VoucherActivity extends BaseActivity {
             }
         });
 
+        setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
+        setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
+        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
+
+
+
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+
     }
 
     @Override
@@ -194,8 +215,8 @@ public class VoucherActivity extends BaseActivity {
         },3000);
     }
 
-    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, final String listType) {
-        findViewById(addButton).setOnClickListener(new View.OnClickListener() {
+    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, @IdRes int rootView, final String listType) {
+        findViewById(rootView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
@@ -211,12 +232,12 @@ public class VoucherActivity extends BaseActivity {
 
         List<String> selectedItems = new ArrayList<>();
 
-        if (listType.equalsIgnoreCase("category")) {
-            selectedItems = sortFilterCondition.getCategory();
+        if (listType.equalsIgnoreCase("member")) {
+            selectedItems = sortFilterCondition.getMemberType();
         } else if (listType.equalsIgnoreCase("location")) {
             selectedItems = sortFilterCondition.getLocation();
-        } else if (listType.equalsIgnoreCase("type")) {
-            selectedItems = sortFilterCondition.getType();
+        } else if (listType.equalsIgnoreCase("payment")) {
+            selectedItems = sortFilterCondition.getPaymentType();
         }
 
         List<Tag> addedTagList = new ArrayList<>();
@@ -242,17 +263,21 @@ public class VoucherActivity extends BaseActivity {
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
-                if (item.getQtyAvailable() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+
+                if (item.getQtyAvailable() == 0) {
+                    holder.setText(R.id.tv_price, "Out of stock");
+                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                } else
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
+//                    holder.setText(R.id.tv_price, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
+//                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -317,9 +342,10 @@ public class VoucherActivity extends BaseActivity {
                 case ConstantGroup.EDIT_FILTER_LOCATION_RESULT_CODE:
                     break;
             }
-            setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, "category");
-            setFilterItem(R.id.tg_type, R.id.iv_filter_type_add_more, "type");
-            setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, "location");
+
+            setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
+            setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
+            setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
         }
     }
 }
