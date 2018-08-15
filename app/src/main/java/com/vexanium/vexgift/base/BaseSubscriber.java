@@ -72,17 +72,14 @@ public class BaseSubscriber<T> extends Subscriber<T> {
                             response = new HttpResponse();
                             response.setMeta(new MetaResponse());
                             response.getMeta().setMessage(App.getContext().getString(R.string.net_error_title));
+                            response.getMeta().setStatus(408);
                             Map<String, String> notifyInfo = new HashMap<>();
                             notifyInfo.put("msg", App.getContext().getString(R.string.net_error_title));
                             response.getMeta().setError(notifyInfo);
                         } else {
-                            response = new HttpResponse();
                             response = (error.getErrorBodyAs(HttpResponse.class));
                             if (response != null) {
                                 KLog.v("onError response : [" + response.getMeta().getStatus() + "] " + response.getMeta().getMessage() + " / " + response.getMeta().getData());
-//                                switch (response.getCode()) {
-//
-//                                }
                             }
                         }
 

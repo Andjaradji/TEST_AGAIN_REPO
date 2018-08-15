@@ -1,7 +1,7 @@
 <resources>
     <string name="code">GHy45SD1GrF11</string>
 
-    <string name="net_error_title">Network Errpr</string>
+    <string name="net_error_title">Network Error</string>
     <string name="validate_empty_field">This field cannot be empty</string>
     <string name="validate_merchant_code_not_valid">Merchant Code is not valid\nThis merchant code will be entered by cashier</string>
     <string name="validate_merchant_code_empty">Merchant Code cannot be empty\nThis merchant code will be entered by cashier</string>
@@ -382,7 +382,6 @@
 
     <string name="free">Free</string>
 
-
     <string name="appversion_need_update_title">We are sorry</string>
     <string name="appversion_need_update_subtitle">Update is Required</string>
     <string name="appversion_need_update_desc">Using an outdated version will cause trouble in using the service. Get more Cash by updating to latest version now.</string>
@@ -390,6 +389,10 @@
     <string name="appversion_need_update_button">Update now</string>
     <string name="appversion_need_update_version_current">Current version : %s</string>
     <string name="appversion_need_update_version_new">Newest version : %s</string>
+
+    <string name="cm_dialog_all_error_title">Error Occurred</string>
+    <string name="cm_dialog_all_error_desc">Oops, a problem occured!\nPlease try again in a few minutes.\nPlease contact our customer service, if the problem continue. \nerror code : %s</string>
+    <string name="cm_dialog_all_error_bt">OK</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -21,10 +21,11 @@ import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_google_auth)
+@ActivityFragmentInject(contentViewId = R.layout.activity_google_auth, withLoadingAnim = true)
 public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView {
 
     @Override
@@ -51,12 +52,12 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
         } else if (errorResponse != null) {
             KLog.v("GoogleAuthActivity handleResult error : " + errorResponse.getMeta().getMessage());
             toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
-            if (errorResponse.getMeta().getStatus() == 400) {
+            if (errorResponse.getMeta().getStatus() != 200) {
                 new VexDialog.Builder(GoogleAuthActivity.this)
                         .optionType(DialogOptionType.OK)
                         .okText("OK")
                         .title("Error")
-                        .content("Authenticator code incorrect")
+                        .content(errorResponse.getMeta().getMessage())
                         .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                             @Override
                             public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {

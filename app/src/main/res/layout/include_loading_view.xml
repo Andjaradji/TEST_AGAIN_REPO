@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/av_indicator_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_black_trans_aa"
+    android:visibility="gone">
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/av_indicator_view"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        app:indicatorColor="@color/vex_orange"
+        app:indicatorName="TriangleSkewSpinIndicator" />
+</RelativeLayout>

@@ -28,6 +28,7 @@ import com.vexanium.vexgift.module.splash.ui.SplashActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Hashtable;
 import java.util.Stack;
@@ -61,6 +62,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     private View decorView;
     private int uiOption;
 
+    private boolean withLoadingAnim = false;
+    public AVLoadingIndicatorView mLoadingView;
+
     public BaseActivity() {
         super();
         if (activityMap == null) {
@@ -77,6 +81,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mContentViewId = annotation.contentViewId();
             mToolbarTitle = annotation.toolbarTitle();
             mToolbarIndicator = annotation.toolbarIndicator();
+            withLoadingAnim = annotation.withLoadingAnim();
         } else {
             throw new RuntimeException(
                     "Class must add annotations of ActivityFragmentInitParams.class");
@@ -91,8 +96,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         setContentView(mContentViewId);
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        appBarLayout =  findViewById(R.id.app_bar);
+        toolbar =  findViewById(R.id.toolbar);
+
+        mLoadingView = findViewById(R.id.av_indicator_view);
 
         handleStatusView();
         handleAppBarLayoutOffset();
@@ -316,12 +323,31 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void showProgress() {
+        if(withLoadingAnim){
+            try {
+                findViewById(R.id.av_indicator_container).setVisibility(View.VISIBLE);
+                if (mLoadingView != null && !isFinishing()) {
+                    mLoadingView.show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
     @Override
     public void hideProgress() {
-
+        if(withLoadingAnim){
+            try {
+                findViewById(R.id.av_indicator_container).setVisibility(View.GONE);
+                if (mLoadingView != null && !isFinishing()) {
+                    mLoadingView.hide();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -177,12 +177,7 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
         } else if (errorResponse != null) {
             if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().getStatus() / 100 == 4) {
-                    new VexDialog.Builder(this)
-                            .optionType(DialogOptionType.OK)
-                            .title("We are sorry")
-                            .content(errorResponse.getMeta().getMessage())
-                            .autoDismiss(true)
-                            .show();
+                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
                 }
             }
         } else {

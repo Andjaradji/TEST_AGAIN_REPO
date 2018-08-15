@@ -68,13 +68,8 @@ import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_login)
+@ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
-
-    private LinearLayout mAviContainer;
-    private AVLoadingIndicatorView mAvi;
-
-    private Animation mFadeIn, mFadeOut;
 
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
@@ -92,30 +87,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     protected void initView() {
         mPresenter = new ILoginPresenterImpl(this);
 
-        mAviContainer = (LinearLayout) findViewById(R.id.ll_avi_container);
-        mAvi = (AVLoadingIndicatorView) findViewById(R.id.avi);
-        fbLoginButton = (LoginButton) findViewById(R.id.login_fb_button);
-
-        mFadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
-        mFadeOut = AnimationUtils.loadAnimation(this,R.anim.fade_out_anim);
-
-        mFadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+        fbLoginButton = findViewById(R.id.login_fb_button);
 
         findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
         findViewById(R.id.login_google_button).setOnClickListener(this);
@@ -127,15 +99,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
-
-    }
-
-    @Override
-    public void showProgress() {
-    }
-
-    @Override
-    public void hideProgress() {
 
     }
 
@@ -156,7 +119,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             executeMain(false);
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
         }
     }
 
@@ -238,8 +201,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (isValid) {
             user.setEmail(email);
             user.setPassword(pass);
-            mAviContainer.setVisibility(View.VISIBLE);
-            mAviContainer.startAnimation(mFadeIn);
             mPresenter.requestLogin(user);
         }
     }
@@ -251,7 +212,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (isNeedUpdate) {
             findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_login).setVisibility(View.GONE);
-        }else{
+        } else {
             initialize();
         }
     }
@@ -443,18 +404,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         parameterStr.append("cover,");
         parameterStr.append("name,");
         parameterStr.append("first_name,");
-        parameterStr.append("last_name,");
-//        parameterStr.append("age_range,");
-//        parameterStr.append("link,");
-//        parameterStr.append("gender,");
-//        parameterStr.append("locale,");
-//        parameterStr.append("picture.type(large),");
-//        parameterStr.append("timezone,");
-//        parameterStr.append("updated_time,");
-//        parameterStr.append("birthday,");
-//        parameterStr.append("albums{photos.limit(6){webp_images},name},");
-//        parameterStr.append("friends,");
-//        parameterStr.append("location");
+        parameterStr.append("last_name");
         parameters.putString("fields", parameterStr.toString());
 
         return parameters;
@@ -464,10 +414,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         return Arrays.asList(
                 "email",
                 "public_profile"
-//                "user_birthday",
-//                "user_friends",
-//                "user_location",
-//                "user_photos"
         );
     }
 }

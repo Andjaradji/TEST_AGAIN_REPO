@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -40,7 +40,6 @@
                 android:orientation="horizontal">
 
 
-
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -49,107 +48,116 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="36dp">
-
-        <ImageView
-            android:id="@+id/iv_lock"
-            android:layout_width="93dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="@dimen/interval_main"
-            android:contentDescription="@string/image_content_description"
-            android:src="@drawable/ic_lock"
-            android:tint="@color/material_white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_content"
-            android:text="@string/google2fa_title"
-            android:textColor="@color/text_primary_white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google2fa_desc"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary_white"
-            android:textSize="@dimen/text_small_medium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_field_input">
-
-        <EditText
-            android:id="@+id/et_pin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="@string/google2fa_field"
-            android:inputType="number"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_content"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_ripple_white_button"
-        android:paddingTop="@dimen/interval_main"
-        android:paddingBottom="@dimen/interval_main"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google2fa_button"
-            android:textColor="@color/material_white" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
+        android:layout_below="@id/app_bar"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_big"
-            android:gravity="center_horizontal">
+            android:layout_height="200dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="36dp">
+
+            <ImageView
+                android:id="@+id/iv_lock"
+                android:layout_width="93dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:contentDescription="@string/image_content_description"
+                android:src="@drawable/ic_lock"
+                android:tint="@color/material_white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/google2fa_help"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_tiny" />
+                android:layout_marginBottom="@dimen/interval_content"
+                android:text="@string/google2fa_title"
+                android:textColor="@color/text_primary_white"
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/login_signup_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/interval_small"
-                android:layout_marginStart="@dimen/interval_small"
-                android:text="@string/google2fa_help_button"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_tiny" />
+                android:text="@string/google2fa_desc"
+                android:textAlignment="center"
+                android:textColor="@color/text_primary_white"
+                android:textSize="@dimen/text_small_medium" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_submain"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_field_input">
+
+            <EditText
+                android:id="@+id/et_pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="@string/google2fa_field"
+                android:inputType="number"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_ripple_white_button"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/interval_main"
+            android:paddingTop="@dimen/interval_main">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/google2fa_button"
+                android:textColor="@color/material_white" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_big"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/google2fa_help"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/login_signup_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/interval_small"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:text="@string/google2fa_help_button"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_tiny" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <include layout="@layout/include_loading_view"/>
+
+</RelativeLayout>

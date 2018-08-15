@@ -45,6 +45,8 @@ import com.vexanium.vexgift.util.AlarmUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -664,19 +666,40 @@ public class StaticGroup {
     public static Voucher getVoucherById(ArrayList<Voucher> origin, int id) {
         ArrayList<Voucher> vouchers = new ArrayList<>();
         for (Voucher voucher : origin) {
-            if(voucher.getId() == id) return voucher;
+            if (voucher.getId() == id) return voucher;
         }
         return null;
     }
 
-    public static ArrayList<com.vexanium.vexgift.bean.model.Notification> setAllNotifToAbsolute(ArrayList<com.vexanium.vexgift.bean.model.Notification> notifs){
+    public static ArrayList<com.vexanium.vexgift.bean.model.Notification> setAllNotifToAbsolute(ArrayList<com.vexanium.vexgift.bean.model.Notification> notifs) {
         ArrayList<com.vexanium.vexgift.bean.model.Notification> arrayList = new ArrayList<>();
-        for(com.vexanium.vexgift.bean.model.Notification n : notifs){
+        for (com.vexanium.vexgift.bean.model.Notification n : notifs) {
             n.setNew(false);
             arrayList.add(n);
         }
 
         TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(arrayList));
         return arrayList;
+    }
+
+    public static void showCommonErrorDialog(Context context, String title, String message) {
+        new VexDialog.Builder(context)
+                .optionType(DialogOptionType.OK)
+                .title(title)
+                .content(message)
+                .autoDismiss(true)
+                .show();
+    }
+
+    public static void showCommonErrorDialog(Context context, String message) {
+        String title = context.getString(R.string.cm_dialog_all_error_title);
+        String desc = message;
+        showCommonErrorDialog(context, title, desc);
+    }
+
+    public static void showCommonErrorDialog(Context context, int code) {
+        String title = context.getString(R.string.cm_dialog_all_error_title);
+        String desc = String.format(context.getString(R.string.cm_dialog_all_error_desc), String.valueOf(code));
+        showCommonErrorDialog(context, title, desc);
     }
 }
