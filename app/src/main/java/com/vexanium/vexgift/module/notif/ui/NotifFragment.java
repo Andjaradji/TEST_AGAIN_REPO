@@ -244,7 +244,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
                 Vendor vendor = item.getVoucher().getVendor();
                 holder.setText(R.id.tv_brand, vendor.getName());
-                holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.voucher_placeholder);
+                holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.placeholder);
                 holder.setViewGone(R.id.iv_red_dot, !item.isNew());
                 if (item.isNew()) {
                     holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));

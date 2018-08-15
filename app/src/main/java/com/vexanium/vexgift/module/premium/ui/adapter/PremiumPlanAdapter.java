@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
+import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,16 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
 
     private Context context;
     private ArrayList<PremiumPlan> dataList = new ArrayList<>();
+    private AdapterBuyOnClick listener;
 
-    public PremiumPlanAdapter(Context context){
+    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener){
         this.context = context;
+        this.listener = listener;
     }
 
-    public PremiumPlanAdapter(Context context, ArrayList<PremiumPlan> dataList){
+    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener, ArrayList<PremiumPlan> dataList){
         this.context = context;
+        this.listener = listener;
         this.dataList = dataList;
     }
 
@@ -37,10 +41,15 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int pos) {
-        PremiumPlan data = dataList.get(pos);
+        final PremiumPlan data = dataList.get(pos);
         holder.mPremiumTitle.setText(data.getPrice() + " VEX/day ("+data.getDay()+" day)");
         holder.mPremiumSubtitle.setText(data.getPrice()*data.getDay() + " VEX");
-
+        holder.mBuyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClickBuy(data);
+            }
+        });
 
     }
 

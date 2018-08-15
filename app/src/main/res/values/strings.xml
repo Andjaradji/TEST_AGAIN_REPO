@@ -376,6 +376,26 @@
     <string name="premium_airdrop_token">Free Airdrop Token</string>
     <string name="premium_plan">Premium Plan</string>
 
+    <string name="premium_buy_title">Become Premium member</string>
+    <string name="premium_buy_time_left">Time left to send Vex:</string>
+    <string name="premium_buy_this_account">This account Vex address:</string>
+    <string name="premium_send_amount">Please kindly send this amount of Vex:</string>
+    <string name="premium_send_to">to below address:</string>
+    <string name="premium_copy_button">Copy Address</string>
+
+    <string name="premium_buy_confirmation_title">Buy Confirmation</string>
+    <string name="premium_buy_confirmation_body">You are about to buy this premium plan:</string>
+    <string name="premium_buy_day">day(s) premium</string>
+    <string name="premium_buy_vex">VEX/day</string>
+    <string name="premium_buy_total">total payment:</string>
+    <string name="premium_buy_warning">note: once <b>Buy Now</b> button is clicked,\nyou can\'t change to other plan for at least 1 hour</string>
+    <string name="premium_buy_now_button">Buy Now</string>
+    <string name="premium_buy_cancel_button">Cancel</string>
+
+    <string name="premium_already_premium">Your account is already premium\nuntil %s.</string>
+
+
+
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="term_and_condition">TERM &amp; CONDITION</string>
     <string name="about_us">ABOUT US</string>

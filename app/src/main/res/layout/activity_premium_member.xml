@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.exchange.ui.ReceiveVoucherActivity">
+    tools:context=".module.premium.ui.PremiumMemberActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -44,73 +44,133 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.asksira.loopingviewpager.LoopingViewPager
+            <RelativeLayout
+                android:id="@+id/rl_premium_top_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                android:id="@+id/vp_premium_member"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@drawable/shape_premium_bg"
-                android:layout_alignParentTop="true"
-                app:isInfinite="true"
-                app:autoScroll="true"
-                app:scrollInterval="5000"
-                app:viewpagerAspectRatio="1.33">
+                <RelativeLayout
+                    android:id="@+id/rl_premium_top_become_premium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            </com.asksira.loopingviewpager.LoopingViewPager>
+                    <com.asksira.loopingviewpager.LoopingViewPager
 
-            <com.rd.PageIndicatorView
-                android:id="@+id/pi_premium_member"
+                        android:id="@+id/vp_premium_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:background="@drawable/shape_premium_bg"
+                        android:layout_alignParentTop="true"
+                        app:isInfinite="true"
+                        app:autoScroll="true"
+                        app:scrollInterval="5000"
+                        app:viewpagerAspectRatio="1.33">
+
+                    </com.asksira.loopingviewpager.LoopingViewPager>
+
+                    <com.rd.PageIndicatorView
+                        android:id="@+id/pi_premium_member"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/vp_premium_member"
+                        android:layout_marginBottom="@dimen/interval_main"
+                        android:layout_centerHorizontal="true"
+                        app:piv_animationType="scale"
+                        app:piv_dynamicCount="true"
+                        app:piv_interactiveAnimation="true"
+                        app:piv_selectedColor="@color/material_white"
+                        app:piv_unselectedColor="@color/material_white_trans_ef"
+                        app:piv_padding="@dimen/walkthrough_indicator_padding"
+                        app:piv_radius="@dimen/walkthrough_indicator_radius" />
+
+                    <TextView
+                        android:id="@+id/tv_become_premium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="@string/premium_become"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_large"
+                        android:tag="hnBoldCond"
+                        android:layout_marginTop="@dimen/interval_medium"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"/>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_premium_top_already_premium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginBottom="54dp"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_check"
+                        android:src="@drawable/ic_tick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_info_wait_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        android:paddingLeft="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/premium_already_premium"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/rl_premium_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/vp_premium_member"
-                android:layout_marginBottom="@dimen/interval_main"
-                android:layout_centerHorizontal="true"
-                app:piv_animationType="scale"
-                app:piv_dynamicCount="true"
-                app:piv_interactiveAnimation="true"
-                app:piv_selectedColor="@color/material_white"
-                app:piv_unselectedColor="@color/material_white_trans_ef"
-                app:piv_padding="@dimen/walkthrough_indicator_padding"
-                app:piv_radius="@dimen/walkthrough_indicator_radius" />
+                android:layout_below="@id/rl_premium_top_container">
 
-            <TextView
-                android:id="@+id/tv_become_premium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/premium_become"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_large"
-                android:tag="hnBoldCond"
-                android:layout_marginTop="@dimen/interval_medium"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"/>
+                <TextView
+                    android:id="@+id/tv_premium_plan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:layout_marginTop="@dimen/interval_medium"
+                    android:tag="bold"
+                    android:paddingLeft="@dimen/interval_main"
+                    android:paddingRight="@dimen/interval_main"
+                    android:text="@string/premium_plan"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
 
-            <TextView
-                android:id="@+id/tv_premium_plan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/interval_content"
-                android:layout_marginTop="@dimen/interval_medium"
-                android:tag="bold"
-                android:paddingLeft="@dimen/interval_main"
-                android:paddingRight="@dimen/interval_main"
-                android:text="@string/premium_plan"
-                android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_title"
-                android:layout_below="@id/vp_premium_member"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_premium"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_premium_plan"
+                    >
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_premium"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/tv_premium_plan"
-                >
+                </android.support.v7.widget.RecyclerView>
 
-            </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/ll_buy_premium"
+        layout="@layout/include_buy_premium"
+        android:visibility="gone"></include>
 
 </RelativeLayout>
