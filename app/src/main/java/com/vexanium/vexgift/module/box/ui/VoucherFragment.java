@@ -36,12 +36,9 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 import rx.Observable;
 import rx.functions.Action1;

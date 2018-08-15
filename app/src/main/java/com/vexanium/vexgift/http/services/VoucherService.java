@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.EmptyResponse;
-import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;

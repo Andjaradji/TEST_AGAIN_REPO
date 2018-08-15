@@ -3,7 +3,6 @@ package com.vexanium.vexgift.module.security.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
-import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;

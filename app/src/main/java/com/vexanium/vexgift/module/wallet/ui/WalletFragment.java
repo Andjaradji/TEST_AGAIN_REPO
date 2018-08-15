@@ -17,7 +17,6 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.WalletRecord;
-import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
 import com.vexanium.vexgift.module.wallet.ui.adapter.WalletAdapter;
 import com.vexanium.vexgift.util.ViewUtil;
 

@@ -25,14 +25,11 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.VouchersResponse;
-import com.vexanium.vexgift.database.TableContent;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenter;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenterImpl;
 import com.vexanium.vexgift.module.detail.view.IDetailView;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
-import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -43,10 +40,6 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.functions.Action1;
 
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)

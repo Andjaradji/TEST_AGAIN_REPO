@@ -1,9 +1,9 @@
 package com.vexanium.vexgift.database;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
-import org.greenrobot.greendao.annotation.Generated;
 
 @Entity(indexes = {
         @Index(value = "id DESC", unique = true)

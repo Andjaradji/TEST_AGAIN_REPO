@@ -3,7 +3,6 @@ package com.vexanium.vexgift.module.box.model;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
-import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;

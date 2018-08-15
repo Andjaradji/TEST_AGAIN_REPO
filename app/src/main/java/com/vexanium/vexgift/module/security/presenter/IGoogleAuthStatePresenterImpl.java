@@ -2,11 +2,8 @@ package com.vexanium.vexgift.module.security.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractor;
-import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractorImpl;
 import com.vexanium.vexgift.module.security.model.IGoogleAuthStateInteractor;
 import com.vexanium.vexgift.module.security.model.IGoogleAuthStateInteractorImpl;
-import com.vexanium.vexgift.module.security.view.IGoogleAuthSettingView;
 import com.vexanium.vexgift.module.security.view.IGoogleAuthStateView;
 
 import java.io.Serializable;

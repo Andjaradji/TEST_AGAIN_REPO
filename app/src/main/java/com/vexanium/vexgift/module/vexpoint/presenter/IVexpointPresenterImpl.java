@@ -1,11 +1,7 @@
 package com.vexanium.vexgift.module.vexpoint.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.login.model.ILoginInteractor;
-import com.vexanium.vexgift.module.login.model.ILoginInteractorImpl;
-import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.vexpoint.model.IVexpointInteractor;
 import com.vexanium.vexgift.module.vexpoint.model.IVexpointInteractorImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;

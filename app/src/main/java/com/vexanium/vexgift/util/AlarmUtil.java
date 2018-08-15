@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.receiver.TimerReceiver;
 
 public class AlarmUtil {

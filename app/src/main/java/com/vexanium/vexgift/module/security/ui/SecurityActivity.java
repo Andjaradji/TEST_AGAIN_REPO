@@ -14,18 +14,13 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.profile.ui.ChangePasswordActivity;
-import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.util.AnimUtil;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import rx.Observable;
 import rx.functions.Action1;
-
-import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_security, toolbarTitle = R.string.security_toolbar_title)
 public class SecurityActivity extends BaseActivity {

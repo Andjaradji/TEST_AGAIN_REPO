@@ -5,8 +5,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.detail.model.IDetailInteractor;
 import com.vexanium.vexgift.module.detail.model.IDetailInteractorImpl;
 import com.vexanium.vexgift.module.detail.view.IDetailView;
-import com.vexanium.vexgift.module.register.model.IRegisterInteractorImpl;
-import com.vexanium.vexgift.module.register.view.IRegisterView;
 
 import java.io.Serializable;
 

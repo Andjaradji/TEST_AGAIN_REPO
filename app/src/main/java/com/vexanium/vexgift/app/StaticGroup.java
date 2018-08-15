@@ -21,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Telephony;
-import android.support.annotation.IntRange;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -36,8 +35,6 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
-import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
@@ -53,9 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeoutException;
 
-import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
 

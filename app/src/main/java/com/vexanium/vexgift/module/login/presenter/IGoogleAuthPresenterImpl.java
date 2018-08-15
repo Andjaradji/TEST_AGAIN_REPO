@@ -5,7 +5,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.login.model.IGoogleAuthInteractor;
 import com.vexanium.vexgift.module.login.model.IGoogleAuthInteractorImpl;
 import com.vexanium.vexgift.module.login.view.IGoogleAuthView;
-import com.vexanium.vexgift.module.login.view.ILoginView;
 
 import java.io.Serializable;
 

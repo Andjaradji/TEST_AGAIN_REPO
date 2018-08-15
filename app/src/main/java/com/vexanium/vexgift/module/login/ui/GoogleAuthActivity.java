@@ -21,7 +21,6 @@ import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
 

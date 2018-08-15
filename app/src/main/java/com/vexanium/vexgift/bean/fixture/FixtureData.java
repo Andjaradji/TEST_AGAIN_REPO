@@ -1,15 +1,9 @@
 package com.vexanium.vexgift.bean.fixture;
 
 import com.vexanium.vexgift.bean.model.Brand;
-import com.vexanium.vexgift.bean.model.Notification;
-import com.vexanium.vexgift.bean.model.Voucher;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-
-import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 
 /**
  * Created by hizkia on 14/03/18.

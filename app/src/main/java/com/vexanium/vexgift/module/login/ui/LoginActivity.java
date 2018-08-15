@@ -13,10 +13,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -50,15 +47,12 @@ import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -109,14 +103,13 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             UserLoginResponse response = (UserLoginResponse) data;
 
             if (response.user != null) {
-                String session = response.user.getSessionKey();
-                StaticGroup.userSession = session;
+                StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
 
-            executeMain(false);
+            executeMain();
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
             StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
@@ -165,13 +158,15 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            User user = User.createWithGoogle(account);
-            if (user != null)
-                if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
-                    mPresenter.requestLogin(user);
-                } else {
-                    StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
-                }
+            if (account != null) {
+                User user = User.createWithGoogle(account);
+                if (user != null)
+                    if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
+                        mPresenter.requestLogin(user);
+                    } else {
+                        StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
+                    }
+            }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
             KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
@@ -184,17 +179,10 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.et_pass)).getText().toString();
 
-        boolean isValid = true;
-        if (TextUtils.isEmpty(email)) {
-            ((EditText) findViewById(R.id.et_email)).setError("This Field can't be empty");
-            isValid = false;
-        }
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_pass);
+
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
-            isValid = false;
-        }
-        if (TextUtils.isEmpty(pass)) {
-            ((EditText) findViewById(R.id.et_pass)).setError("This Field can't be empty");
             isValid = false;
         }
 
@@ -278,7 +266,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
     }
 
-    private void executeMain(boolean isAlreadyLogin) {
+    private void executeMain() {
         User user = User.getCurrentUser(this);
         if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
@@ -308,7 +296,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private void initialize() {
         KLog.v("LoginActivity", "Initialize");
         if (checkLoginInfo()) {
-            executeMain(true);
+            executeMain();
         } else {
             generateKeyHash();
 
@@ -365,7 +353,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
                                 } else {
                                     hideProgress();
-                                    if (response.getError() != null) {
+                                    if (response != null && response.getError() != null) {
                                         KLog.v("LoginActivity", "GraphRequest getError : " + response.getError().toString());
                                         StaticGroup.showCommonErrorDialog(LoginActivity.this, response.getError().getErrorCode());
                                     }

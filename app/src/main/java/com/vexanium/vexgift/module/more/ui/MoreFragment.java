@@ -15,8 +15,8 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
-import com.vexanium.vexgift.module.about.ui.AboutActivity;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.module.about.ui.AboutActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.privacy.ui.PrivacyActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -31,11 +31,9 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
-
 import rx.Observable;
 import rx.functions.Action1;
 
-import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 

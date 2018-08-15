@@ -1,14 +1,10 @@
 package com.vexanium.vexgift.module.register.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -31,14 +27,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
-import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.module.login.ui.GoogleAuthActivity;
@@ -56,9 +50,6 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
@@ -101,11 +92,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 UserLoginResponse response = (UserLoginResponse) data;
 
                 if (response.user != null) {
-                    String session = response.user.getSessionKey();
                     User.updateCurrentUser(this.getApplicationContext(), response.user);
                 }
 
-                executeMain(false);
+                executeMain();
             }
         } else if (errorResponse != null) {
             hideProgress();
@@ -168,14 +158,16 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             KLog.json("HPtes google", JsonUtil.toString(account));
-            User user = User.createWithGoogle(account);
-            if (user != null)
-                if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
+            if(account!= null) {
+                User user = User.createWithGoogle(account);
+                if (user != null)
+                    if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
-                    mPresenter.requestLogin(user);
-                } else {
-                    toast("Error, GID null");
-                }
+                        mPresenter.requestLogin(user);
+                    } else {
+                        toast("Error, GID null");
+                    }
+            }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
             KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
@@ -210,7 +202,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         }
     }
 
-    private void executeMain(boolean isAlreadyLogin) {
+    private void executeMain() {
         User user = User.getCurrentUser(this);
         if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
@@ -288,10 +280,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
                                     hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);
-
                                 } else {
                                     hideProgress();
-                                    if (response.getError() != null) {
+                                    if (response != null && response.getError() != null) {
                                         KLog.v("LoginActivity", "GraphRequest getError : " + response.getError().toString());
                                         StaticGroup.showCommonErrorDialog(RegisterActivity.this, response.getError().getErrorCode());
                                     }

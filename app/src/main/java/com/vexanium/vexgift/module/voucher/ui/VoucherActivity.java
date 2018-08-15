@@ -13,7 +13,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -30,20 +29,14 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
-import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
-import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
-import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
-import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -56,9 +49,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
 public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {

@@ -2,11 +2,7 @@ package com.vexanium.vexgift.module.profile.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.model.Kyc;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.login.model.ILoginInteractor;
-import com.vexanium.vexgift.module.login.model.ILoginInteractorImpl;
-import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.profile.model.IProfileInteractor;
 import com.vexanium.vexgift.module.profile.model.IProfileInteractorImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;

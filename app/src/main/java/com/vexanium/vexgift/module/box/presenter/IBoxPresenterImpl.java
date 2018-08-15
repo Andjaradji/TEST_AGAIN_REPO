@@ -5,9 +5,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.box.model.IBoxInteractor;
 import com.vexanium.vexgift.module.box.model.IBoxInteractorImpl;
 import com.vexanium.vexgift.module.box.view.IBoxView;
-import com.vexanium.vexgift.module.home.model.IHomeInteractor;
-import com.vexanium.vexgift.module.home.model.IHomeInteractorImpl;
-import com.vexanium.vexgift.module.home.view.IHomeView;
 
 import java.io.Serializable;
 

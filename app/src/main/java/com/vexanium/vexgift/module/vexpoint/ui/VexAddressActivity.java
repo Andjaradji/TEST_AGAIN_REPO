@@ -1,8 +1,8 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 

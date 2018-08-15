@@ -2,8 +2,6 @@ package com.vexanium.vexgift.module.voucher.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.register.model.IRegisterInteractorImpl;
-import com.vexanium.vexgift.module.register.view.IRegisterView;
 import com.vexanium.vexgift.module.voucher.model.IVoucherInteractor;
 import com.vexanium.vexgift.module.voucher.model.IVoucherInteractorImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;

@@ -3,8 +3,6 @@ package com.vexanium.vexgift.module.profile.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.Kyc;
-import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;

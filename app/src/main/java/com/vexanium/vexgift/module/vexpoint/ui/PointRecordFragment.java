@@ -20,7 +20,6 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
-import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.RxBus;
 
 import java.util.ArrayList;
