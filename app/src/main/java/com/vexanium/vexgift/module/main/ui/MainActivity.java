@@ -8,12 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -86,7 +83,9 @@ public class MainActivity extends BaseActivity {
                         if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
                             Uri uri = getIntent().getData();
                             getIntent().setData(null);
-                            openDeepLink(uri.toString());
+                            if (uri != null) {
+                                openDeepLink(uri.toString());
+                            }
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -101,9 +100,9 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        toolbar = findViewById(R.id.toolbar_main);
 
-        mCustomTabBarView = (CustomTabBarView) findViewById(R.id.custom_tabbarview);
+        mCustomTabBarView = findViewById(R.id.custom_tabbarview);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -122,9 +121,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setFragmentToolbar(int fragment) {
-        TextView textView = findViewById(R.id.tv_toolbar_title);
-        ImageView logo = findViewById(R.id.iv_vex_logo);
-
         switch (fragment) {
             case HOME_FRAGMENT:
                 break;
@@ -181,7 +177,7 @@ public class MainActivity extends BaseActivity {
 
     private void setCustomTabs() {
         mainScreenPagerAdapter = new MainScreenPagerAdapter(getSupportFragmentManager());
-        mCustomViewPager = (CustomViewPager) findViewById(R.id.custom_viewpager);
+        mCustomViewPager = findViewById(R.id.custom_viewpager);
         mCustomViewPager.setAdapter(mainScreenPagerAdapter);
         mCustomTabBarView.setViewPager(mCustomViewPager);
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
@@ -211,6 +207,7 @@ public class MainActivity extends BaseActivity {
                 try {
                     id = Integer.parseInt(sId);
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 ArrayList<Voucher> vouchers = TableContentDaoUtil.getInstance().getVouchers();
                 Voucher voucher = StaticGroup.getVoucherById(vouchers, id);
@@ -242,7 +239,7 @@ public class MainActivity extends BaseActivity {
         mCustomViewPager.setCurrentItem(page, false);
 
         if (page >= 0 && page < PAGE_COUNT) {
-            Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(page);
+            mainScreenPagerAdapter.getRegisteredFragment(page);
         }
     }
 
@@ -260,7 +257,7 @@ public class MainActivity extends BaseActivity {
 
     public class MainScreenPagerAdapter extends FragmentStatePagerAdapter {
 
-        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+        SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
         MainScreenPagerAdapter(FragmentManager fm) {
             super(fm);

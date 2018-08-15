@@ -96,7 +96,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter = new IHomePresenterImpl(this);
         random = new Random();
         user = User.getCurrentUser(this.getActivity());
-        mFadeIn = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in_anim);
+        mFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_anim);
 
         mAvi = fragmentRootView.findViewById(R.id.avi);
         mSrlHome = fragmentRootView.findViewById(R.id.srl_home);
@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
         User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText("" + user.getVexPoint());
+        mVexPointText.setText(String.valueOf(user.getVexPoint()));
 
 
         vouchers = TableContentDaoUtil.getInstance().getVouchers();
@@ -183,7 +183,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(mRecyclerview.getVisibility() == View.GONE){
+        if (mRecyclerview.getVisibility() == View.GONE) {
             mRecyclerview.setVisibility(View.VISIBLE);
             mRecyclerview.startAnimation(mFadeIn);
         }
@@ -263,7 +263,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     public void initHomeList() {
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
                 @Override
                 public int getItemViewType(int position) {
@@ -380,7 +380,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     App.setTextViewStyle(mRecyclerview);
                 }
             });
-        }else{
+        } else {
             mAdapter.setData(data);
         }
     }
