@@ -381,6 +381,8 @@
     <string name="about_us">ABOUT US</string>
 
     <string name="free">Free</string>
+    <string name="vex_point_format">%d VP</string>
+    <string name="out_of_stock">Out of stock</string>
 
     <string name="appversion_need_update_title">We are sorry</string>
     <string name="appversion_need_update_subtitle">Update is Required</string>

@@ -57,7 +57,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
+    TextView mTvErrorHead, mTvErrorBody;
 
     AVLoadingIndicatorView mAvi;
     SwipeRefreshLayout mRefreshLayout;
@@ -84,10 +84,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mPresenter = new IVoucherPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mAvi = (AVLoadingIndicatorView) findViewById(R.id.avi);
-        mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_refresh);
-        mSlidePanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
+        mAvi =  findViewById(R.id.avi);
+        mRefreshLayout =  findViewById(R.id.srl_refresh);
+        mSlidePanel =  findViewById(R.id.sliding_layout);
+        mPanelScrollview =  findViewById(R.id.voucher_scrollview);
         mDragView = findViewById(R.id.dragview);
         mRecyclerview = findViewById(R.id.recylerview);
 
@@ -101,11 +101,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
         sortFilterCondition = new SortFilterCondition();
 
-//        data = TableContentDaoUtil.getInstance().getVouchers() ;
-//        if(data==null) data = new ArrayList<>();
-//        setVoucherList(data);
-
-        mFadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
+        mFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);
 
         mLoadVoucherAsync = new LoadVoucherAsync();
         mLoadVoucherAsync.execute();
@@ -113,8 +109,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.token_open_filter_button).setOnClickListener(this);
 
-        ((ImageView)findViewById(R.id.iv_toolbar_logo)).setImageResource(R.drawable.ic_gift);
-        ((TextView)findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.voucher_title));
+        ((ImageView) findViewById(R.id.iv_toolbar_logo)).setImageResource(R.drawable.ic_gift);
+        ((TextView) findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.voucher_title));
 
         mSlidePanel.setAnchorPoint(0.6f);
         mSlidePanel.setOverlayed(true);
@@ -187,7 +183,6 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
 
 
-
     }
 
     @Override
@@ -208,10 +203,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         }
     }
 
-    private void updateData(){
+    private void updateData() {
         mRefreshLayout.setEnabled(false);
         mRefreshLayout.setRefreshing(false);
-        if(mLoadVoucherAsync!= null && mLoadVoucherAsync.getStatus() != AsyncTask.Status.RUNNING){
+        if (mLoadVoucherAsync != null && mLoadVoucherAsync.getStatus() != AsyncTask.Status.RUNNING) {
             mLoadVoucherAsync = new LoadVoucherAsync();
             mLoadVoucherAsync.execute();
         }
@@ -244,8 +239,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
         List<Tag> addedTagList = new ArrayList<>();
         for (String item : selectedItems) {
-            String itemName = item;
-            Tag tag = new Tag(itemName);
+            Tag tag = new Tag(item);
             addedTagList.add(tag);
         }
 
@@ -254,7 +248,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
     public void setVoucherList(final ArrayList<Voucher> data) {
 
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new BaseRecyclerAdapter<Voucher>(this, data, layoutListManager) {
 
                 @Override
@@ -262,27 +256,28 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     return R.layout.item_coupon_list;
                 }
 
-            @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getTitle());
-                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
-                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+                @Override
+                public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
+                    holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
+                    holder.setText(R.id.tv_coupon_title, item.getTitle());
+                    holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                    holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
 
-                if (item.getQtyAvailable() == 0) {
-                    holder.setText(R.id.tv_price, "Out of stock");
-                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
-                } else
-                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
-//                    holder.setText(R.id.tv_price, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
-//                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
-                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
-                    }
-                });
+                    if (item.getQtyAvailable() == 0) {
+                        holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
+                        holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
+                    } else
+                        holder.setText(R.id.tv_price, item.getPrice() == 0 ?
+                                getString(R.string.free) :
+                                String.format(getString(R.string.vex_point_format), item.getPrice()));
+
+                    holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
+                        }
+                    });
                 }
             };
             mAdapter.setHasStableIds(true);
@@ -297,8 +292,6 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setItemViewCacheSize(30);
-            mRecyclerview.setDrawingCacheEnabled(true);
-            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             mRecyclerview.setAdapter(mAdapter);
             mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -306,11 +299,11 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     App.setTextViewStyle(mRecyclerview);
                 }
             });
-        }else {
+        } else {
             mAdapter.setData(data);
         }
 
-        if(data.size() <= 0){
+        if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.voucher_empty);
             mTvErrorHead.setText(getString(R.string.error_voucher_gift_empty_header));
@@ -318,10 +311,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
             mRecyclerview.setVisibility(View.GONE);
             findViewById(R.id.token_open_filter_button).setVisibility(View.GONE);
-        }else{
+        } else {
             mErrorView.setVisibility(View.GONE);
 
-            if(mRecyclerview.getVisibility() == View.GONE) {
+            if (mRecyclerview.getVisibility() == View.GONE) {
                 mRecyclerview.setVisibility(View.VISIBLE);
                 mRecyclerview.startAnimation(mFadeIn);
             }
@@ -343,7 +336,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ConstantGroup.EDIT_FILTER) {
-            if(data.hasExtra("condition")){
+            if (data.hasExtra("condition")) {
                 String condition = data.getStringExtra("condition");
                 sortFilterCondition = (SortFilterCondition) JsonUtil.toObject(condition, SortFilterCondition.class);
             }
@@ -362,18 +355,17 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         }
     }
 
-    private class LoadVoucherAsync extends AsyncTask<Void,Void,ArrayList<Voucher>>{
+    private class LoadVoucherAsync extends AsyncTask<Void, Void, ArrayList<Voucher>> {
 
         @Override
         protected void onPreExecute() {
-            data = new ArrayList<Voucher>();
+            data = new ArrayList<>();
             mRecyclerview.setVisibility(View.GONE);
             mAvi.smoothToShow();
         }
 
         @Override
         protected ArrayList<Voucher> doInBackground(Void... strings) {
-            ArrayList<Voucher> data = new ArrayList<>();
             data = TableContentDaoUtil.getInstance().getVouchers();
             return data;
         }
@@ -385,12 +377,12 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                 public void run() {
                     mRefreshLayout.setEnabled(true);
                     mAvi.smoothToHide();
-                    if(vouchers != null){
+                    if (vouchers != null) {
                         data = vouchers;
                         setVoucherList(data);
                     }
                 }
-            },2000);
+            }, 2000);
 
         }
 

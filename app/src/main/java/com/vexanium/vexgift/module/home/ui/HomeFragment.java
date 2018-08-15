@@ -341,7 +341,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         case CATEGORY_BAR:
                             holder.setText(R.id.tv_category_title, item.title);
                             holder.setText(R.id.tv_category_desc, item.desc);
-                            setVoucherList(holder, (ArrayList<Voucher>) item.object);
+                            if (item.object instanceof ArrayList)
+                                setVoucherList(holder, (ArrayList<Voucher>) item.object);
                             break;
                         case COMPLETE_FORM:
                             holder.setOnClickListener(R.id.ll_fill_kyc_button, new View.OnClickListener() {
@@ -371,8 +372,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setItemViewCacheSize(30);
-            mRecyclerview.setDrawingCacheEnabled(true);
-            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             mRecyclerview.setAdapter(mAdapter);
             mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -429,8 +428,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mRecyclerview.setItemViewCacheSize(30);
-        mRecyclerview.setDrawingCacheEnabled(true);
-        mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -459,12 +456,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
 
                 if (item.getQtyAvailable() == 0) {
-                    holder.setText(R.id.tv_price, "Out of stock");
-                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                    holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
+                    holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
                 } else
-                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
-//                    holder.setText(R.id.tv_price, String.format("%s/%s", item.getQtyAvailable() + "", item.getQtyTotal() + ""));
-//                holder.setImageUrl(R.id.iv_brand_image, item..getBrand().getPhoto(), R.drawable.placeholder);
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ?
+                            getString(R.string.free) :
+                            String.format(getString(R.string.vex_point_format), item.getPrice()));
+
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -476,7 +474,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         };
         discreteScrollView.setAdapter(mHotAdapter);
         discreteScrollView.setItemViewCacheSize(30);
-        discreteScrollView.setDrawingCacheEnabled(true);
         discreteScrollView.setOrientation(DSVOrientation.HORIZONTAL);
 //        discreteScrollView.setSlideOnFling(true);
         discreteScrollView.setItemTransformer(new ScaleTransformer.Builder()
