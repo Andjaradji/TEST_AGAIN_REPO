@@ -36,7 +36,7 @@ public class SendVoucherActivity extends BaseActivity {
             }
         }
         if (voucher != null) {
-            ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+            ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.voucher_placeholder);
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
             ViewUtil.setText(this, R.id.tv_coupon_exp, voucher.getExpiredDate());
         }

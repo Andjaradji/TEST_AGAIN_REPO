@@ -219,16 +219,12 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     }
 
     private void updateData(){
+        mRefreshLayout.setEnabled(false);
+        mRefreshLayout.setRefreshing(false);
         if(mLoadVoucherAsync!= null && mLoadVoucherAsync.getStatus() != AsyncTask.Status.RUNNING){
             mLoadVoucherAsync = new LoadVoucherAsync();
             mLoadVoucherAsync.execute();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(false);
-            }
-        },3000);
     }
 
     private void setFilterItem(@IdRes int tagview, @IdRes int addButton, @IdRes int rootView, final String listType) {
@@ -278,7 +274,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
@@ -297,7 +293,6 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                         StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
-
                 }
             };
             mAdapter.setHasStableIds(true);
@@ -398,6 +393,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mRefreshLayout.setEnabled(true);
                     mAvi.smoothToHide();
                     if(vouchers != null){
                         data = vouchers;
