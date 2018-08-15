@@ -1,0 +1,160 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/app_bar"
+    android:gravity="center"
+    android:background="@color/material_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_become_premium_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_small"
+        android:layout_marginTop="@dimen/interval_main"
+        android:tag="bold"
+        android:text="@string/premium_buy_title"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_small_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/interval_main"
+        android:tag="light"
+        android:text="@string/premium_buy_time_left"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny" />
+
+    <TextView
+        android:id="@+id/tv_time_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interval_content"
+        android:tag="bold"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="36sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:layout_marginEnd="@dimen/interval_big"
+        android:layout_marginLeft="@dimen/interval_big"
+        android:layout_marginRight="@dimen/interval_big"
+        android:layout_marginStart="@dimen/interval_big"
+        android:text="@string/premium_buy_this_account"
+        android:textAlignment="center"
+        android:textColor="@color/material_black_sub_text_color"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_big"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginRight="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:background="@drawable/shape_vex_address"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_vex_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/interval_main"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main"
+            android:layout_marginStart="@dimen/interval_main"
+            android:layout_marginTop="@dimen/interval_submain"
+            android:tag="bold"
+            android:textAlignment="center"
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_xtiny" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_submain"
+            android:text="@string/vexpoint_address_verif_note"
+            android:textAlignment="center"
+            android:textColor="@color/material_red_more_text"
+            android:textSize="@dimen/text_xtiny" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:text="@string/premium_send_amount"
+        android:textSize="@dimen/text_tiny" />
+
+    <TextView
+        android:id="@+id/tv_vex_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:tag="bold"
+        android:textSize="@dimen/text_small_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interval_content"
+        android:text="@string/premium_send_to"
+        android:textSize="@dimen/text_tiny" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginRight="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:background="@drawable/shape_voucher_availability"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_address_send_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/interval_submain"
+            android:lines="2"
+            android:tag="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_xtiny" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginRight="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:layout_marginTop="@dimen/interval_small"
+        android:background="@drawable/shape_ripple_main_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/interval_submain"
+            android:tag="bold"
+            android:text="@string/premium_copy_button"
+            android:textAllCaps="true"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_medium" />
+    </LinearLayout>
+</LinearLayout>

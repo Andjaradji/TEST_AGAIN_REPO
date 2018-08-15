@@ -258,7 +258,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
                 @Override
                 public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                    holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
+                    holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                     holder.setText(R.id.tv_coupon_title, item.getTitle());
                     holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                     holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
