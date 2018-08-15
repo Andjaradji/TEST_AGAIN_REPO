@@ -62,7 +62,7 @@ import java.util.List;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_register)
+@ActivityFragmentInject(contentViewId = R.layout.activity_register, withLoadingAnim = true)
 public class RegisterActivity extends BaseActivity<IRegisterPresenter> implements IRegisterView {
 
     private CallbackManager callbackManager;
@@ -81,7 +81,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     protected void initView() {
         mPresenter = new IRegisterPresenterImpl(this);
 
-        fbLoginButton = (LoginButton) findViewById(R.id.login_fb_button);
+        fbLoginButton = findViewById(R.id.login_fb_button);
 
         ViewUtil.setOnClickListener(this, this,
                 R.id.login_fake_fb_button,
@@ -109,8 +109,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             }
         } else if (errorResponse != null) {
             hideProgress();
-            KLog.v("RegisterActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            KLog.v("RegisterActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
         } else {
             new VexDialog.Builder(RegisterActivity.this)
                     .optionType(DialogOptionType.OK)
@@ -158,6 +158,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         if (requestCode == SIGN_IN_REQUEST_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGoogleSignInResult(result);
+            hideProgress();
         } else if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
@@ -187,26 +188,18 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         String pass = ((EditText) findViewById(R.id.et_password)).getText().toString();
         String repass = ((EditText) findViewById(R.id.et_re_password)).getText().toString();
 
-        boolean isValid = true;
-        if (TextUtils.isEmpty(email)) {
-            ((EditText) findViewById(R.id.et_email)).setError("This Field can't be empty");
-            isValid = false;
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
-            isValid = false;
-        }
-        if (TextUtils.isEmpty(pass)) {
-            ((EditText) findViewById(R.id.et_password)).setError("This Field can't be empty");
-            isValid = false;
-        }
-        if (TextUtils.isEmpty(repass)) {
-            ((EditText) findViewById(R.id.et_re_password)).setError("This Field can't be empty");
-            isValid = false;
-        }
-        if (isValid && !repass.equals(pass)) {
-            ((EditText) findViewById(R.id.et_re_password)).setError("Password doesn't matches");
-            isValid = false;
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_password, R.id.et_re_password);
+
+        if (isValid) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
+                isValid = false;
+            }
+
+            if (isValid && !repass.equals(pass)) {
+                ((EditText) findViewById(R.id.et_re_password)).setError("Password doesn't matches");
+                isValid = false;
+            }
         }
 
         if (isValid) {
@@ -235,6 +228,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     private void requestGoogleLogin() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
+        showProgress();
     }
 
     private void requestFacebookLogin() {
@@ -245,7 +239,6 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
     private void initialize() {
         KLog.v("RegisterActivity", "Initialize");
-
         initFacebook();
         initGoogle();
     }
@@ -265,7 +258,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
     private void initFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        fbLoginButton.setReadPermissions(getFacebookPermission());
+        fbLoginButton.setReadPermissions(StaticGroup.getFacebookPermission());
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -300,11 +293,12 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                     hideProgress();
                                     if (response.getError() != null) {
                                         KLog.v("LoginActivity", "GraphRequest getError : " + response.getError().toString());
+                                        StaticGroup.showCommonErrorDialog(RegisterActivity.this, response.getError().getErrorCode());
                                     }
                                 }
                             }
                         });
-                        request.setParameters(getFacebookFields());
+                        request.setParameters(StaticGroup.getFacebookFields());
                         request.executeAsync();
                     }
                 } else {
@@ -325,44 +319,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 KLog.v("LoginActivity", "FacebookCallback onError");
                 if (error != null) {
                     KLog.v("LoginActivity", "FacebookCallback onError : " + error.getMessage());
+                    StaticGroup.showCommonErrorDialog(RegisterActivity.this, error.getMessage());
                 }
             }
         });
     }
 
-    private Bundle getFacebookFields() {
-        Bundle parameters = new Bundle();
-        StringBuilder parameterStr = new StringBuilder();
-        parameterStr.append("email,");
-        parameterStr.append("id,");
-        parameterStr.append("cover,");
-        parameterStr.append("name,");
-        parameterStr.append("first_name,");
-        parameterStr.append("last_name,");
-        parameterStr.append("age_range,");
-        parameterStr.append("link,");
-        parameterStr.append("gender,");
-        parameterStr.append("locale,");
-        parameterStr.append("picture.type(large),");
-        parameterStr.append("timezone,");
-        parameterStr.append("updated_time,");
-        parameterStr.append("birthday,");
-        parameterStr.append("albums{photos.limit(6){webp_images},name},");
-        parameterStr.append("friends,");
-        parameterStr.append("location");
-        parameters.putString("fields", parameterStr.toString());
 
-        return parameters;
-    }
-
-    private List<String> getFacebookPermission() {
-        return Arrays.asList(
-                "email",
-                "public_profile",
-                "user_birthday",
-                "user_friends",
-                "user_location",
-                "user_photos"
-        );
-    }
 }

@@ -155,6 +155,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SIGN_IN_REQUEST_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            hideProgress();
             handleGoogleSignInResult(result);
         } else if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -164,18 +165,17 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            KLog.json("HPtes google", JsonUtil.toString(account));
             User user = User.createWithGoogle(account);
             if (user != null)
                 if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
-
                     mPresenter.requestLogin(user);
                 } else {
-                    toast("Error, GID null");
+                    StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
                 }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
             KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
+            StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
         }
     }
 
@@ -295,6 +295,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
     private void requestGoogleLogin() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        showProgress();
         startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
     }
 
@@ -331,7 +332,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
     private void initFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        fbLoginButton.setReadPermissions(getFacebookPermission());
+        fbLoginButton.setReadPermissions(StaticGroup.getFacebookPermission());
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -366,11 +367,12 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                                     hideProgress();
                                     if (response.getError() != null) {
                                         KLog.v("LoginActivity", "GraphRequest getError : " + response.getError().toString());
+                                        StaticGroup.showCommonErrorDialog(LoginActivity.this, response.getError().getErrorCode());
                                     }
                                 }
                             }
                         });
-                        request.setParameters(getFacebookFields());
+                        request.setParameters(StaticGroup.getFacebookFields());
                         request.executeAsync();
                     }
                 } else {
@@ -394,26 +396,5 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 }
             }
         });
-    }
-
-    private Bundle getFacebookFields() {
-        Bundle parameters = new Bundle();
-        StringBuilder parameterStr = new StringBuilder();
-        parameterStr.append("email,");
-        parameterStr.append("id,");
-        parameterStr.append("cover,");
-        parameterStr.append("name,");
-        parameterStr.append("first_name,");
-        parameterStr.append("last_name");
-        parameters.putString("fields", parameterStr.toString());
-
-        return parameters;
-    }
-
-    private List<String> getFacebookPermission() {
-        return Arrays.asList(
-                "email",
-                "public_profile"
-        );
     }
 }

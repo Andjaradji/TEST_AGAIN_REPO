@@ -96,10 +96,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         setContentView(mContentViewId);
 
-        appBarLayout =  findViewById(R.id.app_bar);
-        toolbar =  findViewById(R.id.toolbar);
+        appBarLayout = findViewById(R.id.app_bar);
+        toolbar = findViewById(R.id.toolbar);
 
         mLoadingView = findViewById(R.id.av_indicator_view);
+        if (mLoadingView != null) {
+            mLoadingView.setOnClickListener(this);
+        }
 
         handleStatusView();
         handleAppBarLayoutOffset();
@@ -323,7 +326,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void showProgress() {
-        if(withLoadingAnim){
+        if (withLoadingAnim) {
             try {
                 findViewById(R.id.av_indicator_container).setVisibility(View.VISIBLE);
                 if (mLoadingView != null && !isFinishing()) {
@@ -338,7 +341,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void hideProgress() {
-        if(withLoadingAnim){
+        if (withLoadingAnim) {
             try {
                 findViewById(R.id.av_indicator_container).setVisibility(View.GONE);
                 if (mLoadingView != null && !isFinishing()) {

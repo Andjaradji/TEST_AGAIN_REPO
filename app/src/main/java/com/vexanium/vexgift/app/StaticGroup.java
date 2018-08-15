@@ -18,6 +18,7 @@ import android.graphics.BitmapFactory;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Telephony;
 import android.support.annotation.IntRange;
@@ -49,6 +50,7 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeoutException;
@@ -701,5 +703,26 @@ public class StaticGroup {
         String title = context.getString(R.string.cm_dialog_all_error_title);
         String desc = String.format(context.getString(R.string.cm_dialog_all_error_desc), String.valueOf(code));
         showCommonErrorDialog(context, title, desc);
+    }
+
+    public static Bundle getFacebookFields() {
+        Bundle parameters = new Bundle();
+        StringBuilder parameterStr = new StringBuilder();
+        parameterStr.append("email,");
+        parameterStr.append("id,");
+        parameterStr.append("cover,");
+        parameterStr.append("name,");
+        parameterStr.append("first_name,");
+        parameterStr.append("last_name");
+        parameters.putString("fields", parameterStr.toString());
+
+        return parameters;
+    }
+
+    public static List<String> getFacebookPermission() {
+        return Arrays.asList(
+                "email",
+                "public_profile"
+        );
     }
 }
