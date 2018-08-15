@@ -120,7 +120,7 @@ public class TokenHistoryFragment extends BaseFragment {
 
             @Override
             public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setBnWImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
+                holder.setBnWImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.voucher);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 if (item.getAvail() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");

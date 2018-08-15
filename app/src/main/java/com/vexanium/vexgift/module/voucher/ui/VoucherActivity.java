@@ -198,16 +198,12 @@ public class VoucherActivity extends BaseActivity {
     }
 
     private void updateData(){
+        mRefreshLayout.setEnabled(false);
+        mRefreshLayout.setRefreshing(false);
         if(mLoadVoucherAsync!= null && mLoadVoucherAsync.getStatus() != AsyncTask.Status.RUNNING){
             mLoadVoucherAsync = new LoadVoucherAsync();
             mLoadVoucherAsync.execute();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(false);
-            }
-        },3000);
     }
 
     private void setFilterItem(@IdRes int tagview, @IdRes int addButton, final String listType) {
@@ -257,7 +253,7 @@ public class VoucherActivity extends BaseActivity {
 
                 @Override
                 public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                    holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                    holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
                     holder.setText(R.id.tv_coupon_title, item.getTitle());
                     if (item.getQtyAvailable() == 0)
                         holder.setText(R.id.tv_banner_quota, "Out of stock");
@@ -372,6 +368,7 @@ public class VoucherActivity extends BaseActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    mRefreshLayout.setEnabled(true);
                     mAvi.smoothToHide();
                     if(vouchers != null){
                         data = vouchers;

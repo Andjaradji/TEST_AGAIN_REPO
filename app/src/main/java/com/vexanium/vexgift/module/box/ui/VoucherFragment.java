@@ -151,7 +151,7 @@ public class VoucherFragment extends BaseFragment {
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setViewInvisible(R.id.ll_qty, true);

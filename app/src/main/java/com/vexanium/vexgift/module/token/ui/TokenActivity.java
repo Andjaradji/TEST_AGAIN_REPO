@@ -238,7 +238,7 @@ public class TokenActivity extends BaseActivity {
 
             @Override
             public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.placeholder);
+                holder.setImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.voucher_placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
                 if (item.getAvail() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");

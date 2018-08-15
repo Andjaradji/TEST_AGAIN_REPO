@@ -400,7 +400,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 if (item.getQtyAvailable() == 0)
                     holder.setText(R.id.tv_banner_quota, "Out of stock");
@@ -454,7 +454,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.voucher_placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 if (item.getQtyAvailable() == 0)
