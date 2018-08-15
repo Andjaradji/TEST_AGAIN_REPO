@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/interval_main"
-    android:paddingRight="@dimen/interval_main"
+    android:paddingLeft="@dimen/fill_kyc_padding"
+    android:paddingRight="@dimen/fill_kyc_padding"
     android:paddingTop="@dimen/interval_big">
 
     <TextView

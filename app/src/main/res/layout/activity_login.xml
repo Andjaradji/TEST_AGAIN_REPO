@@ -3,15 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".module.login.ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/v_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg">
+
+    </ImageView>
 
     <LinearLayout
         android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
         android:orientation="vertical"
         android:visibility="visible">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -73,12 +83,9 @@
             android:layout_marginBottom="@dimen/interval_content"
             android:layout_marginLeft="@dimen/interval_medium"
             android:layout_marginRight="@dimen/interval_medium"
-            android:background="@drawable/shape_white_border_button">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@drawable/shape_ripple_transparent"></View>
+            android:paddingTop="@dimen/interval_main"
+            android:paddingBottom="@dimen/interval_main"
+            android:background="@drawable/shape_ripple_white_button">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -305,5 +312,23 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_avi_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_centerInParent="true"
+            app:indicatorName="TriangleSkewSpinIndicator"
+            app:indicatorColor="@color/material_white" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -78,6 +78,12 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     protected void initView() {
         mPresenter = new IVexpointPresenterImpl(this);
         user = User.getCurrentUser(this);
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         verifTimeLeft = Calendar.getInstance();
 
         updateView();

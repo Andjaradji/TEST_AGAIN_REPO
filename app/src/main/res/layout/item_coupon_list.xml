@@ -13,8 +13,8 @@
     <ImageView
         android:id="@+id/iv_coupon_image"
         android:layout_width="match_parent"
-        android:layout_height="147dp"
         android:contentDescription="@string/image_content_description"
+        android:layout_height="@dimen/voucher_image_height"
         android:scaleType="centerCrop"
         android:transitionName="voucher_image" />
 
@@ -29,7 +29,7 @@
     <RelativeLayout
         android:id="@+id/rl_banner_info"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="@dimen/voucher_text_container_height"
         android:layout_below="@id/iv_coupon_image"
         android:layout_marginBottom="6dp"
         android:orientation="vertical"
@@ -95,7 +95,7 @@
     <LinearLayout
         android:id="@+id/ad_list_item_fb_frame_image"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="@dimen/voucher_frame_height"
         android:background="@drawable/frame_ad_item"
         android:orientation="horizontal" />
 

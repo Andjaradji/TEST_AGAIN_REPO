@@ -3,7 +3,9 @@ package com.vexanium.vexgift.module.box.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +59,7 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
 
     private ArrayList<VoucherCode> data;
     private BaseRecyclerAdapter<VoucherCode> mAdapter;
+    SwipeRefreshLayout mRefreshLayout;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
 
@@ -79,6 +82,7 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
             context = getActivity();
         }
 
+        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -101,6 +105,29 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
                 mAdapter.notifyDataSetChanged();
             }
         });
+
+        // Setup refresh listener which triggers new data loading
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+                updateData();//update data here
+
+            }
+        });
+
+    }
+
+    private void updateData(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(false);
+            }
+        },3000);
     }
 
     @Override

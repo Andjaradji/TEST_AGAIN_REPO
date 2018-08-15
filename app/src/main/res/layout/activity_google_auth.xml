@@ -107,7 +107,9 @@
         android:layout_marginBottom="@dimen/interval_content"
         android:layout_marginLeft="@dimen/interval_medium"
         android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_white_border_button"
+        android:background="@drawable/shape_ripple_white_button"
+        android:paddingTop="@dimen/interval_main"
+        android:paddingBottom="@dimen/interval_main"
         android:gravity="center_horizontal">
 
         <TextView

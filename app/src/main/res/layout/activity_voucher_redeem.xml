@@ -22,7 +22,7 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/voucher_detail_heading_height"
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/material_white"
                 app:expandedTitleGravity="top"
@@ -32,7 +32,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="@dimen/voucher_detail_heading_height"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7">
@@ -40,7 +40,7 @@
                     <ImageView
                         android:id="@+id/iv_coupon_image"
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="@dimen/voucher_detail_heading_height"
                         android:transitionName="voucher_image" />
 
                     <View
@@ -291,14 +291,17 @@
                         android:layout_marginRight="@dimen/interval_main"
                         android:layout_marginStart="@dimen/interval_main"
                         android:background="@drawable/shape_voucher_availability"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="@dimen/interval_main">
+                        android:gravity="left|center_vertical">
 
                         <EditText
                             android:id="@+id/et_merchant_code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/transparent"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:hint="@string/coupon_redeem_voucher_code_field"
                             android:textSize="@dimen/text_small_medium" />
                     </LinearLayout>

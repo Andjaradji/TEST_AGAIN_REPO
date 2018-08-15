@@ -121,7 +121,7 @@ public class Voucher implements Serializable {
     public String getExpiredDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(validUntil);
-        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMM dd yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
         return dateFormat.format(calendar.getTime());
@@ -140,7 +140,7 @@ public class Voucher implements Serializable {
     public String getRedeemedDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(redeemedTime);
-        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMM dd yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
         return dateFormat.format(calendar.getTime());

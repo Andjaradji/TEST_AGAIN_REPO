@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -12,6 +13,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +43,7 @@ import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.ui.adapter.FilterAdapter;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
+import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -46,6 +51,7 @@ import com.vexanium.vexgift.widget.LockableScrollView;
 import com.vexanium.vexgift.widget.select.MultiSelectActivity;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,6 +69,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     ImageView mIvError;
     TextView mTvErrorHead,mTvErrorBody;
 
+    AVLoadingIndicatorView mAvi;
     SwipeRefreshLayout mRefreshLayout;
     RecyclerView mRecyclerview;
     SlidingUpPanelLayout mSlidePanel;
@@ -70,6 +77,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     LockableScrollView mPanelScrollview;
 
     SortFilterCondition sortFilterCondition;
+    BaseRecyclerAdapter<Voucher> mAdapter;
+
+    private LoadVoucherAsync mLoadVoucherAsync;
+    private Animation mFadeIn;
 
     User user;
 
@@ -83,6 +94,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mPresenter = new IVoucherPresenterImpl(this);
         user = User.getCurrentUser(this);
 
+        mAvi = (AVLoadingIndicatorView) findViewById(R.id.avi);
         mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_refresh);
         mSlidePanel = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mPanelScrollview = (LockableScrollView) findViewById(R.id.voucher_scrollview);
@@ -98,15 +110,15 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         layoutListManager.setItemPrefetchEnabled(false);
 
         sortFilterCondition = new SortFilterCondition();
-        Random random = new Random();
-//        data = FixtureData.giftVoucherVoucherResponse();
 
-//        data.addAll(data);
-        //setVoucherList(data);
+//        data = TableContentDaoUtil.getInstance().getVouchers() ;
+//        if(data==null) data = new ArrayList<>();
+//        setVoucherList(data);
 
-        data = TableContentDaoUtil.getInstance().getVouchers() ;
-        if(data==null) data = new ArrayList<>();
-        setVoucherList(data);
+        mFadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
+
+        mLoadVoucherAsync = new LoadVoucherAsync();
+        mLoadVoucherAsync.execute();
 
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.token_open_filter_button).setOnClickListener(this);
@@ -207,6 +219,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     }
 
     private void updateData(){
+        if(mLoadVoucherAsync!= null && mLoadVoucherAsync.getStatus() != AsyncTask.Status.RUNNING){
+            mLoadVoucherAsync = new LoadVoucherAsync();
+            mLoadVoucherAsync.execute();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -252,12 +268,13 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
     public void setVoucherList(final ArrayList<Voucher> data) {
 
-        BaseRecyclerAdapter<Voucher> mAdapter = new BaseRecyclerAdapter<Voucher>(this, data, layoutListManager) {
+        if(mAdapter == null) {
+            mAdapter = new BaseRecyclerAdapter<Voucher>(this, data, layoutListManager) {
 
-            @Override
-            public int getItemLayoutId(int viewType) {
-                return R.layout.item_coupon_list;
-            }
+                @Override
+                public int getItemLayoutId(int viewType) {
+                    return R.layout.item_coupon_list;
+                }
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
@@ -277,33 +294,36 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
+                        StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
-            }
-        };
-        mAdapter.setHasStableIds(true);
-        mRecyclerview.setLayoutManager(layoutListManager);
-        mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this, 16)));
-        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerview.getItemAnimator().setAddDuration(250);
-        mRecyclerview.getItemAnimator().setMoveDuration(250);
-        mRecyclerview.getItemAnimator().setChangeDuration(250);
-        mRecyclerview.getItemAnimator().setRemoveDuration(250);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setItemViewCacheSize(30);
-        mRecyclerview.setDrawingCacheEnabled(true);
-        mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mRecyclerview.setAdapter(mAdapter);
-        mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                App.setTextViewStyle(mRecyclerview);
-            }
-        });
+                }
+            };
+            mAdapter.setHasStableIds(true);
+            mRecyclerview.setLayoutManager(layoutListManager);
+            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this, 16)));
+            mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerview.getItemAnimator().setAddDuration(250);
+            mRecyclerview.getItemAnimator().setMoveDuration(250);
+            mRecyclerview.getItemAnimator().setChangeDuration(250);
+            mRecyclerview.getItemAnimator().setRemoveDuration(250);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setItemViewCacheSize(30);
+            mRecyclerview.setDrawingCacheEnabled(true);
+            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            mRecyclerview.setAdapter(mAdapter);
+            mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    App.setTextViewStyle(mRecyclerview);
+                }
+            });
+        }else {
+            mAdapter.setData(data);
+        }
 
         if(data.size() <= 0){
             mErrorView.setVisibility(View.VISIBLE);
@@ -313,6 +333,14 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
             mRecyclerview.setVisibility(View.GONE);
             findViewById(R.id.token_open_filter_button).setVisibility(View.GONE);
+        }else{
+            mErrorView.setVisibility(View.GONE);
+
+            if(mRecyclerview.getVisibility() == View.GONE) {
+                mRecyclerview.setVisibility(View.VISIBLE);
+                mRecyclerview.startAnimation(mFadeIn);
+            }
+            findViewById(R.id.token_open_filter_button).setVisibility(View.VISIBLE);
         }
     }
 
@@ -346,6 +374,43 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
             setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
             setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
+        }
+    }
+
+    private class LoadVoucherAsync extends AsyncTask<Void,Void,ArrayList<Voucher>>{
+
+        @Override
+        protected void onPreExecute() {
+            data = new ArrayList<Voucher>();
+            mRecyclerview.setVisibility(View.GONE);
+            mAvi.smoothToShow();
+        }
+
+        @Override
+        protected ArrayList<Voucher> doInBackground(Void... strings) {
+            ArrayList<Voucher> data = new ArrayList<>();
+            data = TableContentDaoUtil.getInstance().getVouchers();
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(final ArrayList<Voucher> vouchers) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mAvi.smoothToHide();
+                    if(vouchers != null){
+                        data = vouchers;
+                        setVoucherList(data);
+                    }
+                }
+            },2000);
+
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
         }
     }
 }
