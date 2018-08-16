@@ -241,7 +241,7 @@ public class VoucherRedeemActivity extends BaseActivity {
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
-                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.voucher_placeholder);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucher.getRedeemedDate());
@@ -255,7 +255,7 @@ public class VoucherRedeemActivity extends BaseActivity {
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
-                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.voucher_placeholder);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_expired));
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucher.getExpiredDate());
