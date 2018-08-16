@@ -53,15 +53,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.wang.avi.AVLoadingIndicatorView
-                        android:id="@+id/avi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/AVLoadingIndicatorView"
-                        android:visibility="gone"
-                        android:layout_centerInParent="true"
-                        app:indicatorName="TriangleSkewSpinIndicator"
-                        app:indicatorColor="@color/vex_orange" />
+                    <include
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        layout="@layout/include_loading_view_white_bg">
+
+                    </include>
 
                     <include
                         android:layout_height="match_parent"

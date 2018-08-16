@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -50,7 +51,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
+@ActivityFragmentInject(contentViewId = R.layout.activity_voucher, withLoadingAnim = true)
 public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
     private ArrayList<Voucher> data;
     GridLayoutManager layoutListManager;
@@ -59,7 +60,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
 
-    AVLoadingIndicatorView mAvi;
+    //AVLoadingIndicatorView mAvi;
+    RelativeLayout mAviContainer;
     SwipeRefreshLayout mRefreshLayout;
     RecyclerView mRecyclerview;
     SlidingUpPanelLayout mSlidePanel;
@@ -70,7 +72,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     BaseRecyclerAdapter<Voucher> mAdapter;
 
     private LoadVoucherAsync mLoadVoucherAsync;
-    private Animation mFadeIn;
+    private Animation mFadeIn, mFadeOut;
 
     User user;
 
@@ -84,7 +86,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mPresenter = new IVoucherPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mAvi =  findViewById(R.id.avi);
+        //mAvi =  findViewById(R.id.avi);
+        mAviContainer = findViewById(R.id.av_indicator_container);
         mRefreshLayout =  findViewById(R.id.srl_refresh);
         mSlidePanel =  findViewById(R.id.sliding_layout);
         mPanelScrollview =  findViewById(R.id.voucher_scrollview);
@@ -102,6 +105,23 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         sortFilterCondition = new SortFilterCondition();
 
         mFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);
+        mFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out_anim);
+        mFadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mAviContainer.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         mLoadVoucherAsync = new LoadVoucherAsync();
         mLoadVoucherAsync.execute();
@@ -361,7 +381,9 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         protected void onPreExecute() {
             data = new ArrayList<>();
             mRecyclerview.setVisibility(View.GONE);
-            mAvi.smoothToShow();
+            //mAvi.smoothToShow();
+            mAviContainer.setVisibility(View.VISIBLE);
+            mAviContainer.startAnimation(mFadeIn);
         }
 
         @Override
@@ -376,7 +398,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                 @Override
                 public void run() {
                     mRefreshLayout.setEnabled(true);
-                    mAvi.smoothToHide();
+                    //mAvi.smoothToHide();
+                    mAviContainer.startAnimation(mFadeOut);
                     if (vouchers != null) {
                         data = vouchers;
                         setVoucherList(data);

@@ -66,5 +66,9 @@
         <item name="android:windowExitAnimation">@anim/fade_out_anim</item>
     </style>
 
+    <style name="AppTheme.ShareButton"  parent="AppTheme">
+        <item name="android:padding">8dp</item>
+    </style>
+
 
 </resources>
