@@ -35,18 +35,18 @@ public class Voucher implements Serializable {
     private PaymentType paymentType;
 
     /*
-    * Free
-    * Pay with Vex Point
-    *
-    */
+     * Free
+     * Pay with Vex Point
+     *
+     */
 
     @JsonProperty("voucher_type")
     private MemberType memberType;
 
     /*
-    * All
-    * Premium
-    * Non Premium*/
+     * All
+     * Premium
+     * Non Premium*/
 
     @JsonProperty("price")
     private int price;
@@ -121,7 +121,7 @@ public class Voucher implements Serializable {
     public String getExpiredDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(validUntil);
-        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMMM dd, yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
         return dateFormat.format(calendar.getTime());
@@ -130,7 +130,7 @@ public class Voucher implements Serializable {
     public String getCreatedDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(validFrom);
-        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMM dd yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
         return dateFormat.format(calendar.getTime());
@@ -140,7 +140,7 @@ public class Voucher implements Serializable {
     public String getRedeemedDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(redeemedTime);
-        String sDate = (StaticGroup.isInIDLocale()?"dd MMM yyyy":"MMMM dd, yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
         return dateFormat.format(calendar.getTime());
@@ -190,6 +190,12 @@ public class Voucher implements Serializable {
         return memberType;
     }
 
+    public boolean isPremium() {
+        if (memberType == null) return false;
+        else
+            return memberType.getId() == 2;
+    }
+
     public void setMemberType(MemberType memberType) {
         this.memberType = memberType;
     }
@@ -220,7 +226,7 @@ public class Voucher implements Serializable {
 
     public long getValidUntil() {
         Random random = new Random();
-        if(System.currentTimeMillis() > validUntil){
+        if (System.currentTimeMillis() > validUntil) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30));
             validUntil = calendar.getTimeInMillis();

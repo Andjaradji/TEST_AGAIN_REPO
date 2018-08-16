@@ -8,7 +8,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MemberType implements Serializable{
     @JsonProperty("id")
-    private String id;
+    private int id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("created_at")
@@ -16,11 +16,11 @@ public class MemberType implements Serializable{
     @JsonProperty("updated_at")
     private String updatedAt;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

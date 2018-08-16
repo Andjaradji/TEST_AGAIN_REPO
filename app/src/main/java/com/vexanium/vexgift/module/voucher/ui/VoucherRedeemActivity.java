@@ -86,16 +86,16 @@ public class VoucherRedeemActivity extends BaseActivity {
             }
         });
         if (voucher != null) {
-            Vendor vendor = voucher.getVendor();
+//            Vendor vendor = voucher.getVendor();
             ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.voucher_placeholder);
-            ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
-            ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
+//            ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
+//            ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
             ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
-            ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
-            toolbarLayout.setTitle(vendor.getName());
+//            ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
+//            toolbarLayout.setTitle(vendor.getName());
             if(voucher.isRedeemed){
                 state = VOUCHER_REDEEMED;
             }else if(voucher.getValidUntil() < System.currentTimeMillis()){

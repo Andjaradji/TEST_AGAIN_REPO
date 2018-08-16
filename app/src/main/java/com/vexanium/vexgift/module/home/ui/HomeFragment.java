@@ -48,6 +48,7 @@ import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
 import com.vexanium.vexgift.widget.discretescrollview.transform.Pivot;
@@ -57,6 +58,9 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
@@ -87,6 +91,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private User user;
     private Animation mFadeIn;
 
+    private Observable<Integer> mVexPointObservable;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -94,7 +100,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     @Override
     protected void initView(View fragmentRootView) {
         mPresenter = new IHomePresenterImpl(this);
-        random = new Random();
         user = User.getCurrentUser(this.getActivity());
         mFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_anim);
 
@@ -122,7 +127,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         User user = User.getCurrentUser(HomeFragment.this.getActivity());
         mVexPointText.setText(String.valueOf(user.getVexPoint()));
-
 
         vouchers = TableContentDaoUtil.getInstance().getVouchers();
         if (vouchers != null) {
@@ -172,6 +176,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         mPresenter.requestVoucherList(user.getId());
 
+        mVexPointObservable = RxBus.get().register(RxBus.KEY_VEXPOINT_UPDATE, Integer.class);
+        mVexPointObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vexpoint) {
+                mVexPointText.setText(String.valueOf(vexpoint));
+            }
+        });
     }
 
     @Override
@@ -207,6 +218,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mVexPointObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_VEXPOINT_UPDATE, mVexPointObservable);
+            mVexPointObservable = null;
+        }
+    }
+
+    @Override
     public void showProgress() {
 
     }
@@ -232,9 +252,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     public void loadData(ArrayList<Voucher> vouchers) {
-//        data = FixtureData.getRandomVoucherResponse(random.nextInt(3) + 2, true);
-//        hotVoucherList = FixtureData.getRandomVoucherResponse(5, true);
-//        brandList = FixtureData.getRandomBrand(random.nextInt(4) + 4);
         hotVoucherList = StaticGroup.getVouchers(vouchers, 4);
 
         ArrayList<Voucher> voucherArrayList = StaticGroup.getVouchers(vouchers, 3);
@@ -255,8 +272,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, voucherArrayList, "Best Voucher", "Today"));
         }
 
-        // TODO: 08/08/18 validate kyc status
-        data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
+        if (user.getKyc() == null)
+            data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
@@ -401,16 +418,28 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_bg : R.drawable.shape_price_bg);
 
                 if (item.getQtyAvailable() == 0) {
-                    holder.setText(R.id.tv_price, "Out of stock");
-                    holder.setBackgroundColor(R.id.ll_qty, R.color.material_black);
+                    holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
+                    holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
                 } else
-                    holder.setText(R.id.tv_price, item.getPrice() == 0 ? "Free" : item.getPrice() + " VP");
+                    holder.setText(R.id.tv_price, item.getPrice() == 0 ?
+                            getString(R.string.free) :
+                            String.format(getString(R.string.vex_point_format), item.getPrice()));
+
+                if (item.isPremium())
+                    holder.setViewGone(R.id.iv_premium, false);
+                else
+                    holder.setViewGone(R.id.iv_premium, true);
+
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        if (item.isPremium() && !user.isPremiumMember()) {
+                            StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                        } else {
+                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        }
                     }
                 });
 

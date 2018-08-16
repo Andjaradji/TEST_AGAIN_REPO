@@ -381,6 +381,7 @@
     <string name="about_us">ABOUT US</string>
 
     <string name="free">Free</string>
+    <string name="cancel">Cancel</string>
     <string name="vex_point_format">%d VP</string>
     <string name="out_of_stock">Out of stock</string>
 
@@ -395,6 +396,10 @@
     <string name="cm_dialog_all_error_title">Error Occurred</string>
     <string name="cm_dialog_all_error_desc">Oops, a problem occured!\nPlease try again in a few minutes.\nPlease contact our customer service, if the problem continue. \nerror code : %s</string>
     <string name="cm_dialog_all_error_bt">OK</string>
+
+    <string name="premium_dialog_title">Oops</string>
+    <string name="premium_dialog_desc">This voucher is for premium member only.\nGet the best of Voucher, Token Airdrop and also many other benefits : Go Premium</string>
+    <string name="premium_dialog_button">Go Premium</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

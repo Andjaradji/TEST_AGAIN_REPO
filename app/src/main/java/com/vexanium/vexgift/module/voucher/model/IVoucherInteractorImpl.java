@@ -19,5 +19,10 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
     public Subscription requestLocation(RequestCallback callback, int id) {
         return null;
     }
+
+    @Override
+    public Subscription requestRedeemVoucher(RequestCallback callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
+        return null;
+    }
 }
 

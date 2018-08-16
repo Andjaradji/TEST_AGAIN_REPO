@@ -25,7 +25,7 @@ public class UserVouchersResponse implements Serializable{
         if(voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes){
-            if(!(voucherCode.getIsClaimed() == 1 || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())){
+            if(!(voucherCode.getIsClaimed() == 1 && voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())){
                 activeVouchers.add(voucherCode);
             }
         }
@@ -34,15 +34,15 @@ public class UserVouchersResponse implements Serializable{
     }
 
     public ArrayList<VoucherCode> getInactiveVoucher(){
-        ArrayList<VoucherCode> activeVouchers = new ArrayList<>();
+        ArrayList<VoucherCode> inActiveVouchers = new ArrayList<>();
         if(voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes){
-            if(!(voucherCode.getIsClaimed() == 1 || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())){
-                activeVouchers.add(voucherCode);
+            if((voucherCode.getIsClaimed() == 1 || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())){
+                inActiveVouchers.add(voucherCode);
             }
         }
 
-        return activeVouchers;
+        return inActiveVouchers;
     }
 }

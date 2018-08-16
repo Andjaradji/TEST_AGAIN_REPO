@@ -69,6 +69,14 @@ public class User implements Serializable {
 
     @JsonProperty("authenticator_enable")
     private boolean authenticatorEnable;
+    
+    @JsonProperty("referral_code")
+    private String referralCode;
+    @JsonProperty("referral_code_registered")
+    private String referralCodeRegistered;
+
+    @JsonProperty("user_kyc")
+    private Kyc kyc;
 
     @JsonProperty("first_name")
     private String firstName;
@@ -94,6 +102,8 @@ public class User implements Serializable {
     private int timezone;
     @JsonProperty("birthday")
     private String birthDay;
+    @JsonProperty("premium_duration_left")
+    private long premiumDurationLeft;
 
     @JsonProperty("google_id_token")
     private String googleToken;
@@ -633,5 +643,41 @@ public class User implements Serializable {
 
     public boolean isLoginByFacebook() {
         return !TextUtils.isEmpty(getFacebookAccessToken());
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
+    public String getReferralCodeRegistered() {
+        return referralCodeRegistered;
+    }
+
+    public void setReferralCodeRegistered(String referralCodeRegistered) {
+        this.referralCodeRegistered = referralCodeRegistered;
+    }
+
+    public Kyc getKyc() {
+        return kyc;
+    }
+
+    public void setKyc(Kyc kyc) {
+        this.kyc = kyc;
+    }
+
+    public long getPremiumDurationLeft() {
+        return premiumDurationLeft;
+    }
+
+    public void setPremiumDurationLeft(long premiumDurationLeft) {
+        this.premiumDurationLeft = premiumDurationLeft;
+    }
+
+    public boolean isPremiumMember(){
+        return  premiumDurationLeft > 0;
     }
 }

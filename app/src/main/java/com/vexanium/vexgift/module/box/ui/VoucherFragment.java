@@ -21,15 +21,20 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
+import com.vexanium.vexgift.module.box.presenter.IBoxPresenterImpl;
 import com.vexanium.vexgift.module.box.view.IBoxView;
 import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -63,6 +68,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
     RecyclerView mRecyclerview;
 
     Observable<Integer> mVoucherObservable;
+    User user;
 
     public static VoucherFragment newInstance() {
         return new VoucherFragment();
@@ -77,11 +83,13 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
 
     @Override
     protected void initView(View fragmentRootView) {
+        mPresenter = new IBoxPresenterImpl(this);
+        user = User.getCurrentUser(this.getContext());
         if (getActivity() != null) {
             context = getActivity();
         }
 
-        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -98,50 +106,43 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
         mVoucherObservable.subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer i) {
-                KLog.v("VoucherFragment", "call: HPtes masuk");
                 loadData();
-                mAdapter.setData(data);
-                mAdapter.notifyDataSetChanged();
             }
         });
 
-        // Setup refresh listener which triggers new data loading
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                //fetchTimelineAsync(0);
-                updateData();//update data here
+                mPresenter.requestUserVoucherList(user.getId());
 
             }
         });
-    }
 
-    private void updateData(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(false);
-            }
-        },3000);
+        mPresenter.requestUserVoucherList(user.getId());
     }
-
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(data!= null){
+        mRefreshLayout.setRefreshing(false);
+        if (data != null) {
+            if (data instanceof UserVouchersResponse) {
+                UserVouchersResponse vouchersResponse = (UserVouchersResponse) data;
+                TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
 
-        }else if(errorResponse != null){
+                loadData();
+                mAdapter.setData(vouchersResponse.getActiveVoucher());
+                mAdapter.notifyDataSetChanged();
+            }
 
+        } else if (errorResponse != null) {
+            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse.getMeta().getStatus());
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mVoucherObservable != null){
+        if (mVoucherObservable != null) {
             RxBus.get().unregister(RxBus.KEY_BOX_HISTORY_ADDED, mVoucherObservable);
             mVoucherObservable = null;
         }

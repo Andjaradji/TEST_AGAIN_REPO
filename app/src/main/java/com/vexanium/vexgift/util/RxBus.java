@@ -20,6 +20,7 @@ import rx.subjects.Subject;
 public class RxBus {
     public static final String KEY_APP_FINISH = "key_app_finish";
     public static final String KEY_VP_RECORD_ADDED = "key_vp_record_added";
+    public static final String KEY_VEXPOINT_UPDATE = "key_vp_update";
     public static final String KEY_NOTIF_ADDED = "key_notif_added";
     public static final String KEY_BOX_HISTORY_ADDED = "key_box_history_added";
     public static final String KEY_BOX_CHANGED = "key_box_changed";

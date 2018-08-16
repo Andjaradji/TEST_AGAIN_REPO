@@ -84,10 +84,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mPresenter = new IVoucherPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mAvi =  findViewById(R.id.avi);
-        mRefreshLayout =  findViewById(R.id.srl_refresh);
-        mSlidePanel =  findViewById(R.id.sliding_layout);
-        mPanelScrollview =  findViewById(R.id.voucher_scrollview);
+        mAvi = findViewById(R.id.avi);
+        mRefreshLayout = findViewById(R.id.srl_refresh);
+        mSlidePanel = findViewById(R.id.sliding_layout);
+        mPanelScrollview = findViewById(R.id.voucher_scrollview);
         mDragView = findViewById(R.id.dragview);
         mRecyclerview = findViewById(R.id.recylerview);
 
@@ -271,11 +271,20 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                                 getString(R.string.free) :
                                 String.format(getString(R.string.vex_point_format), item.getPrice()));
 
+                    if (item.isPremium())
+                        holder.setViewGone(R.id.iv_premium, false);
+                    else
+                        holder.setViewGone(R.id.iv_premium, true);
+
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
+                            if (item.isPremium() && !user.isPremiumMember()) {
+                                StaticGroup.showPremiumMemberDialog(VoucherActivity.this);
+                            } else {
+                                StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
+                            }
                         }
                     });
                 }

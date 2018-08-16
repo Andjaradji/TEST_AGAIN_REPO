@@ -14,6 +14,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.MailTo;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Telephony;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -34,22 +36,34 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.http.HostType;
+import com.vexanium.vexgift.http.RetrofitException;
+import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.util.AlarmUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogDefaultConfig;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import rx.Subscriber;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
@@ -243,6 +257,41 @@ public class StaticGroup {
         builder.setContentIntent(pendingIntent);
         builder.setCategory(Notification.CATEGORY_MESSAGE);
         builder.setPriority(2);
+
+        NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
+
+        createNotificationChannel(context);
+
+        Notification notification = builder.build();
+        manager.cancel(ConstantGroup.ID_LOCAL_PUSH);
+        manager.notify(ConstantGroup.ID_LOCAL_PUSH, notification);
+
+//        try {
+//            if (SettingCondition.getCurrentSettingCondition(App.getContext()).isNotifSoundEnabled())
+//                StaticGroup.goSoundEffectSound(context, R.raw.twinkle);
+//        } catch (TimeoutException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public static void sendLocalNotificationWithBigImage(Context context, String title, String message, String url, Bitmap img) {
+        NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
+        Intent targetIntent;
+        //TODO  asign targetIntent
+//        if (!getRecentTaskInfo(context)) {
+//            targetIntent = new Intent(context, MainActivity.class);
+//            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        } else {
+        targetIntent = new Intent(context, MainActivity.class);
+        targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        }
+        targetIntent.putExtra("t_type", "noti");
+        targetIntent.putExtra("t_url", url);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent)
+                .setCategory(Notification.CATEGORY_MESSAGE)
+                .setPriority(2)
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img));
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
 
@@ -542,6 +591,90 @@ public class StaticGroup {
         return false;
     }
 
+    public static void sendReferrerData(String sess) {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        String parentCode = tpUtil.getString(TpUtil.KEY_REFERRER, "");
+
+        if (!TextUtils.isEmpty(parentCode)) {
+            try {
+                parentCode = URLDecoder.decode(parentCode, "UTF-8");
+                KLog.v("PARENT TEST", "referDbData.referrer SpUtil : " + parentCode);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+//        if (TextUtils.isEmpty(parentCode)) {
+//            TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem();
+//
+//            if (prefDb != null) {
+//                if (!TextUtils.isEmpty(prefDb.getParentCode())) {
+//                    KLog.v("PARENT TEST", "referDbData.referrer database : " + prefDb.getPageCode());
+//                    try {
+//                        parentCode = URLDecoder.decode(prefDb.getParentCode(), "UTF-8");
+//                        KLog.v("PARENT TEST", "referDbData.referrer decoded database : " + parentCode);
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+
+        if (!TextUtils.isEmpty(parentCode)) {
+            Uri uri = Uri.parse("?" + parentCode);
+            KLog.json(JsonUtil.toString(uri));
+            final String invCode = uri.getQueryParameter("i");
+            KLog.v("PARENT TEST", "send Referrer Data : " + parentCode + "     i=" + invCode);
+//            RetrofitManager.getInstance(HostType.COMMON_API).requestAddParent(sess, invCode)
+//                    .subscribe(new Subscriber<EmptyResponse>() {
+//                        @Override
+//                        public void onCompleted() {
+//                            KLog.v("PARENT TEST", "AutoReferral_onCompleted");
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            KLog.v("PARENT TEST", "AutoReferral_onError");
+//
+//                            try {
+//                                RetrofitException error = (RetrofitException) e;
+//                                HttpResponse response = error.getErrorBodyAs(HttpResponse.class);
+//                                if (response != null) {
+//                                    KLog.v("PARENT TEST", "Success 1");
+//                                    if (response.getMeta().getStatus() == 10101 || (response.getMeta().getStatus() == 200)) {
+//                                        KLog.v("PARENT TEST", "Success 2");
+////                                        TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem(true);
+////                                        prefDb.setParentCode("");
+////                                        TablePreferenceDaoUtil.getInstance().insertOrUpdateItem(prefDb);
+//
+//                                        TpUtil tpUtil = new TpUtil(App.getContext());
+//                                        tpUtil.put(TpUtil.KEY_REFERRER, "");
+//                                        tpUtil.remove(TpUtil.KEY_REFERRER);
+//                                    }
+//                                }
+//                            } catch (Exception ex) {
+//                                KLog.v("HPtes undefined ");
+//                                ex.printStackTrace();
+//                            }
+//                            e.printStackTrace();
+//                        }
+//
+//                        @Override
+//                        public void onNext(EmptyResponse response) {
+//                            KLog.v("PARENT TEST", "AutoReferral_OK");
+//
+////                            TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem(true);
+////                            prefDb.setParentCode("");
+////                            TablePreferenceDaoUtil.getInstance().insertOrUpdateItem(prefDb);
+//
+//                            TpUtil tpUtil = new TpUtil(App.getContext());
+//                            tpUtil.put(TpUtil.KEY_REFERRER, "");
+//                            tpUtil.remove(TpUtil.KEY_REFERRER);
+//                        }
+//                    });
+        }
+    }
+
     public static boolean isScreenOn(Context context, boolean defaultValue) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (pm != null) {
@@ -677,6 +810,38 @@ public class StaticGroup {
 
         TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(arrayList));
         return arrayList;
+    }
+
+    public static void showPremiumMemberDialog(Context context, String title, String message) {
+        new VexDialog.Builder(context)
+                .optionType(DialogOptionType.OK)
+                .title(title)
+                .content(message)
+                .autoDismiss(true)
+                .show();
+    }
+
+    public static void showPremiumMemberDialog(final Context context) {
+        String title = context.getString(R.string.premium_dialog_title);
+        String desc = context.getString(R.string.premium_dialog_desc);
+        String pButton = context.getString(R.string.premium_dialog_button);
+        String nButton = context.getString(R.string.cancel);
+
+        new VexDialog.Builder(context)
+                .optionType(DialogOptionType.YES_NO)
+                .positiveText(pButton)
+                .negativeText(nButton)
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(context, PremiumMemberActivity.class);
+                        context.startActivity(intent);
+                    }
+                })
+                .title(title)
+                .content(desc)
+                .autoDismiss(true)
+                .show();
     }
 
     public static void showCommonErrorDialog(Context context, String title, String message) {

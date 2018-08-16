@@ -63,4 +63,6 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         Subscription subscription = mInteractor.requestLocation(this, userId);
         compositeSubscription.add(subscription);
     }
+
+
 }

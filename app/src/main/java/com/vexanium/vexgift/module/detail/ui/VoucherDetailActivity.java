@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.detail.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -14,6 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -165,7 +172,6 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            toast("HPtes");
             KLog.v("VoucherDetailActivity", "handleResult: " + JsonUtil.toString(data));
         } else if (errorResponse != null) {
             if (errorResponse.getMeta() != null) {
@@ -182,7 +188,7 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                             VoucherDetailActivity.this.finish();
-                            simulateGetVoucherSuccess();
+                            getVoucherSuccess();
                         }
                     })
                     .cancelable(false)
@@ -319,12 +325,24 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
 
         RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
         RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
+        RxBus.get().post(RxBus.KEY_VEXPOINT_UPDATE, 1);
 
-        String title = "Get Voucher Success";
-        String message = String.format("Congratulation! You got %s ", voucher.getTitle());
-        String url = "vexgift://notif";
+        final String title = "Get Voucher Success";
+        final String message = String.format("Congratulation! You got %s ", voucher.getTitle());
+        final String url = "vexgift://notif";
 
-        StaticGroup.sendLocalNotification(App.getContext(), title, message, url);
+        Glide.with(this)
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .format(DecodeFormat.PREFER_RGB_565))
+                .load(voucher.getThumbnail())
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        StaticGroup.sendLocalNotificationWithBigImage(App.getContext(), title, message, url, resource);
+                    }
+                });
 
     }
 
