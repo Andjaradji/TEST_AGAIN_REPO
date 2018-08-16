@@ -394,6 +394,12 @@
 
     <string name="premium_already_premium">Your account is already premium\nuntil %s.</string>
 
+    <string name="referral_invite_others">INVITE OTHERS</string>
+    <string name="referral_title">Get 10% of invited user\'s snapshot!</string>
+    <string name="referral_note">invited user\'s snapshot won\'t be deducted</string>
+    <string name="referral_invited_user">invited user(s)</string>
+    <string name="referral_share_on_sm">Share on Social Media</string>
+
 
 
     <string name="privacy_policy">PRIVACY POLICY</string>
