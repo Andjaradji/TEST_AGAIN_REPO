@@ -795,8 +795,19 @@ public class StaticGroup {
 
     public static ArrayList<Voucher> getVouchers(ArrayList<Voucher> origin, int count) {
         ArrayList<Voucher> vouchers = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            vouchers.add(origin.get(i));
+//        for (int i = 0; i < count; i++) {
+//            vouchers.add(origin.get(i));
+//        }
+        for(Voucher v : origin){
+            if(v.getVendor().getName().equalsIgnoreCase("KFC")){
+                vouchers.add(v);
+            }
+            if(v.getVendor().getName().equalsIgnoreCase("VexPizza")){
+                vouchers.add(v);
+            }
+            if(v.getVendor().getName().equalsIgnoreCase("Coffeelicious")){
+                vouchers.add(v);
+            }
         }
         return vouchers;
     }
