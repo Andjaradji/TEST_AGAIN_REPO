@@ -185,6 +185,26 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_online_voucher_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_online_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:layout_marginTop="@dimen/interval_small"
+                        android:tag="bold"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_medium" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/ll_voucher_inactived"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -213,6 +233,45 @@
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_countdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_medium"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:text="@string/coupon_redeem_availability"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <TextView
+                        android:id="@+id/tv_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/ll_voucher_active"
@@ -220,45 +279,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="visible">
-
-                    <LinearLayout
-                        android:id="@+id/ll_countdown"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_medium"
-                        android:layout_marginEnd="@dimen/interval_main"
-                        android:layout_marginLeft="@dimen/interval_main"
-                        android:layout_marginRight="@dimen/interval_main"
-                        android:layout_marginStart="@dimen/interval_main"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/interval_small"
-                            android:text="@string/coupon_redeem_availability"
-                            android:textColor="@color/material_black_text_color"
-                            android:textSize="@dimen/text_tiny" />
-
-                        <TextView
-                            android:id="@+id/tv_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tag="bold"
-                            android:textColor="@color/material_black_text_color"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tv_hour"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:tag="bold"
-                            android:textColor="@color/material_black_text_color"
-                            android:textSize="@dimen/text_title" />
-
-
-                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"

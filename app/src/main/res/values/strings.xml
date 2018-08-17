@@ -81,6 +81,7 @@
     <string name="voucher_online_info_title">Voucher Usage Guidance</string>
     <string name="voucher_online_button">Use Voucher</string>
     <string name="voucher_online_info_desc">To use this voucher, copy the code and use it in %s.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
+    <string name="voucher_3rd_party_info_desc">To use this voucher click claim button and give the code to the merchant\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
     <string name="home_filter_title">Filters</string>
     <string name="home_filter_reset">RESET</string>

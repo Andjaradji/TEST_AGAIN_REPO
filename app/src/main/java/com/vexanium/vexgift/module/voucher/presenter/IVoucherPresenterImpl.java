@@ -28,7 +28,7 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
             }
         }
     }
-    
+
 
     @Override
     public void requestError(HttpResponse response) {
@@ -77,4 +77,15 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         compositeSubscription.add(subscription);
     }
 
+    @Override
+    public void requestGetGiftCode(int userId, int voucherCodeId, String token) {
+        Subscription subscription = mInteractor.requestGetGiftCode(this, userId, voucherCodeId, token);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestClaimGiftCode(int userId, int voucherCodeId, String token) {
+        Subscription subscription = mInteractor.requestClaimGiftCode(this, userId, voucherCodeId, token);
+        compositeSubscription.add(subscription);
+    }
 }
