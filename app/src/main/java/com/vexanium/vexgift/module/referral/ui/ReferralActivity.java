@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.User;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_referral,toolbarTitle = R.string.referral_invite_others)
 public class ReferralActivity extends BaseActivity {
@@ -23,9 +24,11 @@ public class ReferralActivity extends BaseActivity {
     ImageView mIvCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
 
     String mShareText;
+    User user;
 
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
         mTvInvitedCount = findViewById(R.id.tv_referral_invited_user_count);
         mTvInviteLink = findViewById(R.id.tv_referral_link);
         mIvCopy = findViewById(R.id.iv_referral_copy);
@@ -44,7 +47,10 @@ public class ReferralActivity extends BaseActivity {
         mIvFb.setOnClickListener(this);
         mIvShare.setOnClickListener(this);
 
-        mShareText = "VexGift is a great wat to get free vouchers. Check it out here https://www.google.com";
+
+        mTvInviteLink.setText(user.getReferralCode());
+        mTvInvitedCount.setText(""+0);
+        mShareText = "VexGift is a great wat to get free vouchers. Check it out here "+user.getReferralCode();
     }
 
     @Override

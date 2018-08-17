@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -449,7 +450,7 @@ public class RetrofitManager {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
-
+        Log.e("idkey",getApiKey());
         return mOtherService.getPremiumList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumListResponse>>());
     }
 

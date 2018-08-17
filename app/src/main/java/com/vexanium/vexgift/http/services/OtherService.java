@@ -20,8 +20,9 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+
     @FormUrlEncoded
-    @POST("premium-member/get")
+    @POST("premium-member-duration")
     Observable<HttpResponse<PremiumListResponse>> getPremiumList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,

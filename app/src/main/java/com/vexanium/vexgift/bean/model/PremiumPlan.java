@@ -8,29 +8,17 @@ public class PremiumPlan implements Serializable{
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("user_id")
-    private int userId;
+    @JsonProperty("name")
+    private String name;
 
     @JsonProperty("duration")
     private int duration;
 
-    @JsonProperty("paid_amount")
-    private int paidAmount;
+    @JsonProperty("price")
+    private int price;
 
-    @JsonProperty("paid_currency")
-    private String paidCurrency;
-
-    @JsonProperty("paid_to")
-    private String paidTo;
-
-    @JsonProperty("paid_before")
-    private int paidBefore;
-
-    @JsonProperty("status")
-    private int status;
-
-    @JsonProperty("origin")
-    private String origin;
+    @JsonProperty("currency")
+    private String currency;
 
     @JsonProperty("created_at")
     private String createdAt;
@@ -46,12 +34,12 @@ public class PremiumPlan implements Serializable{
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getDuration() {
@@ -62,52 +50,20 @@ public class PremiumPlan implements Serializable{
         this.duration = duration;
     }
 
-    public int getPaidAmount() {
-        return paidAmount;
+    public int getPrice() {
+        return price;
     }
 
-    public void setPaidAmount(int paidAmount) {
-        this.paidAmount = paidAmount;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public String getPaidCurrency() {
-        return paidCurrency;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setPaidCurrency(String paidCurrency) {
-        this.paidCurrency = paidCurrency;
-    }
-
-    public String getPaidTo() {
-        return paidTo;
-    }
-
-    public void setPaidTo(String paidTo) {
-        this.paidTo = paidTo;
-    }
-
-    public int getPaidBefore() {
-        return paidBefore;
-    }
-
-    public void setPaidBefore(int paidBefore) {
-        this.paidBefore = paidBefore;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getCreatedAt() {

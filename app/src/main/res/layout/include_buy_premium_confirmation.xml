@@ -26,7 +26,6 @@
 
         <TextView
             android:id="@+id/tv_premium_confirmation_day"
-            android:text="@string/premium_buy_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
