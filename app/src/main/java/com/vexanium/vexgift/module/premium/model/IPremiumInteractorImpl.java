@@ -27,7 +27,6 @@ public class IPremiumInteractorImpl implements IPremiumInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
-
     /*@Override
     public Subscription submitKyc(RequestCallback callback, Kyc kyc) {
         return RetrofitManager.getInstance(HostType.COMMON_API).submitKyc(kyc).compose(RxUtil.<Kyc>handleResult())
