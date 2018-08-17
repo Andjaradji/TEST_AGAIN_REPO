@@ -22,6 +22,7 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
@@ -54,9 +55,12 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     RelativeLayout mRlBecomePremiumTopContainer;
     LinearLayout mLlAlreadyPremiumTopContainer, mLlBuyPremiumContainer;
 
+    User user;
+
     @Override
     protected void initView() {
         mPresenter = new IPremiumPresenterImpl(this);
+        user = User.getCurrentUser(this);
 
         mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
@@ -95,11 +99,12 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mRvPremiumPlan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         ArrayList<PremiumPlan> itemList = new ArrayList<>();
-        itemList.add(new PremiumPlan(200,1));
+        /*itemList.add(new PremiumPlan(200,1));
         itemList.add(new PremiumPlan(150,7));
-        itemList.add(new PremiumPlan(100,30));
+        itemList.add(new PremiumPlan(100,30));*/
 
-        PremiumPlanAdapter adapter = new PremiumPlanAdapter(this,this, itemList);
+        loadPremiumPlanList();
+        PremiumPlanAdapter adapter = new PremiumPlanAdapter(this,this);
         mRvPremiumPlan.setAdapter(adapter);
 
         try {
@@ -174,6 +179,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    private void loadPremiumPlanList(){
+        mPresenter.requestPremiumList(user.getId());
+    }
 
     private void updateView(int test) {
         if(test == 0){
@@ -200,9 +208,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         final TextView tvVex = view.findViewById(R.id.tv_premium_confirmation_vex);
         final TextView tvTotal = view.findViewById(R.id.tv_premium_confirmation_total_amount);
 
-        tvDay.setText(data.getDay()+ " "+getString(R.string.premium_buy_day));
-        tvVex.setText(data.getPrice()+ " "+getString(R.string.premium_buy_vex));
-        tvTotal.setText(data.getPrice()*data.getDay()+ " VEX");
+        int day = data.getDuration()/24/3600;
+
+        tvDay.setText(day+ " "+getString(R.string.premium_buy_day));
+        tvVex.setText(data.getPaidAmount()+ " "+getString(R.string.premium_buy_vex));
+        tvTotal.setText(data.getPaidAmount()*day+ " VEX");
 
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)

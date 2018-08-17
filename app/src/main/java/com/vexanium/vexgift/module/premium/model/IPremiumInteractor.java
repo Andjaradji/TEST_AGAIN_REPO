@@ -6,5 +6,5 @@ import com.vexanium.vexgift.callback.RequestCallback;
 import rx.Subscription;
 
 public interface IPremiumInteractor<T> {
-    Subscription requestKyc(RequestCallback<T> callback, int id);
+    Subscription requestPremiumList(RequestCallback<T> callback, int userId);
 }

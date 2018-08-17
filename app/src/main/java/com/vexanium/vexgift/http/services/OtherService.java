@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
 import java.util.Map;
@@ -18,5 +19,13 @@ public interface OtherService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("premium-member/get")
+    Observable<HttpResponse<PremiumListResponse>> getPremiumList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 
 }
