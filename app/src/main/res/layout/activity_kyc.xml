@@ -388,5 +388,6 @@
         </LinearLayout>
     </ScrollView>
 
+    <include layout="@layout/include_loading_view"/>
 
 </RelativeLayout>

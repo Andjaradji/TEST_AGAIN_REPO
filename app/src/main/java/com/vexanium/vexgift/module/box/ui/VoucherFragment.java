@@ -172,7 +172,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherDetailActivity(voucher, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -210,7 +210,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
         }
     }
 
-    private void goToVoucherDetailActivity(Voucher voucherResponse, ImageView ivVoucher) {
+    private void goToVoucherRedeemActivity(VoucherCode voucherResponse, ImageView ivVoucher) {
         Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
         ActivityOptionsCompat options = ActivityOptionsCompat.

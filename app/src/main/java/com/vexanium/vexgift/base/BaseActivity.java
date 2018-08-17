@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     private boolean withLoadingAnim = false;
     public AVLoadingIndicatorView mLoadingView;
+    public RelativeLayout mLoadingContainerView;
 
     public BaseActivity() {
         super();
@@ -102,6 +104,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mLoadingView = findViewById(R.id.av_indicator_view);
         if (mLoadingView != null) {
             mLoadingView.setOnClickListener(this);
+        }
+        mLoadingContainerView = findViewById(R.id.av_indicator_container);
+        if (mLoadingContainerView != null) {
+            mLoadingContainerView.setOnClickListener(this);
         }
 
         handleStatusView();
@@ -328,7 +334,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void showProgress() {
         if (withLoadingAnim) {
             try {
-                findViewById(R.id.av_indicator_container).setVisibility(View.VISIBLE);
+                mLoadingContainerView.setVisibility(View.VISIBLE);
                 if (mLoadingView != null && !isFinishing()) {
                     mLoadingView.show();
                 }
@@ -343,7 +349,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void hideProgress() {
         if (withLoadingAnim) {
             try {
-                findViewById(R.id.av_indicator_container).setVisibility(View.GONE);
+                mLoadingContainerView.setVisibility(View.GONE);
                 if (mLoadingView != null && !isFinishing()) {
                     mLoadingView.hide();
                 }

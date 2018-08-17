@@ -20,11 +20,10 @@
         android:allowBackup="true"
         android:icon="@drawable/small_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -60,7 +59,7 @@
             android:name=".module.main.ui.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -128,7 +127,8 @@
         <activity
             android:name=".module.exchange.ui.ReceiveVoucherActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.vexpoint.ui.VexAddressActivity"
+        <activity
+            android:name=".module.vexpoint.ui.VexAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.exchange.ui.SendVoucherActivity"
@@ -149,16 +149,21 @@
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
 
+<<<<<<< HEAD
         <activity
             android:name=".module.register.ui.RegisterConfirmationActivity"
             android:screenOrientation="portrait" />
 
         <service
             android:name=".fcm.VexFirebaseMessagingService">
+=======
+        <service android:name=".fcm.VexFirebaseMessagingService">
+>>>>>>> master
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_logo_notif" />
@@ -166,6 +171,23 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/vex_orange" />
 
+        <receiver
+            android:name=".receiver.ReferrerReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.ConnReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="0">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".module.voucher.ui.VoucherWebViewActivity"></activity>
     </application>
 
 </manifest>

@@ -44,7 +44,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import java.io.File;
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_kyc, toolbarTitle = R.string.myprofile_kyc)
+@ActivityFragmentInject(contentViewId = R.layout.activity_kyc, toolbarTitle = R.string.myprofile_kyc, withLoadingAnim = true)
 public class KycActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
 
     String frontIdView;
@@ -203,7 +203,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         String idType = (String) ((Spinner) findViewById(R.id.sp_document_type)).getSelectedItem();
         String country = (String) ((Spinner) findViewById(R.id.sp_country)).getSelectedItem();
         String idNumber = ((TextInputEditText) findViewById(R.id.myprofile_id_number)).getText().toString();
-        CheckBox checkBox = ((CheckBox) findViewById(R.id.cb_addree));
+        CheckBox checkBox = (findViewById(R.id.cb_addree));
 
         boolean isValid = true;
         if (TextUtils.isEmpty(name)) {

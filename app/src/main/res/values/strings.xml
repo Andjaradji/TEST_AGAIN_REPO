@@ -77,7 +77,10 @@
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>
 
     <string name="merchant_info_title">Voucher Usage Guidance</string>
-    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system.\nIf there is any problem or suspicious activity please inform us at \nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
+    <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
+    <string name="voucher_online_info_title">Voucher Usage Guidance</string>
+    <string name="voucher_online_button">Use Voucher</string>
+    <string name="voucher_online_info_desc">To use this voucher, copy the code and use it in %s.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
     <string name="home_filter_title">Filters</string>
     <string name="home_filter_reset">RESET</string>
@@ -156,6 +159,18 @@
     <string name="get_voucher_need_g2fa_dialog_title">Google Authenticator is Required</string>
     <string name="get_voucher_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to get voucher</string>
     <string name="get_voucher_need_g2fa_dialog_button">Setup Now</string>
+
+    <string name="get_voucher_need_kyc_dialog_title">KYC is Required</string>
+    <string name="get_voucher_need_kyc_dialog_desc">KYC is Required to get the voucher. Please submit the Kyc first</string>
+    <string name="get_voucher_need_kyc_dialog_button">Submit Now</string>
+
+    <string name="vexaddress_need_kyc_dialog_title">KYC is Required</string>
+    <string name="vexaddress_need_kyc_dialog_desc">KYC is Required to submit Vex Address. Please submit the Kyc first</string>
+    <string name="vexaddress_need_kyc_dialog_button">Submit Now</string>
+
+    <string name="vexpoint_requirement_dialog_title">Requirement</string>
+    <string name="vexpoint_requirement_dialog_desc">Some requirements are needed to access this feature. Please complete below requirement first : </string>
+    <string name="vexpoint_requirement_dialog_button">OK</string>
 
     <string name="vexpoint_need_address_title">We Are Sorry</string>
     <string name="vexpoint_need_address_subtitle">Vex Address is Required</string>
@@ -407,13 +422,13 @@
     <string name="referral_share_on_sm">Share on Social Media</string>
 
 
-
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="term_and_condition">TERM &amp; CONDITION</string>
     <string name="about_us">ABOUT US</string>
 
     <string name="free">Free</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
     <string name="vex_point_format">%d VP</string>
     <string name="out_of_stock">Out of stock</string>
 

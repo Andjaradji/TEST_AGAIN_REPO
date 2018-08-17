@@ -287,7 +287,7 @@
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
-                        android:id="@+id/tv_coutry"
+                        android:id="@+id/tv_country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/material_black_text_color" />
@@ -427,6 +427,8 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <include layout="@layout/include_loading_view"/>
 
 
 </RelativeLayout>

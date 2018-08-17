@@ -154,7 +154,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 findViewById(R.id.ll_wait_address).setVisibility(View.VISIBLE);
 
                 final UserAddress userAddress = User.getUserAddress();
-                KLog.v("VexPointActivity", "updateView: HPtes masuk sini");
                 if (userAddress != null) {
                     verifTimeLeft.setTimeInMillis((userAddress.getRemainingTime() * 1000) + Calendar.getInstance().getTimeInMillis());
                     ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());

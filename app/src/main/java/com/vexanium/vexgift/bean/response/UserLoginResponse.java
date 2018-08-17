@@ -15,6 +15,6 @@ public class UserLoginResponse implements Serializable {
     @JsonProperty("user")
     public User user;
     @JsonProperty("is_password_set")
-    public Boolean isPasswordSet;
+    public Boolean isPasswordSet = true;
 
 }

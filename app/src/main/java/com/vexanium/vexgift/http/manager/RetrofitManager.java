@@ -15,6 +15,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
@@ -425,6 +426,18 @@ public class RetrofitManager {
         params.put("token", token);
 
         return mVoucherService.requestBuyVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId){
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+        params.put("vendorCode", vendorCode);
+        params.put("voucherCode", voucherCode);
+        params.put("voucher_id", voucherId);
+
+        return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
 }

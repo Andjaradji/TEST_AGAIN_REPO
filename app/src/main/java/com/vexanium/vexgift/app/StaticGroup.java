@@ -97,6 +97,7 @@ public class StaticGroup {
     public static long VERSION_CODE = 0;
     public static String reg_id = "";
     private static String CHANNEL_ID = "1121";
+    public static boolean latestLinkVersions;
 
 
     public static void initialize(Context context) {
@@ -168,6 +169,13 @@ public class StaticGroup {
 
         return true;
     }
+
+    public static void syncCookies() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            CookieManager.getInstance().flush();
+        }
+    }
+
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
@@ -885,4 +893,8 @@ public class StaticGroup {
                 "public_profile"
         );
     }
+
+
+
+
 }

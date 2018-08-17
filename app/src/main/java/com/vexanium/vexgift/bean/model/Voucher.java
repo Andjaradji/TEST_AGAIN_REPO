@@ -13,6 +13,7 @@ import java.util.Random;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {
     public boolean isRedeemed = false;
+    public boolean isOnline = false;
     public long redeemedTime;
 
     @JsonProperty("id")
