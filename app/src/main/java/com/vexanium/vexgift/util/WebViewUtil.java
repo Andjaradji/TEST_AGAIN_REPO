@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.app.ConstantGroup;
-import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
 

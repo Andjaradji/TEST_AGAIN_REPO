@@ -45,8 +45,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
+                android:tag="bold"
                 android:text="@string/register_confirmation_text"
-                android:textColor="@color/material_white"
+                android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
 
         </LinearLayout>
@@ -86,6 +87,7 @@
                 android:background="@drawable/shape_ripple_transparent"></View>
 
             <TextView
+                android:id="@+id/tv_resend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -118,6 +120,6 @@
 
     </LinearLayout>
 
-
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

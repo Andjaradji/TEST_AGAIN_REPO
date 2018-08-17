@@ -33,6 +33,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_LAST_ACTIVE_TIME = "key_last_active_time";
     public static String KEY_USER_ADDRESS = "key_user_address";
     public static String KEY_REFERRER = "key_referrer";
+    public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
 
     public void removePrivate(){
         put(TpUtil.KEY_CURRENT_LOGGED_IN_USER,"");

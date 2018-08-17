@@ -28,7 +28,6 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
-import com.vexanium.vexgift.module.exchange.ui.SendVoucherActivity;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;

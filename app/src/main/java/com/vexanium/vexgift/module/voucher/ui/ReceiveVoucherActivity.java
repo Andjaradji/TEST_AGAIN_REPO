@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.exchange.ui;
+package com.vexanium.vexgift.module.voucher.ui;
 
 import android.os.Bundle;
 import android.view.View;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
-import com.vexanium.vexgift.bean.model.UserPremiumMember;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
 
 import java.util.ArrayList;

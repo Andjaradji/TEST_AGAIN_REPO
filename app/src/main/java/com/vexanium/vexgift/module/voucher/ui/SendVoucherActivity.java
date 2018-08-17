@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.exchange.ui;
+package com.vexanium.vexgift.module.voucher.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,10 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
+import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
+import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -18,8 +21,10 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.io.Serializable;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_send_voucher, toolbarTitle = R.string.exchange_send_voucher)
-public class SendVoucherActivity extends BaseActivity {
+public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
 
     private Voucher voucher;
 
@@ -38,6 +43,11 @@ public class SendVoucherActivity extends BaseActivity {
 
         findViewById(R.id.btn_generate_code).setOnClickListener(this);
 
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        
     }
 
     @Override

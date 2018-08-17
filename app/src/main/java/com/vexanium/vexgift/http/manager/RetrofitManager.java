@@ -465,4 +465,13 @@ public class RetrofitManager {
         return mOtherService.getPremiumList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumListResponse>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(int userId, String code) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("email_confirmation_code", userId);
+
+        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
 }

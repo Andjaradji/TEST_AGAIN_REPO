@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Random;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {

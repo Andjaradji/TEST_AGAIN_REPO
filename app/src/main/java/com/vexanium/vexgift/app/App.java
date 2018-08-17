@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.socks.library.KLog;
-import com.socks.library.KLogUtil;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.database.DaoMaster;
 import com.vexanium.vexgift.database.DaoSession;

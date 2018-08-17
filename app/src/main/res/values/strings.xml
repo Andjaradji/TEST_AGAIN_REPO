@@ -119,6 +119,7 @@
     <string name="register_confirmation_hint">Input confirmation code</string>
     <string name="register_confirmation_button">Confirm Email</string>
     <string name="register_confirmation_resend">Resend Email</string>
+    <string name="register_confirmation_resend_time">Resend Email %s</string>
 
 
     <string name="box_title">My Box</string>

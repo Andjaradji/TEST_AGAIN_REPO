@@ -36,13 +36,8 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
-import com.vexanium.vexgift.bean.response.EmptyResponse;
-import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
-import com.vexanium.vexgift.http.HostType;
-import com.vexanium.vexgift.http.RetrofitException;
-import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
@@ -52,7 +47,6 @@ import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
-import com.vexanium.vexgift.widget.dialog.DialogDefaultConfig;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
@@ -62,8 +56,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
-import rx.Subscriber;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
@@ -82,6 +74,7 @@ public class StaticGroup {
     public static final int CONNECT_FB = 7;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
+    public static final int EMAIL_RESEND_TIME = 60000;
     public static final int VEX_ADDRESS_VERIF_TIME = 60 * 60000;
 
     public static UserLoginResponse currentUser;
@@ -109,8 +102,6 @@ public class StaticGroup {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static String getUserSession() {

@@ -90,8 +90,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
 
-//        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
-//        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
+        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
+        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
     }
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
 // TODO: 17/08/18 remove true 
-            if (response.user != null && (response.user.getEmailConfirmationStatus() || true)) {
+            if (response.user != null && (true || response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
@@ -113,7 +113,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
                 executeMain(false);
             } else if (!response.user.getEmailConfirmationStatus()) {
+                StaticGroup.userSession = response.user.getSessionKey();
                 Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
+                intent.putExtra("user", JsonUtil.toString(response.user));
                 startActivity(intent);
             }
 
@@ -121,8 +123,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta().getStatus() / 100 == 4) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            }
-            else{
+            } else {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
             }
         } else {

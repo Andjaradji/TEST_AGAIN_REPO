@@ -8,4 +8,5 @@ import rx.Subscription;
 public interface IRegisterInteractor<T> {
     Subscription requestLogin(RequestCallback<T> callback, User user);
     Subscription requestRegister(RequestCallback<T> callback, User user);
+    Subscription requestEmailConfirmation(RequestCallback<T> callback, int userId, String code);
 }

@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.module.home.ui;
 
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,19 +12,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
@@ -48,7 +44,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.profile.ui.KycActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
@@ -58,7 +53,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
@@ -81,7 +75,6 @@ import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
-import static com.vexanium.vexgift.app.StaticGroup.goToVoucherDetailActivity;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {

@@ -37,7 +37,6 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenter;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenterImpl;
 import com.vexanium.vexgift.module.detail.view.IDetailView;
-import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.ClickUtil;

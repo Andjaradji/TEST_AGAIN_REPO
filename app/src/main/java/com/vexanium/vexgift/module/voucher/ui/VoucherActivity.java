@@ -45,7 +45,6 @@ import com.vexanium.vexgift.widget.LockableScrollView;
 import com.vexanium.vexgift.widget.select.MultiSelectActivity;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
 import java.util.ArrayList;

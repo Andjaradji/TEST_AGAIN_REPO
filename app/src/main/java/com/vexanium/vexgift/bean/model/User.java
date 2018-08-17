@@ -91,6 +91,9 @@ public class User implements Serializable {
     private String lastName;
     @JsonProperty("fb_access_token")
     private String facebookAccessToken;
+
+    @JsonProperty("facebook_id")
+    private String facebookId;
     @JsonProperty("fb_link")
     private String facebookLink;
     @JsonProperty("social_media_id")
@@ -728,5 +731,13 @@ public class User implements Serializable {
 
     public void setEmailConfirmationStatus(boolean emailConfirmationStatus) {
         this.emailConfirmationStatus = emailConfirmationStatus;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 }
