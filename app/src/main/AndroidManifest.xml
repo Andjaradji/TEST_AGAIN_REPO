@@ -149,6 +149,10 @@
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".module.register.ui.RegisterConfirmationActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".fcm.VexFirebaseMessagingService">
             <intent-filter>

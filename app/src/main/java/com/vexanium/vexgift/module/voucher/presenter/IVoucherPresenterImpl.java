@@ -64,5 +64,10 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         compositeSubscription.add(subscription);
     }
 
+    @Override
+    public void requestRedeeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
+
+    }
+
 
 }

@@ -1,206 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:orientation="vertical"
     tools:context=".module.login.ui.LoginActivity">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/v_background"
         android:layout_width="match_parent"
-        android:layout_height="141dp">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg">
 
-        <ImageView
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/image_content_description"
-            android:src="@drawable/logo_medium" />
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_field_input">
-
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="@string/register_email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_field_input">
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="@string/register_password"
-            android:inputType="textPassword"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_submain"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_field_input">
-
-        <EditText
-            android:id="@+id/et_re_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:hint="@string/register_repassword"
-            android:inputType="textPassword"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_medium" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/register_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/interval_content"
-        android:layout_marginLeft="@dimen/interval_medium"
-        android:layout_marginRight="@dimen/interval_medium"
-        android:background="@drawable/shape_white_border_button"
-        android:gravity="center_horizontal">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@drawable/shape_ripple_transparent"></View>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/register_button_register"
-            android:textColor="@color/material_white" />
-    </RelativeLayout>
+    </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_small"
-            android:gravity="center_horizontal">
+            android:layout_height="141dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_already_have_account"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_tiny" />
+            <ImageView
+                android:layout_width="136dp"
+                android:layout_height="33dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/image_content_description"
+                android:src="@drawable/logo_medium" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/register_login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/interval_small"
-                android:layout_marginStart="@dimen/interval_small"
-                android:text="@string/register_login_here"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_tiny" />
-        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_submain"
-            android:text="@string/register_button_or"
-            android:textAlignment="center"
-            android:textColor="@color/material_white"
-            android:textSize="@dimen/text_tiny" />
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_field_input">
 
-        <LinearLayout
-            android:id="@+id/login_fake_fb_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_small"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/interval_content"
-            android:paddingEnd="@dimen/interval_medium"
-            android:paddingLeft="@dimen/interval_medium"
-            android:paddingRight="@dimen/interval_medium"
-            android:paddingStart="@dimen/interval_medium"
-            android:paddingTop="@dimen/interval_content">
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_fb_button"
+            <EditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <ImageView
-                android:layout_width="@dimen/icon_tiny"
-                android:layout_height="@dimen/icon_tiny"
-                android:layout_marginRight="@dimen/interval_content"
-                android:src="@drawable/ic_fb" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_button_fb_login"
+                android:background="@color/transparent"
+                android:hint="@string/register_email"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/material_white"
                 android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/login_google_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_big"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/interval_content"
-            android:paddingEnd="@dimen/interval_medium"
-            android:paddingLeft="@dimen/interval_medium"
-            android:paddingRight="@dimen/interval_medium"
-            android:paddingStart="@dimen/interval_medium"
-            android:paddingTop="@dimen/interval_content">
+            android:layout_marginBottom="@dimen/interval_submain"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_field_input">
 
-            <ImageView
-                android:layout_width="@dimen/icon_tiny"
-                android:layout_height="@dimen/icon_tiny"
-                android:layout_marginRight="@dimen/interval_content"
-                android:src="@drawable/ic_gg" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="@string/register_password"
+                android:inputType="textPassword"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_submain"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_field_input">
+
+            <EditText
+                android:id="@+id/et_re_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="@string/register_repassword"
+                android:inputType="textPassword"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium"
+            android:background="@drawable/shape_white_border_button"
+            android:gravity="center_horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_ripple_transparent"></View>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_button_google_login"
+                android:layout_centerInParent="true"
+                android:text="@string/register_button_register"
+                android:textColor="@color/material_white" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_small"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_already_have_account"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/register_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/interval_small"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:text="@string/register_login_here"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_tiny" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_submain"
+                android:text="@string/register_button_or"
+                android:textAlignment="center"
                 android:textColor="@color/material_white"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_tiny" />
+
+            <LinearLayout
+                android:id="@+id/login_fake_fb_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_small"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/interval_content"
+                android:paddingEnd="@dimen/interval_medium"
+                android:paddingLeft="@dimen/interval_medium"
+                android:paddingRight="@dimen/interval_medium"
+                android:paddingStart="@dimen/interval_medium"
+                android:paddingTop="@dimen/interval_content">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_fb_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_tiny"
+                    android:layout_height="@dimen/icon_tiny"
+                    android:layout_marginRight="@dimen/interval_content"
+                    android:src="@drawable/ic_fb" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_button_fb_login"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/login_google_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_big"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/interval_content"
+                android:paddingEnd="@dimen/interval_medium"
+                android:paddingLeft="@dimen/interval_medium"
+                android:paddingRight="@dimen/interval_medium"
+                android:paddingStart="@dimen/interval_medium"
+                android:paddingTop="@dimen/interval_content">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_tiny"
+                    android:layout_height="@dimen/icon_tiny"
+                    android:layout_marginRight="@dimen/interval_content"
+                    android:src="@drawable/ic_gg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_button_google_login"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>
