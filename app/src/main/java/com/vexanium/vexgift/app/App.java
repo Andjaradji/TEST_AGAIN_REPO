@@ -3,6 +3,7 @@ package com.vexanium.vexgift.app;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.socks.library.KLog;
+import com.socks.library.KLogUtil;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.database.DaoMaster;
 import com.vexanium.vexgift.database.DaoSession;
@@ -42,11 +44,32 @@ public class App extends Application {
 
     private DaoSession mDaoSession;
 
+    private Thread.UncaughtExceptionHandler mExceptionHandler;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         KLog.v("=========== BaseApplication onCreate ===========");
         mApplicationContext = this;
+
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(
+                    new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+            StrictMode.setVmPolicy(
+                    new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+        }
+
+        if (!BuildConfig.DEBUG) {
+            mExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+            Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+
+                @Override
+                public void uncaughtException(final Thread thread, final Throwable ex) {
+                    mExceptionHandler.uncaughtException(thread, ex);
+                }
+            });
+        }
 
         setupCustomFont();
         setupDatabase();

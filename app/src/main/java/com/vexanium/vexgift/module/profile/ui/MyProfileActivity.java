@@ -32,7 +32,7 @@ import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_PENDING;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_REJECTED;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_my_profile, toolbarTitle = R.string.myprofile_toolbar_title)
+@ActivityFragmentInject(contentViewId = R.layout.activity_my_profile, toolbarTitle = R.string.myprofile_toolbar_title, withLoadingAnim = true)
 public class MyProfileActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
 
     private Observable<Boolean> mKycStatusUpdateObservable;
@@ -109,6 +109,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         ViewUtil.setText(this, R.id.tv_name, kycContent.getIdName());
         ViewUtil.setText(this, R.id.tv_document_type, kycContent.getIdType());
         ViewUtil.setText(this, R.id.tv_id_number, kycContent.getIdNumber());
+        ViewUtil.setText(this, R.id.tv_country, kycContent.getIdCountry());
         ViewUtil.setImageUrl(this, R.id.iv_document_front, kycContent.getIdImageFront(), R.drawable.placeholder);
         ViewUtil.setImageUrl(this, R.id.iv_document_back, kycContent.getIdImageBack(), R.drawable.placeholder);
         ViewUtil.setImageUrl(this, R.id.iv_document_selfie, kycContent.getIdImageSelfie(), R.drawable.placeholder);

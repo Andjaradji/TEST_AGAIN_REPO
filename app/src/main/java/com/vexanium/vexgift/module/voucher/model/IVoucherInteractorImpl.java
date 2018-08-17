@@ -1,8 +1,17 @@
 package com.vexanium.vexgift.module.voucher.model;
 
+import com.socks.library.KLog;
+import com.vexanium.vexgift.base.BaseSubscriber;
+import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
+import com.vexanium.vexgift.http.HostType;
+import com.vexanium.vexgift.http.manager.RetrofitManager;
+import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxUtil;
 
+import rx.Observable;
 import rx.Subscription;
+import rx.functions.Func1;
 
 public class IVoucherInteractorImpl implements IVoucherInteractor {
     @Override
@@ -22,7 +31,16 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
 
     @Override
     public Subscription requestRedeemVoucher(RequestCallback callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
-        return null;
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestRedeemVoucher(userId, voucherCodeId, vendorCode, voucherCode, voucherId).compose(RxUtil.<VoucherCodeResponse>handleResult())
+                .flatMap(new Func1<VoucherCodeResponse, Observable<VoucherCodeResponse>>() {
+                    @Override
+                    public Observable<VoucherCodeResponse> call(VoucherCodeResponse userAddressResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(userAddressResponse));
+                        return Observable.just(userAddressResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
     }
 }
 

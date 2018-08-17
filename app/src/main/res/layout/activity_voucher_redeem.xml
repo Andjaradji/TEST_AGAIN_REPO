@@ -213,6 +213,7 @@
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:id="@+id/ll_voucher_active"
                     android:layout_width="match_parent"
@@ -221,6 +222,7 @@
                     android:visibility="visible">
 
                     <LinearLayout
+                        android:id="@+id/ll_countdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_medium"
@@ -342,6 +344,38 @@
 
                     <TextView
                         android:id="@+id/tv_merchant_info_desc"
+                        android:layout_width="wrap_content"
+                        android:text="@string/merchant_info_desc"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_online_voucher_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingEnd="@dimen/interval_main"
+                    android:paddingLeft="@dimen/interval_main"
+                    android:paddingRight="@dimen/interval_main"
+                    android:paddingStart="@dimen/interval_main">
+
+                    <TextView
+                        android:id="@+id/tv_online_voucher_info_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:text="@string/merchant_info_title"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_online_voucher_info_desc"
                         android:layout_width="wrap_content"
                         android:text="@string/merchant_info_desc"
                         android:layout_height="wrap_content"

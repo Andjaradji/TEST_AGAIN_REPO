@@ -164,7 +164,7 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
                 final Voucher voucher = item.getVoucher();
-                holder.setImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                holder.setBnWImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, voucher.getTitle());
                 holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
                 holder.setViewInvisible(R.id.ll_qty, true);

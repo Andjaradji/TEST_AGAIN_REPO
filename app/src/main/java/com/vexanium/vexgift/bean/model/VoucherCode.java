@@ -8,10 +8,14 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VoucherCode implements Serializable{
 
+    public String url;
+
     @JsonProperty("id")
     private int id;
     @JsonProperty("voucher_id")
     private int voucherId;
+    @JsonProperty("voucher_code")
+    private String voucherCode;
     @JsonProperty("claimed_by")
     private int claimedBy;
     @JsonProperty("is_claimed")
@@ -87,5 +91,13 @@ public class VoucherCode implements Serializable{
 
     public void setVoucher(Voucher voucher) {
         this.voucher = voucher;
+    }
+
+    public String getVoucherCode() {
+        return voucherCode;
+    }
+
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
     }
 }

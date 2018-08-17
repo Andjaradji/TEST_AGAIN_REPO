@@ -93,7 +93,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
-
     }
 
     @Override
@@ -106,12 +105,15 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
+                User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
             }
 
             executeMain();
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+        } else {
             StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
         }
     }

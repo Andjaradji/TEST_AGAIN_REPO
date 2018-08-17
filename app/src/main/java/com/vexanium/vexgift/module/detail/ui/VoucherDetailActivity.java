@@ -36,6 +36,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenter;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenterImpl;
 import com.vexanium.vexgift.module.detail.view.IDetailView;
+import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -131,7 +132,31 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
             case R.id.btn_claim:
                 CheckBox cbAggree = findViewById(R.id.cb_aggree);
                 if (cbAggree.isChecked()) {
-                    if (!user.isAuthenticatorEnable()) {
+                    if(!user.isKycApprove()){
+                        new VexDialog.Builder(this)
+                                .title(getString(R.string.get_voucher_need_kyc_dialog_title))
+                                .content(getString(R.string.get_voucher_need_kyc_dialog_desc))
+                                .positiveText(getString(R.string.get_voucher_need_kyc_dialog_button))
+                                .negativeText(getString(R.string.dialog_cancel))
+                                .optionType(DialogOptionType.YES_NO)
+                                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                        Intent intent = new Intent(VoucherDetailActivity.this, MyProfileActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    }
+                                })
+                                .canceledOnTouchOutside(false)
+                                .cancelable(false)
+                                .autoDismiss(true)
+                                .show();
+                    }
+                    else if (!user.isAuthenticatorEnable()) {
                         new VexDialog.Builder(this)
                                 .title(getString(R.string.get_voucher_need_g2fa_dialog_title))
                                 .content(getString(R.string.get_voucher_need_g2fa_dialog_desc))

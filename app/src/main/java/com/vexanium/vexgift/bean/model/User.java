@@ -69,14 +69,14 @@ public class User implements Serializable {
 
     @JsonProperty("authenticator_enable")
     private boolean authenticatorEnable;
-    
+
     @JsonProperty("referral_code")
     private String referralCode;
     @JsonProperty("referral_code_registered")
     private String referralCodeRegistered;
 
     @JsonProperty("user_kyc")
-    private Kyc kyc;
+    private ArrayList<Kyc> kyc;
 
     @JsonProperty("first_name")
     private String firstName;
@@ -174,7 +174,7 @@ public class User implements Serializable {
     }
 
     public static int getUserAddressStatus() {
-        UserAddress userAddress= getUserAddress();
+        UserAddress userAddress = getUserAddress();
         if (userAddress == null || userAddress.getRemainingTime() <= 0) {
             return -1;
         } else {
@@ -661,11 +661,27 @@ public class User implements Serializable {
         this.referralCodeRegistered = referralCodeRegistered;
     }
 
-    public Kyc getKyc() {
+    public ArrayList<Kyc> getKyc() {
         return kyc;
     }
 
-    public void setKyc(Kyc kyc) {
+    public boolean isSubmitKyc() {
+        if (kyc != null && kyc.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isKycApprove() {
+        if (kyc != null && kyc.size() > 0 && kyc.get(kyc.size() - 1).getStatus().equalsIgnoreCase("approve")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setKyc(ArrayList<Kyc> kyc) {
         this.kyc = kyc;
     }
 
@@ -677,7 +693,7 @@ public class User implements Serializable {
         this.premiumDurationLeft = premiumDurationLeft;
     }
 
-    public boolean isPremiumMember(){
-        return  premiumDurationLeft > 0;
+    public boolean isPremiumMember() {
+        return premiumDurationLeft > 0;
     }
 }

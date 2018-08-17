@@ -98,7 +98,8 @@ public class MoreFragment extends BaseFragment {
 
                 @Override
                 public void onFinish() {
-                    RxBus.get().post("startNotifSlideDown", true);
+                    if (!user.isSubmitKyc())
+                        RxBus.get().post("startNotifSlideDown", true);
                 }
             };
             countDownTimer.start();

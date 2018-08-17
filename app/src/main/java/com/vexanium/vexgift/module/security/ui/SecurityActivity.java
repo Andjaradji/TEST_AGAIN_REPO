@@ -59,21 +59,25 @@ public class SecurityActivity extends BaseActivity {
         isGoogle2faEnable = user.isAuthenticatorEnable();
         updateSecurityItemView();
 
-        if (!isGoogle2faEnable) {
-            ViewUtil.setText(notifView, R.id.tv_notif_info, getString(R.string.security_note));
-            CountDownTimer countDownTimer = new CountDownTimer(1500, 500) {
-                @Override
-                public void onTick(long l) {
 
-                }
+        ViewUtil.setText(notifView, R.id.tv_notif_info, getString(R.string.security_note));
+        CountDownTimer countDownTimer = new CountDownTimer(1500, 500) {
+            @Override
+            public void onTick(long l) {
 
-                @Override
-                public void onFinish() {
+            }
+
+            @Override
+            public void onFinish() {
+
+                if (!isGoogle2faEnable) {
                     RxBus.get().post("startSecNotifSlideDown", true);
                 }
-            };
-            countDownTimer.start();
-        }
+            }
+        };
+
+        countDownTimer.start();
+
 
         boolean isPassSet = User.getIsPasswordSet(this);
 

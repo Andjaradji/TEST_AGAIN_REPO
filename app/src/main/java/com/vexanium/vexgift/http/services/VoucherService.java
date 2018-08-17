@@ -3,6 +3,7 @@ package com.vexanium.vexgift.http.services;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
 import java.util.Map;
@@ -31,6 +32,13 @@ public interface VoucherService {
     @FormUrlEncoded
     @POST("voucher/buy-voucher")
     Observable<HttpResponse<EmptyResponse>> requestBuyVoucher(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("voucher/buy-voucher")
+    Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

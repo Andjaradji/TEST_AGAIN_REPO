@@ -11,12 +11,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.KycActivity;
+import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -49,6 +52,8 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
 import com.vexanium.vexgift.widget.discretescrollview.transform.Pivot;
@@ -125,7 +130,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
-        User user = User.getCurrentUser(HomeFragment.this.getActivity());
+        final User user = User.getCurrentUser(HomeFragment.this.getActivity());
         mVexPointText.setText(String.valueOf(user.getVexPoint()));
 
         vouchers = TableContentDaoUtil.getInstance().getVouchers();
@@ -150,19 +155,23 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mVexPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
 
-                Intent intent = new Intent(getActivity(), VexPointActivity.class);
+                if (!user.isAuthenticatorEnable() || !User.getIsPasswordSet(HomeFragment.this.getContext()) || !user.isKycApprove()) {
+                    openRequirementDialog();
+                } else {
 
-                Pair<View, String> p1 = Pair.create((View) mVexPointButton, "vexpoint_button");
-                Pair<View, String> p2 = Pair.create((View) mVexPointText, "vexpoint_amount");
+                    Intent intent = new Intent(getActivity(), VexPointActivity.class);
+                    Pair<View, String> p1 = Pair.create((View) mVexPointButton, "vexpoint_button");
+                    Pair<View, String> p2 = Pair.create((View) mVexPointText, "vexpoint_amount");
 
+                    final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            getActivity(), p1, p2);
 
-                final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(), p1, p2);
-
-                //ActivityOptionsCompat options = ActivityOptionsCompat.
-                //        makeSceneTransitionAnimation(getActivity(), mVexPointButton, "vexpoint_button");
-                startActivity(intent, options.toBundle());
+                    //ActivityOptionsCompat options = ActivityOptionsCompat.
+                    //        makeSceneTransitionAnimation(getActivity(), mVexPointButton, "vexpoint_button");
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
 
@@ -236,6 +245,34 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mAvi.smoothToHide();
     }
 
+    public void openRequirementDialog() {
+        View view = View.inflate(getActivity(), R.layout.include_requirement, null);
+        final TextView tvReq = view.findViewById(R.id.tv_requirement);
+        String req = "";
+
+        if (!User.getIsPasswordSet(this.getContext())) {
+            req += "Account Password\n";
+        }
+        if (!user.isKycApprove()) {
+            req += "Approved KYC\n";
+        }
+        if (!user.isAuthenticatorEnable()) {
+            req += "Google Authenticator Enable\n\n";
+        }
+
+        if (TextUtils.isEmpty(req)) return;
+
+        tvReq.setText(req);
+
+        new VexDialog.Builder(this.getContext())
+                .title(getString(R.string.vexpoint_requirement_dialog_title))
+                .content(getString(R.string.vexpoint_requirement_dialog_desc))
+                .addCustomView(view)
+                .optionType(DialogOptionType.OK)
+                .autoDismiss(true)
+                .show();
+    }
+
     public void updateData() {
         //update data here
         mSrlHome.setEnabled(false);
@@ -272,7 +309,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, voucherArrayList, "Best Voucher", "Today"));
         }
 
-        if (user.getKyc() == null)
+        if (user.getKyc() == null && user.getKyc().size() > 0)
             data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
@@ -366,7 +403,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), KycActivity.class);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
                                     startActivity(intent);
                                 }
                             });

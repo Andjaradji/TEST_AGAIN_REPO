@@ -49,7 +49,7 @@
                 android:id="@+id/rl_notif_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:padding="@dimen/interval_main"
                 android:background="@color/material_grey_E8E8E8">
 
