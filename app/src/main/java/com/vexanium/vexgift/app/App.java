@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.socks.library.KLog;
@@ -16,6 +17,7 @@ import com.vexanium.vexgift.database.DaoMaster;
 import com.vexanium.vexgift.database.DaoSession;
 import com.vexanium.vexgift.database.DatabaseUpgradeHelper;
 
+import io.fabric.sdk.android.Fabric;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -49,6 +51,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         KLog.v("=========== BaseApplication onCreate ===========");
         mApplicationContext = this;
 
