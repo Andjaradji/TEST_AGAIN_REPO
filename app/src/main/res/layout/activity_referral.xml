@@ -143,7 +143,6 @@
                     android:id="@+id/tv_referral_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="http://asdasd.asd/asdas?asdasdasdasdaasdsda asd"
                     android:textColor="@color/material_black_3d3d"
                     android:paddingLeft="@dimen/interval_submain"
                     android:layout_marginRight="40dp"

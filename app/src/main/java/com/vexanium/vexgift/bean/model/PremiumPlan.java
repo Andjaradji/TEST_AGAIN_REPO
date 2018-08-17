@@ -6,22 +6,48 @@ import java.io.Serializable;
 
 public class PremiumPlan implements Serializable{
     @JsonProperty("id")
-    private String id;
+    private int id;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("duration")
+    private int duration;
 
     @JsonProperty("price")
     private int price;
 
-    @JsonProperty("day")
-    private int day;
+    @JsonProperty("currency")
+    private String currency;
 
-    public boolean active = true;
+    @JsonProperty("created_at")
+    private String createdAt;
 
-    public String getId() {
+    @JsonProperty("updated_at")
+    private String updatedAt;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getPrice() {
@@ -32,18 +58,27 @@ public class PremiumPlan implements Serializable{
         this.price = price;
     }
 
-    public int getDay() {
-        return day;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-    public PremiumPlan(int price, int day) {
-        this.price = price;
-        this.day = day;
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

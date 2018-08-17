@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -12,6 +13,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -20,6 +22,7 @@ import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.interceptor.RxErrorHandlingCallAdapterFactory;
+import com.vexanium.vexgift.http.services.OtherService;
 import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
 import com.vexanium.vexgift.util.NetworkUtil;
@@ -62,6 +65,7 @@ public class RetrofitManager {
 
     private static SparseArray<RetrofitManager> sInstanceManager = new SparseArray<>(HostType.TYPE_COUNT);
 
+    private OtherService mOtherService;
     private UserService mUserService;
     private VoucherService mVoucherService;
 
@@ -133,6 +137,7 @@ public class RetrofitManager {
                 .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
 
+        mOtherService = retrofit.create(OtherService.class);
         mUserService = retrofit.create(UserService.class);
         mVoucherService = retrofit.create(VoucherService.class);
     }
@@ -448,6 +453,14 @@ public class RetrofitManager {
         params.put("voucher_code_id", voucherCodeId);
 
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
+    public Observable<HttpResponse<PremiumListResponse>> requestPremiumList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        Log.e("idkey", getApiKey());
+        return mOtherService.getPremiumList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumListResponse>>());
     }
 
 }

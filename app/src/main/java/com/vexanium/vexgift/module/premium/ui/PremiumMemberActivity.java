@@ -13,22 +13,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.rd.PageIndicatorView;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
+import com.vexanium.vexgift.bean.model.UserPremiumMember;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
-import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -54,9 +56,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     RelativeLayout mRlBecomePremiumTopContainer;
     LinearLayout mLlAlreadyPremiumTopContainer, mLlBuyPremiumContainer;
 
+    PremiumPlanAdapter mAdapter;
+
+    User user;
+
     @Override
     protected void initView() {
         mPresenter = new IPremiumPresenterImpl(this);
+        user = User.getCurrentUser(this);
 
         mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
@@ -72,9 +79,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         data.add(new IconText(R.drawable.ic_premium_airdrop,R.string.premium_airdrop_token));
 
         //WalkthroughAdapter mAdapter = new WalkthroughAdapter(this,data);
-        PremiumPagerAdapter mAdapter = new PremiumPagerAdapter(this,data,true);
+        PremiumPagerAdapter adapter = new PremiumPagerAdapter(this,data,true);
 
-        mVpPremium.setAdapter(mAdapter);
+        mVpPremium.setAdapter(adapter);
         mVpPremium.setOffscreenPageLimit(PAGE_COUNT);
 
         mPiPremium.setCount(mVpPremium.getIndicatorCount());
@@ -94,13 +101,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mRvPremiumPlan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
-        ArrayList<PremiumPlan> itemList = new ArrayList<>();
-        itemList.add(new PremiumPlan(200,1));
-        itemList.add(new PremiumPlan(150,7));
-        itemList.add(new PremiumPlan(100,30));
+        ArrayList<UserPremiumMember> itemList = new ArrayList<>();
+        /*itemList.add(new UserPremiumMember(200,1));
+        itemList.add(new UserPremiumMember(150,7));
+        itemList.add(new UserPremiumMember(100,30));*/
 
-        PremiumPlanAdapter adapter = new PremiumPlanAdapter(this,this, itemList);
-        mRvPremiumPlan.setAdapter(adapter);
+        callPremiumPlanList();
+        mAdapter = new PremiumPlanAdapter(this,this);
+        mRvPremiumPlan.setAdapter(mAdapter);
 
         try {
             Field mScroller;
@@ -113,8 +121,6 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalArgumentException e) {
         } catch (IllegalAccessException e) {
         }
-
-        updateView(0);
 
     }
 
@@ -134,6 +140,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     protected void onResume() {
         super.onResume();
         mVpPremium.resumeAutoScroll();
+        if(user.getPremiumDurationLeft() > 0) {
+            updateView(1);
+        }else{
+            updateView(0);
+        }
     }
 
     @Override
@@ -149,8 +160,20 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        String string = "PremiumActivity handleResult : " + JsonUtil.toString(data);
-        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+        if (data != null) {
+            if (data instanceof PremiumListResponse) {
+                PremiumListResponse premiumListResponse = (PremiumListResponse) data;
+                setPremiumPlanList(premiumListResponse);
+            }
+
+        } else if (errorResponse != null) {
+            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+        }
+    }
+
+    public void setPremiumPlanList(PremiumListResponse premiumListResponse){
+        mAdapter.addItemList(premiumListResponse.getPremiumPlans());
+        mAdapter.notifyDataSetChanged();
     }
 
     public class PremiumPagerAdapter extends LoopingPagerAdapter<IconText> {
@@ -174,14 +197,17 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    private void callPremiumPlanList(){
+        mPresenter.requestPremiumList(user.getId());
+    }
 
-    private void updateView(int test) {
-        if(test == 0){
+    private void updateView(int viewType) {
+        if(viewType == 0){
             //if not premium
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
             mLlBuyPremiumContainer.setVisibility(View.GONE);
             mRlBecomePremiumTopContainer.setVisibility(View.VISIBLE);
-        }else if(test == 1){
+        }else if(viewType == 1){
             //if already premium
             mRlBecomePremiumTopContainer.setVisibility(View.GONE);
             mLlBuyPremiumContainer.setVisibility(View.GONE);
@@ -200,9 +226,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         final TextView tvVex = view.findViewById(R.id.tv_premium_confirmation_vex);
         final TextView tvTotal = view.findViewById(R.id.tv_premium_confirmation_total_amount);
 
-        tvDay.setText(data.getDay()+ " "+getString(R.string.premium_buy_day));
+        int day = data.getDuration()/24/3600;
+
+        tvDay.setText(data.getName());
         tvVex.setText(data.getPrice()+ " "+getString(R.string.premium_buy_vex));
-        tvTotal.setText(data.getPrice()*data.getDay()+ " VEX");
+        tvTotal.setText(data.getPrice()*day+ " VEX");
 
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)
