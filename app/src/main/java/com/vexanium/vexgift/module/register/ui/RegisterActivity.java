@@ -98,9 +98,29 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 executeMain(false);
             }
         } else if (errorResponse != null) {
-            hideProgress();
             KLog.v("RegisterActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
-            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() / 4 == 100) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+            } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
+                new VexDialog.Builder(RegisterActivity.this)
+                        .optionType(DialogOptionType.OK)
+                        .okText("Login Now")
+                        .title("Register Success")
+                        .content("Your account has been registered. Login now")
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                RegisterActivity.this.startActivity(intent);
+                            }
+                        })
+                        .autoDismiss(true)
+                        .show();
+            } else if (errorResponse.getMeta() != null) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            }
+
         } else {
             new VexDialog.Builder(RegisterActivity.this)
                     .optionType(DialogOptionType.OK)

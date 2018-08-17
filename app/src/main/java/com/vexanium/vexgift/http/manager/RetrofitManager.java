@@ -237,8 +237,10 @@ public class RetrofitManager {
     public Observable<HttpResponse<EmptyResponse>> requestRegister(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        if (user.getLastName() != null) {
+        if (user.getName() != null) {
             params.put("name", user.getName());
+        }else{
+            params.put("name","undefined");
         }
         if (user.getLastName() != null) {
             params.put("last_name", user.getLastName());

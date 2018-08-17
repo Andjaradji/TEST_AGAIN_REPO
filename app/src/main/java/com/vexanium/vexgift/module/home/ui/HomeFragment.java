@@ -227,7 +227,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 }
                 mAdapter.notifyDataSetChanged();
                 mPresenter.requestKyc(user.getId());
-            }else if(data instanceof Kyc){
+            } else if (data instanceof Kyc) {
                 Kyc kyc = (Kyc) data;
                 if (kyc != null) {
                     user.updateKyc(kyc);
@@ -235,7 +235,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 }
             }
         } else if (errorResponse != null) {
-            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
+            if (errorResponse.getMeta() != null) {
+                if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                    if(!errorResponse.getMeta().getMessage().contains("KYC"))
+                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
+                } else  {
+                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
+                }
+            } else {
+                StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), 0);
+            }
         }
 
     }
@@ -250,7 +260,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         user = User.getCurrentUser(this.getActivity());
     }

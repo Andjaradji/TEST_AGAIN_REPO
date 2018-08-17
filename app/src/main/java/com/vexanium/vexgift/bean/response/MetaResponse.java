@@ -1,5 +1,8 @@
 package com.vexanium.vexgift.bean.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MetaResponse<T> {
     private int status;
     private String message;
