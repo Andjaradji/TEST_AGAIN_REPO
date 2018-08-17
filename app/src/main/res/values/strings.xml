@@ -115,6 +115,12 @@
     <string name="register_button_google_login">Sign Up with Google</string>
     <string name="register_button_or">or Sign Up with</string>
 
+    <string name="register_confirmation_text">Thanks for singing up!\nWe\'ve sent you a confirmation code to %s</string>
+    <string name="register_confirmation_hint">Input confirmation code</string>
+    <string name="register_confirmation_button">Confirm Email</string>
+    <string name="register_confirmation_resend">Resend Email</string>
+
+
     <string name="box_title">My Box</string>
     <string name="box_history_title">My Box History</string>
 

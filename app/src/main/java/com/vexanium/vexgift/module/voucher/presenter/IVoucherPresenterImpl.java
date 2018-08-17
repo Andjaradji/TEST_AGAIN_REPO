@@ -28,6 +28,7 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
             }
         }
     }
+    
 
     @Override
     public void requestError(HttpResponse response) {
