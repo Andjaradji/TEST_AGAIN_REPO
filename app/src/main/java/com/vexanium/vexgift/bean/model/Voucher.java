@@ -9,6 +9,7 @@ import com.vexanium.vexgift.app.StaticGroup;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
@@ -129,19 +130,17 @@ public class Voucher implements Serializable {
 
     public String getExpiredDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(validUntil);
-        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
+        calendar.setTimeInMillis(validUntil*1000L);
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
         return dateFormat.format(calendar.getTime());
     }
 
     public String getCreatedDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(validFrom);
+        calendar.setTimeInMillis(validFrom*1000L);
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
         return dateFormat.format(calendar.getTime());
     }
 

@@ -292,7 +292,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                                 getString(R.string.free) :
                                 String.format(getString(R.string.vex_point_format), item.getPrice()));
 
-                    if (item.isPremium())
+                    if (item.isForPremium())
                         holder.setViewGone(R.id.iv_premium, false);
                     else
                         holder.setViewGone(R.id.iv_premium, true);
@@ -301,7 +301,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                         @Override
                         public void onClick(View v) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            if (item.isPremium() && !user.isPremiumMember()) {
+                            if (item.isForPremium() && !user.isPremiumMember()) {
                                 StaticGroup.showPremiumMemberDialog(VoucherActivity.this);
                             } else {
                                 StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
