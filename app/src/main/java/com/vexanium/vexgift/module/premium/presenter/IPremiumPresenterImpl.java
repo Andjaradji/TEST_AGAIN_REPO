@@ -54,15 +54,4 @@ public class IPremiumPresenterImpl extends BasePresenterImpl<IProfileView, Seria
         compositeSubscription.add(subscription);
     }
 
-    @Override
-    public void submitKyc(Kyc kyc) {
-        Subscription subscription = mInteractor.submitKyc(this, kyc);
-        compositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void changePass(int id, String oldPass, String newPass) {
-        Subscription subscription = mInteractor.changePassword(this, id, oldPass, newPass);
-        compositeSubscription.add(subscription);
-    }
 }

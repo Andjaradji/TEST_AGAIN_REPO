@@ -690,6 +690,12 @@ public class User implements Serializable {
         this.kyc = kyc;
     }
 
+    public void updateKyc(Kyc k) {
+        if(getKyc() != null && getKyc().size() > 0){
+            this.kyc.set(kyc.size() - 1, k);
+        }
+    }
+
     public long getPremiumDurationLeft() {
         return premiumDurationLeft;
     }
@@ -710,7 +716,7 @@ public class User implements Serializable {
         this.emailConfirmationCode = emailConfirmationCode;
     }
 
-    public boolean isEmailConfirmationStatus() {
+    public boolean getEmailConfirmationStatus() {
         return emailConfirmationStatus;
     }
 

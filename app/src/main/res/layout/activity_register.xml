@@ -109,6 +109,24 @@
                     android:textSize="@dimen/text_medium" />
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_content"
+                android:layout_marginLeft="@dimen/interval_medium"
+                android:layout_marginRight="@dimen/interval_medium"
+                android:paddingTop="@dimen/interval_main"
+                android:paddingBottom="@dimen/interval_main"
+                android:background="@drawable/shape_ripple_white_button">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/register_button_register"
+                    android:textColor="@color/material_white" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -37,6 +37,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
 
     private Observable<Boolean> mKycStatusUpdateObservable;
     private int kycStatus;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
 
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
         mPresenter = new IProfilePresenterImpl(this);
 
         User user = User.getCurrentUser(App.getContext());
@@ -73,11 +75,13 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         if (data != null) {
             Kyc kyc = (Kyc) data;
             if (kyc != null) {
-                if(kyc.getStatus().equalsIgnoreCase("pending")){
+                if (kyc.getStatus().equalsIgnoreCase("pending")) {
                     setKycInfo(KYC_PENDING);
-                }else{
+                } else {
                     setKycInfo(KYC_ACCEPTED);
                 }
+                user.updateKyc(kyc);
+                User.updateCurrentUser(this, user);
                 setKycContent(kyc);
             }
         } else if (errorResponse != null) {
@@ -93,7 +97,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_next:
                 Intent intent = new Intent(MyProfileActivity.this, KycActivity.class);
                 startActivity(intent);
@@ -148,7 +152,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
                 btnNext.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(ClickUtil.isFastDoubleClick())return;
+                        if (ClickUtil.isFastDoubleClick()) return;
                         llcontent.setVisibility(View.VISIBLE);
                         llInfo.setVisibility(View.GONE);
                     }

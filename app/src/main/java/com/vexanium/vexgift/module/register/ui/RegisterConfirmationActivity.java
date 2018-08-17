@@ -54,9 +54,7 @@ import java.io.Serializable;
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_register_confirmation, withLoadingAnim = true)
-public class RegisterConfirmationActivity extends BaseActivity implements IRegisterView {
-
-
+public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresenter> implements IRegisterView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +74,13 @@ public class RegisterConfirmationActivity extends BaseActivity implements IRegis
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            
+        } else if (errorResponse != null) {
 
+        }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -98,7 +101,6 @@ public class RegisterConfirmationActivity extends BaseActivity implements IRegis
         super.onActivityResult(requestCode, resultCode, data);
 
     }
-
 
 
 }
