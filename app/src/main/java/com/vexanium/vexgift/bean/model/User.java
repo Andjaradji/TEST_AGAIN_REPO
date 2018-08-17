@@ -67,7 +67,7 @@ public class User implements Serializable {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("authenticator_enable")
+    @JsonProperty("authenticator_enabled")
     private boolean authenticatorEnable;
 
     @JsonProperty("referral_code")
@@ -691,8 +691,9 @@ public class User implements Serializable {
     }
 
     public void updateKyc(Kyc k) {
-        if(getKyc() != null && getKyc().size() > 0){
-            this.kyc.set(kyc.size() - 1, k);
+        if (getKyc() != null && getKyc().size() > 0) {
+            this.kyc.remove(kyc.size() - 1);
+            this.kyc.add(k);
         }
     }
 
