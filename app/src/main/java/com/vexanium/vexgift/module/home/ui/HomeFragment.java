@@ -250,7 +250,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
         user = User.getCurrentUser(this.getActivity());
     }
