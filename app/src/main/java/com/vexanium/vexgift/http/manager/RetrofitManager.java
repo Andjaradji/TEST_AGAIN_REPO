@@ -435,7 +435,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
         params.put("vendorCode", vendorCode);
-        params.put("voucherCode", voucherCode);
+        params.put("voucherCode", "");
         params.put("voucher_id", voucherId);
 
         return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());

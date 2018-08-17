@@ -115,6 +115,14 @@ public class MoreFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(user.isKycApprove()){
+           notifView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         if (ClickUtil.isFastDoubleClick()) {
             return;
