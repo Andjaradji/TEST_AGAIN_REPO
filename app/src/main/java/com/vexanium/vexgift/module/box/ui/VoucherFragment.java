@@ -176,6 +176,11 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                     }
                 });
 
+                if (voucher.isPremium())
+                    holder.setViewGone(R.id.iv_premium, false);
+                else
+                    holder.setViewGone(R.id.iv_premium, true);
+
             }
         };
         mAdapter.setHasStableIds(true);

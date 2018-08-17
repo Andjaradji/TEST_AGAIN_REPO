@@ -176,6 +176,8 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
                     }
                 });
 
+                holder.setViewGone(R.id.iv_premium, false);
+
             }
         };
         mAdapter.setHasStableIds(true);
