@@ -95,7 +95,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     User.updateCurrentUser(this.getApplicationContext(), response.user);
                 }
 
-                executeMain();
+                executeMain(false);
             }
         } else if (errorResponse != null) {
             hideProgress();
@@ -204,9 +204,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         }
     }
 
-    private void executeMain() {
+    private void executeMain(boolean isAlreadyLogin) {
         User user = User.getCurrentUser(this);
-        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked() || !isAlreadyLogin) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);

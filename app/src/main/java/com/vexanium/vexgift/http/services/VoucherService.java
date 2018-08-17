@@ -43,4 +43,11 @@ public interface VoucherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("voucher/deactivate-voucher-code")
+    Observable<HttpResponse<VoucherCodeResponse>> requestDeactivateVoucher(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 }

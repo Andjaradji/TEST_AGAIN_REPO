@@ -7,4 +7,5 @@ public interface IVoucherPresenter extends BasePresenter{
     void requestPaymentType(int userId);
     void requestLocation(int userId);
     void requestRedeeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId);
+    void requestDeactivatedVoucher(int userId, int voucherCodeId);
 }

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -53,11 +54,31 @@ public class VexAddressActivity extends BaseActivity<IVexpointPresenter> impleme
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            if(data instanceof UserAddressResponse){
+            if (data instanceof UserAddressResponse) {
                 UserAddressResponse userAddressResponse = (UserAddressResponse) data;
+                if (userAddressResponse.getUserAddress() != null && userAddressResponse.getUserAddress().getStatus() == 0) {
+                    new VexDialog.Builder(this)
+                            .title("Success")
+                            .content("Your Vex Address has been submitted, Please send a specified amount of vex for verification")
+                            .optionType(DialogOptionType.OK)
+                            .canceledOnTouchOutside(false)
+                            .cancelable(false)
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            })
+                            .show();
+                }
             }
         } else if (errorResponse != null) {
-
+            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+            } else {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            }
         }
 
     }

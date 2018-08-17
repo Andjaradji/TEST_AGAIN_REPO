@@ -21,10 +21,12 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -63,6 +65,7 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
     RecyclerView mRecyclerview;
 
     private Observable<Integer> mVoucherHistoryObservable;
+    private User user;
 
     public static VoucherHistoryFragment newInstance() {
         return new VoucherHistoryFragment();
@@ -77,11 +80,12 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
 
     @Override
     protected void initView(View fragmentRootView) {
+        user = User.getCurrentUser(this.getActivity());
         if (getActivity() != null) {
             context = getActivity();
         }
 
-        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -120,19 +124,19 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
 
     }
 
-    private void updateData(){
+    private void updateData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(false);
             }
-        },3000);
+        }, 3000);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mVoucherHistoryObservable != null){
+        if (mVoucherHistoryObservable != null) {
             RxBus.get().unregister(RxBus.KEY_BOX_HISTORY_ADDED, mVoucherHistoryObservable);
             mVoucherHistoryObservable = null;
         }
@@ -140,9 +144,9 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(data!= null){
+        if (data != null) {
 
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
 
         }
     }
@@ -165,18 +169,32 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
             public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
                 final Voucher voucher = item.getVoucher();
                 holder.setBnWImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, voucher.getTitle());
+                holder.setText(R.id.tv_coupon_title, voucher.getTitle() + " " + item.getId());
                 holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
                 holder.setViewInvisible(R.id.ll_qty, true);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherDetailActivity(voucher, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
-                holder.setViewGone(R.id.iv_premium, false);
+                if (voucher.isForPremium())
+                    holder.setViewGone(R.id.iv_premium, false);
+                else
+                    holder.setViewGone(R.id.iv_premium, true);
+
+                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (voucher.isForPremium() && !user.isPremiumMember()) {
+                            StaticGroup.showPremiumMemberDialog(VoucherHistoryFragment.this.getActivity());
+                        } else {
+                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        }
+                    }
+                });
 
             }
         };
@@ -212,9 +230,9 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
         }
     }
 
-    private void goToVoucherDetailActivity(Voucher voucher, ImageView ivVoucher) {
+    private void goToVoucherRedeemActivity(VoucherCode voucherResponse, ImageView ivVoucher) {
         Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
-        intent.putExtra("voucher", JsonUtil.toString(voucher));
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
         startActivity(intent, options.toBundle());

@@ -441,4 +441,13 @@ public class RetrofitManager {
         return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
+    public Observable<HttpResponse<VoucherCodeResponse>> requestDeactivateVoucher(int userId, int voucherCodeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+
+        return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
 }

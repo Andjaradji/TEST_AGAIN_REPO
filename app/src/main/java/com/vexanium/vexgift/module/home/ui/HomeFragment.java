@@ -510,7 +510,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             getString(R.string.free) :
                             String.format(getString(R.string.vex_point_format), item.getPrice()));
 
-                if (item.isPremium())
+                if (item.isForPremium())
                     holder.setViewGone(R.id.iv_premium, false);
                 else
                     holder.setViewGone(R.id.iv_premium, true);
@@ -520,7 +520,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        if (item.isPremium() && !user.isPremiumMember()) {
+                        if (item.isForPremium() && !user.isPremiumMember()) {
                             StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
                         } else {
                             StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
@@ -577,11 +577,19 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             getString(R.string.free) :
                             String.format(getString(R.string.vex_point_format), item.getPrice()));
 
+                if (item.isForPremium())
+                    holder.setViewGone(R.id.iv_premium, false);
+                else
+                    holder.setViewGone(R.id.iv_premium, true);
+
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        if (item.isForPremium() && !user.isPremiumMember()) {
+                            StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                        } else {
+                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        }
                     }
                 });
             }

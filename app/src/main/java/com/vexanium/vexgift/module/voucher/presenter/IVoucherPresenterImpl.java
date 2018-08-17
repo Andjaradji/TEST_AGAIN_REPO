@@ -70,4 +70,11 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         Subscription subscription = mInteractor.requestRedeemVoucher(this, userId, voucherCodeId, vendorCode, voucherCode, voucherId);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestDeactivatedVoucher(int userId, int voucherCodeId) {
+        Subscription subscription = mInteractor.requestDeactivatedVoucher(this, userId, voucherCodeId);
+        compositeSubscription.add(subscription);
+    }
+
 }

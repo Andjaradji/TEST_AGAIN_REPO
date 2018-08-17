@@ -101,16 +101,16 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         KLog.v("LoginActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
-
-            if (response.user != null && (response.user.getEmailConfirmationStatus() || true)){
+// TODO: 17/08/18 remove true 
+            if (response.user != null && (response.user.getEmailConfirmationStatus() || true)) {
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
                 User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
 
-                executeMain();
-            }else if(!response.user.getEmailConfirmationStatus()){
+                executeMain(false);
+            } else if (!response.user.getEmailConfirmationStatus()) {
                 Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
                 startActivity(intent);
             }
@@ -273,9 +273,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
     }
 
-    private void executeMain() {
+    private void executeMain(boolean isAlreadyLogin) {
         User user = User.getCurrentUser(this);
-        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked()) && user.isAuthenticatorEnable()) {
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked() || !isAlreadyLogin) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
@@ -303,7 +303,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private void initialize() {
         KLog.v("LoginActivity", "Initialize");
         if (checkLoginInfo()) {
-            executeMain();
+            executeMain(true);
         } else {
             generateKeyHash();
 

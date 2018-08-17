@@ -96,7 +96,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateData();
+                mPresenter.requestGetActAddress(user.getId());
             }
         });
         mReferralButton = findViewById(R.id.referral_button);
@@ -116,7 +116,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        mRefreshLayout.setEnabled(true);
+        mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof UserAddressResponse) {
                 UserAddressResponse userAddressResponse = (UserAddressResponse) data;
@@ -259,12 +259,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 mTabVp.onPageScrollStateChanged(state);
             }
         });
-    }
-
-    private void updateData() {
-        mRefreshLayout.setEnabled(false);
-        mRefreshLayout.setRefreshing(false);
-        updateView();
     }
 
     @Override

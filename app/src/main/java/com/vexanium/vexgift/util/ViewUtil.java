@@ -255,8 +255,7 @@ public class ViewUtil {
                         .diskCacheStrategyOf(DiskCacheStrategy.ALL)
                         .error(ContextCompat.getDrawable(App.getContext(), errorImage))
                         .format(DecodeFormat.PREFER_RGB_565)
-                        .bitmapTransform(new GrayscaleTransformation())
-                        .centerCrop())
+                        .bitmapTransform(new GrayscaleTransformation()))
                 .load(imgUrl)
                 .into(view);
     }

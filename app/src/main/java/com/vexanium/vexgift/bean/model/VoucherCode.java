@@ -2,11 +2,17 @@ package com.vexanium.vexgift.bean.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VoucherCode implements Serializable{
+public class VoucherCode implements Serializable {
 
     public String url;
 
@@ -20,6 +26,10 @@ public class VoucherCode implements Serializable{
     private int claimedBy;
     @JsonProperty("is_claimed")
     private boolean isClaimed;
+    @JsonProperty("is_deactivated")
+    private boolean isDeactivated;
+    @JsonProperty("is_being_gifted")
+    private boolean isBeingGifted;
     @JsonProperty("vendor_code_id")
     private int vendorCodeId;
     @JsonProperty("created_at")
@@ -99,5 +109,39 @@ public class VoucherCode implements Serializable{
 
     public void setVoucherCode(String voucherCode) {
         this.voucherCode = voucherCode;
+    }
+
+    public boolean isDeactivated() {
+        return isDeactivated;
+    }
+
+    public void setDeactivated(boolean deactivated) {
+        isDeactivated = deactivated;
+    }
+
+    public boolean isBeingGifted() {
+        return isBeingGifted;
+    }
+
+    public void setBeingGifted(boolean beingGifted) {
+        isBeingGifted = beingGifted;
+    }
+
+    public String getRedeemedDate() {
+        Calendar calendar = Calendar.getInstance();
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        Date date;
+        try {
+            date = format.parse(updatedAt);
+        } catch (Exception e) {
+            date = new Date();
+        }
+        calendar.setTime(date);
+
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
+
+        return dateFormat.format(calendar.getTime());
     }
 }
