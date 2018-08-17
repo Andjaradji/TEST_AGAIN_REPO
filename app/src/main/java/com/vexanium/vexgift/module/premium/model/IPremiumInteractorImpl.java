@@ -27,6 +27,23 @@ public class IPremiumInteractorImpl implements IPremiumInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+    /*@Override
+    public Subscription submitKyc(RequestCallback callback, Kyc kyc) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).submitKyc(kyc).compose(RxUtil.<Kyc>handleResult())
+                .flatMap(new Func1<Kyc, Observable<Kyc>>() {
+                    @Override
+                    public Observable<Kyc> call(Kyc kyc) {
 
+                        KLog.json("HPtes", JsonUtil.toString(kyc));
+                        return Observable.just(kyc);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription changePassword(RequestCallback callback, int id, String password, String newPassword) {
+        return null;
+    }*/
 }
 

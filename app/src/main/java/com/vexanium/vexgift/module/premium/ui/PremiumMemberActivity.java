@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
@@ -21,18 +22,24 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
+import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
+import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member)
-public class PremiumMemberActivity extends BaseActivity implements AdapterBuyOnClick {
+public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> implements IProfileView, AdapterBuyOnClick {
 
     public static final int FRAGMENT_FIRST = 0;
     public static final int FRAGMENT_SECOND = 1;
@@ -49,6 +56,8 @@ public class PremiumMemberActivity extends BaseActivity implements AdapterBuyOnC
 
     @Override
     protected void initView() {
+        mPresenter = new IPremiumPresenterImpl(this);
+
         mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
         mRvPremiumPlan = (RecyclerView) findViewById(R.id.rv_premium);
@@ -138,6 +147,12 @@ public class PremiumMemberActivity extends BaseActivity implements AdapterBuyOnC
         doBuy(data);
     }
 
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        String string = "PremiumActivity handleResult : " + JsonUtil.toString(data);
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    }
+
     public class PremiumPagerAdapter extends LoopingPagerAdapter<IconText> {
 
         public PremiumPagerAdapter(Context context, ArrayList<IconText> itemList, boolean isInfinite) {
@@ -161,7 +176,7 @@ public class PremiumMemberActivity extends BaseActivity implements AdapterBuyOnC
 
 
     private void updateView(int test) {
-        if(test ==0){
+        if(test == 0){
             //if not premium
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
             mLlBuyPremiumContainer.setVisibility(View.GONE);
