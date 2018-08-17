@@ -109,6 +109,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
 
+                User.google2faLock(response.user);
+
                 executeMain(false);
             } else if (!response.user.getEmailConfirmationStatus()) {
                 Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);

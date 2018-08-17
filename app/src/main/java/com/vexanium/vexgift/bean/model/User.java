@@ -218,6 +218,11 @@ public class User implements Serializable {
         return false;
     }
 
+    public static void google2faLock(User user) {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, user.isAuthenticatorEnable());
+    }
+
     public static boolean isGoogle2faLocked() {
         boolean isGoogle2faLocked;
         TpUtil tpUtil = new TpUtil(App.getContext());
