@@ -41,7 +41,7 @@ public class Voucher implements Serializable {
      *
      */
 
-    @JsonProperty("voucher_type")
+    @JsonProperty("member_type")
     private MemberType memberType;
 
     /*

@@ -28,7 +28,7 @@ public class IPremiumInteractorImpl implements IPremiumInteractor {
                 .subscribe(new BaseSubscriber<>(callback));
     }
 
-    @Override
+    /*@Override
     public Subscription submitKyc(RequestCallback callback, Kyc kyc) {
         return RetrofitManager.getInstance(HostType.COMMON_API).submitKyc(kyc).compose(RxUtil.<Kyc>handleResult())
                 .flatMap(new Func1<Kyc, Observable<Kyc>>() {
@@ -45,6 +45,6 @@ public class IPremiumInteractorImpl implements IPremiumInteractor {
     @Override
     public Subscription changePassword(RequestCallback callback, int id, String password, String newPassword) {
         return null;
-    }
+    }*/
 }
 
