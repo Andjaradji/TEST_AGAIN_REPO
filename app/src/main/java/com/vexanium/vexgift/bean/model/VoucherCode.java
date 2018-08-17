@@ -19,7 +19,7 @@ public class VoucherCode implements Serializable{
     @JsonProperty("claimed_by")
     private int claimedBy;
     @JsonProperty("is_claimed")
-    private int isClaimed;
+    private boolean isClaimed;
     @JsonProperty("vendor_code_id")
     private int vendorCodeId;
     @JsonProperty("created_at")
@@ -53,12 +53,12 @@ public class VoucherCode implements Serializable{
         this.claimedBy = claimedBy;
     }
 
-    public int getIsClaimed() {
+    public boolean isClaimed() {
         return isClaimed;
     }
 
-    public void setIsClaimed(int isClaimed) {
-        this.isClaimed = isClaimed;
+    public void setClaimed(boolean claimed) {
+        isClaimed = claimed;
     }
 
     public int getVendorCodeId() {

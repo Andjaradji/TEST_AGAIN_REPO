@@ -80,6 +80,9 @@ public class Voucher implements Serializable {
     @JsonProperty("limit_per_user")
     private int limitPerUser;
 
+    @JsonProperty("is_multiple_allowed")
+    private boolean isMultipleAllowed;
+
     @JsonProperty("category")
     private Category category;
     @JsonProperty("vendor")
@@ -321,5 +324,13 @@ public class Voucher implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean isMultipleAllowed() {
+        return isMultipleAllowed;
+    }
+
+    public void setMultipleAllowed(boolean multipleAllowed) {
+        isMultipleAllowed = multipleAllowed;
     }
 }

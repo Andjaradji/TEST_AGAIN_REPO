@@ -123,7 +123,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
 
             if (voucher.isOnline) {
                 state = THIRD_PARTY_VOUCHER_ACTIVE;
-            } else if (voucherCode.getIsClaimed() == 1) {
+            } else if (voucherCode.isClaimed()) {
                 state = VOUCHER_REDEEMED;
             } else if (voucher.getValidUntil() < System.currentTimeMillis()) {
                 state = VOUCHER_EXPIRED;
