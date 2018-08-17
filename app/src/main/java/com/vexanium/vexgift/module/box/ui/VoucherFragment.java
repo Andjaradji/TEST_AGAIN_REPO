@@ -128,10 +128,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
             if (data instanceof UserVouchersResponse) {
                 UserVouchersResponse vouchersResponse = (UserVouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
-
-                loadData();
-                mAdapter.setData(vouchersResponse.getActiveVoucher());
-                mAdapter.notifyDataSetChanged();
+                setVoucherList();
             }
 
         } else if (errorResponse != null) {
@@ -154,56 +151,60 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
     }
 
     public void setVoucherList() {
-        mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
+        if(mAdapter == null) {
+            mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
 
-            @Override
-            public int getItemLayoutId(int viewType) {
-                return R.layout.item_coupon_list;
-            }
+                @Override
+                public int getItemLayoutId(int viewType) {
+                    return R.layout.item_coupon_list;
+                }
 
-            @Override
-            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
-                final Voucher voucher = item.getVoucher();
-                holder.setImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, voucher.getTitle());
-                holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
-                holder.setViewInvisible(R.id.ll_qty, true);
-                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
-                    }
-                });
+                @Override
+                public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
+                    final Voucher voucher = item.getVoucher();
+                    holder.setImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                    holder.setText(R.id.tv_coupon_title, voucher.getTitle());
+                    holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
+                    holder.setViewInvisible(R.id.ll_qty, true);
+                    holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        }
+                    });
 
-                if (voucher.isPremium())
-                    holder.setViewGone(R.id.iv_premium, false);
-                else
-                    holder.setViewGone(R.id.iv_premium, true);
+                    if (voucher.isPremium())
+                        holder.setViewGone(R.id.iv_premium, false);
+                    else
+                        holder.setViewGone(R.id.iv_premium, true);
 
-            }
-        };
-        mAdapter.setHasStableIds(true);
-        mRecyclerview.setLayoutManager(layoutListManager);
-        mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(context, 16)));
-        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerview.getItemAnimator().setAddDuration(250);
-        mRecyclerview.getItemAnimator().setMoveDuration(250);
-        mRecyclerview.getItemAnimator().setChangeDuration(250);
-        mRecyclerview.getItemAnimator().setRemoveDuration(250);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setItemViewCacheSize(30);
-        mRecyclerview.setDrawingCacheEnabled(true);
-        mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mRecyclerview.setAdapter(mAdapter);
-        mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                App.setTextViewStyle(mRecyclerview);
-            }
-        });
+                }
+            };
+            mAdapter.setHasStableIds(true);
+            mRecyclerview.setLayoutManager(layoutListManager);
+            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(context, 16)));
+            mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerview.getItemAnimator().setAddDuration(250);
+            mRecyclerview.getItemAnimator().setMoveDuration(250);
+            mRecyclerview.getItemAnimator().setChangeDuration(250);
+            mRecyclerview.getItemAnimator().setRemoveDuration(250);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setItemViewCacheSize(30);
+            mRecyclerview.setDrawingCacheEnabled(true);
+            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            mRecyclerview.setAdapter(mAdapter);
+            mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    App.setTextViewStyle(mRecyclerview);
+                }
+            });
+        }else{
+            mAdapter.setData(data);
+        }
 
         if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
