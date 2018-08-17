@@ -279,7 +279,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
     private void updateView() {
         switch (state) {
             case THIRD_PARTY_VOUCHER_ACTIVE:
-                findViewById(R.id.send_button).setVisibility(View.GONE);
+                findViewById(R.id.send_button).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_active).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.GONE);

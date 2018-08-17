@@ -102,6 +102,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             UserLoginResponse response = (UserLoginResponse) data;
 
             if (response.user != null) {
+
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 

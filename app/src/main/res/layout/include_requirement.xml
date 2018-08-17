@@ -1,15 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_requirement"
+    <RelativeLayout
+        android:id="@+id/req_kyc"
         android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:textColor="@color/material_black_text_color"
-        android:textSize="@dimen/text_tiny"
-        android:layout_height="wrap_content" />
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/shape_white_round_rect_with_grey_border"
+        android:paddingLeft="@dimen/interval_main"
+        android:paddingRight="@dimen/interval_main">
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/iv_icon"
+            android:background="@color/transparent"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/approved_kyc"
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@id/iv_icon"
+            android:layout_width="@dimen/icon_small_medium"
+            android:layout_height="@dimen/icon_small_medium"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/btn_check_n" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/req_g2fa"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/shape_white_round_rect_with_black_border">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_ripple_transparent"></LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_toStartOf="@id/iv_icon"
+            android:background="@color/transparent"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/google_authenticator_enable"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@id/iv_icon"
+            android:layout_width="@dimen/icon_small_medium"
+            android:layout_height="@dimen/icon_small_medium"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/interval_main"
+            android:contentDescription="@string/image_content_description"
+            android:src="@drawable/btn_check_p" />
+    </RelativeLayout>
+
+</LinearLayout>

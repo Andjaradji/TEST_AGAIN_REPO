@@ -232,8 +232,9 @@ public class RetrofitManager {
     public Observable<HttpResponse<EmptyResponse>> requestRegister(User user) {
         Map<String, Object> params = Api.getBasicParam();
 
-        params.put("name", "undefined");
-
+        if (user.getLastName() != null) {
+            params.put("name", user.getName());
+        }
         if (user.getLastName() != null) {
             params.put("last_name", user.getLastName());
         }
@@ -401,7 +402,7 @@ public class RetrofitManager {
         return mUserService.setActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
-    public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id){
+    public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
@@ -410,7 +411,7 @@ public class RetrofitManager {
         return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
     }
 
-    public Observable<HttpResponse<UserVouchersResponse>> requestUserVoucherList(int id){
+    public Observable<HttpResponse<UserVouchersResponse>> requestUserVoucherList(int id) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
@@ -418,7 +419,7 @@ public class RetrofitManager {
         return mVoucherService.getUserVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserVouchersResponse>>());
     }
 
-    public Observable<HttpResponse<EmptyResponse>> requestBuyVoucher(int userId, int voucherId, String token){
+    public Observable<HttpResponse<EmptyResponse>> requestBuyVoucher(int userId, int voucherId, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
@@ -428,7 +429,7 @@ public class RetrofitManager {
         return mVoucherService.requestBuyVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
-    public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId){
+    public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
