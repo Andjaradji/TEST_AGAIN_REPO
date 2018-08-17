@@ -158,7 +158,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             KLog.json("HPtes google", JsonUtil.toString(account));
-            if(account!= null) {
+            if (account != null) {
                 User user = User.createWithGoogle(account);
                 if (user != null)
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
@@ -176,11 +176,12 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
     public void doRegister() {
         User user = new User();
+        String name = ((EditText) findViewById(R.id.et_username)).getText().toString();
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.et_password)).getText().toString();
-        String repass = ((EditText) findViewById(R.id.et_re_password)).getText().toString();
+        String repass = ((EditText) findViewById(R.id.et_repassword)).getText().toString();
 
-        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_password, R.id.et_re_password);
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_username, R.id.et_email, R.id.et_password, R.id.et_repassword);
 
         if (isValid) {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -189,12 +190,13 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             }
 
             if (isValid && !repass.equals(pass)) {
-                ((EditText) findViewById(R.id.et_re_password)).setError("Password doesn't matches");
+                ((EditText) findViewById(R.id.et_repassword)).setError("Password doesn't matches");
                 isValid = false;
             }
         }
 
         if (isValid) {
+            user.setName(name);
             user.setEmail(email);
             user.setPassword(pass);
 

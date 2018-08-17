@@ -7,5 +7,4 @@ import rx.Subscription;
 
 public interface IPremiumInteractor<T> {
     Subscription requestKyc(RequestCallback<T> callback, int id);
-
 }

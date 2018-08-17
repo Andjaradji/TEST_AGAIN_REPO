@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -45,6 +46,7 @@ import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
+import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -101,15 +103,19 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
 
-            if (response.user != null) {
+            if (response.user != null && (response.user.getEmailConfirmationStatus() || true)){
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
                 User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
+
+                executeMain();
+            }else if(!response.user.getEmailConfirmationStatus()){
+                Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
+                startActivity(intent);
             }
 
-            executeMain();
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
             StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());

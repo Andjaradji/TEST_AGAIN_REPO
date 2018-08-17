@@ -43,6 +43,13 @@ public interface UserService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+//    @FormUrlEncoded
+//    @POST("user/password")
+//    Observable<HttpResponse<EmptyResponse>> requestChangePassword(
+//            @Header("X-Vexanium-Key") String key,
+//            @Header("Cache-Control") String cacheControl,
+//            @FieldMap Map<String, Object> params);
+
     @FormUrlEncoded
     @POST("user/2fa")
     Observable<HttpResponse<Google2faResponse>> requestGoogleAuthCode(

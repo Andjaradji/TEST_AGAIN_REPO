@@ -11,6 +11,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -49,15 +50,27 @@ public class SendVoucherActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_generate_code:
-                doGenerate();
+                new VexDialog.Builder(this)
+                        .title(getString(R.string.exchange_send_voucher_warning_dialog_title))
+                        .content(getString(R.string.exchange_send_voucher_warning_dialog_desc))
+                        .optionType(DialogOptionType.YES_NO)
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                doGenerate();
+                            }
+                        })
+                        .autoDismiss(true)
+                        .show();
                 break;
         }
 
     }
 
-    private void doGenerate(){
+    private void doGenerate() {
         View view = View.inflate(this, R.layout.include_send_voucher_ga, null);
         final EditText etGA = view.findViewById(R.id.et_ga);
 

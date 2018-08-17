@@ -75,6 +75,11 @@ public class User implements Serializable {
     @JsonProperty("referral_code_registered")
     private String referralCodeRegistered;
 
+    @JsonProperty("email_confirmation_code")
+    private String emailConfirmationCode;
+    @JsonProperty("email_confirmation_status")
+    private boolean emailConfirmationStatus;
+
     @JsonProperty("user_kyc")
     private ArrayList<Kyc> kyc;
 
@@ -685,6 +690,12 @@ public class User implements Serializable {
         this.kyc = kyc;
     }
 
+    public void updateKyc(Kyc k) {
+        if(getKyc() != null && getKyc().size() > 0){
+            this.kyc.set(kyc.size() - 1, k);
+        }
+    }
+
     public long getPremiumDurationLeft() {
         return premiumDurationLeft;
     }
@@ -695,5 +706,21 @@ public class User implements Serializable {
 
     public boolean isPremiumMember() {
         return premiumDurationLeft > 0;
+    }
+
+    public String getEmailConfirmationCode() {
+        return emailConfirmationCode;
+    }
+
+    public void setEmailConfirmationCode(String emailConfirmationCode) {
+        this.emailConfirmationCode = emailConfirmationCode;
+    }
+
+    public boolean getEmailConfirmationStatus() {
+        return emailConfirmationStatus;
+    }
+
+    public void setEmailConfirmationStatus(boolean emailConfirmationStatus) {
+        this.emailConfirmationStatus = emailConfirmationStatus;
     }
 }

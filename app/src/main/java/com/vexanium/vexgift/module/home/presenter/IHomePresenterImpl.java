@@ -51,4 +51,9 @@ public class IHomePresenterImpl  extends BasePresenterImpl<IHomeView, Serializab
         Subscription subscription = mHomeInteractor.requestVoucherList(this, id);
         compositeSubscription.add(subscription);
     }
+    @Override
+    public void requestKyc(int id) {
+        Subscription subscription = mHomeInteractor.requestKyc(this, id);
+        compositeSubscription.add(subscription);
+    }
 }
