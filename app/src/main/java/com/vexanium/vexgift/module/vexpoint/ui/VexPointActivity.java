@@ -1,12 +1,15 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.socks.library.KLog;
@@ -18,9 +21,11 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
+import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -41,16 +46,18 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint)
+@ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint, withLoadingAnim = true)
 public class VexPointActivity extends BaseActivity<IVexpointPresenter> implements IVexpointView {
 
     private static final int POINT_RECORD_FRAGMENT = 0;
     private static final int INVITE_POINT_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
 
+    private SwipeRefreshLayout mRefreshLayout;
     private PointRecordFragment pointRecordFragment;
     private InvitePointFragment invitePointFragment;
 
+    private ImageView mReferralButton;
     private TextView mTvVp;
     private TextView mTvVpGen;
     private IconTextTabBarView mTabVp;
@@ -85,7 +92,15 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             }
         });
         verifTimeLeft = Calendar.getInstance();
-
+        mRefreshLayout = findViewById(R.id.srl_refresh);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateData();
+            }
+        });
+        mReferralButton = findViewById(R.id.referral_button);
+        mReferralButton.setOnClickListener(this);
         updateView();
 
         if (User.getUserAddressStatus() != 1) {
@@ -101,6 +116,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        mRefreshLayout.setEnabled(true);
         if (data != null) {
             if (data instanceof UserAddressResponse) {
                 UserAddressResponse userAddressResponse = (UserAddressResponse) data;
@@ -133,6 +149,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             findViewById(R.id.rl_vp).setVisibility(View.GONE);
 
             if (User.getUserAddressStatus() == 0) {
+                //mReferralButton.setVisibility(View.GONE);
                 findViewById(R.id.ll_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_wait_address).setVisibility(View.VISIBLE);
 
@@ -152,6 +169,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                     });
                 }
             } else {
+               // mReferralButton.setVisibility(View.GONE);
                 findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_wait_address).setVisibility(View.GONE);
                 findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
@@ -170,6 +188,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             }
 
         } else {
+            mReferralButton.setVisibility(View.VISIBLE);
             findViewById(R.id.rl_vp).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_info).setVisibility(View.GONE);
             findViewById(R.id.ll_wait_address).setVisibility(View.GONE);
@@ -219,6 +238,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 }
             });
         }
+        mRefreshLayout.setEnabled(true);
     }
 
     private void setPagerListener() {
@@ -241,12 +261,22 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         });
     }
 
+    private void updateData() {
+        mRefreshLayout.setEnabled(false);
+        mRefreshLayout.setRefreshing(false);
+        updateView();
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.referral_button:
+                Intent intent = new Intent(this, ReferralActivity.class);
+                startActivity(intent);
                 break;
         }
     }

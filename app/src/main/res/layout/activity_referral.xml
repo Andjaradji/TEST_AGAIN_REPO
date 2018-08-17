@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.referral.ui.ReferralActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:padding="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <include layout="@layout/content_toolbar_back" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/interval_main"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_referral_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/referral_title"
+                android:textColor="@color/material_black_text_color"
+                android:textStyle="bold"
+                android:tag="hnBoldCond"
+                android:textSize="@dimen/text_big_medium"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_referral_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/referral_note"
+                android:textColor="@color/material_black_text_color"
+                android:tag="hnBoldCond"
+                android:textSize="@dimen/text_tiny" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_invited_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_big"
+                app:cardBackgroundColor="@color/material_white"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/interval_big">
+
+                    <TextView
+                        android:id="@+id/tv_invited_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/referral_invited_user"
+                        android:textStyle="bold"
+                        android:textColor="@color/material_black_text_color"
+                        android:tag="hnBoldCond"
+                        android:textSize="@dimen/text_medium"
+                        android:layout_alignParentStart="true"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentEnd="true">
+
+                        <TextView
+                            android:id="@+id/tv_referral_invited_user_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12"
+                            android:textStyle="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:tag="hnBoldCond"
+                            android:paddingEnd="@dimen/interval_content"
+                            android:textSize="@dimen/text_medium" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_person"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_referral_share_on_sm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/referral_share_on_sm"
+                android:textColor="@color/material_black_text_color"
+                android:tag="hnBoldCond"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_big_medium"
+                android:layout_marginTop="@dimen/interval_big"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_main"
+                android:background="@drawable/shape_white_round_rect_with_grey_border">
+
+                <TextView
+                    android:id="@+id/tv_referral_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="http://asdasd.asd/asdas?asdasdasdasdaasdsda asd"
+                    android:textColor="@color/material_black_3d3d"
+                    android:paddingLeft="@dimen/interval_submain"
+                    android:layout_marginRight="40dp"
+                    android:paddingTop="@dimen/interval_submain"
+                    android:paddingBottom="@dimen/interval_submain"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:paddingEnd="@dimen/interval_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_medium" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/material_grey_d5">
+
+                    </View>
+
+                    <ImageView
+                        android:id="@+id/iv_referral_copy"
+                        android:src="@drawable/ic_copy"
+                        android:padding="@dimen/interval_submain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="6">
+
+                <ImageView
+                    android:id="@+id/referral_share_whatsapp_button"
+                    android:src="@drawable/ic_whatsapp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+                <ImageView
+                    android:id="@+id/referral_share_telegram_button"
+                    android:src="@drawable/ic_telegram"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+                <ImageView
+                    android:id="@+id/referral_share_line_button"
+                    android:src="@drawable/ic_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+                <ImageView
+                    android:id="@+id/referral_share_twitter_button"
+                    android:src="@drawable/ic_twitter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+                <ImageView
+                    android:id="@+id/referral_share_fb_button"
+                    android:src="@drawable/ic_facebook"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+                <ImageView
+                    android:id="@+id/referral_share_sm_button"
+                    android:src="@drawable/ic_sm_share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/AppTheme.ShareButton"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
