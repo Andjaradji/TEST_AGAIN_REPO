@@ -46,7 +46,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint, withLoadingAnim = true)
+@ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint, withLoadingAnim = false)
 public class VexPointActivity extends BaseActivity<IVexpointPresenter> implements IVexpointView {
 
     private static final int POINT_RECORD_FRAGMENT = 0;

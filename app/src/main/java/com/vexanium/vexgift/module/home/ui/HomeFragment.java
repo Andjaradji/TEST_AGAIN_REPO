@@ -164,7 +164,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
 
-                if (!user.isAuthenticatorEnable() || !User.getIsPasswordSet(HomeFragment.this.getContext()) || !user.isKycApprove()) {
+                if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
                     openRequirementDialog();
                 } else {
 

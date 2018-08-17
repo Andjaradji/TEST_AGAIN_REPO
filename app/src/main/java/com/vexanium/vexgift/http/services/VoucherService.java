@@ -37,7 +37,7 @@ public interface VoucherService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
-    @POST("voucher/buy-voucher")
+    @POST("voucher/claim-voucher")
     Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
