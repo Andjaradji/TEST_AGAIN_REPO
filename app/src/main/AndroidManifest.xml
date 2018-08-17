@@ -149,16 +149,11 @@
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
 
-<<<<<<< HEAD
         <activity
             android:name=".module.register.ui.RegisterConfirmationActivity"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name=".fcm.VexFirebaseMessagingService">
-=======
         <service android:name=".fcm.VexFirebaseMessagingService">
->>>>>>> master
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
