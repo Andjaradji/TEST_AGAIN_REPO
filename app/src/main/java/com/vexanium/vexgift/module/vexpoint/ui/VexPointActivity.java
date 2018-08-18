@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.module.vexpoint.ui;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +24,6 @@ import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
-import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;

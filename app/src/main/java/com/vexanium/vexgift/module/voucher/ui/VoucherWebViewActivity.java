@@ -1,10 +1,8 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.CookieManager;
@@ -23,12 +21,7 @@ import com.vexanium.vexgift.base.BaseWebChromeClient;
 import com.vexanium.vexgift.base.BaseWebView;
 import com.vexanium.vexgift.base.BaseWebViewClient;
 import com.vexanium.vexgift.bean.model.Voucher;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.NetworkUtil;
-import com.vexanium.vexgift.util.WebViewUtil;
-
-import java.io.File;
 
 import static com.vexanium.vexgift.app.App.getContext;
 

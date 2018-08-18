@@ -11,9 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.socks.library.KLog;
-import com.vexanium.vexgift.app.StaticGroup;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

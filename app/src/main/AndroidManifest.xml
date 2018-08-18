@@ -125,13 +125,13 @@
             android:name=".module.profile.ui.KycActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.exchange.ui.ReceiveVoucherActivity"
+            android:name=".module.voucher.ui.ReceiveVoucherActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.vexpoint.ui.VexAddressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.exchange.ui.SendVoucherActivity"
+            android:name=".module.voucher.ui.SendVoucherActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.premium.ui.PremiumMemberActivity"
@@ -183,6 +183,9 @@
         </receiver>
 
         <activity android:name=".module.voucher.ui.VoucherWebViewActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e22256c8656e634c132431e0e0f1bd58d3c42820" />
     </application>
 
 </manifest>

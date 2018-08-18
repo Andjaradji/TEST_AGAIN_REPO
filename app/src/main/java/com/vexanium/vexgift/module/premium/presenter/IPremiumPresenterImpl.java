@@ -1,11 +1,8 @@
 package com.vexanium.vexgift.module.premium.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
-import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.premium.model.IPremiumInteractorImpl;
-import com.vexanium.vexgift.module.profile.model.IProfileInteractor;
-import com.vexanium.vexgift.module.profile.model.IProfileInteractorImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
 
 import java.io.Serializable;

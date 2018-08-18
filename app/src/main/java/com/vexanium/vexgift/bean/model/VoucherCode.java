@@ -14,8 +14,6 @@ import java.util.Locale;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VoucherCode implements Serializable {
 
-    public String url;
-
     @JsonProperty("id")
     private int id;
     @JsonProperty("voucher_id")

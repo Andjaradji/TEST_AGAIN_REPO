@@ -108,4 +108,11 @@ public interface UserService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/email-confirmation")
+    Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 }

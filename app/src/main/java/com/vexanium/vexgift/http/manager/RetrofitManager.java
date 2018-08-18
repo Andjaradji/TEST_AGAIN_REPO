@@ -458,6 +458,26 @@ public class RetrofitManager {
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
+    public Observable<HttpResponse<VoucherCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+        params.put("token", token);
+
+        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
+    public Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(int userId, int voucherCodeId, String token) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+        params.put("token", token);
+
+        return mVoucherService.requestClaimGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
     public Observable<HttpResponse<PremiumListResponse>> requestPremiumList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -474,8 +494,17 @@ public class RetrofitManager {
         params.put("price", price);
         params.put("currency", currency);
 
-        Log.e("errorkey",getApiKey());
+        Log.e("errorkey", getApiKey());
         return mOtherService.purcasePremiumMember(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumPurchaseResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(int userId, String code) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("email_confirmation_code", userId);
+
+        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
 }

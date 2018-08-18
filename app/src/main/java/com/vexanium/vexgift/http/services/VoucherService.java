@@ -50,4 +50,20 @@ public interface VoucherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+
+    @FormUrlEncoded
+    @POST("voucher/voucher-gift-code/get-gift-code")
+    Observable<HttpResponse<VoucherCodeResponse>> requestGetGiftCode(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("voucher/voucher-gift-code/claim-gift-code")
+    Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 }
