@@ -118,8 +118,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             public void call(Integer vp) {
                 KLog.v("NotifFragment", "call: HPtes masuk");
                 loadData();
-                mNotifListAdapter.setData(data);
-                mNotifListAdapter.notifyDataSetChanged();
+                initNotifList();
             }
         });
 
@@ -210,107 +209,111 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
 
     public void initNotifList() {
-        mNotifListAdapter = new BaseRecyclerAdapter<Notification>(this.getActivity(), data, layoutListManager) {
-            @Override
-            public int getItemLayoutId(int viewType) {
-                return R.layout.item_notif_list;
-            }
-
-            @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final Notification item) {
-                String content;
-                switch (item.getType()) {
-                    case "exp":
-                        content = String.format(getString(R.string.notif_expired), item.getVoucher().getTitle());
-                        break;
-                    case "exp_soon":
-                        content = String.format(getString(R.string.notif_expire_soon), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
-                        break;
-                    case Notification.TYPE_GET_SUCCESS:
-                        content = String.format(getString(R.string.notif_success_claim), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
-                        break;
-                    case "avail":
-                        content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
-                        break;
-                    default:
-                        content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
+        if(mNotifListAdapter == null) {
+            mNotifListAdapter = new BaseRecyclerAdapter<Notification>(this.getActivity(), data, layoutListManager) {
+                @Override
+                public int getItemLayoutId(int viewType) {
+                    return R.layout.item_notif_list;
                 }
 
-                setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
-                Vendor vendor = item.getVoucher().getVendor();
-                holder.setText(R.id.tv_brand, vendor.getName());
-                holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.placeholder);
-                holder.setViewGone(R.id.iv_red_dot, !item.isNew());
-                if (item.isNew()) {
-                    holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                    holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                    holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                }
-                long timeInterval = (System.currentTimeMillis() - item.getTime()) / 1000;
+                @Override
+                public void bindData(BaseRecyclerViewHolder holder, int position, final Notification item) {
+                    String content;
+                    switch (item.getType()) {
+                        case "exp":
+                            content = String.format(getString(R.string.notif_expired), item.getVoucher().getTitle());
+                            break;
+                        case "exp_soon":
+                            content = String.format(getString(R.string.notif_expire_soon), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
+                            break;
+                        case Notification.TYPE_GET_SUCCESS:
+                            content = String.format(getString(R.string.notif_success_claim), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
+                            break;
+                        case "avail":
+                            content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
+                            break;
+                        default:
+                            content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
+                    }
+
+                    setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
+                    Vendor vendor = item.getVoucher().getVendor();
+                    holder.setText(R.id.tv_brand, vendor.getName());
+                    holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.placeholder);
+                    holder.setViewGone(R.id.iv_red_dot, !item.isNew());
+                    if (item.isNew()) {
+                        holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                        holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                        holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.material_black_text_color));
+                    }
+                    long timeInterval = (System.currentTimeMillis() - item.getTime()) / 1000;
 //                KLog.v("NotifFragment", "HPtes  now [" + System.currentTimeMillis() + "] - time [" + item.getTime() + "] = " + timeInterval + " ");
-                if (timeInterval <= 60) {
-                    holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
-                } else if (timeInterval <= 60 * 60) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_min), timeInterval / 60));
-                } else if (timeInterval <= 24 * 60 * 60) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), timeInterval / (60 * 60)));
-                } else if (timeInterval <= 7 * 24 * 60 * 60) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_day), timeInterval / (24 * 60 * 60)));
-                } else if (timeInterval <= 30 * 24 * 60 * 60) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_week), timeInterval / (7 * 24 * 60 * 60)));
-                } else if (timeInterval <= 365 * 24 * 60 * 60) {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_month), timeInterval / (30 * 24 * 60 * 60)));
-                } else {
-                    holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_year), timeInterval / (365 * 24 * 60 * 60)));
+                    if (timeInterval <= 60) {
+                        holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
+                    } else if (timeInterval <= 60 * 60) {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_min), timeInterval / 60));
+                    } else if (timeInterval <= 24 * 60 * 60) {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_hour), timeInterval / (60 * 60)));
+                    } else if (timeInterval <= 7 * 24 * 60 * 60) {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_day), timeInterval / (24 * 60 * 60)));
+                    } else if (timeInterval <= 30 * 24 * 60 * 60) {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_week), timeInterval / (7 * 24 * 60 * 60)));
+                    } else if (timeInterval <= 365 * 24 * 60 * 60) {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_month), timeInterval / (30 * 24 * 60 * 60)));
+                    } else {
+                        holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_year), timeInterval / (365 * 24 * 60 * 60)));
+                    }
+                    holder.setOnClickListener(R.id.root, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            if (!TextUtils.isEmpty(item.getUrl()))
+                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                        }
+                    });
+                    holder.setOnClickListener(R.id.tv_brand, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            if (!TextUtils.isEmpty(item.getUrl()))
+                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                        }
+                    });
+                    holder.setOnClickListener(R.id.tv_content, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            if (!TextUtils.isEmpty(item.getUrl()))
+                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
+                        }
+                    });
                 }
-                holder.setOnClickListener(R.id.root, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        if (!TextUtils.isEmpty(item.getUrl()))
-                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                    }
-                });
-                holder.setOnClickListener(R.id.tv_brand, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        if (!TextUtils.isEmpty(item.getUrl()))
-                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                    }
-                });
-                holder.setOnClickListener(R.id.tv_content, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (ClickUtil.isFastDoubleClick()) return;
-                        if (!TextUtils.isEmpty(item.getUrl()))
-                            ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                    }
-                });
-            }
-        };
+            };
 
-        mNotifListAdapter.setHasStableIds(true);
-        mRecyclerview.setLayoutManager(layoutListManager);
-        mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
-        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerview.getItemAnimator().setAddDuration(250);
-        mRecyclerview.getItemAnimator().setMoveDuration(250);
-        mRecyclerview.getItemAnimator().setChangeDuration(250);
-        mRecyclerview.getItemAnimator().setRemoveDuration(250);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerview.setItemViewCacheSize(30);
-        mRecyclerview.setDrawingCacheEnabled(true);
-        mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        mRecyclerview.setAdapter(mNotifListAdapter);
-        mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                App.setTextViewStyle(mRecyclerview);
-            }
-        });
+            mNotifListAdapter.setHasStableIds(true);
+            mRecyclerview.setLayoutManager(layoutListManager);
+            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+            mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerview.getItemAnimator().setAddDuration(250);
+            mRecyclerview.getItemAnimator().setMoveDuration(250);
+            mRecyclerview.getItemAnimator().setChangeDuration(250);
+            mRecyclerview.getItemAnimator().setRemoveDuration(250);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            mRecyclerview.setItemViewCacheSize(30);
+            mRecyclerview.setDrawingCacheEnabled(true);
+            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            mRecyclerview.setAdapter(mNotifListAdapter);
+            mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    App.setTextViewStyle(mRecyclerview);
+                }
+            });
+        }else{
+            mNotifListAdapter.setData(data);
+        }
 
         if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
@@ -320,6 +323,10 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             mTvErrorBody.setText(getString(R.string.error_notif_empty_body));
 
             mRecyclerview.setVisibility(View.GONE);
+        }else{
+            mErrorView.setVisibility(View.GONE);
+
+            mRecyclerview.setVisibility(View.VISIBLE);
         }
     }
 

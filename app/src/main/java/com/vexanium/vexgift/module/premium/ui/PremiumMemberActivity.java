@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,8 +37,9 @@ import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
+import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
-import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
+import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
@@ -88,13 +90,13 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mLlBuyPremiumContainer = (LinearLayout) findViewById(R.id.ll_buy_premium);
 
         ArrayList<IconText> data = new ArrayList<>();
-        data.add(new IconText(R.drawable.ic_premium_voucher,R.string.premium_access_voucher));
-        data.add(new IconText(R.drawable.ic_premium_referral,R.string.premium_referral_bonus));
-        data.add(new IconText(R.drawable.ic_premium_luckydraw,R.string.premium_lucky_draw));
-        data.add(new IconText(R.drawable.ic_premium_airdrop,R.string.premium_airdrop_token));
+        data.add(new IconText(R.drawable.ic_premium_voucher, R.string.premium_access_voucher));
+        data.add(new IconText(R.drawable.ic_premium_referral, R.string.premium_referral_bonus));
+        data.add(new IconText(R.drawable.ic_premium_luckydraw, R.string.premium_lucky_draw));
+        data.add(new IconText(R.drawable.ic_premium_airdrop, R.string.premium_airdrop_token));
 
         //WalkthroughAdapter mAdapter = new WalkthroughAdapter(this,data);
-        PremiumPagerAdapter adapter = new PremiumPagerAdapter(this,data,true);
+        PremiumPagerAdapter adapter = new PremiumPagerAdapter(this, data, true);
 
         mVpPremium.setAdapter(adapter);
         mVpPremium.setOffscreenPageLimit(PAGE_COUNT);
@@ -114,14 +116,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
         });
 
-        mRvPremiumPlan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        mRvPremiumPlan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        ArrayList<UserPremiumMember> itemList = new ArrayList<>();
-        /*itemList.add(new UserPremiumMember(200,1));
-        itemList.add(new UserPremiumMember(150,7));
-        itemList.add(new UserPremiumMember(100,30));*/
-
-        mAdapter = new PremiumPlanAdapter(this,this);
+        mAdapter = new PremiumPlanAdapter(this, this);
         mRvPremiumPlan.setAdapter(mAdapter);
 
         try {
@@ -154,9 +151,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     protected void onResume() {
         super.onResume();
         mVpPremium.resumeAutoScroll();
-        if(user.getPremiumDurationLeft() > 0) {
+        if (user.getPremiumDurationLeft() > 0) {
             updateView(1);
-        }else{
+        } else {
             updateView(0);
         }
     }
@@ -169,7 +166,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onClickBuy(PremiumPlan data) {
-        doBuy(data);
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+            openRequirementDialog();
+        } else {
+            doBuy(data);
+        }
     }
 
     @Override
@@ -193,7 +194,68 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
-    public void setPremiumPlanList(PremiumListResponse premiumListResponse){
+    public void openRequirementDialog() {
+        View view = View.inflate(this, R.layout.include_requirement, null);
+        final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
+        final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
+
+        final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
+        final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
+
+        final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
+        final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
+
+        boolean isReqCompleted = true;
+
+        if (!user.isKycApprove()) {
+            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
+            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
+            isReqCompleted = false;
+            rlReqKyc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    Intent intent = new Intent(PremiumMemberActivity.this, MyProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
+            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
+            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
+        }
+        if (!user.isAuthenticatorEnable()) {
+            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
+            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
+            isReqCompleted = false;
+            rlReqGoogle2fa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    Intent intent = new Intent(PremiumMemberActivity.this, SecurityActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
+            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
+            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
+        }
+
+        if (isReqCompleted) return;
+
+        new VexDialog.Builder(this)
+                .title(getString(R.string.vexpoint_requirement_dialog_title))
+                .content(getString(R.string.vexpoint_requirement_dialog_desc))
+                .addCustomView(view)
+                .optionType(DialogOptionType.OK)
+                .autoDismiss(true)
+                .show();
+    }
+
+    public void setPremiumPlanList(PremiumListResponse premiumListResponse) {
         mAdapter.addItemList(premiumListResponse.getPremiumPlans());
         mAdapter.notifyDataSetChanged();
     }
@@ -219,7 +281,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
-    private void callPremiumPlanList(){
+    private void callPremiumPlanList() {
         mPresenter.requestPremiumList(user.getId());
     }
 
@@ -228,17 +290,17 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     private void updateView(int viewType) {
-        if(viewType == 0){
+        if (viewType == 0) {
             //if not premium
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
             mLlBuyPremiumContainer.setVisibility(View.GONE);
             mRlBecomePremiumTopContainer.setVisibility(View.VISIBLE);
-        }else if(viewType == 1){
+        } else if (viewType == 1) {
             //if already premium
             mRlBecomePremiumTopContainer.setVisibility(View.GONE);
             mLlBuyPremiumContainer.setVisibility(View.GONE);
             mLlAlreadyPremiumTopContainer.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             //buying premium
             mRlBecomePremiumTopContainer.setVisibility(View.GONE);
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
@@ -249,13 +311,13 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     private void updatePendingBuyView(final PremiumPurchase premiumPurchase){
         
         verifTimeLeft.setTimeInMillis((premiumPurchase.getPaidBefore() * 1000) + Calendar.getInstance().getTimeInMillis());
-        ((TextView)findViewById(R.id.tv_vex_address)).setText(userAddress.getActAddress());
-        ((TextView)findViewById(R.id.tv_vex_count)).setText(premiumPurchase.getPaidAmount());
-        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
-        Toast.makeText(this, ""+premiumPurchase.getPaidTo(), Toast.LENGTH_SHORT).show();
-        /*ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
-        ViewUtil.setText(this, R.id.tv_vex_count, premiumPurchase.getPaidAmount() + "");
-        ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());*/
+//        ((TextView)findViewById(R.id.tv_vex_address)).setText(userAddress.getActAddress());
+//        ((TextView)findViewById(R.id.tv_vex_amount)).setText(premiumPurchase.getPaidAmount());
+//        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
+
+        ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
+        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() + "");
+        ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
 
         findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,16 +331,17 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     private void doBuy(final PremiumPlan plan){
+
         View view = View.inflate(this, R.layout.include_buy_premium_confirmation, null);
         final TextView tvDay = view.findViewById(R.id.tv_premium_confirmation_day);
         final TextView tvVex = view.findViewById(R.id.tv_premium_confirmation_vex);
         final TextView tvTotal = view.findViewById(R.id.tv_premium_confirmation_total_amount);
 
-        int day = plan.getDuration()/24/3600;
+        int day = plan.getDuration() / 24 / 3600;
 
         tvDay.setText(plan.getName());
-        tvVex.setText(plan.getPrice()+ " "+getString(R.string.premium_buy_vex));
-        tvTotal.setText(plan.getPrice()*day+ " VEX");
+        tvVex.setText(plan.getPrice() + " " + getString(R.string.premium_buy_vex));
+        tvTotal.setText(plan.getPrice() * day + " VEX");
 
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)
@@ -305,11 +368,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .show();
     }
 
-    public class IconText{
+    public class IconText {
         int iconId;
         int stringId;
 
-        public IconText(int iconId, int stringId){
+        public IconText(int iconId, int stringId) {
             this.iconId = iconId;
             this.stringId = stringId;
         }

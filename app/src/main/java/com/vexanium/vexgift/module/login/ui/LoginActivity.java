@@ -90,8 +90,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
 
-        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
-        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
+//        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
+//        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
     }
@@ -109,6 +109,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                 User.updateCurrentUser(this.getApplicationContext(), response.user);
 
+                User.google2faLock(response.user);
+
                 executeMain(false);
             } else if (!response.user.getEmailConfirmationStatus()) {
                 Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
@@ -117,7 +119,12 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+            }
+            else{
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            }
         } else {
             StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
         }

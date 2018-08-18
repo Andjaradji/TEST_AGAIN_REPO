@@ -348,7 +348,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                 mRecyclerview.setVisibility(View.VISIBLE);
                 mRecyclerview.startAnimation(mFadeIn);
             }
-            findViewById(R.id.token_open_filter_button).setVisibility(View.VISIBLE);
+            // TODO: 18/08/18 uncomment 
+//            findViewById(R.id.token_open_filter_button).setVisibility(View.VISIBLE);
         }
     }
 
