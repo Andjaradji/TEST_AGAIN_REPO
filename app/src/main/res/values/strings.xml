@@ -419,6 +419,22 @@
 
     <string name="premium_already_premium">Your account is already premium\nuntil %s.</string>
 
+    <string name="premium_already_in_progress_title">Oops!</string>
+    <string name="premium_already_in_progress_body">You already have a premium membership purchase in progress</string>
+    <string name="premium_already_in_progress_cancel">Cancel</string>
+    <string name="premium_already_in_progress_check">Check</string>
+
+    <string name="premium_history">PREMIUM HISTORY</string>
+    <string name="premium_purchase_history">Purchase History</string>
+    <string name="premium_purchase_pending">Pending</string>
+    <string name="premium_purchase_success">Success</string>
+    <string name="premium_purchase_failed">Failed</string>
+    <string name="premium_purchase_plan">Plan</string>
+    <string name="premium_purchase_paid_amount">Paid amount</string>
+    <string name="premium_purchase_paid_to">Paid to</string>
+    <string name="premium_purchase_paid_from">Paid from</string>
+
+
     <string name="referral_invite_others">INVITE OTHERS</string>
     <string name="referral_title">Get 10% of invited user\'s snapshot!</string>
     <string name="referral_note">invited user\'s snapshot won\'t be deducted</string>

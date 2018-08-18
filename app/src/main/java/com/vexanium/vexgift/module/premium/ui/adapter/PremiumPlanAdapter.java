@@ -48,7 +48,7 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
         holder.mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClickBuy(data);
+                listener.onItemClick(data);
             }
         });
 

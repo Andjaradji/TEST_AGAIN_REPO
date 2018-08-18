@@ -9,6 +9,7 @@ import com.vexanium.vexgift.app.StaticGroup;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -128,22 +129,22 @@ public class Voucher implements Serializable {
     }
 
     public String getExpiredDate() {
-        long l = TimeUnit.SECONDS.toMillis(validUntil) ;
+        long l = TimeUnit.SECONDS.toMillis(validUntil);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(l);
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
         return dateFormat.format(calendar.getTime());
     }
 
     public String getCreatedDate() {
+        long l = TimeUnit.SECONDS.toMillis(validFrom);
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(validFrom);
+        calendar.setTimeInMillis(l);
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
         return dateFormat.format(calendar.getTime());
     }
 
@@ -212,7 +213,7 @@ public class Voucher implements Serializable {
     }
 
     public long getValidFrom() {
-        return TimeUnit.SECONDS.toMillis(validFrom) ;
+        return TimeUnit.SECONDS.toMillis(validFrom);
     }
 
     public void setValidFrom(long validFrom) {
@@ -226,7 +227,7 @@ public class Voucher implements Serializable {
 //            calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30));
 //            validUntil = calendar.getTimeInMillis();
 //        }
-        return TimeUnit.SECONDS.toMillis(validUntil) ;
+        return TimeUnit.SECONDS.toMillis(validUntil);
     }
 
     public void setValidUntil(long validUntil) {
@@ -333,50 +334,50 @@ public class Voucher implements Serializable {
         this.voucherType = voucherType;
     }
 
-    public boolean isThirdParty(){
-        if(memberType == null || TextUtils.isEmpty(memberType.getName())){
+    public boolean isThirdParty() {
+        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
             return false;
-        }else{
+        } else {
             return memberType.getName().equalsIgnoreCase("Third Party");
         }
     }
 
-    public boolean isToken(){
-        if(memberType == null || TextUtils.isEmpty(memberType.getName())){
+    public boolean isToken() {
+        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
             return false;
-        }else{
+        } else {
             return memberType.getName().equalsIgnoreCase("Token");
         }
     }
 
-    public boolean isOnlineCode(){
-        if(memberType == null || TextUtils.isEmpty(memberType.getName())){
+    public boolean isOnlineCode() {
+        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
             return false;
-        }else{
+        } else {
             return memberType.getName().equalsIgnoreCase("Online Code");
         }
     }
 
-    public boolean isVendorCode(){
-        if(voucherType == null || TextUtils.isEmpty(voucherType.getName())){
+    public boolean isVendorCode() {
+        if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
             return false;
-        }else{
+        } else {
             return voucherType.getName().equalsIgnoreCase("Vendor Code");
         }
     }
 
-    public boolean isForAllMember(){
-        if(memberType == null || TextUtils.isEmpty(memberType.getName())){
+    public boolean isForAllMember() {
+        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
             return false;
-        }else{
+        } else {
             return memberType.getName().equalsIgnoreCase("All");
         }
     }
 
-    public boolean isForPremium(){
-        if(memberType == null || TextUtils.isEmpty(memberType.getName())){
+    public boolean isForPremium() {
+        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
             return false;
-        }else{
+        } else {
             return memberType.getName().equalsIgnoreCase("Premium");
         }
     }

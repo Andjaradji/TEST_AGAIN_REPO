@@ -56,7 +56,9 @@ import com.vexanium.vexgift.widget.discretescrollview.transform.ScaleTransformer
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import rx.Observable;
@@ -545,5 +547,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         discreteScrollView.scrollToPosition(1);
     }
 
+    private String getDate(long timeStamp){
+
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            Date netDate = (new Date(timeStamp));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "xx";
+        }
+    }
 
 }

@@ -64,6 +64,7 @@
 
         <TextView
             android:id="@+id/tv_vex_address"
+            android:text="address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/interval_main"
@@ -94,7 +95,7 @@
         android:textSize="@dimen/text_tiny" />
 
     <TextView
-        android:id="@+id/tv_vex_count"
+        android:id="@+id/tv_vex_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"

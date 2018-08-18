@@ -137,6 +137,12 @@
             android:name=".module.premium.ui.PremiumMemberActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.premium.ui.PremiumHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.premium.ui.PremiumHistoryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.privacy.ui.PrivacyActivity"
             android:screenOrientation="portrait" />
         <activity

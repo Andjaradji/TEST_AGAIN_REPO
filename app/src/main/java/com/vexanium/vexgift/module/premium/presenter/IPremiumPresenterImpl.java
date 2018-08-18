@@ -50,4 +50,22 @@ public class IPremiumPresenterImpl extends BasePresenterImpl<IProfileView, Seria
         Subscription subscription = mInteractor.requestPremiumList(this, userId);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void purchasePremium(int userId, int duration, int price, String currency) {
+        Subscription subscription = mInteractor.purchasePremium(this, userId,duration,price,currency);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void getActAddress(int userId) {
+        Subscription subscription = mInteractor.requestGetActAddress(this, userId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestUserPremiumHistory(int userId) {
+        Subscription subscription = mInteractor.requestPremiumHistoryList(this, userId);
+        compositeSubscription.add(subscription);
+    }
 }
