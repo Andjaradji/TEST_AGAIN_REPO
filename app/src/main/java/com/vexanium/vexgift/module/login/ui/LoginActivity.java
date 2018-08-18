@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
@@ -76,6 +77,18 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
+
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+        }
     }
 
     @Override
@@ -90,8 +103,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
 
-        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
-        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
+//        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
+//        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
         checkAppVersion();
     }

@@ -68,7 +68,7 @@
                 android:gravity="center">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_submain"
                     android:hint="@string/exchange_receive_voucher_prompt_text"
@@ -76,7 +76,6 @@
                     android:background="@color/transparent"
                     android:singleLine="true"
                     android:maxLines="1"
-                    android:gravity="center"
                     android:textSize="@dimen/text_small_medium" />
 
             </LinearLayout>
@@ -110,5 +109,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <include layout="@layout/include_loading_view"/>
 
 </RelativeLayout>

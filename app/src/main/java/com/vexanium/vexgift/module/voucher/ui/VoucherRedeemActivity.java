@@ -143,7 +143,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 break;
             case R.id.send_button:
                 intent = new Intent(VoucherRedeemActivity.this, SendVoucherActivity.class);
-                intent.putExtra("voucher", JsonUtil.toString(voucher));
+                intent.putExtra("voucher", JsonUtil.toString(voucherCode));
                 startActivity(intent);
                 break;
             case R.id.btn_redeem:
@@ -313,6 +313,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_online_info_desc));
+                ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.voucher_online_button));
                 setCode(voucherCode.getVoucherCode());
                 break;
@@ -327,6 +329,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
+                ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_3rd_party_info_desc));
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.voucher_online_button));
                 break;
@@ -339,6 +343,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
+                ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
                 break;
             case VOUCHER_IN_REDEEM_PROCESS:
@@ -350,6 +356,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.VISIBLE);
+                ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_deactivated_voucher));
                 setCode("811332791113");
                 break;
@@ -376,7 +384,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
-                findViewById(R.id.ll_countdown).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_countdown).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);

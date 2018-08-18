@@ -7,4 +7,5 @@ public interface IHomePresenter extends BasePresenter {
 
     void requestKyc(int id);
 
+
 }

@@ -2,6 +2,8 @@ package com.vexanium.vexgift.fcm;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.socks.library.KLog;
+import com.vexanium.vexgift.app.StaticGroup;
 
 public class VexFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -12,6 +14,11 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        KLog.v("VexFirebaseMessagingService","onMessageReceived: From :"+remoteMessage.getFrom());
+        KLog.v("VexFirebaseMessagingService","onMessageReceived: MessageBody"+remoteMessage.getNotification().getBody());
+
+//        StaticGroup.sendLocalNotification(App.getContext(), "Test","Content", "vex");
     }
 
     @Override
@@ -30,7 +37,9 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
+    public void onNewToken(String token) {
+        super.onNewToken(token);
+        KLog.v("VexFirebaseMessagingService","onNewToken: "+token);
+        StaticGroup.insertRegistrationID(token);
     }
 }

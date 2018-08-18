@@ -84,8 +84,8 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
     }
 
     @Override
-    public void requestClaimGiftCode(int userId, int voucherCodeId, String token) {
-        Subscription subscription = mInteractor.requestClaimGiftCode(this, userId, voucherCodeId, token);
+    public void requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode) {
+        Subscription subscription = mInteractor.requestClaimGiftCode(this, userId, voucherCodeId, voucherGiftCode);
         compositeSubscription.add(subscription);
     }
 }

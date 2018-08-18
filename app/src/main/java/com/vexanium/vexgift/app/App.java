@@ -17,9 +17,10 @@ import com.vexanium.vexgift.database.DaoMaster;
 import com.vexanium.vexgift.database.DaoSession;
 import com.vexanium.vexgift.database.DatabaseUpgradeHelper;
 
-import io.fabric.sdk.android.Fabric;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by hizkia on 12/03/18.
@@ -47,7 +48,6 @@ public class App extends Application {
 
     private Thread.UncaughtExceptionHandler mExceptionHandler;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -73,6 +73,9 @@ public class App extends Application {
             });
         }
 
+        KLog.init(BuildConfig.DEBUG);
+
+        StaticGroup.initialize(this);
         setupCustomFont();
         setupDatabase();
 
@@ -83,6 +86,7 @@ public class App extends Application {
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
+
     private void setupDatabase() {
         DatabaseUpgradeHelper helper = new DatabaseUpgradeHelper(this, ConstantGroup.DB_NAME);
         Database db = helper.getWritableDb();

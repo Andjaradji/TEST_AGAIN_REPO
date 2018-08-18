@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {
@@ -127,8 +128,10 @@ public class Voucher implements Serializable {
     }
 
     public String getExpiredDate() {
+        long l = TimeUnit.SECONDS.toMillis(validUntil) ;
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(validUntil);
+        calendar.setTimeInMillis(l);
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
 
@@ -209,7 +212,7 @@ public class Voucher implements Serializable {
     }
 
     public long getValidFrom() {
-        return validFrom;
+        return TimeUnit.SECONDS.toMillis(validFrom) ;
     }
 
     public void setValidFrom(long validFrom) {
@@ -223,7 +226,7 @@ public class Voucher implements Serializable {
 //            calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(30));
 //            validUntil = calendar.getTimeInMillis();
 //        }
-        return validUntil;
+        return TimeUnit.SECONDS.toMillis(validUntil) ;
     }
 
     public void setValidUntil(long validUntil) {

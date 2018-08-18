@@ -10,6 +10,7 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -239,8 +240,8 @@ public class RetrofitManager {
 
         if (user.getName() != null) {
             params.put("name", user.getName());
-        }else{
-            params.put("name","undefined");
+        } else {
+            params.put("name", "undefined");
         }
         if (user.getLastName() != null) {
             params.put("last_name", user.getLastName());
@@ -457,22 +458,22 @@ public class RetrofitManager {
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
-    public Observable<HttpResponse<VoucherCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
+    public Observable<HttpResponse<VoucherGiftCode>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
         params.put("token", token);
 
-        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherGiftCode>>());
     }
 
-    public Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(int userId, int voucherCodeId, String token) {
+    public Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
-        params.put("token", token);
+        params.put("voucher_gift_code", voucherGiftCode);
 
         return mVoucherService.requestClaimGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
@@ -489,9 +490,18 @@ public class RetrofitManager {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
-        params.put("email_confirmation_code", userId);
+        params.put("email_confirmation_code", code);
 
         return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(String sess, int userId, String notification_id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("notification_id", notification_id);
+
+        return mUserService.requestUpdateNotificationId(sess, getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
 }

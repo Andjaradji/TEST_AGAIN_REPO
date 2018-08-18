@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.detail.ui;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,9 +35,6 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenter;
 import com.vexanium.vexgift.module.detail.presenter.IDetailPresenterImpl;
 import com.vexanium.vexgift.module.detail.view.IDetailView;
-import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
-import com.vexanium.vexgift.module.security.ui.SecurityActivity;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -135,7 +130,7 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
                 CheckBox cbAggree = findViewById(R.id.cb_aggree);
                 if (cbAggree.isChecked()) {
                     if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                        openRequirementDialog();
+                        StaticGroup.openRequirementDialog(VoucherDetailActivity.this);
                     } else {
                         doGoogle2fa();
                     }
@@ -328,67 +323,6 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
                     }
                 });
 
-    }
-
-    public void openRequirementDialog() {
-        View view = View.inflate(this, R.layout.include_requirement, null);
-        final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
-        final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
-
-        final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
-        final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
-
-        final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
-        final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
-
-        boolean isReqCompleted = true;
-
-        if (!user.isKycApprove()) {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqKyc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(VoucherDetailActivity.this, MyProfileActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
-        }
-        if (!user.isAuthenticatorEnable()) {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqGoogle2fa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(VoucherDetailActivity.this, SecurityActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
-        }
-
-        if (isReqCompleted) return;
-
-        new VexDialog.Builder(this)
-                .title(getString(R.string.vexpoint_requirement_dialog_title))
-                .content(getString(R.string.vexpoint_requirement_dialog_desc))
-                .addCustomView(view)
-                .optionType(DialogOptionType.OK)
-                .autoDismiss(true)
-                .show();
     }
 
     private void simulateGetVoucherSuccess() {

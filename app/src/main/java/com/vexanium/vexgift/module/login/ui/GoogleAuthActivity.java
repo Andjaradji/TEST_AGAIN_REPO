@@ -10,6 +10,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -24,13 +25,18 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 
+import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_google_auth, withLoadingAnim = true)
 public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView {
 
+    private User user;
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
         mPresenter = new IGoogleAuthPresenterImpl(this);
         findViewById(R.id.login_button).setOnClickListener(this);
+        findViewById(R.id.tv_ask).setOnClickListener(this);
     }
 
     @Override
@@ -38,6 +44,11 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
         super.onClick(v);
         switch (v.getId()) {
 
+            case R.id.tv_ask:
+                String subject = String.format("[LOGIN] #%04d", user.getId());
+                String message = "Hi Vexgift Support!\nI've problem with...";
+                StaticGroup.shareWithEmail(this, SUPPORT_EMAIL, subject, message);
+                break;
             case R.id.login_button:
                 doCheckToken();
                 break;

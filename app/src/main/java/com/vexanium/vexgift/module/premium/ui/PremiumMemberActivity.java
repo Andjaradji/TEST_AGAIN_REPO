@@ -161,7 +161,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     @Override
     public void onClickBuy(PremiumPlan data) {
         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-            openRequirementDialog();
+            StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
         } else {
             doBuy(data);
         }

@@ -16,7 +16,7 @@ import rx.Observable;
 import rx.Subscription;
 import rx.functions.Func1;
 
-public class IHomeInteractorImpl implements IHomeInteractor{
+public class IHomeInteractorImpl implements IHomeInteractor {
     @Override
     public Subscription requestVoucherList(RequestCallback callback, int id) {
 
@@ -30,6 +30,7 @@ public class IHomeInteractorImpl implements IHomeInteractor{
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
     @Override
     public Subscription requestKyc(RequestCallback callback, int id) {
         return RetrofitManager.getInstance(HostType.COMMON_API).requestKyc(id).compose(RxUtil.<Kyc>handleResult())
@@ -43,4 +44,6 @@ public class IHomeInteractorImpl implements IHomeInteractor{
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
+
 }
