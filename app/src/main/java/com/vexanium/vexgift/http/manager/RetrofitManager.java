@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
@@ -494,8 +495,15 @@ public class RetrofitManager {
         params.put("price", price);
         params.put("currency", currency);
 
-        Log.e("errorkey", getApiKey());
         return mOtherService.purcasePremiumMember(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumPurchaseResponse>>());
+    }
+
+    public Observable<HttpResponse<PremiumHistoryResponse>> requestUserPremiumHistory(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getPremiumHistoryList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumHistoryResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(int userId, String code) {

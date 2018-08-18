@@ -2,8 +2,15 @@ package com.vexanium.vexgift.bean.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown =  true)
 public class PremiumPurchase implements Serializable{
@@ -116,5 +123,30 @@ public class PremiumPurchase implements Serializable{
 
     public void setPaidBefore(int paidBefore) {
         this.paidBefore = paidBefore;
+    }
+
+    public String getPaidBeforeDate(){
+        return getDate(paidBefore);
+    }
+
+    public String getCreatedAtDate(){
+        try {
+            SimpleDateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat  dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = dateFormat.parse(createdAt);
+            return dateOutput.format(date);
+        }catch (ParseException e){
+            e.printStackTrace();
+            return  createdAt;
+        }
+    }
+
+    public String getDate(int timestamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp*1000L);
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 }

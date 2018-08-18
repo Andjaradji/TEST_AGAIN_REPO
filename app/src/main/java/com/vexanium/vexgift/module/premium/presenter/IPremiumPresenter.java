@@ -6,5 +6,6 @@ public interface IPremiumPresenter extends BasePresenter{
     void requestPremiumList(int userId);
     void purchasePremium(int userId, int duration, int price, String currency);
     void getActAddress(int userId);
+    void requestUserPremiumHistory(int userId);
    
 }

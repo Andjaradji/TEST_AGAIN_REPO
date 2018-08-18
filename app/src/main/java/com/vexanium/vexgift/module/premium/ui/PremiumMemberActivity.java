@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +31,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.model.UserPremiumMember;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
@@ -51,6 +53,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member)
 public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> implements IProfileView, AdapterBuyOnClick {
@@ -65,8 +69,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     PageIndicatorView mPiPremium;
     RecyclerView mRvPremiumPlan;
 
+    ImageButton mHistoryButton;
     RelativeLayout mRlBecomePremiumTopContainer;
     LinearLayout mLlAlreadyPremiumTopContainer, mLlBuyPremiumContainer;
+
+    ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
     PremiumPlanAdapter mAdapter;
 
@@ -80,8 +87,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         user = User.getCurrentUser(this);
         verifTimeLeft = Calendar.getInstance();
 
+
         mPresenter.getActAddress(user.getId());
 
+        mHistoryButton = (ImageButton) findViewById(R.id.ib_history);
+        mHistoryButton.setEnabled(false);
         mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
         mRvPremiumPlan = (RecyclerView) findViewById(R.id.rv_premium);
@@ -95,7 +105,6 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         data.add(new IconText(R.drawable.ic_premium_luckydraw, R.string.premium_lucky_draw));
         data.add(new IconText(R.drawable.ic_premium_airdrop, R.string.premium_airdrop_token));
 
-        //WalkthroughAdapter mAdapter = new WalkthroughAdapter(this,data);
         PremiumPagerAdapter adapter = new PremiumPagerAdapter(this, data, true);
 
         mVpPremium.setAdapter(adapter);
@@ -120,6 +129,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mAdapter = new PremiumPlanAdapter(this, this);
         mRvPremiumPlan.setAdapter(mAdapter);
+
+        mHistoryButton.setOnClickListener(this);
 
         try {
             Field mScroller;
@@ -161,15 +172,27 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        switch (v.getId()){
+            case R.id.ib_history:
+                Intent intent = new Intent(this,PremiumHistoryActivity.class);
+                intent.putExtra("premium_history_list",mPremiumHistoryList);
+                startActivity(intent);
+                break;
+
+        }
 
     }
 
     @Override
-    public void onClickBuy(PremiumPlan data) {
+    public void onItemClick(PremiumPlan data) {
         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
             openRequirementDialog();
         } else {
-            doBuy(data);
+            if(mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0) {
+                doBuy(data);
+            }else{
+                showPendingWarning();
+            }
         }
     }
 
@@ -186,6 +209,16 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             } else if( data instanceof UserAddressResponse){
                 UserAddressResponse userAddressResponse = (UserAddressResponse) data;
                 userAddress = userAddressResponse.getUserAddress();
+                callPremiumHistoryList();
+            } else if( data instanceof PremiumHistoryResponse){
+                mPremiumHistoryList = ((PremiumHistoryResponse) data).getPremiumPurchase();
+                Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
+                    @Override
+                    public int compare(PremiumPurchase t0, PremiumPurchase t1) {
+                        return t1.getCreatedAtDate().compareTo(t0.getCreatedAt());
+                    }
+                });
+                mHistoryButton.setEnabled(true);
                 callPremiumPlanList();
             }
 
@@ -281,6 +314,10 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    private void callPremiumHistoryList(){
+        mPresenter.requestUserPremiumHistory(user.getId());
+    }
+
     private void callPremiumPlanList() {
         mPresenter.requestPremiumList(user.getId());
     }
@@ -316,7 +353,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 //        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
 
         ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
-        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() + "");
+        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() +" VEX");
         ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
 
         findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
@@ -328,6 +365,33 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         });
 
 
+    }
+
+    private void showPendingWarning(){
+        new VexDialog.Builder(this)
+                .optionType(DialogOptionType.YES_NO)
+                .title(getString(R.string.premium_already_in_progress_title))
+                .content(R.string.premium_already_in_progress_body)
+                .positiveText(getString(R.string.premium_already_in_progress_check))
+                .negativeText(getString(R.string.premium_already_in_progress_cancel))
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(PremiumMemberActivity.this,PremiumHistoryDetailActivity.class);
+                        intent.putExtra("premium_history_detail",mPremiumHistoryList.get(0));
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                })
+                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .autoDismiss(false)
+                .canceledOnTouchOutside(false)
+                .show();
     }
 
     private void doBuy(final PremiumPlan plan){
