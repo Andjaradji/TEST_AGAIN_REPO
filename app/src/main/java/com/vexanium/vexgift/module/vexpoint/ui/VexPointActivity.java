@@ -121,6 +121,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
                 if (userAddressResponse != null && userAddressResponse.getUserAddress() != null) {
                     UserAddress userAddress = userAddressResponse.getUserAddress();
+
                     TpUtil tpUtil = new TpUtil(this);
                     tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
 

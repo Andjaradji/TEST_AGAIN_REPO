@@ -115,7 +115,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
 // TODO: 17/08/18 remove true 
-            if (response.user != null && (true || response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+            if (response.user != null && ( response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+                StaticGroup.removeReferrerData();
+
                 StaticGroup.userSession = response.user.getSessionKey();
                 StaticGroup.isPasswordSet = response.isPasswordSet;
 
@@ -190,6 +192,12 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 User user = User.createWithGoogle(account);
                 if (user != null)
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
+
+                        String referralCode = StaticGroup.checkReferrerData();
+                        if (!TextUtils.isEmpty(referralCode)) {
+                            user.setReferralCode(referralCode);
+                        }
+
                         mPresenter.requestLogin(user);
                     } else {
                         StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
@@ -375,6 +383,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                                     JSONObject userInfo = response.getJSONObject();
 
                                     User facebookUserInfo = User.createWithFacebook(userInfo);
+
+                                    String referralCode = StaticGroup.checkReferrerData();
+                                    if (!TextUtils.isEmpty(referralCode)) {
+                                        facebookUserInfo.setReferralCode(referralCode);
+                                    }
 
                                     hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);

@@ -37,8 +37,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/material_white"
         android:layout_below="@id/app_bar"
+        android:background="@color/material_white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -98,11 +98,11 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/ll_qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ll_qty"
-                        android:visibility="invisible"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="invisible">
 
                         <ImageView
                             android:layout_width="16dp"
@@ -144,6 +144,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_guidance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/interval_main"
@@ -155,7 +156,6 @@
             android:id="@+id/ll_send_code_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginBottom="@dimen/interval_main"
             android:layout_marginEnd="@dimen/interval_main"
             android:layout_marginLeft="@dimen/interval_main"
@@ -163,17 +163,19 @@
             android:layout_marginStart="@dimen/interval_main"
             android:layout_marginTop="@dimen/interval_small"
             android:background="@drawable/shape_voucher_availability"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <TextView
+                android:id="@+id/tv_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/interval_submain"
-                android:textColor="@color/material_grey_9393"
                 android:background="@color/transparent"
-                android:singleLine="true"
-                android:maxLines="1"
                 android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/material_grey_9393"
                 android:textSize="@dimen/text_small_medium" />
 
         </LinearLayout>
@@ -204,8 +206,69 @@
                 android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/ll_share_container"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/interval_main"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main"
+            android:layout_marginStart="@dimen/interval_main"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <ImageView
+                android:id="@+id/send_voucher_share_whatsapp_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_whatsapp" />
+
+            <ImageView
+                android:id="@+id/send_voucher_share_telegram_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_telegram" />
+
+            <ImageView
+                android:id="@+id/send_voucher_share_line_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_line" />
+
+            <ImageView
+                android:id="@+id/send_voucher_share_twitter_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_twitter" />
+
+            <ImageView
+                android:id="@+id/send_voucher_share_fb_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_facebook" />
+
+            <ImageView
+                android:id="@+id/send_voucher_share_sm_button"
+                style="@style/AppTheme.ShareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_sm_share" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

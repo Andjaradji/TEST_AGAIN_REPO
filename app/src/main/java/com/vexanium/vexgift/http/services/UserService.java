@@ -118,6 +118,13 @@ public interface UserService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("user/resend-email-confirmation")
+    Observable<HttpResponse<EmptyResponse>> requestResendEmailConfirmation(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @PATCH("user/update-notification-id")
     Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(
             @Header("X-Vexanium-Key") String key,

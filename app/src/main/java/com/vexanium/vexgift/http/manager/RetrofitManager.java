@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -514,6 +513,14 @@ public class RetrofitManager {
         params.put("email_confirmation_code", code);
 
         return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestResendEmail(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mUserService.requestResendEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(String sess, int userId, String notification_id) {

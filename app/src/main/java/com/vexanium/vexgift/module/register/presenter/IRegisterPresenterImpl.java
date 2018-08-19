@@ -63,4 +63,10 @@ public class IRegisterPresenterImpl extends BasePresenterImpl<IRegisterView, Ser
         Subscription subscription = mRegisterInteractor.requestEmailConfirmation(this, userId, code);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestResendEmail(int userId) {
+        Subscription subscription = mRegisterInteractor.requestResendEmail(this, userId);
+        compositeSubscription.add(subscription);
+    }
 }

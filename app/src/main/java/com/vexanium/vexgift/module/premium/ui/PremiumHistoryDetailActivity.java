@@ -1,16 +1,10 @@
 package com.vexanium.vexgift.module.premium.ui;
 
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -20,19 +14,14 @@ import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
-import com.vexanium.vexgift.module.premium.ui.adapter.PremiumHistoryAdapter;
-import com.vexanium.vexgift.module.premium.ui.helper.AdapterHistoryOnClick;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
-import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;

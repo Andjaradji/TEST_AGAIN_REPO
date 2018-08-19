@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
@@ -29,7 +28,6 @@ import com.vexanium.vexgift.bean.model.PremiumPlan;
 import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
-import com.vexanium.vexgift.bean.model.UserPremiumMember;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;

@@ -11,12 +11,9 @@ import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.PremiumPurchase;
-import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterHistoryOnClick;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAdapter.FilterViewHolder> {
 

@@ -7,4 +7,5 @@ public interface IRegisterPresenter extends BasePresenter{
     void requestLogin(User user);
     void requestRegister(User user);
     void requestEmailConfirmation(int userId, String code);
+    void requestResendEmail(int userId);
 }

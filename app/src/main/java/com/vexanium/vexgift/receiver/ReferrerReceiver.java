@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.socks.library.KLog;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.util.TpUtil;
 
 import java.util.Set;
@@ -33,6 +34,8 @@ public class ReferrerReceiver extends BroadcastReceiver {
         if (!TextUtils.isEmpty(referrer)) {
             TpUtil tpUtil = new TpUtil(context);
             tpUtil.put(TpUtil.KEY_REFERRER, referrer);
+
+            TablePrefDaoUtil.getInstance().saveInviteCodeToDb(referrer);
         }
 
         try {

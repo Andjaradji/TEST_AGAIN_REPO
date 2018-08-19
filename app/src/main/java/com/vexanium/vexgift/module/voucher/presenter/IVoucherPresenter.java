@@ -15,5 +15,5 @@ public interface IVoucherPresenter extends BasePresenter {
 
     void requestGetGiftCode(int userId, int voucherCodeId, String token);
 
-    void requestClaimGiftCode(int userId, int voucherCodeId, String token);
+    void requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode);
 }

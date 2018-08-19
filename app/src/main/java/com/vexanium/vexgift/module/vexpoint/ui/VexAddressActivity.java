@@ -58,8 +58,8 @@ public class VexAddressActivity extends BaseActivity<IVexpointPresenter> impleme
                 UserAddressResponse userAddressResponse = (UserAddressResponse) data;
                 if (userAddressResponse.getUserAddress() != null && userAddressResponse.getUserAddress().getStatus() == 0) {
                     new VexDialog.Builder(this)
-                            .title("Success")
-                            .content("Your Vex Address has been submitted, Please send a specified amount of vex for verification")
+                            .title(getString(R.string.vexpoint_address_success_dialog_title))
+                            .content(getString(R.string.vexpoint_address_success_dialog_content))
                             .optionType(DialogOptionType.OK)
                             .canceledOnTouchOutside(false)
                             .cancelable(false)

@@ -48,6 +48,7 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
@@ -173,7 +174,7 @@ public class StaticGroup {
         }
     }
 
-    private static boolean openShareIntent(Context context, String packageName, String message, String gaLabel, String alterPackageName) {
+    private static boolean openShareIntent(Context context, String packageName, String className, String message, String gaLabel, String alterPackageName) {
         if (context != null && !TextUtils.isEmpty(packageName)) {
             try {
                 Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
@@ -181,7 +182,11 @@ public class StaticGroup {
                 if (intent != null) {
                     Intent shareIntent = new Intent();
                     shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.setPackage(packageName);
+                    if (!TextUtils.isEmpty(className)) {
+                        shareIntent.setPackage(packageName);
+                    } else {
+                        shareIntent.setClassName(packageName, className);
+                    }
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_TEXT, message);
                     shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -283,20 +288,17 @@ public class StaticGroup {
     public static void sendLocalNotification(Context context, String title, String message, String url) {
         NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
         Intent targetIntent;
-        //TODO  asign targetIntent
-//        if (!getRecentTaskInfo(context)) {
-//            targetIntent = new Intent(context, MainActivity.class);
-//            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        } else {
-        targetIntent = new Intent(context, MainActivity.class);
-        targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        }
-        targetIntent.putExtra("t_type", "noti");
+        if (!getRecentTaskInfo(context)) {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } else {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
         targetIntent.putExtra("t_url", url);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
         builder.setCategory(Notification.CATEGORY_MESSAGE);
-        builder.setPriority(2);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
 
@@ -306,31 +308,25 @@ public class StaticGroup {
         manager.cancel(ConstantGroup.ID_LOCAL_PUSH);
         manager.notify(ConstantGroup.ID_LOCAL_PUSH, notification);
 
-//        try {
-//            if (SettingCondition.getCurrentSettingCondition(App.getContext()).isNotifSoundEnabled())
-//                StaticGroup.goSoundEffectSound(context, R.raw.twinkle);
-//        } catch (TimeoutException e) {
-//            e.printStackTrace();
-//        }
+        // TODO: 20/08/18 check setting
+
     }
 
     public static void sendLocalNotificationWithBigImage(Context context, String title, String message, String url, Bitmap img) {
         NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
         Intent targetIntent;
-        //TODO  asign targetIntent
-//        if (!getRecentTaskInfo(context)) {
-//            targetIntent = new Intent(context, MainActivity.class);
-//            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        } else {
-        targetIntent = new Intent(context, MainActivity.class);
-        targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        }
+        if (!getRecentTaskInfo(context)) {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } else {
+            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
         targetIntent.putExtra("t_type", "noti");
         targetIntent.putExtra("t_url", url);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent)
                 .setCategory(Notification.CATEGORY_MESSAGE)
-                .setPriority(2)
                 .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(img));
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
@@ -341,12 +337,7 @@ public class StaticGroup {
         manager.cancel(ConstantGroup.ID_LOCAL_PUSH);
         manager.notify(ConstantGroup.ID_LOCAL_PUSH, notification);
 
-//        try {
-//            if (SettingCondition.getCurrentSettingCondition(App.getContext()).isNotifSoundEnabled())
-//                StaticGroup.goSoundEffectSound(context, R.raw.twinkle);
-//        } catch (TimeoutException e) {
-//            e.printStackTrace();
-//        }
+        // TODO: 20/08/18 check setting
     }
 
     private static void createNotificationChannel(Context context) {
@@ -393,6 +384,52 @@ public class StaticGroup {
         return packName;
     }
 
+    public static void removeReferrerData() {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        tpUtil.put(TpUtil.KEY_REFERRER, "");
+        tpUtil.remove(TpUtil.KEY_REFERRER);
+
+        TablePrefDaoUtil.getInstance().saveInviteCodeToDb("");
+    }
+
+    public static String checkReferrerData() {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        String parentCode = tpUtil.getString(TpUtil.KEY_REFERRER, "");
+
+        if (!TextUtils.isEmpty(parentCode)) {
+            try {
+                parentCode = URLDecoder.decode(parentCode, "UTF-8");
+                KLog.v("PARENT TEST", "referDbData.referrer SpUtil : " + parentCode);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (TextUtils.isEmpty(parentCode)) {
+            parentCode = TablePrefDaoUtil.getInstance().getInviteCode();
+            if (!TextUtils.isEmpty(parentCode)) {
+                try {
+                    parentCode = URLDecoder.decode(parentCode, "UTF-8");
+                    KLog.v("PARENT TEST", "referDbData.referrer decoded database : " + parentCode);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return parentCode;
+    }
+
+    public static boolean isAppAvailable(Context context, String appName) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     private static boolean isGoogleMarketUrl(String url) {
         return url.startsWith("market://") || ((url.startsWith("http://") || url.startsWith("https://")) && url.contains("play.google.com"));
     }
@@ -416,14 +453,12 @@ public class StaticGroup {
                 String[] pkName = StaticGroup.findPackNameClass(context, "com.google.android.gm");
                 if (pkName != null) {
                     if (!TextUtils.isEmpty(pkName[0])) {
-                        emailIntent.setComponent(new ComponentName(pkName[0], pkName[1]));                // 패키지명, 클래스명
+                        emailIntent.setComponent(new ComponentName(pkName[0], pkName[1]));
                         context.startActivity(emailIntent);
                     } else {
-                        // TODO: 09/08/18 update string res
                         context.startActivity(Intent.createChooser(emailIntent, "Report Select"));
                     }
                 } else {
-                    // TODO: 09/08/18 update string res
                     context.startActivity(Intent.createChooser(emailIntent, "Report Select"));
                 }
             } catch (android.content.ActivityNotFoundException ex) {
@@ -512,9 +547,8 @@ public class StaticGroup {
                         if (packageName.contains("facebook")) {
                             StaticGroup.copyToClipboard(context, content);
                         }
-                        StaticGroup.shareWithPackageName(context, packageName, content, method, alternativePackageName);
+                        StaticGroup.shareWithPackageName(context, packageName, "", content, method, alternativePackageName, "");
                     } else {
-                        // TODO: 09/08/18 update string res
                         StaticGroup.shareWithShareDialog(context, content, "Share link");
                     }
                     isAlreadyHandled = true;
@@ -579,12 +613,18 @@ public class StaticGroup {
     }
 
     public static NotificationCompat.Builder getDefaultNotificationBuilder(Context context, String message, String title, Intent targetIntent, long whenTimeStamp, int badgeNumber, boolean autoCancel) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_logo_notif : R.mipmap.ic_launcher);
-        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+        } else {
+            builder = new NotificationCompat.Builder(context);
+        }
+
+        builder.setSmallIcon(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? R.drawable.ic_logo_notif : R.mipmap.ic_launcher);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_logo_notif));
             builder.setColor(ColorUtil.getColor(context, R.color.point_color));
-
         }
 
         if (autoCancel) {
@@ -754,11 +794,14 @@ public class StaticGroup {
         }
     }
 
-    public static void shareWithPackageName(Context context, String packageName, String message, String gaLabel, String alterPackageName) {
+    public static void shareWithPackageName(Context context, String packageName, String className, String message, String gaLabel, String alterPackageName, String url) {
         if (context != null && !TextUtils.isEmpty(packageName)) {
-            boolean isCompleted = openShareIntent(context, packageName, message, gaLabel, alterPackageName);
+            boolean isCompleted = openShareIntent(context, packageName, className, message, gaLabel, alterPackageName);
             if (!isCompleted) {
-                openShareIntent(context, alterPackageName, message, gaLabel, "");
+                isCompleted = openShareIntent(context, alterPackageName, "", message, gaLabel, "");
+                if (!isCompleted) {
+
+                }
             }
         }
     }

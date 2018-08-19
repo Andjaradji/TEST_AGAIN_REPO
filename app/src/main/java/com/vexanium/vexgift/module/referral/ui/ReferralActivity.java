@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +15,8 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
+
+import static com.vexanium.vexgift.app.StaticGroup.isAppAvailable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_referral,toolbarTitle = R.string.referral_invite_others)
 public class ReferralActivity extends BaseActivity {
@@ -191,20 +192,6 @@ public class ReferralActivity extends BaseActivity {
         else
         {
             Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public static boolean isAppAvailable(Context context, String appName)
-    {
-        PackageManager pm = context.getPackageManager();
-        try
-        {
-            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
-            return true;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
-            return false;
         }
     }
 }

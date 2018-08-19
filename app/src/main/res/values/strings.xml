@@ -56,6 +56,7 @@
 
     <string name="coupon_redeem_availability">Voucher will Expired in :</string>
     <string name="coupon_redeemed">Voucher has been redeemed in :</string>
+    <string name="coupon_gifted">Voucher has been gifted in :</string>
     <string name="coupon_expired">Voucher has been expired in :</string>
     <string name="coupon_detail_availability">Voucher Availability</string>
     <string name="coupon_detail_desc_title">Voucher Description</string>
@@ -157,6 +158,9 @@
     <string name="vexpoint_address_need_g2fa_dialog_title">Google Authenticator is Required</string>
     <string name="vexpoint_address_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to submit vex address</string>
     <string name="vexpoint_address_need_g2fa_dialog_button">Setup Now</string>
+
+    <string name="vexpoint_address_success_dialog_title">Success</string>
+    <string name="vexpoint_address_success_dialog_content">Your Vex Address has been submitted, Please send a specified amount of vex for verification</string>
 
     <string name="get_voucher_need_g2fa_dialog_title">Google Authenticator is Required</string>
     <string name="get_voucher_need_g2fa_dialog_desc">Due to security reason, Google Authenticator is required to get voucher</string>
@@ -383,15 +387,21 @@
     <string name="exchange_receive_voucher_prompt_text">Enter code</string>
     <string name="exchange_receive_voucher_button_get">Get Voucher</string>
     <string name="exchange_send_voucher_guide">Click the button below to generate code and copy the code to the recipient user</string>
-    <string name="exchange_send_voucher_generated_guide">Now you can share this code to the recipient user</string>
+    <string name="exchange_send_voucher_generated_guide">Share this code to the recipient user</string>
     <string name="exchange_send_voucher_button_generate_code">Generate Code</string>
     <string name="exchange_send_voucher_button_generate">Generate</string>
     <string name="exchange_send_voucher_warning_dialog_title">Are Your Sure?</string>
     <string name="exchange_send_voucher_warning_dialog_desc">If you make this voucher as a gift, you can not redeem this voucher anymore</string>
     <string name="exchange_send_voucher_ga_title">Google Authenticator</string>
     <string name="exchange_send_voucher_ga_body">Please enter your Google Authenticator PIN</string>
+    <string name="exchange_send_voucher_view_code_ga_body">To view voucher gift code. Please enter your Google Authenticator PIN</string>
     <string name="exchange_send_voucher_button_cancel">Cancel</string>
+    <string name="exchange_send_voucher_button_view">View</string>
     <string name="exchange_send_voucher_ga_hint">Google Authenticator PIN</string>
+
+    <string name="exchange_receive_voucher_success_dialog_title">Success</string>
+    <string name="exchange_receive_voucher_success_dialog_content">You got %s\'s Voucher, Check your voucher in My Box now</string>
+    <string name="exchange_receive_voucher_success_dialog_button">Check</string>
 
 
     <string name="premium_member">PREMIUM MEMBER</string>

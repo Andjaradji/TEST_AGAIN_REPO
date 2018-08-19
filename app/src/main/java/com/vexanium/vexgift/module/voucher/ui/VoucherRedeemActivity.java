@@ -60,6 +60,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
     private static final int VOUCHER_IN_REDEEM_PROCESS = 102;
     private static final int VOUCHER_REDEEMED = 103;
     private static final int VOUCHER_EXPIRED = 104;
+    private static final int VOUCHER_IS_BEING_GIFTED = 105;
     private int state = VOUCHER_ACTIVE;
 
     private VoucherCode voucherCode;
@@ -114,7 +115,9 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
 
-            if (voucherCode.isDeactivated()) {
+            if (voucherCode.isBeingGifted()) {
+                state = VOUCHER_IS_BEING_GIFTED;
+            } else if (voucherCode.isDeactivated()) {
                 state = VOUCHER_REDEEMED;
             } else if (voucher.getValidUntil() < System.currentTimeMillis()) {
                 state = VOUCHER_EXPIRED;
@@ -374,6 +377,21 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
+                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                break;
+            case VOUCHER_IS_BEING_GIFTED:
+                KLog.v("VoucherRedeemActivity", "updateView: VOUCHER IS BEING GIFTED");
+                findViewById(R.id.send_button).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_info).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_active).setVisibility(View.GONE);
+                findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
+                findViewById(R.id.ll_button_container).setVisibility(View.GONE);
+                findViewById(R.id.ll_countdown).setVisibility(View.GONE);
+                findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_gifted));
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
                 break;
             case VOUCHER_EXPIRED:

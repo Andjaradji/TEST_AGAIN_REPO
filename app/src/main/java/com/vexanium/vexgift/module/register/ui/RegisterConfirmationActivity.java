@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.register.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenter;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenterImpl;
@@ -24,6 +26,9 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -72,8 +77,31 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
     }
 
     @Override
-    public void handleResult(Serializable data, HttpResponse errorResponse) {
+    public void handleResult(Serializable data, final HttpResponse errorResponse) {
         if (data != null) {
+            if (data instanceof EmptyResponse && errorResponse != null && errorResponse.getMeta() != null) {
+                if (errorResponse.getMeta().getStatus() == 200) {
+                    new VexDialog.Builder(this)
+                            .title(getString(R.string.succsess))
+                            .content(errorResponse.getMeta().getMessage())
+                            .optionType(DialogOptionType.OK)
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    if (errorResponse.getMeta().getMessage().contains("resend")) {
+                                        setLastEmailSendTime();
+                                    } else {
+                                        finish();
+                                    }
+                                }
+                            })
+                            .autoDismiss(false)
+                            .cancelable(false)
+                            .canceledOnTouchOutside(false)
+                            .show();
+                }
+            }
 
         } else if (errorResponse != null) {
             if (errorResponse.getMeta() != null) {
@@ -93,7 +121,7 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
         switch (v.getId()) {
             case R.id.resend_button:
                 if (isAbleToResend()) {
-                    setLastEmailSendTime();
+                    mPresenter.requestResendEmail(user.getId());
                 }
                 break;
             case R.id.confirmation_button:

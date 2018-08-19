@@ -89,6 +89,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         KLog.v("RegisterActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
             if (data instanceof UserLoginResponse) {
+                StaticGroup.removeReferrerData();
+
                 UserLoginResponse response = (UserLoginResponse) data;
 
                 if (response.user != null) {
@@ -177,20 +179,25 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     private void handleGoogleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            KLog.json("HPtes google", JsonUtil.toString(account));
             if (account != null) {
                 User user = User.createWithGoogle(account);
                 if (user != null)
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
+                        String referralCode = StaticGroup.checkReferrerData();
+                        if (!TextUtils.isEmpty(referralCode)) {
+                            user.setReferralCode(referralCode);
+                        }
+
                         mPresenter.requestLogin(user);
                     } else {
-                        toast("Error, GID null");
+                        StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
                     }
             }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
             KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
+            StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
         }
     }
 
@@ -220,9 +227,15 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             user.setEmail(email);
             user.setPassword(pass);
 
+            String referralCode = StaticGroup.checkReferrerData();
+            if (!TextUtils.isEmpty(referralCode)) {
+                user.setReferralCode(referralCode);
+            }
+
             mPresenter.requestRegister(user);
         }
     }
+
 
     private void executeMain(boolean isAlreadyLogin) {
         User user = User.getCurrentUser(this);
@@ -299,6 +312,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                     JSONObject userInfo = response.getJSONObject();
 
                                     User facebookUserInfo = User.createWithFacebook(userInfo);
+
+                                    String referralCode = StaticGroup.checkReferrerData();
+                                    if (!TextUtils.isEmpty(referralCode)) {
+                                        facebookUserInfo.setReferralCode(referralCode);
+                                    }
 
                                     hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);
