@@ -133,7 +133,7 @@ public class Voucher implements Serializable {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(l);
-        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  HH:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
@@ -143,7 +143,7 @@ public class Voucher implements Serializable {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(l);
-        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  HH:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }

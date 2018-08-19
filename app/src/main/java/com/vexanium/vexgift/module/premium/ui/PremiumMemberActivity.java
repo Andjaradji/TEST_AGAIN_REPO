@@ -28,13 +28,10 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
 import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.UserAddress;
-import com.vexanium.vexgift.bean.model.UserPremiumMember;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
-import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
@@ -43,7 +40,6 @@ import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.ClickUtil;
-import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -51,10 +47,13 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member)
 public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> implements IProfileView, AdapterBuyOnClick {
@@ -71,7 +70,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     ImageButton mHistoryButton;
     RelativeLayout mRlBecomePremiumTopContainer;
-    LinearLayout mLlAlreadyPremiumTopContainer, mLlBuyPremiumContainer;
+    LinearLayout mLlAlreadyPremiumTopContainer;
+    TextView mTvAlreadyPremium;
 
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
@@ -90,8 +90,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
         mRvPremiumPlan = (RecyclerView) findViewById(R.id.rv_premium);
         mRlBecomePremiumTopContainer = (RelativeLayout) findViewById(R.id.rl_premium_top_become_premium);
+
         mLlAlreadyPremiumTopContainer = (LinearLayout) findViewById(R.id.ll_premium_top_already_premium);
-        mLlBuyPremiumContainer = (LinearLayout) findViewById(R.id.ll_buy_premium);
+        mTvAlreadyPremium = findViewById(R.id.tv_already_premium);
 
         ArrayList<IconText> data = new ArrayList<>();
         data.add(new IconText(R.drawable.ic_premium_voucher, R.string.premium_access_voucher));
@@ -160,6 +161,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mVpPremium.resumeAutoScroll();
         if (user.getPremiumDurationLeft() > 0) {
             updateView(1);
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = getTimeStampDate(tsLong+user.getPremiumDurationLeft());
+            mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium),ts));
         } else {
             updateView(0);
         }
@@ -201,7 +205,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             } else if( data instanceof PremiumPurchaseResponse) {
                 PremiumPurchaseResponse premiumPurchaseResponse = (PremiumPurchaseResponse) data;
                 Intent intent = new Intent(PremiumMemberActivity.this,PremiumHistoryDetailActivity.class);
-                intent.putExtra("premium_history_detail",premiumPurchaseResponse);
+                intent.putExtra("premium_history_detail",premiumPurchaseResponse.getPremiumPurchase());
                 startActivity(intent);
                 mPresenter.requestUserPremiumHistory(user.getId());
             } else if( data instanceof PremiumHistoryResponse){
@@ -324,12 +328,10 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         if (viewType == 0) {
             //if not premium
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
-            mLlBuyPremiumContainer.setVisibility(View.GONE);
             mRlBecomePremiumTopContainer.setVisibility(View.VISIBLE);
         } else if (viewType == 1) {
             //if already premium
             mRlBecomePremiumTopContainer.setVisibility(View.GONE);
-            mLlBuyPremiumContainer.setVisibility(View.GONE);
             mLlAlreadyPremiumTopContainer.setVisibility(View.VISIBLE);
         } else {
             //buying premium
@@ -401,6 +403,15 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .autoDismiss(false)
                 .canceledOnTouchOutside(false)
                 .show();
+    }
+
+    public String getTimeStampDate(long timeStamp){
+        long l = TimeUnit.SECONDS.toMillis(timeStamp);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(l);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
     public class IconText {
