@@ -506,13 +506,13 @@ public class RetrofitManager {
         return mOtherService.getPremiumHistoryList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumHistoryResponse>>());
     }
 
-    public Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(int userId, String code) {
+    public Observable<HttpResponse<UserLoginResponse>> requestEmailConfirmation(int userId, String code) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("email_confirmation_code", code);
 
-        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResendEmail(int userId) {

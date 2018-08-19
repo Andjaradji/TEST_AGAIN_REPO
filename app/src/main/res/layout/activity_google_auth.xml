@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:hint="@string/google2fa_field"
+                android:hint="@string/google2fa_enable_input_field"
                 android:inputType="number"
                 android:textColor="@color/material_white"
                 android:textSize="@dimen/text_medium" />
@@ -126,6 +126,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_small"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_primary_white"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/tv_signout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/interval_small"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:text="@string/google2fa_signout_button"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_tiny" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_big"
                 android:gravity="center_horizontal">
 
@@ -150,6 +176,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

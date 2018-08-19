@@ -112,7 +112,7 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("user/email-confirmation")
-    Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(
+    Observable<HttpResponse<UserLoginResponse>> requestEmailConfirmation(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

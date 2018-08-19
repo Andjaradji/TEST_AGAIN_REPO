@@ -2,6 +2,8 @@ package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +20,9 @@ import com.vexanium.vexgift.module.login.presenter.IGoogleAuthPresenter;
 import com.vexanium.vexgift.module.login.presenter.IGoogleAuthPresenterImpl;
 import com.vexanium.vexgift.module.login.view.IGoogleAuthView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
@@ -31,12 +35,18 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView {
 
     private User user;
+
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
         mPresenter = new IGoogleAuthPresenterImpl(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.tv_ask).setOnClickListener(this);
+        findViewById(R.id.tv_signout).setOnClickListener(this);
+
+        String account = String.format(getString(R.string.google2fa_account), user.getEmail());
+        Spanned text = Html.fromHtml(account);
+        ViewUtil.setText(this, R.id.tv_account, text);
     }
 
     @Override
@@ -48,6 +58,9 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
                 String subject = String.format("[LOGIN] #%04d", user.getId());
                 String message = "Hi Vexgift Support!\nI've problem with...";
                 StaticGroup.shareWithEmail(this, SUPPORT_EMAIL, subject, message);
+                break;
+            case R.id.tv_signout:
+                doLogout();
                 break;
             case R.id.login_button:
                 doCheckToken();
@@ -87,6 +100,27 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
             finish();
 
         }
+    }
+
+    private void doLogout() {
+        new VexDialog.Builder(this)
+                .title(getString(R.string.logout_title))
+                .content(getString(R.string.logout_desc))
+                .optionType(DialogOptionType.YES_NO)
+                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        StaticGroup.logOutClear(GoogleAuthActivity.this, 0);
+                    }
+                })
+                .autoDismiss(true).show();
+
     }
 
     private void doCheckToken() {

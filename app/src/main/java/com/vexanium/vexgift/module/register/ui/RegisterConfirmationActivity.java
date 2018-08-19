@@ -19,6 +19,9 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.module.login.ui.GoogleAuthActivity;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenter;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenterImpl;
 import com.vexanium.vexgift.module.register.view.IRegisterView;
@@ -79,7 +82,36 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
     @Override
     public void handleResult(Serializable data, final HttpResponse errorResponse) {
         if (data != null) {
-            if (data instanceof EmptyResponse && errorResponse != null && errorResponse.getMeta() != null) {
+            if (data instanceof UserLoginResponse) {
+                UserLoginResponse response = (UserLoginResponse) data;
+
+                StaticGroup.removeReferrerData();
+                StaticGroup.userSession = response.user.getSessionKey();
+                StaticGroup.isPasswordSet = response.isPasswordSet;
+
+                User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
+                User.updateCurrentUser(this.getApplicationContext(), response.user);
+                User.google2faLock(response.user);
+
+                new VexDialog.Builder(this)
+                        .title(getString(R.string.succsess))
+                        .content(getString(R.string.register_confirmation_success))
+                        .optionType(DialogOptionType.OK)
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                                executeMain(false);
+                            }
+                        })
+                        .autoDismiss(false)
+                        .cancelable(false)
+                        .canceledOnTouchOutside(false)
+                        .show();
+            }
+            KLog.v("RegisterConfirmationActivity", "handleResult: Success" + data);
+        } else if (errorResponse != null) {
+            if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().getStatus() == 200) {
                     new VexDialog.Builder(this)
                             .title(getString(R.string.succsess))
@@ -100,17 +132,28 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
                             .cancelable(false)
                             .canceledOnTouchOutside(false)
                             .show();
-                }
-            }
-
-        } else if (errorResponse != null) {
-            if (errorResponse.getMeta() != null) {
-                if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                } else if (errorResponse.getMeta().getStatus() / 100 == 4) {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
                 } else {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
                 }
             }
+        } else {
+            new VexDialog.Builder(this)
+                    .title(getString(R.string.succsess))
+                    .content(getString(R.string.register_confirmation_resend_success))
+                    .optionType(DialogOptionType.OK)
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                            setLastEmailSendTime();
+                        }
+                    })
+                    .autoDismiss(false)
+                    .cancelable(false)
+                    .canceledOnTouchOutside(false)
+                    .show();
         }
     }
 
@@ -177,6 +220,21 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
         KLog.v("RegisterConfirmationActivity", "onResume: ");
         super.onResume();
         startDateTimer();
+    }
+
+    private void executeMain(boolean isAlreadyLogin) {
+        User user = User.getCurrentUser(this);
+        if ((User.isLocalSessionEnded() || User.isGoogle2faLocked() || !isAlreadyLogin) && user.isAuthenticatorEnable()) {
+            Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        }
+
+        finish();
     }
 
     public void setLastEmailSendTime() {

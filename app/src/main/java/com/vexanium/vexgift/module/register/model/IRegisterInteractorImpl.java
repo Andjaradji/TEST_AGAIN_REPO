@@ -50,10 +50,10 @@ public class IRegisterInteractorImpl implements IRegisterInteractor {
 
     @Override
     public Subscription requestEmailConfirmation(RequestCallback callback, int userId, String code) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestEmailConfirmation(userId, code).compose(RxUtil.<EmptyResponse>handleResult())
-                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestEmailConfirmation(userId, code).compose(RxUtil.<UserLoginResponse>handleResult())
+                .flatMap(new Func1<UserLoginResponse, Observable<UserLoginResponse>>() {
                     @Override
-                    public Observable<EmptyResponse> call(EmptyResponse userLoginResponse) {
+                    public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {
 
                         return Observable.just(userLoginResponse);
                     }

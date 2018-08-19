@@ -58,12 +58,6 @@ public class IPremiumPresenterImpl extends BasePresenterImpl<IProfileView, Seria
     }
 
     @Override
-    public void getActAddress(int userId) {
-        Subscription subscription = mInteractor.requestGetActAddress(this, userId);
-        compositeSubscription.add(subscription);
-    }
-
-    @Override
     public void requestUserPremiumHistory(int userId) {
         Subscription subscription = mInteractor.requestPremiumHistoryList(this, userId);
         compositeSubscription.add(subscription);

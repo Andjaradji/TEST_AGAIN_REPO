@@ -439,7 +439,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             public void bindData(final BaseRecyclerViewHolder holder, int position, final Voucher item) {
                 holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
-                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_bg : R.drawable.shape_price_bg);
+                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
 
                 if (item.getQtyAvailable() == 0) {
                     holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
