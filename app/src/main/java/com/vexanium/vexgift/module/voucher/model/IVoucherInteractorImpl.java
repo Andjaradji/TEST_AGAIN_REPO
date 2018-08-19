@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.voucher.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
+import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -57,20 +58,20 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
 
     @Override
     public Subscription requestGetGiftCode(RequestCallback callback, int userId, int voucherCodeId, String token) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestGetGiftCode(userId, voucherCodeId, token).compose(RxUtil.<VoucherCodeResponse>handleResult())
-                .flatMap(new Func1<VoucherCodeResponse, Observable<VoucherCodeResponse>>() {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestGetGiftCode(userId, voucherCodeId, token).compose(RxUtil.<VoucherGiftCode>handleResult())
+                .flatMap(new Func1<VoucherGiftCode, Observable<VoucherGiftCode>>() {
                     @Override
-                    public Observable<VoucherCodeResponse> call(VoucherCodeResponse userAddressResponse) {
-                        KLog.json("HPtes", JsonUtil.toString(userAddressResponse));
-                        return Observable.just(userAddressResponse);
+                    public Observable<VoucherGiftCode> call(VoucherGiftCode voucherGiftCode) {
+                        KLog.json("HPtes", JsonUtil.toString(voucherGiftCode));
+                        return Observable.just(voucherGiftCode);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
 
     @Override
-    public Subscription requestClaimGiftCode(RequestCallback callback, int userId, int voucherCodeId, String token) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestClaimGiftCode(userId, voucherCodeId, token).compose(RxUtil.<VoucherCodeResponse>handleResult())
+    public Subscription requestClaimGiftCode(RequestCallback callback, int userId, int voucherCodeId, String voucherGiftCode) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestClaimGiftCode(userId, voucherCodeId, voucherGiftCode).compose(RxUtil.<VoucherCodeResponse>handleResult())
                 .flatMap(new Func1<VoucherCodeResponse, Observable<VoucherCodeResponse>>() {
                     @Override
                     public Observable<VoucherCodeResponse> call(VoucherCodeResponse userAddressResponse) {

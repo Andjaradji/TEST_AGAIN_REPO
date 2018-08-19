@@ -14,6 +14,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
@@ -112,6 +113,13 @@ public interface UserService {
     @FormUrlEncoded
     @POST("user/email-confirmation")
     Observable<HttpResponse<EmptyResponse>> requestEmailConfirmation(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @PATCH("user/update-notification-id")
+    Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

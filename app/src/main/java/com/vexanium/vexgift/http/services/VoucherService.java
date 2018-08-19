@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -52,15 +53,15 @@ public interface VoucherService {
 
 
     @FormUrlEncoded
-    @POST("voucher/voucher-gift-code/get-gift-code")
-    Observable<HttpResponse<VoucherCodeResponse>> requestGetGiftCode(
+    @POST("voucher-gift-code/get-gift-code")
+    Observable<HttpResponse<VoucherGiftCode>> requestGetGiftCode(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
 
     @FormUrlEncoded
-    @POST("voucher/voucher-gift-code/claim-gift-code")
+    @POST("voucher-gift-code/claim-gift-code")
     Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,

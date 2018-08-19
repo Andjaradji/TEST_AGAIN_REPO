@@ -141,20 +141,6 @@
                 android:background="@drawable/frame_ad_item"
                 android:orientation="horizontal" />
 
-            <LinearLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/shape_white_round_rect"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/iv_brand_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp" />
-            </LinearLayout>
-
         </RelativeLayout>
 
         <TextView
@@ -219,5 +205,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/include_loading_view"/>
 
 </RelativeLayout>

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,9 +17,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
@@ -45,7 +42,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
-import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -53,8 +49,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.widget.dialog.DialogOptionType;
-import com.vexanium.vexgift.widget.dialog.VexDialog;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
 import com.vexanium.vexgift.widget.discretescrollview.transform.Pivot;
@@ -160,7 +154,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 if (ClickUtil.isFastDoubleClick()) return;
 
                 if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                    openRequirementDialog();
+                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity());
                 } else {
 
                     Intent intent = new Intent(getActivity(), VexPointActivity.class);
@@ -233,9 +227,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
             if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().getStatus() / 100 == 4) {
-                    if(!errorResponse.getMeta().getMessage().contains("KYC"))
-                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
-                } else  {
+                    if (!errorResponse.getMeta().getMessage().contains("KYC"))
+                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
+                } else {
                     StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
                 }
             } else {
@@ -265,66 +259,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mAvi.smoothToHide();
     }
 
-    public void openRequirementDialog() {
-        View view = View.inflate(getActivity(), R.layout.include_requirement, null);
-        final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
-        final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
-
-        final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
-        final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
-
-        final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
-        final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
-
-        boolean isReqCompleted = true;
-
-        if (!user.isKycApprove()) {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this.getContext(), R.color.material_black_sub_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqKyc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this.getContext(), R.color.material_black_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_check_p));
-        }
-        if (!user.isAuthenticatorEnable()) {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this.getContext(), R.color.material_black_sub_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqGoogle2fa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(HomeFragment.this.getActivity(), SecurityActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this.getContext(), R.color.material_black_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_check_p));
-        }
-
-        if (isReqCompleted) return;
-
-        new VexDialog.Builder(this.getContext())
-                .title(getString(R.string.vexpoint_requirement_dialog_title))
-                .content(getString(R.string.vexpoint_requirement_dialog_desc))
-                .addCustomView(view)
-                .optionType(DialogOptionType.OK)
-                .autoDismiss(true)
-                .show();
-    }
 
     public void updateData() {
         //update data here

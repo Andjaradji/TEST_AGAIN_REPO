@@ -1,6 +1,6 @@
 <resources>
     <string name="code">GHy45SD1GrF11</string>
-
+    <string name="default_notification_channel_id">Vexgift</string>
     <string name="net_error_title">Network Error</string>
     <string name="validate_empty_field">This field cannot be empty</string>
     <string name="validate_merchant_code_not_valid">Merchant Code is not valid\nThis merchant code will be entered by cashier</string>
@@ -383,6 +383,7 @@
     <string name="exchange_receive_voucher_prompt_text">Enter code</string>
     <string name="exchange_receive_voucher_button_get">Get Voucher</string>
     <string name="exchange_send_voucher_guide">Click the button below to generate code and copy the code to the recipient user</string>
+    <string name="exchange_send_voucher_generated_guide">Now you can share this code to the recipient user</string>
     <string name="exchange_send_voucher_button_generate_code">Generate Code</string>
     <string name="exchange_send_voucher_button_generate">Generate</string>
     <string name="exchange_send_voucher_warning_dialog_title">Are Your Sure?</string>

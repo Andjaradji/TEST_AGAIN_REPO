@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.login.model;
 
 import com.socks.library.KLog;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
@@ -16,7 +17,7 @@ import rx.functions.Func1;
 
 public class ILoginInteractorImpl implements ILoginInteractor {
     @Override
-    public Subscription requestLogin(RequestCallback callback, User user) {
+    public Subscription requestLogin(RequestCallback callback, final User user) {
         KLog.json("KIRIM", JsonUtil.toString(user));
         return RetrofitManager.getInstance(HostType.COMMON_API).requestLogin(user).compose(RxUtil.<UserLoginResponse>handleResult())
                 .flatMap(new Func1<UserLoginResponse, Observable<UserLoginResponse>>() {
@@ -24,11 +25,12 @@ public class ILoginInteractorImpl implements ILoginInteractor {
                     public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {
 
                         KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
+                        StaticGroup.checkPushToken(userLoginResponse.user);
+
                         return Observable.just(userLoginResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
-
 }
 

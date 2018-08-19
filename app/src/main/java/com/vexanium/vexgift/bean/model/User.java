@@ -56,8 +56,6 @@ public class User implements Serializable {
 
     @JsonProperty("config")
     private SettingCondition config;
-    @JsonProperty("pushtoken")
-    private String pushToken;
 
     @JsonProperty("mutual_friends")
     private List<String> friendList = new ArrayList<>();
@@ -79,6 +77,9 @@ public class User implements Serializable {
     private String emailConfirmationCode;
     @JsonProperty("email_confirmation_status")
     private boolean emailConfirmationStatus;
+
+    @JsonProperty("notification_id")
+    private String notificationId ;
 
     @JsonProperty("user_kyc")
     private ArrayList<Kyc> kyc;
@@ -476,14 +477,6 @@ public class User implements Serializable {
         this.config = config;
     }
 
-    public String getPushToken() {
-        return pushToken;
-    }
-
-    public void setPushToken(String pushToken) {
-        this.pushToken = pushToken;
-    }
-
     public List<String> getFriendList() {
         return friendList;
     }
@@ -739,5 +732,17 @@ public class User implements Serializable {
 
     public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
+    }
+
+    public boolean isEmailConfirmationStatus() {
+        return emailConfirmationStatus;
+    }
+
+    public String getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
 }

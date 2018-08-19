@@ -8,11 +8,16 @@ import android.widget.EditText;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.model.VoucherCode;
+import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
+import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -23,16 +28,21 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_send_voucher, toolbarTitle = R.string.exchange_send_voucher)
+@ActivityFragmentInject(contentViewId = R.layout.activity_send_voucher, toolbarTitle = R.string.exchange_send_voucher, withLoadingAnim = true)
 public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
 
+    private VoucherCode voucherCode;
     private Voucher voucher;
+    private User user;
 
     @Override
     protected void initView() {
+        mPresenter = new IVoucherPresenterImpl(this);
+        user = User.getCurrentUser(this);
         if (getIntent().hasExtra("voucher")) {
             if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
-                voucher = (Voucher) JsonUtil.toObject(getIntent().getStringExtra("voucher"), Voucher.class);
+                voucherCode = (VoucherCode) JsonUtil.toObject(getIntent().getStringExtra("voucher"), VoucherCode.class);
+                voucher = voucherCode.getVoucher();
             }
         }
         if (voucher != null) {
@@ -47,7 +57,24 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        
+        if(data != null){
+            if(data instanceof VoucherGiftCode){
+                updateView();
+            }
+
+        }else if(errorResponse != null){
+            if(errorResponse.getMeta()!= null){
+                if(errorResponse.getMeta().getStatus() / 100 == 4){
+                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+                }else{
+                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+                }
+            }
+        }
+
+    }
+
+    private void updateView() {
     }
 
     @Override
@@ -62,22 +89,25 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_generate_code:
-                new VexDialog.Builder(this)
-                        .title(getString(R.string.exchange_send_voucher_warning_dialog_title))
-                        .content(getString(R.string.exchange_send_voucher_warning_dialog_desc))
-                        .optionType(DialogOptionType.YES_NO)
-                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-                                doGenerate();
-                            }
-                        })
-                        .autoDismiss(true)
-                        .show();
+                if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                    StaticGroup.openRequirementDialog(SendVoucherActivity.this);
+                } else {
+                    new VexDialog.Builder(this)
+                            .title(getString(R.string.exchange_send_voucher_warning_dialog_title))
+                            .content(getString(R.string.exchange_send_voucher_warning_dialog_desc))
+                            .optionType(DialogOptionType.YES_NO)
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    doGenerate();
+                                }
+                            })
+                            .autoDismiss(true)
+                            .show();
+                }
                 break;
         }
-
     }
 
     private void doGenerate() {
@@ -94,16 +124,20 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        //if etGA true = doSomething()
+                        if(ClickUtil.isFastDoubleClick())return;
+                        if (TextUtils.isEmpty(etGA.getText().toString())) {
+                            etGA.setError(getString(R.string.validate_empty_field));
+                        } else {
+                            mPresenter.requestGetGiftCode(user.getId(), voucherCode.getId(), etGA.getText().toString());
+                        }
                     }
                 })
                 .onNegative(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
                     }
                 })
-                .autoDismiss(false)
+                .autoDismiss(true)
                 .canceledOnTouchOutside(false)
                 .show();
     }

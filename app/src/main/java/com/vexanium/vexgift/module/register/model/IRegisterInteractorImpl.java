@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.register.model;
 
 import com.socks.library.KLog;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
@@ -25,11 +26,14 @@ public class IRegisterInteractorImpl implements IRegisterInteractor {
                     public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {
 
                         KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
+                        StaticGroup.checkPushToken(userLoginResponse.user);
+
                         return Observable.just(userLoginResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
     @Override
     public Subscription requestRegister(RequestCallback callback, User user) {
         KLog.json("KIRIM", JsonUtil.toString(user));

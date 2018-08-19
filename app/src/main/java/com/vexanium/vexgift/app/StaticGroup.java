@@ -25,26 +25,42 @@ import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.http.HostType;
+import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
+import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
+import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.AlarmUtil;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -56,8 +72,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import rx.Subscriber;
 
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 
@@ -99,11 +115,34 @@ public class StaticGroup {
         try {
             PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             VERSION = i.versionName;
-            VERSION_CODE = i.getLongVersionCode();
+            VERSION_CODE = BuildConfig.VERSION_CODE;
             KLog.v("VERSION : " + VERSION + " " + VERSION_CODE);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                KLog.v("StaticGroup", "FCM onComplete: ");
+                if (!task.isSuccessful()) {
+                    KLog.e("StaticGroup", "FCM onComplete: is Not Success " + task.getException());
+                    return;
+                }
+
+                StaticGroup.reg_id = task.getResult().getToken();
+                TpUtil tpUtil = new TpUtil(App.getContext());
+                tpUtil.put(TpUtil.KEY_REG_ID, StaticGroup.reg_id);
+                KLog.v("StaticGroup", "FCM preference regId : " + tpUtil.getString(TpUtil.KEY_REG_ID, ""));
+            }
+        });
+    }
+
+    public static void insertRegistrationID(String id) {
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        tpUtil.put(TpUtil.KEY_REG_ID, id);
+        KLog.v("StaticGroup", "FCM insertRegistrationID put : " + tpUtil.getString(TpUtil.KEY_REG_ID, ""));
+        StaticGroup.reg_id = tpUtil.getString(TpUtil.KEY_REG_ID, "");
     }
 
     public static String getUserSession() {
@@ -791,14 +830,14 @@ public class StaticGroup {
 //        for (int i = 0; i < count; i++) {
 //            vouchers.add(origin.get(i));
 //        }
-        for(Voucher v : origin){
-            if(v.getVendor().getName().equalsIgnoreCase("KFC")){
+        for (Voucher v : origin) {
+            if (v.getVendor().getName().equalsIgnoreCase("KFC")) {
                 vouchers.add(v);
             }
-            if(v.getVendor().getName().equalsIgnoreCase("VexPizza")){
+            if (v.getVendor().getName().equalsIgnoreCase("VexPizza")) {
                 vouchers.add(v);
             }
-            if(v.getVendor().getName().equalsIgnoreCase("Coffeelicious")){
+            if (v.getVendor().getName().equalsIgnoreCase("Coffeelicious")) {
                 vouchers.add(v);
             }
         }
@@ -899,6 +938,98 @@ public class StaticGroup {
     }
 
 
+    public static void checkPushToken(User user) {
+        if (user == null) return;
+        String serverSavedToken = user.getNotificationId();
+        String sess = user.getSessionKey();
+        int id = user.getId();
+        KLog.v("FCM  : " + serverSavedToken + " / " + StaticGroup.reg_id);
+        if (TextUtils.isEmpty(StaticGroup.reg_id)) return;
 
+        boolean isNeedToUpdate = serverSavedToken == null || TextUtils.isEmpty(serverSavedToken) || !serverSavedToken.equalsIgnoreCase(StaticGroup.reg_id);
+        KLog.v("FCM  is Need to Update : " + isNeedToUpdate);
+
+        if (isNeedToUpdate) {
+            RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateNotificationId(sess, id, StaticGroup.reg_id)
+                    .compose(RxUtil.<EmptyResponse>handleResult())
+                    .subscribe(new Subscriber<EmptyResponse>() {
+                        @Override
+                        public void onCompleted() {
+                            KLog.v("StaticGroup", "FCM update onCompleted: ");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            KLog.v("StaticGroup", "FCM update onError: ");
+                        }
+
+                        @Override
+                        public void onNext(EmptyResponse response) {
+                        }
+                    });
+        }
+    }
+
+    public static void openRequirementDialog(final Context context) {
+        User user = User.getCurrentUser(context);
+        View view = View.inflate(context, R.layout.include_requirement, null);
+        final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
+        final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
+
+        final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
+        final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
+
+        final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
+        final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
+
+        boolean isReqCompleted = true;
+
+        if (!user.isKycApprove()) {
+            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+            tvReqKyc.setTextColor(ContextCompat.getColor(context, R.color.material_black_sub_text_color));
+            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_n));
+            isReqCompleted = false;
+            rlReqKyc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    Intent intent = new Intent(context, MyProfileActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
+            tvReqKyc.setTextColor(ContextCompat.getColor(context, R.color.material_black_text_color));
+            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_p));
+        }
+        if (!user.isAuthenticatorEnable()) {
+            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(context, R.color.material_black_sub_text_color));
+            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_n));
+            isReqCompleted = false;
+            rlReqGoogle2fa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    Intent intent = new Intent(context, SecurityActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
+            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(context, R.color.material_black_text_color));
+            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_p));
+        }
+
+        if (isReqCompleted) return;
+
+        new VexDialog.Builder(context)
+                .title(context.getString(R.string.vexpoint_requirement_dialog_title))
+                .content(context.getString(R.string.vexpoint_requirement_dialog_desc))
+                .addCustomView(view)
+                .optionType(DialogOptionType.OK)
+                .autoDismiss(true)
+                .show();
+    }
 
 }

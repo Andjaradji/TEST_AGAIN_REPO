@@ -16,8 +16,8 @@ public class TpUtil extends TrayPreferences {
         super(context, "TpUtil", 1);
     }
 
-    public static TpUtil getInstance(Context context){
-        if(_tpUtil == null){
+    public static TpUtil getInstance(Context context) {
+        if (_tpUtil == null) {
             _tpUtil = new TpUtil(context);
         }
         return _tpUtil;
@@ -34,22 +34,27 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_USER_ADDRESS = "key_user_address";
     public static String KEY_REFERRER = "key_referrer";
     public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
+    public static final String KEY_REG_ID = "key_reg_id";
 
-    public void removePrivate(){
-        put(TpUtil.KEY_CURRENT_LOGGED_IN_USER,"");
+    public void removePrivate() {
+        put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, "");
         remove(TpUtil.KEY_CURRENT_LOGGED_IN_USER);
 
-        put(TpUtil.KEY_SESSION_KEY,"");
+        put(TpUtil.KEY_SESSION_KEY, "");
         remove(TpUtil.KEY_SESSION_KEY);
 
-        put(TpUtil.KEY_GOOGLE2FA,"");
+        put(TpUtil.KEY_GOOGLE2FA, "");
         remove(TpUtil.KEY_GOOGLE2FA);
 
-        put(TpUtil.KEY_GOOGLE2FA_LOCK,"");
+        put(TpUtil.KEY_GOOGLE2FA_LOCK, "");
         remove(TpUtil.KEY_GOOGLE2FA_LOCK);
 
-        put(TpUtil.KEY_USER_ADDRESS,"");
+        put(TpUtil.KEY_USER_ADDRESS, "");
         remove(TpUtil.KEY_USER_ADDRESS);
+
+        put(TpUtil.KEY_REG_ID, "");
+        remove(TpUtil.KEY_REG_ID);
     }
+
 
 }
