@@ -78,17 +78,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     PremiumPlanAdapter mAdapter;
 
     User user;
-    Calendar verifTimeLeft;
-    UserAddress userAddress;
 
     @Override
     protected void initView() {
         mPresenter = new IPremiumPresenterImpl(this);
         user = User.getCurrentUser(this);
-        verifTimeLeft = Calendar.getInstance();
-
-
-        mPresenter.getActAddress(user.getId());
 
         mHistoryButton = (ImageButton) findViewById(R.id.ib_history);
         mHistoryButton.setEnabled(false);
@@ -143,6 +137,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalArgumentException e) {
         } catch (IllegalAccessException e) {
         }
+
+        callPremiumHistoryList();
 
     }
 
@@ -204,12 +200,10 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 setPremiumPlanList(premiumListResponse);
             } else if( data instanceof PremiumPurchaseResponse) {
                 PremiumPurchaseResponse premiumPurchaseResponse = (PremiumPurchaseResponse) data;
-                updatePendingBuyView(premiumPurchaseResponse.getPremiumPurchase());
-                updateView(2);
-            } else if( data instanceof UserAddressResponse){
-                UserAddressResponse userAddressResponse = (UserAddressResponse) data;
-                userAddress = userAddressResponse.getUserAddress();
-                callPremiumHistoryList();
+                Intent intent = new Intent(PremiumMemberActivity.this,PremiumHistoryDetailActivity.class);
+                intent.putExtra("premium_history_detail",premiumPurchaseResponse);
+                startActivity(intent);
+                mPresenter.requestUserPremiumHistory(user.getId());
             } else if( data instanceof PremiumHistoryResponse){
                 mPremiumHistoryList = ((PremiumHistoryResponse) data).getPremiumPurchase();
                 Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
@@ -341,30 +335,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             //buying premium
             mRlBecomePremiumTopContainer.setVisibility(View.GONE);
             mLlAlreadyPremiumTopContainer.setVisibility(View.GONE);
-            mLlBuyPremiumContainer.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void updatePendingBuyView(final PremiumPurchase premiumPurchase){
-        
-        verifTimeLeft.setTimeInMillis((premiumPurchase.getPaidBefore() * 1000) + Calendar.getInstance().getTimeInMillis());
-//        ((TextView)findViewById(R.id.tv_vex_address)).setText(userAddress.getActAddress());
-//        ((TextView)findViewById(R.id.tv_vex_amount)).setText(premiumPurchase.getPaidAmount());
-//        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
-
-        ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
-        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() +" VEX");
-        ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
-
-        findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ClickUtil.isFastDoubleClick()) return;
-                StaticGroup.copyToClipboard(PremiumMemberActivity.this, premiumPurchase.getPaidTo());
-            }
-        });
-
-
     }
 
     private void showPendingWarning(){

@@ -44,11 +44,10 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_history_detail, toolbarTitle = R.string.premium_history)
-public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter> implements IProfileView {
+public class PremiumHistoryDetailActivity extends BaseActivity {
 
 
     User user;
-    UserAddress userAddress = new UserAddress();
     RelativeLayout mMainDetailContainer;
     LinearLayout mLlBuyPremiumContainer;
     private Subscription timeSubsription;
@@ -61,11 +60,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
-        mPresenter = new IPremiumPresenterImpl(this);
-        mPresenter.getActAddress(user.getId());
         verifTimeLeft = Calendar.getInstance();
-
-        userAddress.setActAddress("");
 
         mMainDetailContainer = findViewById(R.id.rl_purchase_history_detail);
         mLlBuyPremiumContainer = findViewById(R.id.ll_buy_premium);
@@ -94,7 +89,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter
             ViewUtil.setText(this, R.id.tv_purchase_history_detail_plan, data.getPaidAmount() + " VEX/day (" + data.getDuration() / 24 / 3600 + " day)");
             ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_amount, data.getPaidAmount() + " VEX");
             ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_to, data.getPaidTo());
-            ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_from, userAddress.getActAddress());
+            ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_from, user.getUserAddress().getActAddress());
 
         }else{
             isPending = true;
@@ -139,14 +134,6 @@ public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter
 
     }
 
-    @Override
-    public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if( data instanceof UserAddressResponse){
-            UserAddressResponse userAddressResponse = (UserAddressResponse) data;
-            userAddress = userAddressResponse.getUserAddress();
-        }
-    }
-
     private void setVerifTimeText() {
         TextView tvHour = findViewById(R.id.tv_time_left);
 
@@ -157,7 +144,6 @@ public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter
 
         if (remainTime < 0 && !isTimeUp) {
             isTimeUp = true;
-            mPresenter.getActAddress(user.getId());
         } else if (remainTime > 0) {
             isTimeUp = false;
         }
@@ -206,7 +192,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity<IPremiumPresenter
 //        ((TextView)findViewById(R.id.tv_vex_amount)).setText(premiumPurchase.getPaidAmount());
 //        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
 
-        ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
+        ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
         ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() +" VEX");
         ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
 
