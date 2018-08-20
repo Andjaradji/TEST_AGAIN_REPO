@@ -181,7 +181,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+            if (errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());

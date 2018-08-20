@@ -101,7 +101,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             }
         } else if (errorResponse != null) {
             KLog.v("RegisterActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
-            if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() / 4 == 100) {
+            if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
                 new VexDialog.Builder(RegisterActivity.this)

@@ -226,7 +226,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         } else if (errorResponse != null) {
 //            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
             if (errorResponse.getMeta() != null) {
-                if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                if (errorResponse.getMeta().isRequestError()) {
                     if (!errorResponse.getMeta().getMessage().contains("KYC"))
                         StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
                 } else {
@@ -296,7 +296,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, voucherArrayList, "Best Voucher", "Today"));
         }
 
-        if (user.getKyc() == null && user.getKyc().size() > 0)
+        if (user.getKyc() == null || user.getKyc().size() > 0)
             data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));

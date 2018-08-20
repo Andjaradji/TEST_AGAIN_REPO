@@ -17,7 +17,6 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.module.login.ui.GoogleAuthActivity;
@@ -132,7 +131,7 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
                             .cancelable(false)
                             .canceledOnTouchOutside(false)
                             .show();
-                } else if (errorResponse.getMeta().getStatus() / 100 == 4) {
+                } else if (errorResponse.getMeta().isRequestError()) {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
                 } else {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());

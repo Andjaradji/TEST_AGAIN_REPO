@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+            if (errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
