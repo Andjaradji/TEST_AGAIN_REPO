@@ -48,6 +48,7 @@ import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
@@ -175,7 +176,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateData();
+                if(NetworkUtil.isOnline(getActivity())) {
+                    updateData();
+                }else{
+                    mSrlHome.setEnabled(false);
+                    mSrlHome.setRefreshing(false);
+                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+                }
             }
         });
 
@@ -233,7 +240,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
                 }
             } else {
-                StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), 0);
+                if(NetworkUtil.isOnline(getActivity())) {
+                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), 0);
+                }else{
+                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+                }
+
             }
         }
 

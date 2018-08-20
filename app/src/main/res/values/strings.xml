@@ -354,6 +354,9 @@
 
     <string name="error_wallet_empty_header">No Transaction Yet</string>
 
+    <string name="error_internet_header">No Connection</string>
+    <string name="error_internet_body">You are currently not connected to the internet. Please try again later</string>
+
     <string name="myprofile_kyc_none">Complete Your Profile</string>
     <string name="myprofile_kyc_none_title">Fill Your KYC Form</string>
     <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>

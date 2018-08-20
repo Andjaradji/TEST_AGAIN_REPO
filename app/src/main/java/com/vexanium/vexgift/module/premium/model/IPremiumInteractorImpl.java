@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.premium.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
@@ -69,6 +70,20 @@ public class IPremiumInteractorImpl<T> implements IPremiumInteractor {
 
                         KLog.json("HPtes", JsonUtil.toString(premiumHistoryResponse));
                         return Observable.just(premiumHistoryResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestPremiumDueDate(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestUserPremiumDueDate(id).compose(RxUtil.<PremiumDueDateResponse>handleResult())
+                .flatMap(new Func1<PremiumDueDateResponse, Observable<PremiumDueDateResponse>>() {
+                    @Override
+                    public Observable<PremiumDueDateResponse> call(PremiumDueDateResponse premiumDueDateResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(premiumDueDateResponse));
+                        return Observable.just(premiumDueDateResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));

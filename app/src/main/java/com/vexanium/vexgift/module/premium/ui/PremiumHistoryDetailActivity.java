@@ -49,6 +49,9 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
+        if(user.getUserAddress() == null){
+
+        }
         verifTimeLeft = Calendar.getInstance();
 
         mMainDetailContainer = findViewById(R.id.rl_purchase_history_detail);

@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
@@ -43,6 +44,11 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
-
+    @FormUrlEncoded
+    @POST("premium-member/user-premium-due-date")
+    Observable<HttpResponse<PremiumDueDateResponse>> getPremiumDueDate(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
 }
