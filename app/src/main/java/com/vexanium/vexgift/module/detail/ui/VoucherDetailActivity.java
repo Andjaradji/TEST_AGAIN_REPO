@@ -101,7 +101,7 @@ public class VoucherDetailActivity extends BaseActivity<IDetailPresenter> implem
             }
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
-            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyTotal()));
+            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
         } else {

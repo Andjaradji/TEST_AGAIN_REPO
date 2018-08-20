@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {
-    public boolean isRedeemed = false;
-    public boolean isOnline = false;
 
     @JsonProperty("id")
     private int id;
@@ -334,26 +332,26 @@ public class Voucher implements Serializable {
     }
 
     public boolean isThirdParty() {
-        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
+        if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
             return false;
         } else {
-            return memberType.getName().equalsIgnoreCase("Third Party");
+            return voucherType.getName().equalsIgnoreCase("Third Party");
         }
     }
 
     public boolean isToken() {
-        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
+        if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
             return false;
         } else {
-            return memberType.getName().equalsIgnoreCase("Token");
+            return voucherType.getName().equalsIgnoreCase("Token");
         }
     }
 
     public boolean isOnlineCode() {
-        if (memberType == null || TextUtils.isEmpty(memberType.getName())) {
+        if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
             return false;
         } else {
-            return memberType.getName().equalsIgnoreCase("Online Code");
+            return voucherType.getName().equalsIgnoreCase("Online Code");
         }
     }
 

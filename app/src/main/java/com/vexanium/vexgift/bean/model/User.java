@@ -79,7 +79,7 @@ public class User implements Serializable {
     private boolean emailConfirmationStatus;
 
     @JsonProperty("notification_id")
-    private String notificationId ;
+    private String notificationId;
 
     @JsonProperty("user_kyc")
     private ArrayList<Kyc> kyc;
@@ -680,6 +680,7 @@ public class User implements Serializable {
     }
 
     public boolean isKycApprove() {
+        KLog.v("User", "isKycApprove: " + kyc.toString());
         if (kyc != null && kyc.size() > 0 && kyc.get(kyc.size() - 1).getStatus().equalsIgnoreCase("approve")) {
             return true;
         } else {
@@ -694,6 +695,9 @@ public class User implements Serializable {
     public void updateKyc(Kyc k) {
         if (getKyc() != null && getKyc().size() > 0) {
             this.kyc.remove(kyc.size() - 1);
+            this.kyc.add(k);
+        } else {
+            kyc = new ArrayList<>();
             this.kyc.add(k);
         }
     }
