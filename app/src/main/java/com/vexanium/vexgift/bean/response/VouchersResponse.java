@@ -27,7 +27,7 @@ public class VouchersResponse implements Serializable {
 
         for (Voucher voucher : vouchers){
             if(voucher.getId() == id){
-                voucher.isRedeemed = isRedeemed;
+//                voucher.isRedeemed = isRedeemed;
             }
         }
 

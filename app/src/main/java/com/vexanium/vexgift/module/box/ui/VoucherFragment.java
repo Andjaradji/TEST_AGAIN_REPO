@@ -30,7 +30,10 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.database.TablePrefDao;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenterImpl;
 import com.vexanium.vexgift.module.box.view.IBoxView;
@@ -146,15 +149,16 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
     }
 
     public void loadData() {
-        data = TableContentDaoUtil.getInstance().getMyBoxContent().getActiveVoucher();
+        if (TableContentDaoUtil.getInstance().getMyBoxContent() != null)
+            data = TableContentDaoUtil.getInstance().getMyBoxContent().getActiveVoucher();
         if (data == null) data = new ArrayList<>();
-        KLog.v("VoucherFragment","loadData: ==========================================================");
-        KLog.json("HPtes",JsonUtil.toString(data));
-        KLog.v("VoucherFragment","loadData: =======================================================================");
+        KLog.v("VoucherFragment", "loadData: ==========================================================");
+        KLog.json("HPtes", JsonUtil.toString(data));
+        KLog.v("VoucherFragment", "loadData: =======================================================================");
     }
 
     public void setVoucherList() {
-        if(mAdapter == null) {
+        if (mAdapter == null) {
             mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
 
                 @Override
@@ -166,7 +170,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                 public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
                     final Voucher voucher = item.getVoucher();
                     holder.setImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-                    holder.setText(R.id.tv_coupon_title, voucher.getTitle()+" "+item.getId());
+                    holder.setText(R.id.tv_coupon_title, voucher.getTitle());
                     holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
                     holder.setViewInvisible(R.id.ll_qty, true);
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
@@ -188,7 +192,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                             if (voucher.isForPremium() && !user.isPremiumMember()) {
                                 StaticGroup.showPremiumMemberDialog(VoucherFragment.this.getActivity());
                             } else {
-                                goToVoucherRedeemActivity( item, holder.getImageView(R.id.iv_coupon_image));
+                                goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
                             }
                         }
                     });
@@ -216,7 +220,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                     App.setTextViewStyle(mRecyclerview);
                 }
             });
-        }else{
+        } else {
             mAdapter.setData(data);
         }
 
@@ -227,7 +231,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
             mTvErrorBody.setText(getString(R.string.error_my_voucher_empty_body));
 
             mRecyclerview.setVisibility(View.GONE);
-        }else{
+        } else {
             mErrorView.setVisibility(View.GONE);
             mRecyclerview.setVisibility(View.VISIBLE);
 

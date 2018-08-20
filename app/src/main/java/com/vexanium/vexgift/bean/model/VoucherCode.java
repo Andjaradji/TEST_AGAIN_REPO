@@ -1,5 +1,7 @@
 package com.vexanium.vexgift.bean.model;
 
+import android.text.TextUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -126,6 +128,7 @@ public class VoucherCode implements Serializable {
     }
 
     public String getRedeemedDate() {
+//        if(TextUtils.isEmpty(updatedAt)) return "";
         Calendar calendar = Calendar.getInstance();
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

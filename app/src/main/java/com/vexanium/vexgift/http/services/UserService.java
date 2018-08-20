@@ -38,7 +38,7 @@ public interface UserService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
-    @POST("user/password")
+    @PATCH("user/password")
     Observable<HttpResponse<EmptyResponse>> requestChangePassword(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
@@ -84,7 +84,7 @@ public interface UserService {
     Observable<HttpResponse<Kyc>> submitKyc(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
-            @PartMap Map<String, Object> params,
+            @FieldMap Map<String, Object> params,
             @Part MultipartBody.Part frontImage,
             @Part MultipartBody.Part backImage,
             @Part MultipartBody.Part selfieImage);
