@@ -35,6 +35,7 @@ import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
@@ -44,6 +45,7 @@ import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -91,6 +93,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mHistoryButton = (ImageButton) findViewById(R.id.ib_history);
         mHistoryButton.setEnabled(false);
+        mHistoryButton.setVisibility(View.GONE);
         mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
         mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
         mRvPremiumPlan = (RecyclerView) findViewById(R.id.rv_premium);
@@ -144,14 +147,19 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalAccessException e) {
         }
 
-        if(User.getUserAddress() == null){
-            callUserActAddress();
-        }else {
-            callPremiumDueDate();
-            callPremiumHistoryList();
-        }
+        if(NetworkUtil.isOnline(this)) {
+            if (User.getUserAddress() == null) {
+                callUserActAddress();
+            } else {
+                callPremiumDueDate();
+                callPremiumHistoryList();
+            }
 
-        callPremiumPlanList();
+            callPremiumPlanList();
+        }else{
+            findViewById(R.id.tv_premium_plan).setVisibility(View.GONE);
+            StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+        }
     }
 
     @Override
@@ -220,6 +228,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                         return t1.getCreatedAtDate().compareTo(t0.getCreatedAt());
                     }
                 });
+                mHistoryButton.setVisibility(View.VISIBLE);
                 mHistoryButton.setEnabled(true);
             } else if( data instanceof PremiumDueDateResponse){
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
@@ -242,7 +251,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            if(errorResponse.getMeta().isRequestError() ) {
+                StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
+            }else{
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            }
         }
     }
 
@@ -254,67 +267,6 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } else {
             updateView(0);
         }
-    }
-
-    public void openRequirementDialog() {
-        View view = View.inflate(this, R.layout.include_requirement, null);
-        final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
-        final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
-
-        final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
-        final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
-
-        final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
-        final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
-
-        boolean isReqCompleted = true;
-
-        if (!user.isKycApprove()) {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqKyc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(PremiumMemberActivity.this, MyProfileActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqKyc.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqKyc.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
-            ivReqKyc.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
-        }
-        if (!user.isAuthenticatorEnable()) {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_sub_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_n));
-            isReqCompleted = false;
-            rlReqGoogle2fa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    Intent intent = new Intent(PremiumMemberActivity.this, SecurityActivity.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
-            tvReqGoogle2fa.setTextColor(ContextCompat.getColor(this, R.color.material_black_text_color));
-            ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_check_p));
-        }
-
-        if (isReqCompleted) return;
-
-        new VexDialog.Builder(this)
-                .title(getString(R.string.vexpoint_requirement_dialog_title))
-                .content(getString(R.string.vexpoint_requirement_dialog_desc))
-                .addCustomView(view)
-                .optionType(DialogOptionType.OK)
-                .autoDismiss(true)
-                .show();
     }
 
     public void setPremiumPlanList(PremiumListResponse premiumListResponse) {

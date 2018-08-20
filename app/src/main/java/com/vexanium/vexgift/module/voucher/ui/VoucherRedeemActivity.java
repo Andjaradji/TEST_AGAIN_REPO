@@ -33,6 +33,7 @@ import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -181,10 +182,14 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().isRequestError()) {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            } else {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            if(NetworkUtil.isOnline(this)) {
+                if (errorResponse.getMeta().isRequestError()) {
+                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+                } else {
+                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+                }
+            }else{
+                StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
         }
     }
