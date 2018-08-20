@@ -111,8 +111,8 @@ public class User implements Serializable {
     private int timezone;
     @JsonProperty("birthday")
     private String birthDay;
-    @JsonProperty("premium_duration_left")
-    private long premiumDurationLeft;
+    @JsonProperty("premium_until")
+    private long premiumUntil;
 
     @JsonProperty("google_id_token")
     private String googleToken;
@@ -189,6 +189,16 @@ public class User implements Serializable {
         } else {
             return userAddress.getStatus();
         }
+    }
+
+    public static void setPremiumDueDate(Context context, int dueDate) {
+        TpUtil tpUtil = TpUtil.getInstance(context);
+        tpUtil.put(TpUtil.KEY_USER_PREMIUM_DUE_DATE, dueDate);
+
+        User user = getCurrentUser(context);
+        user.setPremiumUntil(dueDate);
+
+        updateCurrentUser(context,user);
     }
 
     public static boolean isVexAddVerifTimeEnded() {
@@ -698,16 +708,16 @@ public class User implements Serializable {
         }
     }
 
-    public long getPremiumDurationLeft() {
-        return premiumDurationLeft;
+    public long getPremiumUntil() {
+        return premiumUntil;
     }
 
-    public void setPremiumDurationLeft(long premiumDurationLeft) {
-        this.premiumDurationLeft = premiumDurationLeft;
+    public void setPremiumUntil(long premiumUntil) {
+        this.premiumUntil = premiumUntil;
     }
 
     public boolean isPremiumMember() {
-        return premiumDurationLeft > 0;
+        return premiumUntil > 0;
     }
 
     public String getEmailConfirmationCode() {

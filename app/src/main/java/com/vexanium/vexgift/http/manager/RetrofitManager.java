@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
@@ -504,6 +505,14 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mOtherService.getPremiumHistoryList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumHistoryResponse>>());
+    }
+
+    public Observable<HttpResponse<PremiumDueDateResponse>> requestUserPremiumDueDate(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getPremiumDueDate(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumDueDateResponse>>());
     }
 
     public Observable<HttpResponse<UserLoginResponse>> requestEmailConfirmation(int userId, String code) {

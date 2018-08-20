@@ -34,6 +34,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_USER_ADDRESS = "key_user_address";
     public static String KEY_REFERRER = "key_referrer";
     public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
+    public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
     public static final String KEY_REG_ID = "key_reg_id";
 
     public void removePrivate() {

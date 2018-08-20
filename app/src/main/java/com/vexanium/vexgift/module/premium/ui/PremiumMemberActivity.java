@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
@@ -27,10 +28,13 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPlan;
 import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
+import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
 import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
 import com.vexanium.vexgift.module.premium.ui.adapter.PremiumPlanAdapter;
@@ -39,6 +43,8 @@ import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.FixedSpeedScroller;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -138,8 +144,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalAccessException e) {
         }
 
-        callPremiumHistoryList();
+        if(User.getUserAddress() == null){
+            callUserActAddress();
+        }else {
+            callPremiumDueDate();
+            callPremiumHistoryList();
+        }
 
+        callPremiumPlanList();
     }
 
     @Override
@@ -158,14 +170,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     protected void onResume() {
         super.onResume();
         mVpPremium.resumeAutoScroll();
-        if (user.getPremiumDurationLeft() > 0) {
-            updateView(1);
-            Long tsLong = System.currentTimeMillis()/1000;
-            String ts = getTimeStampDate(tsLong+user.getPremiumDurationLeft());
-            mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium),ts));
-        } else {
-            updateView(0);
-        }
+        validatePremiumView(user.getPremiumUntil());
     }
 
     @Override
@@ -216,11 +221,38 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                     }
                 });
                 mHistoryButton.setEnabled(true);
-                callPremiumPlanList();
+            } else if( data instanceof PremiumDueDateResponse){
+                int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
+                user.setPremiumUntil(dueDate);
+                User.updateCurrentUser(PremiumMemberActivity.this,user);
+
+                validatePremiumView(user.getPremiumUntil());
+            } else if( data instanceof UserAddressResponse){
+                UserAddress userAddress = ((UserAddressResponse) data).getUserAddress();
+                TpUtil tpUtil = new TpUtil(this);
+                tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
+
+                if (userAddress.getStatus() == 1) {
+                    callPremiumHistoryList();
+                    callPremiumDueDate();
+                    mHistoryButton.setVisibility(View.VISIBLE);
+                }else{
+                    mHistoryButton.setVisibility(View.GONE);
+                }
             }
 
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+        }
+    }
+
+    public void validatePremiumView(long premiumDueDate){
+        if (premiumDueDate > 0) {
+            updateView(1);
+            String ts = getTimeStampDate(premiumDueDate);
+            mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium),ts));
+        } else {
+            updateView(0);
         }
     }
 
@@ -311,6 +343,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    private void callUserActAddress(){
+        mPresenter.requestGetActAddress(user.getId());
+    }
+
+    private void callPremiumDueDate(){
+        mPresenter.requestUserPremiumDueDate(user.getId());
+    }
+
     private void callPremiumHistoryList(){
         mPresenter.requestUserPremiumHistory(user.getId());
     }
@@ -389,7 +429,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        callPurchasePremium(plan);
+                        if(User.getUserAddress() != null) {
+                            callPurchasePremium(plan);
+                        }else{
+
+                        }
                         dialog.dismiss();
                     }
                 })
