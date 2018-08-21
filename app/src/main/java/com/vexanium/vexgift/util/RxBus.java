@@ -29,6 +29,7 @@ public class RxBus {
     public static final String KEY_NETWORK_STATUS_CHANGE = "key_network_status_change";
 
     private volatile static RxBus sInstance;
+    private ConcurrentMap<Object, List<Subject>> mSubjectMapper = new ConcurrentHashMap<>();
 
     private RxBus() {
     }
@@ -43,8 +44,6 @@ public class RxBus {
         }
         return sInstance;
     }
-
-    private ConcurrentMap<Object, List<Subject>> mSubjectMapper = new ConcurrentHashMap<>();
 
     public <T> Observable<T> register(@NonNull Object tag, @NonNull Class<T> clazz) {
         List<Subject> subjectList = mSubjectMapper.get(tag);

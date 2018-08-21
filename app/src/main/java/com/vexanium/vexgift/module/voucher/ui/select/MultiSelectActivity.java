@@ -39,6 +39,7 @@ import java.util.List;
 @ActivityFragmentInject(contentViewId = R.layout.activity_multi_select, toolbarTitle = R.string.filter_payment, withLoadingAnim = true)
 public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
 
+    String listType;
     private ListView listView;
     private List<String> rawList;
     private List<String> selectedItems;
@@ -49,8 +50,6 @@ public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> impleme
     private MemberTypeResponse memberTypeResponse;
     private PaymentTypeResponse paymentTypeResponse;
     private CategoryResponse categoryResponse;
-    String listType;
-
     private User user;
 
     @Override
@@ -121,7 +120,7 @@ public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> impleme
 
                 if (voucherTypeResponse != null && voucherTypeResponse.getVoucherTypes() != null) {
                     rawList = getRawListFromBaseType(voucherTypeResponse.getVoucherTypes());
-                }else{
+                } else {
                     mPresenter.requestVoucherType(user.getId());
                 }
 
@@ -131,7 +130,7 @@ public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> impleme
 
                 if (memberTypeResponse != null && memberTypeResponse.getMemberTypes() != null) {
                     rawList = getRawListFromBaseType(memberTypeResponse.getMemberTypes());
-                }else{
+                } else {
                     mPresenter.requestMemberType(user.getId());
                 }
 
@@ -141,7 +140,7 @@ public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> impleme
 
                 if (paymentTypeResponse != null && paymentTypeResponse.getPaymentTypes() != null) {
                     rawList = getRawListFromBaseType(paymentTypeResponse.getPaymentTypes());
-                }else{
+                } else {
                     mPresenter.requestPaymentType(user.getId());
                 }
 
@@ -151,7 +150,7 @@ public class MultiSelectActivity extends BaseActivity<IVoucherPresenter> impleme
 
                 if (categoryResponse != null && categoryResponse.getCategories() != null) {
                     rawList = getRawListFromBaseType(categoryResponse.getCategories());
-                }else{
+                } else {
                     mPresenter.requestCategories(user.getId());
                 }
 

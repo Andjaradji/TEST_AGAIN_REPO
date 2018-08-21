@@ -18,7 +18,7 @@ import com.vexanium.vexgift.bean.model.User;
 
 import static com.vexanium.vexgift.app.StaticGroup.isAppAvailable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_referral,toolbarTitle = R.string.referral_invite_others)
+@ActivityFragmentInject(contentViewId = R.layout.activity_referral, toolbarTitle = R.string.referral_invite_others)
 public class ReferralActivity extends BaseActivity {
 
     TextView mTvInvitedCount, mTvInviteLink;
@@ -50,8 +50,8 @@ public class ReferralActivity extends BaseActivity {
 
 
         mTvInviteLink.setText(user.getReferralCode());
-        mTvInvitedCount.setText(""+0);
-        mShareText = "VexGift is a great wat to get free vouchers. Check it out here "+user.getReferralCode();
+        mTvInvitedCount.setText("" + 0);
+        mShareText = "VexGift is a great wat to get free vouchers. Check it out here " + user.getReferralCode();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ReferralActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_referral_copy:
                 copyToClipboard(mShareText);
                 break;
@@ -89,14 +89,14 @@ public class ReferralActivity extends BaseActivity {
         }
     }
 
-    private void copyToClipboard(String text){
+    private void copyToClipboard(String text) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("label", text);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, "Copied to clipboard.", Toast.LENGTH_SHORT).show();
     }
 
-    private void shareSm(String text){
+    private void shareSm(String text) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -120,8 +120,8 @@ public class ReferralActivity extends BaseActivity {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
                 shareIntent.setPackage("com.facebook.lite");
-                startActivity(Intent.createChooser(shareIntent,"Share with"));
-            }catch (Exception er) {
+                startActivity(Intent.createChooser(shareIntent, "Share with"));
+            } catch (Exception er) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.putExtra(android.content.Intent.EXTRA_TEXT, text);
                 i.setData(Uri.parse(fullUrl));
@@ -134,7 +134,7 @@ public class ReferralActivity extends BaseActivity {
     private void shareTwitter(String text) {
         try {
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-            sharingIntent.setClassName("com.twitter.android","com.twitter.android.PostActivity");
+            sharingIntent.setClassName("com.twitter.android", "com.twitter.android.PostActivity");
             sharingIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(sharingIntent);
         } catch (Exception e) {
@@ -146,7 +146,7 @@ public class ReferralActivity extends BaseActivity {
         }
     }
 
-    void shareLine(String text){
+    void shareLine(String text) {
         final String appName = "jp.naver.line.android";
         final boolean isAppInstalled = isAppAvailable(this, appName);
         if (isAppInstalled) {
@@ -155,8 +155,7 @@ public class ReferralActivity extends BaseActivity {
             myIntent.setPackage(appName);
             myIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(Intent.createChooser(myIntent, "Share with"));
-        }else
-        {
+        } else {
             Toast.makeText(this, "Line not Installed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -164,16 +163,13 @@ public class ReferralActivity extends BaseActivity {
     void shareTelegram(String text) {
         final String appName = "org.telegram.messenger";
         final boolean isAppInstalled = isAppAvailable(this, appName);
-        if (isAppInstalled)
-        {
+        if (isAppInstalled) {
             Intent myIntent = new Intent(Intent.ACTION_SEND);
             myIntent.setType("text/plain");
             myIntent.setPackage(appName);
             myIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(Intent.createChooser(myIntent, "Share with"));
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "Telegram not Installed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -181,16 +177,13 @@ public class ReferralActivity extends BaseActivity {
     void shareWhatsApp(String text) {
         final String appName = "com.whatsapp";
         final boolean isAppInstalled = isAppAvailable(this, appName);
-        if (isAppInstalled)
-        {
+        if (isAppInstalled) {
             Intent myIntent = new Intent(Intent.ACTION_SEND);
             myIntent.setType("text/plain");
             myIntent.setPackage(appName);
             myIntent.putExtra(Intent.EXTRA_TEXT, text);
             startActivity(Intent.createChooser(myIntent, "Share with"));
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
         }
     }

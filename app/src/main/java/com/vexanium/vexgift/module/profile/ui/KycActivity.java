@@ -63,11 +63,11 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         findViewById(R.id.btn_next).setOnClickListener(this);
 
         Spinner spDocType = findViewById(R.id.sp_document_type);
-        ArrayAdapter<String> spDocTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.documentType){
+        ArrayAdapter<String> spDocTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.documentType) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view =  super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
                 view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
                 return view;
             }
@@ -76,11 +76,11 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         spDocType.setAdapter(spDocTypeAdapter);
 
         Spinner spCountry = findViewById(R.id.sp_country);
-        ArrayAdapter<String> spCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.countries){
+        ArrayAdapter<String> spCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.countries) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view =  super.getView(position, convertView, parent);
+                View view = super.getView(position, convertView, parent);
                 view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
                 return view;
             }
@@ -104,7 +104,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         } else if (errorResponse != null) {
             KLog.v("MyProfileActivity handleResult error : " + errorResponse.getMeta().getMessage());
             toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
-        }else{
+        } else {
             RxBus.get().post("kycStatusUpdate", true);
             new VexDialog.Builder(KycActivity.this)
                     .optionType(DialogOptionType.OK)

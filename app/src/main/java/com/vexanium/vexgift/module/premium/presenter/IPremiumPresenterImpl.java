@@ -53,7 +53,7 @@ public class IPremiumPresenterImpl extends BasePresenterImpl<IProfileView, Seria
 
     @Override
     public void purchasePremium(int userId, int duration, int price, String currency) {
-        Subscription subscription = mInteractor.purchasePremium(this, userId,duration,price,currency);
+        Subscription subscription = mInteractor.purchasePremium(this, userId, duration, price, currency);
         compositeSubscription.add(subscription);
     }
 

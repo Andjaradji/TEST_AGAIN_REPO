@@ -36,16 +36,14 @@ import java.util.ArrayList;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
 public class TokenFragment extends BaseFragment {
 
-    private Context context;
-
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
-
+    TextView mTvErrorHead, mTvErrorBody;
     SwipeRefreshLayout mRefreshLayout;
-    private ArrayList<VoucherResponse> data;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
+    private Context context;
+    private ArrayList<VoucherResponse> data;
 
     public static TokenFragment newInstance() {
         return new TokenFragment();
@@ -60,7 +58,7 @@ public class TokenFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             context = getActivity();
         }
 
@@ -92,13 +90,13 @@ public class TokenFragment extends BaseFragment {
 
     }
 
-    private void updateData(){
+    private void updateData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(false);
             }
-        },3000);
+        }, 3000);
     }
 
     public void setVoucherList(final ArrayList<VoucherResponse> data) {
@@ -156,7 +154,7 @@ public class TokenFragment extends BaseFragment {
             }
         });
 
-        if(data.size() <= 0){
+        if (data.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.token_empty);
             mTvErrorHead.setText(getString(R.string.error_token_empty_header));

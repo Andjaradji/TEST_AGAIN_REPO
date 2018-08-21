@@ -6,8 +6,8 @@ import com.vexanium.vexgift.bean.model.VoucherCode;
 
 import java.io.Serializable;
 
-@JsonIgnoreProperties(ignoreUnknown =  true)
-public class VoucherCodeResponse implements Serializable{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class VoucherCodeResponse implements Serializable {
     @JsonProperty("voucher_code")
     private VoucherCode voucherCode;
 

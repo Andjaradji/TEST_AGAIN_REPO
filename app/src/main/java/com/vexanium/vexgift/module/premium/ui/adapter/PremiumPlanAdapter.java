@@ -21,12 +21,12 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
     private ArrayList<PremiumPlan> dataList = new ArrayList<>();
     private AdapterBuyOnClick listener;
 
-    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener){
+    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener) {
         this.context = context;
         this.listener = listener;
     }
 
-    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener, ArrayList<PremiumPlan> dataList){
+    public PremiumPlanAdapter(Context context, AdapterBuyOnClick listener, ArrayList<PremiumPlan> dataList) {
         this.context = context;
         this.listener = listener;
         this.dataList = dataList;
@@ -42,9 +42,9 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
     @Override
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int pos) {
         final PremiumPlan data = dataList.get(pos);
-        int day = data.getDuration()/24/3600;
-        holder.mPremiumTitle.setText(data.getPrice() + " VEX/day ("+data.getName()+")");
-        holder.mPremiumSubtitle.setText(data.getPrice()*day + " VEX");
+        int day = data.getDuration() / 24 / 3600;
+        holder.mPremiumTitle.setText(data.getPrice() + " VEX/day (" + data.getName() + ")");
+        holder.mPremiumSubtitle.setText(data.getPrice() * day + " VEX");
         holder.mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,19 +59,19 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
         return dataList.size();
     }
 
-    public void addItem(PremiumPlan item){
+    public void addItem(PremiumPlan item) {
         dataList.add(item);
     }
 
-    public void addItemList(ArrayList<PremiumPlan> item){
+    public void addItemList(ArrayList<PremiumPlan> item) {
         dataList.addAll(item);
     }
 
-    public void removeAll(){
+    public void removeAll() {
         dataList.clear();
     }
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder{
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout mBuyButton;
         TextView mPremiumTitle, mPremiumSubtitle;

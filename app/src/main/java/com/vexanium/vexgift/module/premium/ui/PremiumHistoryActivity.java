@@ -53,7 +53,7 @@ public class PremiumHistoryActivity extends BaseActivity<IPremiumPresenter> impl
         mAdapterHistory = new PremiumHistoryAdapter(this, this);
         mRvPurchaseHistory.setAdapter(mAdapterHistory);
 
-        mPremiumHistoryList = (ArrayList<PremiumPurchase>)getIntent().getSerializableExtra("premium_history_list");
+        mPremiumHistoryList = (ArrayList<PremiumPurchase>) getIntent().getSerializableExtra("premium_history_list");
         updateView(mPremiumHistoryList);
         //mPresenter.requestUserPremiumHistory(user.getId());
     }
@@ -97,20 +97,20 @@ public class PremiumHistoryActivity extends BaseActivity<IPremiumPresenter> impl
 
     @Override
     public void onItemClick(PremiumPurchase premiumPurchase) {
-        Intent intent = new Intent(this,PremiumHistoryDetailActivity.class);
-        intent.putExtra("premium_history_detail",premiumPurchase);
+        Intent intent = new Intent(this, PremiumHistoryDetailActivity.class);
+        intent.putExtra("premium_history_detail", premiumPurchase);
         startActivity(intent);
     }
 
-    private void updateView(ArrayList<PremiumPurchase> dataList){
+    private void updateView(ArrayList<PremiumPurchase> dataList) {
         mAdapterHistory.addItemList(dataList);
         mAdapterHistory.notifyDataSetChanged();
-        if(mAdapterHistory.getItemCount() > 0 ){
-            if(mRvPurchaseHistory.getVisibility()!=View.VISIBLE) {
+        if (mAdapterHistory.getItemCount() > 0) {
+            if (mRvPurchaseHistory.getVisibility() != View.VISIBLE) {
                 mRvPurchaseHistory.setVisibility(View.VISIBLE);
             }
-        }else{
-            if(mRvPurchaseHistory.getVisibility()!=View.GONE) {
+        } else {
+            if (mRvPurchaseHistory.getVisibility() != View.GONE) {
                 mRvPurchaseHistory.setVisibility(View.GONE);
             }
         }

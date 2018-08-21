@@ -21,12 +21,12 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
     private ArrayList<PremiumPurchase> dataList = new ArrayList<>();
     private AdapterHistoryOnClick listener;
 
-    public PremiumHistoryAdapter(Context context, AdapterHistoryOnClick listener){
+    public PremiumHistoryAdapter(Context context, AdapterHistoryOnClick listener) {
         this.context = context;
         this.listener = listener;
     }
 
-    public PremiumHistoryAdapter(Context context, AdapterHistoryOnClick listener, ArrayList<PremiumPurchase> dataList){
+    public PremiumHistoryAdapter(Context context, AdapterHistoryOnClick listener, ArrayList<PremiumPurchase> dataList) {
         this.context = context;
         this.listener = listener;
         this.dataList = dataList;
@@ -43,16 +43,16 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int pos) {
         final PremiumPurchase data = dataList.get(pos);
 
-        holder.mHistoryTitle.setText("PREMIUM #"+data.getId());
+        holder.mHistoryTitle.setText("PREMIUM #" + data.getId());
         holder.mHistorySubtitle.setText(data.getCreatedAtDate());
-        holder.mHistoryAmount.setText(data.getPaidAmount()+" VEX");
+        holder.mHistoryAmount.setText(data.getPaidAmount() + " VEX");
 
-        if(data.getStatus() == 0){
+        if (data.getStatus() == 0) {
             holder.mHistoryStatus.setText(context.getText(R.string.premium_purchase_pending));
-        }else if(data.getStatus() == 1){
+        } else if (data.getStatus() == 1) {
             holder.mHistoryStatus.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
             holder.mHistoryStatus.setText(context.getText(R.string.premium_purchase_success));
-        }else{
+        } else {
             holder.mHistoryStatus.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
             holder.mHistoryStatus.setText(context.getText(R.string.premium_purchase_failed));
         }
@@ -71,19 +71,19 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
         return dataList.size();
     }
 
-    public void addItem(PremiumPurchase item){
+    public void addItem(PremiumPurchase item) {
         dataList.add(item);
     }
 
-    public void addItemList(ArrayList<PremiumPurchase> item){
+    public void addItemList(ArrayList<PremiumPurchase> item) {
         dataList.addAll(item);
     }
 
-    public void removeAll(){
+    public void removeAll() {
         dataList.clear();
     }
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder{
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout mContainer;
         TextView mHistoryTitle, mHistorySubtitle, mHistoryAmount, mHistoryStatus;

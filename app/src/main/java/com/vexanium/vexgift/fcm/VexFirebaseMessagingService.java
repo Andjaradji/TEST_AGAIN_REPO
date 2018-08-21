@@ -15,8 +15,8 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        KLog.v("VexFirebaseMessagingService","onMessageReceived: From :"+remoteMessage.getFrom());
-        KLog.v("VexFirebaseMessagingService","onMessageReceived: MessageBody"+remoteMessage.getNotification().getBody());
+        KLog.v("VexFirebaseMessagingService", "onMessageReceived: From :" + remoteMessage.getFrom());
+        KLog.v("VexFirebaseMessagingService", "onMessageReceived: MessageBody" + remoteMessage.getNotification().getBody());
 
 //        StaticGroup.sendLocalNotification(App.getContext(), "Test","Content", "vex");
     }
@@ -39,7 +39,7 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-        KLog.v("VexFirebaseMessagingService","onNewToken: "+token);
+        KLog.v("VexFirebaseMessagingService", "onNewToken: " + token);
         StaticGroup.insertRegistrationID(token);
     }
 }

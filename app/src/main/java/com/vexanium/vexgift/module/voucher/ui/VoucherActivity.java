@@ -57,13 +57,10 @@ import java.util.List;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
 public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
-    private ArrayList<Voucher> vouchers;
     GridLayoutManager layoutListManager;
-
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
-
     //AVLoadingIndicatorView mAvi;
     RelativeLayout mAviContainer;
     SwipeRefreshLayout mRefreshLayout;
@@ -72,18 +69,14 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     LinearLayout mDragView;
     LockableScrollView mPanelScrollview;
     Spinner spDocType;
-
-    private LoadVoucherAsync mLoadVoucherAsync;
-
     SortFilterCondition sortFilterCondition;
     BaseRecyclerAdapter<Voucher> mAdapter;
-
-    private Animation mFadeIn, mFadeOut;
-
     boolean isSortFilterUpdate = false;
     boolean isToken = false;
-
     User user;
+    private ArrayList<Voucher> vouchers;
+    private LoadVoucherAsync mLoadVoucherAsync;
+    private Animation mFadeIn, mFadeOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -465,7 +458,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ConstantGroup.EDIT_FILTER) {
-            if (data!= null && data.hasExtra("condition")) {
+            if (data != null && data.hasExtra("condition")) {
                 String condition = data.getStringExtra("condition");
                 SortFilterCondition s = (SortFilterCondition) JsonUtil.toObject(condition, SortFilterCondition.class);
                 if (!sortFilterCondition.isEquallsToCondition(s)) {

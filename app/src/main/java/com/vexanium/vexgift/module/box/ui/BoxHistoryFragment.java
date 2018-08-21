@@ -37,6 +37,9 @@ public class BoxHistoryFragment extends BaseFragment {
 
     private BoxFragmentChangeListener listener;
 
+    public static BoxHistoryFragment newInstance() {
+        return new BoxHistoryFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
@@ -134,10 +137,6 @@ public class BoxHistoryFragment extends BaseFragment {
             return PAGE_COUNT;
         }
 
-    }
-
-    public static BoxHistoryFragment newInstance() {
-        return new BoxHistoryFragment();
     }
 
 }

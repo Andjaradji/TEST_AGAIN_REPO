@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MemberTypeResponse implements Serializable{
+public class MemberTypeResponse implements Serializable {
     @JsonProperty("member_types")
     private ArrayList<MemberType> memberTypes;
 

@@ -46,26 +46,19 @@ import rx.functions.Action1;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView, View.OnClickListener {
 
     public static Hashtable<String, Stack<BaseActivity>> activityMap;
-
-    protected T mPresenter;
-    protected int mContentViewId;
-
-    private int mToolbarTitle;
-    private int mToolbarIndicator;
-
     public AppBarLayout appBarLayout;
     public Toolbar toolbar;
-
-    private Observable<Boolean> mFinishObservable;
-
-    private boolean mBack2Flag = false;
-
-    private View decorView;
-    private int uiOption;
-
-    private boolean withLoadingAnim = false;
     public AVLoadingIndicatorView mLoadingView;
     public RelativeLayout mLoadingContainerView;
+    protected T mPresenter;
+    protected int mContentViewId;
+    private int mToolbarTitle;
+    private int mToolbarIndicator;
+    private Observable<Boolean> mFinishObservable;
+    private boolean mBack2Flag = false;
+    private View decorView;
+    private int uiOption;
+    private boolean withLoadingAnim = false;
 
     public BaseActivity() {
         super();

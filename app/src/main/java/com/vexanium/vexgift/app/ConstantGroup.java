@@ -29,10 +29,10 @@ public class ConstantGroup {
     public static final int ID_LOCAL_PUSH = 412;
     public static final String DB_NAME = "VexGiftDb";
 
-    public static final String NOTIF_CHANNEL_NAME = "VexGift" ;
-    public static final String NOTIF_CHANNEL_DESC = "VexGift Notification Channel" ;
+    public static final String NOTIF_CHANNEL_NAME = "VexGift";
+    public static final String NOTIF_CHANNEL_DESC = "VexGift Notification Channel";
 
     public static final String SUPPORT_EMAIL = "support@vexgift.com";
 
-    public static final String KEY_LAST_LINK_VERSIONS = "key_last_link_version" ;
+    public static final String KEY_LAST_LINK_VERSIONS = "key_last_link_version";
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class PremiumPlan implements Serializable{
+public class PremiumPlan implements Serializable {
     @JsonProperty("id")
     private int id;
 

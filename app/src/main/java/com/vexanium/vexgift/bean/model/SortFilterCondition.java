@@ -78,15 +78,15 @@ public class SortFilterCondition implements Serializable {
         this.categories = categories;
     }
 
-    public void resetSort(){
+    public void resetSort() {
         sort = SORT_DEFAULT;
     }
 
-    public void resetFilter(){
-        categories =  paymentTypes = memberTypes = voucherTypes = location = new ArrayList<>();
+    public void resetFilter() {
+        categories = paymentTypes = memberTypes = voucherTypes = location = new ArrayList<>();
     }
 
-    public boolean isEquallsToCondition(SortFilterCondition sortFilterCondition){
+    public boolean isEquallsToCondition(SortFilterCondition sortFilterCondition) {
         return getSort() == sortFilterCondition.getSort() &&
                 getPaymentTypes() == sortFilterCondition.getPaymentTypes() &&
                 getMemberTypes() == sortFilterCondition.getMemberTypes() &&

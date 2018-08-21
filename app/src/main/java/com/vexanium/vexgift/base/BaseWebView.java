@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.app.StaticGroup;
 
-public class BaseWebView extends WebView{
+public class BaseWebView extends WebView {
     public BaseWebView(Context context) {
         super(context);
         setInitResources();

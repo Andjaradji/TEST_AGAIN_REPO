@@ -112,9 +112,8 @@ public class StaticGroup {
     public static String VERSION = null;
     public static long VERSION_CODE = 0;
     public static String reg_id = "";
-    private static String CHANNEL_ID = "1121";
     public static boolean latestLinkVersions;
-
+    private static String CHANNEL_ID = "1121";
 
     public static void initialize(Context context) {
         try {
@@ -1014,10 +1013,9 @@ public class StaticGroup {
     }
 
 
-
     public static ArrayList<Voucher> getFilteredVoucher(final ArrayList<Voucher> vouchers, SortFilterCondition sortFilterCondition) {
         ArrayList<Voucher> filteredVoucher = new ArrayList<>();
-        ArrayList<Voucher> temp ;
+        ArrayList<Voucher> temp;
         boolean isFiltered = false;
 
         if (sortFilterCondition != null) {
@@ -1034,7 +1032,7 @@ public class StaticGroup {
             if (sortFilterCondition.getMemberTypes() != null && sortFilterCondition.getMemberTypes().size() > 0) {
                 if (filteredVoucher.size() == 0 && !isFiltered) filteredVoucher = vouchers;
 
-                temp =  new ArrayList<>(filteredVoucher);
+                temp = new ArrayList<>(filteredVoucher);
                 for (Voucher voucher : filteredVoucher) {
                     List<String> filterField = sortFilterCondition.getMemberTypes();
                     if (!filterField.contains(voucher.getMemberType().getName())) {
@@ -1048,7 +1046,7 @@ public class StaticGroup {
             if (sortFilterCondition.getPaymentTypes() != null && sortFilterCondition.getPaymentTypes().size() > 0) {
                 if (filteredVoucher.size() == 0 && !isFiltered) filteredVoucher = vouchers;
 
-                temp =  new ArrayList<>(filteredVoucher);
+                temp = new ArrayList<>(filteredVoucher);
                 for (Voucher voucher : filteredVoucher) {
                     List<String> filterField = sortFilterCondition.getPaymentTypes();
                     if (!filterField.contains(voucher.getPaymentType().getName())) {

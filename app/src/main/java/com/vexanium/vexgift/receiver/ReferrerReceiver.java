@@ -52,7 +52,7 @@ public class ReferrerReceiver extends BroadcastReceiver {
                 }
             }
         } catch (PackageManager.NameNotFoundException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            Log.e("Referrer", "PASS REFERRER error : "+e.getMessage());
+            Log.e("Referrer", "PASS REFERRER error : " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }

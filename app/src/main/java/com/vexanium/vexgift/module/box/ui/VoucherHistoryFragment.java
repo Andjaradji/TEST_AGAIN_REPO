@@ -52,18 +52,15 @@ import rx.functions.Action1;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
 public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implements IBoxView {
 
-    private Context context;
-
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
-
-    private ArrayList<VoucherCode> data;
-    private BaseRecyclerAdapter<VoucherCode> mAdapter;
     SwipeRefreshLayout mRefreshLayout;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
-
+    private Context context;
+    private ArrayList<VoucherCode> data;
+    private BaseRecyclerAdapter<VoucherCode> mAdapter;
     private Observable<Integer> mVoucherHistoryObservable;
     private User user;
 

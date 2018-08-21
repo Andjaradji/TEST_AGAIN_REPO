@@ -6,5 +6,6 @@ package com.vexanium.vexgift.base;
 
 public interface BasePresenter {
     void onResume();
+
     void onDestroy();
 }

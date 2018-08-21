@@ -33,7 +33,7 @@ public class ColorUtil {
     }
 
     public static void setBackgroundDrawable(View view, Drawable drawable) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setBackground(drawable);
         } else {
             view.setBackgroundDrawable(drawable);

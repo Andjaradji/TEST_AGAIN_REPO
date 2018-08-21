@@ -32,15 +32,16 @@ public class PointRecordFragment extends BaseFragment {
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
-
+    TextView mTvErrorHead, mTvErrorBody;
+    ArrayList<VexPointRecord> dataList = new ArrayList<>();
     private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
-
     private Observable<Integer> mVpObservable;
 
-    ArrayList<VexPointRecord> dataList = new ArrayList<>();
+    public static PointRecordFragment newInstance() {
+        return new PointRecordFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
@@ -51,7 +52,7 @@ public class PointRecordFragment extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(linearLayoutManager);
 
         mAdapter = new VexPointAdapter(getActivity());
@@ -76,8 +77,8 @@ public class PointRecordFragment extends BaseFragment {
                 mTvErrorHead.setVisibility(View.GONE);
                 mErrorView.setVisibility(View.GONE);
 
-                KLog.v("PointRecordFragment","call: called HPtes");
-                VexPointRecord data = new VexPointRecord("Vex Point from Snapshoot","05-08-2018 00:00 GMT",0,vp);
+                KLog.v("PointRecordFragment", "call: called HPtes");
+                VexPointRecord data = new VexPointRecord("Vex Point from Snapshoot", "05-08-2018 00:00 GMT", 0, vp);
                 dataList.add(data);
                 mAdapter.setItemList(dataList);
                 mAdapter.notifyDataSetChanged();
@@ -88,11 +89,11 @@ public class PointRecordFragment extends BaseFragment {
 
     }
 
-    private void populateData(){
+    private void populateData() {
         mAdapter.addItemList(dataList);
         mAdapter.notifyDataSetChanged();
 
-        if(dataList.size() <= 0) {
+        if (dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.vp_empty);
             mTvErrorBody.setText(getString(R.string.error_vp_point_record_empty_header));
@@ -114,9 +115,5 @@ public class PointRecordFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-    }
-
-    public static PointRecordFragment newInstance() {
-        return new PointRecordFragment();
     }
 }

@@ -119,7 +119,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 finish();
                 break;
             case R.id.share_button:
-                String deepUrl = String.format(Locale.getDefault(),"vexgift://voucher?id=%d", voucher.getId());
+                String deepUrl = String.format(Locale.getDefault(), "vexgift://voucher?id=%d", voucher.getId());
                 String message = String.format(getString(R.string.share_voucher_template), deepUrl);
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
                 break;
@@ -368,6 +368,16 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
         super.finish();
     }
 
+    @Override
+    public void showProgress() {
+        super.showProgress();
+    }
+
+    @Override
+    public void hideProgress() {
+        super.hideProgress();
+    }
+
     public enum State {
         EXPANDED,
         COLLAPSED,
@@ -399,15 +409,5 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
         }
 
         public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
-    }
-
-    @Override
-    public void showProgress() {
-        super.showProgress();
-    }
-
-    @Override
-    public void hideProgress() {
-        super.hideProgress();
     }
 }

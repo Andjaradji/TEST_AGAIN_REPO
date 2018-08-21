@@ -27,7 +27,7 @@ public class WalletFragment extends BaseFragment {
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
+    TextView mTvErrorHead, mTvErrorBody;
 
     private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
@@ -36,10 +36,13 @@ public class WalletFragment extends BaseFragment {
     private LinearLayout mMainContainer, mButtonContainer, mRecordContainer;
     private ImageView mIvComingSoon;
 
+    public static WalletFragment newInstance() {
+        return new WalletFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
-        ViewUtil.setText(fragmentRootView,R.id.tv_toolbar_title,"MY WALLET");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "MY WALLET");
 
         mRecycler = fragmentRootView.findViewById(R.id.rv_wallet_record);
 
@@ -59,7 +62,7 @@ public class WalletFragment extends BaseFragment {
         mButtonContainer.setVisibility(View.GONE);
         mRecordContainer.setVisibility(View.GONE);
 
-        if(mIvComingSoon.getVisibility() != View.VISIBLE) {
+        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
             linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             mRecycler.setLayoutManager(linearLayoutManager);
 
@@ -84,10 +87,10 @@ public class WalletFragment extends BaseFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private void setRecordlist(ArrayList<WalletRecord> dataList){
+    private void setRecordlist(ArrayList<WalletRecord> dataList) {
 
-        WalletRecord data = new WalletRecord("ASDNJKSAD23FB","16-08-2018 15:00 GMT",1,1500);
-        WalletRecord data1 = new WalletRecord("ASDNJKSAD23FB","16-08-2018 15:00 GMT",0,1500);
+        WalletRecord data = new WalletRecord("ASDNJKSAD23FB", "16-08-2018 15:00 GMT", 1, 1500);
+        WalletRecord data1 = new WalletRecord("ASDNJKSAD23FB", "16-08-2018 15:00 GMT", 0, 1500);
 
         dataList.add(data);
         dataList.add(data1);
@@ -98,21 +101,17 @@ public class WalletFragment extends BaseFragment {
         dataList.add(data);
         dataList.add(data1);
 
-        if(dataList.size() <= 0){
+        if (dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.wallet_empty);
             mTvErrorHead.setVisibility(View.GONE);
             mTvErrorBody.setText(getString(R.string.error_wallet_empty_header));
 
             mRecycler.setVisibility(View.GONE);
-        }else{
+        } else {
             mAdapter.addItemList(dataList);
             mAdapter.notifyDataSetChanged();
         }
-    }
-
-    public static WalletFragment newInstance() {
-        return new WalletFragment();
     }
 
 }

@@ -18,11 +18,11 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
     private Context context;
     private ArrayList<String> dataList = new ArrayList<>();
 
-    public FilterAdapter(Context context){
+    public FilterAdapter(Context context) {
         this.context = context;
     }
 
-    public FilterAdapter(Context context, ArrayList<String> dataList){
+    public FilterAdapter(Context context, ArrayList<String> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -51,19 +51,19 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
         return dataList.size();
     }
 
-    public void addItem(String item){
+    public void addItem(String item) {
         dataList.add(item);
     }
 
-    public void addItemList(ArrayList<String> item){
+    public void addItemList(ArrayList<String> item) {
         dataList.addAll(item);
     }
 
-    public void removeAll(){
+    public void removeAll() {
         dataList.clear();
     }
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder{
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout mContainer;
         TextView mItem;

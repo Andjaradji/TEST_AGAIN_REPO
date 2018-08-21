@@ -22,11 +22,11 @@ import java.util.ArrayList;
  */
 
 public class IconTextTabBarView extends RelativeLayout {
+    public static int mSelectedTab = 0;
+    public ViewPager.OnPageChangeListener delegatePageListener;
     private ArrayList<IconTextTabView> tabViews;
     private View view;
-    public static int mSelectedTab = 0;
     private FlexboxLayout flexboxLayout;
-    public ViewPager.OnPageChangeListener delegatePageListener;
     private float mOffset = 0f;
     private Context context;
     private ViewPager viewPager;

@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
  * Created by mac on 5/24/17.
  */
 
-public class BaseDialog extends Dialog  implements DialogInterface.OnShowListener{
+public class BaseDialog extends Dialog implements DialogInterface.OnShowListener {
     public RelativeLayout view;
     private OnShowListener showListener;
 
@@ -19,8 +19,8 @@ public class BaseDialog extends Dialog  implements DialogInterface.OnShowListene
         super(context);
     }
 
-    public BaseDialog(Context context, @StyleRes int theme){
-        super(context,theme);
+    public BaseDialog(Context context, @StyleRes int theme) {
+        super(context, theme);
     }
 
     @Override

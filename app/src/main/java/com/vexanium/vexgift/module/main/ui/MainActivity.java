@@ -39,22 +39,19 @@ import rx.functions.Action1;
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
-    private CustomTabBarView mCustomTabBarView;
-    private CustomViewPager mCustomViewPager;
-
-    private HomeFragment homeFragment;
-    private BoxBaseFragment boxBaseFragment;
-    private WalletFragment walletFragment;
-    private NotifFragment notifFragment;
-    private MoreFragment moreFragment;
-
     public static final int HOME_FRAGMENT = 0;
     public static final int BOX_FRAGMENT = 1;
     //public static final int WALLET_FRAGMENT = 2;
     public static final int NOTIF_FRAGMENT = 2;
     public static final int MORE_FRAGMENT = 3;
     public static final int PAGE_COUNT = 4;
-
+    private CustomTabBarView mCustomTabBarView;
+    private CustomViewPager mCustomViewPager;
+    private HomeFragment homeFragment;
+    private BoxBaseFragment boxBaseFragment;
+    private WalletFragment walletFragment;
+    private NotifFragment notifFragment;
+    private MoreFragment moreFragment;
     private MainScreenPagerAdapter mainScreenPagerAdapter;
 
     @Override

@@ -9,7 +9,6 @@ import com.vexanium.vexgift.BuildConfig;
 import java.util.HashMap;
 
 
-
 /**
  * Created by hizkia on 11/21/17.
  */

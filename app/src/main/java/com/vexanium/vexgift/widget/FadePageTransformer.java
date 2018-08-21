@@ -13,13 +13,13 @@ import android.view.View;
 public class FadePageTransformer implements ViewPager.PageTransformer {
     @Override
     public void transformPage(@NonNull View page, float position) {
-        page.setTranslationX(page.getWidth()*-position);
+        page.setTranslationX(page.getWidth() * -position);
 
-        if(position <= -1 || position >= 1){
+        if (position <= -1 || position >= 1) {
             page.setAlpha(0);
-        }else if(position == 0){
+        } else if (position == 0) {
             page.setAlpha(1);
-        }else{
+        } else {
             page.setAlpha(1 - Math.abs(position));
         }
 

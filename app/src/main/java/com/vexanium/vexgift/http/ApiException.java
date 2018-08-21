@@ -5,8 +5,7 @@ package com.vexanium.vexgift.http;
  */
 
 public class ApiException extends Exception {
-    public ApiException(String msg)
-    {
+    public ApiException(String msg) {
         super(msg);
     }
 }

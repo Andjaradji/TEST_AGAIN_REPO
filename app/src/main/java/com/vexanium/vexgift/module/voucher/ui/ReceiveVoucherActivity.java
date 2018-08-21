@@ -29,6 +29,10 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     private User user;
     private String code;
 
+    public static MoreFragment newInstance() {
+        return new MoreFragment();
+    }
+
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
@@ -49,7 +53,7 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
             // TODO: 20/08/18 check Receive Voucher
-            String content = String.format(getString(R.string.exchange_receive_voucher_success_dialog_content),"");
+            String content = String.format(getString(R.string.exchange_receive_voucher_success_dialog_content), "");
 
             new VexDialog.Builder(this)
                     .title(getString(R.string.exchange_receive_voucher_success_dialog_title))
@@ -133,11 +137,6 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
                 .autoDismiss(false)
                 .canceledOnTouchOutside(false)
                 .show();
-    }
-
-
-    public static MoreFragment newInstance() {
-        return new MoreFragment();
     }
 
 }

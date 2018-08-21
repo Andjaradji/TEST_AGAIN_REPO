@@ -27,11 +27,15 @@ public class InvitePointFragment extends BaseFragment {
 
     LinearLayout mErrorView;
     ImageView mIvError;
-    TextView mTvErrorHead,mTvErrorBody;
+    TextView mTvErrorHead, mTvErrorBody;
 
     private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
+
+    public static InvitePointFragment newInstance() {
+        return new InvitePointFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
@@ -42,7 +46,7 @@ public class InvitePointFragment extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(linearLayoutManager);
 
         mAdapter = new VexPointAdapter(getActivity());
@@ -56,7 +60,7 @@ public class InvitePointFragment extends BaseFragment {
         populateData();
     }
 
-    private void populateData(){
+    private void populateData() {
         ArrayList<VexPointRecord> dataList = new ArrayList<>();
 
         /*VexPointRecord data1 = new VexPointRecord("Point from VEX Deposit","16-08-2018 15:00 GMT",0,1500);
@@ -66,7 +70,7 @@ public class InvitePointFragment extends BaseFragment {
         dataList.add(data1);
         dataList.add(data1);*/
 
-        if(dataList.size() <= 0) {
+        if (dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.vp_empty);
             mTvErrorBody.setText(getString(R.string.error_vp_invite_point_empty_header));
@@ -74,7 +78,7 @@ public class InvitePointFragment extends BaseFragment {
             //mTvErrorBody.setText(getString(R.string.error_my_voucher_empty_body));
 
             mRecycler.setVisibility(View.GONE);
-        }else {
+        } else {
             mAdapter.addItemList(dataList);
             mAdapter.notifyDataSetChanged();
         }
@@ -91,9 +95,5 @@ public class InvitePointFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-    }
-
-    public static InvitePointFragment newInstance() {
-        return new InvitePointFragment();
     }
 }

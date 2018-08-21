@@ -29,15 +29,11 @@ import com.vexanium.vexgift.widget.IconTextTabBarView;
 public class BoxFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-
     private static final int VOUCHER_FRAGMENT = 0;
     private static final int TOKEN_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
-
+    private String mParam1;
+    private String mParam2;
     private VoucherFragment voucherFragment;
     private TokenFragment tokenFragment;
 
@@ -52,12 +48,15 @@ public class BoxFragment extends BaseFragment {
 
     private BoxFragmentChangeListener listener;
 
+    public static BoxFragment newInstance() {
+        return new BoxFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
 
-        mHistoryButton =  fragmentRootView.findViewById(R.id.ib_history);
-        mReceiveButton =  fragmentRootView.findViewById(R.id.ib_receive);
+        mHistoryButton = fragmentRootView.findViewById(R.id.ib_history);
+        mReceiveButton = fragmentRootView.findViewById(R.id.ib_receive);
 
         mViewPager = fragmentRootView.findViewById(R.id.vp_box);
         mTabBarView = fragmentRootView.findViewById(R.id.ittbv_tabview);
@@ -79,7 +78,7 @@ public class BoxFragment extends BaseFragment {
 
         setPagerListener();
 
-        App.setTextViewStyle((ViewGroup)fragmentRootView);
+        App.setTextViewStyle((ViewGroup) fragmentRootView);
 
     }
 
@@ -94,8 +93,8 @@ public class BoxFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(getParentFragment() instanceof BoxFragmentChangeListener){
-            listener = (BoxFragmentChangeListener)getParentFragment();
+        if (getParentFragment() instanceof BoxFragmentChangeListener) {
+            listener = (BoxFragmentChangeListener) getParentFragment();
         }
 
         mHistoryButton.setOnClickListener(this);
@@ -127,7 +126,7 @@ public class BoxFragment extends BaseFragment {
         });
     }
 
-    private void changeNotifBarVisibility(boolean isVisible, String text){
+    private void changeNotifBarVisibility(boolean isVisible, String text) {
         mNotifText.setText(text);
         /*if(isVisible){
             mNotifBar.setVisibility(View.VISIBLE);
@@ -139,9 +138,9 @@ public class BoxFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ib_history:
-                if(listener!=null) {
+                if (listener != null) {
                     listener.onClick(true);
                 }
                 break;
@@ -152,8 +151,8 @@ public class BoxFragment extends BaseFragment {
         }
     }
 
-    public void changeTab(int page){
-        mViewPager.setCurrentItem(page,false);
+    public void changeTab(int page) {
+        mViewPager.setCurrentItem(page, false);
     }
 
     public class BoxPagerAdapter extends FragmentStatePagerAdapter {
@@ -186,9 +185,5 @@ public class BoxFragment extends BaseFragment {
             return PAGE_COUNT;
         }
 
-    }
-
-    public static BoxFragment newInstance() {
-        return new BoxFragment();
     }
 }

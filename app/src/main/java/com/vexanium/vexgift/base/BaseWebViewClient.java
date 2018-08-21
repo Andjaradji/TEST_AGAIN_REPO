@@ -15,7 +15,7 @@ import com.socks.library.KLog;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseWebViewClient extends WebViewClient{
+public class BaseWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         KLog.v("BaseWebViewClient", "BaseWebViewClient shouldOverrideUrlLoading : " + view.getUrl());
@@ -55,7 +55,7 @@ public class BaseWebViewClient extends WebViewClient{
     }
 
     protected Map<String, String> corsHeader(String host) {
-        Map<String,String> headers = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<String, String>();
         headers.put("Access-Control-Allow-Origin", host);
         headers.put("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD");
         headers.put("Access-Control-Max-Age", "2592000");

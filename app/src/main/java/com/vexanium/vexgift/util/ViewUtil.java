@@ -148,19 +148,6 @@ public class ViewUtil {
         }
     }
 
-    private String getColorCodeWithPercent(int progress) {
-        // Progress : 1~100
-        double percentage = 1.0 - (long) progress / 100.0;
-        long alphaFixed = Math.round(percentage * 255);
-        String alphaHex = Long.toHexString(alphaFixed);
-
-        if (alphaHex.length() == 1) {
-            alphaHex = "0" + alphaHex;
-        }
-
-        return alphaHex;
-    }
-
     public static void setVisiblityToAllView(int viewVisibility, View root, int... viewIds) {
         for (int viewId : viewIds) {
             if (root != null) {
@@ -260,7 +247,6 @@ public class ViewUtil {
                 .into(view);
     }
 
-
     public static void setCircleImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
         ImageView view = findViewById(activity, viewId);
         Glide.with(App.getContext())
@@ -311,6 +297,19 @@ public class ViewUtil {
             }
         }
         return isValid;
+    }
+
+    private String getColorCodeWithPercent(int progress) {
+        // Progress : 1~100
+        double percentage = 1.0 - (long) progress / 100.0;
+        long alphaFixed = Math.round(percentage * 255);
+        String alphaHex = Long.toHexString(alphaFixed);
+
+        if (alphaHex.length() == 1) {
+            alphaHex = "0" + alphaHex;
+        }
+
+        return alphaHex;
     }
 
 }

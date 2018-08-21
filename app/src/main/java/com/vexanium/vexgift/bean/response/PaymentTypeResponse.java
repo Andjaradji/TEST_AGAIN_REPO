@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaymentTypeResponse implements Serializable{
+public class PaymentTypeResponse implements Serializable {
     @JsonProperty("payment_types")
     private ArrayList<PaymentType> paymentTypes;
 

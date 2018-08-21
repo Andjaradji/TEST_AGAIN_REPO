@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class FixtureData {
 
-    public static final ArrayList<String> documentType = new ArrayList<String>(){
+    public static final ArrayList<String> documentType = new ArrayList<String>() {
         {
             add("ID Card");
             add("Passport");
@@ -16,7 +16,7 @@ public class FixtureData {
         }
     };
 
-    public static final ArrayList<String> countries = new ArrayList<String>(){
+    public static final ArrayList<String> countries = new ArrayList<String>() {
         {
             add("Afghanistan");
             add("Albania");

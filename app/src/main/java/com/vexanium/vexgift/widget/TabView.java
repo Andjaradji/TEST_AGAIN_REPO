@@ -18,23 +18,20 @@ import com.vexanium.vexgift.R;
  */
 
 public class TabView extends LinearLayout {
+    private static int _selectedIconColor = R.color.material_black;
+    private static int _iconColor = R.color.material_grey_600;
     private int idx;
     @DrawableRes
     private int selectedIcon;
     @DrawableRes
     private int icon;
-
     @ColorRes
     private int selectedIconColor;
     @ColorRes
     private int iconColor;
-
     private View view;
     private ImageView ivIcon;
     private Context context;
-
-    private static int _selectedIconColor = R.color.material_black;
-    private static int _iconColor = R.color.material_grey_600;
 
     public TabView(Context context) {
         super(context);
@@ -56,22 +53,6 @@ public class TabView extends LinearLayout {
 //        init(context);
 //    }
 
-    public int getSelectedIconColor() {
-        return selectedIconColor;
-    }
-
-    public void setSelectedIconColor(int selectedIconColor) {
-        this.selectedIconColor = selectedIconColor;
-    }
-
-    public int getIconColor() {
-        return iconColor;
-    }
-
-    public void setIconColor(int iconColor) {
-        this.iconColor = iconColor;
-    }
-
     public static int get_selectedIconColor() {
         return _selectedIconColor;
     }
@@ -86,6 +67,22 @@ public class TabView extends LinearLayout {
 
     public static void set_iconColor(int _iconColor) {
         TabView._iconColor = _iconColor;
+    }
+
+    public int getSelectedIconColor() {
+        return selectedIconColor;
+    }
+
+    public void setSelectedIconColor(int selectedIconColor) {
+        this.selectedIconColor = selectedIconColor;
+    }
+
+    public int getIconColor() {
+        return iconColor;
+    }
+
+    public void setIconColor(int iconColor) {
+        this.iconColor = iconColor;
     }
 
     public int getIdx() {
@@ -124,7 +121,7 @@ public class TabView extends LinearLayout {
     }
 
     public void updateColor(boolean isSelected) {
-        if(selectedIconColor == 0 || iconColor == 0){
+        if (selectedIconColor == 0 || iconColor == 0) {
             selectedIconColor = _selectedIconColor;
             iconColor = _iconColor;
         }

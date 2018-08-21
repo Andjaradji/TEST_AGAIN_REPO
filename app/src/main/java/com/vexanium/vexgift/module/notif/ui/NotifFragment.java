@@ -60,24 +60,20 @@ import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_notif)
 public class NotifFragment extends BaseFragment<INotifPresenter> implements INotifView, View.OnClickListener {
-    public static NotifFragment newInstance() {
-        return new NotifFragment();
-    }
-
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
-
     SwipeRefreshLayout mRefreshLayout;
     private BaseRecyclerAdapter<Notification> mNotifListAdapter;
     private GridLayoutManager layoutListManager;
-
     private RecyclerView mRecyclerview;
     private ArrayList<Notification> data;
     private Random random;
-
     private Observable<Integer> mNotifObservable;
 
+    public static NotifFragment newInstance() {
+        return new NotifFragment();
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +91,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     protected void initView(View fragmentRootView) {
         random = new Random();
 
-        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -136,13 +132,13 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         });
     }
 
-    private void updateData(){
+    private void updateData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(false);
             }
-        },3000);
+        }, 3000);
     }
 
     @Override
@@ -209,7 +205,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
 
     public void initNotifList() {
-        if(mNotifListAdapter == null) {
+        if (mNotifListAdapter == null) {
             mNotifListAdapter = new BaseRecyclerAdapter<Notification>(this.getActivity(), data, layoutListManager) {
                 @Override
                 public int getItemLayoutId(int viewType) {
@@ -311,7 +307,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                     App.setTextViewStyle(mRecyclerview);
                 }
             });
-        }else{
+        } else {
             mNotifListAdapter.setData(data);
         }
 
@@ -323,7 +319,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             mTvErrorBody.setText(getString(R.string.error_notif_empty_body));
 
             mRecyclerview.setVisibility(View.GONE);
-        }else{
+        } else {
             mErrorView.setVisibility(View.GONE);
 
             mRecyclerview.setVisibility(View.VISIBLE);

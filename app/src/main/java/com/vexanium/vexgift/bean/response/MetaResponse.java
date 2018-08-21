@@ -41,7 +41,7 @@ public class MetaResponse<T> {
         this.error = error;
     }
 
-    public boolean isRequestError(){
+    public boolean isRequestError() {
         return status / 100 == 4;
     }
 }

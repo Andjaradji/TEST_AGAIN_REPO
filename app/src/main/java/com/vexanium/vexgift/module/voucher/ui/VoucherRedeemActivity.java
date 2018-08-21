@@ -173,12 +173,12 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         doDeactive();
                         break;
                     case VOUCHER_3RD_REDEEMED:
-                        if(!TextUtils.isEmpty(voucherCode.getVoucherCode())) {
+                        if (!TextUtils.isEmpty(voucherCode.getVoucherCode())) {
                             intent = new Intent(VoucherRedeemActivity.this, VoucherWebViewActivity.class);
                             intent.putExtra("url", voucherCode.getVoucherCode());
                             intent.putExtra("voucher", JsonUtil.toString(voucher));
                             startActivity(intent);
-                        }else{
+                        } else {
                             StaticGroup.showCommonErrorDialog(this, 12);
                         }
 
@@ -540,13 +540,6 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
         startDateTimer();
     }
 
-
-    public enum State {
-        EXPANDED,
-        COLLAPSED,
-        IDLE
-    }
-
     private void startDateTimer() {
         KLog.v("VoucherRedeemActivity", "startDateTimer: HPtes timer");
         if (timeSubsription == null && StaticGroup.isScreenOn(this, true)) {
@@ -598,6 +591,12 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
         tvDay.setText(day);
         tvHour.setText(time);
+    }
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
     }
 
     public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {

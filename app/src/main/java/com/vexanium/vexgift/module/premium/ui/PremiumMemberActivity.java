@@ -141,7 +141,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalAccessException e) {
         }
 
-        if(NetworkUtil.isOnline(this)) {
+        if (NetworkUtil.isOnline(this)) {
             if (User.getUserAddress() == null) {
                 callUserActAddress();
             } else {
@@ -150,7 +150,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
             callPremiumPlanList();
-        }else{
+        } else {
             findViewById(R.id.tv_premium_plan).setVisibility(View.GONE);
             StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
         }
@@ -245,9 +245,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if(errorResponse.getMeta().isRequestError() ) {
+            if (errorResponse.getMeta().isRequestError()) {
                 StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
-            }else{
+            } else {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
             }
         }
@@ -266,27 +266,6 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     public void setPremiumPlanList(PremiumListResponse premiumListResponse) {
         mAdapter.addItemList(premiumListResponse.getPremiumPlans());
         mAdapter.notifyDataSetChanged();
-    }
-
-    public class PremiumPagerAdapter extends LoopingPagerAdapter<IconText> {
-
-        public PremiumPagerAdapter(Context context, ArrayList<IconText> itemList, boolean isInfinite) {
-            super(context, itemList, isInfinite);
-        }
-
-        @Override
-        protected View inflateView(int viewType, ViewGroup container, int listPosition) {
-            return LayoutInflater.from(context).inflate(R.layout.item_premium_pager, container, false);
-        }
-
-        @Override
-        protected void bindView(View convertView, int listPosition, int viewType) {
-            ImageView icon = convertView.findViewById(R.id.iv_premium);
-            TextView description = convertView.findViewById(R.id.tv_premium);
-
-            icon.setImageResource(itemList.get(listPosition).iconId);
-            description.setText(context.getText(itemList.get(listPosition).stringId));
-        }
     }
 
     private void callUserActAddress() {
@@ -401,6 +380,27 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         calendar.setTimeInMillis(l);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
+    }
+
+    public class PremiumPagerAdapter extends LoopingPagerAdapter<IconText> {
+
+        public PremiumPagerAdapter(Context context, ArrayList<IconText> itemList, boolean isInfinite) {
+            super(context, itemList, isInfinite);
+        }
+
+        @Override
+        protected View inflateView(int viewType, ViewGroup container, int listPosition) {
+            return LayoutInflater.from(context).inflate(R.layout.item_premium_pager, container, false);
+        }
+
+        @Override
+        protected void bindView(View convertView, int listPosition, int viewType) {
+            ImageView icon = convertView.findViewById(R.id.iv_premium);
+            TextView description = convertView.findViewById(R.id.tv_premium);
+
+            icon.setImageResource(itemList.get(listPosition).iconId);
+            description.setText(context.getText(itemList.get(listPosition).stringId));
+        }
     }
 
     public class IconText {

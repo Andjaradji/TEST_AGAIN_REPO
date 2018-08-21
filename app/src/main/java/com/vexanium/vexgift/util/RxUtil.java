@@ -7,6 +7,7 @@ import com.vexanium.vexgift.http.ApiException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
+
 /**
  * Created by hizkia on 01/03/18.
  */
@@ -19,9 +20,9 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<HttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(HttpResponse<T> tHttpResponse) {
-                        KLog.v("HPtes status1 "+tHttpResponse.getMeta().getMessage());
-                        if(tHttpResponse.getMeta().getStatus() != 200) {
-                            KLog.v("HPtes status "+tHttpResponse.getMeta().getMessage());
+                        KLog.v("HPtes status1 " + tHttpResponse.getMeta().getMessage());
+                        if (tHttpResponse.getMeta().getStatus() != 200) {
+                            KLog.v("HPtes status " + tHttpResponse.getMeta().getMessage());
                             return Observable.error(new ApiException(tHttpResponse.getMeta().getMessage()));
                         } else {
                             return createData(tHttpResponse.getMeta().getData());

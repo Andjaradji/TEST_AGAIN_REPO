@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CategoryResponse implements Serializable{
+public class CategoryResponse implements Serializable {
     @JsonProperty("categories")
     private ArrayList<Category> categories;
 

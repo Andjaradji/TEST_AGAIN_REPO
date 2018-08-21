@@ -16,7 +16,7 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
-public class BaseWebChromeClient extends WebChromeClient{
+public class BaseWebChromeClient extends WebChromeClient {
     private Context mContext;
     private VexDialog alertDialog;
     private android.webkit.JsResult jsResult;
@@ -96,7 +96,7 @@ public class BaseWebChromeClient extends WebChromeClient{
     public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg) {
         WebView newWebView = new WebView(mContext);
 
-        WebView.WebViewTransport transport = (WebView.WebViewTransport)resultMsg.obj;
+        WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
         transport.setWebView(newWebView);
         resultMsg.sendToTarget();
 
@@ -130,30 +130,12 @@ public class BaseWebChromeClient extends WebChromeClient{
                 .show();
     }
 
-    public void dismissDialog(){
+    public void dismissDialog() {
         if (alertDialog != null && alertDialog.isShowing()) {
             if (jsResult != null) {
                 jsResult.cancel();
             }
             alertDialog.dismiss();
-        }
-    }
-
-    private class CancelListener implements VexDialog.OnCancelListener, VexDialog.OnClickListener {
-        CancelListener(JsResult result) {
-            mResult = result;
-        }
-
-        private final JsResult mResult;
-
-        @Override
-        public void onCancel(DialogInterface dialog) {
-            mResult.cancel();
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            mResult.cancel();
         }
     }
 
@@ -169,6 +151,24 @@ public class BaseWebChromeClient extends WebChromeClient{
         }
 
         return dialogInfo;
+    }
+
+    private class CancelListener implements VexDialog.OnCancelListener, VexDialog.OnClickListener {
+        private final JsResult mResult;
+
+        CancelListener(JsResult result) {
+            mResult = result;
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            mResult.cancel();
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            mResult.cancel();
+        }
     }
 
     class DialogInfo {

@@ -45,6 +45,10 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
     private boolean isGenerated;
     private String code;
 
+    public static MoreFragment newInstance() {
+        return new MoreFragment();
+    }
+
     @Override
     protected void initView() {
         mPresenter = new IVoucherPresenterImpl(this);
@@ -242,11 +246,6 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 .autoDismiss(true)
                 .canceledOnTouchOutside(false)
                 .show();
-    }
-
-
-    public static MoreFragment newInstance() {
-        return new MoreFragment();
     }
 
     // TODO: 20/08/18 refactoring

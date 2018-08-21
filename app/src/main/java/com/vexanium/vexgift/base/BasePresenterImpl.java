@@ -47,9 +47,9 @@ public class BasePresenterImpl<T extends BaseView, V> implements BasePresenter, 
     @Override
     public void requestError(HttpResponse response) {
         //KLog.e(msg);
-        KLog.v("HPtes requestError "+response.toString());
+        KLog.v("HPtes requestError " + response.toString());
         if (response != null && response.getMeta().getError() != null) {
-            Map<String, String> notifyInfo = (HashMap)response.getMeta().getError();
+            Map<String, String> notifyInfo = (HashMap) response.getMeta().getError();
             if (notifyInfo != null && !TextUtils.isEmpty(notifyInfo.get("msg")) && mView != null) {
                 mView.toast(notifyInfo.get("msg"));
             }

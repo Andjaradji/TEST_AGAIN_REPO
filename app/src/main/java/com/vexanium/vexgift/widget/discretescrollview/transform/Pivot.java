@@ -110,7 +110,7 @@ public class Pivot {
 
     @IntDef({AXIS_X, AXIS_Y})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Axis{
+    public @interface Axis {
     }
 }
 

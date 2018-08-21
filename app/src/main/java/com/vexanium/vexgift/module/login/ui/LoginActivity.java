@@ -61,10 +61,10 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
+    int currentCountdown = 5;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-    int currentCountdown = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

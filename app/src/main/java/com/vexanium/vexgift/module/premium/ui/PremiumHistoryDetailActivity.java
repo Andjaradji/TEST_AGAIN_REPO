@@ -32,17 +32,15 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
     User user;
     RelativeLayout mMainDetailContainer;
     LinearLayout mLlBuyPremiumContainer;
-    private Subscription timeSubsription;
-
     Calendar verifTimeLeft;
-
-    private boolean isTimeUp = false;
     boolean isPending = false;
+    private Subscription timeSubsription;
+    private boolean isTimeUp = false;
 
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
-        if(user.getUserAddress() == null){
+        if (user.getUserAddress() == null) {
 
         }
         verifTimeLeft = Calendar.getInstance();
@@ -50,15 +48,15 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
         mMainDetailContainer = findViewById(R.id.rl_purchase_history_detail);
         mLlBuyPremiumContainer = findViewById(R.id.ll_buy_premium);
 
-        PremiumPurchase data = (PremiumPurchase)getIntent().getSerializableExtra("premium_history_detail");
+        PremiumPurchase data = (PremiumPurchase) getIntent().getSerializableExtra("premium_history_detail");
 
-        if(data.getStatus() != 0) {
+        if (data.getStatus() != 0) {
             isPending = false;
-            if(mMainDetailContainer.getVisibility() != View.VISIBLE) {
+            if (mMainDetailContainer.getVisibility() != View.VISIBLE) {
                 mMainDetailContainer.setVisibility(View.VISIBLE);
             }
 
-            if(mLlBuyPremiumContainer.getVisibility() != View.GONE){
+            if (mLlBuyPremiumContainer.getVisibility() != View.GONE) {
                 mLlBuyPremiumContainer.setVisibility(View.GONE);
             }
 
@@ -76,13 +74,13 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
             ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_to, data.getPaidTo());
             ViewUtil.setText(this, R.id.tv_purchase_history_detail_paid_from, user.getUserAddress().getActAddress());
 
-        }else{
+        } else {
             isPending = true;
-            if(mMainDetailContainer.getVisibility() != View.GONE) {
+            if (mMainDetailContainer.getVisibility() != View.GONE) {
                 mMainDetailContainer.setVisibility(View.GONE);
             }
 
-            if(mLlBuyPremiumContainer.getVisibility() != View.VISIBLE){
+            if (mLlBuyPremiumContainer.getVisibility() != View.VISIBLE) {
                 mLlBuyPremiumContainer.setVisibility(View.VISIBLE);
             }
 
@@ -109,7 +107,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(isPending)
+        if (isPending)
             startDateTimer();
     }
 
@@ -170,7 +168,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
         }
     }
 
-    private void updatePendingBuyView(final PremiumPurchase premiumPurchase){
+    private void updatePendingBuyView(final PremiumPurchase premiumPurchase) {
 
         verifTimeLeft.setTimeInMillis((premiumPurchase.getPaidBefore() * 1000) + Calendar.getInstance().getTimeInMillis());
 //        ((TextView)findViewById(R.id.tv_vex_address)).setText(userAddress.getActAddress());
@@ -178,7 +176,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
 //        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
 
         ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
-        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() +" VEX");
+        ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() + " VEX");
         ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
 
         findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {

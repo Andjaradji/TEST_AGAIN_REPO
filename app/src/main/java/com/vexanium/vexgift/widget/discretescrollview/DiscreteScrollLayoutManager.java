@@ -25,52 +25,38 @@ import com.vexanium.vexgift.widget.discretescrollview.transform.DiscreteScrollIt
  */
 public class DiscreteScrollLayoutManager extends LinearLayoutManager {
 
+    protected static final float SCROLL_TO_SNAP_TO_ANOTHER_ITEM = 0.6f;
     static final int NO_POSITION = -1;
-
     private static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_TIME_FOR_ITEM_SETTLE = 300;
     private static final int DEFAULT_FLING_THRESHOLD = 2100; //Decrease to increase sensitivity.
     private static final int DEFAULT_TRANSFORM_CLAMP_ITEM_COUNT = 1;
-
-    protected static final float SCROLL_TO_SNAP_TO_ANOTHER_ITEM = 0.6f;
-
+    @NonNull
+    private final ScrollStateListener scrollStateListener;
     //This field will take value of all visible view's center points during the fill phase
     protected Point viewCenterIterator;
     protected Point recyclerCenter;
     protected Point currentViewCenter;
     protected int childHalfWidth, childHalfHeight;
     protected int extraLayoutSpace;
-
     //Max possible distance a view can travel during one scroll phase
     protected int scrollToChangeCurrent;
     protected int currentScrollState;
-
     protected int scrolled;
     protected int pendingScroll;
     protected int currentPosition;
     protected int pendingPosition;
-
     protected SparseArray<View> detachedCache;
-
-    private DSVOrientation.Helper orientationHelper;
-
     protected boolean isFirstOrEmptyLayout;
-
+    private DSVOrientation.Helper orientationHelper;
     private Context context;
-
     private int timeForItemSettle;
     private int offscreenItems;
     private int transformClampItemCount;
-
     private boolean dataSetChangeShiftedPosition;
-
     private int flingThreshold;
     private boolean shouldSlideOnFling;
-
     private int viewWidth, viewHeight;
-
-    @NonNull
-    private final ScrollStateListener scrollStateListener;
     private DiscreteScrollItemTransformer itemTransformer;
 
     private RecyclerViewProxy recyclerViewProxy;
@@ -722,6 +708,20 @@ public class DiscreteScrollLayoutManager extends LinearLayoutManager {
         this.orientationHelper = orientationHelper;
     }
 
+    public interface ScrollStateListener {
+        void onIsBoundReachedFlagChange(boolean isBoundReached);
+
+        void onScrollStart();
+
+        void onScrollEnd();
+
+        void onScroll(float currentViewPosition);
+
+        void onCurrentViewFirstLayout();
+
+        void onDataSetChangeChangedPosition();
+    }
+
     private class DiscreteLinearSmoothScroller extends LinearSmoothScroller {
 
         public DiscreteLinearSmoothScroller(Context context) {
@@ -751,20 +751,6 @@ public class DiscreteScrollLayoutManager extends LinearLayoutManager {
                     orientationHelper.getPendingDx(pendingScroll),
                     orientationHelper.getPendingDy(pendingScroll));
         }
-    }
-
-    public interface ScrollStateListener {
-        void onIsBoundReachedFlagChange(boolean isBoundReached);
-
-        void onScrollStart();
-
-        void onScrollEnd();
-
-        void onScroll(float currentViewPosition);
-
-        void onCurrentViewFirstLayout();
-
-        void onDataSetChangeChangedPosition();
     }
 
 }

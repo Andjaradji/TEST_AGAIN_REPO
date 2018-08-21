@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.widget.dialog;
 
 
-
 /**
  * Created by mac on 5/26/17.
  */

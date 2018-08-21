@@ -20,6 +20,9 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
 
     private FrameLayout mContainer;
 
+    public static BoxBaseFragment newInstance() {
+        return new BoxBaseFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
@@ -73,10 +76,6 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
 
     public Fragment getCurrentFragment() {
         return getChildFragmentManager().findFragmentById(mContainer.getId());
-    }
-
-    public static BoxBaseFragment newInstance() {
-        return new BoxBaseFragment();
     }
 
 

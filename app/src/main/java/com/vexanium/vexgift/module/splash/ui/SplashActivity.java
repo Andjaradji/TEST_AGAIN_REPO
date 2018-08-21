@@ -23,6 +23,19 @@ public class SplashActivity extends BaseActivity {
 
     protected static int SPLASH_TIME = 2000;
 
+    public static Class<? extends Activity> getDestinationActivity(Context context) {
+        Class<? extends Activity> destination;
+        TpUtil tpUtil = new TpUtil(context);
+        boolean isFirstTime = tpUtil.getBoolean(TpUtil.KEY_WALKTHROUGH, true);
+
+        if (isFirstTime) {
+            destination = WalkthroughActivity.class;
+        } else {
+            destination = LoginActivity.class;
+        }
+
+        return destination;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +50,6 @@ public class SplashActivity extends BaseActivity {
             startThread(destinationActivity);
         }
 
-    }
-
-    public static Class<? extends Activity> getDestinationActivity(Context context) {
-        Class<? extends Activity> destination;
-        TpUtil tpUtil = new TpUtil(context);
-        boolean isFirstTime = tpUtil.getBoolean(TpUtil.KEY_WALKTHROUGH, true);
-
-        if (isFirstTime) {
-            destination = WalkthroughActivity.class;
-        } else {
-            destination = LoginActivity.class;
-        }
-
-        return destination;
     }
 
     private void startThread(final Class<? extends Activity> DestinationActivity) {
