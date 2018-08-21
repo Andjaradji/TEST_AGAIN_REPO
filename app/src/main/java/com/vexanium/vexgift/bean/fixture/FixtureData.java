@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.bean.fixture;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by hizkia on 14/03/18.

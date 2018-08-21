@@ -28,7 +28,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Amang on 16/07/2018.
