@@ -43,6 +43,12 @@ public interface UserService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("user/reset-password")
+    Observable<HttpResponse<EmptyResponse>> requestResetPassword(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 //    @FormUrlEncoded
 //    @POST("user/password")
 //    Observable<HttpResponse<EmptyResponse>> requestChangePassword(

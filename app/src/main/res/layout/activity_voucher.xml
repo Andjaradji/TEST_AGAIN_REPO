@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     app:umanoPanelHeight="0dp"
+    app:umanoScrollableView="@id/voucher_scrollview"
     android:background="@color/material_white"
     tools:context=".module.voucher.ui.VoucherActivity">
 

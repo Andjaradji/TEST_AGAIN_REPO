@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
@@ -77,6 +79,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     private ArrayList<Voucher> vouchers;
     private LoadVoucherAsync mLoadVoucherAsync;
     private Animation mFadeIn, mFadeOut;
+
+    private boolean isScrolledTop = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +162,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
 
-                if (newState.name().equalsIgnoreCase("Expanded")) {
+                if (newState.name().equalsIgnoreCase("EXPANDED")) {
 
                     //action when expanded
                     mPanelScrollview.setScrollingEnabled(true);
@@ -259,6 +263,23 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         setFilterItem(R.id.tg_payment, R.id.filter_payment, "payment");
         setFilterItem(R.id.tg_location, R.id.filter_location, "location");
 
+
+        mPanelScrollview.setOnScrollListener(new LockableScrollView.OnScrollListener() {
+            @Override
+            public void onScrollChanged(LockableScrollView scrollView, int x, int y, int oldX, int oldY) {
+                if(y == 0){
+                    isScrolledTop = true;
+                }else{
+                    isScrolledTop = false;
+
+                }
+            }
+
+            @Override
+            public void onEndScroll(LockableScrollView scrollView) {
+
+            }
+        });
     }
 
     @Override
@@ -449,6 +470,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         if (mSlidePanel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.onBackPressed();
         } else {
+            mPanelScrollview.scrollTo(0,0);
             mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }
     }

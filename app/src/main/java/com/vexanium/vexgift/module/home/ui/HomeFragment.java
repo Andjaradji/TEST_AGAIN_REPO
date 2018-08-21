@@ -420,6 +420,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         case CATEGORY_BAR:
                             holder.setText(R.id.tv_category_title, item.title);
                             holder.setText(R.id.tv_category_desc, item.desc);
+                            holder.setOnClickListener(R.id.category_show_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
                             if (item.object instanceof ArrayList)
                                 setVoucherList(holder, (ArrayList<Voucher>) item.object);
                             break;

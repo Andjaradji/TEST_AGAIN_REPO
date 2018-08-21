@@ -2,17 +2,35 @@ package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenter;
+import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
+import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
+import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
+
+import java.io.Serializable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_forgot_password)
-public class ForgotPasswordActivity extends BaseActivity {
+public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> implements ILoginView {
+
+    EditText mEtEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +41,13 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new IForgotPwPresenterImpl(this);
+
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.login_signup_button).setOnClickListener(this);
         findViewById(R.id.reset_password_button).setOnClickListener(this);
+
+        mEtEmail = findViewById(R.id.et_email);
     }
 
     @Override
@@ -42,8 +64,39 @@ public class ForgotPasswordActivity extends BaseActivity {
                 ForgotPasswordActivity.this.startActivity(intent);
                 break;
             case R.id.reset_password_button:
-                toast("No implemented yet");
+                if(mEtEmail.getText()==null || !(mEtEmail.getText().toString().length() >= 5) || !Patterns.EMAIL_ADDRESS.matcher(mEtEmail.getText().toString()).matches()){
+
+                    ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
+                }else {
+                    mPresenter.requestResetPassword(mEtEmail.getText().toString());
+
+                }
                 break;
+        }
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        KLog.v("ForgotPwActivity handleResult : " + JsonUtil.toString(data));
+        if (data != null) {
+
+        } else if(errorResponse != null){
+            KLog.v("ForgotPwActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
+            } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
+                new VexDialog.Builder(ForgotPasswordActivity.this)
+                        .optionType(DialogOptionType.OK)
+                        .okText("OK")
+                        .title("Reset Password Confirmation")
+                        .content("A reset password link has been sent to your email")
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+
+                            }
+                        }).show();
+            }
         }
     }
 }

@@ -312,6 +312,14 @@ public class RetrofitManager {
         return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> requestResetPass(String email) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("email", email);
+
+        return mUserService.requestResetPassword(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
     public Observable<HttpResponse<EmptyResponse>> requestChangePass(int id, String oldpass, String pass) {
         Map<String, Object> params = Api.getBasicParam();
 
