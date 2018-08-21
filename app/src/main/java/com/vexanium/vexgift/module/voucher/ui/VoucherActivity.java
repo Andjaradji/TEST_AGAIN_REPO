@@ -58,7 +58,6 @@ import java.util.List;
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher)
 public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
     private ArrayList<Voucher> vouchers;
-    private ArrayList<Voucher> filterVouchers;
     GridLayoutManager layoutListManager;
 
     LinearLayout mErrorView;
@@ -262,10 +261,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             }
         });
 
-        setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, R.id.filter_category, "category");
-        setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
-        setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
-        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
+        setFilterItem(R.id.tg_category, R.id.filter_category, "category");
+        setFilterItem(R.id.tg_member, R.id.filter_member, "member");
+        setFilterItem(R.id.tg_payment, R.id.filter_payment, "payment");
+        setFilterItem(R.id.tg_location, R.id.filter_location, "location");
 
     }
 
@@ -314,10 +313,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
     private void resetFilter() {
         sortFilterCondition.resetFilter();
 
-        setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, R.id.filter_category, "category");
-        setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
-        setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
-        setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
+        setFilterItem(R.id.tg_category, R.id.filter_category, "category");
+        setFilterItem(R.id.tg_member, R.id.filter_member, "member");
+        setFilterItem(R.id.tg_payment, R.id.filter_payment, "payment");
+        setFilterItem(R.id.tg_location, R.id.filter_location, "location");
     }
 
     private void updateData() {
@@ -328,7 +327,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         }
     }
 
-    private void setFilterItem(@IdRes int tagview, @IdRes int addButton, @IdRes int rootView, final String listType) {
+    private void setFilterItem(@IdRes int tagview, @IdRes int rootView, final String listType) {
         findViewById(rootView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -414,7 +413,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             mRecyclerview.setLayoutManager(layoutListManager);
             mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this, 16)));
             mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerview.getItemAnimator().setAddDuration(250);
+            if (mRecyclerview.getItemAnimator() != null)
+                mRecyclerview.getItemAnimator().setAddDuration(250);
             mRecyclerview.getItemAnimator().setMoveDuration(250);
             mRecyclerview.getItemAnimator().setChangeDuration(250);
             mRecyclerview.getItemAnimator().setRemoveDuration(250);
@@ -465,7 +465,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ConstantGroup.EDIT_FILTER) {
-            if (data.hasExtra("condition")) {
+            if (data!= null && data.hasExtra("condition")) {
                 String condition = data.getStringExtra("condition");
                 SortFilterCondition s = (SortFilterCondition) JsonUtil.toObject(condition, SortFilterCondition.class);
                 if (!sortFilterCondition.isEquallsToCondition(s)) {
@@ -486,10 +486,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     break;
             }
 
-            setFilterItem(R.id.tg_category, R.id.iv_filter_category_add_more, R.id.filter_category, "category");
-            setFilterItem(R.id.tg_member, R.id.iv_filter_member_add_more, R.id.filter_member, "member");
-            setFilterItem(R.id.tg_payment, R.id.iv_filter_payment_add_more, R.id.filter_payment, "payment");
-            setFilterItem(R.id.tg_location, R.id.iv_filter_location_add_more, R.id.filter_location, "location");
+            setFilterItem(R.id.tg_category, R.id.filter_category, "category");
+            setFilterItem(R.id.tg_member, R.id.filter_member, "member");
+            setFilterItem(R.id.tg_payment, R.id.filter_payment, "payment");
+            setFilterItem(R.id.tg_location, R.id.filter_location, "location");
         }
     }
 
@@ -524,8 +524,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
         @Override
         protected ArrayList<Voucher> doInBackground(Void... strings) {
-            filterVouchers = StaticGroup.getFilteredVoucher(vouchers, sortFilterCondition);
-            return filterVouchers;
+            return StaticGroup.getFilteredVoucher(vouchers, sortFilterCondition);
         }
 
         @Override

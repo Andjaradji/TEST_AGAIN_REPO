@@ -21,9 +21,9 @@ import com.vexanium.vexgift.util.TpUtil;
 @ActivityFragmentInject(contentViewId = R.layout.activity_splash)
 public class SplashActivity extends BaseActivity {
 
-    protected  static int SPLASH_TIME = 2000;
+    protected static int SPLASH_TIME = 2000;
 
-    private Thread splashTread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -33,40 +33,38 @@ public class SplashActivity extends BaseActivity {
 
         Class<? extends Activity> destinationActivity = getDestinationActivity(this);
 
-        if(destinationActivity!=null){
+        if (destinationActivity != null) {
             startThread(destinationActivity);
-        }else{
-            return;
         }
 
     }
 
     public static Class<? extends Activity> getDestinationActivity(Context context) {
-        Class<? extends Activity> destination = null;
+        Class<? extends Activity> destination;
         TpUtil tpUtil = new TpUtil(context);
         boolean isFirstTime = tpUtil.getBoolean(TpUtil.KEY_WALKTHROUGH, true);
 
-        if (isFirstTime ) {
-            //TODO set destination to walkthrough and set KEY_WALKTHROUGH to false
+        if (isFirstTime) {
             destination = WalkthroughActivity.class;
-        }else{
+        } else {
             destination = LoginActivity.class;
         }
 
         return destination;
     }
 
-    private void startThread(final Class<? extends Activity> DestinationActivity){
-        splashTread = new Thread() {
+    private void startThread(final Class<? extends Activity> DestinationActivity) {
+        Thread splashTread = new Thread() {
             @Override
             public void run() {
                 try {
-                    synchronized(this){
+                    synchronized (this) {
                         wait(SPLASH_TIME);
                     }
 
-                } catch(InterruptedException e) {}
-                finally {
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
                     finish();
 
                     Intent intent = new Intent();

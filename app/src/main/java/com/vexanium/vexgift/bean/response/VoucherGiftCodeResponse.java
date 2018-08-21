@@ -2,7 +2,6 @@ package com.vexanium.vexgift.bean.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 
 import java.io.Serializable;
