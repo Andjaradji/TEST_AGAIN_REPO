@@ -20,11 +20,11 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.FilterView
     private Context context;
     private ArrayList<WalletRecord> dataList = new ArrayList<>();
 
-    public WalletAdapter(Context context){
+    public WalletAdapter(Context context) {
         this.context = context;
     }
 
-    public WalletAdapter(Context context, ArrayList<WalletRecord> dataList){
+    public WalletAdapter(Context context, ArrayList<WalletRecord> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -42,14 +42,14 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.FilterView
         holder.mWalletMainText.setText(data.getTitle());
         holder.mWalletSubText.setText(data.getDescription());
 
-        if(data.getType() == 0) {
+        if (data.getType() == 0) {
             holder.mWalletType.setImageResource(R.drawable.record_receive);
             holder.mWalletType.setRotation(90);
-            holder.mAmountText.setText("+ "+data.getAmount()+ " VEX");
-        }else{
+            holder.mAmountText.setText("+ " + data.getAmount() + " VEX");
+        } else {
             holder.mWalletType.setImageResource(R.drawable.record_send);
             holder.mWalletType.setRotation(-90);
-            holder.mAmountText.setText("- "+data.getAmount()+ " VEX");
+            holder.mAmountText.setText("- " + data.getAmount() + " VEX");
         }
 
     }
@@ -59,19 +59,19 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.FilterView
         return dataList.size();
     }
 
-    public void addItem(WalletRecord item){
+    public void addItem(WalletRecord item) {
         dataList.add(item);
     }
 
-    public void addItemList(ArrayList<WalletRecord> item){
+    public void addItemList(ArrayList<WalletRecord> item) {
         dataList.addAll(item);
     }
 
-    public void removeAll(){
+    public void removeAll() {
         dataList.clear();
     }
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder{
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout mContainer;
         TextView mWalletMainText, mWalletSubText, mAmountText;

@@ -22,11 +22,11 @@ import java.util.ArrayList;
  */
 
 public class CustomTabBarView extends RelativeLayout {
+    public static int mSelectedTab = 0;
+    public ViewPager.OnPageChangeListener delegatePageListener;
     private ArrayList<TabView> tabViews;
     private View view;
-    public static int mSelectedTab = 0;
     private FlexboxLayout flexboxLayout;
-    public ViewPager.OnPageChangeListener delegatePageListener;
     private float mOffset = 0f;
     private Context context;
     private ViewPager viewPager;
@@ -97,7 +97,7 @@ public class CustomTabBarView extends RelativeLayout {
         }
     }
 
-    public void addTabView(final int idx, int icon, int iconColor, int selectedIconColor){
+    public void addTabView(final int idx, int icon, int iconColor, int selectedIconColor) {
         if (tabViews != null) {
             final TabView tabView = new TabView(context);
             tabView.setIdx(idx);
@@ -113,7 +113,7 @@ public class CustomTabBarView extends RelativeLayout {
         }
     }
 
-    public void addTabView(final int idx, int icon){
+    public void addTabView(final int idx, int icon) {
         if (tabViews != null) {
             final TabView tabView = new TabView(context);
             tabView.setIdx(idx);

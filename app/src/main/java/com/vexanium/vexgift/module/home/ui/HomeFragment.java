@@ -44,7 +44,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
-import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -59,10 +58,7 @@ import com.vexanium.vexgift.widget.discretescrollview.transform.ScaleTransformer
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -92,7 +88,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<Voucher> vouchers;
-    private Random random;
 
     private ArrayList<Voucher> hotVoucherList;
     private BaseRecyclerAdapter<Voucher> mHotAdapter;
@@ -151,12 +146,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (mRecyclerview.computeVerticalScrollOffset() == 0 && appBarLayout.getElevation() != 0) {
+
+                mSrlHome.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
+            }
+        });
+
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mRecyclerview.computeVerticalScrollOffset() <= 10 && appBarLayout.getElevation() != 0) {
                     animator.start();
                 } else if (mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation() != 10) {
                     appBarLayout.setElevation(10);
                 }
-                mSrlHome.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
             }
         });
 
@@ -173,12 +176,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     Pair<View, String> p1 = Pair.create((View) mVexPointButton, "vexpoint_button");
                     Pair<View, String> p2 = Pair.create((View) mVexPointText, "vexpoint_amount");
 
-                    final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            getActivity(), p1, p2);
-
-                    //ActivityOptionsCompat options = ActivityOptionsCompat.
-                    //        makeSceneTransitionAnimation(getActivity(), mVexPointButton, "vexpoint_button");
-                    startActivity(intent, options.toBundle());
+                    if (getActivity() != null) {
+                        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                getActivity(), p1, p2);
+                        startActivity(intent, options.toBundle());
+                    }
                 }
             }
         });
@@ -188,9 +190,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public void onRefresh() {
                 mLlErrorView.setVisibility(View.GONE);
-                if(NetworkUtil.isOnline(getActivity())) {
+                if (NetworkUtil.isOnline(getActivity())) {
                     updateData();
-                }else{
+                } else {
                     mSrlHome.setEnabled(false);
                     mSrlHome.setRefreshing(false);
                     StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
@@ -233,28 +235,29 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 mPresenter.requestKyc(user.getId());
             } else if (data instanceof Kyc) {
                 Kyc kyc = (Kyc) data;
-                if (kyc != null) {
-                    user.updateKyc(kyc);
-                    User.updateCurrentUser(HomeFragment.this.getActivity(), user);
-                }
+                user.updateKyc(kyc);
+                User.updateCurrentUser(HomeFragment.this.getActivity(), user);
             }
         } else if (errorResponse != null) {
 //            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
             if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().isRequestError()) {
                     if (!errorResponse.getMeta().getMessage().contains("KYC"))
-                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
+                        if (getActivity() != null)
+                            StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
                 } else {
-                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
+                    if (getActivity() != null)
+                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
                 }
             } else {
-                if(NetworkUtil.isOnline(getActivity())) {
-                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), 0);
-                }else{
-                    if(mAdapter.getItemCount() > 0) {
+                if (NetworkUtil.isOnline(getActivity())) {
+                    if (getActivity() != null)
+                        StaticGroup.showCommonErrorDialog(getActivity(), 0);
+                } else {
+                    if (mAdapter.getItemCount() > 0) {
                         StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
-                    }else{
-                        if(mLlErrorView.getVisibility() != View.VISIBLE) {
+                    } else {
+                        if (mLlErrorView.getVisibility() != View.VISIBLE) {
                             mLlErrorView.setVisibility(View.VISIBLE);
                             mLlErrorView.startAnimation(mFadeIn);
                             mIvError.setImageResource(R.drawable.ic_no_connection);
@@ -366,37 +369,42 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 public void bindData(BaseRecyclerViewHolder holder, int position, final HomeFeedResponse item) {
                     switch (getItemViewType(position)) {
                         case SHORTCUT_BAR:
-                            holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(1, 0);
-                                }
-                            });
-                            holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(1, 1);
-                                }
-                            });
-                            holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(2, 0);
-                                }
-                            });
+                            if (getActivity() != null) {
+                                holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (ClickUtil.isFastDoubleClick()) return;
+                                        ((MainActivity) getActivity()).gotoPage(1, 0);
+                                    }
+                                });
+                                holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (ClickUtil.isFastDoubleClick()) return;
+                                        ((MainActivity) getActivity()).gotoPage(1, 1);
+                                    }
+                                });
+                                holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (ClickUtil.isFastDoubleClick()) return;
+                                        ((MainActivity) getActivity()).gotoPage(2, 0);
+                                    }
+                                });
+                            }
                             break;
                         case HOT_LIST:
-                            setHotVoucherList(holder, (ArrayList<Voucher>) item.object);
+                            if (item.object instanceof ArrayList<?>) {
+                                setHotVoucherList(holder, (ArrayList<Voucher>) item.object);
+                            }
                             break;
                         case EXPLORE_BAR:
                             holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), TokenActivity.class);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    intent.putExtra("isToken", true);
                                     startActivity(intent);
                                 }
                             });
@@ -433,9 +441,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             };
             mAdapter.setHasStableIds(true);
             mRecyclerview.setLayoutManager(layoutListManager);
-            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+            if (this.getActivity() != null)
+                mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
             mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerview.getItemAnimator().setAddDuration(250);
+            if (mRecyclerview.getItemAnimator() != null)
+                mRecyclerview.getItemAnimator().setAddDuration(250);
             mRecyclerview.getItemAnimator().setMoveDuration(250);
             mRecyclerview.getItemAnimator().setChangeDuration(250);
             mRecyclerview.getItemAnimator().setRemoveDuration(250);
@@ -462,7 +472,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     mRecyclerview.startAnimation(mFadeIn);
                 }
             }
-        },300);
+        }, 300);
 
     }
 
@@ -500,10 +510,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        if (item.isForPremium() && !user.isPremiumMember()) {
-                            StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
-                        } else {
-                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        if (HomeFragment.this.getActivity() != null) {
+                            if (item.isForPremium() && !user.isPremiumMember()) {
+                                StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                            } else {
+                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                            }
                         }
                     }
                 });
@@ -512,9 +524,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         };
         mAdapter.setHasStableIds(true);
         mRecyclerview.setLayoutManager(layoutListManager);
-        mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+        if (this.getActivity() != null)
+            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
         mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerview.getItemAnimator().setAddDuration(250);
+        if (mRecyclerview.getItemAnimator() != null)
+            mRecyclerview.getItemAnimator().setAddDuration(250);
         mRecyclerview.getItemAnimator().setMoveDuration(250);
         mRecyclerview.getItemAnimator().setChangeDuration(250);
         mRecyclerview.getItemAnimator().setRemoveDuration(250);
@@ -565,10 +579,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (item.isForPremium() && !user.isPremiumMember()) {
-                            StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
-                        } else {
-                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                        if (HomeFragment.this.getActivity() != null) {
+                            if (item.isForPremium() && !user.isPremiumMember()) {
+                                StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                            } else {
+                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                            }
                         }
                     }
                 });
@@ -586,18 +602,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         );
         pagerIndicator.attachToRecyclerView(discreteScrollView);
         discreteScrollView.scrollToPosition(1);
-    }
-
-    private String getDate(long timeStamp){
-
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            Date netDate = (new Date(timeStamp));
-            return sdf.format(netDate);
-        }
-        catch(Exception ex){
-            return "xx";
-        }
     }
 
 }

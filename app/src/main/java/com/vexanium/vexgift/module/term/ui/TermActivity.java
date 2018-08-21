@@ -23,7 +23,7 @@ public class TermActivity extends BaseActivity {
         mWvTerm = (WebView) findViewById(R.id.webview);
         mLoadingContainer = findViewById(R.id.av_indicator_container);
 
-        final Animation fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
+        final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);
         fadeIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -9,10 +10,12 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.VoucherGiftCode;
+import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
@@ -21,6 +24,8 @@ import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
+import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
+import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
@@ -245,6 +250,9 @@ public class RetrofitManager {
         } else {
             params.put("name", "undefined");
         }
+        if (!TextUtils.isEmpty(user.getReferralCode())) {
+            params.put("user_referral_code", user.getReferralCode());
+        }
         if (user.getLastName() != null) {
             params.put("last_name", user.getLastName());
         }
@@ -412,11 +420,50 @@ public class RetrofitManager {
         return mUserService.setActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
-    public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id) {
+    public Observable<HttpResponse<PaymentTypeResponse>> requestPaymentTypes(int id) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", id);
         params.put("limit", 50);
+
+        return mVoucherService.getPaymentTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PaymentTypeResponse>>());
+    }
+
+    public Observable<HttpResponse<MemberTypeResponse>> requestMemberTypes(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+
+        return mVoucherService.getMemberTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<MemberTypeResponse>>());
+    }
+
+    public Observable<HttpResponse<VoucherTypeResponse>> requestVoucherTypes(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+
+        return mVoucherService.getVoucherTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherTypeResponse>>());
+    }
+
+    public Observable<HttpResponse<CategoryResponse>> requestCategories(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+
+        return mVoucherService.getCategories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CategoryResponse>>());
+    }
+
+    public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id, int voucherType) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+        if (voucherType != 0) {
+            params.put("voucher_type_id", voucherType);
+        }
 
         return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
     }
@@ -460,14 +507,14 @@ public class RetrofitManager {
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
-    public Observable<HttpResponse<VoucherGiftCode>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
+    public Observable<HttpResponse<VoucherGiftCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
         params.put("token", token);
 
-        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherGiftCode>>());
+        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherGiftCodeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode) {

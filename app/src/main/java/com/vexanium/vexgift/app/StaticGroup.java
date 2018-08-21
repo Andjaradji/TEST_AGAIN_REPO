@@ -43,20 +43,22 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
-import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
+import com.vexanium.vexgift.module.voucher.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.util.AlarmUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -71,6 +73,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -108,9 +112,8 @@ public class StaticGroup {
     public static String VERSION = null;
     public static long VERSION_CODE = 0;
     public static String reg_id = "";
-    private static String CHANNEL_ID = "1121";
     public static boolean latestLinkVersions;
-
+    private static String CHANNEL_ID = "1121";
 
     public static void initialize(Context context) {
         try {
@@ -396,7 +399,7 @@ public class StaticGroup {
         TpUtil tpUtil = new TpUtil(App.getContext());
         String parentCode = tpUtil.getString(TpUtil.KEY_REFERRER, "");
 
-        if (!TextUtils.isEmpty(parentCode)) {
+        if (TextUtils.isEmpty(parentCode)) {
             try {
                 parentCode = URLDecoder.decode(parentCode, "UTF-8");
                 KLog.v("PARENT TEST", "referDbData.referrer SpUtil : " + parentCode);
@@ -415,6 +418,15 @@ public class StaticGroup {
                     e.printStackTrace();
                 }
             }
+        }
+
+        if (!TextUtils.isEmpty(parentCode)) {
+            Uri uri = Uri.parse("?" + parentCode);
+            KLog.json(JsonUtil.toString(uri));
+            final String invCode = uri.getQueryParameter("i");
+            KLog.v("PARENT TEST", "send Referrer Data : " + parentCode + "     i=" + invCode);
+
+            return invCode;
         }
 
         return parentCode;
@@ -671,90 +683,6 @@ public class StaticGroup {
         return false;
     }
 
-    public static void sendReferrerData(String sess) {
-        TpUtil tpUtil = new TpUtil(App.getContext());
-        String parentCode = tpUtil.getString(TpUtil.KEY_REFERRER, "");
-
-        if (!TextUtils.isEmpty(parentCode)) {
-            try {
-                parentCode = URLDecoder.decode(parentCode, "UTF-8");
-                KLog.v("PARENT TEST", "referDbData.referrer SpUtil : " + parentCode);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-
-//        if (TextUtils.isEmpty(parentCode)) {
-//            TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem();
-//
-//            if (prefDb != null) {
-//                if (!TextUtils.isEmpty(prefDb.getParentCode())) {
-//                    KLog.v("PARENT TEST", "referDbData.referrer database : " + prefDb.getPageCode());
-//                    try {
-//                        parentCode = URLDecoder.decode(prefDb.getParentCode(), "UTF-8");
-//                        KLog.v("PARENT TEST", "referDbData.referrer decoded database : " + parentCode);
-//                    } catch (UnsupportedEncodingException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-
-        if (!TextUtils.isEmpty(parentCode)) {
-            Uri uri = Uri.parse("?" + parentCode);
-            KLog.json(JsonUtil.toString(uri));
-            final String invCode = uri.getQueryParameter("i");
-            KLog.v("PARENT TEST", "send Referrer Data : " + parentCode + "     i=" + invCode);
-//            RetrofitManager.getInstance(HostType.COMMON_API).requestAddParent(sess, invCode)
-//                    .subscribe(new Subscriber<EmptyResponse>() {
-//                        @Override
-//                        public void onCompleted() {
-//                            KLog.v("PARENT TEST", "AutoReferral_onCompleted");
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            KLog.v("PARENT TEST", "AutoReferral_onError");
-//
-//                            try {
-//                                RetrofitException error = (RetrofitException) e;
-//                                HttpResponse response = error.getErrorBodyAs(HttpResponse.class);
-//                                if (response != null) {
-//                                    KLog.v("PARENT TEST", "Success 1");
-//                                    if (response.getMeta().getStatus() == 10101 || (response.getMeta().getStatus() == 200)) {
-//                                        KLog.v("PARENT TEST", "Success 2");
-////                                        TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem(true);
-////                                        prefDb.setParentCode("");
-////                                        TablePreferenceDaoUtil.getInstance().insertOrUpdateItem(prefDb);
-//
-//                                        TpUtil tpUtil = new TpUtil(App.getContext());
-//                                        tpUtil.put(TpUtil.KEY_REFERRER, "");
-//                                        tpUtil.remove(TpUtil.KEY_REFERRER);
-//                                    }
-//                                }
-//                            } catch (Exception ex) {
-//                                KLog.v("HPtes undefined ");
-//                                ex.printStackTrace();
-//                            }
-//                            e.printStackTrace();
-//                        }
-//
-//                        @Override
-//                        public void onNext(EmptyResponse response) {
-//                            KLog.v("PARENT TEST", "AutoReferral_OK");
-//
-////                            TablePreference prefDb = TablePreferenceDaoUtil.getInstance().getItem(true);
-////                            prefDb.setParentCode("");
-////                            TablePreferenceDaoUtil.getInstance().insertOrUpdateItem(prefDb);
-//
-//                            TpUtil tpUtil = new TpUtil(App.getContext());
-//                            tpUtil.put(TpUtil.KEY_REFERRER, "");
-//                            tpUtil.remove(TpUtil.KEY_REFERRER);
-//                        }
-//                    });
-        }
-    }
-
     public static boolean isScreenOn(Context context, boolean defaultValue) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (pm != null) {
@@ -877,9 +805,6 @@ public class StaticGroup {
             if (v.getVendor().getName().equalsIgnoreCase("KFC")) {
                 vouchers.add(v);
             }
-            if (v.getVendor().getName().equalsIgnoreCase("VexPizza")) {
-                vouchers.add(v);
-            }
             if (v.getVendor().getName().equalsIgnoreCase("Coffeelicious")) {
                 vouchers.add(v);
             }
@@ -957,6 +882,18 @@ public class StaticGroup {
         String title = context.getString(R.string.cm_dialog_all_error_title);
         String desc = String.format(context.getString(R.string.cm_dialog_all_error_desc), String.valueOf(code));
         showCommonErrorDialog(context, title, desc);
+    }
+
+    public static void showCommonErrorDialog(Context context, HttpResponse errorResponse) {
+        if (errorResponse.getMeta() != null) {
+            if (errorResponse.getMeta().isRequestError()) {
+                showCommonErrorDialog(context, errorResponse.getMeta().getMessage());
+            } else {
+                showCommonErrorDialog(context, errorResponse.getMeta().getStatus());
+            }
+        } else {
+            showCommonErrorDialog(context, -1);
+        }
     }
 
     public static Bundle getFacebookFields() {
@@ -1075,4 +1012,117 @@ public class StaticGroup {
                 .show();
     }
 
+
+    public static ArrayList<Voucher> getFilteredVoucher(final ArrayList<Voucher> vouchers, SortFilterCondition sortFilterCondition) {
+        ArrayList<Voucher> filteredVoucher = new ArrayList<>();
+        ArrayList<Voucher> temp;
+        boolean isFiltered = false;
+
+        if (sortFilterCondition != null) {
+            if (sortFilterCondition.getCategories() != null && sortFilterCondition.getCategories().size() > 0) {
+                for (Voucher voucher : vouchers) {
+                    List<String> filterField = sortFilterCondition.getCategories();
+                    if (filterField.contains(voucher.getCategory().getName())) {
+                        filteredVoucher.add(voucher);
+                    }
+                }
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getMemberTypes() != null && sortFilterCondition.getMemberTypes().size() > 0) {
+                if (filteredVoucher.size() == 0 && !isFiltered) filteredVoucher = vouchers;
+
+                temp = new ArrayList<>(filteredVoucher);
+                for (Voucher voucher : filteredVoucher) {
+                    List<String> filterField = sortFilterCondition.getMemberTypes();
+                    if (!filterField.contains(voucher.getMemberType().getName())) {
+                        temp.remove(voucher);
+                    }
+                }
+                filteredVoucher = temp;
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getPaymentTypes() != null && sortFilterCondition.getPaymentTypes().size() > 0) {
+                if (filteredVoucher.size() == 0 && !isFiltered) filteredVoucher = vouchers;
+
+                temp = new ArrayList<>(filteredVoucher);
+                for (Voucher voucher : filteredVoucher) {
+                    List<String> filterField = sortFilterCondition.getPaymentTypes();
+                    if (!filterField.contains(voucher.getPaymentType().getName())) {
+                        temp.remove(voucher);
+                    }
+                }
+                filteredVoucher = temp;
+                isFiltered = true;
+            }
+        }
+
+        if (isFiltered == false) {
+            filteredVoucher = vouchers;
+        }
+
+        if (sortFilterCondition.getSort() != -1) {
+            Comparator<Voucher> comparator;
+            switch (sortFilterCondition.getSort()) {
+                case SortFilterCondition.SORT_BY_PRICE_DESC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Integer.compare(voucher.getPrice(), t1.getPrice());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_PRICE_ASC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Integer.compare(t1.getPrice(), voucher.getPrice());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Long.compare(voucher.getValidUntil(), t1.getValidUntil());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Long.compare(t1.getValidUntil(), voucher.getValidUntil());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_DESC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Long.compare(voucher.getValidFrom(), t1.getValidFrom());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_ASC:
+                    comparator = new Comparator<Voucher>() {
+                        @Override
+                        public int compare(Voucher voucher, Voucher t1) {
+                            return Long.compare(t1.getValidFrom(), voucher.getValidFrom());
+                        }
+                    };
+                    break;
+                default:
+                    comparator = null;
+                    break;
+            }
+            if (comparator != null) {
+                Collections.sort(filteredVoucher, comparator);
+            }
+        }
+
+
+        return filteredVoucher;
+    }
 }

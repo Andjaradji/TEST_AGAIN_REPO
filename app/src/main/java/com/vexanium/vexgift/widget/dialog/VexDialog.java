@@ -63,10 +63,9 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
 
     protected boolean cancelOnTouchOutside = true;
     protected boolean autoDismiss = true;
-
+    View lastPressedView;
     private String defaultPositiveText = "Yes";
     private String defaultNegativeText = "No";
-
 
     public VexDialog(Builder builder) {
         super(builder.context, R.style.MaterialDialogSheet);
@@ -81,12 +80,6 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
         setContentView(view);
         App.setTextViewStyle(view);
         DialogInit.init(this);
-    }
-
-    View lastPressedView;
-
-    public interface MaterialDialogButtonCallback {
-        void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which);
     }
 
     @Override
@@ -184,6 +177,10 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
     @Override
     public void onShow(DialogInterface dialog) {
         super.onShow(dialog);
+    }
+
+    public interface MaterialDialogButtonCallback {
+        void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which);
     }
 
     @SuppressWarnings({"WeakerAccess", "unused"})

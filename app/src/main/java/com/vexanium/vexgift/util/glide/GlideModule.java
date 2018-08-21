@@ -33,6 +33,7 @@ public class GlideModule extends AppGlideModule {
         builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, "cache", DISK_CACHE_SIZE))
                 .setMemoryCache(new LruResourceCache(cacheSize));
     }
+
     @Override
     public boolean isManifestParsingEnabled() {
         return false;

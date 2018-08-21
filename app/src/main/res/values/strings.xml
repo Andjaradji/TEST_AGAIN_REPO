@@ -84,17 +84,6 @@
     <string name="voucher_online_info_desc">To use this voucher, copy the code and use it in %s.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
     <string name="voucher_3rd_party_info_desc">To use this voucher click claim button and give the code to the merchant\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
-    <string name="home_filter_title">Filters</string>
-    <string name="home_filter_reset">RESET</string>
-    <string name="home_filter_all_cities">All Cities</string>
-    <string name="home_filter_city">By City</string>
-    <string name="home_filter_time">By Time</string>
-    <string name="home_filter_time_new">newest</string>
-    <string name="home_filter_time_old">oldest</string>
-    <string name="home_filter_category">By Category</string>
-    <string name="home_filter_brand">By Brand</string>
-    <string name="home_filter_or">or</string>
-
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_password_forgot"><u>Forgot password?</u></string>
@@ -210,6 +199,14 @@
     <string name="filter_payment">Payment Type</string>
     <string name="filter_location">Location</string>
     <string name="filter_member">Member Type</string>
+    <string name="filter_category">Category</string>
+
+    <string name="sort_by_price_asc">Highest Price</string>
+    <string name="sort_by_price_desc">Lowest Price</string>
+    <string name="sort_by_exp_date_asc">Earliest Expiration Date</string>
+    <string name="sort_by_exp_date_desc">Latest Expiration Date</string>
+    <string name="sort_by_rel_date_asc">Earliest Release Date</string>
+    <string name="sort_by_rel_date_desc">Latest Release Date</string>
 
     <string name="change_password_title">Change Password</string>
     <string name="last_password">Last Password</string>
@@ -406,6 +403,7 @@
     <string name="exchange_send_voucher_button_cancel">Cancel</string>
     <string name="exchange_send_voucher_button_view">View</string>
     <string name="exchange_send_voucher_ga_hint">Google Authenticator PIN</string>
+    <string name="exchange_send_voucher_share_text">Hi there! I have a gift for you. A %s\'s Voucher. Please open vexgift (%s) and use below code to get voucher\n\nCode: %s</string>
 
     <string name="exchange_receive_voucher_success_dialog_title">Success</string>
     <string name="exchange_receive_voucher_success_dialog_content">You got %s\'s Voucher, Check your voucher in My Box now</string>

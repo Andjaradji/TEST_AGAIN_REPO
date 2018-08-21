@@ -13,6 +13,7 @@ import rx.Subscription;
 public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Serializable> implements IVoucherPresenter {
     private IVoucherInteractor<Serializable> mInteractor;
     private boolean mHasInit;
+    private boolean isLoadType = false;
 
     public IVoucherPresenterImpl(IVoucherView view) {
         super(view);
@@ -29,6 +30,10 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         }
     }
 
+    @Override
+    public void requestComplete() {
+        super.requestComplete();
+    }
 
     @Override
     public void requestError(HttpResponse response) {
@@ -49,18 +54,28 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
 
     @Override
     public void requestMemberType(int userId) {
+        isLoadType = true;
         Subscription subscription = mInteractor.requestMemberType(this, userId);
         compositeSubscription.add(subscription);
     }
 
     @Override
+    public void requestVoucherType(int userId) {
+        isLoadType = true;
+        Subscription subscription = mInteractor.requestVoucherType(this, userId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
     public void requestPaymentType(int userId) {
+        isLoadType = true;
         Subscription subscription = mInteractor.requestPaymentType(this, userId);
         compositeSubscription.add(subscription);
     }
 
     @Override
     public void requestLocation(int userId) {
+        isLoadType = true;
         Subscription subscription = mInteractor.requestLocation(this, userId);
         compositeSubscription.add(subscription);
     }
@@ -86,6 +101,30 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
     @Override
     public void requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode) {
         Subscription subscription = mInteractor.requestClaimGiftCode(this, userId, voucherCodeId, voucherGiftCode);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestCategories(int id) {
+        Subscription subscription = mInteractor.requestCategories(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestVoucherList(int id) {
+        Subscription subscription = mInteractor.requestVoucherList(this, id, 0);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestTokenList(int id) {
+        Subscription subscription = mInteractor.requestVoucherList(this, id, 4);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestBuyVoucher(int userId, int voucherId, String token) {
+        Subscription subscription = mInteractor.requestBuyVoucher(this, userId, voucherId, token);
         compositeSubscription.add(subscription);
     }
 }

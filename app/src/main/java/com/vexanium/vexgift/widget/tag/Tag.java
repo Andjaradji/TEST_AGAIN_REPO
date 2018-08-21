@@ -22,7 +22,7 @@ public class Tag {
 
     public Tag(int id, String text) {
         init(id, text, TagConstant.DEFAULT_TAG_TEXT_COLOR, TagConstant.DEFAULT_TAG_TEXT_SIZE, TagConstant.DEFAULT_TAG_LAYOUT_COLOR, TagConstant.DEFAULT_TAG_LAYOUT_COLOR_PRESS,
-                 TagConstant.DEFAULT_TAG_RADIUS, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_SIZE, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_COLOR, false);
+                TagConstant.DEFAULT_TAG_RADIUS, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_SIZE, TagConstant.DEFAULT_TAG_LAYOUT_BORDER_COLOR, false);
     }
 
     public Tag(String text) {

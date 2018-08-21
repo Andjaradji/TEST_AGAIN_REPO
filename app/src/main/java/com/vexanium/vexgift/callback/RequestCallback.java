@@ -9,7 +9,10 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 
 public interface RequestCallback<T> {
     void beforeRequest();
+
     void requestError(HttpResponse response);
+
     void requestComplete();
+
     void requestSuccess(T data);
 }

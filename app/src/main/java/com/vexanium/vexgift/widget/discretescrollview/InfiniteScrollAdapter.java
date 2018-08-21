@@ -16,20 +16,18 @@ public class InfiniteScrollAdapter<T extends RecyclerView.ViewHolder> extends Re
 
     private static final int NOT_INITIALIZED = -1;
     private static final int RESET_BOUND = 100;
-
-    public static <T extends RecyclerView.ViewHolder> InfiniteScrollAdapter<T> wrap(
-            @NonNull RecyclerView.Adapter<T> adapter) {
-        return new InfiniteScrollAdapter<>(adapter);
-    }
-
     private RecyclerView.Adapter<T> wrapped;
     private DiscreteScrollLayoutManager layoutManager;
-
     private int currentRangeStart;
 
     public InfiniteScrollAdapter(@NonNull RecyclerView.Adapter<T> wrapped) {
         this.wrapped = wrapped;
         this.wrapped.registerAdapterDataObserver(new DataSetChangeDelegate());
+    }
+
+    public static <T extends RecyclerView.ViewHolder> InfiniteScrollAdapter<T> wrap(
+            @NonNull RecyclerView.Adapter<T> adapter) {
+        return new InfiniteScrollAdapter<>(adapter);
     }
 
     @Override

@@ -30,10 +30,7 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
-import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
-import com.vexanium.vexgift.database.TablePrefDao;
-import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenterImpl;
 import com.vexanium.vexgift.module.box.view.IBoxView;
@@ -56,20 +53,17 @@ import rx.functions.Action1;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
 public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBoxView {
 
-    private Context context;
-
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
-
-    private ArrayList<VoucherCode> data;
     BaseRecyclerAdapter<VoucherCode> mAdapter;
     SwipeRefreshLayout mRefreshLayout;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
-
     Observable<Integer> mVoucherObservable;
     User user;
+    private Context context;
+    private ArrayList<VoucherCode> data;
 
     public static VoucherFragment newInstance() {
         return new VoucherFragment();

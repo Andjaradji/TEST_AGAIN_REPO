@@ -4,21 +4,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class VexPointRecord implements Serializable{
+public class VexPointRecord implements Serializable {
+    public boolean active = true;
     @JsonProperty("id")
     private String id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("desc")
     private String description;
-
     @JsonProperty("type")
 
     private int type;
     @JsonProperty("amount")
     private int amount;
 
-    public boolean active = true;
+    public VexPointRecord(String title, String description, int type, int amount) {
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.amount = amount;
+    }
 
     public String getId() {
         return id;
@@ -57,14 +62,6 @@ public class VexPointRecord implements Serializable{
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-
-    public VexPointRecord(String title, String description, int type, int amount) {
-        this.title = title;
-        this.description = description;
-        this.type = type;
         this.amount = amount;
     }
 }

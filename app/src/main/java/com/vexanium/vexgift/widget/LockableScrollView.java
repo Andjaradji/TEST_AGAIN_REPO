@@ -18,6 +18,7 @@ public class LockableScrollView extends ScrollView {
         super(context, attrs, defStyle);
 
     }
+
     public LockableScrollView(Context context) {
         super(context);
     }

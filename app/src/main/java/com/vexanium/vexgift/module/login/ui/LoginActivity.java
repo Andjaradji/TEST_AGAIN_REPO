@@ -1,14 +1,10 @@
 package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -32,7 +28,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
-import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.ConstantGroup;
@@ -53,7 +48,6 @@ import com.vexanium.vexgift.util.ViewUtil;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -67,10 +61,10 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
+    int currentCountdown = 5;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-    int currentCountdown = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +109,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (data != null) {
             UserLoginResponse response = (UserLoginResponse) data;
 // TODO: 17/08/18 remove true 
-            if (response.user != null && ( response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+            if (response.user != null && (response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
                 StaticGroup.removeReferrerData();
 
                 StaticGroup.userSession = response.user.getSessionKey();
@@ -127,7 +121,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 User.google2faLock(response.user);
 
                 executeMain(false);
-            } else if (!response.user.getEmailConfirmationStatus()) {
+            } else if (response.user != null && !response.user.getEmailConfirmationStatus()) {
                 StaticGroup.userSession = response.user.getSessionKey();
                 Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
                 intent.putExtra("user", JsonUtil.toString(response.user));
@@ -136,13 +130,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         } else if (errorResponse != null) {
             KLog.v("LoginActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            if (errorResponse.getMeta().isRequestError()) {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            } else {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-            }
-        } else {
-            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 
@@ -270,18 +258,18 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 });
     }
 
-    private void generateKeyHash() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                KLog.v("LoginActivity", "Key hash : %s", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void generateKeyHash() {
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                KLog.v("LoginActivity", "Key hash : %s", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private boolean checkLoginInfo() {
         User user = User.getCurrentUser(this.getApplicationContext());
@@ -334,7 +322,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (checkLoginInfo()) {
             executeMain(true);
         } else {
-            generateKeyHash();
+//            generateKeyHash();
 
             initFacebook();
             initGoogle();

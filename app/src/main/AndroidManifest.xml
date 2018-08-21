@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".app.App"
@@ -80,13 +81,10 @@
             android:name=".module.login.ui.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.token.ui.TokenActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".module.voucher.ui.VoucherActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.detail.ui.VoucherDetailActivity"
+            android:name=".module.voucher.ui.VoucherDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.voucher.ui.VoucherRedeemActivity"
@@ -116,7 +114,7 @@
             android:name=".module.login.ui.GoogleAuthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".widget.select.MultiSelectActivity"
+            android:name=".module.voucher.ui.select.MultiSelectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.security.ui.GoogleAuthSettingActivity"

@@ -15,13 +15,13 @@ import java.util.concurrent.TimeUnit;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Voucher implements Serializable {
 
+    public boolean active = true;
     @JsonProperty("id")
     private int id;
     @JsonProperty("category_id")
     private String categoryId;
     @JsonProperty("vendor_id")
     private String vendorId;
-
     @JsonProperty("name")
     private String title;
     @JsonProperty("short_description")
@@ -30,68 +30,53 @@ public class Voucher implements Serializable {
     private String longDecription;
     @JsonProperty("term_and_condition")
     private String termsAndCond;
-
-
     @JsonProperty("voucher_type")
     private VoucherType voucherType;
-
-    @JsonProperty("payment_type")
-    private PaymentType paymentType;
 
     /*
      * Free
      * Pay with Vex Point
      *
      */
-
-    @JsonProperty("member_type")
-    private MemberType memberType;
+    @JsonProperty("payment_type")
+    private PaymentType paymentType;
 
     /*
      * All
      * Premium
      * Non Premium*/
-
+    @JsonProperty("member_type")
+    private MemberType memberType;
     @JsonProperty("price")
     private int price;
-
     @JsonProperty("thumbnail")
     private String thumbnail;
     @JsonProperty("images")
     private String photo;
-
     @JsonProperty("valid_from")
     private long validFrom;
     @JsonProperty("valid_until")
     private long validUntil;
-
     @JsonProperty("country")
     private String country;
     @JsonProperty("region")
     private String region;
-
     @JsonProperty("lat")
     private String lat;
     @JsonProperty("lng")
     private String lang;
-
     @JsonProperty("quantity_available")
     private int qtyAvailable;
     @JsonProperty("quantity_left")
     private int qtyLeft;
-
     @JsonProperty("limit_per_user")
     private int limitPerUser;
-
     @JsonProperty("is_multiple_allowed")
     private boolean isMultipleAllowed;
-
     @JsonProperty("category")
     private Category category;
     @JsonProperty("vendor")
     private Vendor vendor;
-
-    public boolean active = true;
 
     public int getId() {
         return id;
@@ -267,12 +252,12 @@ public class Voucher implements Serializable {
         return qtyAvailable;
     }
 
-    public int getQtyTotal() {
-        return qtyAvailable + qtyLeft;
-    }
-
     public void setQtyAvailable(int qtyAvailable) {
         this.qtyAvailable = qtyAvailable;
+    }
+
+    public int getQtyTotal() {
+        return qtyAvailable + qtyLeft;
     }
 
     public int getQtyLeft() {

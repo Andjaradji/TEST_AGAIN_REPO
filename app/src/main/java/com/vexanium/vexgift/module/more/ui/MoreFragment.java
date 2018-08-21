@@ -50,6 +50,10 @@ public class MoreFragment extends BaseFragment {
     public MoreFragment() {
     }
 
+    public static MoreFragment newInstance() {
+        return new MoreFragment();
+    }
+
     @Override
     protected void initView(final View fragmentRootView) {
         user = User.getCurrentUser(this.getActivity());
@@ -105,9 +109,9 @@ public class MoreFragment extends BaseFragment {
             countDownTimer.start();
         }
 
-        if(user.getPremiumUntil() > 0){
+        if (user.getPremiumUntil() > 0) {
             fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.GONE);
         }
     }
@@ -123,8 +127,8 @@ public class MoreFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(user.isKycApprove()){
-           notifView.setVisibility(View.GONE);
+        if (user.isKycApprove()) {
+            notifView.setVisibility(View.GONE);
         }
     }
 
@@ -202,11 +206,6 @@ public class MoreFragment extends BaseFragment {
                 })
                 .autoDismiss(true).show();
 
-    }
-
-
-    public static MoreFragment newInstance() {
-        return new MoreFragment();
     }
 
 }

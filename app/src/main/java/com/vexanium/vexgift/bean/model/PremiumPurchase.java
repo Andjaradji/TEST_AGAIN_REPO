@@ -12,8 +12,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-@JsonIgnoreProperties(ignoreUnknown =  true)
-public class PremiumPurchase implements Serializable{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PremiumPurchase implements Serializable {
 
     @JsonProperty("created_at")
     private String createdAt;
@@ -125,26 +125,26 @@ public class PremiumPurchase implements Serializable{
         this.paidBefore = paidBefore;
     }
 
-    public String getPaidBeforeDate(){
+    public String getPaidBeforeDate() {
         return getDate(paidBefore);
     }
 
-    public String getCreatedAtDate(){
+    public String getCreatedAtDate() {
         try {
-            SimpleDateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            SimpleDateFormat  dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = dateFormat.parse(createdAt);
             return dateOutput.format(date);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
-            return  createdAt;
+            return createdAt;
         }
     }
 
     public String getDate(int timestamp) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp*1000L);
+        calendar.setTimeInMillis(timestamp * 1000L);
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMM dd yyyy") + "  hh:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
         return dateFormat.format(calendar.getTime());

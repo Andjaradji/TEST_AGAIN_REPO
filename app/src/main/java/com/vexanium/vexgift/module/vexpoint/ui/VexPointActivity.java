@@ -50,27 +50,21 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private static final int POINT_RECORD_FRAGMENT = 0;
     private static final int INVITE_POINT_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
-
+    Calendar verifTimeLeft;
     private SwipeRefreshLayout mRefreshLayout;
     private PointRecordFragment pointRecordFragment;
     private InvitePointFragment invitePointFragment;
-
     private ImageView mReferralButton;
     private TextView mTvVp;
     private TextView mTvVpGen;
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
     private Observable<Integer> mVpObservable;
-    private Observable<Integer> mVexAddressObservable;
     //private View mVpShadow;
-
+    private Observable<Integer> mVexAddressObservable;
     private View notifView;
-
     private Subscription timeSubsription;
     private User user;
-
-    Calendar verifTimeLeft;
-
     private boolean isTimeUp;
 
     @Override
@@ -168,7 +162,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                     });
                 }
             } else {
-               // mReferralButton.setVisibility(View.GONE);
+                // mReferralButton.setVisibility(View.GONE);
                 findViewById(R.id.ll_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_wait_address).setVisibility(View.GONE);
                 findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {

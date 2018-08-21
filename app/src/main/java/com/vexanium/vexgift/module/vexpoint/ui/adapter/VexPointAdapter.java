@@ -19,11 +19,11 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     private Context context;
     private ArrayList<VexPointRecord> dataList = new ArrayList<>();
 
-    public VexPointAdapter(Context context){
+    public VexPointAdapter(Context context) {
         this.context = context;
     }
 
-    public VexPointAdapter(Context context, ArrayList<VexPointRecord> dataList){
+    public VexPointAdapter(Context context, ArrayList<VexPointRecord> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -41,11 +41,11 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         holder.mVpMainText.setText(data.getTitle());
         holder.mVpSubText.setText(data.getDescription());
 
-        if(data.getType() == 0) {
-            holder.mVpIndicatorText.setText("+ "+data.getAmount());
+        if (data.getType() == 0) {
+            holder.mVpIndicatorText.setText("+ " + data.getAmount());
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
-        }else{
-            holder.mVpIndicatorText.setText("- "+data.getAmount());
+        } else {
+            holder.mVpIndicatorText.setText("- " + data.getAmount());
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
 
@@ -56,23 +56,23 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         return dataList.size();
     }
 
-    public void addItem(VexPointRecord item){
+    public void addItem(VexPointRecord item) {
         dataList.add(item);
     }
 
-    public void addItemList(ArrayList<VexPointRecord> item){
+    public void addItemList(ArrayList<VexPointRecord> item) {
         dataList.addAll(item);
     }
 
-    public void setItemList(ArrayList<VexPointRecord> itemList){
+    public void setItemList(ArrayList<VexPointRecord> itemList) {
         dataList = itemList;
     }
 
-    public void removeAll(){
+    public void removeAll() {
         dataList.clear();
     }
 
-    public class FilterViewHolder extends RecyclerView.ViewHolder{
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout mContainer;
         TextView mVpMainText, mVpSubText, mVpIndicatorText;

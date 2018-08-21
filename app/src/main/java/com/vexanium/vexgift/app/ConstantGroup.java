@@ -7,8 +7,10 @@ package com.vexanium.vexgift.app;
 public class ConstantGroup {
     public static final int EDIT_FILTER = 1121;
     public static final int EDIT_FILTER_CATEGORY_RESULT_CODE = 111;
-    public static final int EDIT_FILTER_TYPE_RESULT_CODE = 121;
-    public static final int EDIT_FILTER_LOCATION_RESULT_CODE = 131;
+    public static final int EDIT_FILTER_VOUCHER_TYPE_RESULT_CODE = 121;
+    public static final int EDIT_FILTER_MEMBER_TYPE_RESULT_CODE = 131;
+    public static final int EDIT_FILTER_PAYMENT_TYPE_RESULT_CODE = 141;
+    public static final int EDIT_FILTER_LOCATION_RESULT_CODE = 151;
 
     public static final int KYC_NONE = 1000;
     public static final int KYC_PENDING = 1001;
@@ -27,10 +29,10 @@ public class ConstantGroup {
     public static final int ID_LOCAL_PUSH = 412;
     public static final String DB_NAME = "VexGiftDb";
 
-    public static final String NOTIF_CHANNEL_NAME = "VexGift" ;
-    public static final String NOTIF_CHANNEL_DESC = "VexGift Notification Channel" ;
+    public static final String NOTIF_CHANNEL_NAME = "VexGift";
+    public static final String NOTIF_CHANNEL_DESC = "VexGift Notification Channel";
 
     public static final String SUPPORT_EMAIL = "support@vexgift.com";
 
-    public static final String KEY_LAST_LINK_VERSIONS = "key_last_link_version" ;
+    public static final String KEY_LAST_LINK_VERSIONS = "key_last_link_version";
 }

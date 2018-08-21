@@ -66,14 +66,14 @@ public class IconTextTabView extends LinearLayout {
 
     public void setIcon(int icon) {
         this.icon = icon;
-        if(icon!=-1) {
+        if (icon != -1) {
             ivIcon.setImageResource(icon);
-        }else{
+        } else {
             ivIcon.setVisibility(GONE);
         }
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         this.text = text;
         tvTitle.setText(text);
     }
@@ -84,13 +84,13 @@ public class IconTextTabView extends LinearLayout {
         ivIcon = (ImageView) view.findViewById(R.id.iv_tab_icon);
         tvTitle = (TextView) view.findViewById(R.id.tv_tab_title);
 
-        App.setTextViewStyle((ViewGroup)view);
+        App.setTextViewStyle((ViewGroup) view);
 
     }
 
     public void updateView(boolean isSelected) {
         ivIcon.setAlpha(isSelected ? 1f : 0.6f);
-        tvTitle.setTextColor(isSelected? context.getResources().getColor(R.color.material_black) : context.getResources().getColor(R.color.material_grey_a6));
+        tvTitle.setTextColor(isSelected ? context.getResources().getColor(R.color.material_black) : context.getResources().getColor(R.color.material_grey_a6));
     }
 
 }

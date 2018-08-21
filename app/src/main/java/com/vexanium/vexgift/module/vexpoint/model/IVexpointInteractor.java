@@ -6,5 +6,6 @@ import rx.Subscription;
 
 public interface IVexpointInteractor<T> {
     Subscription requestGetActAddress(RequestCallback<T> callback, int id);
+
     Subscription requestSetActAddress(RequestCallback<T> callback, int id, String address, String token);
 }

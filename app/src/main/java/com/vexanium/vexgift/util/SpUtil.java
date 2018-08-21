@@ -20,45 +20,16 @@ public class SpUtil {
     private HashMap<String, Object> mCfgMap;
 
 
-    public static SpUtil getInstance(Context context) {
-        if (singleton == null) {
-            singleton = new SpUtil(context);
-        }
-        return singleton;
-    }
-
     public SpUtil(Context context) {
         mPreferences = context.getSharedPreferences("PrefName", Context.MODE_PRIVATE);
         mCfgMap = new HashMap<>();
     }
 
-    public void load() {
-        mCfgMap.putAll(mPreferences.getAll());
-        KLog.v("SharedPref Load");
-    }
-
-    public void save() {
-        SharedPreferences.Editor edit = mPreferences.edit();
-
-        for (String key : mCfgMap.keySet()) {
-            Object value = mCfgMap.get(key);
-
-            if (value instanceof Boolean) {
-                edit.putBoolean(key, (Boolean) value);
-            } else if (value instanceof Integer) {
-                edit.putInt(key, (Integer) value);
-            } else if (value instanceof Float) {
-                edit.putFloat(key, (Float) value);
-            } else if (value instanceof Long) {
-                edit.putLong(key, (Long) value);
-            } else if (value instanceof String) {
-                edit.putString(key, String.valueOf(value));
-            } else if (value instanceof Set<?>) {
-                edit.putStringSet(key, (Set<String>)value);
-            }
+    public static SpUtil getInstance(Context context) {
+        if (singleton == null) {
+            singleton = new SpUtil(context);
         }
-
-        edit.apply();
+        return singleton;
     }
 
     public static void put(String key, Object value) {
@@ -104,21 +75,21 @@ public class SpUtil {
     }
 
     public static String getString(String key) {
-        String str = (String)get(key);
+        String str = (String) get(key);
         if (str == null)
             str = "";
         return str;
     }
 
     public static Set<String> getStringSet(String key) {
-        Set<String> strSet = (Set<String>)get(key);
+        Set<String> strSet = (Set<String>) get(key);
         if (strSet == null)
             strSet = new HashSet<>();
         return strSet;
     }
 
     public static long getLong(String key) {
-        Long value = (Long)get(key);
+        Long value = (Long) get(key);
         if (value != null) {
             return value;
         }
@@ -126,7 +97,7 @@ public class SpUtil {
     }
 
     public static float getFloat(String key) {
-        Float value = (Float)get(key);
+        Float value = (Float) get(key);
         if (value != null) {
             return value;
         }
@@ -134,7 +105,7 @@ public class SpUtil {
     }
 
     public static double getDouble(String key) {
-        Double value = (Double)get(key);
+        Double value = (Double) get(key);
         if (value != null) {
             return value;
         }
@@ -142,40 +113,69 @@ public class SpUtil {
     }
 
     public static int getInt(String key) {
-        Integer value = (Integer)get(key);
+        Integer value = (Integer) get(key);
         if (value != null) {
             return value;
         }
         return 0;
     }
 
-    public static boolean getBoolean(String key){
-        Boolean value = (Boolean)get(key);
-        if(value != null)
-            return (Boolean)get(key);
+    public static boolean getBoolean(String key) {
+        Boolean value = (Boolean) get(key);
+        if (value != null)
+            return (Boolean) get(key);
         return false;
     }
 
-    public static void putMap(String key, Map<String,String> inputMap){
+    public static void putMap(String key, Map<String, String> inputMap) {
         JSONObject jsonObject = new JSONObject(inputMap);
         String jsonString = jsonObject.toString();
         put(key, jsonString);
     }
 
-    public static Map<String,String> getMap(String key){
-        Map<String,String> outputMap = new HashMap<>();
-        try{
+    public static Map<String, String> getMap(String key) {
+        Map<String, String> outputMap = new HashMap<>();
+        try {
             String jsonString = getString(key);
             JSONObject jsonObject = new JSONObject(jsonString);
             Iterator<String> keysItr = jsonObject.keys();
-            while(keysItr.hasNext()) {
+            while (keysItr.hasNext()) {
                 String k = keysItr.next();
                 String v = (String) jsonObject.get(k);
-                outputMap.put(k,v);
+                outputMap.put(k, v);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return outputMap;
+    }
+
+    public void load() {
+        mCfgMap.putAll(mPreferences.getAll());
+        KLog.v("SharedPref Load");
+    }
+
+    public void save() {
+        SharedPreferences.Editor edit = mPreferences.edit();
+
+        for (String key : mCfgMap.keySet()) {
+            Object value = mCfgMap.get(key);
+
+            if (value instanceof Boolean) {
+                edit.putBoolean(key, (Boolean) value);
+            } else if (value instanceof Integer) {
+                edit.putInt(key, (Integer) value);
+            } else if (value instanceof Float) {
+                edit.putFloat(key, (Float) value);
+            } else if (value instanceof Long) {
+                edit.putLong(key, (Long) value);
+            } else if (value instanceof String) {
+                edit.putString(key, String.valueOf(value));
+            } else if (value instanceof Set<?>) {
+                edit.putStringSet(key, (Set<String>) value);
+            }
+        }
+
+        edit.apply();
     }
 }

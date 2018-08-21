@@ -35,7 +35,7 @@ public class IPremiumInteractorImpl<T> implements IPremiumInteractor {
 
     @Override
     public Subscription purchasePremium(RequestCallback callback, int userId, int duration, int price, String currency) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).purchasePremium(userId,duration,price,currency).compose(RxUtil.<PremiumPurchaseResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).purchasePremium(userId, duration, price, currency).compose(RxUtil.<PremiumPurchaseResponse>handleResult())
                 .flatMap(new Func1<PremiumPurchaseResponse, Observable<PremiumPurchaseResponse>>() {
                     @Override
                     public Observable<PremiumPurchaseResponse> call(PremiumPurchaseResponse premiumPurchaseResponse) {

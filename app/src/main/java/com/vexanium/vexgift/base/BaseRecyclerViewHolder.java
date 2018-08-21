@@ -37,7 +37,7 @@ import jp.wasabeef.glide.transformations.GrayscaleTransformation;
  * Created by mac on 11/16/17.
  */
 
-public class BaseRecyclerViewHolder  extends RecyclerView.ViewHolder {
+public class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
     protected SparseArray<View> mViews;
     protected Context mContext;
 
@@ -113,20 +113,20 @@ public class BaseRecyclerViewHolder  extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public BaseRecyclerViewHolder setImageUrl(int viewId, String imageUrl, int placeholder){
+    public BaseRecyclerViewHolder setImageUrl(int viewId, String imageUrl, int placeholder) {
         ImageView imageView = findViewById(viewId);
         Glide.with(App.getContext())
                 .asBitmap()
                 .apply(RequestOptions
-                .diskCacheStrategyOf(DiskCacheStrategy.ALL)
-                .error(ContextCompat.getDrawable(App.getContext(), placeholder))
-                .format(DecodeFormat.PREFER_RGB_565))
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .error(ContextCompat.getDrawable(App.getContext(), placeholder))
+                        .format(DecodeFormat.PREFER_RGB_565))
                 .load(imageUrl)
                 .into(imageView);
         return this;
     }
 
-    public BaseRecyclerViewHolder setBnWImageUrl(int viewId, String imageUrl, int placeholder){
+    public BaseRecyclerViewHolder setBnWImageUrl(int viewId, String imageUrl, int placeholder) {
         ImageView imageView = findViewById(viewId);
         Glide.with(App.getContext())
                 .asBitmap()

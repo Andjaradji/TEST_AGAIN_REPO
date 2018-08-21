@@ -15,18 +15,28 @@ public class TableContent {
     private String tokens;
     private String notifs;
     private String myBoxs;
+    private String voucherTypes;
+    private String paymentTypes;
+    private String memberTypes;
+    private String categories;
     private long createdTime;
     private long updatedTime;
 
 
-    @Generated(hash = 1459931542)
+    @Generated(hash = 719717593)
     public TableContent(long id, String vouchers, String tokens, String notifs,
-            String myBoxs, long createdTime, long updatedTime) {
+                        String myBoxs, String voucherTypes, String paymentTypes,
+                        String memberTypes, String categories, long createdTime,
+                        long updatedTime) {
         this.id = id;
         this.vouchers = vouchers;
         this.tokens = tokens;
         this.notifs = notifs;
         this.myBoxs = myBoxs;
+        this.voucherTypes = voucherTypes;
+        this.paymentTypes = paymentTypes;
+        this.memberTypes = memberTypes;
+        this.categories = categories;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
     }
@@ -34,7 +44,7 @@ public class TableContent {
     @Generated(hash = 1207901501)
     public TableContent() {
     }
-   
+
 
     public long getId() {
         return id;
@@ -90,5 +100,37 @@ public class TableContent {
 
     public void setMyBoxs(String myBoxs) {
         this.myBoxs = myBoxs;
+    }
+
+    public String getVoucherTypes() {
+        return this.voucherTypes;
+    }
+
+    public void setVoucherTypes(String voucherTypes) {
+        this.voucherTypes = voucherTypes;
+    }
+
+    public String getPaymentTypes() {
+        return this.paymentTypes;
+    }
+
+    public void setPaymentTypes(String paymentTypes) {
+        this.paymentTypes = paymentTypes;
+    }
+
+    public String getMemberTypes() {
+        return this.memberTypes;
+    }
+
+    public void setMemberTypes(String memberTypes) {
+        this.memberTypes = memberTypes;
+    }
+
+    public String getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 }

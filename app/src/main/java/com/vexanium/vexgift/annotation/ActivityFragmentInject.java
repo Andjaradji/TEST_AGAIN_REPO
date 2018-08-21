@@ -13,7 +13,10 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface ActivityFragmentInject {
     int contentViewId() default -1;
+
     int toolbarTitle() default -1;
+
     int toolbarIndicator() default -1;
+
     boolean withLoadingAnim() default false;
 }

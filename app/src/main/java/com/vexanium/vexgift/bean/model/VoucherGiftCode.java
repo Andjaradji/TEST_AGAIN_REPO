@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VoucherGiftCode implements Serializable{
-    
+public class VoucherGiftCode implements Serializable {
+
     @JsonProperty("id")
     private int id;
     @JsonProperty("voucher_code_id")

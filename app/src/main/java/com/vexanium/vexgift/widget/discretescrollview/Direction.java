@@ -28,11 +28,11 @@ enum Direction {
         }
     };
 
-    public abstract int applyTo(int delta);
-
-    public abstract boolean sameAs(int direction);
-
     public static Direction fromDelta(int delta) {
         return delta > 0 ? END : START;
     }
+
+    public abstract int applyTo(int delta);
+
+    public abstract boolean sameAs(int direction);
 }

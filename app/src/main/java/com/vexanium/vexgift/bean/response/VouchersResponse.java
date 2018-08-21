@@ -17,28 +17,27 @@ public class VouchersResponse implements Serializable {
     private ArrayList<Voucher> tokens;
 
     public ArrayList<Voucher> getVouchers() {
-        if(vouchers == null) vouchers = new ArrayList<>();
+        if (vouchers == null) vouchers = new ArrayList<>();
         return vouchers;
-    }
-
-
-    public void updateVoucherState(int id, boolean isRedeemed){
-        if(vouchers == null) vouchers = new ArrayList<>();
-
-        for (Voucher voucher : vouchers){
-            if(voucher.getId() == id){
-//                voucher.isRedeemed = isRedeemed;
-            }
-        }
-
     }
 
     public void setVouchers(ArrayList<Voucher> vouchers) {
         this.vouchers = vouchers;
     }
 
+    public void updateVoucherState(int id, boolean isRedeemed) {
+        if (vouchers == null) vouchers = new ArrayList<>();
+
+        for (Voucher voucher : vouchers) {
+            if (voucher.getId() == id) {
+//                voucher.isRedeemed = isRedeemed;
+            }
+        }
+
+    }
+
     public ArrayList<Voucher> getTokens() {
-        if(tokens == null) tokens = new ArrayList<>();
+        if (tokens == null) tokens = new ArrayList<>();
         return tokens;
     }
 

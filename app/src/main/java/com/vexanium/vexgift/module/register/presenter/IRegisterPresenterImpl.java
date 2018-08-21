@@ -52,6 +52,7 @@ public class IRegisterPresenterImpl extends BasePresenterImpl<IRegisterView, Ser
         Subscription subscription = mRegisterInteractor.requestRegister(this, user);
         compositeSubscription.add(subscription);
     }
+
     @Override
     public void requestRegister(User user) {
         Subscription subscription = mRegisterInteractor.requestRegister(this, user);

@@ -31,59 +31,45 @@ import java.util.Locale;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 
+    private static User currentUser;
     @JsonProperty("id")
     private int id;
     @JsonProperty("password")
     private String password;
-
     @JsonProperty("register")
     private String registerTime;
-
     @JsonProperty("ov")
     private String osVersion;
     @JsonProperty("av")
     private String appVersion;
     @JsonProperty("device_name")
     private String deviceName;
-
     @JsonProperty("access_token")
     private String sessionKey;
     @JsonProperty("vex_point")
     private int vexPoint;
-
     @JsonProperty("last_login")
     private String lastTimestamp;
-
-    @JsonProperty("config")
-    private SettingCondition config;
-
     @JsonProperty("mutual_friends")
     private List<String> friendList = new ArrayList<>();
     @JsonProperty("profile_images")
     private List<String> profileList = new ArrayList<>();
-
     @JsonProperty("email")
     private String email;
-
     @JsonProperty("authenticator_enabled")
     private boolean authenticatorEnable;
-
     @JsonProperty("referral_code")
     private String referralCode;
     @JsonProperty("referral_code_registered")
     private String referralCodeRegistered;
-
     @JsonProperty("email_confirmation_code")
     private String emailConfirmationCode;
     @JsonProperty("email_confirmation_status")
     private boolean emailConfirmationStatus;
-
     @JsonProperty("notification_id")
     private String notificationId;
-
     @JsonProperty("user_kyc")
     private ArrayList<Kyc> kyc;
-
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("name")
@@ -92,7 +78,6 @@ public class User implements Serializable {
     private String lastName;
     @JsonProperty("fb_access_token")
     private String facebookAccessToken;
-
     @JsonProperty("facebook_id")
     private String facebookId;
     @JsonProperty("fb_link")
@@ -113,26 +98,13 @@ public class User implements Serializable {
     private String birthDay;
     @JsonProperty("premium_until")
     private long premiumUntil;
-
     @JsonProperty("google_id_token")
     private String googleToken;
-
     private List<String> facebookLocationIdList;
     @JsonProperty("fb_friend_count")
     private int facebookFriendCount;
-    private List<Album> albumList = new ArrayList<>();
-
-    private static User currentUser;
 
     public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public static User getCurrentUser(Context context) {
@@ -198,7 +170,7 @@ public class User implements Serializable {
         User user = getCurrentUser(context);
         user.setPremiumUntil(dueDate);
 
-        updateCurrentUser(context,user);
+        updateCurrentUser(context, user);
     }
 
     public static boolean isVexAddVerifTimeEnded() {
@@ -243,14 +215,6 @@ public class User implements Serializable {
         isGoogle2faLocked = tpUtil.getBoolean(TpUtil.KEY_GOOGLE2FA_LOCK, false);
         KLog.v("User", "isGoogle2faLocked: " + isGoogle2faLocked);
         return isGoogle2faLocked;
-    }
-
-    public boolean isAuthenticatorEnable() {
-        return authenticatorEnable;
-    }
-
-    public void setAuthenticatorEnable(boolean authenticatorEnable) {
-        this.authenticatorEnable = authenticatorEnable;
     }
 
     public static void setLastActiveTime() {
@@ -415,6 +379,48 @@ public class User implements Serializable {
         return user;
     }
 
+    private static int calculateAge(Date dateOfBirth) {
+        Calendar today = Calendar.getInstance();
+        Calendar birthDate = Calendar.getInstance();
+
+        int age;
+
+        birthDate.setTime(dateOfBirth);
+        if (birthDate.after(today)) {
+            throw new IllegalArgumentException("Can't be born in the future");
+        }
+
+        age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+
+        if ((birthDate.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3) || (birthDate.get(Calendar.MONTH) > today.get(Calendar.MONTH))) {
+            age--;
+        } else if ((birthDate.get(Calendar.MONTH) == today.get(Calendar.MONTH)) && (birthDate.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH))) {
+            age--;
+        }
+
+        return age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isAuthenticatorEnable() {
+        return authenticatorEnable;
+    }
+
+    public void setAuthenticatorEnable(boolean authenticatorEnable) {
+        this.authenticatorEnable = authenticatorEnable;
+    }
+
     public String getLocale() {
         return locale;
     }
@@ -477,14 +483,6 @@ public class User implements Serializable {
 
     public void setLastTimestamp(String lastTimestamp) {
         this.lastTimestamp = lastTimestamp;
-    }
-
-    public SettingCondition getConfig() {
-        return config;
-    }
-
-    public void setConfig(SettingCondition config) {
-        this.config = config;
     }
 
     public List<String> getFriendList() {
@@ -559,46 +557,12 @@ public class User implements Serializable {
         this.facebookFriendCount = facebookFriendCount;
     }
 
-    public List<Album> getAlbumList() {
-        return albumList;
-    }
-
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
-    }
-
     public List<String> getProfileList() {
         return profileList;
     }
 
     public void setProfileList(List<String> profileList) {
         this.profileList = profileList;
-    }
-
-    private static int calculateAge(Date dateOfBirth) {
-        Calendar today = Calendar.getInstance();
-        Calendar birthDate = Calendar.getInstance();
-
-        int age;
-
-        birthDate.setTime(dateOfBirth);
-        if (birthDate.after(today)) {
-            throw new IllegalArgumentException("Can't be born in the future");
-        }
-
-        age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
-
-        if ((birthDate.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3) || (birthDate.get(Calendar.MONTH) > today.get(Calendar.MONTH))) {
-            age--;
-        } else if ((birthDate.get(Calendar.MONTH) == today.get(Calendar.MONTH)) && (birthDate.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH))) {
-            age--;
-        }
-
-        return age;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
@@ -681,6 +645,10 @@ public class User implements Serializable {
         return kyc;
     }
 
+    public void setKyc(ArrayList<Kyc> kyc) {
+        this.kyc = kyc;
+    }
+
     public boolean isSubmitKyc() {
         if (kyc != null && kyc.size() > 0) {
             return true;
@@ -696,10 +664,6 @@ public class User implements Serializable {
         } else {
             return false;
         }
-    }
-
-    public void setKyc(ArrayList<Kyc> kyc) {
-        this.kyc = kyc;
     }
 
     public void updateKyc(Kyc k) {
@@ -736,10 +700,6 @@ public class User implements Serializable {
         return emailConfirmationStatus;
     }
 
-    public void setEmailConfirmationStatus(boolean emailConfirmationStatus) {
-        this.emailConfirmationStatus = emailConfirmationStatus;
-    }
-
     public String getFacebookId() {
         return facebookId;
     }
@@ -750,6 +710,10 @@ public class User implements Serializable {
 
     public boolean isEmailConfirmationStatus() {
         return emailConfirmationStatus;
+    }
+
+    public void setEmailConfirmationStatus(boolean emailConfirmationStatus) {
+        this.emailConfirmationStatus = emailConfirmationStatus;
     }
 
     public String getNotificationId() {

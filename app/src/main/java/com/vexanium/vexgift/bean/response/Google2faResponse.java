@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class Google2faResponse implements Serializable{
+public class Google2faResponse implements Serializable {
     @JsonProperty("authenticator_code")
     private String authenticationCode;
 

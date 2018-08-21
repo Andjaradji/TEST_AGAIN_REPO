@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserVouchersResponse implements Serializable{
+public class UserVouchersResponse implements Serializable {
     @JsonProperty("voucher_codes")
     private ArrayList<VoucherCode> voucherCodes;
 
@@ -20,12 +20,12 @@ public class UserVouchersResponse implements Serializable{
         this.voucherCodes = voucherCodes;
     }
 
-    public ArrayList<VoucherCode> getActiveVoucher(){
+    public ArrayList<VoucherCode> getActiveVoucher() {
         ArrayList<VoucherCode> activeVouchers = new ArrayList<>();
-        if(voucherCodes == null) voucherCodes = new ArrayList<>();
+        if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
-        for (VoucherCode voucherCode : voucherCodes){
-            if((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())){
+        for (VoucherCode voucherCode : voucherCodes) {
+            if ((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                 activeVouchers.add(voucherCode);
             }
         }
@@ -33,12 +33,12 @@ public class UserVouchersResponse implements Serializable{
         return activeVouchers;
     }
 
-    public ArrayList<VoucherCode> getInactiveVoucher(){
+    public ArrayList<VoucherCode> getInactiveVoucher() {
         ArrayList<VoucherCode> inActiveVouchers = new ArrayList<>();
-        if(voucherCodes == null) voucherCodes = new ArrayList<>();
+        if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
-        for (VoucherCode voucherCode : voucherCodes){
-            if((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())){
+        for (VoucherCode voucherCode : voucherCodes) {
+            if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
                 inActiveVouchers.add(voucherCode);
             }
         }

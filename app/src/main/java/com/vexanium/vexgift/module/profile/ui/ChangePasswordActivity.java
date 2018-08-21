@@ -67,7 +67,7 @@ public class ChangePasswordActivity extends BaseActivity<IProfilePresenter> impl
         }
 
         if (isValid)
-            mPresenter.changePass(user.getId(),"", newPass);
+            mPresenter.changePass(user.getId(), "", newPass);
     }
 
     private void doChangePass() {

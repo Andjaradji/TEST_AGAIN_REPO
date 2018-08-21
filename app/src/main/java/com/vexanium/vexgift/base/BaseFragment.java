@@ -24,6 +24,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     private boolean mIsStop;
 
+    public BaseFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -72,9 +75,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if (mPresenter != null) {
             mPresenter.onDestroy();
         }
-    }
-
-    public BaseFragment() {
     }
 
     protected abstract void initView(View fragmentRootView);

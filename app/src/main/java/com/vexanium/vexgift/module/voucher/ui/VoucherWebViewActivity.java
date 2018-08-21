@@ -56,7 +56,8 @@ public class VoucherWebViewActivity extends BaseActivity {
         try {
             mWebView = findViewById(R.id.webview);
             ((TextView) findViewById(R.id.tv_toolbar_title)).setText(voucher.getVendor().getName().toUpperCase());
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         final VoucherWebViewClient mWebClient = new VoucherWebViewClient();
         mWebView.setWebViewClient(mWebClient);
@@ -75,6 +76,45 @@ public class VoucherWebViewActivity extends BaseActivity {
 
         StaticGroup.syncCookies();
 
+    }
+
+    private void handleWebPageUrl(String url) {
+        boolean isAlreadyHandled = StaticGroup.handleUrl(getContext(), url);
+        if (!isAlreadyHandled) {
+            if (url.startsWith("http://") || url.startsWith("https://")) {
+                mWebView.requestFocus();
+                mWebView.loadUrl(url);
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CookieSyncManager.getInstance().stopSync();
+
+        mWebChromeClient.dismissDialog();
+        mWebView.onPause();
+        hideProgress();
+    }
+
+    @Override
+    public void onResume() {
+        KLog.v("onResume : " + mWebView.getUrl());
+        super.onResume();
+        CookieSyncManager.getInstance().startSync();
+
+        mWebView.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mWebView != null) {
+            mWebView.destroy();
+            mWebView = null;
+        }
+
+        super.onDestroy();
     }
 
     private class VoucherWebViewClient extends BaseWebViewClient {
@@ -132,44 +172,5 @@ public class VoucherWebViewActivity extends BaseActivity {
 //            scrollView.setFillViewport(true);
 //            view.loadUrl("file:///android_asset/www/500_s.html?url="+StaticGroup.urlEncodeCompat(failingUrl));
         }
-    }
-
-    private void handleWebPageUrl(String url) {
-        boolean isAlreadyHandled = StaticGroup.handleUrl(getContext(), url);
-        if (!isAlreadyHandled) {
-            if (url.startsWith("http://") || url.startsWith("https://")) {
-                mWebView.requestFocus();
-                mWebView.loadUrl(url);
-            }
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        CookieSyncManager.getInstance().stopSync();
-
-        mWebChromeClient.dismissDialog();
-        mWebView.onPause();
-        hideProgress();
-    }
-
-    @Override
-    public void onResume() {
-        KLog.v("onResume : " + mWebView.getUrl());
-        super.onResume();
-        CookieSyncManager.getInstance().startSync();
-
-        mWebView.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mWebView != null) {
-            mWebView.destroy();
-            mWebView = null;
-        }
-
-        super.onDestroy();
     }
 }

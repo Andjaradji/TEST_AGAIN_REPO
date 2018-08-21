@@ -51,7 +51,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         KLog.v("BaseSubscriber onError");
-        KLog.v("BaseSubscriber onError"+ " "+e.getMessage());
+        KLog.v("BaseSubscriber onError" + " " + e.getMessage());
         e.printStackTrace();
 
         try {

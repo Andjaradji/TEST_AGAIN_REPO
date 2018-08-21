@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class VoucherResponse implements Serializable {
 
+    public int type;
     @JsonProperty("voucher")
     private Voucher voucher;
     @JsonProperty("stock")
@@ -14,7 +15,20 @@ public class VoucherResponse implements Serializable {
     @JsonProperty("avail")
     private int avail;
 
-    public int type;
+    public VoucherResponse(Voucher voucher, int stock, int avail, int type) {
+        this.voucher = voucher;
+        this.stock = stock;
+        this.avail = avail;
+        this.type = type;
+    }
+
+    public VoucherResponse() {
+
+    }
+
+    public VoucherResponse(int type) {
+        this.type = type;
+    }
 
     public Voucher getVoucher() {
         return voucher;
@@ -45,21 +59,6 @@ public class VoucherResponse implements Serializable {
     }
 
     public void setType(int type) {
-        this.type = type;
-    }
-
-    public VoucherResponse(Voucher voucher, int stock, int avail, int type) {
-        this.voucher = voucher;
-        this.stock = stock;
-        this.avail = avail;
-        this.type = type;
-    }
-
-    public VoucherResponse() {
-
-    }
-
-    public VoucherResponse(int type) {
         this.type = type;
     }
 }

@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.box.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,12 +19,14 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
 
 
     private FrameLayout mContainer;
-    private Context context;
 
+    public static BoxBaseFragment newInstance() {
+        return new BoxBaseFragment();
+    }
 
     @Override
     protected void initView(View fragmentRootView) {
-        mContainer = (FrameLayout) fragmentRootView.findViewById(R.id.fl_container);
+        mContainer = fragmentRootView.findViewById(R.id.fl_container);
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.add(mContainer.getId(), BoxFragment.newInstance()).commit();
 
@@ -34,20 +35,19 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("BoxBaseFragment onCreateView");
-        context = getActivity();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public void changeFragment(boolean toHistory){
+    public void changeFragment(boolean toHistory) {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        if(toHistory) {
+        if (toHistory) {
             ft.replace(mContainer.getId(), BoxHistoryFragment.newInstance()).commit();
-        }else{
+        } else {
             ft.replace(mContainer.getId(), BoxFragment.newInstance()).commit();
         }
     }
 
-    public void onCustomPause(){
+    public void onCustomPause() {
         changeFragment(false);
     }
 
@@ -67,21 +67,16 @@ public class BoxBaseFragment extends BaseFragment implements BoxFragmentChangeLi
         changeFragment(toHistory);
     }
 
-    public void changeBoxTab(int page){
+    public void changeBoxTab(int page) {
         Fragment currFragment = getCurrentFragment();
-        if(currFragment instanceof BoxFragment) {
-            ((BoxFragment)currFragment).changeTab(page);
+        if (currFragment instanceof BoxFragment) {
+            ((BoxFragment) currFragment).changeTab(page);
         }
     }
 
-    public Fragment getCurrentFragment(){
+    public Fragment getCurrentFragment() {
         return getChildFragmentManager().findFragmentById(mContainer.getId());
     }
-
-    public static BoxBaseFragment newInstance() {
-        return new BoxBaseFragment();
-    }
-
 
 
 }

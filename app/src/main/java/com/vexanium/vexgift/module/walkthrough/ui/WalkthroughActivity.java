@@ -52,15 +52,15 @@ public class WalkthroughActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 int currPos = mCustomViewPager.getCurrentItem();
-                if(currPos != PAGE_COUNT-1){
-                    mCustomViewPager.setCurrentItem(currPos+1,true);
-                }else{
+                if (currPos != PAGE_COUNT - 1) {
+                    mCustomViewPager.setCurrentItem(currPos + 1, true);
+                } else {
                     setWalkthroughFinish();
 
                     Intent intent = new Intent();
                     intent.setClass(WalkthroughActivity.this, LoginActivity.class);
 //                    intent.setClass(WalkthroughActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             }
@@ -75,16 +75,16 @@ public class WalkthroughActivity extends BaseActivity {
 
     }
 
-    private void setWalkthroughFinish(){
+    private void setWalkthroughFinish() {
         TpUtil tpUtil = new TpUtil(this);
         tpUtil.put(TpUtil.KEY_WALKTHROUGH, false);
     }
 
-    private void setWalkthroughPager(){
+    private void setWalkthroughPager() {
         WalkthroughAdapter walkthroughAdapter = new WalkthroughAdapter(getSupportFragmentManager());
         mCustomViewPager = (ViewPager) findViewById(R.id.cvp_walkthrough);
         mCustomViewPager.setAdapter(walkthroughAdapter);
-        mCustomViewPager.setPageTransformer(false,new FadePageTransformer());
+        mCustomViewPager.setPageTransformer(false, new FadePageTransformer());
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mCustomViewPager.setCurrentItem(0, false);
     }

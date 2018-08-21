@@ -5,10 +5,7 @@ package com.vexanium.vexgift.http;
  */
 
 public class ApiException extends Exception {
-    public static final String API_INVALID_SESSION = "Invalid session";
-
-    public ApiException(String msg)
-    {
+    public ApiException(String msg) {
         super(msg);
     }
 }

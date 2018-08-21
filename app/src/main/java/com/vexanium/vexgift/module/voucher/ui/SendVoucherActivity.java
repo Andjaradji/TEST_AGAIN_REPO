@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -19,6 +20,7 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
@@ -42,6 +44,10 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
     private User user;
     private boolean isGenerated;
     private String code;
+
+    public static MoreFragment newInstance() {
+        return new MoreFragment();
+    }
 
     @Override
     protected void initView() {
@@ -82,10 +88,12 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            if (data instanceof VoucherGiftCode) {
-                VoucherGiftCode voucherGiftCode = (VoucherGiftCode) data;
+            if (data instanceof VoucherGiftCodeResponse) {
+                VoucherGiftCodeResponse voucherGiftCodeResponse = (VoucherGiftCodeResponse) data;
+                VoucherGiftCode voucherGiftCode = voucherGiftCodeResponse.getVoucherGiftCode();
                 if (voucherGiftCode != null) {
                     code = voucherGiftCode.getCode();
+                    KLog.v("SendVoucherActivity", "handleResult: code " + code);
                     isGenerated = true;
                     updateView();
                 }
@@ -129,7 +137,8 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
         super.onClick(v);
 
         Context context = SendVoucherActivity.this;
-        String text = "";
+        String url = "vexgift://receive";
+        String text = String.format(getString(R.string.exchange_send_voucher_share_text), voucher.getTitle(), url, code);
         switch (v.getId()) {
             case R.id.btn_generate_code:
                 if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
@@ -237,11 +246,6 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 .autoDismiss(true)
                 .canceledOnTouchOutside(false)
                 .show();
-    }
-
-
-    public static MoreFragment newInstance() {
-        return new MoreFragment();
     }
 
     // TODO: 20/08/18 refactoring

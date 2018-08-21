@@ -109,11 +109,11 @@ public class DiscreteScrollView extends RecyclerView {
         layoutManager.setTimeForItemSettle(millis);
     }
 
-    public void setSlideOnFling(boolean result){
+    public void setSlideOnFling(boolean result) {
         layoutManager.setShouldSlideOnFling(result);
     }
 
-    public void setSlideOnFlingThreshold(int threshold){
+    public void setSlideOnFlingThreshold(int threshold) {
         layoutManager.setSlideOnFlingThreshold(threshold);
     }
 
@@ -178,8 +178,8 @@ public class DiscreteScrollView extends RecyclerView {
                               ViewHolder currentHolder, ViewHolder newHolder) {
         for (ScrollStateChangeListener listener : scrollStateChangeListeners) {
             listener.onScroll(position, currentIndex, newIndex,
-                currentHolder,
-                newHolder);
+                    currentHolder,
+                    newHolder);
         }
     }
 
@@ -196,6 +196,35 @@ public class DiscreteScrollView extends RecyclerView {
         int current = layoutManager.getCurrentPosition();
         ViewHolder currentHolder = getViewHolder(current);
         notifyCurrentItemChanged(currentHolder, current);
+    }
+
+    public interface ScrollStateChangeListener<T extends ViewHolder> {
+
+        void onScrollStart(@NonNull T currentItemHolder, int adapterPosition);
+
+        void onScrollEnd(@NonNull T currentItemHolder, int adapterPosition);
+
+        void onScroll(float scrollPosition,
+                      int currentPosition,
+                      int newPosition,
+                      @Nullable T currentHolder,
+                      @Nullable T newCurrent);
+    }
+
+    public interface ScrollListener<T extends ViewHolder> {
+
+        void onScroll(float scrollPosition,
+                      int currentPosition, int newPosition,
+                      @Nullable T currentHolder,
+                      @Nullable T newCurrent);
+    }
+
+    public interface OnItemChangedListener<T extends ViewHolder> {
+        /*
+         * This method will be also triggered when view appears on the screen for the first time.
+         * If data set is empty, viewHolder will be null and adapterPosition will be NO_POSITION
+         */
+        void onCurrentItemChanged(@Nullable T viewHolder, int adapterPosition);
     }
 
     private class ScrollStateListener implements DiscreteScrollLayoutManager.ScrollStateListener {
@@ -241,9 +270,9 @@ public class DiscreteScrollView extends RecyclerView {
             int newIndex = layoutManager.getNextPosition();
             if (currentIndex != newIndex) {
                 notifyScroll(currentViewPosition,
-                    currentIndex, newIndex,
-                    getViewHolder(currentIndex),
-                    getViewHolder(newIndex));
+                        currentIndex, newIndex,
+                        getViewHolder(currentIndex),
+                        getViewHolder(newIndex));
             }
         }
 
@@ -261,34 +290,5 @@ public class DiscreteScrollView extends RecyclerView {
         public void onDataSetChangeChangedPosition() {
             notifyCurrentItemChanged();
         }
-    }
-
-    public interface ScrollStateChangeListener<T extends ViewHolder> {
-
-        void onScrollStart(@NonNull T currentItemHolder, int adapterPosition);
-
-        void onScrollEnd(@NonNull T currentItemHolder, int adapterPosition);
-
-        void onScroll(float scrollPosition,
-                      int currentPosition,
-                      int newPosition,
-                      @Nullable T currentHolder,
-                      @Nullable T newCurrent);
-    }
-
-    public interface ScrollListener<T extends ViewHolder> {
-
-        void onScroll(float scrollPosition,
-                      int currentPosition, int newPosition,
-                      @Nullable T currentHolder,
-                      @Nullable T newCurrent);
-    }
-
-    public interface OnItemChangedListener<T extends ViewHolder> {
-        /*
-         * This method will be also triggered when view appears on the screen for the first time.
-         * If data set is empty, viewHolder will be null and adapterPosition will be NO_POSITION
-         */
-        void onCurrentItemChanged(@Nullable T viewHolder, int adapterPosition);
     }
 }

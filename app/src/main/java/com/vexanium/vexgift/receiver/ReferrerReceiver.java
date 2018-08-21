@@ -52,13 +52,13 @@ public class ReferrerReceiver extends BroadcastReceiver {
                 }
             }
         } catch (PackageManager.NameNotFoundException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            Log.e("Referrer", "PASS REFERRER error : "+e.getMessage());
+            Log.e("Referrer", "PASS REFERRER error : " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // adb
-        // adb shell am broadcast -a com.android.vending.INSTALL_REFERRER -n com.vexanium.vexgift/.receiver.ReferrerReceiver --es "referrer" "utm_source=vexgift\&utm_medium=invite\&i=4"
+        // adb shell am broadcast -a com.android.vending.INSTALL_REFERRER -n com.vexanium.vexgift/.receiver.ReferrerReceiver --es "referrer" "utm_source=vexgift\&utm_medium=invite\&i=4a"
     }
 
 }

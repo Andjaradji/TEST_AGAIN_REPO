@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".widget.select.MultiSelectActivity"
+    tools:context=".module.voucher.ui.select.MultiSelectActivity"
     android:background="@color/material_white">
 
     <android.support.design.widget.AppBarLayout
@@ -42,5 +42,7 @@
         android:id="@+id/listview">
         
     </ListView>
+
+    <include layout="@layout/include_loading_view"/>
 
 </RelativeLayout>

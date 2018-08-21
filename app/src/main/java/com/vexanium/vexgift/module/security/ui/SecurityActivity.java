@@ -30,6 +30,10 @@ public class SecurityActivity extends BaseActivity {
     private View notifView;
     private User user;
 
+    public static MoreFragment newInstance() {
+        return new MoreFragment();
+    }
+
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
@@ -131,10 +135,6 @@ public class SecurityActivity extends BaseActivity {
     private void intentToActivity(Class<? extends Activity> activity) {
         Intent intent = new Intent(SecurityActivity.this, activity);
         startActivity(intent);
-    }
-
-    public static MoreFragment newInstance() {
-        return new MoreFragment();
     }
 
 }

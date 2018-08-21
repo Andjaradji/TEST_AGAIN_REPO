@@ -27,7 +27,15 @@ import io.fabric.sdk.android.Fabric;
  */
 
 public class App extends Application {
+    public static Typeface bold;
+    public static Typeface regular;
+    public static Typeface medium;
+    public static Typeface light;
+    public static Typeface hnBoldCond;
+    public static Typeface hnMed;
     private static Context mApplicationContext;
+    private DaoSession mDaoSession;
+    private Thread.UncaughtExceptionHandler mExceptionHandler;
 
     public static App getApplication() {
         return (App) mApplicationContext;
@@ -37,16 +45,39 @@ public class App extends Application {
         return mApplicationContext;
     }
 
-    public static Typeface bold;
-    public static Typeface regular;
-    public static Typeface medium;
-    public static Typeface light;
-    public static Typeface hnBoldCond;
-    public static Typeface hnMed;
+    public static void setTextViewStyle(ViewGroup root) {
+        final int childCount = root.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View child = root.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                setTextViewStyle((ViewGroup) child);
 
-    private DaoSession mDaoSession;
+            } else if (child instanceof TextView) {
+                final Object tagObj = child.getTag();
+                if (tagObj != null) {
+//                    KLog.v("HPtes Masuk "+tagObj);
+                    if (tagObj.equals("bold"))
+                        ((TextView) child).setTypeface(bold);
+                    else if (tagObj.equals("medium"))
+                        ((TextView) child).setTypeface(medium);
+                    else if (tagObj.equals("light"))
+                        ((TextView) child).setTypeface(light);
+                    else if (tagObj.equals("hnBoldCond"))
+                        ((TextView) child).setTypeface(hnBoldCond);
+                    else if (tagObj.equals("hnMed"))
+                        ((TextView) child).setTypeface(hnMed);
+                    else
+                        ((TextView) child).setTypeface(regular);
+                }
+            }
+        }
+    }
 
-    private Thread.UncaughtExceptionHandler mExceptionHandler;
+    public static void setTextViewStyle(Typeface typeface, TextView... textView) {
+        for (TextView tv : textView) {
+            tv.setTypeface(typeface);
+        }
+    }
 
     @Override
     public void onCreate() {
@@ -105,39 +136,5 @@ public class App extends Application {
         light = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Light.ttf");
         hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
         hnMed = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueMed.ttf");
-    }
-
-    public static void setTextViewStyle(ViewGroup root) {
-        final int childCount = root.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            final View child = root.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                setTextViewStyle((ViewGroup) child);
-
-            } else if (child instanceof TextView) {
-                final Object tagObj = child.getTag();
-                if (tagObj != null) {
-//                    KLog.v("HPtes Masuk "+tagObj);
-                    if (tagObj.equals("bold"))
-                        ((TextView) child).setTypeface(bold);
-                    else if (tagObj.equals("medium"))
-                        ((TextView) child).setTypeface(medium);
-                    else if (tagObj.equals("light"))
-                        ((TextView) child).setTypeface(light);
-                    else if (tagObj.equals("hnBoldCond"))
-                        ((TextView) child).setTypeface(hnBoldCond);
-                    else if (tagObj.equals("hnMed"))
-                        ((TextView) child).setTypeface(hnMed);
-                    else
-                        ((TextView) child).setTypeface(regular);
-                }
-            }
-        }
-    }
-
-    public static void setTextViewStyle(Typeface typeface, TextView... textView) {
-        for (TextView tv : textView) {
-            tv.setTypeface(typeface);
-        }
     }
 }

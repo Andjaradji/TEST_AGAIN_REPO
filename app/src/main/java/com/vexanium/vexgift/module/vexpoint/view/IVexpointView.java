@@ -5,7 +5,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 
 import java.io.Serializable;
 
-public interface IVexpointView extends BaseView{
+public interface IVexpointView extends BaseView {
     void handleResult(Serializable data, HttpResponse errorResponse);
 
 }
