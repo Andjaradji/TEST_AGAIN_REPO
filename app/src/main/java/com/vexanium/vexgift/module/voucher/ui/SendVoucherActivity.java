@@ -74,10 +74,6 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                     getString(R.string.free) :
                     String.format(getString(R.string.vex_point_format), voucher.getPrice()));
 
-            if (voucher.isForPremium())
-                findViewById(R.id.iv_premium).setVisibility(View.VISIBLE);
-            else
-                findViewById(R.id.iv_premium).setVisibility(View.GONE);
 
         }
 
