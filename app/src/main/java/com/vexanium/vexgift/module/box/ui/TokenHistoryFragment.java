@@ -64,7 +64,7 @@ public class TokenHistoryFragment extends BaseFragment {
         if(getActivity()!=null){
             context = getActivity();
         }
-        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -73,10 +73,6 @@ public class TokenHistoryFragment extends BaseFragment {
         mRecyclerview = fragmentRootView.findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
-
-        Random random = new Random();
-        //data = FixtureData.getRandomVoucherResponse(random.nextInt(5) + 2, true);
-        //setVoucherList(data);
 
         data = new ArrayList<>();
         setVoucherList(data);
@@ -126,7 +122,6 @@ public class TokenHistoryFragment extends BaseFragment {
                     holder.setText(R.id.tv_banner_quota, "Out of stock");
                 else
                     holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-//                        holder.setImageUrl(R.id.iv_brand_image, item.getVoucher().getBrand().getPhoto(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override

@@ -54,9 +54,6 @@ public class User implements Serializable {
     @JsonProperty("last_login")
     private String lastTimestamp;
 
-    @JsonProperty("config")
-    private SettingCondition config;
-
     @JsonProperty("mutual_friends")
     private List<String> friendList = new ArrayList<>();
     @JsonProperty("profile_images")
@@ -120,7 +117,6 @@ public class User implements Serializable {
     private List<String> facebookLocationIdList;
     @JsonProperty("fb_friend_count")
     private int facebookFriendCount;
-    private List<Album> albumList = new ArrayList<>();
 
     private static User currentUser;
 
@@ -479,14 +475,6 @@ public class User implements Serializable {
         this.lastTimestamp = lastTimestamp;
     }
 
-    public SettingCondition getConfig() {
-        return config;
-    }
-
-    public void setConfig(SettingCondition config) {
-        this.config = config;
-    }
-
     public List<String> getFriendList() {
         return friendList;
     }
@@ -557,14 +545,6 @@ public class User implements Serializable {
 
     public void setFacebookFriendCount(int facebookFriendCount) {
         this.facebookFriendCount = facebookFriendCount;
-    }
-
-    public List<Album> getAlbumList() {
-        return albumList;
-    }
-
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
     }
 
     public List<String> getProfileList() {

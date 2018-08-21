@@ -84,7 +84,7 @@
             android:name=".module.voucher.ui.VoucherActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.detail.ui.VoucherDetailActivity"
+            android:name=".module.voucher.ui.VoucherDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.voucher.ui.VoucherRedeemActivity"

@@ -120,6 +120,11 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
     public void requestTokenList(int id) {
         Subscription subscription = mInteractor.requestVoucherList(this, id, 4);
         compositeSubscription.add(subscription);
+    }
 
+    @Override
+    public void requestBuyVoucher(int userId, int voucherId, String token) {
+        Subscription subscription = mInteractor.requestBuyVoucher(this, userId, voucherId, token);
+        compositeSubscription.add(subscription);
     }
 }

@@ -65,7 +65,7 @@ public class TokenFragment extends BaseFragment {
             context = getActivity();
         }
 
-        mRefreshLayout = (SwipeRefreshLayout)fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -74,10 +74,6 @@ public class TokenFragment extends BaseFragment {
         mRecyclerview = fragmentRootView.findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
-
-        Random random = new Random();
-        //data = FixtureData.getRandomVoucherResponse(random.nextInt(5) + 2, true);
-        //setVoucherList(data);
 
         data = new ArrayList<>();
         setVoucherList(data);

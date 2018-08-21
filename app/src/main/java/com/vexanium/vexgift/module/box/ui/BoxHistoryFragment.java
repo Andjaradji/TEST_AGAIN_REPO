@@ -23,12 +23,6 @@ import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_history)
 public class BoxHistoryFragment extends BaseFragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
 
     private static final int VOUCHER_HISTORY_FRAGMENT = 0;
     private static final int TOKEN_HISTORY_FRAGMENT = 1;
@@ -47,9 +41,9 @@ public class BoxHistoryFragment extends BaseFragment {
     @Override
     protected void initView(View fragmentRootView) {
 
-        mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
-        mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
-        mBackButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_back);
+        mViewPager = fragmentRootView.findViewById(R.id.vp_box);
+        mTabBarView = fragmentRootView.findViewById(R.id.ittbv_tabview);
+        mBackButton = fragmentRootView.findViewById(R.id.ib_back);
 
         mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
@@ -77,7 +71,6 @@ public class BoxHistoryFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle bundle = getArguments();
         if (getParentFragment() instanceof BoxFragmentChangeListener) {
             listener = (BoxFragmentChangeListener) getParentFragment();
         }
@@ -147,4 +140,4 @@ public class BoxHistoryFragment extends BaseFragment {
         return new BoxHistoryFragment();
     }
 
-    }
+}

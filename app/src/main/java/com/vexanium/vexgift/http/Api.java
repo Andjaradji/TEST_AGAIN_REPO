@@ -20,7 +20,6 @@ public class Api {
     public static final String WEB_HOST = "http://www.vexanium.com/";
     public static final String STATIC_CDN_HOST = "http://cdn.vexanium.com/";
     public static final String SHORT_HOST = "http://";
-    public static final String API_KEY = "8613f2d52312f57a028464ab63e03c90b5297a07d7c813bf25";
 
 
     public static String getHost(int hostType) {
@@ -57,16 +56,6 @@ public class Api {
         KLog.v("--------------------------------------------Response Basic Param End----------------------------------------------------");
 
         return map;
-    }
-
-    public static HashMap<String, Object> getLoginParam() {
-        HashMap<String, Object> params = getBasicParam();
-        params.put("dvc", getDeviceName());
-        KLog.v("--------------------------------------------Request Login Param Start----------------------------------------------------");
-        KLog.json(params.toString());
-        KLog.v("--------------------------------------------Response Login Param End----------------------------------------------------");
-
-        return params;
     }
 
     private static String getDeviceName() {

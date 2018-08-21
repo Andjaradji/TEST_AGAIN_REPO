@@ -24,4 +24,6 @@ public interface IVoucherInteractor<T> {
     Subscription requestGetGiftCode(RequestCallback<T> callback, int userId, int voucherCodeId, String token);
 
     Subscription requestClaimGiftCode(RequestCallback<T> callback, int userId, int voucherCodeId, String token);
+
+    Subscription requestBuyVoucher(RequestCallback<T> callback, int userId, int voucherId, String token);
 }

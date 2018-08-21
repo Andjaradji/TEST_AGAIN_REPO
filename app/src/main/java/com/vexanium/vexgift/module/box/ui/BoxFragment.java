@@ -56,15 +56,15 @@ public class BoxFragment extends BaseFragment {
     @Override
     protected void initView(View fragmentRootView) {
 
-        mHistoryButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_history);
-        mReceiveButton = (ImageButton) fragmentRootView.findViewById(R.id.ib_receive);
+        mHistoryButton =  fragmentRootView.findViewById(R.id.ib_history);
+        mReceiveButton =  fragmentRootView.findViewById(R.id.ib_receive);
 
-        mViewPager = (CustomViewPager) fragmentRootView.findViewById(R.id.vp_box);
-        mTabBarView = (IconTextTabBarView) fragmentRootView.findViewById(R.id.ittbv_tabview);
+        mViewPager = fragmentRootView.findViewById(R.id.vp_box);
+        mTabBarView = fragmentRootView.findViewById(R.id.ittbv_tabview);
 
-        mNotifBar = (RelativeLayout) fragmentRootView.findViewById(R.id.rl_notif_info);
-        mNotifText = (TextView) fragmentRootView.findViewById(R.id.tv_notif_info);
-        mNotifSeeMore = (TextView) fragmentRootView.findViewById(R.id.tv_notif_see_all);
+        mNotifBar = fragmentRootView.findViewById(R.id.rl_notif_info);
+        mNotifText = fragmentRootView.findViewById(R.id.tv_notif_info);
+        mNotifSeeMore = fragmentRootView.findViewById(R.id.tv_notif_see_all);
 
         mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");

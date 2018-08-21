@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.voucher.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
@@ -140,6 +141,20 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
 
+    }
+
+    @Override
+    public Subscription requestBuyVoucher(RequestCallback callback, int userId, int voucherId, String token) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBuyVoucher(userId, voucherId, token).compose(RxUtil.<EmptyResponse>handleResult())
+                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
+                    @Override
+                    public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(emptyResponse));
+                        return Observable.just(emptyResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
     }
 }
 

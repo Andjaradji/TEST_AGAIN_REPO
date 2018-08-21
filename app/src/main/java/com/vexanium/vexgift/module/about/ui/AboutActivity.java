@@ -20,7 +20,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mWv = (WebView) findViewById(R.id.webview);
+        mWv = findViewById(R.id.webview);
         mLoadingContainer = findViewById(R.id.av_indicator_container);
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);

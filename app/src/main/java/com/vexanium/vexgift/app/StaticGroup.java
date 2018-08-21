@@ -53,7 +53,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
-import com.vexanium.vexgift.module.detail.ui.VoucherDetailActivity;
+import com.vexanium.vexgift.module.voucher.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
