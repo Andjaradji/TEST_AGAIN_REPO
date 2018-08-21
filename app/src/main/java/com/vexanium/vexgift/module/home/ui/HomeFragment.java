@@ -91,7 +91,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<Voucher> vouchers;
-    private Random random;
 
     private ArrayList<Voucher> hotVoucherList;
     private BaseRecyclerAdapter<Voucher> mHotAdapter;
@@ -150,12 +149,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (mRecyclerview.computeVerticalScrollOffset() == 0 && appBarLayout.getElevation() != 0) {
+
+                mSrlHome.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
+            }
+        });
+
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mRecyclerview.computeVerticalScrollOffset() <= 10 && appBarLayout.getElevation() != 0) {
                     animator.start();
                 } else if (mRecyclerview.computeVerticalScrollOffset() > 10 && appBarLayout.getElevation() != 10) {
                     appBarLayout.setElevation(10);
                 }
-                mSrlHome.setEnabled(layoutListManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
             }
         });
 

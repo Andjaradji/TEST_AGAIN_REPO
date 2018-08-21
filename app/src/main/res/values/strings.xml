@@ -402,6 +402,7 @@
     <string name="exchange_send_voucher_button_cancel">Cancel</string>
     <string name="exchange_send_voucher_button_view">View</string>
     <string name="exchange_send_voucher_ga_hint">Google Authenticator PIN</string>
+    <string name="exchange_send_voucher_share_text">Hi there! I have a gift for you. A %s\'s Voucher. Please open vexgift (%s) and use below code to get voucher\n\nCode: %s</string>
 
     <string name="exchange_receive_voucher_success_dialog_title">Success</string>
     <string name="exchange_receive_voucher_success_dialog_content">You got %s\'s Voucher, Check your voucher in My Box now</string>

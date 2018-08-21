@@ -165,8 +165,6 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             case R.id.btn_redeem:
                 switch (state) {
                     case VOUCHER_3RD:
-                        doSimulate3rdVoucherRedeem();
-                        break;
                     case VOUCHER_ONLINE:
                     case VOUCHER_VENDOR:
                         doRedeem();
@@ -175,10 +173,14 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         doDeactive();
                         break;
                     case VOUCHER_3RD_REDEEMED:
-                        intent = new Intent(VoucherRedeemActivity.this, VoucherWebViewActivity.class);
-                        intent.putExtra("url", voucherCode.getVoucherCode());
-                        intent.putExtra("voucher", JsonUtil.toString(voucher));
-                        startActivity(intent);
+                        if(!TextUtils.isEmpty(voucherCode.getVoucherCode())) {
+                            intent = new Intent(VoucherRedeemActivity.this, VoucherWebViewActivity.class);
+                            intent.putExtra("url", voucherCode.getVoucherCode());
+                            intent.putExtra("voucher", JsonUtil.toString(voucher));
+                            startActivity(intent);
+                        }else{
+                            StaticGroup.showCommonErrorDialog(this, 12);
+                        }
 
                 }
                 break;
@@ -192,18 +194,18 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 VoucherCodeResponse voucherCodeResponse = (VoucherCodeResponse) data;
 
                 if (voucherCodeResponse != null && voucherCodeResponse.getVoucherCode() != null) {
-                    if (voucherCodeResponse.getVoucherCode().getVoucher() != null) {
 
-                        Voucher voucher = voucherCodeResponse.getVoucherCode().getVoucher();
+//                        Voucher voucher = voucherCodeResponse.getVoucherCode().getVoucher();
 
-                        if (voucher.isThirdParty()) {
-                            state = VOUCHER_3RD_REDEEMED;
-                        } else if (voucher.isOnlineCode()) {
-                            state = VOUCHER_ONLINE_REDEEMED;
-                        } else if (voucher.isVendorCode()) {
-                            state = VOUCHER_VENDOR_IN_REDEEM_PROCESS;
-                        }
-                    } else if (voucherCodeResponse.getVoucherCode().isDeactivated()) {
+                    if (voucher.isThirdParty()) {
+                        voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
+                        state = VOUCHER_3RD_REDEEMED;
+                    } else if (voucher.isOnlineCode()) {
+                        state = VOUCHER_ONLINE_REDEEMED;
+                    } else if (voucher.isVendorCode()) {
+                        state = VOUCHER_VENDOR_IN_REDEEM_PROCESS;
+                    }
+                    if (voucherCodeResponse.getVoucherCode().isDeactivated()) {
                         state = VOUCHER_VENDOR_REDEEMED;
                     }
                     updateView();
@@ -211,13 +213,13 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if(NetworkUtil.isOnline(this)) {
+            if (NetworkUtil.isOnline(this)) {
                 if (errorResponse.getMeta().isRequestError()) {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
                 } else {
                     StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
                 }
-            }else{
+            } else {
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
         }
@@ -365,6 +367,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
+                findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));

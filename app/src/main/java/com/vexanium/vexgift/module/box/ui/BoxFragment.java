@@ -70,6 +70,7 @@ public class BoxFragment extends BaseFragment {
         mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
+        mViewPager.setPagingEnabled(true);
         mViewPager.setAdapter(boxPagerAdapter);
         mViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mViewPager.setCurrentItem(0, false);

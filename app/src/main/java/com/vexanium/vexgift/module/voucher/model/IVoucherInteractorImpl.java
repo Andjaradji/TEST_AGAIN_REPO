@@ -2,11 +2,11 @@ package com.vexanium.vexgift.module.voucher.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
+import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
@@ -92,10 +92,10 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
 
     @Override
     public Subscription requestGetGiftCode(RequestCallback callback, int userId, int voucherCodeId, String token) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestGetGiftCode(userId, voucherCodeId, token).compose(RxUtil.<VoucherGiftCode>handleResult())
-                .flatMap(new Func1<VoucherGiftCode, Observable<VoucherGiftCode>>() {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestGetGiftCode(userId, voucherCodeId, token).compose(RxUtil.<VoucherGiftCodeResponse>handleResult())
+                .flatMap(new Func1<VoucherGiftCodeResponse, Observable<VoucherGiftCodeResponse>>() {
                     @Override
-                    public Observable<VoucherGiftCode> call(VoucherGiftCode voucherGiftCode) {
+                    public Observable<VoucherGiftCodeResponse> call(VoucherGiftCodeResponse voucherGiftCode) {
                         KLog.json("HPtes", JsonUtil.toString(voucherGiftCode));
                         return Observable.just(voucherGiftCode);
                     }

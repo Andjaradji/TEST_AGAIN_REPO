@@ -400,7 +400,7 @@ public class StaticGroup {
         TpUtil tpUtil = new TpUtil(App.getContext());
         String parentCode = tpUtil.getString(TpUtil.KEY_REFERRER, "");
 
-        if (!TextUtils.isEmpty(parentCode)) {
+        if (TextUtils.isEmpty(parentCode)) {
             try {
                 parentCode = URLDecoder.decode(parentCode, "UTF-8");
                 KLog.v("PARENT TEST", "referDbData.referrer SpUtil : " + parentCode);
@@ -419,6 +419,15 @@ public class StaticGroup {
                     e.printStackTrace();
                 }
             }
+        }
+
+        if (!TextUtils.isEmpty(parentCode)) {
+            Uri uri = Uri.parse("?" + parentCode);
+            KLog.json(JsonUtil.toString(uri));
+            final String invCode = uri.getQueryParameter("i");
+            KLog.v("PARENT TEST", "send Referrer Data : " + parentCode + "     i=" + invCode);
+
+            return invCode;
         }
 
         return parentCode;

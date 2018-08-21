@@ -164,7 +164,7 @@
             android:layout_marginTop="@dimen/interval_small"
             android:background="@drawable/shape_voucher_availability"
             android:gravity="center"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_code"
