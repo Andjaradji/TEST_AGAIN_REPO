@@ -101,22 +101,16 @@
                         android:id="@+id/ll_qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:visibility="invisible">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/voucher"
-                            android:tint="@color/material_black_text_color" />
+                        android:background="@drawable/shape_price_bg"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_banner_quota"
+                            android:id="@+id/tv_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
                             android:tag="bold"
-                            android:textColor="@color/material_black_text_color"
+                            android:text="1200 VP"
+                            android:textColor="@color/material_white"
                             android:textSize="@dimen/text_xtiny" />
                     </LinearLayout>
 

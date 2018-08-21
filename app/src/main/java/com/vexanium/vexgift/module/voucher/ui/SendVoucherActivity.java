@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -67,6 +66,19 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
             ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
             ViewUtil.setText(this, R.id.tv_coupon_exp, voucher.getExpiredDate());
+
+            findViewById(R.id.ll_qty).setBackgroundResource(voucher.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+
+
+            ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() == 0 ?
+                    getString(R.string.free) :
+                    String.format(getString(R.string.vex_point_format), voucher.getPrice()));
+
+            if (voucher.isForPremium())
+                findViewById(R.id.iv_premium).setVisibility(View.VISIBLE);
+            else
+                findViewById(R.id.iv_premium).setVisibility(View.GONE);
+
         }
 
         updateView();
@@ -136,7 +148,6 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
     public void onClick(View v) {
         super.onClick(v);
 
-        Context context = SendVoucherActivity.this;
         String url = "vexgift://receive";
         String text = String.format(getString(R.string.exchange_send_voucher_share_text), voucher.getTitle(), url, code);
         switch (v.getId()) {

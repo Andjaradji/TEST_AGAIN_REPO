@@ -7,7 +7,7 @@
 
     <ImageButton
         android:id="@+id/ib_back"
-        android:src="@drawable/back"
+        android:src="@drawable/ic_back"
         android:background="@color/transparent"
         android:scaleType="fitCenter"
         android:layout_width="48dp"

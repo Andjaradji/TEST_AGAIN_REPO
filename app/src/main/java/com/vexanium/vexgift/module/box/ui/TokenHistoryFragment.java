@@ -19,10 +19,14 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -43,7 +47,8 @@ public class TokenHistoryFragment extends BaseFragment {
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
     private Context context;
-    private ArrayList<VoucherResponse> data;
+    private ArrayList<VoucherCode> data;
+    private User user;
 
     public static TokenHistoryFragment newInstance() {
         return new TokenHistoryFragment();
@@ -61,6 +66,8 @@ public class TokenHistoryFragment extends BaseFragment {
         if (getActivity() != null) {
             context = getActivity();
         }
+        user = User.getCurrentUser(context);
+
         mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
@@ -98,13 +105,9 @@ public class TokenHistoryFragment extends BaseFragment {
         }, 3000);
     }
 
-    public void setVoucherList(final ArrayList<VoucherResponse> data) {
+    public void setVoucherList(final ArrayList<VoucherCode> data) {
 
-        BaseRecyclerAdapter<VoucherResponse> mAdapter = new BaseRecyclerAdapter<VoucherResponse>(context, data, layoutListManager) {
-            @Override
-            public int getItemViewType(int position) {
-                return data.get(position).type;
-            }
+        BaseRecyclerAdapter<VoucherCode> mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -112,19 +115,33 @@ public class TokenHistoryFragment extends BaseFragment {
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherResponse item) {
-                holder.setBnWImageUrl(R.id.iv_coupon_image, item.getVoucher().getPhoto(), R.drawable.voucher);
-                holder.setText(R.id.tv_coupon_title, item.getVoucher().getTitle());
-                if (item.getAvail() == 0)
-                    holder.setText(R.id.tv_banner_quota, "Out of stock");
-                else
-                    holder.setText(R.id.tv_banner_quota, String.format("%s/%s", item.getAvail() + "", item.getStock() + ""));
-                holder.setText(R.id.tv_coupon_exp, item.getVoucher().getExpiredDate());
+            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
+                final Voucher voucher = item.getVoucher();
+                holder.setBnWImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                holder.setText(R.id.tv_coupon_title, voucher.getTitle());
+                holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
+                holder.setViewInvisible(R.id.ll_qty, true);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                                goToVoucherDetailActivity(item);
+//                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                    }
+                });
+
+                if (voucher.isForPremium())
+                    holder.setViewGone(R.id.iv_premium, false);
+                else
+                    holder.setViewGone(R.id.iv_premium, true);
+
+                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (voucher.isForPremium() && !user.isPremiumMember()) {
+                            StaticGroup.showPremiumMemberDialog(TokenHistoryFragment.this.getActivity());
+                        } else {
+//                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        }
                     }
                 });
 
