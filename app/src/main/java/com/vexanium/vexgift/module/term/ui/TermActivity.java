@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.term.ui;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,12 +15,12 @@ import com.vexanium.vexgift.base.BaseActivity;
 @ActivityFragmentInject(contentViewId = R.layout.activity_webview, toolbarTitle = R.string.term_and_condition)
 public class TermActivity extends BaseActivity {
 
-    WebView mWvPrivacy;
+    WebView mWvTerm;
     RelativeLayout mLoadingContainer;
 
     @Override
     protected void initView() {
-        mWvPrivacy = (WebView) findViewById(R.id.webview);
+        mWvTerm = (WebView) findViewById(R.id.webview);
         mLoadingContainer = findViewById(R.id.av_indicator_container);
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
@@ -43,17 +42,17 @@ public class TermActivity extends BaseActivity {
         });
 
         mLoadingContainer.setVisibility(View.VISIBLE);
-        mWvPrivacy.setVisibility(View.GONE);
+        mWvTerm.setVisibility(View.GONE);
 
-        mWvPrivacy.getSettings().setSupportZoom(true);
-        mWvPrivacy.setWebViewClient(new WebViewClient() {
+        mWvTerm.getSettings().setSupportZoom(true);
+        mWvTerm.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                mWvPrivacy.setVisibility(View.VISIBLE);
-                mWvPrivacy.startAnimation(fadeIn);
+                mWvTerm.setVisibility(View.VISIBLE);
+                mWvTerm.startAnimation(fadeIn);
             }
         });
-        mWvPrivacy.loadUrl("http://www.vexgift.com/term.html");
+        mWvTerm.loadUrl("http://www.vexgift.com/term.html");
     }
 
     @Override

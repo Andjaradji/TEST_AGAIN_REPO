@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.home.ui;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -285,7 +286,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void hideProgress() {
-        mAvi.smoothToHide();
+        mAvi.hide();
     }
 
 
@@ -313,7 +314,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data = new ArrayList<>();
         int idx = -1;
 
-        data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
+        //data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
 
         if (hotVoucherList != null && hotVoucherList.size() > 0) {
             data.add(++idx, new HomeFeedResponse(HOT_LIST, hotVoucherList));
@@ -453,10 +454,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             mAdapter.setData(data);
         }
 
-        if (mAdapter.getItemCount() > 0 && mRecyclerview.getVisibility() == View.GONE) {
-            mRecyclerview.setVisibility(View.VISIBLE);
-            mRecyclerview.startAnimation(mFadeIn);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mAdapter.getItemCount() > 0 && mRecyclerview.getVisibility() == View.GONE) {
+                    mRecyclerview.setVisibility(View.VISIBLE);
+                    mRecyclerview.startAnimation(mFadeIn);
+                }
+            }
+        },300);
+
     }
 
     public void setVoucherList(BaseRecyclerViewHolder holder, final ArrayList<Voucher> data) {
