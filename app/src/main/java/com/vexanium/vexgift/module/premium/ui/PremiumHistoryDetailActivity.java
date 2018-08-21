@@ -12,16 +12,9 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.UserAddress;
-import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.UserAddressResponse;
-import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenter;
-import com.vexanium.vexgift.module.premium.presenter.IPremiumPresenterImpl;
-import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;

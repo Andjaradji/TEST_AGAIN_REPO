@@ -42,12 +42,12 @@ import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
+import com.vexanium.vexgift.module.voucher.ui.select.MultiSelectActivity;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.widget.LockableScrollView;
-import com.vexanium.vexgift.module.voucher.ui.select.MultiSelectActivity;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
 

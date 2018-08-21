@@ -8,7 +8,6 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
-import com.vexanium.vexgift.bean.model.MemberType;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.VoucherGiftCode;
 import com.vexanium.vexgift.bean.response.CategoryResponse;

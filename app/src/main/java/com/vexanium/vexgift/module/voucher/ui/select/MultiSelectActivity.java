@@ -25,7 +25,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
-import com.vexanium.vexgift.database.TableContentDao;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;

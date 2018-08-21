@@ -20,7 +20,6 @@ import com.vexanium.vexgift.module.login.presenter.IGoogleAuthPresenter;
 import com.vexanium.vexgift.module.login.presenter.IGoogleAuthPresenterImpl;
 import com.vexanium.vexgift.module.login.view.IGoogleAuthView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
