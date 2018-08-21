@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.home.ui;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -82,6 +84,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
 
+    private LinearLayout mLlErrorView;
+    private ImageView mIvError;
+    private TextView mTvErrorTitle, mTvErrorBody;
+
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<Voucher> vouchers;
@@ -103,6 +109,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter = new IHomePresenterImpl(this);
         user = User.getCurrentUser(this.getActivity());
         mFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_anim);
+
+        mLlErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
+        mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
+        mTvErrorTitle = fragmentRootView.findViewById(R.id.tv_error_head);
+        mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
         mAvi = fragmentRootView.findViewById(R.id.avi);
         mSrlHome = fragmentRootView.findViewById(R.id.srl_home);
@@ -175,6 +186,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mLlErrorView.setVisibility(View.GONE);
                 if(NetworkUtil.isOnline(getActivity())) {
                     updateData();
                 }else{
@@ -205,10 +217,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if (mRecyclerview.getVisibility() == View.GONE) {
-            mRecyclerview.setVisibility(View.VISIBLE);
-            mRecyclerview.startAnimation(mFadeIn);
-        }
         mSrlHome.setEnabled(true);
         if (data != null) {
             if (data instanceof VouchersResponse) {
@@ -242,7 +250,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 if(NetworkUtil.isOnline(getActivity())) {
                     StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), 0);
                 }else{
-                    StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+                    if(mAdapter.getItemCount() > 0) {
+                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+                    }else{
+                        if(mLlErrorView.getVisibility() != View.VISIBLE) {
+                            mLlErrorView.setVisibility(View.VISIBLE);
+                            mLlErrorView.startAnimation(mFadeIn);
+                            mIvError.setImageResource(R.drawable.ic_no_connection);
+                            mTvErrorTitle.setText(getText(R.string.error_internet_header));
+                            mTvErrorBody.setText(getText(R.string.error_internet_body));
+                        }
+                    }
                 }
 
             }
@@ -267,7 +285,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void hideProgress() {
-        mAvi.smoothToHide();
+        mAvi.hide();
     }
 
 
@@ -295,7 +313,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data = new ArrayList<>();
         int idx = -1;
 
-        data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
+        //data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
 
         if (hotVoucherList != null && hotVoucherList.size() > 0) {
             data.add(++idx, new HomeFeedResponse(HOT_LIST, hotVoucherList));
@@ -435,6 +453,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         } else {
             mAdapter.setData(data);
         }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mAdapter.getItemCount() > 0 && mRecyclerview.getVisibility() == View.GONE) {
+                    mRecyclerview.setVisibility(View.VISIBLE);
+                    mRecyclerview.startAnimation(mFadeIn);
+                }
+            }
+        },300);
+
     }
 
     public void setVoucherList(BaseRecyclerViewHolder holder, final ArrayList<Voucher> data) {

@@ -1,10 +1,12 @@
 package com.vexanium.vexgift.module.term.ui;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -13,25 +15,44 @@ import com.vexanium.vexgift.base.BaseActivity;
 @ActivityFragmentInject(contentViewId = R.layout.activity_webview, toolbarTitle = R.string.term_and_condition)
 public class TermActivity extends BaseActivity {
 
-    WebView mWvPrivacy;
+    WebView mWvTerm;
+    RelativeLayout mLoadingContainer;
 
     @Override
     protected void initView() {
-        mWvPrivacy = (WebView) findViewById(R.id.webview);
+        mWvTerm = (WebView) findViewById(R.id.webview);
+        mLoadingContainer = findViewById(R.id.av_indicator_container);
 
-        final ProgressDialog pd = ProgressDialog.show(this, "", "Loading...",true);
-
-        mWvPrivacy.getSettings().setSupportZoom(true);
-        mWvPrivacy.setWebViewClient(new WebViewClient() {
+        final Animation fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in_anim);
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onPageFinished(WebView view, String url) {
-                if(pd!=null && pd.isShowing())
-                {
-                    pd.dismiss();
-                }
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mLoadingContainer.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
             }
         });
-        mWvPrivacy.loadUrl("http://www.vexgift.com/term.html");
+
+        mLoadingContainer.setVisibility(View.VISIBLE);
+        mWvTerm.setVisibility(View.GONE);
+
+        mWvTerm.getSettings().setSupportZoom(true);
+        mWvTerm.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                mWvTerm.setVisibility(View.VISIBLE);
+                mWvTerm.startAnimation(fadeIn);
+            }
+        });
+        mWvTerm.loadUrl("http://www.vexgift.com/term.html");
     }
 
     @Override

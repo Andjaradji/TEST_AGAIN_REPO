@@ -33,6 +33,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <include layout="@layout/include_loading_view_white" />
+
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
@@ -40,7 +42,5 @@
         android:layout_below="@id/app_bar">
 
     </WebView>
-
-    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

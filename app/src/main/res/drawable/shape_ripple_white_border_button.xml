@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="@color/material_grey_ee">
+<item android:id="@android:id/mask">
+    <shape android:shape="rectangle">
+        <corners android:radius="4dp"/>
+        <stroke android:color="@color/material_grey_f9" android:width="1dp"></stroke>
+        <padding android:bottom="@dimen/input_field_padding"
+            android:top="@dimen/input_field_padding"
+            android:right="@dimen/input_field_padding"
+            android:left="@dimen/input_field_padding"/>
+    </shape>
+</item>
+
+<item android:id="@android:id/background">
+    <shape android:shape="rectangle">
+        <corners android:radius="4dp"/>
+        <stroke android:color="@color/material_white" android:width="1dp"></stroke>
+        <padding android:bottom="@dimen/input_field_padding"
+            android:top="@dimen/input_field_padding"
+            android:right="@dimen/input_field_padding"
+            android:left="@dimen/input_field_padding"/>
+    </shape>
+</item>
+</ripple>

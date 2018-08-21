@@ -62,7 +62,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private ViewPager mPagerVp;
     private Observable<Integer> mVpObservable;
     private Observable<Integer> mVexAddressObservable;
-    private View mVpShadow;
+    //private View mVpShadow;
 
     private View notifView;
 
@@ -201,8 +201,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             mTvVp.setText("" + user.getVexPoint());
             mTvVpGen.setText("" + 150);
 
-            mVpShadow = findViewById(R.id.v_vexpoint_shadow);
-
             String pointRecord = getResources().getString(R.string.vexpoint_point_record);
             String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
 
@@ -222,7 +220,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             //AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f,1f);
             //alphaAnimation.setDuration(1500);
             //alphaAnimation.setFillAfter(true);
-            mVpShadow.setVisibility(View.VISIBLE);
             //mVpShadow.animate().alpha(1).setDuration(1000);
 
             notifView = findViewById(R.id.rl_notif_info);
