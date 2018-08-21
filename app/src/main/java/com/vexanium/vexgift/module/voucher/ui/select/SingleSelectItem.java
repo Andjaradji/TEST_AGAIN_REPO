@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.widget.select;
+package com.vexanium.vexgift.module.voucher.ui.select;
 
 public class SingleSelectItem {
     public String key;

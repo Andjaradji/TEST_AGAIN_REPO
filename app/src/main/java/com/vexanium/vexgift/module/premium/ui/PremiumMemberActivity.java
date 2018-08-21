@@ -144,9 +144,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalAccessException e) {
         }
 
-        if(User.getUserAddress() == null){
+        if (User.getUserAddress() == null) {
             callUserActAddress();
-        }else {
+        } else {
             callPremiumDueDate();
             callPremiumHistoryList();
         }
@@ -176,10 +176,10 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ib_history:
-                Intent intent = new Intent(this,PremiumHistoryActivity.class);
-                intent.putExtra("premium_history_list",mPremiumHistoryList);
+                Intent intent = new Intent(this, PremiumHistoryActivity.class);
+                intent.putExtra("premium_history_list", mPremiumHistoryList);
                 startActivity(intent);
                 break;
 
@@ -192,9 +192,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
         } else {
-            if(mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0) {
+            if (mPremiumHistoryList != null && mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0) {
                 doBuy(data);
-            }else{
+            } else {
                 showPendingWarning();
             }
         }
@@ -206,13 +206,13 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             if (data instanceof PremiumListResponse) {
                 PremiumListResponse premiumListResponse = (PremiumListResponse) data;
                 setPremiumPlanList(premiumListResponse);
-            } else if( data instanceof PremiumPurchaseResponse) {
+            } else if (data instanceof PremiumPurchaseResponse) {
                 PremiumPurchaseResponse premiumPurchaseResponse = (PremiumPurchaseResponse) data;
-                Intent intent = new Intent(PremiumMemberActivity.this,PremiumHistoryDetailActivity.class);
-                intent.putExtra("premium_history_detail",premiumPurchaseResponse.getPremiumPurchase());
+                Intent intent = new Intent(PremiumMemberActivity.this, PremiumHistoryDetailActivity.class);
+                intent.putExtra("premium_history_detail", premiumPurchaseResponse.getPremiumPurchase());
                 startActivity(intent);
                 mPresenter.requestUserPremiumHistory(user.getId());
-            } else if( data instanceof PremiumHistoryResponse){
+            } else if (data instanceof PremiumHistoryResponse) {
                 mPremiumHistoryList = ((PremiumHistoryResponse) data).getPremiumPurchase();
                 Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
                     @Override
@@ -221,13 +221,13 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                     }
                 });
                 mHistoryButton.setEnabled(true);
-            } else if( data instanceof PremiumDueDateResponse){
+            } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);
-                User.updateCurrentUser(PremiumMemberActivity.this,user);
+                User.updateCurrentUser(PremiumMemberActivity.this, user);
 
                 validatePremiumView(user.getPremiumUntil());
-            } else if( data instanceof UserAddressResponse){
+            } else if (data instanceof UserAddressResponse) {
                 UserAddress userAddress = ((UserAddressResponse) data).getUserAddress();
                 TpUtil tpUtil = new TpUtil(this);
                 tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
@@ -236,7 +236,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                     callPremiumHistoryList();
                     callPremiumDueDate();
                     mHistoryButton.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     mHistoryButton.setVisibility(View.GONE);
                 }
             }
@@ -246,11 +246,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
-    public void validatePremiumView(long premiumDueDate){
+    public void validatePremiumView(long premiumDueDate) {
         if (premiumDueDate > 0) {
             updateView(1);
             String ts = getTimeStampDate(premiumDueDate);
-            mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium),ts));
+            mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium), ts));
         } else {
             updateView(0);
         }
@@ -343,15 +343,15 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
-    private void callUserActAddress(){
+    private void callUserActAddress() {
         mPresenter.requestGetActAddress(user.getId());
     }
 
-    private void callPremiumDueDate(){
+    private void callPremiumDueDate() {
         mPresenter.requestUserPremiumDueDate(user.getId());
     }
 
-    private void callPremiumHistoryList(){
+    private void callPremiumHistoryList() {
         mPresenter.requestUserPremiumHistory(user.getId());
     }
 
@@ -359,8 +359,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mPresenter.requestPremiumList(user.getId());
     }
 
-    private void callPurchasePremium(PremiumPlan plan){
-        mPresenter.purchasePremium(user.getId(),plan.getDuration(),plan.getPrice(),plan.getCurrency());
+    private void callPurchasePremium(PremiumPlan plan) {
+        mPresenter.purchasePremium(user.getId(), plan.getDuration(), plan.getPrice(), plan.getCurrency());
     }
 
     private void updateView(int viewType) {
@@ -379,7 +379,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
-    private void showPendingWarning(){
+    private void showPendingWarning() {
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)
                 .title(getString(R.string.premium_already_in_progress_title))
@@ -389,8 +389,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        Intent intent = new Intent(PremiumMemberActivity.this,PremiumHistoryDetailActivity.class);
-                        intent.putExtra("premium_history_detail",mPremiumHistoryList.get(0));
+                        Intent intent = new Intent(PremiumMemberActivity.this, PremiumHistoryDetailActivity.class);
+                        intent.putExtra("premium_history_detail", mPremiumHistoryList.get(0));
                         startActivity(intent);
                         dialog.dismiss();
                     }
@@ -406,7 +406,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .show();
     }
 
-    private void doBuy(final PremiumPlan plan){
+    private void doBuy(final PremiumPlan plan) {
 
         View view = View.inflate(this, R.layout.include_buy_premium_confirmation, null);
         final TextView tvDay = view.findViewById(R.id.tv_premium_confirmation_day);
@@ -429,9 +429,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        if(User.getUserAddress() != null) {
+                        if (User.getUserAddress() != null) {
                             callPurchasePremium(plan);
-                        }else{
+                        } else {
 
                         }
                         dialog.dismiss();
@@ -448,7 +448,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .show();
     }
 
-    public String getTimeStampDate(long timeStamp){
+    public String getTimeStampDate(long timeStamp) {
         long l = TimeUnit.SECONDS.toMillis(timeStamp);
 
         Calendar calendar = Calendar.getInstance();

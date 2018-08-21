@@ -80,9 +80,6 @@
             android:name=".module.login.ui.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.token.ui.TokenActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".module.voucher.ui.VoucherActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -116,7 +113,7 @@
             android:name=".module.login.ui.GoogleAuthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".widget.select.MultiSelectActivity"
+            android:name=".module.voucher.ui.select.MultiSelectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.security.ui.GoogleAuthSettingActivity"

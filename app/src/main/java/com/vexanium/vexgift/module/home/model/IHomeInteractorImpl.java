@@ -20,7 +20,7 @@ public class IHomeInteractorImpl implements IHomeInteractor {
     @Override
     public Subscription requestVoucherList(RequestCallback callback, int id) {
 
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestVoucherList(id).compose(RxUtil.<VouchersResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestVoucherList(id, 0).compose(RxUtil.<VouchersResponse>handleResult())
                 .flatMap(new Func1<VouchersResponse, Observable<VouchersResponse>>() {
                     @Override
                     public Observable<VouchersResponse> call(VouchersResponse vouchersResponse) {

@@ -3,9 +3,17 @@ package com.vexanium.vexgift.module.voucher.presenter;
 import com.vexanium.vexgift.base.BasePresenter;
 
 public interface IVoucherPresenter extends BasePresenter {
+    void requestCategories(int id);
+
+    void requestVoucherList(int id);
+
+    void requestTokenList(int id);
+
     void requestMemberType(int userId);
 
     void requestPaymentType(int userId);
+
+    void requestVoucherType(int userId);
 
     void requestLocation(int userId);
 

@@ -42,7 +42,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
-import com.vexanium.vexgift.module.token.ui.TokenActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -378,7 +377,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), TokenActivity.class);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    intent.putExtra("isToken", true);
                                     startActivity(intent);
                                 }
                             });
