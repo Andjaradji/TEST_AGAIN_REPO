@@ -120,7 +120,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
-                        android:text="Security"
+                        android:text="@string/more_security"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -132,7 +132,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
-                        android:text="Setting"
+                        android:text="@string/more_setting"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -151,13 +151,14 @@
                             android:paddingBottom="8dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="4dp"
-                            android:text="Premium Member"
+                            android:text="@string/more_premium_member"
                             android:textColor="@color/material_black_text_color"
                             android:textSize="@dimen/text_small_medium" />
 
                         <ImageView
                             android:id="@+id/iv_premium_crown"
                             android:src="@drawable/ic_crown"
+                            android:visibility="gone"
                             android:layout_height="match_parent"
                             android:layout_width="wrap_content"
                             android:paddingTop="10dp"
