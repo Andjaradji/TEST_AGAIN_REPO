@@ -474,11 +474,11 @@
 
     <string name="appversion_need_update_title">We are sorry</string>
     <string name="appversion_need_update_subtitle">Update is Required</string>
-    <string name="appversion_need_update_desc">Using an outdated version will cause trouble in using the service. Get more Cash by updating to latest version now.</string>
+    <string name="appversion_need_update_desc">Using an outdated version will cause trouble in using the service. Get more Benefit by updating to latest version now.</string>
     <string name="appversion_need_update_goto_gp">Go to Google Play in %ds.</string>
     <string name="appversion_need_update_button">Update now</string>
     <string name="appversion_need_update_version_current">Current version : %s</string>
-    <string name="appversion_need_update_version_new">Newest version : %s</string>
+    <string name="appversion_need_update_version_new">Latest version : %s</string>
 
     <string name="cm_dialog_all_error_title">Error Occurred</string>
     <string name="cm_dialog_all_error_desc">Oops, a problem occured!\nPlease try again in a few minutes.\nPlease contact our customer service, if the problem continue. \nerror code : %s</string>

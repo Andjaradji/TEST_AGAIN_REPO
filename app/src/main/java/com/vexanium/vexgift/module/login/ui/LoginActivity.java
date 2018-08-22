@@ -28,6 +28,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.ConstantGroup;
@@ -35,13 +36,16 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -57,6 +61,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
+import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
@@ -100,32 +105,46 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 //        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
-        checkAppVersion();
+//        checkAppVersion();
+        if (checkLoginInfo()) {
+            User user = User.getCurrentUser(this);
+            mPresenter.requestSetting(user.getId());
+        } else {
+            mPresenter.requestAppStatus();
+        }
     }
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("LoginActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-            UserLoginResponse response = (UserLoginResponse) data;
-// TODO: 17/08/18 remove true 
-            if (response.user != null && (response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
-                StaticGroup.removeReferrerData();
+            if (data instanceof UserLoginResponse) {
+                UserLoginResponse response = (UserLoginResponse) data;
+                if (response.user != null && (response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+                    StaticGroup.removeReferrerData();
 
-                StaticGroup.userSession = response.user.getSessionKey();
-                StaticGroup.isPasswordSet = response.isPasswordSet;
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    StaticGroup.isPasswordSet = response.isPasswordSet;
 
-                User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
-                User.updateCurrentUser(this.getApplicationContext(), response.user);
+                    User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
+                    User.updateCurrentUser(this.getApplicationContext(), response.user);
 
-                User.google2faLock(response.user);
+                    User.google2faLock(response.user);
 
-                executeMain(false);
-            } else if (response.user != null && !response.user.getEmailConfirmationStatus()) {
-                StaticGroup.userSession = response.user.getSessionKey();
-                Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
-                intent.putExtra("user", JsonUtil.toString(response.user));
-                startActivity(intent);
+                    executeMain(false);
+                } else if (response.user != null && !response.user.getEmailConfirmationStatus()) {
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
+                    intent.putExtra("user", JsonUtil.toString(response.user));
+                    startActivity(intent);
+                }
+            } else if (data instanceof SettingResponse) {
+                SettingResponse settingResponse = (SettingResponse) data;
+                if (checkLoginInfo()) {
+                    TablePrefDaoUtil.getInstance().saveSettingToDb(JsonUtil.toString(settingResponse));
+                }
+
+                checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }
 
         } else if (errorResponse != null) {
@@ -217,20 +236,51 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
     }
 
-    private void checkAppVersion() {
-        boolean isNeedUpdate = false;
-        boolean isNeedForceUpdate = false;
+    private void checkApp(long minimumVersion, long isMaintenance) {
+        long currentVersion = BuildConfig.VERSION_CODE;
+        boolean isNeedUpdate = currentVersion < minimumVersion;
 
-        if (isNeedUpdate) {
-            findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
+        if (isMaintenance == 1) {
+            findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_need_update).setVisibility(View.GONE);
             findViewById(R.id.ll_login).setVisibility(View.GONE);
+
+            findViewById(R.id.tv_contact).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    String subject = String.format("[URGENT]");
+                    String message = "Hi Vexgift Support!\nI've urgent problem with...";
+                    StaticGroup.shareWithEmail(LoginActivity.this, SUPPORT_EMAIL, subject, message);
+                }
+            });
+        } else if (isNeedUpdate) {
+            findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_maintenance).setVisibility(View.GONE);
+            findViewById(R.id.ll_login).setVisibility(View.GONE);
+
+            String newVersion = String.format(getString(R.string.appversion_need_update_version_new), String.valueOf(minimumVersion));
+            String oldVersion = String.format(getString(R.string.appversion_need_update_version_new), String.valueOf(currentVersion));
+
+            findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    StaticGroup.openVexgiftGooglePlay(LoginActivity.this);
+                }
+            });
+
+            ViewUtil.setText(this, R.id.tv_version, oldVersion);
+            ViewUtil.setText(this, R.id.tv_version_new, newVersion);
+
+            startCoundownTimer();
         } else {
             initialize();
         }
     }
 
     private void startCoundownTimer() {
-        currentCountdown = 5;
+        currentCountdown = 8;
         Observable.interval(1000, 1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {

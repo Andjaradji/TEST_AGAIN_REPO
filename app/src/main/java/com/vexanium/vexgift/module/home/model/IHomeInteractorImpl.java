@@ -3,6 +3,8 @@ package com.vexanium.vexgift.module.home.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.Kyc;
+import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -45,5 +47,25 @@ public class IHomeInteractorImpl implements IHomeInteractor {
                 .subscribe(new BaseSubscriber<>(callback));
     }
 
+    @Override
+    public Subscription requestBestVoucherList(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBestVoucherList(id).compose(RxUtil.<BestVoucherResponse>handleResult())
+                .flatMap(new Func1<BestVoucherResponse, Observable<?>>() {
+                    @Override
+                    public Observable<BestVoucherResponse> call(BestVoucherResponse bestVoucherResponse) {
+                        return Observable.just(bestVoucherResponse);
+                    }
+                }).subscribe(new BaseSubscriber<>(callback));
+    }
 
+    @Override
+    public Subscription requestFeaturedVoucherList(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestFeaturedVoucherList(id).compose(RxUtil.<FeaturedVoucherResponse>handleResult())
+                .flatMap(new Func1<FeaturedVoucherResponse, Observable<?>>() {
+                    @Override
+                    public Observable<FeaturedVoucherResponse> call(FeaturedVoucherResponse bestVoucherResponse) {
+                        return Observable.just(bestVoucherResponse);
+                    }
+                }).subscribe(new BaseSubscriber<>(callback));
+    }
 }
