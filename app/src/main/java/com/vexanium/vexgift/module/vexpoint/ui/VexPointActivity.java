@@ -48,6 +48,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 
+import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_vexpoint, withLoadingAnim = false)
 public class VexPointActivity extends BaseActivity<IVexpointPresenter> implements IVexpointView {
 
@@ -199,8 +201,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             mTabVp = findViewById(R.id.tab_vexpoint);
             mPagerVp = findViewById(R.id.vp_vexpoint);
 
-            mTvVp.setText("" + user.getVexPoint());
-            mTvVpGen.setText("" + 150);
+            mTvVp.setText(convertVpFormat(user.getVexPoint()));
+            mTvVpGen.setText("");
 
             String pointRecord = getResources().getString(R.string.vexpoint_point_record);
             String invitePoint = getResources().getString(R.string.vexpoint_invite_point);

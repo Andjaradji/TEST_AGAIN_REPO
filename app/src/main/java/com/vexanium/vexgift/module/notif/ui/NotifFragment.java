@@ -103,7 +103,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
         loadData();
         initNotifList();
-        StaticGroup.setAllNotifToAbsolute(data);
 
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "NOTIFICATION");
         App.setTextViewStyle((ViewGroup) fragmentRootView);
@@ -130,6 +129,18 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        StaticGroup.setAllNotifToAbsolute(data);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mNotifListAdapter.notifyDataSetChanged();
     }
 
     private void updateData() {

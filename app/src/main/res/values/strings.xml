@@ -73,6 +73,9 @@
     <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
 
+    <string name="voucher_soldout_dialog_title">Oops</string>
+    <string name="voucher_soldout_dialog_desc">This voucher is Soldout</string>
+
     <string name="coupon_redeem_voucher_code">Voucher Code</string>
     <string name="coupon_redeem_voucher_code_field">Merchant code</string>
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>

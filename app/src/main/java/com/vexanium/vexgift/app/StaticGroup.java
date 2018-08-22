@@ -72,6 +72,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -224,6 +225,11 @@ public class StaticGroup {
         }
     }
 
+    public static String convertVpFormat(int vpValue) {
+        DecimalFormat formatter = new DecimalFormat("###,###.###");
+        String output = formatter.format(vpValue);
+        return output.replace(",", ".") ;
+    }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
