@@ -27,6 +27,7 @@ import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
@@ -660,6 +661,14 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mUserService.getVexPointLog(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointRecordResponse>>());
+    }
+
+    public Observable<HttpResponse<UserReferralResponse>> requestUserReferrals(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mUserService.getUserReferrals(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserReferralResponse>>());
     }
 
 }
