@@ -58,4 +58,15 @@ public class IHomePresenterImpl extends BasePresenterImpl<IHomeView, Serializabl
         compositeSubscription.add(subscription);
     }
 
+    @Override
+    public void requestFeaturedVoucherList(int id) {
+        Subscription subscription = mHomeInteractor.requestFeaturedVoucherList(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestBestVoucherList(int id) {
+        Subscription subscription = mHomeInteractor.requestBestVoucherList(this, id);
+        compositeSubscription.add(subscription);
+    }
 }

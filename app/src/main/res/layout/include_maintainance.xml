@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_maintenance"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@color/material_white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:layout_marginTop="@dimen/interval_main"
+        android:tag="hnMed"
+        android:text="@string/appversion_need_update_title"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_big_medium" />
+
+    <ImageView
+        android:layout_width="181dp"
+        android:layout_height="150dp"
+        android:src="@drawable/update_ill" />
+
+    <TextView
+        android:id="@+id/tv_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_small"
+        android:layout_marginTop="@dimen/interval_main"
+        android:tag="hnMed"
+        android:text="Maintenance in Progress"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/tv_info_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_main"
+        android:paddingEnd="@dimen/interval_big"
+        android:paddingLeft="@dimen/interval_big"
+        android:paddingRight="@dimen/interval_big"
+        android:paddingStart="@dimen/interval_big"
+        android:text="We are currently performing essential maintenance and should be back with you shortly"
+        android:textAlignment="center"
+        android:textColor="@color/material_black_sub_text_color"
+        android:textSize="@dimen/text_small" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_big"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For anything urgent, "
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_tiny" />
+
+        <TextView
+            android:id="@+id/tv_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/interval_small"
+            android:layout_marginStart="@dimen/interval_small"
+            android:text="Contact Us"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_tiny" />
+    </LinearLayout>
+
+
+</LinearLayout>

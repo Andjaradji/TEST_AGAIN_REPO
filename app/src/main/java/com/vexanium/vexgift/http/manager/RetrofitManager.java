@@ -11,8 +11,10 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
@@ -22,6 +24,7 @@ import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
+import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -441,6 +444,20 @@ public class RetrofitManager {
         return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
+    public Observable<HttpResponse<SettingResponse>> requestSettings(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getSettings(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
+    }
+
+    public Observable<HttpResponse<SettingResponse>> requestAppStatus() {
+        Map<String, Object> params = Api.getBasicParam();
+
+        return mOtherService.getAppStatus(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
+    }
+
     public Observable<HttpResponse<UserAddressResponse>> requestSetActAddress(int id, String token, String actAddress) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -497,6 +514,24 @@ public class RetrofitManager {
         }
 
         return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
+    }
+
+    public Observable<HttpResponse<BestVoucherResponse>> requestBestVoucherList(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+
+        return mVoucherService.getBestVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BestVoucherResponse>>());
+    }
+
+    public Observable<HttpResponse<FeaturedVoucherResponse>> requestFeaturedVoucherList(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+        params.put("limit", 50);
+
+        return mVoucherService.getFeaturedVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<FeaturedVoucherResponse>>());
     }
 
     public Observable<HttpResponse<UserVouchersResponse>> requestUserVoucherList(int id) {

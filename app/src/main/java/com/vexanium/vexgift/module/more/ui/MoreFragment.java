@@ -165,7 +165,7 @@ public class MoreFragment extends BaseFragment {
                 StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_gp_button:
-                toast("Google Play is not available");
+                StaticGroup.openVexgiftGooglePlay(MoreFragment.this.getActivity());
                 break;
             case R.id.more_about_button:
                 intentToActivity(AboutActivity.class);

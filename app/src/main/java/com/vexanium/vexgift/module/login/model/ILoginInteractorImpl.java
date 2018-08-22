@@ -4,6 +4,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -26,6 +27,36 @@ public class ILoginInteractorImpl implements ILoginInteractor {
 
                         KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
                         StaticGroup.checkPushToken(userLoginResponse.user);
+
+                        return Observable.just(userLoginResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestSetting(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestSettings(id).compose(RxUtil.<SettingResponse>handleResult())
+                .flatMap(new Func1<SettingResponse, Observable<SettingResponse>>() {
+                    @Override
+                    public Observable<SettingResponse> call(SettingResponse userLoginResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
+
+                        return Observable.just(userLoginResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestAppStatus(RequestCallback callback) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestAppStatus().compose(RxUtil.<SettingResponse>handleResult())
+                .flatMap(new Func1<SettingResponse, Observable<SettingResponse>>() {
+                    @Override
+                    public Observable<SettingResponse> call(SettingResponse userLoginResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(userLoginResponse));
 
                         return Observable.just(userLoginResponse);
                     }

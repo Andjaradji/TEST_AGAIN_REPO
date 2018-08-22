@@ -46,9 +46,9 @@ public class Api {
 
     public static HashMap<String, Object> getBasicParam() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("ov", Build.VERSION.RELEASE);
-        map.put("av", "" + BuildConfig.VERSION_CODE);
-        map.put("deviceName", getDeviceName());
+        map.put("android_version", Build.VERSION.RELEASE);
+        map.put("app_version", "" + BuildConfig.VERSION_CODE);
+        map.put("phone_name", getDeviceName());
 
         KLog.v("--------------------------------------------Request Basic Param Start----------------------------------------------------");
         KLog.json(map.toString());

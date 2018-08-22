@@ -3,9 +3,12 @@ package com.vexanium.vexgift.database;
 import com.google.gson.reflect.TypeToken;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.bean.model.BestVoucher;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
+import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -104,7 +107,6 @@ public class TableContentDaoUtil extends BaseDaoUtil {
                 }.getType()) : null;
     }
 
-
     public ArrayList<Voucher> getVouchers() {
         VouchersResponse vouchersResponse = getVouchersContent();
         if (vouchersResponse != null && vouchersResponse.getVouchers() != null) {
@@ -112,6 +114,22 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             return null;
         }
+    }
+
+    public BestVoucherResponse getBestVouchers() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getBestVoucher() != null ?
+                (BestVoucherResponse) JsonUtil.toObject(query.list().get(0).getBestVoucher(), new TypeToken<BestVoucherResponse>() {
+                }.getType()) : null;
+    }
+
+    public FeaturedVoucherResponse getFeaturedVouchers() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getFeaturedVoucher() != null ?
+                (FeaturedVoucherResponse) JsonUtil.toObject(query.list().get(0).getFeaturedVoucher(), new TypeToken<FeaturedVoucherResponse>() {
+                }.getType()) : null;
     }
 
     public ArrayList<Voucher> getTokens() {
@@ -254,6 +272,40 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             tableContent = new TableContent();
             tableContent.setCategories(category);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveBestVoucherToDb(String bestVoucher) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setBestVoucher(bestVoucher);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setBestVoucher(bestVoucher);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveFeaturedVoucherToDb(String featuredVoucher) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setFeaturedVoucher(featuredVoucher);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setFeaturedVoucher(featuredVoucher);
             tableContent.setCreatedTime(System.currentTimeMillis());
             mTableContentDao.insert(tableContent);
         }
