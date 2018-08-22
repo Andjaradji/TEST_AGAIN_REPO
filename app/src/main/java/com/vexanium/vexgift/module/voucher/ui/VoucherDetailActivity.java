@@ -124,20 +124,29 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
                 break;
             case R.id.btn_claim:
-                CheckBox cbAggree = findViewById(R.id.cb_aggree);
-                if (cbAggree.isChecked()) {
-                    if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                        StaticGroup.openRequirementDialog(VoucherDetailActivity.this);
-                    } else {
-                        doGoogle2fa();
-                    }
-                } else {
+                if(voucher.getQtyAvailable() == 0){
                     new VexDialog.Builder(this)
                             .optionType(DialogOptionType.OK)
-                            .title(getString(R.string.validate_checkbox_aggree_title))
-                            .content(getString(R.string.validate_checkbox_aggree_content))
+                            .title(getString(R.string.voucher_soldout_dialog_title))
+                            .content(getString(R.string.voucher_soldout_dialog_desc))
                             .autoDismiss(true)
                             .show();
+                }else {
+                    CheckBox cbAggree = findViewById(R.id.cb_aggree);
+                    if (cbAggree.isChecked()) {
+                        if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                            StaticGroup.openRequirementDialog(VoucherDetailActivity.this);
+                        } else {
+                            doGoogle2fa();
+                        }
+                    } else {
+                        new VexDialog.Builder(this)
+                                .optionType(DialogOptionType.OK)
+                                .title(getString(R.string.validate_checkbox_aggree_title))
+                                .content(getString(R.string.validate_checkbox_aggree_content))
+                                .autoDismiss(true)
+                                .show();
+                    }
                 }
                 break;
         }

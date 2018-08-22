@@ -133,6 +133,7 @@
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
                         android:text="@string/more_setting"
+                        android:visibility="gone"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -267,6 +268,24 @@
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
                         android:text="@string/more_terms_of_service"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="@dimen/margin_more_line"
+                        android:layout_marginTop="@dimen/margin_more_line"
+                        android:background="@color/lineColor" />
+
+                    <TextView
+                        android:id="@+id/tv_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_ripple_transparent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="@dimen/margin_more_list"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 

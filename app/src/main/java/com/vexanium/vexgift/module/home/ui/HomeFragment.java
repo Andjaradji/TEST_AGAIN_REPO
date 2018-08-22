@@ -79,6 +79,7 @@ import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
+import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
@@ -144,7 +145,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
         final User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText(String.valueOf(user.getVexPoint()));
+        mVexPointText.setText(convertVpFormat(user.getVexPoint()));
 
         BestVoucherResponse bestVoucherResponse = TableContentDaoUtil.getInstance().getBestVouchers();
         if (bestVoucherResponse != null)
@@ -356,6 +357,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                     @Override
                                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                         if (ClickUtil.isFastDoubleClick()) return;
+                                        dialog.dismiss();
                                         StaticGroup.openVexgiftGooglePlay(HomeFragment.this.getActivity());
                                     }
                                 })
@@ -363,12 +365,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                     @Override
                                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                         if (ClickUtil.isFastDoubleClick()) return;
+                                        dialog.dismiss();
                                         tpUtil.put(TpUtil.KEY_IS_LATEST_CHECK_VERSION, latestVersion);
                                     }
                                 })
                                 .canceledOnTouchOutside(false)
                                 .cancelable(false)
-                                .autoDismiss(true)
+                                .autoDismiss(false)
                                 .show();
                     }
                 }, 300);

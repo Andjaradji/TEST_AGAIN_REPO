@@ -564,7 +564,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                         setVoucherList(filteredVoucher);
                     }
                 }
-            }, 0);
+            }, 300);
 
         }
 

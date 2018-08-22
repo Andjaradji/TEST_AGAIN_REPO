@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.socks.library.KLog;
+import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -31,6 +32,8 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
+import java.util.Locale;
+
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -43,9 +46,6 @@ public class MoreFragment extends BaseFragment {
     private Observable<Boolean> mNotifObservable;
     private View notifView;
     private User user;
-
-    private String subject;
-    private String message;
 
     public MoreFragment() {
     }
@@ -70,6 +70,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_privacy_policy).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_terms_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_gp_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -114,6 +115,9 @@ public class MoreFragment extends BaseFragment {
         } else {
             fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.GONE);
         }
+
+        ViewUtil.setText(fragmentRootView, R.id.tv_version,
+                String.format(getString(R.string.appversion_need_update_version_current), BuildConfig.VERSION_NAME));
     }
 
     @Override
@@ -133,11 +137,22 @@ public class MoreFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mNotifObservable != null) {
+            RxBus.get().unregister("startNotifSlideDown", mNotifObservable);
+            mNotifObservable = null;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         if (ClickUtil.isFastDoubleClick()) {
             return;
         }
-        super.onClick(v);
+        String subject;
+        String message;
+
         switch (v.getId()) {
             case R.id.more_myprofile_button:
                 intentToActivity(MyProfileActivity.class);
@@ -155,12 +170,12 @@ public class MoreFragment extends BaseFragment {
                 toast("Merchant list is not available");
                 break;
             case R.id.more_feedback_buttton:
-                subject = String.format("[FEEDBACK] #%04d", user.getId());
+                subject = String.format(Locale.getDefault(), "[FEEDBACK] #%04d", user.getId());
                 message = "Hi Vexgift Support!\nI've feedback with ...";
                 StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_problem_button:
-                subject = String.format("[PROBLEM] #%04d", user.getId());
+                subject = String.format(Locale.getDefault(), "[PROBLEM] #%04d", user.getId());
                 message = "Hi Vexgift Support!\nI've problem with...";
                 StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
@@ -179,6 +194,8 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_logout_button:
                 doLogout();
                 break;
+            default:
+                super.onClick(v);
         }
     }
 

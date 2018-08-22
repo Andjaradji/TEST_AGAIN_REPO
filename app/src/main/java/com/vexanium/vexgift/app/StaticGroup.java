@@ -72,6 +72,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -224,6 +225,11 @@ public class StaticGroup {
         }
     }
 
+    public static String convertVpFormat(int vpValue) {
+        DecimalFormat formatter = new DecimalFormat("###,###.###");
+        String output = formatter.format(vpValue);
+        return output.replace(",", ".") ;
+    }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
@@ -1083,7 +1089,7 @@ public class StaticGroup {
         if (sortFilterCondition.getSort() != -1) {
             Comparator<Voucher> comparator;
             switch (sortFilterCondition.getSort()) {
-                case SortFilterCondition.SORT_BY_PRICE_DESC:
+                case SortFilterCondition.SORT_BY_PRICE_ASC:
                     comparator = new Comparator<Voucher>() {
                         @Override
                         public int compare(Voucher voucher, Voucher t1) {
@@ -1091,7 +1097,7 @@ public class StaticGroup {
                         }
                     };
                     break;
-                case SortFilterCondition.SORT_BY_PRICE_ASC:
+                case SortFilterCondition.SORT_BY_PRICE_DESC:
                     comparator = new Comparator<Voucher>() {
                         @Override
                         public int compare(Voucher voucher, Voucher t1) {

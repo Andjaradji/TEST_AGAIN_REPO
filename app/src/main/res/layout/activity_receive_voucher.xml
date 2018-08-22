@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_submain"
                     android:hint="@string/exchange_receive_voucher_prompt_text"
-                    android:textColor="@color/material_grey_9393"
+                    android:textColor="@color/material_black_text_color"
                     android:background="@color/transparent"
                     android:singleLine="true"
                     android:maxLines="1"

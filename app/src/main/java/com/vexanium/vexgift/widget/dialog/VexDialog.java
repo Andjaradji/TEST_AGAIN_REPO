@@ -55,7 +55,6 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
     protected DialogOptionType optionType = DialogDefaultConfig.DEFAULT_OPTION_TYPE;
 
     protected Activity activity;
-    protected MaterialDialogButtonCallback onTodayCloseCallback;
     protected MaterialDialogButtonCallback onPositiveCallback;
     protected MaterialDialogButtonCallback onNegativeCallback;
     protected DialogInterface.OnDismissListener onDismissListener;
@@ -272,12 +271,6 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
             this.optionType = optionType;
             return this;
         }
-
-        public Builder showNotTodayButton(boolean showNotTodayBtn) {
-            this.showNotTodayBtn = showNotTodayBtn;
-            return this;
-        }
-
 
         public Builder icon(@NonNull Drawable icon) {
             this.icon = icon;

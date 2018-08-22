@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -17,6 +16,7 @@ import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.CaptchaImageView;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -58,9 +58,8 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            // TODO: 20/08/18 check Receive Voucher
             String content = String.format(getString(R.string.exchange_receive_voucher_success_dialog_content), "");
-
+            RxBus.get().post(RxBus.KEY_BOX_CHANGED,0);
             new VexDialog.Builder(this)
                     .title(getString(R.string.exchange_receive_voucher_success_dialog_title))
                     .content(content)
@@ -78,6 +77,7 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
 
         } else if (errorResponse != null && errorResponse.getMeta() != null) {
             if (errorResponse.getMeta().isRequestError()) {
+                ((EditText) findViewById(R.id.et_code)).setText("");
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
