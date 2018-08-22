@@ -1073,7 +1073,7 @@ public class StaticGroup {
         if (sortFilterCondition.getSort() != -1) {
             Comparator<Voucher> comparator;
             switch (sortFilterCondition.getSort()) {
-                case SortFilterCondition.SORT_BY_PRICE_DESC:
+                case SortFilterCondition.SORT_BY_PRICE_ASC:
                     comparator = new Comparator<Voucher>() {
                         @Override
                         public int compare(Voucher voucher, Voucher t1) {
@@ -1081,7 +1081,7 @@ public class StaticGroup {
                         }
                     };
                     break;
-                case SortFilterCondition.SORT_BY_PRICE_ASC:
+                case SortFilterCondition.SORT_BY_PRICE_DESC:
                     comparator = new Comparator<Voucher>() {
                         @Override
                         public int compare(Voucher voucher, Voucher t1) {
