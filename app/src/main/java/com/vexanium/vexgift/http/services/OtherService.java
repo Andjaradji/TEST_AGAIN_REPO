@@ -15,6 +15,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 public interface OtherService {
@@ -25,12 +26,11 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
-    @FormUrlEncoded
     @GET("setting/app-status")
     Observable<HttpResponse<SettingResponse>> getAppStatus(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
-            @FieldMap Map<String, Object> params);
+            @QueryMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("voucher")

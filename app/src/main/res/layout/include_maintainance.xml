@@ -16,7 +16,7 @@
         android:layout_marginBottom="@dimen/interval_main"
         android:layout_marginTop="@dimen/interval_main"
         android:tag="hnMed"
-        android:text="@string/appversion_need_update_title"
+        android:text="@string/maintenance_title"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />
 
@@ -32,7 +32,7 @@
         android:layout_marginBottom="@dimen/interval_small"
         android:layout_marginTop="@dimen/interval_main"
         android:tag="hnMed"
-        android:text="Maintenance in Progress"
+        android:text="@string/maintenance_subtitle"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_small" />
 
@@ -45,11 +45,10 @@
         android:paddingLeft="@dimen/interval_big"
         android:paddingRight="@dimen/interval_big"
         android:paddingStart="@dimen/interval_big"
-        android:text="We are currently performing essential maintenance and should be back with you shortly"
+        android:text="@string/maintenance_desc"
         android:textAlignment="center"
         android:textColor="@color/material_black_sub_text_color"
         android:textSize="@dimen/text_small" />
-
 
 
     <LinearLayout
@@ -61,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="For anything urgent, "
+            android:text="@string/maintenance_urgent"
             android:textColor="@color/material_black_sub_text_color"
             android:textSize="@dimen/text_tiny" />
 
@@ -71,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/interval_small"
             android:layout_marginStart="@dimen/interval_small"
-            android:text="Contact Us"
+            android:text="@string/maintenance_urgent_contact"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_tiny" />
     </LinearLayout>

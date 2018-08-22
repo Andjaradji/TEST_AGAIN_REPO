@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/splash_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_main_bg"
-    tools:context=".module.login.ui.SplashActivity">
+    android:background="@drawable/shape_main_bg">
 
     <!--<View-->
     <!--android:layout_width="match_parent"-->
@@ -22,11 +21,11 @@
 
         <ImageView
             android:id="@+id/iv_main_logo"
+            android:scaleType="fitCenter"
             android:layout_width="@dimen/main_icon_width"
             android:layout_height="@dimen/main_icon_height"
             android:layout_marginBottom="40dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo_splash" />
+            android:src="@drawable/logo_splash"/>
 
     </LinearLayout>
 
@@ -34,18 +33,12 @@
         android:id="@+id/tv_main_copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_splash"
-        android:tag="light"
-        android:text="@string/app_copyright"
+        android:textSize="@dimen/text_tiny"
         android:textColor="@color/material_white"
-        android:textSize="@dimen/text_tiny" />
-
-    <include layout="@layout/include_need_update" />
-
-    <include layout="@layout/include_maintainance" />
-
-    <include layout="@layout/include_loading_view" />
+        android:text="@string/app_copyright"
+        android:tag="light"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_splash"/>
 
 </RelativeLayout>

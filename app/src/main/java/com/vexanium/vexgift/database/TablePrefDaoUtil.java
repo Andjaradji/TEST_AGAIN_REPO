@@ -48,7 +48,7 @@ public class TablePrefDaoUtil extends BaseDaoUtil {
     }
 
     public SettingResponse getSettings() {
-        QueryBuilder<TablePref> query = mTablePrefDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        QueryBuilder<TablePref> query = mTablePrefDao.queryBuilder().orderAsc(TablePrefDao.Properties.Id);
 
         return query.list().size() > 0 && query.list().get(0).getSetting() != null ?
                 (SettingResponse) JsonUtil.toObject(query.list().get(0).getSetting(), new TypeToken<SettingResponse>() {

@@ -11,7 +11,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
@@ -96,6 +94,17 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
 
         if (getIntent().hasExtra("isToken")) {
             isToken = getIntent().getBooleanExtra("isToken", false);
+        }
+        if (getIntent().hasExtra("code")) {
+            Intent intent = new Intent(this, ReceiveVoucherActivity.class);
+            intent.putExtra("code", getIntent().getStringExtra("code"));
+            startActivity(intent);
+        } else if (getIntent().hasExtra("id")) {
+            int id = getIntent().getIntExtra("id", 0);
+            ArrayList<Voucher> vouchers = TableContentDaoUtil.getInstance().getVouchers();
+            Voucher voucher = StaticGroup.getVoucherById(vouchers, id);
+            if (voucher != null)
+                StaticGroup.goToVoucherDetailActivity(this, voucher);
         }
 
         //mAvi =  findViewById(R.id.avi);
@@ -267,9 +276,9 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mPanelScrollview.setOnScrollListener(new LockableScrollView.OnScrollListener() {
             @Override
             public void onScrollChanged(LockableScrollView scrollView, int x, int y, int oldX, int oldY) {
-                if(y == 0){
+                if (y == 0) {
                     isScrolledTop = true;
-                }else{
+                } else {
                     isScrolledTop = false;
 
                 }
@@ -470,7 +479,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         if (mSlidePanel.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.onBackPressed();
         } else {
-            mPanelScrollview.scrollTo(0,0);
+            mPanelScrollview.scrollTo(0, 0);
             mSlidePanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }
     }

@@ -25,7 +25,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.module.login.ui.GoogleAuthActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.splash.ui.SplashActivity;
+import com.vexanium.vexgift.module.login.ui.SplashActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;

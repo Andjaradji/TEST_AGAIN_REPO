@@ -254,7 +254,7 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
     public boolean isAbleToResend() {
         TpUtil tpUtil = new TpUtil(this);
         long lastEmailSendTime = tpUtil.getLong(TpUtil.KEY_LAST_EMAIL_SEND_TIME, 0);
-        return ((System.currentTimeMillis() - lastEmailSendTime) > StaticGroup.EMAIL_RESEND_TIME);
+        return ((System.currentTimeMillis() - lastEmailSendTime) > StaticGroup.getEmailResendCountdown());
     }
 
     private void startDateTimer() {
@@ -298,7 +298,7 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
             Calendar now = Calendar.getInstance();
             Calendar next = Calendar.getInstance();
 
-            next.setTimeInMillis(lastEmailSendTime + StaticGroup.EMAIL_RESEND_TIME);
+            next.setTimeInMillis(lastEmailSendTime + StaticGroup.getEmailResendCountdown());
 
             long remainTime = next.getTimeInMillis() - now.getTimeInMillis();
 

@@ -22,6 +22,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_REFERRER = "key_referrer";
     public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
     public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
+    public static String KEY_IS_LATEST_CHECK_VERSION= "key_already_notice_update";
     private static TpUtil _tpUtil;
     Context context;
     public TpUtil(final Context context) {
@@ -53,6 +54,12 @@ public class TpUtil extends TrayPreferences {
 
         put(TpUtil.KEY_REG_ID, "");
         remove(TpUtil.KEY_REG_ID);
+
+        put(TpUtil.KEY_USER_PREMIUM_DUE_DATE, "");
+        remove(TpUtil.KEY_USER_PREMIUM_DUE_DATE);
+
+        put(TpUtil.KEY_IS_LATEST_CHECK_VERSION, "");
+        remove(TpUtil.KEY_IS_LATEST_CHECK_VERSION);
     }
 
 

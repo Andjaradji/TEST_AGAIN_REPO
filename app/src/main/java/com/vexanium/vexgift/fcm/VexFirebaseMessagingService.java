@@ -17,6 +17,7 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
 
         KLog.v("VexFirebaseMessagingService", "onMessageReceived: From :" + remoteMessage.getFrom());
         KLog.v("VexFirebaseMessagingService", "onMessageReceived: MessageBody" + remoteMessage.getNotification().getBody());
+//        remoteMessage.get
 
 //        StaticGroup.sendLocalNotification(App.getContext(), "Test","Content", "vex");
     }

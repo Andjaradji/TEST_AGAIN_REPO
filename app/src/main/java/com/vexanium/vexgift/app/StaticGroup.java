@@ -48,6 +48,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
@@ -77,6 +78,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import rx.Subscriber;
 
@@ -99,6 +101,12 @@ public class StaticGroup {
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
     public static final int VEX_ADDRESS_VERIF_TIME = 60 * 60000;
+    public static final int PREMIUM_VERIF_TIME = 60 * 60000;
+
+    public static final String SCHEME = "http://";
+    public static final String HOST = "www.vexgift.com";
+    public static final String PATH_PREFIX = "/app";
+    public static final String FULL_DEEPLINK = SCHEME + HOST ;
 
     public static UserLoginResponse currentUser;
     public static String userSession;
@@ -1124,5 +1132,42 @@ public class StaticGroup {
 
 
         return filteredVoucher;
+    }
+
+
+    public static long getSleepTime() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("ga_local_session_time") != -1){
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("ga_local_session_time"));
+        }else{
+            return SLEEP_SIGN_TIME;
+        }
+    }
+
+    public static long getPremiumMemberPaymentDuration() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("premium_member_payment_duration") != -1){
+            return  TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("premium_member_payment_duration"));
+        }else{
+            return PREMIUM_VERIF_TIME;
+        }
+    }
+
+    public static long getAddressConfirmationCountdown() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("address_confirmation_countdown") != -1){
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("address_confirmation_countdown"));
+        }else{
+            return PREMIUM_VERIF_TIME;
+        }
+    }
+
+    public static long getEmailResendCountdown() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("email_resend_countdown") != -1){
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("email_resend_countdown"));
+        }else{
+            return EMAIL_RESEND_TIME;
+        }
     }
 }

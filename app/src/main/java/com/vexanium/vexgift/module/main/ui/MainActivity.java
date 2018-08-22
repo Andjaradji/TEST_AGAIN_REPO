@@ -17,24 +17,15 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.bean.model.Voucher;
-import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
+import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.widget.CustomTabBarView;
 import com.vexanium.vexgift.widget.CustomViewPager;
-
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -56,44 +47,37 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        if(User.getCurrentUser(this) == null){
+//            StaticGroup.logOutClear(this,0);
+//        }else {
         super.onCreate(savedInstanceState);
+
         setToolbar();
         setCustomTabs();
         setPagerListener();
 
+        if (getIntent().hasExtra("url")) {
+            String url = getIntent().getStringExtra("url");
+            getIntent().removeExtra("url");
+            openDeepLink(url);
+        }
         handlePushAction();
+//        }
     }
 
     @Override
     protected void initView() {
-        setToolbar();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Observable.timer(1000, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Object>() {
-                    @Override
-                    public void call(Object o) {
-                        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-                            Uri uri = getIntent().getData();
-                            getIntent().setData(null);
-                            if (uri != null) {
-                                openDeepLink(uri.toString());
-                            }
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                    }
-                });
+        if (getIntent().hasExtra("url")) {
+            String url = getIntent().getStringExtra("url");
+            getIntent().removeExtra("url");
+            openDeepLink(url);
+        }
     }
 
     public void setToolbar() {
@@ -193,11 +177,16 @@ public class MainActivity extends BaseActivity {
 
         // TODO: 09/08/18 handle Deeplink
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
+        Intent intent;
         if (!isAlreadyHandled) {
             Uri uri = Uri.parse(url);
-            if (url.startsWith("vexgift://main")) {
+            String path = url.replace("http://www.vexgift.com/", "")
+                    .replace("https://www.vexgift.com/", "")
+                    .replace("vexgift://", "");
 
-            } else if (url.startsWith("vexgift://voucher")) {
+            if (path.startsWith("main")) {
+
+            } else if (path.startsWith("voucher")) {
                 String sId = uri.getQueryParameter("id");
                 int id = 0;
                 try {
@@ -205,14 +194,37 @@ public class MainActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ArrayList<Voucher> vouchers = TableContentDaoUtil.getInstance().getVouchers();
-                Voucher voucher = StaticGroup.getVoucherById(vouchers, id);
-                StaticGroup.goToVoucherDetailActivity(this, voucher);
 
-            } else if (url.startsWith("vexgift://notif")) {
+                intent = new Intent(this, VoucherActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
+            } else if (path.startsWith("token")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                intent = new Intent(this, VoucherActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("isToken", true);
+                startActivity(intent);
+
+            } else if (path.startsWith("notif")) {
                 gotoPage(NOTIF_FRAGMENT);
-            } else if (url.startsWith("vexgift://box")) {
+
+            } else if (path.startsWith("receive")) {
+                String code = uri.getQueryParameter("c");
+                intent = new Intent(this, VoucherActivity.class);
+                intent.putExtra("code", code);
+                startActivity(intent);
+
+            } else if (path.startsWith("box")) {
                 gotoPage(BOX_FRAGMENT);
+
             } else if (url.startsWith("http://") || url.startsWith("https://")) {
                 StaticGroup.openAndroidBrowser(this, url);
             }

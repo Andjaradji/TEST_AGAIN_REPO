@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -37,6 +38,11 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     protected void initView() {
         user = User.getCurrentUser(this);
         mPresenter = new IVoucherPresenterImpl(this);
+
+        if (getIntent().hasExtra("code")) {
+            String code = getIntent().getStringExtra("code");
+            ((EditText) findViewById(R.id.et_code)).setText(code);
+        }
 
         findViewById(R.id.btn_receive_voucher).setOnClickListener(this);
 

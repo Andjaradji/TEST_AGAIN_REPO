@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -40,7 +41,10 @@ import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
@@ -53,6 +57,9 @@ import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 import com.vexanium.vexgift.widget.discretescrollview.DSVOrientation;
 import com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView;
 import com.vexanium.vexgift.widget.discretescrollview.transform.Pivot;
@@ -217,6 +224,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestBestVoucherList(user.getId());
         mPresenter.requestFeaturedVoucherList(user.getId());
         mPresenter.requestKyc(user.getId());
+        mPresenter.requestVoucherList(user.getId());
 
         mVexPointObservable = RxBus.get().register(RxBus.KEY_VEXPOINT_UPDATE, Integer.class);
         mVexPointObservable.subscribe(new Action1<Integer>() {
@@ -226,6 +234,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
         });
 
+        checkAppVersion();
     }
 
     @Override
@@ -268,6 +277,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 loadData(bestVoucherList, featuredVoucherList);
 
                 initHomeList();
+            } else if(data instanceof VouchersResponse){
+                VouchersResponse vouchersResponse = (VouchersResponse) data;
+                TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
             }
         } else if (errorResponse != null) {
 //            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
@@ -323,6 +335,46 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mAvi.hide();
     }
 
+    public void checkAppVersion(){
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettings() != null) {
+            final TpUtil tpUtil = new TpUtil(App.getContext());
+            long latestCheckVersion = tpUtil.getLong(TpUtil.KEY_IS_LATEST_CHECK_VERSION, 0);
+            long currentVersion = BuildConfig.VERSION_CODE;
+            final long latestVersion = settingResponse.getSettingValByKey("newest_app_version");
+            boolean isNeedUpdate = currentVersion < latestVersion && latestVersion != -1 && latestVersion != latestCheckVersion;
+            if (isNeedUpdate) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new VexDialog.Builder(HomeFragment.this.getActivity())
+                                .title(getString(R.string.appversion_dialog_title))
+                                .content(getString(R.string.appversion_dialog_content))
+                                .positiveText(getString(R.string.appversion_dialog_update_button))
+                                .negativeText(getString(R.string.appversion_dialog_cancel_button))
+                                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                        if (ClickUtil.isFastDoubleClick()) return;
+                                        StaticGroup.openVexgiftGooglePlay(HomeFragment.this.getActivity());
+                                    }
+                                })
+                                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                        if (ClickUtil.isFastDoubleClick()) return;
+                                        tpUtil.put(TpUtil.KEY_IS_LATEST_CHECK_VERSION, latestVersion);
+                                    }
+                                })
+                                .canceledOnTouchOutside(false)
+                                .cancelable(false)
+                                .autoDismiss(true)
+                                .show();
+                    }
+                }, 300);
+            }
+        }
+    }
 
     public void updateData() {
         //update data here

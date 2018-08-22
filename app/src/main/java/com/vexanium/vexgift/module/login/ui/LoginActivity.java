@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,10 +67,11 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
-    int currentCountdown = 5;
+    int currentCountdown = 8;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +90,23 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
         }
+
+        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            uri = getIntent().getData();
+            getIntent().setData(null);
+
+        }
+
     }
 
     @Override
     protected void initView() {
+        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            uri = getIntent().getData();
+            getIntent().setData(null);
+
+        }
+
         mPresenter = new ILoginPresenterImpl(this);
 
         fbLoginButton = findViewById(R.id.login_fb_button);
@@ -106,12 +121,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
 //        checkAppVersion();
-        if (checkLoginInfo()) {
-            User user = User.getCurrentUser(this);
-            mPresenter.requestSetting(user.getId());
-        } else {
-            mPresenter.requestAppStatus();
-        }
+        initialize();
     }
 
     @Override
@@ -138,13 +148,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                     intent.putExtra("user", JsonUtil.toString(response.user));
                     startActivity(intent);
                 }
-            } else if (data instanceof SettingResponse) {
-                SettingResponse settingResponse = (SettingResponse) data;
-                if (checkLoginInfo()) {
-                    TablePrefDaoUtil.getInstance().saveSettingToDb(JsonUtil.toString(settingResponse));
-                }
-
-                checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }
 
         } else if (errorResponse != null) {
@@ -236,78 +239,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
     }
 
-    private void checkApp(long minimumVersion, long isMaintenance) {
-        long currentVersion = BuildConfig.VERSION_CODE;
-        boolean isNeedUpdate = currentVersion < minimumVersion;
-
-        if (isMaintenance == 1) {
-            findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_need_update).setVisibility(View.GONE);
-            findViewById(R.id.ll_login).setVisibility(View.GONE);
-
-            findViewById(R.id.tv_contact).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    String subject = String.format("[URGENT]");
-                    String message = "Hi Vexgift Support!\nI've urgent problem with...";
-                    StaticGroup.shareWithEmail(LoginActivity.this, SUPPORT_EMAIL, subject, message);
-                }
-            });
-        } else if (isNeedUpdate) {
-            findViewById(R.id.ll_need_update).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_maintenance).setVisibility(View.GONE);
-            findViewById(R.id.ll_login).setVisibility(View.GONE);
-
-            String newVersion = String.format(getString(R.string.appversion_need_update_version_new), String.valueOf(minimumVersion));
-            String oldVersion = String.format(getString(R.string.appversion_need_update_version_new), String.valueOf(currentVersion));
-
-            findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ClickUtil.isFastDoubleClick()) return;
-                    StaticGroup.openVexgiftGooglePlay(LoginActivity.this);
-                }
-            });
-
-            ViewUtil.setText(this, R.id.tv_version, oldVersion);
-            ViewUtil.setText(this, R.id.tv_version_new, newVersion);
-
-            startCoundownTimer();
-        } else {
-            initialize();
-        }
-    }
-
-    private void startCoundownTimer() {
-        currentCountdown = 8;
-        Observable.interval(1000, 1000, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Object>() {
-                    @Override
-                    public void call(Object o) {
-                        String msg = String.format(getString(R.string.appversion_need_update_goto_gp), currentCountdown);
-                        ViewUtil.setText(LoginActivity.this, R.id.tv_goto, msg);
-
-                        if (currentCountdown > 0) {
-                            currentCountdown--;
-                        } else {
-                            StaticGroup.openVexgiftGooglePlay(LoginActivity.this);
-                            finish();
-                            throw new NullPointerException();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-                    }
-                });
-    }
-
 //    private void generateKeyHash() {
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
@@ -349,6 +280,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            if(uri!=null){
+                intent.putExtra("url",uri.toString());
+            }
             startActivity(intent);
         }
 

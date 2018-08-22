@@ -17,7 +17,7 @@
     <string name="facebook_app_id" translatable="false">2076704542595981</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb2076704542595981</string>
     <string name="app_title">Vexgift</string>
-    <string name="app_copyright">Copyright © 2017</string>
+    <string name="app_copyright">Copyright © 2018</string>
 
     <string name="walkthrough_first">Get The Best</string>
     <string name="walkthrough_second">Get Free Token</string>
@@ -403,7 +403,7 @@
     <string name="exchange_send_voucher_button_cancel">Cancel</string>
     <string name="exchange_send_voucher_button_view">View</string>
     <string name="exchange_send_voucher_ga_hint">Google Authenticator PIN</string>
-    <string name="exchange_send_voucher_share_text">Hi there! I have a gift for you. A %s\'s Voucher. Please open vexgift (%s) and use below code to get voucher\n\nCode: %s</string>
+    <string name="exchange_send_voucher_share_text">Hi there! I have a gift for you. A %s\'s Voucher. Please open vexgift and use below code to get voucher\n\nCode: %s\n\n%s</string>
 
     <string name="exchange_receive_voucher_success_dialog_title">Success</string>
     <string name="exchange_receive_voucher_success_dialog_content">You got %s\'s Voucher, Check your voucher in My Box now</string>
@@ -480,6 +480,17 @@
     <string name="appversion_need_update_version_current">Current version : %s</string>
     <string name="appversion_need_update_version_new">Latest version : %s</string>
 
+    <string name="appversion_dialog_title">New Version is Available</string>
+    <string name="appversion_dialog_content">Get more Benefit by updating to latest version now.</string>
+    <string name="appversion_dialog_cancel_button">No, Thanks</string>
+    <string name="appversion_dialog_update_button">Update</string>
+
+    <string name="maintenance_title">We Are Sorry</string>
+    <string name="maintenance_subtitle">Maintenance in Progress</string>
+    <string name="maintenance_desc">We are currently performing essential maintenance and should be back with you shortly</string>
+    <string name="maintenance_urgent">For anything urgent, </string>
+    <string name="maintenance_urgent_contact">Contact Us</string>
+
     <string name="cm_dialog_all_error_title">Error Occurred</string>
     <string name="cm_dialog_all_error_desc">Oops, a problem occured!\nPlease try again in a few minutes.\nPlease contact our customer service, if the problem continue. \nerror code : %s</string>
     <string name="cm_dialog_all_error_bt">OK</string>
@@ -491,4 +502,5 @@
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://www.vexgift.com/.well-known/assetlinks.json\" }]</string>
 </resources>

@@ -181,7 +181,7 @@ public class User implements Serializable {
             long fillTime = userAddress.getCountdownStart();
             long now = System.currentTimeMillis();
             KLog.v("User", "isVexAddVerifTimeEnded: now [" + now + "] - last[" + fillTime + "] (" + (now - fillTime) + ")");
-            if (now - fillTime > StaticGroup.VEX_ADDRESS_VERIF_TIME) {
+            if (now - fillTime > StaticGroup.getAddressConfirmationCountdown()) {
                 return true;
             }
             return false;
@@ -197,7 +197,7 @@ public class User implements Serializable {
         long now = System.currentTimeMillis();
 
         KLog.v("User", "isLocalSessionEnded: now [" + now + "] - last[" + lastActiveTime + "] (" + (now - lastActiveTime) + ")");
-        if (now - lastActiveTime > StaticGroup.SLEEP_SIGN_TIME) {
+        if (now - lastActiveTime > StaticGroup.getSleepTime()) {
             tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, true);
             return true;
         }
