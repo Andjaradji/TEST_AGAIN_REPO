@@ -10,6 +10,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
+import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
@@ -18,6 +19,7 @@ import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
@@ -669,6 +671,14 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mUserService.getUserReferrals(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserReferralResponse>>());
+    }
+
+    public Observable<HttpResponse<NotificationResponse>> requestUserNotification(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mUserService.getUserNotification(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NotificationResponse>>());
     }
 
 }

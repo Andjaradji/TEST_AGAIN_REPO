@@ -839,6 +839,16 @@ public class StaticGroup {
         return arrayList;
     }
 
+    public static ArrayList<com.vexanium.vexgift.bean.model.NotificationModel> setAllNotificationToAbsolute(ArrayList<com.vexanium.vexgift.bean.model.NotificationModel> notifs) {
+        ArrayList<com.vexanium.vexgift.bean.model.NotificationModel> arrayList = new ArrayList<>();
+        for (com.vexanium.vexgift.bean.model.NotificationModel n : notifs) {
+            arrayList.add(n);
+        }
+
+        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(arrayList));
+        return arrayList;
+    }
+
     public static void showPremiumMemberDialog(Context context, String title, String message) {
         new VexDialog.Builder(context)
                 .optionType(DialogOptionType.OK)

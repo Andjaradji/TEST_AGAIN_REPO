@@ -4,6 +4,7 @@ import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
@@ -171,4 +172,12 @@ public interface UserService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("notification")
+    Observable<HttpResponse<NotificationResponse>> getUserNotification(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 }

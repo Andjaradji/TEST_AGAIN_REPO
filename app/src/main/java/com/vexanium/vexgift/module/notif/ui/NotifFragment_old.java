@@ -33,16 +33,12 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.Notification;
-import com.vexanium.vexgift.bean.model.NotificationModel;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenter;
-import com.vexanium.vexgift.module.notif.presenter.INotifPresenterImpl;
 import com.vexanium.vexgift.module.notif.view.INotifView;
 import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -55,7 +51,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Random;
 
 import rx.Observable;
@@ -64,20 +59,20 @@ import rx.functions.Action1;
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_notif)
-public class NotifFragment extends BaseFragment<INotifPresenter> implements INotifView, View.OnClickListener {
+public class NotifFragment_old extends BaseFragment<INotifPresenter> implements INotifView, View.OnClickListener {
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
     SwipeRefreshLayout mRefreshLayout;
-
-    private BaseRecyclerAdapter<NotificationModel> mNotifListAdapter;
+    private BaseRecyclerAdapter<Notification> mNotifListAdapter;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
-    private ArrayList<NotificationModel> data;
-    private User user;
+    private ArrayList<Notification> data;
+    private Random random;
+    private Observable<Integer> mNotifObservable;
 
-    public static NotifFragment newInstance() {
-        return new NotifFragment();
+    public static NotifFragment_old newInstance() {
+        return new NotifFragment_old();
     }
 
     @Override
@@ -89,20 +84,12 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(data!=null){
-            if(data instanceof NotificationResponse){
-                data = new ArrayList<>(((NotificationResponse) data).getNotifications());
-                initNotifList();
-            }
-        }else if(errorResponse!=null){
 
-        }
     }
 
     @Override
     protected void initView(View fragmentRootView) {
-        mPresenter = new INotifPresenterImpl(this);
-        user = User.getCurrentUser(getActivity());
+        random = new Random();
 
         mRefreshLayout = (SwipeRefreshLayout) fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
@@ -116,17 +103,28 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
         loadData();
         initNotifList();
-        StaticGroup.setAllNotificationToAbsolute(data);
+        StaticGroup.setAllNotifToAbsolute(data);
 
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "NOTIFICATION");
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
-        mPresenter.requestNotifList(user.getId());
+        mNotifObservable = RxBus.get().register(RxBus.KEY_NOTIF_ADDED, Integer.class);
+        mNotifObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vp) {
+                KLog.v("NotifFragment", "call: HPtes masuk");
+                loadData();
+                initNotifList();
+            }
+        });
 
         // Setup refresh listener which triggers new data loading
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
                 //fetchTimelineAsync(0);
                 updateData();//update data here
 
@@ -135,8 +133,12 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     }
 
     private void updateData() {
-        mRefreshLayout.setRefreshing(false);
-        mPresenter.requestNotifList(user.getId());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(false);
+            }
+        }, 3000);
     }
 
     @Override
@@ -149,16 +151,20 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mNotifObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_NOTIF_ADDED, mNotifObservable);
+            mNotifObservable = null;
+        }
     }
 
     public void loadData() {
-        data = TableContentDaoUtil.getInstance().getNotifications();
+        data = TableContentDaoUtil.getInstance().getNotifs();
         if (data == null)
             data = new ArrayList<>();
-        Collections.sort(data, new Comparator<NotificationModel>() {
+        Collections.sort(data, new Comparator<Notification>() {
             @Override
-            public int compare(NotificationModel notification, NotificationModel t1) {
-                return t1.getCreatedAtDate().compareTo(notification.getCreatedAtDate());
+            public int compare(Notification notification, Notification t1) {
+                return Long.compare(t1.getTime(), notification.getTime());
             }
         });
         KLog.json("HPtes", JsonUtil.toString(data));
@@ -200,39 +206,43 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     public void initNotifList() {
         if (mNotifListAdapter == null) {
-            mNotifListAdapter = new BaseRecyclerAdapter<NotificationModel>(this.getActivity(), data, layoutListManager) {
+            mNotifListAdapter = new BaseRecyclerAdapter<Notification>(this.getActivity(), data, layoutListManager) {
                 @Override
                 public int getItemLayoutId(int viewType) {
                     return R.layout.item_notif_list;
                 }
 
                 @Override
-                public void bindData(BaseRecyclerViewHolder holder, int position, final NotificationModel item) {
+                public void bindData(BaseRecyclerViewHolder holder, int position, final Notification item) {
                     String content;
                     switch (item.getType()) {
                         case "exp":
-                            content = String.format(getString(R.string.notif_expired), item.getTitle());
+                            content = String.format(getString(R.string.notif_expired), item.getVoucher().getTitle());
                             break;
                         case "exp_soon":
-                            content = String.format(getString(R.string.notif_expire_soon), item.getTitle(), item.getCreatedAtDate());
+                            content = String.format(getString(R.string.notif_expire_soon), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
                             break;
                         case Notification.TYPE_GET_SUCCESS:
-                            content = String.format(getString(R.string.notif_success_claim), item.getTitle(), item.getCreatedAtDate());
+                            content = String.format(getString(R.string.notif_success_claim), item.getVoucher().getTitle(), item.getVoucher().getExpiredDate());
                             break;
                         case "avail":
-                            content = String.format(getString(R.string.notif_is_available), item.getTitle());
+                            content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
                             break;
                         default:
-                            content = String.format(getString(R.string.notif_is_available), item.getTitle());
+                            content = String.format(getString(R.string.notif_is_available), item.getVoucher().getTitle());
                     }
 
-                    /*holder.setViewGone(R.id.iv_red_dot, !item.isNew());
+                    setTextSpan(content, holder.getTextView(R.id.tv_content), item.getVoucher(), item.isNew());
+                    Vendor vendor = item.getVoucher().getVendor();
+                    holder.setText(R.id.tv_brand, vendor.getName());
+                    holder.setRoundImageUrl(R.id.iv_photo, vendor.getThumbnail(), R.drawable.placeholder);
+                    holder.setViewGone(R.id.iv_red_dot, !item.isNew());
                     if (item.isNew()) {
                         holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));
                         holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.material_black_text_color));
                         holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                    }*/
-                    long timeInterval = (System.currentTimeMillis() - item.getCreatedAtMillis()) / 1000;
+                    }
+                    long timeInterval = (System.currentTimeMillis() - item.getTime()) / 1000;
 //                KLog.v("NotifFragment", "HPtes  now [" + System.currentTimeMillis() + "] - time [" + item.getTime() + "] = " + timeInterval + " ");
                     if (timeInterval <= 60) {
                         holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));

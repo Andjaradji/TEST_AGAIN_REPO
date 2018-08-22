@@ -8,6 +8,8 @@ import com.vexanium.vexgift.module.notif.view.INotifView;
 
 import java.io.Serializable;
 
+import rx.Subscription;
+
 /**
  * Created by mac on 11/17/17.
  */
@@ -48,4 +50,9 @@ public class INotifPresenterImpl extends BasePresenterImpl<INotifView, Serializa
         }
     }
 
+    @Override
+    public void requestNotifList(int userId) {
+        Subscription subscription = mNotifInteractor.requestNotifList(this, userId);
+        compositeSubscription.add(subscription);
+    }
 }
