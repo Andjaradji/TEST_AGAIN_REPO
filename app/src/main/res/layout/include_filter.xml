@@ -333,12 +333,4 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2000dp"
-        android:background="@color/colorPrimary">
-
-    </View>
-
-
 </LinearLayout>

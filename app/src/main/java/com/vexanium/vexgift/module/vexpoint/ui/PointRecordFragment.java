@@ -13,16 +13,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
 import com.vexanium.vexgift.util.RxBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -37,7 +41,7 @@ public class PointRecordFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
-    private Observable<Integer> mVpObservable;
+    private Observable<VexPointRecordResponse> mVpObservable;
 
     public static PointRecordFragment newInstance() {
         return new PointRecordFragment();
@@ -68,20 +72,25 @@ public class PointRecordFragment extends BaseFragment {
         mRecycler.getItemAnimator().setChangeDuration(250);
         mRecycler.getItemAnimator().setRemoveDuration(250);
 
-        mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
-        mVpObservable.subscribe(new Action1<Integer>() {
+        mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, VexPointRecordResponse.class);
+        mVpObservable.subscribe(new Action1<VexPointRecordResponse>() {
             @Override
-            public void call(Integer vp) {
+            public void call(VexPointRecordResponse vp) {
 
-                mRecycler.setVisibility(View.VISIBLE);
-                mTvErrorHead.setVisibility(View.GONE);
-                mErrorView.setVisibility(View.GONE);
-
-                KLog.v("PointRecordFragment", "call: called HPtes");
-                VexPointRecord data = new VexPointRecord("Vex Point from Snapshoot", "05-08-2018 00:00 GMT", 0, vp);
-                dataList.add(data);
-                mAdapter.setItemList(dataList);
-                mAdapter.notifyDataSetChanged();
+                if(vp!=null && vp.getVexPointLogs().size() > 0) {
+                    mRecycler.setVisibility(View.VISIBLE);
+                    mTvErrorHead.setVisibility(View.GONE);
+                    mErrorView.setVisibility(View.GONE);
+                    dataList = new ArrayList<>(vp.getVexPointLogs());
+                    Collections.sort(dataList, new Comparator<VexPointRecord>() {
+                        @Override
+                        public int compare(VexPointRecord vexPointRecord, VexPointRecord t1) {
+                            return t1.getCreatedAtDate().compareTo(vexPointRecord.getCreatedAtDate());
+                        }
+                    });
+                    mAdapter.setItemList(dataList);
+                    mAdapter.notifyDataSetChanged();
+                }
             }
         });
 

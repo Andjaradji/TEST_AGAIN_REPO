@@ -4,8 +4,11 @@ import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.UserReferralResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 
 import java.util.Map;
 
@@ -46,6 +49,18 @@ public interface UserService {
     @FormUrlEncoded
     @POST("user/reset-password")
     Observable<HttpResponse<EmptyResponse>> requestResetPassword(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/reset-password/validate-code")
+    Observable<HttpResponse<ResetPasswordCodeResponse>> requestResetPasswordCodeValidation(
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/reset-password/validate-token")
+    Observable<HttpResponse<EmptyResponse>> requestResetPasswordTokenValidation(
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
@@ -132,6 +147,27 @@ public interface UserService {
     @FormUrlEncoded
     @PATCH("user/update-notification-id")
     Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("vex-point-log")
+    Observable<HttpResponse<VexPointRecordResponse>> getVexPointLog(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("vex-point-log-type")
+    Observable<HttpResponse<VexPointRecordResponse>> getVexPointLogTypes(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/referral/get")
+    Observable<HttpResponse<UserReferralResponse>> getUserReferrals(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

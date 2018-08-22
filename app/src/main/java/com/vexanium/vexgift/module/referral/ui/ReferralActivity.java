@@ -15,11 +15,18 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserReferralResponse;
+import com.vexanium.vexgift.module.referral.presenter.IReferralPresenter;
+import com.vexanium.vexgift.module.referral.presenter.IReferralPresenterImpl;
+import com.vexanium.vexgift.module.referral.view.IReferralView;
+
+import java.io.Serializable;
 
 import static com.vexanium.vexgift.app.StaticGroup.isAppAvailable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_referral, toolbarTitle = R.string.referral_invite_others)
-public class ReferralActivity extends BaseActivity {
+public class ReferralActivity extends BaseActivity<IReferralPresenter> implements IReferralView {
 
     TextView mTvInvitedCount, mTvInviteLink;
     ImageView mIvCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
@@ -29,6 +36,7 @@ public class ReferralActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new IReferralPresenterImpl(this);
         user = User.getCurrentUser(this);
         mTvInvitedCount = findViewById(R.id.tv_referral_invited_user_count);
         mTvInviteLink = findViewById(R.id.tv_referral_link);
@@ -52,6 +60,7 @@ public class ReferralActivity extends BaseActivity {
         mTvInviteLink.setText(user.getReferralCode());
         mTvInvitedCount.setText("" + 0);
         mShareText = "VexGift is a great wat to get free vouchers. Check it out here " + user.getReferralCode();
+        mPresenter.requestUserReferral(user.getId());
     }
 
     @Override
@@ -85,6 +94,18 @@ public class ReferralActivity extends BaseActivity {
             case R.id.referral_share_sm_button:
                 shareSm(mShareText);
                 break;
+
+        }
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if(data!=null){
+            if(data instanceof UserReferralResponse){
+                int referralsCount = ((UserReferralResponse) data).getReferrals().size();
+                mTvInvitedCount.setText(referralsCount+"");
+            }
+        }else if(errorResponse!=null){
 
         }
     }
@@ -187,4 +208,6 @@ public class ReferralActivity extends BaseActivity {
             Toast.makeText(this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.vexpoint.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
@@ -37,6 +38,20 @@ public class IVexpointInteractorImpl implements IVexpointInteractor {
 
                         KLog.json("HPtes", JsonUtil.toString(userAddressResponse));
                         return Observable.just(userAddressResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestVpLog(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requesVpLog(id).compose(RxUtil.<VexPointRecordResponse>handleResult())
+                .flatMap(new Func1<VexPointRecordResponse, Observable<VexPointRecordResponse>>() {
+                    @Override
+                    public Observable<VexPointRecordResponse> call(VexPointRecordResponse vexPointRecordResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(vexPointRecordResponse));
+                        return Observable.just(vexPointRecordResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));

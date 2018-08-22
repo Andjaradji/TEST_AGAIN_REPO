@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -254,7 +255,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     public void validatePremiumView(long premiumDueDate) {
-        if (premiumDueDate > 0) {
+        long millis = new Date().getTime();
+        if (premiumDueDate > 0 && premiumDueDate <= millis) {
             updateView(1);
             String ts = getTimeStampDate(premiumDueDate);
             mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium), ts));

@@ -5,6 +5,8 @@ import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
+import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
@@ -66,5 +68,6 @@ public interface OtherService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
+
 
 }
