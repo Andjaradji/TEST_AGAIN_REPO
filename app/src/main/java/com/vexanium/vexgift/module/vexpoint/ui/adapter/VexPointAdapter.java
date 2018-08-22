@@ -38,10 +38,10 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     @Override
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int pos) {
         VexPointRecord data = dataList.get(pos);
-        holder.mVpMainText.setText(data.getTitle());
-        holder.mVpSubText.setText(data.getDescription());
+        holder.mVpMainText.setText(data.getVexPointLogType().getName());
+        holder.mVpSubText.setText(data.getCreatedAtDate());
 
-        if (data.getType() == 0) {
+        if (data.getVpLogTypeId() < 3) {
             holder.mVpIndicatorText.setText("+ " + data.getAmount());
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {

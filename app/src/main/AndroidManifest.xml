@@ -111,6 +111,12 @@
             android:name=".module.login.ui.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.login.ui.ForgotPasswordCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.login.ui.ForgotPasswordResetActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.login.ui.GoogleAuthActivity"
             android:screenOrientation="portrait" />
         <activity

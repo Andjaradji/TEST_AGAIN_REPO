@@ -84,19 +84,16 @@ public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> imp
             KLog.v("ForgotPwActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
-                new VexDialog.Builder(ForgotPasswordActivity.this)
-                        .optionType(DialogOptionType.OK)
-                        .okText("OK")
-                        .title("Reset Password Confirmation")
-                        .content("A reset password link has been sent to your email")
-                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-
-                            }
-                        }).show();
             }
+
+
+        }else{
+            Intent intent = new Intent(this,ForgotPasswordCodeActivity.class);
+            intent.putExtra("reset_password_email",mEtEmail.getText().toString());
+            startActivity(intent);
+            finish();
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -20,9 +21,11 @@ import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
+import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
@@ -320,6 +323,26 @@ public class RetrofitManager {
         return mUserService.requestResetPassword(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
+    public Observable<HttpResponse<ResetPasswordCodeResponse>> requestResetPassCodeValidation(String email, String code) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("email", email);
+        params.put("reset_password_code", code);
+
+        return mUserService.requestResetPasswordCodeValidation(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<ResetPasswordCodeResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestResetPassTokenValidation(String email, String token, String password, String confirmPassword) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("email", email);
+        params.put("reset_password_token", token);
+        params.put("new_password", password);
+        params.put("new_password_confirmation", confirmPassword);
+
+        return mUserService.requestResetPasswordTokenValidation(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
     public Observable<HttpResponse<EmptyResponse>> requestChangePass(int id, String oldpass, String pass) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -594,6 +617,14 @@ public class RetrofitManager {
         params.put("notification_id", notification_id);
 
         return mUserService.requestUpdateNotificationId(sess, getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<VexPointRecordResponse>> requesVpLog(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mUserService.getVexPointLog(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointRecordResponse>>());
     }
 
 }

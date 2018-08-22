@@ -53,6 +53,12 @@ public class IVexpointPresenterImpl extends BasePresenterImpl<IVexpointView, Ser
     }
 
     @Override
+    public void requestVpLog(int id) {
+        Subscription subscription = mInteractor.requestVpLog(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
     public void requestGetActAddress(int id) {
         Subscription subscription = mInteractor.requestGetActAddress(this, id);
         compositeSubscription.add(subscription);

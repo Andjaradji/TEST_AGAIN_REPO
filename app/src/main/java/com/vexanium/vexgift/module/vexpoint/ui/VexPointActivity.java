@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -18,8 +19,10 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
+import com.vexanium.vexgift.bean.model.VexPointRecord;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
@@ -34,6 +37,7 @@ import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +63,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private TextView mTvVpGen;
     private IconTextTabBarView mTabVp;
     private ViewPager mPagerVp;
-    private Observable<Integer> mVpObservable;
+    private Observable<VexPointRecordResponse> mVpObservable;
     //private View mVpShadow;
     private Observable<Integer> mVexAddressObservable;
     private View notifView;
@@ -121,12 +125,15 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
                     if (userAddress.getStatus() == 1) {
                         User.setIsVexAddressSet(this, true);
+                        mPresenter.requestVpLog(user.getId());
                     } else {
                         User.setIsVexAddressSet(this, false);
                     }
 
                     updateView();
                 }
+            }else if(data instanceof VexPointRecordResponse){
+                RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {
             if (errorResponse.getMeta().getStatus() == 404) {
@@ -218,15 +225,15 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
             notifView = findViewById(R.id.rl_notif_info);
 
-            mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, Integer.class);
-            mVpObservable.subscribe(new Action1<Integer>() {
+            /*mVpObservable = RxBus.get().register(RxBus.KEY_VP_RECORD_ADDED, VexPointRecord.class);
+            mVpObservable.subscribe(new Action1<VexPointRecord>() {
                 @Override
-                public void call(Integer vp) {
-                    String message = String.format(Locale.getDefault(), getString(R.string.vp_get_vp_from_snapshoot), vp);
+                public void call(VexPointRecord vp) {
+                    *//*String message = String.format(Locale.getDefault(), getString(R.string.vp_get_vp_from_snapshoot), vp);
                     ((TextView) notifView.findViewById(R.id.tv_notif_info)).setText(message);
-                    AnimUtil.transTopIn(notifView, true, 300);
+                    AnimUtil.transTopIn(notifView, true, 300);*//*
                 }
-            });
+            });*/
         }
         mRefreshLayout.setEnabled(true);
     }

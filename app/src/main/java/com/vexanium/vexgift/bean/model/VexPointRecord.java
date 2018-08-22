@@ -1,67 +1,102 @@
 package com.vexanium.vexgift.bean.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VexPointRecord implements Serializable {
-    public boolean active = true;
+
     @JsonProperty("id")
-    private String id;
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("desc")
-    private String description;
-    @JsonProperty("type")
+    private int id;
+    @JsonProperty("user_id")
+    private int userId;
+    @JsonProperty("vex_point_log_type_id")
+    private int vpLogTypeId;
 
-    private int type;
     @JsonProperty("amount")
-    private int amount;
+    private double amount;
 
-    public VexPointRecord(String title, String description, int type, int amount) {
-        this.title = title;
-        this.description = description;
-        this.type = type;
-        this.amount = amount;
-    }
+    @JsonProperty("created_at")
+    private String createdAt;
 
-    public String getId() {
+    @JsonProperty("updated_at")
+    private String updatedAt;
+
+    @JsonProperty("vex_point_log_type")
+    private VexPointLogType vexPointLogType;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getType() {
-        return type;
+    public int getVpLogTypeId() {
+        return vpLogTypeId;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setVpLogTypeId(int vpLogTypeId) {
+        this.vpLogTypeId = vpLogTypeId;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public VexPointLogType getVexPointLogType() {
+        return vexPointLogType;
+    }
+
+    public void setVexPointLogType(VexPointLogType vexPointLogType) {
+        this.vexPointLogType = vexPointLogType;
+    }
+
+    public String getCreatedAtDate() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = dateFormat.parse(createdAt);
+            return dateOutput.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return createdAt;
+        }
     }
 }

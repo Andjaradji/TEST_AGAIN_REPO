@@ -658,7 +658,6 @@ public class User implements Serializable {
     }
 
     public boolean isKycApprove() {
-        KLog.v("User", "isKycApprove: " + kyc.toString());
         if (kyc != null && kyc.size() > 0 && kyc.get(kyc.size() - 1).getStatus().equalsIgnoreCase("approve")) {
             return true;
         } else {
