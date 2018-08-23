@@ -75,6 +75,8 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     private RecyclerView mRecyclerview;
     private ArrayList<NotificationModel> data;
     private User user;
+    private Observable<Integer> mNotifObservable;
+
 
     public static NotifFragment newInstance() {
         return new NotifFragment();
@@ -116,6 +118,16 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
         loadData();
         initNotifList();
+
+
+        mNotifObservable = RxBus.get().register(RxBus.KEY_NOTIF_ADDED, Integer.class);
+        mNotifObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer vp) {
+                KLog.v("NotifFragment", "call: HPtes masuk");
+                mPresenter.requestNotifList(user.getId());
+            }
+        });
 
 
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "NOTIFICATION");

@@ -190,8 +190,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
 
-                if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity());
+                User user1 = User.getCurrentUser(HomeFragment.this.getActivity());
+
+                if (!user1.isAuthenticatorEnable() || !user1.isKycApprove()) {
+                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), false);
                 } else {
 
                     Intent intent = new Intent(getActivity(), VexPointActivity.class);

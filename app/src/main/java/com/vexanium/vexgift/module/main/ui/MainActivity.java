@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity {
             getIntent().removeExtra("url");
             openDeepLink(url);
         }
+        handlePushAction();
     }
 
     public void setToolbar() {
@@ -229,6 +230,7 @@ public class MainActivity extends BaseActivity {
                 StaticGroup.openAndroidBrowser(this, url);
             }
         }
+
     }
 
     public void gotoPage(int page, int secondaryPage) {

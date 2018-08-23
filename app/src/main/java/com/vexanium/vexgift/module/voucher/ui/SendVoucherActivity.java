@@ -149,7 +149,7 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
         switch (v.getId()) {
             case R.id.btn_generate_code:
                 if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                    StaticGroup.openRequirementDialog(SendVoucherActivity.this);
+                    StaticGroup.openRequirementDialog(SendVoucherActivity.this, false);
                 } else {
                     new VexDialog.Builder(this)
                             .title(getString(R.string.exchange_send_voucher_warning_dialog_title))

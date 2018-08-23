@@ -135,7 +135,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                     CheckBox cbAggree = findViewById(R.id.cb_aggree);
                     if (cbAggree.isChecked()) {
                         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                            StaticGroup.openRequirementDialog(VoucherDetailActivity.this);
+                            StaticGroup.openRequirementDialog(VoucherDetailActivity.this, false);
                         } else {
                             doGoogle2fa();
                         }

@@ -1,9 +1,16 @@
 package com.vexanium.vexgift.fcm;
 
+import android.text.TextUtils;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.socks.library.KLog;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
+import com.vexanium.vexgift.util.RxBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class VexFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -16,10 +23,31 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         KLog.v("VexFirebaseMessagingService", "onMessageReceived: From :" + remoteMessage.getFrom());
-        KLog.v("VexFirebaseMessagingService", "onMessageReceived: MessageBody" + remoteMessage.getNotification().getBody());
+//        KLog.v("VexFirebaseMessagingService", "onMessageReceived: MessageBody" + remoteMessage.getNotification().getBody());
 //        remoteMessage.get
 
-//        StaticGroup.sendLocalNotification(App.getContext(), "Test","Content", "vex");
+        if(remoteMessage.getData()!= null){
+            Map<String, String> data = remoteMessage.getData();
+            String title = data.get("title");
+            if(TextUtils.isEmpty(title)){
+                title = "VexGift";
+            }
+            String message = data.get("body");
+            if(TextUtils.isEmpty(title)){
+                message = "Notification";
+            }
+            String imageUrl = data.get("imageUrl");
+            String url = data.get("url");
+            if(TextUtils.isEmpty("url")){
+                url = "vexgift://notif";
+            }
+
+            StaticGroup.sendLocalNotification(App.getContext(), title,message, url);
+            if(StaticGroup.isScreenOn(App.getContext(), false )){
+                RxBus.get().post(RxBus.KEY_NOTIF_ADDED,1);
+            }
+        }
+
     }
 
     @Override
