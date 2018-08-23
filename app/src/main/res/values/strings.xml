@@ -489,6 +489,7 @@
     <string name="account_password">Account Password</string>
     <string name="approved_kyc">Approved KYC</string>
     <string name="google_authenticator_enable">Google Authenticator Enable</string>
+    <string name="vex_address_set">Vex Address Submitted</string>
 
     <string name="appversion_need_update_title">We are sorry</string>
     <string name="appversion_need_update_subtitle">Update is Required</string>

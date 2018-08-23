@@ -59,6 +59,7 @@ import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
+import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherDetailActivity;
 import com.vexanium.vexgift.util.AlarmUtil;
 import com.vexanium.vexgift.util.ClickUtil;
@@ -107,7 +108,7 @@ public class StaticGroup {
     public static final String SCHEME = "http://";
     public static final String HOST = "www.vexgift.com";
     public static final String PATH_PREFIX = "/app";
-    public static final String FULL_DEEPLINK = SCHEME + HOST ;
+    public static final String FULL_DEEPLINK = SCHEME + HOST;
 
     public static UserLoginResponse currentUser;
     public static String userSession;
@@ -228,7 +229,7 @@ public class StaticGroup {
     public static String convertVpFormat(int vpValue) {
         DecimalFormat formatter = new DecimalFormat("###,###.###");
         String output = formatter.format(vpValue);
-        return output.replace(",", ".") ;
+        return output.replace(",", ".");
     }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
@@ -974,17 +975,20 @@ public class StaticGroup {
         }
     }
 
-    public static void openRequirementDialog(final Context context) {
+    public static void openRequirementDialog(final Context context, boolean isNeedVexAddress) {
         User user = User.getCurrentUser(context);
         View view = View.inflate(context, R.layout.include_requirement, null);
         final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
         final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
+        final RelativeLayout rlReqAddress = view.findViewById(R.id.req_address);
 
         final ImageView ivReqKyc = view.findViewById(R.id.iv_kyc);
         final ImageView ivReqGoogle2fa = view.findViewById(R.id.iv_g2fa);
+        final ImageView ivReqAddress = view.findViewById(R.id.iv_address);
 
         final TextView tvReqKyc = view.findViewById(R.id.tv_kyc);
         final TextView tvReqGoogle2fa = view.findViewById(R.id.tv_g2fa);
+        final TextView tvReqAddress = view.findViewById(R.id.tv_address);
 
         boolean isReqCompleted = true;
 
@@ -1023,6 +1027,28 @@ public class StaticGroup {
             rlReqGoogle2fa.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
             tvReqGoogle2fa.setTextColor(ContextCompat.getColor(context, R.color.material_black_text_color));
             ivReqGoogle2fa.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_p));
+        }
+        if (isNeedVexAddress) {
+            if (User.getUserAddressStatus() != 1) {
+                rlReqAddress.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+                tvReqAddress.setTextColor(ContextCompat.getColor(context, R.color.material_black_sub_text_color));
+                ivReqAddress.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_n));
+                isReqCompleted = false;
+                rlReqAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        Intent intent = new Intent(context, VexPointActivity.class);
+                        context.startActivity(intent);
+                    }
+                });
+            } else {
+                rlReqAddress.setBackgroundResource(R.drawable.shape_white_round_rect_with_black_border);
+                tvReqAddress.setTextColor(ContextCompat.getColor(context, R.color.material_black_text_color));
+                ivReqAddress.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.btn_check_p));
+            }
+        } else {
+            rlReqAddress.setVisibility(View.GONE);
         }
 
         if (isReqCompleted) return;
@@ -1153,36 +1179,36 @@ public class StaticGroup {
 
     public static long getSleepTime() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("ga_local_session_time") != -1){
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("ga_local_session_time") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("ga_local_session_time"));
-        }else{
+        } else {
             return SLEEP_SIGN_TIME;
         }
     }
 
     public static long getPremiumMemberPaymentDuration() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("premium_member_payment_duration") != -1){
-            return  TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("premium_member_payment_duration"));
-        }else{
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("premium_member_payment_duration") != -1) {
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("premium_member_payment_duration"));
+        } else {
             return PREMIUM_VERIF_TIME;
         }
     }
 
     public static long getAddressConfirmationCountdown() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("address_confirmation_countdown") != -1){
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("address_confirmation_countdown") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("address_confirmation_countdown"));
-        }else{
+        } else {
             return PREMIUM_VERIF_TIME;
         }
     }
 
     public static long getEmailResendCountdown() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if(settingResponse!=null && settingResponse.getSettings()!= null && settingResponse.getSettingValByKey("email_resend_countdown") != -1){
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("email_resend_countdown") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("email_resend_countdown"));
-        }else{
+        } else {
             return EMAIL_RESEND_TIME;
         }
     }

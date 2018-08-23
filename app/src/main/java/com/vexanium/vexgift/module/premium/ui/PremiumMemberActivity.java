@@ -54,7 +54,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -194,8 +193,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onItemClick(PremiumPlan data) {
-        if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-            StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || User.getUserAddressStatus() != 1) {
+            StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
             if(User.getUserAddress() != null && !User.getUserAddress().equals("")) {
                 if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || (( mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
@@ -252,16 +251,12 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().isRequestError()) {
-                StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
-            } else {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-            }
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 
     public void validatePremiumView(long premiumDueDate) {
-        if(user.isPremiumMember()){
+        if (user.isPremiumMember()) {
             updateView(1);
             String ts = getTimeStampDate(premiumDueDate);
             mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium), ts));
