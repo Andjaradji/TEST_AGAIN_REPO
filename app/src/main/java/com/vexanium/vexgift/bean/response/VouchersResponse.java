@@ -18,7 +18,13 @@ public class VouchersResponse implements Serializable {
 
     public ArrayList<Voucher> getVouchers() {
         if (vouchers == null) vouchers = new ArrayList<>();
-        return vouchers;
+        ArrayList<Voucher> rVoucher = new ArrayList<>();
+        for(Voucher voucher : vouchers){
+            if(!voucher.isToken()){
+                rVoucher.add(voucher);
+            }
+        }
+        return rVoucher;
     }
 
     public void setVouchers(ArrayList<Voucher> vouchers) {
@@ -37,8 +43,14 @@ public class VouchersResponse implements Serializable {
     }
 
     public ArrayList<Voucher> getTokens() {
-        if (tokens == null) tokens = new ArrayList<>();
-        return tokens;
+        if (vouchers == null) vouchers = new ArrayList<>();
+        ArrayList<Voucher> rVoucher = new ArrayList<>();
+        for(Voucher voucher : vouchers){
+            if(voucher.isToken()){
+                rVoucher.add(voucher);
+            }
+        }
+        return rVoucher;
     }
 
     public void setTokens(ArrayList<Voucher> tokens) {

@@ -57,6 +57,7 @@ import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
@@ -213,6 +214,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+//                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 mLlErrorView.setVisibility(View.GONE);
                 if (NetworkUtil.isOnline(getActivity())) {
                     updateData();

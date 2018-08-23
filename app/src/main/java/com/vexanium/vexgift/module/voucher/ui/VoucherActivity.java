@@ -47,6 +47,7 @@ import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.widget.LockableScrollView;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
@@ -208,6 +209,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 updateData();
             }
         });
@@ -297,7 +299,11 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
-                vouchers = vouchersResponse.getVouchers();
+                if(isToken){
+                    vouchers = vouchersResponse.getTokens();
+                }else {
+                    vouchers = vouchersResponse.getVouchers();
+                }
 
                 setVoucherList(vouchers);
 

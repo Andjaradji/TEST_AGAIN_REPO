@@ -1,7 +1,6 @@
 package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,7 +28,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
-import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.ConstantGroup;
@@ -37,16 +35,13 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
-import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -54,15 +49,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
-import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
@@ -71,7 +59,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-    Uri uri;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,20 +79,13 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
         }
 
-        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            uri = getIntent().getData();
-            getIntent().setData(null);
-
-        }
-
     }
 
     @Override
     protected void initView() {
-        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            uri = getIntent().getData();
-            getIntent().setData(null);
-
+        if (getIntent().hasExtra("url")) {
+            url = getIntent().getStringExtra("url");
+            getIntent().removeExtra("url");
         }
 
         mPresenter = new ILoginPresenterImpl(this);
@@ -280,8 +261,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            if(uri!=null){
-                intent.putExtra("url",uri.toString());
+            if (url != null) {
+                intent.putExtra("url", url);
             }
             startActivity(intent);
         }

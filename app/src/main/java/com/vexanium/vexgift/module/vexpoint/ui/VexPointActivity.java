@@ -10,7 +10,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -19,7 +18,6 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserAddress;
-import com.vexanium.vexgift.bean.model.VexPointRecord;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
@@ -27,17 +25,16 @@ import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
-import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -94,6 +91,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 mPresenter.requestGetActAddress(user.getId());
             }
         });
@@ -134,7 +132,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
                     updateView();
                 }
-            }else if(data instanceof VexPointRecordResponse){
+            } else if (data instanceof VexPointRecordResponse) {
                 RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {

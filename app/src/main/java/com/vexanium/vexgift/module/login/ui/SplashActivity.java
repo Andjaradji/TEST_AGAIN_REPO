@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.login.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.facebook.AccessToken;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -49,6 +51,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     protected static int SPLASH_TIME = 1000;
     protected static int currentCountdown = 8;
     private Class<? extends Activity> destinationActivity;
+    Uri uri;
+
 
     public static Class<? extends Activity> getDestinationActivity(Context context) {
         Class<? extends Activity> destination;
@@ -85,6 +89,16 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            uri = getIntent().getData();
+            getIntent().setData(null);
+
+        }
+    }
+
+    @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
             if (data instanceof SettingResponse) {
@@ -104,10 +118,16 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     private void checkApp(long minimumVersion, long isMaintenance) {
         long currentVersion = BuildConfig.VERSION_CODE;
         boolean isNeedUpdate = currentVersion < minimumVersion;
-
-        if (isMaintenance == 1) {
+        // TODO: 23/08/18 remove condition 
+        if (isMaintenance == 1 && false) {
             findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_need_update).setVisibility(View.GONE);
+
+            if(User.getCurrentUser(this)!= null){
+                TpUtil tpUtil = new TpUtil(App.getContext());
+                tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER,"");
+                tpUtil.remove(TpUtil.KEY_CURRENT_LOGGED_IN_USER);
+            }
 
             findViewById(R.id.tv_contact).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,11 +158,15 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
 
             startCoundownTimer();
         } else {
+
             finish();
 
             Intent intent = new Intent();
             intent.setClass(SplashActivity.this, destinationActivity);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            if(uri!=null){
+                intent.putExtra("url",uri.toString());
+            }
             startActivity(intent);
         }
     }
@@ -212,6 +236,9 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, DestinationActivity);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    if(uri!=null){
+                        intent.putExtra("url",uri.toString());
+                    }
                     startActivity(intent);
                 }
             }
@@ -222,11 +249,16 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
 
     @Override
     public void onBackPressed() {
-
+        super.onBackPressed();
     }
 
     @Override
     protected void initView() {
+        if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            uri = getIntent().getData();
+            getIntent().setData(null);
+
+        }
 
     }
 }
