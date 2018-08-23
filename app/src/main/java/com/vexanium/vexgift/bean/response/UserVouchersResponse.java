@@ -25,6 +25,7 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
+            if(!voucherCode.getVoucher().isToken())
             if ((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                 activeVouchers.add(voucherCode);
             }
@@ -38,9 +39,38 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
-            if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+            if(!voucherCode.getVoucher().isToken())
+                if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
                 inActiveVouchers.add(voucherCode);
             }
+        }
+
+        return inActiveVouchers;
+    }
+
+    public ArrayList<VoucherCode> getActiveToken() {
+        ArrayList<VoucherCode> activeVouchers = new ArrayList<>();
+        if (voucherCodes == null) voucherCodes = new ArrayList<>();
+
+        for (VoucherCode voucherCode : voucherCodes) {
+            if(voucherCode.getVoucher().isToken())
+                if ((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                    activeVouchers.add(voucherCode);
+                }
+        }
+
+        return activeVouchers;
+    }
+
+    public ArrayList<VoucherCode> getInactiveToken() {
+        ArrayList<VoucherCode> inActiveVouchers = new ArrayList<>();
+        if (voucherCodes == null) voucherCodes = new ArrayList<>();
+
+        for (VoucherCode voucherCode : voucherCodes) {
+            if(voucherCode.getVoucher().isToken())
+                if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+                    inActiveVouchers.add(voucherCode);
+                }
         }
 
         return inActiveVouchers;

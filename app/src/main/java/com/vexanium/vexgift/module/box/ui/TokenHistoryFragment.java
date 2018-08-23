@@ -1,8 +1,10 @@
 package com.vexanium.vexgift.module.box.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,18 +29,30 @@ import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
+import com.vexanium.vexgift.module.box.view.IBoxView;
+import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.SwipeRefreshUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by Amang on 16/07/2018.
  */
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
-public class TokenHistoryFragment extends BaseFragment {
+public class TokenHistoryFragment extends BaseFragment<IBoxPresenter> implements IBoxView {
 
     LinearLayout mErrorView;
     ImageView mIvError;
@@ -48,6 +62,8 @@ public class TokenHistoryFragment extends BaseFragment {
     RecyclerView mRecyclerview;
     private Context context;
     private ArrayList<VoucherCode> data;
+    private BaseRecyclerAdapter<VoucherCode> mAdapter;
+    private Observable<Integer> mVoucherHistoryObservable;
     private User user;
 
     public static TokenHistoryFragment newInstance() {
@@ -56,19 +72,19 @@ public class TokenHistoryFragment extends BaseFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("Token onCreateView");
+        KLog.v("VoucherFragment onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     protected void initView(View fragmentRootView) {
+        user = User.getCurrentUser(this.getActivity());
         if (getActivity() != null) {
             context = getActivity();
         }
-        user = User.getCurrentUser(context);
 
-        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = (SwipeRefreshLayout) fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
@@ -78,13 +94,25 @@ public class TokenHistoryFragment extends BaseFragment {
         layoutListManager = new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
-        data = new ArrayList<>();
-        setVoucherList(data);
+        loadData();
+        setVoucherList();
+
+        mVoucherHistoryObservable = RxBus.get().register(RxBus.KEY_BOX_HISTORY_ADDED, Integer.class);
+        mVoucherHistoryObservable.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer i) {
+                KLog.v("VoucherFragment", "call: HPtes masuk");
+                loadData();
+                mAdapter.setData(data);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
         // Setup refresh listener which triggers new data loading
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
@@ -105,9 +133,32 @@ public class TokenHistoryFragment extends BaseFragment {
         }, 3000);
     }
 
-    public void setVoucherList(final ArrayList<VoucherCode> data) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mVoucherHistoryObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_BOX_HISTORY_ADDED, mVoucherHistoryObservable);
+            mVoucherHistoryObservable = null;
+        }
+    }
 
-        BaseRecyclerAdapter<VoucherCode> mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+
+        } else if (errorResponse != null) {
+
+        }
+    }
+
+    public void loadData() {
+        data = TableContentDaoUtil.getInstance().getMyBoxContent().getInactiveVoucher();
+        if (data == null) data = new ArrayList<>();
+    }
+
+    public void setVoucherList() {
+
+        mAdapter = new BaseRecyclerAdapter<VoucherCode>(context, data, layoutListManager) {
 
             @Override
             public int getItemLayoutId(int viewType) {
@@ -115,17 +166,17 @@ public class TokenHistoryFragment extends BaseFragment {
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
+            public void bindData(final BaseRecyclerViewHolder holder, int position, final VoucherCode item) {
                 final Voucher voucher = item.getVoucher();
                 holder.setBnWImageUrl(R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, voucher.getTitle());
+                holder.setText(R.id.tv_coupon_title, voucher.getTitle() + " " + item.getId());
                 holder.setText(R.id.tv_coupon_exp, voucher.getExpiredDate());
                 holder.setViewInvisible(R.id.ll_qty, true);
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
-//                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
                     }
                 });
 
@@ -140,7 +191,7 @@ public class TokenHistoryFragment extends BaseFragment {
                         if (voucher.isForPremium() && !user.isPremiumMember()) {
                             StaticGroup.showPremiumMemberDialog(TokenHistoryFragment.this.getActivity());
                         } else {
-//                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
                         }
                     }
                 });
@@ -177,5 +228,13 @@ public class TokenHistoryFragment extends BaseFragment {
 
             mRecyclerview.setVisibility(View.GONE);
         }
+    }
+
+    private void goToVoucherRedeemActivity(VoucherCode voucherResponse, ImageView ivVoucher) {
+        Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
+        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
+        startActivity(intent, options.toBundle());
     }
 }

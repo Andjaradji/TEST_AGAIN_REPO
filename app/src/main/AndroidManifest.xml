@@ -59,6 +59,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.vexgift.com"
+                    android:scheme="http" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".module.main.ui.MainActivity"
@@ -82,16 +92,6 @@
         <activity
             android:name=".module.login.ui.LoginActivity"
             android:screenOrientation="portrait">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="www.vexgift.com"
-                    android:scheme="http" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".module.voucher.ui.VoucherActivity"
