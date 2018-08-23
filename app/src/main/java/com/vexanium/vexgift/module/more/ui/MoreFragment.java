@@ -33,6 +33,7 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -110,10 +111,12 @@ public class MoreFragment extends BaseFragment {
             countDownTimer.start();
         }
 
-        if (user.getPremiumUntil() > 0) {
-            fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.VISIBLE);
-        } else {
-            fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.GONE);
+        if(user!=null) {
+            if(user.isPremiumMember()) {
+                fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.VISIBLE);
+            } else {
+                fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.GONE);
+            }
         }
 
         ViewUtil.setText(fragmentRootView, R.id.tv_version,

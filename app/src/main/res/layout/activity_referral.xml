@@ -52,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/referral_title"
                 android:textColor="@color/material_black_text_color"
-                android:textStyle="bold"
                 android:tag="hnBoldCond"
                 android:textSize="@dimen/text_big_medium"
                 android:layout_marginTop="20dp"/>
@@ -103,8 +102,6 @@
                             android:id="@+id/tv_referral_invited_user_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12"
-                            android:textStyle="bold"
                             android:textColor="@color/material_black_text_color"
                             android:tag="hnBoldCond"
                             android:paddingEnd="@dimen/interval_content"

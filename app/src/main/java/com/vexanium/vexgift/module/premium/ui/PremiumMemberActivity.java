@@ -255,8 +255,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     public void validatePremiumView(long premiumDueDate) {
-        long millis = new Date().getTime();
-        if (premiumDueDate > 0 && premiumDueDate <= millis) {
+        if(user.isPremiumMember()){
             updateView(1);
             String ts = getTimeStampDate(premiumDueDate);
             mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium), ts));
