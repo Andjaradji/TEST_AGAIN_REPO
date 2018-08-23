@@ -211,7 +211,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             String invitePoint = getResources().getString(R.string.vexpoint_invite_point);
 
             mTabVp.addTabView(0, -1, pointRecord);
-            mTabVp.addTabView(1, -1, invitePoint);
+            //mTabVp.addTabView(1, -1, invitePoint);
 
             VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getSupportFragmentManager());
             mPagerVp.setAdapter(vpPagerAdapter);
@@ -423,7 +423,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         @Override
         public int getCount() {
-            return PAGE_COUNT;
+            //TODO PAGE_COUNT
+            return 1;
         }
 
     }
