@@ -193,18 +193,15 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onItemClick(PremiumPlan data) {
-        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || User.getUserAddressStatus() != 1) {
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddress() == null || User.getUserAddress().equals(""))) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
-            if(User.getUserAddress() != null && !User.getUserAddress().equals("")) {
-                if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || (( mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
-                    doBuy(data);
-                } else {
-                    showPendingWarning();
-                }
-            }else{
-                StaticGroup.showCommonErrorDialog(this, "Please input your act address first.");
+            if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || (( mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
+                doBuy(data);
+            } else {
+                showPendingWarning();
             }
+
         }
     }
 
@@ -251,7 +248,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this, errorResponse);
+            if(!errorResponse.getMeta().getMessage().contains("Address not found")) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse);
+            }
         }
     }
 
