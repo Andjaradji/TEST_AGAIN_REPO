@@ -12,26 +12,20 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    google()
 }
 
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'tes'
-            keyPassword 'tes'
-            storeFile file('tes')
-            storePassword 'tes'
-        }
-    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.vexanium.vexgift"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 897
-        versionName "0.8.9.7"
+        versionCode 900
+        versionName "0.9.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,12 +34,15 @@ android {
         }
         release {
             debuggable false
-            minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    aaptOptions {
+        cruncherEnabled = false
     }
     packagingOptions {
         exclude 'META-INF/services/com.fasterxml.jackson.core.JsonFactory'
@@ -65,14 +62,12 @@ android {
             buildConfigField "String", "TARGET_ENV", "\"development\""
             resValue 'string', 'app_name', "\"VexGift dev\""
             resValue "string", "tray__authority", "$applicationId"
-            buildConfigField "String", "VEX_HOST", "\"73f9ce4e.ngrok.io/\""
             dimension "mode"
         }
         production {
             buildConfigField "String", "TARGET_ENV", "\"production\""
             resValue 'string', 'app_name', "\"VexGift\""
             resValue "string", "tray__authority", "$applicationId"
-            buildConfigField "String", "VEX_HOST", "\"73f9ce4e.ngrok.io\""
             dimension "mode"
         }
     }
@@ -100,6 +95,7 @@ dependencies {
     implementation "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
     //implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
+    //    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'net.grandcentrix.tray:tray:0.11.0'
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0'
     implementation 'io.reactivex:rxandroid:1.2.1'

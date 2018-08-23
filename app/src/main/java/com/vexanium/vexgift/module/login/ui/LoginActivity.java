@@ -215,7 +215,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
-            KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
+            KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
             StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
         }
     }

@@ -21,6 +21,8 @@ import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -105,7 +107,7 @@ public interface UserService {
     Observable<HttpResponse<Kyc>> submitKyc(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
-            @FieldMap Map<String, Object> params,
+            @PartMap Map<String, Object> params,
             @Part MultipartBody.Part frontImage,
             @Part MultipartBody.Part backImage,
             @Part MultipartBody.Part selfieImage);
