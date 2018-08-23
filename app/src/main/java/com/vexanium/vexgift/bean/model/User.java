@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -684,7 +685,8 @@ public class User implements Serializable {
     }
 
     public boolean isPremiumMember() {
-        return premiumUntil > 0;
+        long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        return premiumUntil > 0 && premiumUntil <= timestamp/1000;
     }
 
     public String getEmailConfirmationCode() {

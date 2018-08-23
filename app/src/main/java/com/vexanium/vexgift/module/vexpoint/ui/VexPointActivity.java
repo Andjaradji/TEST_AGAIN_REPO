@@ -190,7 +190,10 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             }
 
         } else {
-            mReferralButton.setVisibility(View.VISIBLE);
+            //TODO referral setvisibility visible & enabled
+            mReferralButton.setVisibility(View.GONE);
+            mReferralButton.setEnabled(false);
+
             findViewById(R.id.rl_vp).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_info).setVisibility(View.GONE);
             findViewById(R.id.ll_wait_address).setVisibility(View.GONE);

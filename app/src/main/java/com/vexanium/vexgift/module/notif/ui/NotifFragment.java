@@ -215,37 +215,22 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             mNotifListAdapter = new BaseRecyclerAdapter<NotificationModel>(this.getActivity(), data, layoutListManager) {
                 @Override
                 public int getItemLayoutId(int viewType) {
-                    return R.layout.item_notif_list;
+                    return R.layout.item_notification_list;
                 }
 
                 @Override
                 public void bindData(BaseRecyclerViewHolder holder, int position, final NotificationModel item) {
-                    String content;
-                    switch (item.getType()) {
-                        case "exp":
-                            content = String.format(getString(R.string.notif_expired), item.getTitle());
-                            break;
-                        case "exp_soon":
-                            content = String.format(getString(R.string.notif_expire_soon), item.getTitle(), item.getCreatedAtDate());
-                            break;
-                        case Notification.TYPE_GET_SUCCESS:
-                            content = String.format(getString(R.string.notif_success_claim), item.getTitle(), item.getCreatedAtDate());
-                            break;
-                        case "avail":
-                            content = String.format(getString(R.string.notif_is_available), item.getTitle());
-                            break;
-                        default:
-                            content = String.format(getString(R.string.notif_is_available), item.getTitle());
-                    }
 
-                    /*holder.setViewGone(R.id.iv_red_dot, !item.isNew());
-                    if (item.isNew()) {
-                        holder.getTextView(R.id.tv_brand).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                        holder.getTextView(R.id.tv_content).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                        holder.getTextView(R.id.tv_time).setTextColor(getResources().getColor(R.color.material_black_text_color));
-                    }*/
+                    holder.setText(R.id.tv_brand,item.getTitle());
+                    holder.setText(R.id.tv_content, item.getBody());
+                    holder.setOnClickListener(R.id.root, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
                     long timeInterval = (System.currentTimeMillis() - item.getCreatedAtMillis()) / 1000;
-//                KLog.v("NotifFragment", "HPtes  now [" + System.currentTimeMillis() + "] - time [" + item.getTime() + "] = " + timeInterval + " ");
                     if (timeInterval <= 60) {
                         holder.setText(R.id.tv_time, getString(R.string.notif_item_time_now));
                     } else if (timeInterval <= 60 * 60) {
@@ -261,30 +246,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                     } else {
                         holder.setText(R.id.tv_time, String.format(getString(R.string.notif_item_time_year), timeInterval / (365 * 24 * 60 * 60)));
                     }
-                    holder.setOnClickListener(R.id.root, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (ClickUtil.isFastDoubleClick()) return;
-                            if (!TextUtils.isEmpty(item.getUrl()))
-                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                        }
-                    });
-                    holder.setOnClickListener(R.id.tv_brand, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (ClickUtil.isFastDoubleClick()) return;
-                            if (!TextUtils.isEmpty(item.getUrl()))
-                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                        }
-                    });
-                    holder.setOnClickListener(R.id.tv_content, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (ClickUtil.isFastDoubleClick()) return;
-                            if (!TextUtils.isEmpty(item.getUrl()))
-                                ((MainActivity) getActivity()).openDeepLink(item.getUrl());
-                        }
-                    });
                 }
             };
 

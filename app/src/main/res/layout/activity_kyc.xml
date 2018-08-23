@@ -311,6 +311,29 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+                    android:layout_marginBottom="@dimen/interval_submain">
+
+                <ImageView
+                    android:id="@+id/iv_example"
+                    android:src="@drawable/ic_kyc_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:text="EXAMPLE"
+                        android:tag="bold"
+                        android:layout_centerInParent="true"
+                        android:textColor="#2a000000"
+                        android:textSize="@dimen/text_xlarge" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="170dp">
 
                     <ImageView
