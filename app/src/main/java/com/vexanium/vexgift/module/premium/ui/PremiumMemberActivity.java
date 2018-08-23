@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
@@ -99,7 +100,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         ArrayList<IconText> data = new ArrayList<>();
         data.add(new IconText(R.drawable.ic_premium_voucher, R.string.premium_access_voucher));
-        data.add(new IconText(R.drawable.ic_premium_referral, R.string.premium_referral_bonus));
+        data.add(new IconText(R.drawable.ic_premium_fast, R.string.premium_early_voucher));
+        //data.add(new IconText(R.drawable.ic_premium_referral, R.string.premium_referral_bonus));
         data.add(new IconText(R.drawable.ic_premium_luckydraw, R.string.premium_lucky_draw));
         data.add(new IconText(R.drawable.ic_premium_airdrop, R.string.premium_airdrop_token));
 
@@ -143,7 +145,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
 
         if (NetworkUtil.isOnline(this)) {
-            if (User.getUserAddress() == null) {
+            if (User.getUserAddress() == null || User.getUserAddress().equals("")) {
                 callUserActAddress();
             } else {
                 callPremiumDueDate();
@@ -195,10 +197,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this);
         } else {
-            if (mPremiumHistoryList != null && mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0) {
-                doBuy(data);
-            } else {
-                showPendingWarning();
+            if(User.getUserAddress() != null && !User.getUserAddress().equals("")) {
+                if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || (( mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
+                    doBuy(data);
+                } else {
+                    showPendingWarning();
+                }
+            }else{
+                StaticGroup.showCommonErrorDialog(this, "Please input your act address first.");
             }
         }
     }
@@ -214,7 +220,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 Intent intent = new Intent(PremiumMemberActivity.this, PremiumHistoryDetailActivity.class);
                 intent.putExtra("premium_history_detail", premiumPurchaseResponse.getPremiumPurchase());
                 startActivity(intent);
-                mPresenter.requestUserPremiumHistory(user.getId());
+                callPremiumHistoryList();
             } else if (data instanceof PremiumHistoryResponse) {
                 mPremiumHistoryList = ((PremiumHistoryResponse) data).getPremiumPurchase();
                 Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
@@ -236,7 +242,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 TpUtil tpUtil = new TpUtil(this);
                 tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
 
-                if (userAddress.getStatus() == 1) {
+                if (userAddress!=null && !userAddress.equals("")) {
                     callPremiumHistoryList();
                     callPremiumDueDate();
                     mHistoryButton.setVisibility(View.VISIBLE);
@@ -355,7 +361,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        if (User.getUserAddress() != null) {
+                        if (User.getUserAddress() != null && !User.getUserAddress().equals("")) {
                             callPurchasePremium(plan);
                         } else {
 

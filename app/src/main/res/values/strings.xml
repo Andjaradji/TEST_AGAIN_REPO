@@ -430,6 +430,7 @@
     <string name="premium_member">PREMIUM MEMBER</string>
     <string name="premium_become">Become Premium</string>
     <string name="premium_access_voucher">Access to Premium Voucher</string>
+    <string name="premium_early_voucher">Early access to Exclusive Voucher</string>
     <string name="premium_referral_bonus">Get Referral Bonuses</string>
     <string name="premium_lucky_draw">Enter Lucky Draw</string>
     <string name="premium_airdrop_token">Free Airdrop Token</string>

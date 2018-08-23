@@ -40,7 +40,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
-        if (user.getUserAddress() == null) {
+        if (user.getUserAddress() == null || user.getUserAddress().equals("")) {
 
         }
         verifTimeLeft = Calendar.getInstance();
