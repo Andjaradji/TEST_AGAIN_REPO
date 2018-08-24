@@ -3,7 +3,6 @@ package com.vexanium.vexgift.module.notif.ui;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +11,6 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -32,15 +30,12 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.NotificationModel;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
-import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenter;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenterImpl;
 import com.vexanium.vexgift.module.notif.view.INotifView;
@@ -49,15 +44,12 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Random;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -140,7 +132,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 //fetchTimelineAsync(0);
                 updateData();//update data here
 

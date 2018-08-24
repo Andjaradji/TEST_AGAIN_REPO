@@ -47,7 +47,6 @@ import com.vexanium.vexgift.module.voucher.view.IVoucherView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
-import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.widget.LockableScrollView;
 import com.vexanium.vexgift.widget.tag.Tag;
 import com.vexanium.vexgift.widget.tag.TagView;
@@ -209,7 +208,6 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 updateData();
             }
         });

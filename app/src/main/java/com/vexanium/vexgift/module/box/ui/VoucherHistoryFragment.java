@@ -38,7 +38,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.SwipeRefreshUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -111,7 +110,6 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.

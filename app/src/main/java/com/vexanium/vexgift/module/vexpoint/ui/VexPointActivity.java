@@ -29,7 +29,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.SwipeRefreshUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
@@ -91,7 +90,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 mPresenter.requestGetActAddress(user.getId());
             }
         });

@@ -3,7 +3,6 @@ package com.vexanium.vexgift.module.box.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,7 +30,6 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
-import com.vexanium.vexgift.bean.response.VoucherResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenter;
 import com.vexanium.vexgift.module.box.presenter.IBoxPresenterImpl;
@@ -41,7 +39,6 @@ import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.SwipeRefreshUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -111,7 +108,6 @@ public class TokenFragment extends  BaseFragment<IBoxPresenter> implements IBoxV
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
                 mPresenter.requestUserVoucherList(user.getId());
 
             }
