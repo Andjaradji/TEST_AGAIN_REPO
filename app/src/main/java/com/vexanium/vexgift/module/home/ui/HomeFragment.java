@@ -108,6 +108,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     private Observable<Integer> mVexPointObservable;
 
+    private Handler mRefreshHandler;
+    private Runnable mRefreshRunnable;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -210,17 +213,27 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             }
         });
 
+        mRefreshHandler = new Handler();
+        mRefreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mSrlHome.setEnabled(true);
+            }
+        };
+
         // Setup refresh listener which triggers new data loading
         mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                if(SwipeRefreshUtil.isFastMultipleSwipe()) return;
+                if(mRefreshHandler!=null){
+                    mRefreshHandler.removeCallbacks(mRefreshRunnable);
+                }
                 mLlErrorView.setVisibility(View.GONE);
+                mSrlHome.setEnabled(false);
+                mSrlHome.setRefreshing(false);
                 if (NetworkUtil.isOnline(getActivity())) {
                     updateData();
                 } else {
-                    mSrlHome.setEnabled(false);
-                    mSrlHome.setRefreshing(false);
                     StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));
                 }
             }
@@ -251,7 +264,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        mSrlHome.setEnabled(true);
+
         if (data != null) {
             if (data instanceof BestVoucherResponse) {
                 BestVoucherResponse bestVoucherResponse = (BestVoucherResponse) data;
@@ -262,7 +275,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 bestVoucherList = bestVoucherResponse.getBestVouchers();
                 loadData(bestVoucherList, featuredVoucherList);
 
-                initHomeList();
+                setAdapterData();
 
             } else if (data instanceof FeaturedVoucherResponse) {
                 FeaturedVoucherResponse bestVoucherResponse = (FeaturedVoucherResponse) data;
@@ -274,14 +287,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 featuredVoucherList = bestVoucherResponse.getFeaturedVoucher();
                 loadData(bestVoucherList, featuredVoucherList);
 
-                initHomeList();
+                setAdapterData();
             } else if (data instanceof Kyc) {
                 Kyc kyc = (Kyc) data;
                 user.updateKyc(kyc);
                 User.updateCurrentUser(HomeFragment.this.getActivity(), user);
                 loadData(bestVoucherList, featuredVoucherList);
 
-                initHomeList();
+                setAdapterData();
             } else if(data instanceof VouchersResponse){
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
@@ -385,8 +398,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     public void updateData() {
         //update data here
-        mSrlHome.setEnabled(false);
-        mSrlHome.setRefreshing(false);
+
         data = new ArrayList<>();
         mAvi.smoothToShow();
         mRecyclerview.setVisibility(View.GONE);
@@ -420,145 +432,150 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }
 
-    public void initHomeList() {
-        if (mAdapter == null) {
-            mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
-                @Override
-                public int getItemViewType(int position) {
+    public void initHomeList(){
+        mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
+            @Override
+            public int getItemViewType(int position) {
+                if(data!=null && data.size() > 0) {
                     return data.get(position).type;
                 }
+                return 0;
+            }
 
-                @Override
-                public int getItemLayoutId(int viewType) {
-                    switch (viewType) {
-                        case SHORTCUT_BAR:
-                            return R.layout.item_shortcut_bar;
-                        case HOT_LIST:
-                            return R.layout.item_hot_coupon_pager;
-                        case EXPLORE_BAR:
-                            return R.layout.item_explore_bar;
-                        case CATEGORY_BAR:
-                            return R.layout.item_category_home;
-                        case COMPLETE_FORM:
-                            return R.layout.item_fill_kyc;
-                        case CONNECT_FB:
-                            return R.layout.item_connect_fb;
-                        case NORMAL_COUPON:
-                        default:
-                            return R.layout.item_coupon_list;
-                    }
+            @Override
+            public int getItemLayoutId(int viewType) {
+                switch (viewType) {
+                    case SHORTCUT_BAR:
+                        return R.layout.item_shortcut_bar;
+                    case HOT_LIST:
+                        return R.layout.item_hot_coupon_pager;
+                    case EXPLORE_BAR:
+                        return R.layout.item_explore_bar;
+                    case CATEGORY_BAR:
+                        return R.layout.item_category_home;
+                    case COMPLETE_FORM:
+                        return R.layout.item_fill_kyc;
+                    case CONNECT_FB:
+                        return R.layout.item_connect_fb;
+                    case NORMAL_COUPON:
+                    default:
+                        return R.layout.item_coupon_list;
                 }
+            }
 
-                @Override
-                public void bindData(BaseRecyclerViewHolder holder, int position, final HomeFeedResponse item) {
-                    switch (getItemViewType(position)) {
-                        case SHORTCUT_BAR:
-                            if (getActivity() != null) {
-                                holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (ClickUtil.isFastDoubleClick()) return;
-                                        ((MainActivity) getActivity()).gotoPage(1, 0);
-                                    }
-                                });
-                                holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (ClickUtil.isFastDoubleClick()) return;
-                                        ((MainActivity) getActivity()).gotoPage(1, 1);
-                                    }
-                                });
-                                holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (ClickUtil.isFastDoubleClick()) return;
-                                        ((MainActivity) getActivity()).gotoPage(2, 0);
-                                    }
-                                });
+            @Override
+            public void bindData(BaseRecyclerViewHolder holder, int position, final HomeFeedResponse item) {
+                switch (getItemViewType(position)) {
+                    case SHORTCUT_BAR:
+                        if (getActivity() != null) {
+                            holder.setOnClickListener(R.id.my_voucher_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    ((MainActivity) getActivity()).gotoPage(1, 0);
+                                }
+                            });
+                            holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    ((MainActivity) getActivity()).gotoPage(1, 1);
+                                }
+                            });
+                            holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    ((MainActivity) getActivity()).gotoPage(2, 0);
+                                }
+                            });
+                        }
+                        break;
+                    case HOT_LIST:
+                        if (item.object instanceof ArrayList<?>) {
+                            setFeaturedVoucherList(holder, (ArrayList<BestVoucher>) item.object);
+                        }
+                        break;
+                    case EXPLORE_BAR:
+                        holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                intent.putExtra("isToken", true);
+                                startActivity(intent);
                             }
-                            break;
-                        case HOT_LIST:
-                            if (item.object instanceof ArrayList<?>) {
-                                setFeaturedVoucherList(holder, (ArrayList<BestVoucher>) item.object);
+                        });
+                        holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                startActivity(intent);
                             }
-                            break;
-                        case EXPLORE_BAR:
-                            holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
-                                    intent.putExtra("isToken", true);
-                                    startActivity(intent);
-                                }
-                            });
-                            holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                            break;
-                        case CATEGORY_BAR:
-                            holder.setText(R.id.tv_category_title, item.title);
-                            holder.setText(R.id.tv_category_desc, item.desc);
-                            holder.setOnClickListener(R.id.category_show_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                            if (item.object instanceof ArrayList)
-                                setVoucherList(holder, (ArrayList<BestVoucher>) item.object);
-                            break;
-                        case COMPLETE_FORM:
-                            holder.setOnClickListener(R.id.ll_fill_kyc_button, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                            break;
-                        case NORMAL_COUPON:
-                        default:
-                            break;
-                    }
+                        });
+                        break;
+                    case CATEGORY_BAR:
+                        holder.setText(R.id.tv_category_title, item.title);
+                        holder.setText(R.id.tv_category_desc, item.desc);
+                        holder.setOnClickListener(R.id.category_show_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        if (item.object instanceof ArrayList)
+                            setVoucherList(holder, (ArrayList<BestVoucher>) item.object);
+                        break;
+                    case COMPLETE_FORM:
+                        holder.setOnClickListener(R.id.ll_fill_kyc_button, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        break;
+                    case NORMAL_COUPON:
+                    default:
+                        break;
                 }
-            };
-            mAdapter.setHasStableIds(true);
-            mRecyclerview.setLayoutManager(layoutListManager);
-            if (this.getActivity() != null)
-                mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
-            mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-            if (mRecyclerview.getItemAnimator() != null)
-                mRecyclerview.getItemAnimator().setAddDuration(250);
-            mRecyclerview.getItemAnimator().setMoveDuration(250);
-            mRecyclerview.getItemAnimator().setChangeDuration(250);
-            mRecyclerview.getItemAnimator().setRemoveDuration(250);
-            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecyclerview.setItemViewCacheSize(30);
-            mRecyclerview.setAdapter(mAdapter);
-            mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    App.setTextViewStyle(mRecyclerview);
-                }
-            });
-        } else {
+            }
+        };
+        mAdapter.setHasStableIds(true);
+        mRecyclerview.setLayoutManager(layoutListManager);
+        if (this.getActivity() != null)
+            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+        if (mRecyclerview.getItemAnimator() != null)
+            mRecyclerview.getItemAnimator().setAddDuration(250);
+        mRecyclerview.getItemAnimator().setMoveDuration(250);
+        mRecyclerview.getItemAnimator().setChangeDuration(250);
+        mRecyclerview.getItemAnimator().setRemoveDuration(250);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mRecyclerview.setItemViewCacheSize(30);
+        mRecyclerview.setAdapter(mAdapter);
+        mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                App.setTextViewStyle(mRecyclerview);
+            }
+        });
+    }
+
+    public void setAdapterData() {
+        if (mAdapter != null) {
             mAdapter.setData(data);
         }
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                mRefreshHandler.post(mRefreshRunnable);
                 if (mAdapter.getItemCount() > 0 && mRecyclerview.getVisibility() == View.GONE) {
                     mRecyclerview.setVisibility(View.VISIBLE);
                     mRecyclerview.startAnimation(mFadeIn);

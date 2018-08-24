@@ -118,6 +118,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     private void checkApp(long minimumVersion, long isMaintenance) {
         long currentVersion = BuildConfig.VERSION_CODE;
         boolean isNeedUpdate = currentVersion < minimumVersion;
+
         // TODO: 23/08/18 remove condition 
         if (isMaintenance == 1 && false) {
             findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
