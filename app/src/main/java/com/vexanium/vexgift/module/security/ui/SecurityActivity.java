@@ -99,6 +99,12 @@ public class SecurityActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        user = User.getCurrentUser(this);
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {

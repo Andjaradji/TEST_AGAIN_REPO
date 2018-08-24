@@ -271,7 +271,7 @@
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
 
-    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document and statement</string>
+    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document</string>
     <string name="myprofile_id_selfie_desc">Selfie View</string>
 
     <string name="myprofile_kyc">KYC</string>
@@ -401,7 +401,7 @@
 
     <string name="addnewpas_password">Password</string>
     <string name="addnewpass_repassword">Re enter password</string>
-    <string name="addnewpass_button">Submit</string>
+    <string name="addnewpass_button">Add Password</string>
 
     <string name="exchange_receive_voucher">RECEIVE VOUCHER</string>
     <string name="exchange_send_voucher">SEND VOUCHER</string>

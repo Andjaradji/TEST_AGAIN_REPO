@@ -124,9 +124,9 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_need_update).setVisibility(View.GONE);
 
-            if(User.getCurrentUser(this)!= null){
+            if (User.getCurrentUser(this) != null) {
                 TpUtil tpUtil = new TpUtil(App.getContext());
-                tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER,"");
+                tpUtil.put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, "");
                 tpUtil.remove(TpUtil.KEY_CURRENT_LOGGED_IN_USER);
             }
 
@@ -165,8 +165,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             Intent intent = new Intent();
             intent.setClass(SplashActivity.this, destinationActivity);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            if(uri!=null){
-                intent.putExtra("url",uri.toString());
+            if (uri != null) {
+                intent.putExtra("url", uri.toString());
             }
             startActivity(intent);
         }
@@ -237,8 +237,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, DestinationActivity);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    if(uri!=null){
-                        intent.putExtra("url",uri.toString());
+                    if (uri != null) {
+                        intent.putExtra("url", uri.toString());
                     }
                     startActivity(intent);
                 }
@@ -258,8 +258,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             uri = getIntent().getData();
             getIntent().setData(null);
-
         }
-
+        String text = "Version " + BuildConfig.VERSION_NAME + "\n" + getString(R.string.app_copyright);
+        ViewUtil.setText(this, R.id.tv_main_copyright, text);
     }
 }

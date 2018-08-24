@@ -43,6 +43,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
@@ -976,7 +977,7 @@ public class StaticGroup {
     }
 
     public static void openRequirementDialog(final Context context, boolean isNeedVexAddress) {
-        User user = User.getCurrentUser(context);
+        final User user = User.getCurrentUser(context);
         View view = View.inflate(context, R.layout.include_requirement, null);
         final RelativeLayout rlReqKyc = view.findViewById(R.id.req_kyc);
         final RelativeLayout rlReqGoogle2fa = view.findViewById(R.id.req_g2fa);
@@ -1038,8 +1039,14 @@ public class StaticGroup {
                     @Override
                     public void onClick(View view) {
                         if (ClickUtil.isFastDoubleClick()) return;
-                        Intent intent = new Intent(context, VexPointActivity.class);
-                        context.startActivity(intent);
+                        if (user.isKycApprove()) {
+                            Intent intent = new Intent(context, VexPointActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            if (context instanceof BaseActivity) {
+                                ((BaseActivity) context).toast(context.getString(R.string.vexaddress_need_kyc_dialog_desc));
+                            }
+                        }
                     }
                 });
             } else {

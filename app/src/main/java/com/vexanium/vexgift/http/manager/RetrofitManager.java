@@ -2,7 +2,6 @@ package com.vexanium.vexgift.http.manager;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.socks.library.KLog;
@@ -10,7 +9,6 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.Kyc;
-import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
@@ -354,7 +352,8 @@ public class RetrofitManager {
 
         params.put("user_id", id);
         params.put("password", pass);
-        params.put("old_password", oldpass);
+        if (!TextUtils.isEmpty(oldpass))
+            params.put("old_password", oldpass);
 
         return mUserService.requestChangePassword(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }

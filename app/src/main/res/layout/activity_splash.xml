@@ -38,7 +38,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_splash"
         android:tag="light"
-        android:text="@string/app_copyright"
         android:textColor="@color/material_white"
         android:textSize="@dimen/text_tiny" />
 
@@ -46,6 +45,6 @@
 
     <include layout="@layout/include_maintainance" />
 
-    <include layout="@layout/include_loading_view" />
+    <include layout="@layout/include_loading_view_bottom" />
 
 </RelativeLayout>
