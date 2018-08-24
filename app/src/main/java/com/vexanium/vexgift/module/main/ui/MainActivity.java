@@ -32,10 +32,10 @@ public class MainActivity extends BaseActivity {
 
     public static final int HOME_FRAGMENT = 0;
     public static final int BOX_FRAGMENT = 1;
-    //public static final int WALLET_FRAGMENT = 2;
-    public static final int NOTIF_FRAGMENT = 2;
-    public static final int MORE_FRAGMENT = 3;
-    public static final int PAGE_COUNT = 4;
+    public static final int WALLET_FRAGMENT = 2;
+    public static final int NOTIF_FRAGMENT = 3;
+    public static final int MORE_FRAGMENT = 4;
+    public static final int PAGE_COUNT = 5;
     private CustomTabBarView mCustomTabBarView;
     private CustomViewPager mCustomViewPager;
     private HomeFragment homeFragment;
@@ -94,9 +94,9 @@ public class MainActivity extends BaseActivity {
 
         mCustomTabBarView.addTabView(0, R.drawable.home, R.drawable.home_active);
         mCustomTabBarView.addTabView(1, R.drawable.box, R.drawable.box_active);
-        //mCustomTabBarView.addTabView(2, R.drawable.wallet, R.drawable.wallet_active);
-        mCustomTabBarView.addTabView(2, R.drawable.notif, R.drawable.notif_active);
-        mCustomTabBarView.addTabView(3, R.drawable.more, R.drawable.more_active);
+        mCustomTabBarView.addTabView(2, R.drawable.wallet, R.drawable.wallet_active);
+        mCustomTabBarView.addTabView(3, R.drawable.notif, R.drawable.notif_active);
+        mCustomTabBarView.addTabView(4, R.drawable.more, R.drawable.more_active);
 
         setFragmentToolbar(0);
 
@@ -108,7 +108,8 @@ public class MainActivity extends BaseActivity {
                 break;
             case BOX_FRAGMENT:
                 break;
-
+            case WALLET_FRAGMENT:
+                break;
             case NOTIF_FRAGMENT:
                 break;
             case MORE_FRAGMENT:
@@ -286,11 +287,11 @@ public class MainActivity extends BaseActivity {
                         boxBaseFragment = BoxBaseFragment.newInstance();
                     }
                     return boxBaseFragment;
-                /*case WALLET_FRAGMENT:
+                case WALLET_FRAGMENT:
                     if (walletFragment == null) {
                         walletFragment = WalletFragment.newInstance();
                     }
-                    return walletFragment;*/
+                    return walletFragment;
                 case NOTIF_FRAGMENT:
                     if (notifFragment == null) {
                         notifFragment = NotifFragment.newInstance();
