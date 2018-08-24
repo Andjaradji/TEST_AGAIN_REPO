@@ -412,7 +412,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data = new ArrayList<>();
         int idx = -1;
 
-        //data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
+        data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
 
         if (featuredVoucher != null && featuredVoucher.size() > 0) {
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
