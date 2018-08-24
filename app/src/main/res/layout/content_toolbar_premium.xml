@@ -13,6 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/interval_content"
         android:layout_marginStart="@dimen/interval_content"
+        android:layout_alignParentStart="true"
         android:src="@drawable/ic_back" />
 
     <TextView
@@ -38,7 +39,7 @@
         android:padding="10dp"
         android:layout_marginRight="@dimen/interval_content"
         android:layout_marginEnd="@dimen/interval_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:contentDescription="@string/image_content_description"/>
     
 </RelativeLayout>

@@ -686,7 +686,7 @@ public class User implements Serializable {
 
     public boolean isPremiumMember() {
         long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        return premiumUntil > 0 && premiumUntil <= timestamp/1000;
+        return premiumUntil > 0 && premiumUntil >= timestamp;
     }
 
     public String getEmailConfirmationCode() {
