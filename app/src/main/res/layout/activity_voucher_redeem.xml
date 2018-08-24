@@ -341,13 +341,6 @@
                     android:layout_marginTop="@dimen/margin_more_line"
                     android:background="@color/lineColor" />
 
-                <com.vexanium.vexgift.base.BaseWebView
-                    android:id="@+id/wv_voucher"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </com.vexanium.vexgift.base.BaseWebView>
-
                 <LinearLayout
                     android:id="@+id/ll_merchant_info"
                     android:layout_width="match_parent"

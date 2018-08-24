@@ -382,7 +382,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
-                findViewById(R.id.ll_online_voucher_info).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_online_info_desc));
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
