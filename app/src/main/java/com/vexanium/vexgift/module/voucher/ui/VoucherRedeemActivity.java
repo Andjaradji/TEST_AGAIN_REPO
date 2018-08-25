@@ -378,12 +378,12 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.send_button).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_info).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_countdown).setVisibility(View.VISIBLE);
-                findViewById(R.id.ll_voucher_active).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_active).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
-                findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_button_container).setVisibility(View.GONE);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_online_info_desc));
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
@@ -488,7 +488,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
     }
 
     private void setCode(String code) {
-        if (code == null) code = "aKd124fA";
+        if (code == null) code = "failed get code";
         ((TextView) findViewById(R.id.tv_code)).setText(code);
         Bitmap bitmap = QRCode.from(code).withSize(150, 150).bitmap();
         ImageView view = findViewById(R.id.iv_qr_code);

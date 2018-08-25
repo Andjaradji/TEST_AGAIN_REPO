@@ -41,7 +41,9 @@ import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.VexPointResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
@@ -49,6 +51,7 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -109,6 +112,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     private Handler mRefreshHandler;
     private Runnable mRefreshRunnable;
+    private View rootView;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -116,6 +120,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     @Override
     protected void initView(View fragmentRootView) {
+        rootView = fragmentRootView;
         mPresenter = new IHomePresenterImpl(this);
         user = User.getCurrentUser(this.getActivity());
         mFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_anim);
@@ -147,8 +152,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
-        final User user = User.getCurrentUser(HomeFragment.this.getActivity());
-        mVexPointText.setText(convertVpFormat(user.getVexPoint()));
 
         BestVoucherResponse bestVoucherResponse = TableContentDaoUtil.getInstance().getBestVouchers();
         if (bestVoucherResponse != null)
@@ -166,6 +169,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         loadData(bestVoucherList, featuredVoucherList);
         initHomeList();
 
+        updateUserInfo(fragmentRootView);
 
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -224,7 +228,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mSrlHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(mRefreshHandler!=null){
+                if (mRefreshHandler != null) {
                     mRefreshHandler.removeCallbacks(mRefreshRunnable);
                 }
                 mLlErrorView.setVisibility(View.GONE);
@@ -242,6 +246,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestFeaturedVoucherList(user.getId());
         mPresenter.requestKyc(user.getId());
         mPresenter.requestVoucherList(user.getId());
+        mPresenter.requestUserVexPoint(user.getId());
+        mPresenter.requestUserPremiumDueDate(user.getId());
 
         mVexPointObservable = RxBus.get().register(RxBus.KEY_VEXPOINT_UPDATE, Integer.class);
         mVexPointObservable.subscribe(new Action1<Integer>() {
@@ -294,9 +300,19 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 loadData(bestVoucherList, featuredVoucherList);
 
                 setAdapterData();
-            } else if(data instanceof VouchersResponse){
+            } else if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
+            } else if(data instanceof VexPointResponse){
+                VexPointResponse vexPointResponse = (VexPointResponse) data;
+                user.setVexPoint(vexPointResponse.getVexPoint());
+                User.updateCurrentUser(this.getActivity(), user);
+                updateUserInfo(rootView);
+            } else if (data instanceof PremiumDueDateResponse){
+                int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
+                user.setPremiumUntil(dueDate);
+                User.updateCurrentUser(this.getActivity(), user);
+                updateUserInfo(rootView);
             }
         } else if (errorResponse != null) {
 //            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
@@ -345,6 +361,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     public void onResume() {
         super.onResume();
         user = User.getCurrentUser(this.getActivity());
+        updateUserInfo(rootView);
     }
 
     @Override
@@ -352,7 +369,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mAvi.hide();
     }
 
-    public void checkAppVersion(){
+    public void updateUserInfo(View fragmentRootView) {
+        if (fragmentRootView == null) return;
+        mVexPointText.setText(convertVpFormat(user.getVexPoint()));
+        fragmentRootView.findViewById(R.id.iv_premium).setVisibility(user.isPremiumMember() ? View.VISIBLE : View.GONE);
+    }
+
+    public void checkAppVersion() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettings() != null) {
             final TpUtil tpUtil = new TpUtil(App.getContext());
@@ -405,6 +428,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestFeaturedVoucherList(user.getId());
         mPresenter.requestBestVoucherList(user.getId());
         mPresenter.requestKyc(user.getId());
+        mPresenter.requestUserVexPoint(user.getId());
+        mPresenter.requestUserPremiumDueDate(user.getId());
     }
 
     public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher) {
@@ -431,11 +456,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }
 
-    public void initHomeList(){
+    public void initHomeList() {
         mAdapter = new BaseRecyclerAdapter<HomeFeedResponse>(getActivity(), data, layoutListManager) {
             @Override
             public int getItemViewType(int position) {
-                if(data!=null && data.size() > 0) {
+                if (data != null && data.size() > 0) {
                     return data.get(position).type;
                 }
                 return 0;

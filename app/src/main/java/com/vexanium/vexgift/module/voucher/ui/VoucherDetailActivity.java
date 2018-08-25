@@ -121,7 +121,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             case R.id.share_button:
                 String deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/voucher?id=%d", voucher.getId());
                 String message = String.format(getString(R.string.share_voucher_template), deepUrl);
-                StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
+                StaticGroup.shareWithShareDialog(App.getContext(), message, "VexPointResponse Gift");
                 break;
             case R.id.btn_claim:
                 if(voucher.getQtyAvailable() == 0){

@@ -33,11 +33,11 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.vexanium.vexgift.app.ConstantGroup.KYC_ACCEPTED;
 import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
 import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 
@@ -94,6 +94,9 @@ public class MoreFragment extends BaseFragment {
 
         // TODO: 26/07/18 get KYC Status
         int kycStatus = StaticGroup.kycStatus;
+        if (user.isKycApprove()) {
+            kycStatus = KYC_ACCEPTED;
+        }
         if (kycStatus == KYC_NONE) {
             ViewUtil.setText(notifView, R.id.tv_notif_info, getString(R.string.notif_kyc));
             CountDownTimer countDownTimer = new CountDownTimer(2000, 500) {
@@ -111,8 +114,8 @@ public class MoreFragment extends BaseFragment {
             countDownTimer.start();
         }
 
-        if(user!=null) {
-            if(user.isPremiumMember()) {
+        if (user != null) {
+            if (user.isPremiumMember()) {
                 fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.VISIBLE);
             } else {
                 fragmentRootView.findViewById(R.id.iv_premium_crown).setVisibility(View.GONE);
@@ -134,6 +137,7 @@ public class MoreFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        user = User.getCurrentUser(this.getActivity());
         if (user.isKycApprove()) {
             notifView.setVisibility(View.GONE);
         }
@@ -225,7 +229,6 @@ public class MoreFragment extends BaseFragment {
                     }
                 })
                 .autoDismiss(true).show();
-
     }
 
 }

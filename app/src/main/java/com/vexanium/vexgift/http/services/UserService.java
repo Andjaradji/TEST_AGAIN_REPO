@@ -10,6 +10,7 @@ import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
+import com.vexanium.vexgift.bean.response.VexPointResponse;
 
 import java.util.Map;
 
@@ -22,7 +23,6 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -178,6 +178,13 @@ public interface UserService {
     @FormUrlEncoded
     @POST("notification")
     Observable<HttpResponse<NotificationResponse>> getUserNotification(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/vex-point/balance")
+    Observable<HttpResponse<VexPointResponse>> getUserVexPoint(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

@@ -4,7 +4,6 @@
     android:id="@+id/av_indicator_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_black_trans_aa"
     android:visibility="visible">
 
     <com.wang.avi.AVLoadingIndicatorView

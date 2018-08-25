@@ -12,4 +12,9 @@ public interface IHomeInteractor<T> {
     Subscription requestFeaturedVoucherList(RequestCallback<T> callback, int id);
 
     Subscription requestKyc(RequestCallback<T> callback, int id);
+
+    Subscription requestPremiumDueDate(RequestCallback callback, int id);
+
+    Subscription requestUserVexPoint(RequestCallback callback, int id);
+
 }

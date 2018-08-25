@@ -227,10 +227,17 @@ public class StaticGroup {
         }
     }
 
-    public static String convertVpFormat(int vpValue) {
-        DecimalFormat formatter = new DecimalFormat("###,###.###");
+//    public static String convertVpFormat(int vpValue) {
+//        DecimalFormat formatter = new DecimalFormat("###,###.###");
+//        String output = formatter.format(vpValue);
+//        return output.replace(",", ".");
+//    }
+
+    public static String convertVpFormat(float vpValue) {
+        DecimalFormat formatter = new DecimalFormat("");
+        formatter.setMaximumFractionDigits(5);
         String output = formatter.format(vpValue);
-        return output.replace(",", ".");
+        return output;//.replace(",", ".");
     }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {

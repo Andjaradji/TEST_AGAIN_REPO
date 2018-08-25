@@ -75,10 +75,16 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         if (data != null) {
             Kyc kyc = (Kyc) data;
             if (kyc != null) {
+                user.updateKyc(kyc);
+                User.updateCurrentUser(this, user);
                 if (kyc.getStatus().equalsIgnoreCase("pending")) {
                     setKycInfo(KYC_PENDING);
-                } else {
+                } else if (kyc.getStatus().equalsIgnoreCase("rejected")) {
+                    setKycInfo(KYC_REJECTED);
+                } else if (kyc.getStatus().equalsIgnoreCase("approve")) {
                     setKycInfo(KYC_ACCEPTED);
+                } else {
+                    setKycInfo(KYC_NONE);
                 }
                 user.updateKyc(kyc);
                 User.updateCurrentUser(this, user);

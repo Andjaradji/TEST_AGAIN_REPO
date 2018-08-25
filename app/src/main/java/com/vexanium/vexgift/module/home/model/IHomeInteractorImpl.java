@@ -5,6 +5,8 @@ import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
+import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
+import com.vexanium.vexgift.bean.response.VexPointResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -68,4 +70,33 @@ public class IHomeInteractorImpl implements IHomeInteractor {
                     }
                 }).subscribe(new BaseSubscriber<>(callback));
     }
+
+    @Override
+    public Subscription requestPremiumDueDate(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestUserPremiumDueDate(id).compose(RxUtil.<PremiumDueDateResponse>handleResult())
+                .flatMap(new Func1<PremiumDueDateResponse, Observable<PremiumDueDateResponse>>() {
+                    @Override
+                    public Observable<PremiumDueDateResponse> call(PremiumDueDateResponse premiumDueDateResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(premiumDueDateResponse));
+                        return Observable.just(premiumDueDateResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestUserVexPoint(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestVexPoint(id).compose(RxUtil.<VexPointResponse>handleResult())
+                .flatMap(new Func1<VexPointResponse, Observable<VexPointResponse>>() {
+                    @Override
+                    public Observable<VexPointResponse> call(VexPointResponse vexPointResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(vexPointResponse));
+                        return Observable.just(vexPointResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
 }

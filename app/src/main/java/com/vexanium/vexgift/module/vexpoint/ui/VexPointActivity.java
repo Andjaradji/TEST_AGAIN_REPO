@@ -103,9 +103,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         findViewById(R.id.back_button).setOnClickListener(this);
 
-        if (NetworkUtil.isOnline(this)) {
-            // TODO: 02/08/18 doSomething on VexPoint 
-        }
     }
 
     @Override
@@ -134,7 +131,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().getStatus() == 404) {
+            if (errorResponse.getMeta().getStatus() / 100 == 4) {
                 User.setIsVexAddressSet(this, false);
             }
 
@@ -155,8 +152,16 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 if (userAddress != null) {
                     verifTimeLeft.setTimeInMillis((userAddress.getRemainingTime() * 1000) + Calendar.getInstance().getTimeInMillis());
                     ViewUtil.setText(this, R.id.tv_vex_address, userAddress.getActAddress());
-                    ViewUtil.setText(this, R.id.tv_vex_count, userAddress.getAmount() + "");
+                    ViewUtil.setText(this, R.id.tv_vex_count, userAddress.getAmount() + " VEX");
                     ViewUtil.setText(this, R.id.tv_address_send_to, userAddress.getTransferTo());
+
+                    findViewById(R.id.ll_copy_vex_point).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(ClickUtil.isFastDoubleClick())return;
+                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount()+"");
+                        }
+                    });
 
                     findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -312,6 +317,10 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         KLog.v("VexPointActivity", "onResume: ");
         super.onResume();
         startDateTimer();
+        user = User.getCurrentUser(this);
+        if (User.getUserAddressStatus() != 1) {
+            mPresenter.requestGetActAddress(user.getId());
+        }
     }
 
     private void startDateTimer() {

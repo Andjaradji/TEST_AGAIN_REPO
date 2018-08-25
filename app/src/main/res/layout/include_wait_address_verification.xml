@@ -92,13 +92,27 @@
         android:text="@string/vexpoint_address_verif_vex_count"
         android:textSize="@dimen/text_tiny" />
 
-    <TextView
-        android:id="@+id/tv_vex_count"
+    <LinearLayout
+        android:id="@+id/ll_copy_vex_point"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginBottom="@dimen/interval_content"
-        android:tag="bold"
-        android:textSize="@dimen/text_small_medium" />
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_vex_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="bold"
+            android:textSize="@dimen/text_small_medium" />
+        <ImageView
+            android:layout_width="@dimen/icon_xtiny"
+            android:layout_height="@dimen/icon_xtiny"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:src="@drawable/ic_copy"/>
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"

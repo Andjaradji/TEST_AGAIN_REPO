@@ -48,7 +48,7 @@ public class User implements Serializable {
     @JsonProperty("access_token")
     private String sessionKey;
     @JsonProperty("vex_point")
-    private int vexPoint;
+    private float vexPoint;
     @JsonProperty("last_login")
     private String lastTimestamp;
     @JsonProperty("mutual_friends")
@@ -614,11 +614,11 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public int getVexPoint() {
+    public float getVexPoint() {
         return vexPoint;
     }
 
-    public void setVexPoint(int vexPoint) {
+    public void setVexPoint(float vexPoint) {
         this.vexPoint = vexPoint;
     }
 
@@ -666,6 +666,14 @@ public class User implements Serializable {
         }
     }
 
+    public boolean isKycRejected() {
+        if (kyc != null && kyc.size() > 0 && kyc.get(kyc.size() - 1).getStatus().equalsIgnoreCase("rejected")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void updateKyc(Kyc k) {
         if (getKyc() != null && getKyc().size() > 0) {
             this.kyc.remove(kyc.size() - 1);
@@ -686,7 +694,7 @@ public class User implements Serializable {
 
     public boolean isPremiumMember() {
         long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        return premiumUntil > 0 && premiumUntil <= timestamp/1000;
+        return premiumUntil > 0 && premiumUntil >= timestamp;
     }
 
     public String getEmailConfirmationCode() {

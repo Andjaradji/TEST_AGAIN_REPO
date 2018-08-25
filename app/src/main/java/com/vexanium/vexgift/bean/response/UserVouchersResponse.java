@@ -26,7 +26,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(!voucherCode.getVoucher().isToken())
-            if ((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+            if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                 activeVouchers.add(voucherCode);
             }
         }
@@ -40,7 +40,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(!voucherCode.getVoucher().isToken())
-                if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+                if  (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis()) {
                 inActiveVouchers.add(voucherCode);
             }
         }
@@ -54,7 +54,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(voucherCode.getVoucher().isToken())
-                if ((!voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
         }
@@ -68,7 +68,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(voucherCode.getVoucher().isToken())
-                if ((voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+                if ((voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
                     inActiveVouchers.add(voucherCode);
                 }
         }

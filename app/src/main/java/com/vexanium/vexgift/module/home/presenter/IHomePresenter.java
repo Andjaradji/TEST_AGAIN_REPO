@@ -11,5 +11,8 @@ public interface IHomePresenter extends BasePresenter {
 
     void requestKyc(int id);
 
+    void requestUserPremiumDueDate(int userId);
+
+    void requestUserVexPoint(int userId);
 
 }

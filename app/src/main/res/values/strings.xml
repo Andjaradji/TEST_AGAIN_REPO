@@ -380,7 +380,7 @@
     <string name="myprofile_kyc_pending_desc">Our Team currently review your KYC submission</string>
     <string name="myprofile_kyc_rejected">We Are Sorry</string>
     <string name="myprofile_kyc_rejected_title">Your KYC is Being Rejected</string>
-    <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible,  Please try again </string>
+    <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible, Please try again </string>
 
     <string name="notif_kyc">You haven’t fill KYC yet</string>
 

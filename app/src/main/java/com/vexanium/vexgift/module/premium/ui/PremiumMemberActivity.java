@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
@@ -57,7 +56,7 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member)
+@ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member, withLoadingAnim = true)
 public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> implements IProfileView, AdapterBuyOnClick {
 
     public static final int FRAGMENT_FIRST = 0;
@@ -86,15 +85,15 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mPresenter = new IPremiumPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mHistoryButton = (ImageButton) findViewById(R.id.ib_history);
+        mHistoryButton = findViewById(R.id.ib_history);
         mHistoryButton.setEnabled(false);
         mHistoryButton.setVisibility(View.GONE);
-        mVpPremium = (LoopingViewPager) findViewById(R.id.vp_premium_member);
-        mPiPremium = (PageIndicatorView) findViewById(R.id.pi_premium_member);
-        mRvPremiumPlan = (RecyclerView) findViewById(R.id.rv_premium);
-        mRlBecomePremiumTopContainer = (RelativeLayout) findViewById(R.id.rl_premium_top_become_premium);
+        mVpPremium = findViewById(R.id.vp_premium_member);
+        mPiPremium = findViewById(R.id.pi_premium_member);
+        mRvPremiumPlan = findViewById(R.id.rv_premium);
+        mRlBecomePremiumTopContainer = findViewById(R.id.rl_premium_top_become_premium);
 
-        mLlAlreadyPremiumTopContainer = (LinearLayout) findViewById(R.id.ll_premium_top_already_premium);
+        mLlAlreadyPremiumTopContainer = findViewById(R.id.ll_premium_top_already_premium);
         mTvAlreadyPremium = findViewById(R.id.tv_already_premium);
 
         ArrayList<IconText> data = new ArrayList<>();
@@ -196,7 +195,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddress() == null || User.getUserAddress().equals(""))) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
-            if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || (( mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
+            if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || ((mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
                 doBuy(data);
             } else {
                 showPendingWarning();
@@ -238,7 +237,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 TpUtil tpUtil = new TpUtil(this);
                 tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
 
-                if (userAddress!=null && !userAddress.equals("")) {
+                if (userAddress != null && !userAddress.equals("")) {
                     callPremiumHistoryList();
                     callPremiumDueDate();
                     mHistoryButton.setVisibility(View.VISIBLE);
@@ -248,7 +247,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             }
 
         } else if (errorResponse != null) {
-            if(!errorResponse.getMeta().getMessage().contains("Address not found")) {
+            if (!errorResponse.getMeta().getMessage().contains("Address not found")) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse);
             }
         }
