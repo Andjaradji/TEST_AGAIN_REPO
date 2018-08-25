@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.facebook.AccessToken;
+import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -53,7 +54,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     private Class<? extends Activity> destinationActivity;
     Uri uri;
 
-
     public static Class<? extends Activity> getDestinationActivity(Context context) {
         Class<? extends Activity> destination;
         TpUtil tpUtil = new TpUtil(context);
@@ -71,8 +71,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mPresenter = new ILoginPresenterImpl(this);
         super.onCreate(savedInstanceState);
+        mPresenter = new ILoginPresenterImpl(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -94,7 +94,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             uri = getIntent().getData();
             getIntent().setData(null);
-
         }
     }
 
@@ -107,7 +106,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                     TablePrefDaoUtil.getInstance().saveSettingToDb(JsonUtil.toString(settingResponse));
                 }
 //                findViewById(R.id.splash_container).setVisibility(View.GONE);
-
                 checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }
         } else if (errorResponse != null) {
@@ -160,14 +158,17 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             startCoundownTimer();
         } else {
 
-            finish();
-
             Intent intent = new Intent();
             intent.setClass(SplashActivity.this, destinationActivity);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            KLog.v("SplashActivity", "checkApp: deeplink uri " + uri.toString());
             if (uri != null) {
                 intent.putExtra("url", uri.toString());
+                KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));
+                getIntent().setData(null);
             }
+
+            finish();
             startActivity(intent);
         }
     }
@@ -237,9 +238,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, DestinationActivity);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    if (uri != null) {
-                        intent.putExtra("url", uri.toString());
-                    }
                     startActivity(intent);
                 }
             }
@@ -257,7 +255,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
     protected void initView() {
         if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             uri = getIntent().getData();
-            getIntent().setData(null);
+            KLog.v("SplashActivity", "initView: getdeeplink " + uri.toString());
         }
         String text = "Version " + BuildConfig.VERSION_NAME + "\n" + getString(R.string.app_copyright);
         ViewUtil.setText(this, R.id.tv_main_copyright, text);

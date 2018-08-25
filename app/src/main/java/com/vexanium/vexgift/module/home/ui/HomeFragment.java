@@ -382,7 +382,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             long latestCheckVersion = tpUtil.getLong(TpUtil.KEY_IS_LATEST_CHECK_VERSION, 0);
             long currentVersion = BuildConfig.VERSION_CODE;
             final long latestVersion = settingResponse.getSettingValByKey("newest_app_version");
-            boolean isNeedUpdate = currentVersion < latestVersion && latestVersion != -1 && latestVersion != latestCheckVersion;
+            boolean isNeedUpdate = currentVersion < latestVersion && latestVersion != latestCheckVersion;
             if (isNeedUpdate) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -413,7 +413,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 .autoDismiss(false)
                                 .show();
                     }
-                }, 300);
+                }, 500);
             }
         }
     }

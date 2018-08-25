@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity {
 
         if (getIntent().hasExtra("url")) {
             String url = getIntent().getStringExtra("url");
+            KLog.v("MainActivity","onCreate: getDeeplink "+url);
             getIntent().removeExtra("url");
             openDeepLink(url);
         }

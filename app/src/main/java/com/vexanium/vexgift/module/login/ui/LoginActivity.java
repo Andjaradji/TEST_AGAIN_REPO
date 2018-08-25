@@ -85,6 +85,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     protected void initView() {
         if (getIntent().hasExtra("url")) {
             url = getIntent().getStringExtra("url");
+            KLog.v("LoginActivity","initView: getDeeplink "+url );
             getIntent().removeExtra("url");
         }
 
