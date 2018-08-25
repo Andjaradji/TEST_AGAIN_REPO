@@ -161,7 +161,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             Intent intent = new Intent();
             intent.setClass(SplashActivity.this, destinationActivity);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            KLog.v("SplashActivity", "checkApp: deeplink uri " + uri.toString());
             if (uri != null) {
                 intent.putExtra("url", uri.toString());
                 KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));

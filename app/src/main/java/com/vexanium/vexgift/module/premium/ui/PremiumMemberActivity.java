@@ -195,7 +195,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddress() == null || User.getUserAddress().equals(""))) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
-            if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || ((mPremiumHistoryList.size() > 0 && mPremiumHistoryList.get(0).getStatus() != 0))) {
+            if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || mPremiumHistoryList.get(0).getStatus() != 0) {
                 doBuy(data);
             } else {
                 showPendingWarning();
@@ -221,7 +221,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
                     @Override
                     public int compare(PremiumPurchase t0, PremiumPurchase t1) {
-                        return t1.getCreatedAtDate().compareTo(t0.getCreatedAt());
+                        return Integer.compare(t1.getId(),t0.getId());
                     }
                 });
                 mHistoryButton.setVisibility(View.VISIBLE);
