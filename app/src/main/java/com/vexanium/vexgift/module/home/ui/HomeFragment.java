@@ -446,7 +446,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
-            data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", "Today"));
+            // TODO: 25/08/18 change title
+            data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", ""));
         }
 
         if (user.getKyc() == null || !user.isKycApprove())

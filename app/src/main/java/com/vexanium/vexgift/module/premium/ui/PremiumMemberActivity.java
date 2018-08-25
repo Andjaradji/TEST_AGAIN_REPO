@@ -142,19 +142,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         } catch (IllegalAccessException e) {
         }
 
-        if (NetworkUtil.isOnline(this)) {
-            if (User.getUserAddress() == null || User.getUserAddress().equals("")) {
-                callUserActAddress();
-            } else {
-                callPremiumDueDate();
-                callPremiumHistoryList();
-            }
-
-            callPremiumPlanList();
-        } else {
-            findViewById(R.id.tv_premium_plan).setVisibility(View.GONE);
-            StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
-        }
+        updateData();
     }
 
     @Override
@@ -173,6 +161,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     protected void onResume() {
         super.onResume();
         mVpPremium.resumeAutoScroll();
+        user = User.getCurrentUser(this);
+        updateData();
         validatePremiumView(user.getPremiumUntil());
     }
 
@@ -221,13 +211,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 Collections.sort(mPremiumHistoryList, new Comparator<PremiumPurchase>() {
                     @Override
                     public int compare(PremiumPurchase t0, PremiumPurchase t1) {
-                        return Integer.compare(t1.getId(),t0.getId());
+                        return Integer.compare(t1.getId(), t0.getId());
                     }
                 });
                 mHistoryButton.setVisibility(View.VISIBLE);
                 mHistoryButton.setEnabled(true);
             } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
+                user.setPremiumUntil(dueDate);
                 user.setPremiumUntil(dueDate);
                 User.updateCurrentUser(PremiumMemberActivity.this, user);
 
@@ -253,6 +244,22 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    private void updateData() {
+        if (NetworkUtil.isOnline(this)) {
+            if (User.getUserAddress() == null || User.getUserAddress().equals("")) {
+                callUserActAddress();
+            } else {
+                callPremiumDueDate();
+                callPremiumHistoryList();
+            }
+
+            callPremiumPlanList();
+        } else {
+            findViewById(R.id.tv_premium_plan).setVisibility(View.GONE);
+            StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
+        }
+    }
+
     public void validatePremiumView(long premiumDueDate) {
         if (user.isPremiumMember()) {
             updateView(1);
@@ -264,6 +271,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     public void setPremiumPlanList(PremiumListResponse premiumListResponse) {
+        mAdapter.removeAll();
         mAdapter.addItemList(premiumListResponse.getPremiumPlans());
         mAdapter.notifyDataSetChanged();
     }
