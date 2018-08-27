@@ -84,11 +84,13 @@
                             android:transitionName="vexpoint_button">
 
                             <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
+                                android:id="@+id/iv_ask"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/interval_content"
+                                android:padding="@dimen/interval_small"
+                                android:layout_margin="@dimen/interval_small"
                                 android:contentDescription="@string/image_content_description"
                                 android:src="@drawable/ic_ask_me" />
 

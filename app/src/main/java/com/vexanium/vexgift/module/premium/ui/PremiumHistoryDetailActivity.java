@@ -179,6 +179,22 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
         ViewUtil.setText(this, R.id.tv_vex_amount, premiumPurchase.getPaidAmount() + " VEX");
         ViewUtil.setText(this, R.id.tv_address_send_to, premiumPurchase.getPaidTo());
 
+        findViewById(R.id.tv_vex_amount).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                StaticGroup.copyToClipboard(PremiumHistoryDetailActivity.this, premiumPurchase.getPaidAmount()+"");
+            }
+        });
+
+        findViewById(R.id.tv_address_send_to).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                StaticGroup.copyToClipboard(PremiumHistoryDetailActivity.this, premiumPurchase.getPaidTo());
+            }
+        });
+
         findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

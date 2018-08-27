@@ -66,8 +66,8 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
     }
 
     @Override
-    public Subscription requestRedeemVoucher(RequestCallback callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestRedeemVoucher(userId, voucherCodeId, vendorCode, voucherCode, voucherId).compose(RxUtil.<VoucherCodeResponse>handleResult())
+    public Subscription requestRedeemVoucher(RequestCallback callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId, String address) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestRedeemVoucher(userId, voucherCodeId, vendorCode, voucherCode, voucherId, address).compose(RxUtil.<VoucherCodeResponse>handleResult())
                 .flatMap(new Func1<VoucherCodeResponse, Observable<VoucherCodeResponse>>() {
                     @Override
                     public Observable<VoucherCodeResponse> call(VoucherCodeResponse userAddressResponse) {

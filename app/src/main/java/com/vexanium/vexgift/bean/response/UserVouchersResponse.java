@@ -1,5 +1,7 @@
 package com.vexanium.vexgift.bean.response;
 
+import android.text.TextUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.bean.model.VoucherCode;
@@ -54,7 +56,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(voucherCode.getVoucher().isToken())
-                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                if ((!voucherCode.isBeingGifted() && TextUtils.isEmpty(voucherCode.getAddress()) && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
         }
@@ -68,7 +70,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if(voucherCode.getVoucher().isToken())
-                if ((voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+                if ((voucherCode.isBeingGifted() || !TextUtils.isEmpty(voucherCode.getAddress()) || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
                     inActiveVouchers.add(voucherCode);
                 }
         }

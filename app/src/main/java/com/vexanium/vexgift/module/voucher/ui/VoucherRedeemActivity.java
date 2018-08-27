@@ -197,6 +197,10 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         } else {
                             StaticGroup.showCommonErrorDialog(this, 12);
                         }
+                        break;
+                    case TOKEN:
+                    case GOODS_VOUCHER:
+                        doRedeemToken();
 
                 }
                 break;
@@ -217,9 +221,16 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
                         state = VOUCHER_3RD_REDEEMED;
                     } else if (voucher.isOnlineCode()) {
+                        voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
                         state = VOUCHER_ONLINE_REDEEMED;
                     } else if (voucher.isVendorCode()) {
                         state = VOUCHER_VENDOR_IN_REDEEM_PROCESS;
+                    } else if (voucher.isToken()) {
+                        voucherCode.setAddress(voucherCodeResponse.getVoucherCode().getAddress());
+                        state = TOKEN_REDEEMED;
+                    } else if (voucher.isGoods()) {
+                        voucherCode.setAddress(voucherCodeResponse.getVoucherCode().getAddress());
+                        state = GOODS_VOUCHER_REDEEMED;
                     }
                     if (voucherCodeResponse.getVoucherCode().isDeactivated()) {
                         state = VOUCHER_VENDOR_REDEEMED;
@@ -331,6 +342,46 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
         }
     }
 
+    private void doRedeemToken() {
+        boolean isValid = true;
+        final String merchantCode = ((EditText) findViewById(R.id.et_address)).getText().toString();
+        String errMsg = "You need to fill address";
+        isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_address);
+        if (!isValid) {
+            new VexDialog.Builder(VoucherRedeemActivity.this)
+                    .optionType(DialogOptionType.OK)
+                    .title("Address Required")
+                    .content(errMsg)
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            ((EditText) findViewById(R.id.et_address)).setText("");
+                        }
+                    })
+                    .cancelable(false)
+                    .autoDismiss(true)
+                    .show();
+        } else {
+//            doSimulateRedeem();
+            new VexDialog.Builder(VoucherRedeemActivity.this)
+                    .optionType(DialogOptionType.YES_NO)
+                    .title("Get Voucher")
+                    .positiveText("Redeem")
+                    .negativeText("Cancel")
+                    .content("You will redeem this voucher.")
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            mPresenter.requestRedeeemVoucherWithAddress(user.getId(), voucherCode.getId(), merchantCode, code, voucher.getId());
+                        }
+                    })
+                    .cancelable(false)
+                    .autoDismiss(true)
+                    .show();
+
+        }
+    }
+
     private void doSimulate3rdVoucherRedeem() {
         new VexDialog.Builder(VoucherRedeemActivity.this)
                 .optionType(DialogOptionType.YES_NO)
@@ -389,7 +440,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
                 ViewUtil.setText(this, R.id.tv_address, getString(R.string.token_address_field));
-                ViewUtil.setText(this, R.id.et_address, getString(R.string.token_address_field_hint));
+                ((EditText) findViewById(R.id.et_address)).setHint(getString(R.string.token_address_field_hint));
                 break;
             case GOODS_VOUCHER:
                 KLog.v("VoucherRedeemActivity", "updateView: GOODS VOUCHER ACTIVE");
@@ -407,7 +458,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
                 ViewUtil.setText(this, R.id.tv_address, getString(R.string.goods_address_field));
-                ViewUtil.setText(this, R.id.et_address, getString(R.string.goods_address_field_hint));
+                ((EditText) findViewById(R.id.et_address)).setHint(getString(R.string.goods_address_field_hint));
+
                 break;
             case VOUCHER_3RD:
             case VOUCHER_ONLINE:
@@ -453,7 +505,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
-                findViewById(R.id.ll_online_voucher_info).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
@@ -489,8 +541,6 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_deactivated_voucher));
                 break;
             case VOUCHER_VENDOR_REDEEMED:
-            case TOKEN_REDEEMED:
-            case GOODS_VOUCHER_REDEEMED:
                 KLog.v("VoucherRedeemActivity", "updateView: VOUCHER REDEEMED");
                 findViewById(R.id.send_button).setVisibility(View.GONE);
                 findViewById(R.id.ll_voucher_info).setVisibility(View.VISIBLE);
@@ -504,6 +554,25 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                break;
+            case TOKEN_REDEEMED:
+            case GOODS_VOUCHER_REDEEMED:
+                KLog.v("VoucherRedeemActivity", "updateView: VOUCHER REDEEMED");
+                findViewById(R.id.send_button).setVisibility(View.GONE);
+                findViewById(R.id.ll_voucher_info).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_active).setVisibility(View.GONE);
+                findViewById(R.id.ll_token_active).setVisibility(View.GONE);
+                findViewById(R.id.ll_voucher_inactived).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.GONE);
+                findViewById(R.id.ll_button_container).setVisibility(View.GONE);
+                findViewById(R.id.ll_countdown).setVisibility(View.GONE);
+                findViewById(R.id.ll_voucher_with_address).setVisibility(View.VISIBLE);
+                findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
+                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                ViewUtil.setText(this, R.id.tv_address_sent, voucherCode.getAddress());
                 break;
             case VOUCHER_IS_BEING_GIFTED:
                 KLog.v("VoucherRedeemActivity", "updateView: VOUCHER IS BEING GIFTED");

@@ -149,7 +149,7 @@ public class TokenHistoryFragment extends BaseFragment<IBoxPresenter> implements
     }
 
     public void loadData() {
-        data = TableContentDaoUtil.getInstance().getMyBoxContent().getInactiveVoucher();
+        data = TableContentDaoUtil.getInstance().getMyBoxContent().getInactiveToken();
         if (data == null) data = new ArrayList<>();
     }
 

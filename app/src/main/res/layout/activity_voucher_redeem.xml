@@ -234,6 +234,45 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_voucher_with_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:text="We will send to "
+                        android:textAlignment="center"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="@dimen/interval_medium"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:background="@drawable/shape_voucher_availability"
+                        android:gravity="left|center_vertical">
+
+                        <TextView
+                            android:id="@+id/tv_address_sent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:textAlignment="center"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_tiny" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:id="@+id/ll_countdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -335,7 +374,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -441,7 +480,7 @@
                     android:paddingLeft="@dimen/interval_main"
                     android:paddingRight="@dimen/interval_main"
                     android:paddingStart="@dimen/interval_main"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_online_voucher_info_title"
