@@ -349,8 +349,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         int day = plan.getDuration() / 24 / 3600;
 
         tvDay.setText(plan.getName());
-        tvVex.setText(plan.getPrice() + " " + getString(R.string.premium_buy_vex));
-        tvTotal.setText(plan.getPrice() * day + " VEX");
+        tvVex.setText(plan.getPrice()/day + " " + getString(R.string.premium_buy_vex));
+        tvTotal.setText(plan.getPrice() + " VEX");
 
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)
