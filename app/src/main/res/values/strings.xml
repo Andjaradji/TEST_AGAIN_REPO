@@ -384,7 +384,7 @@
     <string name="myprofile_kyc_none_desc">Fill Your KYC Form to get several benefits</string>
     <string name="myprofile_kyc_pending">Please Wait</string>
     <string name="myprofile_kyc_pending_title">Your KYC is Being Review</string>
-    <string name="myprofile_kyc_pending_desc">Our Team currently review your KYC submission</string>
+    <string name="myprofile_kyc_pending_desc">Your KYC submission will be reviewed within 24 hours</string>
     <string name="myprofile_kyc_rejected">We Are Sorry</string>
     <string name="myprofile_kyc_rejected_title">Your KYC is Being Rejected</string>
     <string name="myprofile_kyc_rejected_desc">Your KYC Submission is not eligible, Please try again </string>
