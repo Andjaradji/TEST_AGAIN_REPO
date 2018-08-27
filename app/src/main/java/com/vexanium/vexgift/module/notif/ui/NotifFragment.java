@@ -66,7 +66,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     private BaseRecyclerAdapter<NotificationModel> mNotifListAdapter;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
-    private ArrayList<NotificationModel> data;
+    private ArrayList<NotificationModel> dataList;
     private User user;
     private Observable<Integer> mNotifObservable;
 
@@ -86,7 +86,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if(data!=null){
             if(data instanceof NotificationResponse){
-                data = new ArrayList<>(((NotificationResponse) data).getNotifications());
+                dataList = new ArrayList<>(((NotificationResponse) data).getNotifications());
                 initNotifList();
             }
         }else if(errorResponse!=null){
@@ -128,12 +128,12 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
         mPresenter.requestNotifList(user.getId());
 
-        // Setup refresh listener which triggers new data loading
+        // Setup refresh listener which triggers new dataList loading
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //fetchTimelineAsync(0);
-                updateData();//update data here
+                updateData();//update dataList here
 
             }
         });
@@ -142,7 +142,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     @Override
     public void onPause() {
         super.onPause();
-        StaticGroup.setAllNotificationToAbsolute(data);
+        StaticGroup.setAllNotificationToAbsolute(dataList);
     }
 
     @Override
@@ -169,16 +169,16 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     }
 
     public void loadData() {
-        data = TableContentDaoUtil.getInstance().getNotifications();
-        if (data == null)
-            data = new ArrayList<>();
-        Collections.sort(data, new Comparator<NotificationModel>() {
+        dataList = TableContentDaoUtil.getInstance().getNotifications();
+        if (dataList == null)
+            dataList = new ArrayList<>();
+        Collections.sort(dataList, new Comparator<NotificationModel>() {
             @Override
             public int compare(NotificationModel notification, NotificationModel t1) {
                 return t1.getCreatedAtDate().compareTo(notification.getCreatedAtDate());
             }
         });
-        KLog.json("HPtes", JsonUtil.toString(data));
+        KLog.json("HPtes", JsonUtil.toString(dataList));
     }
 
     private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
@@ -217,7 +217,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     public void initNotifList() {
         if (mNotifListAdapter == null) {
-            mNotifListAdapter = new BaseRecyclerAdapter<NotificationModel>(this.getActivity(), data, layoutListManager) {
+            mNotifListAdapter = new BaseRecyclerAdapter<NotificationModel>(this.getActivity(), dataList, layoutListManager) {
                 @Override
                 public int getItemLayoutId(int viewType) {
                     return R.layout.item_notification_list;
@@ -276,10 +276,10 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 }
             });
         } else {
-            mNotifListAdapter.setData(data);
+            mNotifListAdapter.setData(dataList);
         }
 
-        if (data.size() <= 0) {
+        if (dataList.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.notif_empty);
             mTvErrorHead.setText(getString(R.string.error_notif_empty_header));
