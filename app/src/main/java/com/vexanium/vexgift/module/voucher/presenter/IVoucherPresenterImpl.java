@@ -82,7 +82,13 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
 
     @Override
     public void requestRedeeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
-        Subscription subscription = mInteractor.requestRedeemVoucher(this, userId, voucherCodeId, vendorCode, voucherCode, voucherId);
+        Subscription subscription = mInteractor.requestRedeemVoucher(this, userId, voucherCodeId, vendorCode, voucherCode, voucherId, "");
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestRedeeemVoucherWithAddress(int userId, int voucherCodeId, String address, String voucherCode, int voucherId) {
+        Subscription subscription = mInteractor.requestRedeemVoucher(this, userId, voucherCodeId, "", voucherCode, voucherId, address);
         compositeSubscription.add(subscription);
     }
 
@@ -127,4 +133,6 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         Subscription subscription = mInteractor.requestBuyVoucher(this, userId, voucherId, token);
         compositeSubscription.add(subscription);
     }
+
+
 }

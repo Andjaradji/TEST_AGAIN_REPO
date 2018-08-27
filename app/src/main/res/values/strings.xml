@@ -241,6 +241,7 @@
     <string name="more_about_us">About Us</string>
     <string name="more_privacy_policy">Privacy Policy</string>
     <string name="more_terms_of_service">Terms of Service</string>
+    <string name="more_faq">Frequently Ask Questions</string>
     <string name="more_log_out">Log Out</string>
 
     <string name="logout_title">Logout</string>
@@ -484,6 +485,7 @@
 
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="term_and_condition">TERM &amp; CONDITION</string>
+    <string name="faq">FAQ</string>
     <string name="about_us">ABOUT US</string>
 
     <string name="free">Free</string>

@@ -36,6 +36,8 @@ public class VoucherCode implements Serializable {
     private String updatedAt;
     @JsonProperty("voucher")
     private Voucher voucher;
+    @JsonProperty("address")
+    private String address;
 
     public int getId() {
         return id;
@@ -123,6 +125,14 @@ public class VoucherCode implements Serializable {
 
     public void setBeingGifted(boolean beingGifted) {
         isBeingGifted = beingGifted;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getRedeemedDate() {

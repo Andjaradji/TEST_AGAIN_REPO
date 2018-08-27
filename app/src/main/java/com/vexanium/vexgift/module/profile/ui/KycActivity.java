@@ -238,7 +238,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
             isValid = false;
         }
         if (!checkBox.isChecked()) {
-            toast("Agree");
+            toast(getString(R.string.validate_checkbox_aggree_content));
             isValid = false;
         }
 

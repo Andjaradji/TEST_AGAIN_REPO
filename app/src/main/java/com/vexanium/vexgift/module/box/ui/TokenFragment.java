@@ -142,9 +142,16 @@ public class TokenFragment extends  BaseFragment<IBoxPresenter> implements IBoxV
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.requestUserVoucherList(user.getId());
+
+    }
+
     public void loadData() {
         if (TableContentDaoUtil.getInstance().getMyBoxContent() != null)
-            data = TableContentDaoUtil.getInstance().getMyBoxContent().getInactiveToken();
+            data = TableContentDaoUtil.getInstance().getMyBoxContent().getActiveToken();
         if (data == null) data = new ArrayList<>();
         KLog.v("VoucherFragment", "loadData: ==========================================================");
         KLog.json("HPtes", JsonUtil.toString(data));

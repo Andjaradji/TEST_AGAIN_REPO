@@ -169,6 +169,9 @@
             android:name=".module.term.ui.TermActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.vexpoint.ui.FaqActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.about.ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -133,6 +133,12 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.requestUserVoucherList(user.getId());
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mVoucherObservable != null) {

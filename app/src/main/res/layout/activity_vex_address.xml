@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_submain"
                     android:tag="bold"
-                    android:text="@string/addnewpass_button"
+                    android:text="@string/myprofile_submit"
                     android:textAllCaps="true"
                     android:textColor="@color/material_white"
                     android:textSize="@dimen/text_medium" />

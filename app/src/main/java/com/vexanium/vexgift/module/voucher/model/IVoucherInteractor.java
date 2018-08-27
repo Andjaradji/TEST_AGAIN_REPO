@@ -17,7 +17,7 @@ public interface IVoucherInteractor<T> {
 
     Subscription requestLocation(RequestCallback<T> callback, int id);
 
-    Subscription requestRedeemVoucher(RequestCallback<T> callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId);
+    Subscription requestRedeemVoucher(RequestCallback<T> callback, int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId, String address);
 
     Subscription requestDeactivatedVoucher(RequestCallback<T> callback, int userId, int voucherCodeId);
 

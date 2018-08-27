@@ -102,6 +102,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         }
 
         findViewById(R.id.back_button).setOnClickListener(this);
+        findViewById(R.id.iv_ask).setOnClickListener(this);
 
     }
 
@@ -160,6 +161,14 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                         public void onClick(View view) {
                             if(ClickUtil.isFastDoubleClick())return;
                             StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount()+"");
+                        }
+                    });
+
+                    findViewById(R.id.tv_address_send_to).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getTransferTo());
                         }
                     });
 
@@ -274,6 +283,10 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             case R.id.referral_button:
                 Intent intent = new Intent(this, ReferralActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_ask:
+                Intent intent1 = new Intent(this, FaqActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

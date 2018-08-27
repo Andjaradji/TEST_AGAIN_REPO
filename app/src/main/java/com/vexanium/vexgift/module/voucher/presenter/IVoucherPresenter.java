@@ -27,4 +27,5 @@ public interface IVoucherPresenter extends BasePresenter {
 
     void requestBuyVoucher(int userId, int voucherId, String token);
 
+    void requestRedeeemVoucherWithAddress(int id, int id1, String merchantCode, String code, int id2);
 }

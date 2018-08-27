@@ -563,14 +563,21 @@ public class RetrofitManager {
         return mVoucherService.requestBuyVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
-    public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId) {
+    public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId, String address) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
-        params.put("vendorCode", vendorCode);
+
+        if (!TextUtils.isEmpty(voucherCode))
+            params.put("vendorCode", vendorCode);
+
         params.put("voucherCode", "");
         params.put("voucher_id", voucherId);
+
+        if (!TextUtils.isEmpty(address))
+            params.put("address", address);
+
 
         return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
