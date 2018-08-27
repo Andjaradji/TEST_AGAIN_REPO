@@ -409,6 +409,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     holder.setText(R.id.tv_coupon_title, item.getTitle());
                     holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                     holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+                    if (item.isForPremium())
+                        holder.setViewGone(R.id.iv_premium, false);
+                    else
+                        holder.setViewGone(R.id.iv_premium, true);
 
                     if(item.getVoucherTypeId() != 5){
                         if (item.getQtyAvailable() == 0) {
@@ -418,11 +422,6 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                             holder.setText(R.id.tv_price, item.getPrice() == 0 ?
                                     getString(R.string.free) :
                                     String.format(getString(R.string.vex_point_format), item.getPrice()));
-
-                        if (item.isForPremium())
-                            holder.setViewGone(R.id.iv_premium, false);
-                        else
-                            holder.setViewGone(R.id.iv_premium, true);
 
                     }else{
                         holder.setText(R.id.tv_price, getString(R.string.coming_soon));
