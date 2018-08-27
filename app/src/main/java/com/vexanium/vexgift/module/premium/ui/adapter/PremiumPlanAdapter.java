@@ -43,8 +43,8 @@ public class PremiumPlanAdapter extends RecyclerView.Adapter<PremiumPlanAdapter.
     public void onBindViewHolder(@NonNull FilterViewHolder holder, int pos) {
         final PremiumPlan data = dataList.get(pos);
         int day = data.getDuration() / 24 / 3600;
-        holder.mPremiumTitle.setText(data.getPrice() + " VEX/day (" + data.getName() + ")");
-        holder.mPremiumSubtitle.setText(data.getPrice() * day + " VEX");
+        holder.mPremiumTitle.setText(data.getPrice()/day + " VEX/day (" + data.getName() + ")");
+        holder.mPremiumSubtitle.setText(data.getPrice() + " VEX");
         holder.mBuyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
