@@ -78,6 +78,17 @@ public class Voucher implements Serializable {
     @JsonProperty("vendor")
     private Vendor vendor;
 
+    @JsonProperty("voucher_type_id")
+    private int voucherTypeId;
+
+    public int getVoucherTypeId() {
+        return voucherTypeId;
+    }
+
+    public void setVoucherTypeId(int voucherTypeId) {
+        this.voucherTypeId = voucherTypeId;
+    }
+
     public int getId() {
         return id;
     }

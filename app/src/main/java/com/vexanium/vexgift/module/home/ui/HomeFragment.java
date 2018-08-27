@@ -698,19 +698,26 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
                 holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
-
-                if (item.getQtyAvailable() == 0) {
-                    holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
-                    holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
-                } else
-                    holder.setText(R.id.tv_price, item.getPrice() == 0 ?
-                            getString(R.string.free) :
-                            String.format(getString(R.string.vex_point_format), item.getPrice()));
-
                 if (item.isForPremium())
                     holder.setViewGone(R.id.iv_premium, false);
                 else
                     holder.setViewGone(R.id.iv_premium, true);
+
+                if(item.getVoucherTypeId() != 5) {
+                    if (item.getQtyAvailable() == 0) {
+                        holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
+                        holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
+                    } else
+                        holder.setText(R.id.tv_price, item.getPrice() == 0 ?
+                                getString(R.string.free) :
+                                String.format(getString(R.string.vex_point_format), item.getPrice()));
+
+
+                }else{
+                    holder.setText(R.id.tv_price, getString(R.string.coming_soon));
+                    holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
+                    holder.setViewGone(R.id.tv_coupon_exp,true);
+                }
 
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override

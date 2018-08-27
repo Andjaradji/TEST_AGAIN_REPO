@@ -91,18 +91,28 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
             ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
-            ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
-            if (voucher.getPrice() == 0) {
-                ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
-                findViewById(R.id.tv_price_info).setVisibility(View.GONE);
-            } else {
-                ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
-            }
+
+            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
-            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
+
+            if(voucher.getVoucherTypeId() != 5) {
+                ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
+                if (voucher.getPrice() == 0) {
+                    ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
+                    findViewById(R.id.tv_price_info).setVisibility(View.GONE);
+                } else {
+                    ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
+                }
+            }else{
+                ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
+                findViewById(R.id.tv_price_info).setVisibility(View.GONE);
+
+                //hide checkbox
+                findViewById(R.id.cb_agree).setVisibility(View.GONE);
+            }
         }
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -124,29 +134,45 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "VexPointResponse Gift");
                 break;
             case R.id.btn_claim:
-                if(voucher.getQtyAvailable() == 0){
-                    new VexDialog.Builder(this)
-                            .optionType(DialogOptionType.OK)
-                            .title(getString(R.string.voucher_soldout_dialog_title))
-                            .content(getString(R.string.voucher_soldout_dialog_desc))
-                            .autoDismiss(true)
-                            .show();
-                }else {
-                    CheckBox cbAggree = findViewById(R.id.cb_aggree);
-                    if (cbAggree.isChecked()) {
-                        if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                            StaticGroup.openRequirementDialog(VoucherDetailActivity.this, false);
-                        } else {
-                            doGoogle2fa();
-                        }
-                    } else {
+                if(voucher.getVoucherTypeId() != 5) {
+                    if (voucher.getQtyAvailable() == 0) {
                         new VexDialog.Builder(this)
                                 .optionType(DialogOptionType.OK)
-                                .title(getString(R.string.validate_checkbox_aggree_title))
-                                .content(getString(R.string.validate_checkbox_aggree_content))
+                                .title(getString(R.string.voucher_soldout_dialog_title))
+                                .content(getString(R.string.voucher_soldout_dialog_desc))
                                 .autoDismiss(true)
                                 .show();
+                    } else {
+                        CheckBox cbAggree = findViewById(R.id.cb_agree);
+                        if (cbAggree.isChecked()) {
+                            if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                                StaticGroup.openRequirementDialog(VoucherDetailActivity.this, false);
+                            } else {
+                                doGoogle2fa();
+                            }
+                        } else {
+                            new VexDialog.Builder(this)
+                                    .optionType(DialogOptionType.OK)
+                                    .title(getString(R.string.validate_checkbox_aggree_title))
+                                    .content(getString(R.string.validate_checkbox_aggree_content))
+                                    .autoDismiss(true)
+                                    .show();
+                        }
                     }
+                }else{
+                    new VexDialog.Builder(VoucherDetailActivity.this)
+                            .optionType(DialogOptionType.OK)
+                            .title("Coming soon")
+                            .content("This voucher is currently unavailable")
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                   dialog.dismiss();
+                                }
+                            })
+                            .cancelable(true)
+                            .autoDismiss(true)
+                            .show();
                 }
                 break;
         }
