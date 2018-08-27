@@ -185,6 +185,7 @@
                     android:background="@color/lineColor" />
 
                 <TextView
+                    android:id="@+id/tv_voucher_availability_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_main"
@@ -193,6 +194,7 @@
                     android:textSize="@dimen/text_tiny" />
 
                 <LinearLayout
+                    android:id="@+id/ll_voucher_availability_container"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginBottom="@dimen/interval_medium"
@@ -214,6 +216,7 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/v_voucher_availability_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="@dimen/margin_more_line"
@@ -272,7 +275,7 @@
                         android:textSize="@dimen/text_tiny" />
 
                     <CheckBox
-                        android:id="@+id/cb_aggree"
+                        android:id="@+id/cb_agree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/term_agree" />

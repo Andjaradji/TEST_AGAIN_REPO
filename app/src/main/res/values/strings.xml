@@ -485,6 +485,7 @@
     <string name="ok">Ok</string>
     <string name="vex_point_format">%d VP</string>
     <string name="out_of_stock">Out of stock</string>
+    <string name="coming_soon">Coming soon</string>
 
     <string name="account_password">Account Password</string>
     <string name="approved_kyc">Approved KYC</string>

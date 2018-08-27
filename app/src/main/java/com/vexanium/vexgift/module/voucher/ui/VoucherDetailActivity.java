@@ -91,18 +91,31 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
             ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
-            ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
-            if (voucher.getPrice() == 0) {
-                ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
-                findViewById(R.id.tv_price_info).setVisibility(View.GONE);
-            } else {
-                ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
-            }
+
+            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
-            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
+
+            if(voucher.getVoucherTypeId() != 5) {
+                ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
+                if (voucher.getPrice() == 0) {
+                    ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
+                    findViewById(R.id.tv_price_info).setVisibility(View.GONE);
+                } else {
+                    ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
+                }
+            }else{
+                ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
+                findViewById(R.id.tv_price_info).setVisibility(View.GONE);
+
+                //hide checkbox
+                findViewById(R.id.cb_agree).setVisibility(View.GONE);
+
+                //disable button
+                findViewById(R.id.btn_claim).setEnabled(false);
+            }
         }
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -132,7 +145,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                             .autoDismiss(true)
                             .show();
                 }else {
-                    CheckBox cbAggree = findViewById(R.id.cb_aggree);
+                    CheckBox cbAggree = findViewById(R.id.cb_agree);
                     if (cbAggree.isChecked()) {
                         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
                             StaticGroup.openRequirementDialog(VoucherDetailActivity.this, false);
