@@ -52,6 +52,7 @@ public class FaqActivity extends BaseActivity {
                 mWvTerm.startAnimation(fadeIn);
             }
         });
+        mWvTerm.getSettings().setJavaScriptEnabled(true);
         mWvTerm.loadUrl("http://www.vexgift.com/faq.html");
     }
 
