@@ -80,6 +80,12 @@
     <string name="coupon_redeem_voucher_code_field">Merchant code</string>
     <string name="coupon_redeem_voucher_code_warning">The code will be entered by cashier</string>
 
+    <string name="token_address_field">Input your Asset Address</string>
+    <string name="token_address_field_hint">Asset Address</string>
+
+    <string name="goods_address_field">Input your Shipping Address</string>
+    <string name="goods_address_field_hint">Your Shipping Address</string>
+
     <string name="merchant_info_title">Voucher Usage Guidance</string>
     <string name="merchant_info_desc">To use this voucher, copy or scan the code to your system.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
     <string name="voucher_online_info_title">Voucher Usage Guidance</string>

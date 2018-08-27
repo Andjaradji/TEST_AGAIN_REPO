@@ -49,7 +49,6 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 @ActivityFragmentInject(contentViewId = R.layout.activity_splash, withLoadingAnim = true)
 public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
-    protected static int SPLASH_TIME = 1000;
     protected static int currentCountdown = 8;
     private Class<? extends Activity> destinationActivity;
     Uri uri;
@@ -219,32 +218,6 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             return false;
         }
     }
-
-    private void startThread(final Class<? extends Activity> DestinationActivity) {
-        Thread splashTread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (this) {
-                        wait(SPLASH_TIME);
-                    }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    finish();
-
-                    Intent intent = new Intent();
-                    intent.setClass(SplashActivity.this, DestinationActivity);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            }
-        };
-
-        splashTread.start();
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -50,7 +50,6 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
-import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
@@ -106,15 +105,11 @@ public class StaticGroup {
     public static final int VEX_ADDRESS_VERIF_TIME = 60 * 60000;
     public static final int PREMIUM_VERIF_TIME = 60 * 60000;
 
-    public static final String SCHEME = "http://";
-    public static final String HOST = "www.vexgift.com";
-    public static final String PATH_PREFIX = "/app";
+    private static final String SCHEME = "http://";
+    private static final String HOST = "www.vexgift.com";
     public static final String FULL_DEEPLINK = SCHEME + HOST;
 
-    public static UserLoginResponse currentUser;
     public static String userSession;
-
-    public static NotificationManager notificationManager;
 
     public static int kycStatus = KYC_NONE;
     public static Boolean isPasswordSet;
@@ -123,7 +118,6 @@ public class StaticGroup {
     public static String VERSION = null;
     public static long VERSION_CODE = 0;
     public static String reg_id = "";
-    public static boolean latestLinkVersions;
     private static String CHANNEL_ID = "1121";
 
     public static void initialize(Context context) {
@@ -1214,7 +1208,7 @@ public class StaticGroup {
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("address_confirmation_countdown") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("address_confirmation_countdown"));
         } else {
-            return PREMIUM_VERIF_TIME;
+            return VEX_ADDRESS_VERIF_TIME;
         }
     }
 

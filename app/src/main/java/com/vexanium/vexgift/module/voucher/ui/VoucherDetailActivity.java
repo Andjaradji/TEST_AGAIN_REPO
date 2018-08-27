@@ -299,18 +299,18 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
 //    }
 
     private void getVoucherSuccess() {
-        Notification notification = new Notification();
-        notification.setVoucher(voucher);
-        notification.setType(Notification.TYPE_GET_SUCCESS);
-        notification.setTime(System.currentTimeMillis());
-        notification.setUrl("vexgift://box");
-        notification.setNew(true);
-
-        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
-        if (notifications == null) notifications = new ArrayList<>();
-        notifications.add(notification);
-
-        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
+//        Notification notification = new Notification();
+//        notification.setVoucher(voucher);
+//        notification.setType(Notification.TYPE_GET_SUCCESS);
+//        notification.setTime(System.currentTimeMillis());
+//        notification.setUrl("vexgift://box");
+//        notification.setNew(true);
+//
+//        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
+//        if (notifications == null) notifications = new ArrayList<>();
+//        notifications.add(notification);
+//
+//        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
 
         RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
         RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);

@@ -340,6 +340,14 @@ public class Voucher implements Serializable {
         }
     }
 
+    public boolean isGoods() {
+        if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
+            return false;
+        } else {
+            return voucherType.getName().equalsIgnoreCase("Goods");
+        }
+    }
+
     public boolean isVendorCode() {
         if (voucherType == null || TextUtils.isEmpty(voucherType.getName())) {
             return false;

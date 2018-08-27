@@ -13,7 +13,6 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_CURRENT_LOGGED_IN_USER = "key_current_logged_in_user";
     public static String KEY_IS_PASS_SET = "key_is_pass_set";
     public static String KEY_IS_VEX_ADD_SET = "key_is_vex_add_set";
-    public static String KEY_SESSION_KEY = "key_current_key";
     public static String KEY_WALKTHROUGH = "key_walkthrough";
     public static String KEY_GOOGLE2FA = "key_google2fa";
     public static String KEY_GOOGLE2FA_LOCK = "key_google2fa_lock";
@@ -24,7 +23,6 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
     public static String KEY_IS_LATEST_CHECK_VERSION= "key_already_notice_update";
     private static TpUtil _tpUtil;
-    Context context;
     public TpUtil(final Context context) {
         super(context, "TpUtil", 1);
     }
@@ -39,9 +37,6 @@ public class TpUtil extends TrayPreferences {
     public void removePrivate() {
         put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, "");
         remove(TpUtil.KEY_CURRENT_LOGGED_IN_USER);
-
-        put(TpUtil.KEY_SESSION_KEY, "");
-        remove(TpUtil.KEY_SESSION_KEY);
 
         put(TpUtil.KEY_GOOGLE2FA, "");
         remove(TpUtil.KEY_GOOGLE2FA);
