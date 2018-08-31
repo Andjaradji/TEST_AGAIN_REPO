@@ -157,7 +157,7 @@ public class User implements Serializable {
 
     public static int getUserAddressStatus() {
         UserAddress userAddress = getUserAddress();
-        if (userAddress == null || userAddress.getRemainingTime() <= 0) {
+        if (userAddress == null) {
             return -1;
         } else {
             return userAddress.getStatus();
