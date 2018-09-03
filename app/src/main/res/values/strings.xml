@@ -145,6 +145,8 @@
     <string name="vexpoint_estimate_reward">EST. REWARD</string>
 
     <string name="vexpoint_fill_address">Fill Vex Address</string>
+    <string name="vexpoint_fill_address_note">note : Please use address from wallet. You can not use address from exchanges</string>
+    <string name="vexpoint_update_address">Update Vex Address</string>
 
     <string name="vexpoint_address_verif_desc">To verify your address below :</string>
     <string name="vexpoint_address_verif_note">note : You must use this address to send</string>
@@ -262,6 +264,7 @@
     <string name="myprofile_email_desc">Your email here</string>
     <string name="myprofile_firstname">First Name</string>
     <string name="myprofile_firstname_desc">Your first name here</string>
+    <string name="myprofile_act_address">Vex Address</string>
 
     <string name="myprofile_name">Name</string>
     <string name="myprofile_name_desc">Your name here</string>

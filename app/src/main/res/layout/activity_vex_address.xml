@@ -79,6 +79,17 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="@dimen/more_padding_horizontal"
+            android:paddingRight="@dimen/more_padding_horizontal"
+            android:text="@string/vexpoint_fill_address_note"
+            android:textColor="@color/material_red_more_text"
+            android:textSize="@dimen/text_xtiny" />
+
         <LinearLayout
             android:id="@id/white_bg"
             android:layout_width="match_parent"
@@ -94,10 +105,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/interval_main"
-                android:layout_marginEnd="@dimen/interval_main"
-                android:layout_marginLeft="@dimen/interval_main"
-                android:layout_marginRight="@dimen/interval_main"
-                android:layout_marginStart="@dimen/interval_main"
                 android:layout_marginTop="@dimen/interval_small"
                 android:background="@drawable/shape_ripple_main_button"
                 android:clickable="true"
