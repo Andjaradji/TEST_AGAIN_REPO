@@ -40,6 +40,7 @@ public class VexPointRecord implements Serializable {
     @JsonProperty("vex_point_log_type")
     private VexPointLogType vexPointLogType;
 
+    @JsonProperty("voucher")
     private Voucher voucher;
 
     public int getId() {

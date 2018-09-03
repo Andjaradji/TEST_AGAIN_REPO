@@ -60,6 +60,8 @@ public class PointRecordFragment extends BaseFragment {
         mRecycler.setLayoutManager(linearLayoutManager);
 
         mAdapter = new VexPointAdapter(getActivity());
+        mAdapter.setHasStableIds(true);
+
         mRecycler.setAdapter(mAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
@@ -82,12 +84,12 @@ public class PointRecordFragment extends BaseFragment {
                     mTvErrorHead.setVisibility(View.GONE);
                     mErrorView.setVisibility(View.GONE);
                     dataList = new ArrayList<>(vp.getVexPointLogs());
-                    Collections.sort(dataList, new Comparator<VexPointRecord>() {
+                    /*Collections.sort(dataList, new Comparator<VexPointRecord>() {
                         @Override
                         public int compare(VexPointRecord vexPointRecord, VexPointRecord t1) {
                             return t1.getCreatedAtDate().compareTo(vexPointRecord.getCreatedAtDate());
                         }
-                    });
+                    });*/
                     mAdapter.setItemList(dataList);
                     mAdapter.notifyDataSetChanged();
                 }
