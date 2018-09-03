@@ -12,6 +12,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_main_text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -48,5 +49,102 @@
         android:textColor="@color/vexpoint_plus"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_detail_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_main_text_container"
+        android:visibility="gone"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_v3_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_vex3_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of VEX counted in this snapshot"
+                android:textSize="@dimen/text_xxtiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_vex3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="@dimen/text_tiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tv_vex3_detail"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_v2_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/rl_v3_container">
+
+            <TextView
+                android:id="@+id/tv_vex2_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of VEX to be counted in next 1 snapshot"
+                android:textSize="@dimen/text_xxtiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_vex2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="@dimen/text_tiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tv_vex2_detail"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_v1_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/rl_v2_container">
+
+            <TextView
+                android:id="@+id/tv_vex1_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of VEX to be counted in next 2 snapshots"
+                android:textSize="@dimen/text_xxtiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_vex1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="@dimen/text_tiny"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tv_vex1_detail"
+                />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

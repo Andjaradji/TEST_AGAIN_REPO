@@ -182,7 +182,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onItemClick(PremiumPlan data) {
-        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddress() == null || User.getUserAddress().equals(""))) {
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || User.getUserAddressStatus() != 1) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
             if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || mPremiumHistoryList.get(0).getStatus() != 0) {
@@ -228,7 +228,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 TpUtil tpUtil = new TpUtil(this);
                 tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
 
-                if (userAddress != null && !userAddress.equals("")) {
+                if (userAddress != null && !userAddress.equals("") && userAddress.getStatus() == 1) {
                     callPremiumHistoryList();
                     callPremiumDueDate();
                     mHistoryButton.setVisibility(View.VISIBLE);
@@ -246,7 +246,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     private void updateData() {
         if (NetworkUtil.isOnline(this)) {
-            if (User.getUserAddress() == null || User.getUserAddress().equals("")) {
+            if (User.getUserAddressStatus() != 1) {
                 callUserActAddress();
             } else {
                 callPremiumDueDate();

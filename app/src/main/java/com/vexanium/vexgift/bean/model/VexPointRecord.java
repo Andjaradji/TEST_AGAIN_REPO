@@ -22,6 +22,15 @@ public class VexPointRecord implements Serializable {
     @JsonProperty("amount")
     private double amount;
 
+    @JsonProperty("vex_counted_1")
+    private double vexCounted1;
+
+    @JsonProperty("vex_counted_2")
+    private double vexCounted2;
+
+    @JsonProperty("vex_counted_3")
+    private double vexCounted3;
+
     @JsonProperty("created_at")
     private String createdAt;
 
@@ -61,6 +70,30 @@ public class VexPointRecord implements Serializable {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public double getVexCounted1() {
+        return vexCounted1;
+    }
+
+    public void setVexCounted1(double vexCounted1) {
+        this.vexCounted1 = vexCounted1;
+    }
+
+    public double getVexCounted2() {
+        return vexCounted2;
+    }
+
+    public void setVexCounted2(double vexCounted2) {
+        this.vexCounted2 = vexCounted2;
+    }
+
+    public double getVexCounted3() {
+        return vexCounted3;
+    }
+
+    public void setVexCounted3(double vexCounted3) {
+        this.vexCounted3 = vexCounted3;
     }
 
     public String getCreatedAt() {
