@@ -39,10 +39,14 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     @Override
     public void onBindViewHolder(@NonNull final FilterViewHolder holder, int pos) {
         VexPointRecord data = dataList.get(pos);
-        holder.mVpMainText.setText(data.getVexPointLogType().getName());
+        if(data.getVexPointLogType()!=null) {
+            holder.mVpMainText.setText(data.getVexPointLogType().getName());
+        }else if(data.getVoucher()!=null){
+            holder.mVpMainText.setText(data.getVoucher().getTitle());
+        }
         holder.mVpSubText.setText(data.getCreatedAtDate());
 
-        if (data.getVpLogTypeId() < 3) {
+        if (data.getVpLogTypeId() < 2) {
             holder.mVpIndicatorText.setText("+ " + data.getAmount());
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
@@ -50,27 +54,29 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
 
-        if(data.getVexCounted3() > 0){
-            holder.mVpVex3.setText(data.getVexCounted3()+"");
-        }
-
-        if(data.getVexCounted2() > 0){
-            holder.mVpVex2.setText(data.getVexCounted2()+"");
-        }
-        if(data.getVexCounted1() > 0){
-            holder.mVpVex1.setText(data.getVexCounted1()+"");
-        }
-
-        holder.mContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(holder.mDetailContainer.getVisibility() == View.GONE){
-                    holder.mDetailContainer.setVisibility(View.VISIBLE);
-                }else{
-                    holder.mDetailContainer.setVisibility(View.GONE);
+        if(data.getVpLogTypeId() == 3){
+            holder.mContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(holder.mDetailContainer.getVisibility() == View.GONE){
+                        holder.mDetailContainer.setVisibility(View.VISIBLE);
+                    }else{
+                        holder.mDetailContainer.setVisibility(View.GONE);
+                    }
                 }
+            });
+
+            if(data.getVexCounted3() > 0){
+                holder.mVpVex3.setText(data.getVexCounted3()+"");
             }
-        });
+
+            if(data.getVexCounted2() > 0){
+                holder.mVpVex2.setText(data.getVexCounted2()+"");
+            }
+            if(data.getVexCounted1() > 0){
+                holder.mVpVex1.setText(data.getVexCounted1()+"");
+            }
+        }
 
     }
 
