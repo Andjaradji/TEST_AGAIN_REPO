@@ -11,11 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
 
 import java.util.ArrayList;
 
-public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.FilterViewHolder> {
+public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.FilterViewHolder>{
 
     private Context context;
     private ArrayList<VexPointRecord> dataList = new ArrayList<>();
@@ -38,46 +39,76 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
 
     @Override
     public void onBindViewHolder(@NonNull final FilterViewHolder holder, int pos) {
-        VexPointRecord data = dataList.get(pos);
+        final VexPointRecord data = dataList.get(pos);
         if(data.getVexPointLogType()!=null) {
             holder.mVpMainText.setText(data.getVexPointLogType().getName());
-        }else if(data.getVoucher()!=null){
+        }
+
+        if(data.getVoucher()!=null){
             holder.mVpMainText.setText(data.getVoucher().getTitle());
         }
+
         holder.mVpSubText.setText(data.getCreatedAtDate());
 
+        holder.mVpMainText.setSelected(true);
+        holder.mVpSubText.setSelected(true);
+
         if (data.getVpLogTypeId() < 2) {
-            holder.mVpIndicatorText.setText("+ " + data.getAmount());
+            holder.mVpIndicatorText.setText("+ " + ((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
-            holder.mVpIndicatorText.setText("- " + data.getAmount());
+            holder.mVpIndicatorText.setText("- " + ((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
 
-        if(data.getVpLogTypeId() == 3){
-            holder.mContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(holder.mDetailContainer.getVisibility() == View.GONE){
-                        holder.mDetailContainer.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.mDetailContainer.setVisibility(View.GONE);
+        switch (data.getVpLogTypeId()){
+            case 1:
+                holder.mContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
+                            if (holder.mDetailContainer.getVisibility() == View.GONE) {
+                                holder.mDetailContainer.setVisibility(View.VISIBLE);
+                            } else {
+                                holder.mDetailContainer.setVisibility(View.GONE);
+                            }
+                        }
                     }
+                });
+
+                if(data.getVexCounted3() > 0){
+                    holder.mVpVex3.setText(data.getVexCounted3()+"");
+                }else{
+                    holder.mVpVex3.setText("-");
                 }
-            });
 
-            if(data.getVexCounted3() > 0){
-                holder.mVpVex3.setText(data.getVexCounted3()+"");
-            }
+                if(data.getVexCounted2() > 0){
+                    holder.mVpVex2.setText(data.getVexCounted2()+"");
+                }else{
+                    holder.mVpVex2.setText("-");
+                }
 
-            if(data.getVexCounted2() > 0){
-                holder.mVpVex2.setText(data.getVexCounted2()+"");
-            }
-            if(data.getVexCounted1() > 0){
-                holder.mVpVex1.setText(data.getVexCounted1()+"");
-            }
+                if(data.getVexCounted1() > 0){
+                    holder.mVpVex1.setText(data.getVexCounted1()+"");
+                }
+                else{
+                    holder.mVpVex1.setText("-");
+                }
+                break;
+            case 2:
+                holder.mContainer.setOnClickListener(null);
+                break;
         }
 
+        if(holder.mDetailContainer.getVisibility() == View.VISIBLE){
+            holder.mDetailContainer.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -100,6 +131,8 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     public void removeAll() {
         dataList.clear();
     }
+
+
 
     public class FilterViewHolder extends RecyclerView.ViewHolder {
 

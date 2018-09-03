@@ -5,50 +5,68 @@
     android:layout_height="wrap_content"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-
     android:clickable="true"
     android:background="@drawable/shape_ripple_transparent">
 
-
     <LinearLayout
         android:id="@+id/ll_main_text_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:gravity="center_vertical">
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:gravity="left|center_vertical">
+
+            <TextView
+                android:id="@+id/tv_vexpoint_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_small_medium"
+                android:textColor="@color/material_black"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_vexpoint_item_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_xxtiny"
+                android:textColor="@color/material_black"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_vexpoint_item_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_vexpoint_indicator"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:textSize="@dimen/text_small_medium"
-            android:textColor="@color/material_black"
-            android:layout_marginBottom="2dp"/>
-
-        <TextView
-            android:id="@+id/tv_vexpoint_item_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="@dimen/text_xxtiny"
-            android:textColor="@color/material_black" />
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/vexpoint_plus"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:layout_alignParentEnd="true"
+            android:gravity="right|center_vertical"/>
 
     </LinearLayout>
 
-
-
-    <TextView
-        android:id="@+id/tv_vexpoint_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small_medium"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:textColor="@color/vexpoint_plus"
-        android:layout_alignParentEnd="true" />
 
     <RelativeLayout
         android:id="@+id/rl_detail_container"
