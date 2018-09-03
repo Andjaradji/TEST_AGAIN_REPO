@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
 import com.rd.PageIndicatorView;
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -56,13 +57,15 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+
 @ActivityFragmentInject(contentViewId = R.layout.activity_premium_member, toolbarTitle = R.string.premium_member, withLoadingAnim = true)
 public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> implements IProfileView, AdapterBuyOnClick {
 
-    public static final int FRAGMENT_FIRST = 0;
-    public static final int FRAGMENT_SECOND = 1;
-    public static final int FRAGMENT_THIRD = 2;
-    public static final int FRAGMENT_FOURTH = 3;
     public static final int PAGE_COUNT = 4;
 
     LoopingViewPager mVpPremium;
@@ -77,6 +80,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
     PremiumPlanAdapter mAdapter;
+    private Subscription timeSubsription;
 
     User user;
 
@@ -149,21 +153,6 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    protected void onPause() {
-        mVpPremium.pauseAutoScroll();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mVpPremium.resumeAutoScroll();
-        user = User.getCurrentUser(this);
-        updateData();
-        validatePremiumView(user.getPremiumUntil());
     }
 
     @Override
@@ -244,6 +233,88 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
     }
 
+    @Override
+    protected void onStart() {
+        KLog.v("VexPointActivity", "onStart: ");
+        super.onStart();
+        startDateTimer();
+    }
+
+    @Override
+    protected void onPause() {
+        mVpPremium.pauseAutoScroll();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+            timeSubsription = null;
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startDateTimer();
+        mVpPremium.resumeAutoScroll();
+        user = User.getCurrentUser(this);
+        updateData();
+        validatePremiumView(user.getPremiumUntil());
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        KLog.v("VexPointActivity", "onDestroy: ");
+        super.onDestroy();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+        }
+    }
+
+    private void startDateTimer() {
+        if (timeSubsription == null && StaticGroup.isScreenOn(this, true)) {
+            timeSubsription = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        @Override
+                        public void call(Object o) {
+                            //KLog.v("Date Time called");
+                            if (!StaticGroup.isScreenOn(PremiumMemberActivity.this, true)) {
+                                if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+                                    timeSubsription.unsubscribe();
+                                }
+                            } else {
+                                setWatchText();
+                            }
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
+                        }
+                    });
+        }
+    }
+
+    private void setWatchText() {
+        TextView mTvCountdownVp = findViewById(R.id.tv_countdown);
+        Calendar now = Calendar.getInstance();
+        Calendar premiumUntil = Calendar.getInstance();
+        premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(user.getPremiumUntil()));
+
+        long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
+
+        String time = String.format(Locale.getDefault(), "%d DAY, %02d HOUR, %02d MIN",
+                TimeUnit.MILLISECONDS.toDays(remainTime),
+                TimeUnit.MILLISECONDS.toHours(remainTime) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(remainTime)),
+                TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)));
+
+        mTvCountdownVp.setText(time);
+    }
+
     private void updateData() {
         if (NetworkUtil.isOnline(this)) {
             if (User.getUserAddressStatus() != 1) {
@@ -265,8 +336,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
             updateView(1);
             String ts = getTimeStampDate(premiumDueDate);
             mTvAlreadyPremium.setText(String.format(getString(R.string.premium_already_premium), ts));
+            startDateTimer();
         } else {
             updateView(0);
+            if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+                timeSubsription.unsubscribe();
+                timeSubsription = null;
+            }
+
         }
     }
 
@@ -349,7 +426,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         int day = plan.getDuration() / 24 / 3600;
 
         tvDay.setText(plan.getName());
-        tvVex.setText(plan.getPrice()/day + " " + getString(R.string.premium_buy_vex));
+        tvVex.setText(plan.getPrice() / day + " " + getString(R.string.premium_buy_vex));
         tvTotal.setText(plan.getPrice() + " VEX");
 
         new VexDialog.Builder(this)

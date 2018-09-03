@@ -108,13 +108,7 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
             }
 
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta() != null) {
-                if (errorResponse.getMeta().isRequestError()) {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-                } else {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-                }
-            }
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
 
     }
@@ -144,7 +138,7 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
     public void onClick(View v) {
         super.onClick(v);
 
-        String url = StaticGroup.FULL_DEEPLINK+"/receive?c="+code;
+        String url = StaticGroup.FULL_DEEPLINK + "/receive?c=" + code;
         String text = String.format(getString(R.string.exchange_send_voucher_share_text), voucher.getTitle(), code, url);
         switch (v.getId()) {
             case R.id.btn_generate_code:

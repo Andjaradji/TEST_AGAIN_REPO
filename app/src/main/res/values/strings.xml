@@ -445,6 +445,7 @@
     <string name="premium_lucky_draw">Enter Lucky Draw</string>
     <string name="premium_airdrop_token">Free Airdrop Token</string>
     <string name="premium_plan">Premium Plan</string>
+    <string name="premium_ended_time_countdown">Your Premium Plan Ended in : </string>
 
     <string name="premium_buy_title">Become Premium member</string>
     <string name="premium_buy_time_left">Time left to send Vex:</string>

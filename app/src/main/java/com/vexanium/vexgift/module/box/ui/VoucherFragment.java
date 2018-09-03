@@ -128,7 +128,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
             }
 
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse.getMeta().getStatus());
+            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse);
         }
     }
 
@@ -188,11 +188,11 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (voucher.isForPremium() && !user.isPremiumMember()) {
-                                StaticGroup.showPremiumMemberDialog(VoucherFragment.this.getActivity());
-                            } else {
-                                goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
-                            }
+//                            if (voucher.isForPremium() && !user.isPremiumMember()) {
+//                                StaticGroup.showPremiumMemberDialog(VoucherFragment.this.getActivity());
+//                            } else {
+                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+//                            }
                         }
                     });
 

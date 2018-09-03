@@ -90,7 +90,7 @@ public class PremiumHistoryActivity extends BaseActivity<IPremiumPresenter> impl
             }
 
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 

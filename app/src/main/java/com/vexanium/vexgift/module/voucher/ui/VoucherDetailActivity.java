@@ -25,12 +25,10 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
@@ -43,7 +41,6 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -98,7 +95,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
 
-            if(voucher.getVoucherTypeId() != 5) {
+            if (voucher.getVoucherTypeId() != 5) {
                 ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
                 if (voucher.getPrice() == 0) {
                     ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
@@ -106,7 +103,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 } else {
                     ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
                 }
-            }else{
+            } else {
                 ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
                 findViewById(R.id.tv_price_info).setVisibility(View.GONE);
 
@@ -129,12 +126,17 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 finish();
                 break;
             case R.id.share_button:
-                String deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/voucher?id=%d", voucher.getId());
+                String deepUrl;
+                if (voucher.isToken()) {
+                    deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/token?id=%d", voucher.getId());
+                } else {
+                    deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/voucher?id=%d", voucher.getId());
+                }
                 String message = String.format(getString(R.string.share_voucher_template), deepUrl);
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "VexPointResponse Gift");
                 break;
             case R.id.btn_claim:
-                if(voucher.getVoucherTypeId() != 5) {
+                if (voucher.getVoucherTypeId() != 5) {
                     if (voucher.getQtyAvailable() == 0) {
                         new VexDialog.Builder(this)
                                 .optionType(DialogOptionType.OK)
@@ -159,7 +161,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                                     .show();
                         }
                     }
-                }else{
+                } else {
                     new VexDialog.Builder(VoucherDetailActivity.this)
                             .optionType(DialogOptionType.OK)
                             .title("Coming soon")
@@ -167,7 +169,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                             .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                   dialog.dismiss();
+                                    dialog.dismiss();
                                 }
                             })
                             .cancelable(true)
@@ -184,13 +186,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             KLog.v("VoucherDetailActivity", "handleResult: " + JsonUtil.toString(data));
         } else if (errorResponse != null) {
             if (NetworkUtil.isOnline(this)) {
-                if (errorResponse.getMeta() != null) {
-                    if (errorResponse.getMeta().isRequestError()) {
-                        StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-                    } else {
-                        StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-                    }
-                }
+                StaticGroup.showCommonErrorDialog(this, errorResponse);
             } else {
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
