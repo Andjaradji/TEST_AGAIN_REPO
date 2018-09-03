@@ -20,6 +20,7 @@ import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
+import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -69,7 +70,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             }
         });
 
-        if (user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) {
+        if ((user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) || !TextUtils.isEmpty(user.getActAddress())) {
             KLog.v("MyProfileActivity","initView: HPtes A");
 
             ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
@@ -84,26 +85,22 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             });
 
         } else if (user.getUserAddressStatus() != 0) {
-            KLog.v("MyProfileActivity","initView: HPtes B");
             ViewUtil.setText(this, R.id.tv_action, "ADD");
             ViewUtil.setText(this, R.id.tv_vex_address, "-");
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (ClickUtil.isFastDoubleClick()) return;
-                    KLog.v("MyProfileActivity","onClick: BA");
 
                     if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
                         StaticGroup.openRequirementDialog(MyProfileActivity.this, false);
                     } else {
-                        KLog.v("MyProfileActivity","onClick: BB");
-                        Intent intent = new Intent(MyProfileActivity.this, VexAddressActivity.class);
+                        Intent intent = new Intent(MyProfileActivity.this, VexPointActivity.class);
                         startActivity(intent);
                     }
                 }
             });
         } else if (user.getUserAddressStatus() == 0) {
-            KLog.v("MyProfileActivity","initView: HPtes C");
 
             ViewUtil.setText(this, R.id.tv_action, "Waiting for Verification");
             if (user.getUserAddress() != null && !TextUtils.isEmpty(user.getUserAddress().getActAddress())) {
@@ -112,7 +109,14 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
 
+                    if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                        StaticGroup.openRequirementDialog(MyProfileActivity.this, false);
+                    } else {
+                        Intent intent = new Intent(MyProfileActivity.this, VexPointActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
         }

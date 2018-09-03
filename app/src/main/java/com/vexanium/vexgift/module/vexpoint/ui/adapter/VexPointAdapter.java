@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
 
 import java.util.ArrayList;
@@ -47,10 +48,10 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         holder.mVpSubText.setText(data.getCreatedAtDate());
 
         if (data.getVpLogTypeId() < 2) {
-            holder.mVpIndicatorText.setText("+ " + data.getAmount());
+            holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
-            holder.mVpIndicatorText.setText("- " + data.getAmount());
+            holder.mVpIndicatorText.setText("- "  + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
 

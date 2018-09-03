@@ -229,7 +229,7 @@ public class StaticGroup {
 
     public static String convertVpFormat(float vpValue) {
         DecimalFormat formatter = new DecimalFormat("");
-        formatter.setMaximumFractionDigits(5);
+        formatter.setMaximumFractionDigits(2);
         String output = formatter.format(vpValue);
         return output;//.replace(",", ".");
     }
