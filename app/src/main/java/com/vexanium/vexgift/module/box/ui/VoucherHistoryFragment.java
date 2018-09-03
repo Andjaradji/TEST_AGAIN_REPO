@@ -21,7 +21,6 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
@@ -185,11 +184,11 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (voucher.isForPremium() && !user.isPremiumMember()) {
-                            StaticGroup.showPremiumMemberDialog(VoucherHistoryFragment.this.getActivity());
-                        } else {
-                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
-                        }
+//                        if (voucher.isForPremium() && !user.isPremiumMember()) {
+//                            StaticGroup.showPremiumMemberDialog(VoucherHistoryFragment.this.getActivity());
+//                        } else {
+                        goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+//                        }
                     }
                 });
 

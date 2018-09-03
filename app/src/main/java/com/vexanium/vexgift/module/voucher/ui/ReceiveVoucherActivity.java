@@ -59,7 +59,7 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
             String content = String.format(getString(R.string.exchange_receive_voucher_success_dialog_content), "");
-            RxBus.get().post(RxBus.KEY_BOX_CHANGED,0);
+            RxBus.get().post(RxBus.KEY_BOX_CHANGED, 0);
             new VexDialog.Builder(this)
                     .title(getString(R.string.exchange_receive_voucher_success_dialog_title))
                     .content(content)
@@ -76,12 +76,9 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
                     .show();
 
         } else if (errorResponse != null && errorResponse.getMeta() != null) {
-            if (errorResponse.getMeta().isRequestError()) {
-                ((EditText) findViewById(R.id.et_code)).setText("");
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            } else {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-            }
+            ((EditText) findViewById(R.id.et_code)).setText("");
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
+
         }
     }
 

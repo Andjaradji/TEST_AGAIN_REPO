@@ -131,10 +131,8 @@ public class RegisterConfirmationActivity extends BaseActivity<IRegisterPresente
                             .cancelable(false)
                             .canceledOnTouchOutside(false)
                             .show();
-                } else if (errorResponse.getMeta().isRequestError()) {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
                 } else {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
+                    StaticGroup.showCommonErrorDialog(this, errorResponse);
                 }
             }
         } else {

@@ -51,7 +51,7 @@ import rx.functions.Action1;
  */
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_box_child)
-public class TokenFragment extends  BaseFragment<IBoxPresenter> implements IBoxView {
+public class TokenFragment extends BaseFragment<IBoxPresenter> implements IBoxView {
 
     LinearLayout mErrorView;
     ImageView mIvError;
@@ -129,7 +129,7 @@ public class TokenFragment extends  BaseFragment<IBoxPresenter> implements IBoxV
             }
 
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse.getMeta().getStatus());
+            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse);
         }
     }
 
@@ -190,11 +190,11 @@ public class TokenFragment extends  BaseFragment<IBoxPresenter> implements IBoxV
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (voucher.isForPremium() && !user.isPremiumMember()) {
-                                StaticGroup.showPremiumMemberDialog(TokenFragment.this.getActivity());
-                            } else {
-                                goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
-                            }
+//                            if (voucher.isForPremium() && !user.isPremiumMember()) {
+//                                StaticGroup.showPremiumMemberDialog(TokenFragment.this.getActivity());
+//                            } else {
+                            goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
+//                            }
                         }
                     });
 

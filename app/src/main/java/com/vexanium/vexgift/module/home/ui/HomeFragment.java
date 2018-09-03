@@ -323,7 +323,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
                 } else {
                     if (getActivity() != null)
-                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getStatus());
+                        StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse);
                 }
             } else {
                 if (NetworkUtil.isOnline(getActivity())) {

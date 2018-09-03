@@ -59,10 +59,10 @@
                         android:id="@+id/vp_premium_member"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
-                        android:background="@drawable/shape_premium_bg"
                         android:layout_alignParentTop="true"
-                        app:isInfinite="true"
+                        android:background="@drawable/shape_premium_bg"
                         app:autoScroll="true"
+                        app:isInfinite="true"
                         app:scrollInterval="5000"
                         app:viewpagerAspectRatio="1.33">
 
@@ -73,28 +73,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/vp_premium_member"
-                        android:layout_marginBottom="@dimen/interval_main"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/interval_main"
                         app:piv_animationType="scale"
                         app:piv_dynamicCount="true"
                         app:piv_interactiveAnimation="true"
-                        app:piv_selectedColor="@color/material_white"
-                        app:piv_unselectedColor="@color/material_white_trans_ef"
                         app:piv_padding="@dimen/walkthrough_indicator_padding"
-                        app:piv_radius="@dimen/walkthrough_indicator_radius" />
+                        app:piv_radius="@dimen/walkthrough_indicator_radius"
+                        app:piv_selectedColor="@color/material_white"
+                        app:piv_unselectedColor="@color/material_white_trans_ef" />
 
                     <TextView
                         android:id="@+id/tv_become_premium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="@string/premium_become"
-                        android:textColor="@color/material_white"
-                        android:textSize="@dimen/text_large"
-                        android:tag="hnBoldCond"
-                        android:layout_marginTop="@dimen/interval_medium"
+                        android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_alignParentTop="true"/>
+                        android:layout_marginTop="@dimen/interval_medium"
+                        android:tag="hnBoldCond"
+                        android:text="@string/premium_become"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_large" />
 
                 </RelativeLayout>
 
@@ -103,33 +103,64 @@
                     android:id="@+id/ll_premium_top_already_premium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:gravity="center"
-                    android:layout_marginTop="54dp"
                     android:layout_marginBottom="54dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="54dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-
-                    <ImageView
-                        android:id="@+id/iv_check"
-                        android:src="@drawable/ic_tick"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_already_premium"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textAlignment="textStart"
-                        android:paddingStart="@dimen/interval_main"
-                        android:tag="bold"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium" />
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_tick" />
+
+                        <TextView
+                            android:id="@+id/tv_already_premium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/interval_main"
+                            android:tag="bold"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_small_medium" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/interval_content"
+                            android:layout_marginRight="@dimen/interval_content"
+                            android:text="@string/premium_ended_time_countdown"
+                            android:textAllCaps="true"
+                            android:textColor="@color/material_black_sub_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_countdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
             </RelativeLayout>
-
 
 
             <RelativeLayout
@@ -144,9 +175,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_content"
                     android:layout_marginTop="@dimen/interval_medium"
-                    android:tag="bold"
                     android:paddingLeft="@dimen/interval_main"
                     android:paddingRight="@dimen/interval_main"
+                    android:tag="bold"
                     android:text="@string/premium_plan"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_title" />
@@ -155,8 +186,7 @@
                     android:id="@+id/rv_premium"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/tv_premium_plan"
-                    >
+                    android:layout_below="@id/tv_premium_plan">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -167,6 +197,6 @@
 
     </ScrollView>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

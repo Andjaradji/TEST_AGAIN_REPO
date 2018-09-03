@@ -158,7 +158,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 }
             }
         } else {
-            StaticGroup.showCommonErrorDialog(this, 0);
+            StaticGroup.showCommonErrorDialog(this, 10);
         }
         updateView();
         ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.send_button, R.id.btn_redeem);
@@ -241,11 +241,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
 
         } else if (errorResponse != null) {
             if (NetworkUtil.isOnline(this)) {
-                if (errorResponse.getMeta().isRequestError()) {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-                } else {
-                    StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-                }
+                StaticGroup.showCommonErrorDialog(this, errorResponse);
             } else {
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
