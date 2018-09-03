@@ -281,7 +281,7 @@
     <string name="myprofile_id_back">Back view of your identity document</string>
     <string name="myprofile_id_back_desc">Back View</string>
 
-    <string name="myprofile_id_selfie">Photo of you handholding the front of ID document</string>
+    <string name="myprofile_id_selfie">Photo of you holding the front of ID document</string>
     <string name="myprofile_id_selfie_desc">Selfie View</string>
 
     <string name="myprofile_kyc">KYC</string>
