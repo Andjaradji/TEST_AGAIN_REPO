@@ -108,6 +108,48 @@
                 android:layout_marginTop="@dimen/margin_more_line"
                 android:background="@color/lineColor" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_myprofile_list"
+                android:layout_marginTop="@dimen/margin_myprofile_list">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="bold"
+                    android:text="@string/myprofile_act_address"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
+
+                <TextView
+                    android:id="@+id/tv_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="EDIT"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_vex_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_myprofile_list"
+                android:layout_marginTop="@dimen/margin_myprofile_list"
+                android:textColor="@color/material_black_text_color" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin_more_line"
+                android:layout_marginTop="@dimen/margin_more_line"
+                android:background="@color/lineColor" />
+
             <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,12 +209,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_main"
                     android:layout_marginTop="@dimen/interval_small"
-                    android:paddingTop="@dimen/interval_submain"
+                    android:background="@drawable/shape_ripple_small_button"
+                    android:gravity="center"
                     android:paddingBottom="@dimen/interval_submain"
                     android:paddingLeft="@dimen/interval_medium"
                     android:paddingRight="@dimen/interval_medium"
-                    android:background="@drawable/shape_ripple_small_button"
-                    android:gravity="center">
+                    android:paddingTop="@dimen/interval_submain">
 
                     <TextView
                         android:id="@+id/tv_next"
@@ -208,8 +250,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_myprofile_list"
                     android:layout_marginTop="@dimen/margin_myprofile_list"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -253,8 +295,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_myprofile_list"
                     android:layout_marginTop="@dimen/margin_myprofile_list"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -428,7 +470,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 
 </RelativeLayout>

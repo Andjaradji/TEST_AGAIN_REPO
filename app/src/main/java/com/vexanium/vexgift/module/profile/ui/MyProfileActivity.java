@@ -10,6 +10,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
@@ -17,6 +18,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -49,7 +51,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         user = User.getCurrentUser(this);
         mPresenter = new IProfilePresenterImpl(this);
 
-        User user = User.getCurrentUser(App.getContext());
+        final User user = User.getCurrentUser(App.getContext());
         if (user != null) {
             setUserData(user);
             mPresenter.requestKyc(user.getId());
@@ -65,6 +67,35 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
                 }
             }
         });
+
+        if (user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) {
+            ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
+            findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    Intent intent = new Intent(MyProfileActivity.this, VexAddressActivity.class);
+                    intent.putExtra("update", true);
+                    startActivity(intent);
+                }
+            });
+
+        } else if (user.getUserAddressStatus() != 0) {
+            ViewUtil.setText(this, R.id.tv_action, "ADD");
+            findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ClickUtil.isFastDoubleClick()) return;
+                    if (user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                        StaticGroup.openRequirementDialog(MyProfileActivity.this, false);
+                    } else {
+                        Intent intent = new Intent(MyProfileActivity.this, VexAddressActivity.class);
+                        intent.putExtra("update", true);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
 
         findViewById(R.id.btn_next).setOnClickListener(this);
     }

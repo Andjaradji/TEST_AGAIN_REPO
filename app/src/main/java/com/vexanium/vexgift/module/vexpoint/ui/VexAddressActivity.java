@@ -46,6 +46,10 @@ public class VexAddressActivity extends BaseActivity<IVexpointPresenter> impleme
 
         user = User.getCurrentUser(this);
 
+        if (getIntent().hasExtra("update")) {
+            ViewUtil.setText(this, R.id.tv_toolbar_title, getString(R.string.vexpoint_update_address));
+        }
+
         updateView();
 
         findViewById(R.id.btn_submit).setOnClickListener(this);
