@@ -64,6 +64,7 @@ public class VoucherWebViewActivity extends BaseActivity {
 
         mWebChromeClient = new BaseWebChromeClient(getContext());
         mWebView.setWebChromeClient(mWebChromeClient);
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
         showProgress();
         mWebView.loadUrl(url);
