@@ -49,7 +49,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
             holder.mVpIndicatorText.setText("- " + data.getAmount());
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
-        
+
         if(data.getVexCounted3() > 0){
             holder.mVpVex3.setText(data.getVexCounted3()+"");
         }
@@ -98,7 +98,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout mDetailContainer;
-        LinearLayout mContainer;
+        RelativeLayout mContainer;
         TextView mVpMainText, mVpSubText, mVpIndicatorText;
         TextView mVpVex3, mVpVex2, mVpVex1;
         private Context mContext;
@@ -107,7 +107,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         public FilterViewHolder(View itemView) {
             super(itemView);
             mContext = itemView.getContext();
-            mContainer = itemView.findViewById(R.id.ll_filter_item);
+            mContainer = itemView.findViewById(R.id.rl_vexpoint_item);
             mVpMainText = itemView.findViewById(R.id.tv_vexpoint_item_name);
             mVpSubText = itemView.findViewById(R.id.tv_vexpoint_item_detail);
             mVpIndicatorText = itemView.findViewById(R.id.tv_vexpoint_indicator);

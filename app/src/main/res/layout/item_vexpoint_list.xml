@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_vexpoint_item"
+    android:id="@+id/rl_vexpoint_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp"
+
     android:clickable="true"
     android:background="@drawable/shape_ripple_transparent">
 
@@ -16,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -46,9 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_small_medium"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:textColor="@color/vexpoint_plus"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"/>
+        android:layout_alignParentEnd="true" />
 
     <RelativeLayout
         android:id="@+id/rl_detail_container"
@@ -56,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_main_text_container"
         android:visibility="gone"
+        android:paddingBottom="15dp"
         android:layout_alignParentStart="true">
 
         <RelativeLayout

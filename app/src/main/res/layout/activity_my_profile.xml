@@ -411,7 +411,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
-                        android:text="@string/myprofile_id_front"
+                        android:text="@string/myprofile_id_selfie"
                         android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
