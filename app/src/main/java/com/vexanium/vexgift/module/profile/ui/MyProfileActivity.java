@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.profile.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,6 +70,8 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         });
 
         if (user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) {
+            KLog.v("MyProfileActivity","initView: HPtes A");
+
             ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,18 +84,35 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             });
 
         } else if (user.getUserAddressStatus() != 0) {
+            KLog.v("MyProfileActivity","initView: HPtes B");
             ViewUtil.setText(this, R.id.tv_action, "ADD");
+            ViewUtil.setText(this, R.id.tv_vex_address, "-");
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (ClickUtil.isFastDoubleClick()) return;
-                    if (user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                    KLog.v("MyProfileActivity","onClick: BA");
+
+                    if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
                         StaticGroup.openRequirementDialog(MyProfileActivity.this, false);
                     } else {
+                        KLog.v("MyProfileActivity","onClick: BB");
                         Intent intent = new Intent(MyProfileActivity.this, VexAddressActivity.class);
-                        intent.putExtra("update", true);
                         startActivity(intent);
                     }
+                }
+            });
+        } else if (user.getUserAddressStatus() == 0) {
+            KLog.v("MyProfileActivity","initView: HPtes C");
+
+            ViewUtil.setText(this, R.id.tv_action, "Waiting for Verification");
+            if (user.getUserAddress() != null && !TextUtils.isEmpty(user.getUserAddress().getActAddress())) {
+                ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
+            }
+            findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
                 }
             });
         }
