@@ -531,6 +531,13 @@
     <string name="premium_dialog_desc">This voucher is for premium member only.\nGet the best of Voucher, Token Airdrop and also many other benefits : Go Premium</string>
     <string name="premium_dialog_button">Go Premium</string>
 
+    <string name="guidance_home_1">Collect Vex Point by holding Vex</string>
+    <string name="guidance_home_2">You can get Gift Voucher and Token Airdrop here.
+        Click this Voucher or Token Banner and explore various Gift Voucher</string>
+    <string name="guidance_box_1">View your used voucher here
+Your expired and used voucher will be shown here</string>
+    <string name="guidance_box_2">You can get receive voucher from friend here. Just input the gift code and the voucher is yours</string>
+
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

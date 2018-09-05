@@ -89,7 +89,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mPresenter = new IPremiumPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mHistoryButton = findViewById(R.id.ib_history);
+        mHistoryButton = findViewById(R.id.ib_history_premium);
         mHistoryButton.setEnabled(false);
         mHistoryButton.setVisibility(View.GONE);
         mVpPremium = findViewById(R.id.vp_premium_member);

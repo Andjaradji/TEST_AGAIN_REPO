@@ -89,7 +89,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
     private AVLoadingIndicatorView mAvi;
     private SwipeRefreshLayout mSrlHome;
-    private LinearLayout mVexPointButton;
+    public LinearLayout mVexPointButton;
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
@@ -113,6 +113,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private Handler mRefreshHandler;
     private Runnable mRefreshRunnable;
     private View rootView;
+
+    private boolean isAlreadyGuideVoucherToken = false;
+
+    public View exploreView;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -515,6 +519,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 }
                             });
                         }
+//                        if(!isAlreadyGuideVP){
+//                            RxBus.get().post(RxBus.KEY_VP_GUIDANCE, holder.getView(R.id.ll_shortcut));
+//                            isAlreadyGuideVP = true;
+//                        }
                         break;
                     case HOT_LIST:
                         if (item.object instanceof ArrayList<?>) {
@@ -528,6 +536,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
                                 intent.putExtra("isToken", true);
+                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                 startActivity(intent);
                             }
                         });
@@ -536,7 +545,18 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                 startActivity(intent);
+                            }
+                        });
+                        exploreView = holder.getView(R.id.ll_explore);
+                        exploreView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                if (!isAlreadyGuideVoucherToken) {
+                                    RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
+                                    isAlreadyGuideVoucherToken = true;
+                                }
                             }
                         });
                         break;

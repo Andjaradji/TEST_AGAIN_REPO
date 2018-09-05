@@ -163,16 +163,16 @@
             android:name=".module.premium.ui.PremiumHistoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.privacy.ui.PrivacyActivity"
+            android:name=".module.more.ui.PrivacyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.term.ui.TermActivity"
+            android:name=".module.more.ui.TermActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.vexpoint.ui.FaqActivity"
+            android:name=".module.more.ui.FaqActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.about.ui.AboutActivity"
+            android:name=".module.more.ui.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.referral.ui.ReferralActivity"

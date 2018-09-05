@@ -23,6 +23,12 @@ public class AnimUtil {
 
     static Animation.AnimationListener mAnimListener;
 
+    public static void stopAnimOnAllViews(View... views) {
+        for (View view : views) {
+            if (view != null) view.clearAnimation();
+        }
+    }
+
     public static void animateButtonRelease(final View container) {
         ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(container, "scaleX", 1.0f);
         ObjectAnimator scaleUpY = ObjectAnimator.ofFloat(container, "scaleY", 1.0f);
@@ -74,6 +80,31 @@ public class AnimUtil {
     public static void transTopIn(View view, boolean fade) {
         view.setVisibility(View.VISIBLE);
         translate(view, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, DURATION, fade);
+    }
+
+    public static Animation getFadeIn(View view, int duration) {
+        return AnimUtil.getFadeAnim(view, 0.0f, 1.0f, duration, null);
+    }
+
+    public static Animation getFadeOut(View view, int duration ) {
+        return AnimUtil.getFadeAnim(view, 1.0f, 0.0f, duration, null);
+    }
+
+    public static void transBottomIn(View view, boolean fade) {
+        view.setVisibility(View.VISIBLE);
+        translate(view, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 200, fade);
+    }
+
+    public static Animation getFadeAnim(View view, float fromAlpha, float toAlpha, long duration, Animation.AnimationListener listener) {
+        final Animation anim = new AlphaAnimation(fromAlpha, toAlpha);
+        anim.setInterpolator(AnimationUtils.loadInterpolator(view.getContext(),
+                android.R.anim.decelerate_interpolator));
+        anim.setDuration(duration);
+
+
+        if (listener != null)
+            anim.setAnimationListener(listener);
+        return anim;
     }
 
     public static void translate(View view, float fromX, float toX, float fromY, float toY,
@@ -149,6 +180,29 @@ public class AnimUtil {
         });
 
         scaleDown.start();
+    }
+
+    public static void fadeIn(View view) {
+        view.setVisibility(View.VISIBLE);
+        AnimUtil.fade(view, 0.0f, 1.0f, DURATION, null);
+    }
+
+    public static void fadeIn(View view, int duration) {
+        if (view.getVisibility() == View.GONE)
+            view.setVisibility(View.VISIBLE);
+        AnimUtil.fade(view, 0.0f, 1.0f, duration, null);
+    }
+
+    public static void fade(View view, float fromAlpha, float toAlpha, long duration, Animation.AnimationListener listener) {
+        final Animation anim = new AlphaAnimation(fromAlpha, toAlpha);
+        anim.setInterpolator(AnimationUtils.loadInterpolator(view.getContext(),
+                android.R.anim.decelerate_interpolator));
+        anim.setDuration(duration);
+
+        view.startAnimation(anim);
+
+        if (listener != null)
+            anim.setAnimationListener(listener);
     }
 
     public static void animateButtonPress(final View container, float scaleDownValue) {

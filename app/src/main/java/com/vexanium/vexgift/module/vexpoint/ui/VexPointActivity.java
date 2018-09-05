@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,13 +22,13 @@ import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
+import com.vexanium.vexgift.module.more.ui.FaqActivity;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -132,8 +133,11 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+            if (errorResponse.getMeta().getStatus() / 100 == 4 && errorResponse.getMeta().getStatus() != 408) {
                 User.setIsVexAddressSet(this, false);
+            }
+            if(!TextUtils.isEmpty(user.getActAddress())){
+                User.setIsVexAddressSet(this, true);
             }
 
             updateView();

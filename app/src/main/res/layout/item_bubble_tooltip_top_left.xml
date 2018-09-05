@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/bub_arrow_view"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="@color/vex_orange"
+        android:background="@drawable/triangle" />
+    <RelativeLayout
+        android:id="@+id/bub_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_round_blue_tooltip"
+        android:paddingBottom="16dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="16dp">
+        <TextView
+            android:id="@+id/bub_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</RelativeLayout>

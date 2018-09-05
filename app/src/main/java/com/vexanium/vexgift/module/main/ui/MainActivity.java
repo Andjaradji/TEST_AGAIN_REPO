@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.main.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,11 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
@@ -24,11 +28,31 @@ import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
+import com.vexanium.vexgift.util.AnimUtil;
+import com.vexanium.vexgift.util.ColorUtil;
+import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
+import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.CustomTabBarView;
 import com.vexanium.vexgift.widget.CustomViewPager;
+import com.vexanium.vexgift.widget.guideview.HoleStyle;
+import com.vexanium.vexgift.widget.guideview.HoleView;
+import com.vexanium.vexgift.widget.guideview.MotionType;
+import com.vexanium.vexgift.widget.guideview.Overlay;
+import com.vexanium.vexgift.widget.guideview.VexGuideView;
+import com.vexanium.vexgift.widget.guideview.bubbletooltip.ArrowDirection;
+import com.vexanium.vexgift.widget.guideview.bubbletooltip.BubbleToolTip;
+import com.vexanium.vexgift.widget.guideview.handguide.HandGuide;
+import com.vexanium.vexgift.widget.guideview.nextbutton.NextButton;
+
+import rx.Observable;
+import rx.functions.Action1;
+
+import static android.view.View.VISIBLE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
+    private final int GUIDE_ANIMATION_INTERVAL = 400;
 
     public static final int HOME_FRAGMENT = 0;
     public static final int BOX_FRAGMENT = 1;
@@ -44,6 +68,13 @@ public class MainActivity extends BaseActivity {
     private NotifFragment notifFragment;
     private MoreFragment moreFragment;
     private MainScreenPagerAdapter mainScreenPagerAdapter;
+    private Observable<View> mVoucherGuidanceObservable;
+    private Observable<View> mMyBoxGuidanceObservable;
+    private Observable<Boolean> mClearGuidanceObservable;
+    private View boxFragmentView;
+    private CountDownTimer animationCountDownTimer;
+    private boolean isAlreadyGuideMyBox = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +89,7 @@ public class MainActivity extends BaseActivity {
 
         if (getIntent().hasExtra("url")) {
             String url = getIntent().getStringExtra("url");
-            KLog.v("MainActivity","onCreate: getDeeplink "+url);
+            KLog.v("MainActivity", "onCreate: getDeeplink " + url);
             getIntent().removeExtra("url");
             openDeepLink(url);
         }
@@ -68,7 +99,43 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mVoucherGuidanceObservable = RxBus.get().register(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, View.class);
+        mVoucherGuidanceObservable.subscribe(new Action1<View>() {
+            @Override
+            public void call(View view) {
+                KLog.v("MainActivity", "call: HPtes rxbus guidance called");
+                if (view != null) {
+                    boolean isAlreadyGuideVoucherToken = TpUtil.getInstance(App.getContext()).getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_HOME, false);
+                    if (!isAlreadyGuideVoucherToken) {
+                        openGuidanceHome(view);
+                    }
+//                    view.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+                }
+            }
+        });
 
+        mMyBoxGuidanceObservable = RxBus.get().register(RxBus.KEY_MY_BOX_GUIDANCE, View.class);
+        mMyBoxGuidanceObservable.subscribe(new Action1<View>() {
+            @Override
+            public void call(View view) {
+                KLog.v("MainActivity", "call: HPtes rxbus guidance called");
+                if (view != null) {
+                    boxFragmentView = view;
+//                    view.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
+                }
+            }
+        });
+
+        mClearGuidanceObservable = RxBus.get().register(RxBus.KEY_CLEAR_GUIDANCE, Boolean.class);
+        mClearGuidanceObservable.subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean b) {
+                KLog.v("MainActivity", "call: HPtes rxbus clear guidance called");
+                resetGuidance(true);
+                TpUtil tpUtil = new TpUtil(MainActivity.this);
+                tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_HOME, true);
+            }
+        });
     }
 
     @Override
@@ -80,6 +147,21 @@ public class MainActivity extends BaseActivity {
             openDeepLink(url);
         }
         handlePushAction();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mClearGuidanceObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_CLEAR_GUIDANCE, mClearGuidanceObservable);
+        }
+        if (mVoucherGuidanceObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, mVoucherGuidanceObservable);
+        }
+        if (mMyBoxGuidanceObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_MY_BOX_GUIDANCE, mMyBoxGuidanceObservable);
+        }
+
     }
 
     public void setToolbar() {
@@ -117,6 +199,348 @@ public class MainActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    int animStepCounter = 0;
+    VexGuideView vexGuideView;
+
+    public void openGuidanceHome(View targetView) {
+        KLog.v("MainActivity", "openGuidance: guidance open 1");
+
+        final View voucherView = targetView.findViewById(R.id.voucher_button);
+        View tokenView = targetView.findViewById(R.id.token_button);
+
+        final View vexPointView = homeFragment.mVexPointButton;
+//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
+        if (vexPointView == null) return;
+
+        int[] vPos = new int[2];
+        int[] tPos = new int[2];
+        int[] vpPos = new int[2];
+        voucherView.getLocationOnScreen(vPos);
+        KLog.v("MainActivity", "openGuidance: HPtes x : " + vPos[0] + "   y : " + vPos[1]);
+        tokenView.getLocationOnScreen(tPos);
+        vexPointView.getLocationOnScreen(vpPos);
+
+        final Overlay overlay = new Overlay()
+                .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
+                .disableClick(true)
+                .disableClickThroughHole(true)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KLog.v("HPtes Overlay clicked");
+                    }
+                })
+                .setHolePadding(5)
+                .setEnterAnimation(AnimUtil.getFadeIn(voucherView, GUIDE_ANIMATION_INTERVAL))
+                .setExitAnimation(AnimUtil.getFadeOut(voucherView, GUIDE_ANIMATION_INTERVAL))
+                .setStyle(HoleStyle.ROUNDED_RECTANGLE);
+
+        final BubbleToolTip bubbleToolTip = new BubbleToolTip(this)
+                .arrowDirection(ArrowDirection.TOP_RIGHT)
+                .setDescription(getString(R.string.guidance_home_1))
+                .setWidthPercent(60)
+                .setMargin(0, 0, 8, 0)
+                .setGravity(Gravity.BOTTOM)
+                .target(vexPointView);
+
+        final BubbleToolTip bubbleToolTip2 = new BubbleToolTip(this)
+                .arrowDirection(ArrowDirection.BOTTOM_CENTER)
+                .setDescription(getString(R.string.guidance_home_2))
+                .setWidthPercent(80)
+                .setMargin(0, 0, 0, 0)
+                .setGravity(Gravity.TOP)
+                .target(targetView);
+
+        final HandGuide handGuide = new HandGuide(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END)
+                .target(voucherView);
+
+        final HandGuide handGuide2 = new HandGuide(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END)
+                .target(tokenView);
+
+        final NextButton nextButton = new NextButton(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END);
+
+        final HoleView holeViewFirst = new HoleView(targetView).setPadding(this, 0, 0, 0, 0).isAlwaysAllowClick(true);
+        final HoleView holeViewSecond = new HoleView(targetView).setPadding(this, 0, 0, 0, 0);
+        final HoleView holeView = new HoleView(vexPointView).setPadding(this, 0, 0, 0, 0);
+
+        animStepCounter = 0;
+        final int INITIAL_COUNTER = 1;
+        animationCountDownTimer = new CountDownTimer(GUIDE_ANIMATION_INTERVAL * (INITIAL_COUNTER + 13), GUIDE_ANIMATION_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (vexGuideView == null) return;
+
+                animStepCounter++;
+                KLog.v("HPtes ===== " + animStepCounter);
+                if (animStepCounter == INITIAL_COUNTER) {
+                    vexGuideView.overlay(overlay.setStyle(HoleStyle.ROUNDED_RECTANGLE)).addNewHole(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 1) {
+                    vexGuideView.highlightAnimOn(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 3) {
+                    bubbleToolTip.view.setVisibility(View.VISIBLE);
+                    AnimUtil.transBottomIn(bubbleToolTip.view, true);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 5) {
+                    vexGuideView.addNewHole(holeViewFirst);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 6) {
+                    vexGuideView.highlightAnimOn(holeViewFirst);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 8) {
+                    bubbleToolTip2.view.setVisibility(View.VISIBLE);
+                    AnimUtil.transBottomIn(bubbleToolTip2.view, true);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 10) {
+                    handGuide.view.setVisibility(View.VISIBLE);
+                    handGuide.view.startAnimation(handGuide.mEnterAnimation);
+
+                    handGuide2.view.setVisibility(View.VISIBLE);
+                    handGuide2.view.startAnimation(handGuide2.mEnterAnimation);
+                }
+                KLog.v("guidance time " + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                KLog.v("guidance finish");
+//                resetGuidance(false);
+
+                AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, bubbleToolTip2.view, nextButton.view, nextButton.imNext);
+                ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, bubbleToolTip2.view, nextButton.view, nextButton.imNext);
+
+//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
+//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
+//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
+//                }
+            }
+        };
+        if (vexGuideView == null) {
+            vexGuideView = new VexGuideView().init(MainActivity.this)
+                    .motionType(MotionType.CLICK_ONLY)
+                    .overlay(overlay.setStyle(HoleStyle.NO_HOLE))
+                    .bubbleTooltip(bubbleToolTip2, bubbleToolTip)
+                    .handGuide(handGuide, handGuide2)
+                    .show();
+            animationCountDownTimer.start();
+        }
+    }
+
+    public void openGuidanceMyBox1() {
+        KLog.v("MainActivity", "openGuidance: guidance open 2");
+
+        final View historyView = boxFragmentView.findViewById(R.id.ib_history);
+
+        final View vexPointView = homeFragment.mVexPointButton;
+//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
+        if (vexPointView == null) return;
+
+        final Overlay overlay = new Overlay()
+                .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
+                .disableClick(true)
+                .disableClickThroughHole(true)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KLog.v("HPtes Overlay clicked");
+                    }
+                })
+                .setHolePadding(20)
+                .setEnterAnimation(AnimUtil.getFadeIn(historyView, GUIDE_ANIMATION_INTERVAL))
+                .setExitAnimation(AnimUtil.getFadeOut(historyView, GUIDE_ANIMATION_INTERVAL))
+                .setStyle(HoleStyle.CIRCLE);
+
+        final BubbleToolTip bubbleToolTip = new BubbleToolTip(this)
+                .arrowDirection(ArrowDirection.TOP_RIGHT)
+                .setDescription(getString(R.string.guidance_box_1))
+                .setWidthPercent(80)
+                .setMargin(0, 0, 14, 0)
+                .setGravity(Gravity.BOTTOM)
+                .target(historyView);
+
+
+        final NextButton nextButton = new NextButton(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END);
+
+        final HoleView holeView = new HoleView(historyView).setPadding(this, 0, 0, 0, 0);
+
+        animStepCounter = 0;
+        final int INITIAL_COUNTER = 1;
+        animationCountDownTimer = new CountDownTimer(GUIDE_ANIMATION_INTERVAL * (INITIAL_COUNTER + 8), GUIDE_ANIMATION_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (vexGuideView == null) return;
+
+                animStepCounter++;
+                KLog.v("HPtes ===== " + animStepCounter);
+                if (animStepCounter == INITIAL_COUNTER) {
+                    vexGuideView.overlay(overlay.setStyle(HoleStyle.CIRCLE).setHoleRadius(25)).addNewHole(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 1) {
+                    vexGuideView.highlightAnimOn(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 3) {
+                    bubbleToolTip.view.setVisibility(View.VISIBLE);
+                    AnimUtil.transBottomIn(bubbleToolTip.view, true);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 5) {
+                    AnimUtil.fadeIn(nextButton.view, 1000);
+                    nextButton.view.setVisibility(View.VISIBLE);
+                    nextButton.imNext.setAnimation(nextButton.mEnterAnimation);
+                    nextButton.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetGuidance(true);
+
+                            openGuidanceMyBox2();
+                        }
+                    });
+                }
+                KLog.v("guidance time " + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                KLog.v("guidance finish");
+                resetGuidance(false);
+
+                AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, nextButton.view, nextButton.imNext);
+                ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, nextButton.view, nextButton.imNext);
+
+//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
+//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
+//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
+//                }
+            }
+        };
+        if (vexGuideView == null) {
+            vexGuideView = new VexGuideView().init(MainActivity.this)
+                    .motionType(MotionType.CLICK_ONLY)
+                    .overlay(overlay.setStyle(HoleStyle.NO_HOLE))
+                    .bubbleTooltip(bubbleToolTip)
+                    .nextButton(nextButton)
+                    .show();
+            animationCountDownTimer.start();
+        }
+    }
+
+    public void openGuidanceMyBox2() {
+        KLog.v("MainActivity", "openGuidance: guidance open 2");
+
+        final View receiveView = boxFragmentView.findViewById(R.id.ib_receive);
+//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
+
+        final Overlay overlay = new Overlay()
+                .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
+                .disableClick(true)
+                .disableClickThroughHole(true)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KLog.v("HPtes Overlay clicked");
+                    }
+                })
+                .setHolePadding(20)
+                .setEnterAnimation(AnimUtil.getFadeIn(receiveView, GUIDE_ANIMATION_INTERVAL))
+                .setExitAnimation(AnimUtil.getFadeOut(receiveView, GUIDE_ANIMATION_INTERVAL))
+                .setStyle(HoleStyle.CIRCLE);
+
+        final BubbleToolTip bubbleToolTip = new BubbleToolTip(this)
+                .arrowDirection(ArrowDirection.TOP_RIGHT)
+                .setDescription(getString(R.string.guidance_box_2))
+                .setWidthPercent(80)
+                .setMargin(0, 0, 62, 0)
+                .setGravity(Gravity.BOTTOM)
+                .target(receiveView);
+
+
+        final NextButton nextButton = new NextButton(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END);
+
+        final HoleView holeView = new HoleView(receiveView).setPadding(this, 0,0,0,0);
+
+        animStepCounter = 0;
+        final int INITIAL_COUNTER = 1;
+        animationCountDownTimer = new CountDownTimer(GUIDE_ANIMATION_INTERVAL * (INITIAL_COUNTER + 8), GUIDE_ANIMATION_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (vexGuideView == null) return;
+
+                animStepCounter++;
+                KLog.v("HPtes ===== " + animStepCounter);
+                if (animStepCounter == INITIAL_COUNTER) {
+                    vexGuideView.overlay(overlay.setStyle(HoleStyle.CIRCLE).setHoleRadius(25)).addNewHole(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 1) {
+                    vexGuideView.highlightAnimOn(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 3) {
+                    bubbleToolTip.view.setVisibility(View.VISIBLE);
+                    AnimUtil.transBottomIn(bubbleToolTip.view, true);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 5) {
+                    AnimUtil.fadeIn(nextButton.view, 1000);
+                    nextButton.view.setVisibility(View.VISIBLE);
+                    nextButton.imNext.setAnimation(nextButton.mEnterAnimation);
+                    nextButton.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetGuidance(true);
+
+                        }
+                    });
+                }
+                KLog.v("guidance time " + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                KLog.v("guidance finish");
+                resetGuidance(false);
+
+                AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, nextButton.view, nextButton.imNext);
+                ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, nextButton.view, nextButton.imNext);
+
+//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
+//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
+//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
+//                }
+            }
+        };
+        if (vexGuideView == null) {
+            vexGuideView = new VexGuideView().init(MainActivity.this)
+                    .motionType(MotionType.CLICK_ONLY)
+                    .overlay(overlay.setStyle(HoleStyle.NO_HOLE))
+                    .bubbleTooltip(bubbleToolTip)
+                    .nextButton(nextButton)
+                    .show();
+            animationCountDownTimer.start();
+        }
+    }
+
+    public void releaseAnimTimer() {
+        KLog.v("releaseAnimTimer");
+        if (animationCountDownTimer != null) {
+            animationCountDownTimer.cancel();
+            animationCountDownTimer = null;
+        }
+    }
+
+    private void resetGuidance(boolean withLayout) {
+        animStepCounter = 0;
+        releaseAnimTimer();
+
+        if (withLayout && vexGuideView != null) {
+            KLog.v("ctGuideView cleanUpAll");
+            vexGuideView.cleanUpAll(true);
+            vexGuideView = null;
         }
     }
 
@@ -165,6 +589,27 @@ public class MainActivity extends BaseActivity {
         mCustomTabBarView.setViewPager(mCustomViewPager);
         mCustomViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mCustomViewPager.setPagingEnabled(true);
+        mCustomViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == BOX_FRAGMENT) {
+                    boolean isAlreadyGuideMyBox = TpUtil.getInstance(App.getContext()).getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_MYBOX, false);
+                    if (!isAlreadyGuideMyBox && boxFragmentView != null) {
+                        openGuidanceMyBox1();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         mCustomViewPager.setCurrentItem(0, false);
     }
 

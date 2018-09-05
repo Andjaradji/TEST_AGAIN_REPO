@@ -24,6 +24,9 @@ public class RxBus {
     public static final String KEY_NOTIF_ADDED = "key_notif_added";
     public static final String KEY_BOX_HISTORY_ADDED = "key_box_history_added";
     public static final String KEY_BOX_CHANGED = "key_box_changed";
+    public static final String KEY_TOKEN_VOUCHER_GUIDANCE = "key_token_voucher_guidance";
+    public static final String KEY_MY_BOX_GUIDANCE = "key_mybox_guidance";
+    public static final String KEY_CLEAR_GUIDANCE = "key_clear_guidance";
     public static final String KEY_ENABLE_REFRESH_LAYOUT_OR_SCROLL_RECYCLER_VIEW = "key_enable_refresh_layout_or_scroll_recycler_view";
 
     public static final String KEY_NETWORK_STATUS_CHANGE = "key_network_status_change";

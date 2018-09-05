@@ -30,7 +30,7 @@
         android:textSize="@dimen/text_big_medium" />
 
     <ImageButton
-        android:id="@+id/ib_history"
+        android:id="@+id/ib_history_premium"
         android:src="@drawable/history"
         android:background="@color/transparent"
         android:scaleType="fitCenter"
