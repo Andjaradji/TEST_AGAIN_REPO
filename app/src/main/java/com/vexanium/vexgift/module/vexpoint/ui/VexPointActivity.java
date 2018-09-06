@@ -25,7 +25,6 @@ import com.vexanium.vexgift.bean.model.UserAddress;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
-import com.vexanium.vexgift.module.more.ui.FaqActivity;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
 import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;

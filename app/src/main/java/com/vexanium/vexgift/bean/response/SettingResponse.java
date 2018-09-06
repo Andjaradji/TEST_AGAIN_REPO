@@ -6,7 +6,6 @@ import com.vexanium.vexgift.bean.model.Setting;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SettingResponse implements Serializable {

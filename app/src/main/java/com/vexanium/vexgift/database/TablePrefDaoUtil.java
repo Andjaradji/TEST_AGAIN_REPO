@@ -3,7 +3,6 @@ package com.vexanium.vexgift.database;
 import com.google.gson.reflect.TypeToken;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.util.JsonUtil;
 

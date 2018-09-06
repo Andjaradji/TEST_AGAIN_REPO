@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -25,8 +24,6 @@ import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
 import com.vexanium.vexgift.util.RxBus;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import rx.Observable;
 import rx.functions.Action1;

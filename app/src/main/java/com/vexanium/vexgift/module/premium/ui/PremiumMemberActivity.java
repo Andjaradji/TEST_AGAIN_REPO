@@ -22,7 +22,6 @@ import com.crashlytics.android.answers.AddToCartEvent;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.PurchaseEvent;
-import com.crashlytics.android.answers.StartCheckoutEvent;
 import com.rd.PageIndicatorView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;

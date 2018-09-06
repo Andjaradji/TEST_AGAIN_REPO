@@ -9,7 +9,6 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.util.RxBus;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class VexFirebaseMessagingService extends FirebaseMessagingService {

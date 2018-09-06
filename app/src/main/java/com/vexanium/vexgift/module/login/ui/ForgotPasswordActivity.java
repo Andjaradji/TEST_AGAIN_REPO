@@ -2,13 +2,11 @@ package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -21,9 +19,6 @@ import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.widget.dialog.DialogAction;
-import com.vexanium.vexgift.widget.dialog.DialogOptionType;
-import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 

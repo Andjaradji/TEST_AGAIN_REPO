@@ -20,8 +20,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.response.InviteCardResponse;
-import com.vexanium.vexgift.http.Api;
-import com.vexanium.vexgift.http.HostType;
 
 import java.util.ArrayList;
 import java.util.List;

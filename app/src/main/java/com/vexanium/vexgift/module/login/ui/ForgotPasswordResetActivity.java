@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -15,7 +14,6 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenter;
 import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
