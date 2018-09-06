@@ -59,10 +59,10 @@ public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> imp
                 ForgotPasswordActivity.this.startActivity(intent);
                 break;
             case R.id.reset_password_button:
-                if(mEtEmail.getText()==null || !(mEtEmail.getText().toString().length() >= 5) || !Patterns.EMAIL_ADDRESS.matcher(mEtEmail.getText().toString()).matches()){
+                if (mEtEmail.getText() == null || !(mEtEmail.getText().toString().length() >= 5) || !Patterns.EMAIL_ADDRESS.matcher(mEtEmail.getText().toString()).matches()) {
 
                     ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
-                }else {
+                } else {
                     mPresenter.requestResetPassword(mEtEmail.getText().toString());
 
                 }
@@ -75,16 +75,16 @@ public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> imp
         KLog.v("ForgotPwActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
 
-        } else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("ForgotPwActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
 
 
-        }else{
-            Intent intent = new Intent(this,ForgotPasswordCodeActivity.class);
-            intent.putExtra("reset_password_email",mEtEmail.getText().toString());
+        } else {
+            Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+            intent.putExtra("reset_password_email", mEtEmail.getText().toString());
             startActivity(intent);
             finish();
         }

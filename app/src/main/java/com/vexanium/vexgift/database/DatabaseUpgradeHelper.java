@@ -19,9 +19,9 @@ public class DatabaseUpgradeHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
-        KLog.v("DatabaseUpgradeHelper","onUpgrade: "+oldVersion+" to "+newVersion);
-        DaoMaster.dropAllTables(db,true);
-        DaoMaster.createAllTables(db,false);
+        KLog.v("DatabaseUpgradeHelper", "onUpgrade: " + oldVersion + " to " + newVersion);
+        DaoMaster.dropAllTables(db, true);
+        DaoMaster.createAllTables(db, false);
         List<Migration> migrations = getMigrations();
 
         // Only run migrations past the old version

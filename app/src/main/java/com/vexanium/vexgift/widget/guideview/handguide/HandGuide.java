@@ -23,15 +23,10 @@ public class HandGuide {
     public int marginTop;
     public int marginBottom;
     public View view;
-    private Activity activity;
     LayoutInflater layoutInflater;
+    private Activity activity;
 
-    public HandGuide target(View target){
-        this.target = target;
-        return this;
-    }
-
-    public HandGuide(Activity activity){
+    public HandGuide(Activity activity) {
         mEnterAnimation = new AlphaAnimation(0.3f, 1f);
         mEnterAnimation.setDuration(500);
         mEnterAnimation.setRepeatCount(10);
@@ -44,12 +39,17 @@ public class HandGuide {
         view = layoutInflater.inflate(R.layout.item_hand_guide_tooltip, null);
     }
 
-    public HandGuide setMargin(int marginLeft, int marginTop, int marginRight, int marginBottom){
+    public HandGuide target(View target) {
+        this.target = target;
+        return this;
+    }
 
-        this.marginBottom = MeasureUtil.dip2px(activity,  marginBottom);
-        this.marginLeft = MeasureUtil.dip2px(activity,  marginLeft);
-        this.marginRight = MeasureUtil.dip2px(activity,  marginRight);
-        this.marginTop = MeasureUtil.dip2px(activity,  marginTop);
+    public HandGuide setMargin(int marginLeft, int marginTop, int marginRight, int marginBottom) {
+
+        this.marginBottom = MeasureUtil.dip2px(activity, marginBottom);
+        this.marginLeft = MeasureUtil.dip2px(activity, marginLeft);
+        this.marginRight = MeasureUtil.dip2px(activity, marginRight);
+        this.marginTop = MeasureUtil.dip2px(activity, marginTop);
         return this;
     }
 

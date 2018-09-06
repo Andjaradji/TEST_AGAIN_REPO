@@ -13,11 +13,6 @@ public class LockableScrollView extends ScrollView {
     private Runnable mScrollingRunnable;
     private OnScrollListener mOnScrollListener;
 
-    public interface OnScrollListener {
-        public void onScrollChanged(LockableScrollView scrollView, int x, int y, int oldX, int oldY);
-        public void onEndScroll(LockableScrollView scrollView);
-    }
-
     public LockableScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -66,7 +61,6 @@ public class LockableScrollView extends ScrollView {
         return mScrollable && super.onInterceptTouchEvent(ev);
     }
 
-
     @Override
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
@@ -103,6 +97,12 @@ public class LockableScrollView extends ScrollView {
 
     public void setOnScrollListener(OnScrollListener mOnEndScrollListener) {
         this.mOnScrollListener = mOnEndScrollListener;
+    }
+
+    public interface OnScrollListener {
+        public void onScrollChanged(LockableScrollView scrollView, int x, int y, int oldX, int oldY);
+
+        public void onEndScroll(LockableScrollView scrollView);
     }
 
 

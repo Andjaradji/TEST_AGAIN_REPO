@@ -76,7 +76,7 @@ public class PointRecordFragment extends BaseFragment {
             @Override
             public void call(VexPointRecordResponse vp) {
 
-                if(vp!=null && vp.getVexPointLogs().size() > 0) {
+                if (vp != null && vp.getVexPointLogs().size() > 0) {
                     mRecycler.setVisibility(View.VISIBLE);
                     mTvErrorHead.setVisibility(View.GONE);
                     mErrorView.setVisibility(View.GONE);

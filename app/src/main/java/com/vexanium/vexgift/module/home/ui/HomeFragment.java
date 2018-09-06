@@ -89,36 +89,29 @@ import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
+    public LinearLayout mVexPointButton;
+    public View exploreView;
     private AVLoadingIndicatorView mAvi;
     private SwipeRefreshLayout mSrlHome;
-    public LinearLayout mVexPointButton;
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
-
     private LinearLayout mLlErrorView;
     private ImageView mIvError;
     private TextView mTvErrorTitle, mTvErrorBody;
-
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<Voucher> vouchers;
-
     private ArrayList<BestVoucher> featuredVoucherList;
     private ArrayList<BestVoucher> bestVoucherList;
     private BaseRecyclerAdapter<BestVoucher> mFeaturedAdapter;
     private User user;
     private Animation mFadeIn;
-
     private Observable<Integer> mVexPointObservable;
-
     private Handler mRefreshHandler;
     private Runnable mRefreshRunnable;
     private View rootView;
-
     private boolean isAlreadyGuideVoucherToken = false;
-
-    public View exploreView;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -314,12 +307,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             } else if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
-            } else if(data instanceof VexPointResponse){
+            } else if (data instanceof VexPointResponse) {
                 VexPointResponse vexPointResponse = (VexPointResponse) data;
                 user.setVexPoint(vexPointResponse.getVexPoint());
                 User.updateCurrentUser(this.getActivity(), user);
                 updateUserInfo(rootView);
-            } else if (data instanceof PremiumDueDateResponse){
+            } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);
                 User.updateCurrentUser(this.getActivity(), user);
@@ -561,7 +554,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onGlobalLayout() {
                                 if (!isAlreadyGuideVoucherToken) {
-                                    CountDownTimer countDownTimer = new CountDownTimer(500,100) {
+                                    CountDownTimer countDownTimer = new CountDownTimer(500, 100) {
                                         @Override
                                         public void onTick(long l) {
 
@@ -742,7 +735,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 else
                     holder.setViewGone(R.id.iv_premium, true);
 
-                if(item.getVoucherTypeId() != 5) {
+                if (item.getVoucherTypeId() != 5) {
                     if (item.getQtyAvailable() == 0) {
                         holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
                         holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
@@ -752,10 +745,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 String.format(getString(R.string.vex_point_format), item.getPrice()));
 
 
-                }else{
+                } else {
                     holder.setText(R.id.tv_price, getString(R.string.coming_soon));
                     holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
-                    holder.setViewGone(R.id.tv_coupon_exp,true);
+                    holder.setViewGone(R.id.tv_coupon_exp, true);
                 }
 
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {

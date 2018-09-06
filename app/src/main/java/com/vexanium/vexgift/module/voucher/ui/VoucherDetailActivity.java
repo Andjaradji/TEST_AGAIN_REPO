@@ -114,9 +114,9 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.cb_agree).setVisibility(View.GONE);
             }
             Answers.getInstance().logContentView(new ContentViewEvent()
-                    .putContentName("Voucher Detail View "+voucher.getTitle())
+                    .putContentName("Voucher Detail View " + voucher.getTitle())
                     .putContentType("Voucher Detail View")
-                    .putContentId("viewDetail"+voucher.getId()));
+                    .putContentId("viewDetail" + voucher.getId()));
         }
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -144,9 +144,9 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
 
                 Answers.getInstance().logShare(new ShareEvent()
                         .putMethod("Common")
-                        .putContentName("Share Voucher "+voucher.getTitle())
+                        .putContentName("Share Voucher " + voucher.getTitle())
                         .putContentType("Share Voucher")
-                        .putContentId(""+voucher.getId()));
+                        .putContentId("" + voucher.getId()));
                 break;
             case R.id.btn_claim:
                 if (voucher.getVoucherTypeId() != 5) {

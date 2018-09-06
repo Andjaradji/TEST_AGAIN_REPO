@@ -28,6 +28,11 @@ import java.util.ArrayList;
 
 
 public class FrameLayoutWithHole extends FrameLayout {
+    public final int DEFAULT_HOLE_ALPHA_VALUE = 127;
+    public final int DEFAULT_SCALE_ALPHA_VALUE = 255;
+    public int scaleAnimStep = 0;
+    public int fadeVal = DEFAULT_SCALE_ALPHA_VALUE;
+    public int holeAlphaVal = DEFAULT_HOLE_ALPHA_VALUE;
     private Activity mActivity;
     private MotionType mMotionType;
     private Paint mEraser;
@@ -41,14 +46,27 @@ public class FrameLayoutWithHole extends FrameLayout {
     private int mRadius;
     private Overlay mOverlay;
     private Activity activity;
-
     private HoleView targetAnimHole;
     private HoleView newHole;
-    public final int DEFAULT_HOLE_ALPHA_VALUE = 127;
-    public final int DEFAULT_SCALE_ALPHA_VALUE = 255;
-    public int scaleAnimStep = 0;
-    public int fadeVal = DEFAULT_SCALE_ALPHA_VALUE;
-    public int holeAlphaVal = DEFAULT_HOLE_ALPHA_VALUE;
+    private boolean mCleanUpLock = false;
+
+    public FrameLayoutWithHole(Activity context, ArrayList<HoleView> views, MotionType motionType, Overlay overlay) {
+        super(context);
+        mActivity = context;
+        holesViews = views;
+        mOverlay = overlay;
+        mRadius = 10;
+        mMotionType = motionType;
+        this.activity = context;
+
+        init();
+        initRecf();
+    }
+
+
+    public FrameLayoutWithHole(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
 
     public void setHolesViews(ArrayList<HoleView> holesViews) {
         this.holesViews = holesViews;
@@ -62,7 +80,6 @@ public class FrameLayoutWithHole extends FrameLayout {
         initRecf();
         invalidate();
     }
-
 
     private void enforceMotionTypes() {
         if (holesViews != null) {
@@ -96,7 +113,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     private void deforceMotionTypes() {
         if (holesViews != null) {
             for (final HoleView holeView : holesViews) {
-                if(holeView == null) continue;
+                if (holeView == null) continue;
                 if (mMotionType != null && mMotionType == MotionType.CLICK_ONLY) {
                     holeView.setOnTouchListener(new OnTouchListener() {
                         @Override
@@ -127,30 +144,12 @@ public class FrameLayoutWithHole extends FrameLayout {
         return MeasureUtil.dip2px(activity, px);
     }
 
-    public FrameLayoutWithHole(Activity context, ArrayList<HoleView> views, MotionType motionType, Overlay overlay) {
-        super(context);
-        mActivity = context;
-        holesViews = views;
-        mOverlay = overlay;
-        mRadius = 10;
-        mMotionType = motionType;
-        this.activity = context;
-
-        init();
-        initRecf();
-    }
-
-
-    public FrameLayoutWithHole(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
     public void initRecf() {
 
         mRadius = 10;
         enforceMotionTypes();
 
-        if(holesViews == null) return;
+        if (holesViews == null) return;
         for (HoleView holeView : holesViews) {
             int[] pos = new int[2];
             if (holeView.view != null) {
@@ -186,7 +185,6 @@ public class FrameLayoutWithHole extends FrameLayout {
         }
     }
 
-
     private void init() {
         setWillNotDraw(false);
 
@@ -217,8 +215,6 @@ public class FrameLayoutWithHole extends FrameLayout {
 
     }
 
-    private boolean mCleanUpLock = false;
-
     protected void cleanUp() {
         if (getParent() != null) {
             if (mOverlay != null && mOverlay.mExitAnimation != null) {
@@ -237,7 +233,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     }
 
     private void performOverlayExitAnimation() {
-        if (!mCleanUpLock && mOverlay!= null && mOverlay.mExitAnimation!= null) {
+        if (!mCleanUpLock && mOverlay != null && mOverlay.mExitAnimation != null) {
             final FrameLayout _pointerToFrameLayout = this;
             mCleanUpLock = true;
             mOverlay.mExitAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -251,8 +247,8 @@ public class FrameLayoutWithHole extends FrameLayout {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    if(_pointerToFrameLayout != null && _pointerToFrameLayout.getParent() != null)
-                    ((ViewGroup) _pointerToFrameLayout.getParent()).removeView(_pointerToFrameLayout);
+                    if (_pointerToFrameLayout != null && _pointerToFrameLayout.getParent() != null)
+                        ((ViewGroup) _pointerToFrameLayout.getParent()).removeView(_pointerToFrameLayout);
                 }
             });
             this.startAnimation(mOverlay.mExitAnimation);
@@ -277,7 +273,7 @@ public class FrameLayoutWithHole extends FrameLayout {
         //first check if the location button should handle the touch event
         if (holesViews != null) {
             //check if the viewholes is only one and it is viewpager,
-            if(holesViews.get(0)!= null) {
+            if (holesViews.get(0) != null) {
                 if (holesViews.get(0).isViewPager) {
                     if (isWithinMainFrame(ev) && mOverlay != null && mOverlay.mDisableClickThroughHole) {
                         return false;
@@ -397,7 +393,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     private boolean isWithinMainFrame(MotionEvent ev) {
         int[] pos = new int[2];
         boolean isAllow = false;
-        if(holesViews== null) return false;
+        if (holesViews == null) return false;
         for (HoleView holeView : holesViews) {
             holeView.getLocationOnScreen(pos);
             isAllow = isAllow || (ev.getRawY() >= pos[1] && ev.getRawY() <= (pos[1] + holeView.getHeight() - 240)
@@ -419,7 +415,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (mOverlay != null && mOverlay.mHoleStyle != null && mEraserBitmap != null && mAnimationBitmap!= null && mEraserCanvas != null && mAnimationCanvas != null ) {
+        if (mOverlay != null && mOverlay.mHoleStyle != null && mEraserBitmap != null && mAnimationBitmap != null && mEraserCanvas != null && mAnimationCanvas != null) {
             mEraserBitmap.eraseColor(Color.TRANSPARENT);
             mAnimationBitmap.eraseColor(Color.TRANSPARENT);
 
@@ -433,11 +429,11 @@ public class FrameLayoutWithHole extends FrameLayout {
 
             KLog.v("Testing onDraw is call");
 
-            if (targetAnimHole != null && holesViews!= null) {
+            if (targetAnimHole != null && holesViews != null) {
                 int animPadding = GAP_SIZE * scaleAnimStep;
                 if (animPadding < MeasureUtil.dip2px(activity, SCALE_SIZE)) {
                     for (HoleView holeView : holesViews) {
-                        if (holeView != null && holeView.equals(targetAnimHole) && whiteOverlay!= null) {
+                        if (holeView != null && holeView.equals(targetAnimHole) && whiteOverlay != null) {
                             whiteOverlay.setAlpha(fadeVal);
                             if (mOverlay.mHoleStyle == HoleStyle.RECTANGLE) {
 
@@ -461,25 +457,25 @@ public class FrameLayoutWithHole extends FrameLayout {
                                             holeView.mRectF.right + animPadding,
                                             holeView.mRectF.bottom + animPadding,
                                             roundedCornerRadiusPx, roundedCornerRadiusPx, whiteOverlay);
-                                } else{
+                                } else {
                                     RectF rectF = holeView.mRectF;
                                     RectF rectFAnim = new RectF(rectF.left - animPadding, rectF.top - animPadding, rectF.right + animPadding, rectF.bottom + animPadding);
                                     mEraserCanvas.drawRoundRect(rectFAnim, roundedCornerRadiusPx, roundedCornerRadiusPx, whiteOverlay);
                                 }
-                            } else if (mOverlay.mHoleStyle == HoleStyle.CIRCLE){
+                            } else if (mOverlay.mHoleStyle == HoleStyle.CIRCLE) {
                                 mEraserCanvas.drawCircle(
                                         holeView.loc[0] + holeView.getWidth() / 2 + mOverlay.mHoleOffsetLeft,
-                                        holeView.loc[1] + holeView.getHeight() / 2 + mOverlay.mHoleOffsetTop ,
-                                        mOverlay.mHoleRadius + animPadding*2, whiteOverlay);
+                                        holeView.loc[1] + holeView.getHeight() / 2 + mOverlay.mHoleOffsetTop,
+                                        mOverlay.mHoleRadius + animPadding * 2, whiteOverlay);
                             }
                             break;
                         }
                     }
                     scaleAnimStep++;
                     fadeVal -= FADE_STEP;
-                } else if (fadeVal > 0 && holesViews!= null) {
+                } else if (fadeVal > 0 && holesViews != null) {
                     for (HoleView holeView : holesViews) {
-                        if (holeView!= null && holeView.equals(targetAnimHole)) {
+                        if (holeView != null && holeView.equals(targetAnimHole)) {
                             whiteOverlay.setAlpha(fadeVal);
                             if (mOverlay.mHoleStyle == HoleStyle.RECTANGLE) {
 
@@ -504,17 +500,17 @@ public class FrameLayoutWithHole extends FrameLayout {
                                             holeView.mRectF.right + animPadding,
                                             holeView.mRectF.bottom + animPadding,
                                             roundedCornerRadiusPx, roundedCornerRadiusPx, whiteOverlay);
-                                } else{
+                                } else {
                                     RectF rectF = holeView.mRectF;
                                     RectF rectFAnim = new RectF(rectF.left - animPadding, rectF.top - animPadding, rectF.right + animPadding, rectF.bottom + animPadding);
                                     mEraserCanvas.drawRoundRect(rectFAnim, roundedCornerRadiusPx, roundedCornerRadiusPx, whiteOverlay);
                                 }
 
-                            }else if (mOverlay.mHoleStyle == HoleStyle.CIRCLE){
+                            } else if (mOverlay.mHoleStyle == HoleStyle.CIRCLE) {
                                 mEraserCanvas.drawCircle(
-                                        holeView.loc[0] + holeView.getWidth() / 2 + mOverlay.mHoleOffsetLeft ,
-                                        holeView.loc[1] + holeView.getHeight() / 2 + mOverlay.mHoleOffsetTop ,
-                                        mOverlay.mHoleRadius + animPadding*2, whiteOverlay);
+                                        holeView.loc[0] + holeView.getWidth() / 2 + mOverlay.mHoleOffsetLeft,
+                                        holeView.loc[1] + holeView.getHeight() / 2 + mOverlay.mHoleOffsetTop,
+                                        mOverlay.mHoleRadius + animPadding * 2, whiteOverlay);
                             }
                             break;
                         }
@@ -532,7 +528,7 @@ public class FrameLayoutWithHole extends FrameLayout {
 
             if (holesViews != null) {
                 for (HoleView holeView : holesViews) {
-                    if(holeView!= null && mEraser!= null) {
+                    if (holeView != null && mEraser != null) {
                         if (mOverlay.mHoleStyle == HoleStyle.RECTANGLE) {
 
                             mEraserCanvas.drawRect(
@@ -593,7 +589,7 @@ public class FrameLayoutWithHole extends FrameLayout {
 
 
             final int HOLE_FADE_STEP = 20;
-            if(holeOverlay!= null) {
+            if (holeOverlay != null) {
                 if (newHole != null && holesViews != null) {
                     if (holeAlphaVal > 0) {
                         for (HoleView holeView : holesViews) {

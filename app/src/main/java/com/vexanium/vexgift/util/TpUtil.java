@@ -22,11 +22,12 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_REFERRER = "key_referrer";
     public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
     public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
-    public static String KEY_IS_LATEST_CHECK_VERSION= "key_already_notice_update";
+    public static String KEY_IS_LATEST_CHECK_VERSION = "key_already_notice_update";
     public static String KEY_IS_ALREADY_GUIDE_HOME = "key_is_already_guide_home";
     public static String KEY_IS_ALREADY_GUIDE_VP = "key_is_already_guide_vp";
     public static String KEY_IS_ALREADY_GUIDE_MYBOX = "key_is_already_guide_mybox";
     private static TpUtil _tpUtil;
+
     public TpUtil(final Context context) {
         super(context, "TpUtil", 1);
     }

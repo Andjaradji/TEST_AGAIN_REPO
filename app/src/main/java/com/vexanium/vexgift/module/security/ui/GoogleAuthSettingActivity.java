@@ -114,7 +114,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GOOGLE2FA_STATE_RESULT_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                if (data!= null && data.hasExtra("nested")) {
+                if (data != null && data.hasExtra("nested")) {
                     finish();
                 }
             }

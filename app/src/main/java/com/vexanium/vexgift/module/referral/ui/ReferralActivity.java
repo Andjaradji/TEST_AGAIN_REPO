@@ -100,12 +100,12 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(data!=null){
-            if(data instanceof UserReferralResponse){
+        if (data != null) {
+            if (data instanceof UserReferralResponse) {
                 int referralsCount = ((UserReferralResponse) data).getReferrals().size();
-                mTvInvitedCount.setText(referralsCount+"");
+                mTvInvitedCount.setText(referralsCount + "");
             }
-        }else if(errorResponse!=null){
+        } else if (errorResponse != null) {
 
         }
     }

@@ -71,7 +71,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         });
 
         if ((user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) || !TextUtils.isEmpty(user.getActAddress())) {
-            KLog.v("MyProfileActivity","initView: HPtes A");
+            KLog.v("MyProfileActivity", "initView: HPtes A");
 
             ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {

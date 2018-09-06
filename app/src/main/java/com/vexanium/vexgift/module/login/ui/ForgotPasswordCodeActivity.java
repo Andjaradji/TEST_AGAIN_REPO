@@ -40,10 +40,9 @@ import rx.functions.Action1;
 public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter> implements ILoginView {
 
     TextView mTvTitle, mTvBody;
-    private Subscription timeSubsription;
     EditText mEtCode;
-
     String email, resetToken;
+    private Subscription timeSubsription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +83,15 @@ public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter>
                 ForgotPasswordCodeActivity.this.startActivity(intent);
                 break;
             case R.id.resend_email_button:
-                if(isAbleToResend()) {
+                if (isAbleToResend()) {
                     mPresenter.requestResetPassword(email);
                 }
                 break;
             case R.id.confirm_code_button:
-                if(mEtCode.getText()==null){
+                if (mEtCode.getText() == null) {
                     mEtCode.setError("Invalid code");
-                }else {
-                    mPresenter.requestResetPasswordCodeValidation(email,mEtCode.getText().toString());
+                } else {
+                    mPresenter.requestResetPasswordCodeValidation(email, mEtCode.getText().toString());
                 }
                 break;
         }
@@ -134,24 +133,24 @@ public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter>
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            if(data instanceof ResetPasswordCodeResponse){
-                if(((ResetPasswordCodeResponse) data).getResetPasswordToken()!=null) {
+            if (data instanceof ResetPasswordCodeResponse) {
+                if (((ResetPasswordCodeResponse) data).getResetPasswordToken() != null) {
                     resetToken = ((ResetPasswordCodeResponse) data).getResetPasswordToken();
                     //setCurrentView(1);
-                    Intent intent = new Intent(this,ForgotPasswordResetActivity.class);
-                    intent.putExtra("reset_password_token",resetToken);
-                    intent.putExtra("reset_password_email",email);
+                    Intent intent = new Intent(this, ForgotPasswordResetActivity.class);
+                    intent.putExtra("reset_password_token", resetToken);
+                    intent.putExtra("reset_password_email", email);
                     startActivity(intent);
                     finish();
                 }
             }
 
-        } else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("ForgotPwCodeActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
-        }else{
+        } else {
             new VexDialog.Builder(this)
                     .title("Email sent")
                     .content("Check your email for validation code")

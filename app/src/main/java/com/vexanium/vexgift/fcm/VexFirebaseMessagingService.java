@@ -25,25 +25,25 @@ public class VexFirebaseMessagingService extends FirebaseMessagingService {
 //        KLog.v("VexFirebaseMessagingService", "onMessageReceived: MessageBody" + remoteMessage.getNotification().getBody());
 //        remoteMessage.get
 
-        if(remoteMessage.getData()!= null){
+        if (remoteMessage.getData() != null) {
             Map<String, String> data = remoteMessage.getData();
             String title = data.get("title");
-            if(TextUtils.isEmpty(title)){
+            if (TextUtils.isEmpty(title)) {
                 title = "VexGift";
             }
             String message = data.get("body");
-            if(TextUtils.isEmpty(title)){
+            if (TextUtils.isEmpty(title)) {
                 message = "Notification";
             }
             String imageUrl = data.get("imageUrl");
             String url = data.get("url");
-            if(TextUtils.isEmpty("url")){
+            if (TextUtils.isEmpty("url")) {
                 url = "vexgift://notif";
             }
 
-            StaticGroup.sendLocalNotification(App.getContext(), title,message, url);
-            if(StaticGroup.isScreenOn(App.getContext(), false )){
-                RxBus.get().post(RxBus.KEY_NOTIF_ADDED,1);
+            StaticGroup.sendLocalNotification(App.getContext(), title, message, url);
+            if (StaticGroup.isScreenOn(App.getContext(), false)) {
+                RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
             }
         }
 

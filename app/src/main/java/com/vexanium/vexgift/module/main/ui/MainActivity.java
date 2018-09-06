@@ -54,14 +54,15 @@ import static android.view.View.VISIBLE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
 public class MainActivity extends BaseActivity {
-    private final int GUIDE_ANIMATION_INTERVAL = 400;
-
     public static final int HOME_FRAGMENT = 0;
     public static final int BOX_FRAGMENT = 1;
     public static final int WALLET_FRAGMENT = 2;
     public static final int NOTIF_FRAGMENT = 3;
     public static final int MORE_FRAGMENT = 4;
     public static final int PAGE_COUNT = 5;
+    private final int GUIDE_ANIMATION_INTERVAL = 400;
+    int animStepCounter = 0;
+    VexGuideView vexGuideView;
     private CustomTabBarView mCustomTabBarView;
     private CustomViewPager mCustomViewPager;
     private HomeFragment homeFragment;
@@ -76,7 +77,6 @@ public class MainActivity extends BaseActivity {
     private View boxFragmentView;
     private CountDownTimer animationCountDownTimer;
     private boolean isAlreadyGuideMyBox = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,9 +202,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
-
-    int animStepCounter = 0;
-    VexGuideView vexGuideView;
 
     public void openGuidanceHome(View targetView) {
         KLog.v("MainActivity", "openGuidance: guidance open 1");

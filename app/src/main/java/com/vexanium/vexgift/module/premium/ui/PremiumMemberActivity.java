@@ -85,11 +85,9 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
     PremiumPlanAdapter mAdapter;
-    private Subscription timeSubsription;
-
-    private PremiumPlan premiumPlan;
-
     User user;
+    private Subscription timeSubsription;
+    private PremiumPlan premiumPlan;
 
     @Override
     protected void initView() {
@@ -206,7 +204,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 Intent intent = new Intent(PremiumMemberActivity.this, PremiumHistoryDetailActivity.class);
                 intent.putExtra("premium_history_detail", premiumPurchaseResponse.getPremiumPurchase());
                 startActivity(intent);
-                if(premiumPlan!=null) {
+                if (premiumPlan != null) {
                     Answers.getInstance().logPurchase(new PurchaseEvent()
                             .putItemPrice(BigDecimal.valueOf(premiumPlan.getPrice()))
                             .putItemName(premiumPlan.getName())

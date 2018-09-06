@@ -60,17 +60,26 @@ public class BubbleToolTip {
     }
 
     public @LayoutRes
-    int getView(ArrowDirection arrowDirection){
-        switch (arrowDirection){
-            case TOP_LEFT: return R.layout.item_bubble_tooltip_top_left;
-            case TOP_RIGHT: return R.layout.item_bubble_tooltip_top_right;
-            case TOP_CENTER: return R.layout.item_bubble_tooltip_top;
-            case LEFT: return R.layout.item_bubble_tooltip_left;
-            case RIGHT: return R.layout.item_bubble_tooltip_right;
-            case BOTTOM_LEFT: return R.layout.item_bubble_tooltip_bottom_left;
-            case BOTTOM_CENTER: return R.layout.item_bubble_tooltip_bottom;
-            case BOTTOM_RIGHT: return R.layout.item_bubble_tooltip_bottom_right;
-            default:return R.layout.item_bubble_tooltip_top;
+    int getView(ArrowDirection arrowDirection) {
+        switch (arrowDirection) {
+            case TOP_LEFT:
+                return R.layout.item_bubble_tooltip_top_left;
+            case TOP_RIGHT:
+                return R.layout.item_bubble_tooltip_top_right;
+            case TOP_CENTER:
+                return R.layout.item_bubble_tooltip_top;
+            case LEFT:
+                return R.layout.item_bubble_tooltip_left;
+            case RIGHT:
+                return R.layout.item_bubble_tooltip_right;
+            case BOTTOM_LEFT:
+                return R.layout.item_bubble_tooltip_bottom_left;
+            case BOTTOM_CENTER:
+                return R.layout.item_bubble_tooltip_bottom;
+            case BOTTOM_RIGHT:
+                return R.layout.item_bubble_tooltip_bottom_right;
+            default:
+                return R.layout.item_bubble_tooltip_top;
         }
     }
 

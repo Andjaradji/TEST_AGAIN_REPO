@@ -109,7 +109,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         TpUtil tpUtil = new TpUtil(App.getContext());
         boolean isFirstTimeOpenVexPoint = tpUtil.getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_VP, false);
-        if(!isFirstTimeOpenVexPoint){
+        if (!isFirstTimeOpenVexPoint) {
             Intent intent = new Intent(this, VexPointGuideActivity.class);
             startActivity(intent);
             tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_VP, true);
@@ -151,7 +151,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
             if (errorResponse.getMeta().getStatus() / 100 == 4 && errorResponse.getMeta().getStatus() != 408) {
                 User.setIsVexAddressSet(this, false);
             }
-            if(!TextUtils.isEmpty(user.getActAddress())){
+            if (!TextUtils.isEmpty(user.getActAddress())) {
                 User.setIsVexAddressSet(this, true);
             }
 
@@ -178,8 +178,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                     findViewById(R.id.ll_copy_vex_point).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(ClickUtil.isFastDoubleClick())return;
-                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount()+"");
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount() + "");
                         }
                     });
 

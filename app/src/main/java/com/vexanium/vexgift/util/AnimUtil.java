@@ -86,7 +86,7 @@ public class AnimUtil {
         return AnimUtil.getFadeAnim(view, 0.0f, 1.0f, duration, null);
     }
 
-    public static Animation getFadeOut(View view, int duration ) {
+    public static Animation getFadeOut(View view, int duration) {
         return AnimUtil.getFadeAnim(view, 1.0f, 0.0f, duration, null);
     }
 

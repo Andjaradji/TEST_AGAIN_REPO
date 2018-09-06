@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FeaturedVoucherResponse implements Serializable{
+public class FeaturedVoucherResponse implements Serializable {
     @JsonProperty("featured_vouchers")
     private ArrayList<BestVoucher> featuredVoucher;
 

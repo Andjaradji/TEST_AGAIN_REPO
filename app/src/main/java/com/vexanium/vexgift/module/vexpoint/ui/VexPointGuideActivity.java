@@ -34,6 +34,27 @@ public class VexPointGuideActivity extends AppCompatActivity {
     private TextView h1TextView;
 
     private InviteCardPagerAdapter mCardAdapter;
+    ViewPager.OnPageChangeListener pagerListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            KLog.v("Invite card Selected : " + position);
+            if (mCardAdapter != null && mCardAdapter.getDataAt(position) != null) {
+                if (!TextUtils.isEmpty(mCardAdapter.getDataAt(position).h1)) {
+                    h1TextView.setText(mCardAdapter.getDataAt(position).h1);
+                }
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
     private ShadowTransformer mCardShadowTransformer;
 
     @Override
@@ -149,28 +170,6 @@ public class VexPointGuideActivity extends AppCompatActivity {
             }
         }
     }
-
-    ViewPager.OnPageChangeListener pagerListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageSelected(int position) {
-            KLog.v("Invite card Selected : " + position);
-            if (mCardAdapter != null && mCardAdapter.getDataAt(position) != null) {
-                if (!TextUtils.isEmpty(mCardAdapter.getDataAt(position).h1)) {
-                    h1TextView.setText(mCardAdapter.getDataAt(position).h1);
-                }
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
 
     @Override
     protected void onUserLeaveHint() {

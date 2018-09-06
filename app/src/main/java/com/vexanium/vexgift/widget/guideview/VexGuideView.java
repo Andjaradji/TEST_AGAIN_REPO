@@ -320,7 +320,7 @@ public class VexGuideView {
                         int fixedY;
                         int toolTipHeightAfterLayouted = bubbleTooltipView.getHeight();
                         fixedY = getYForItem(bubbleToolTip.target, bubbleToolTip.mGravity, toolTipHeightAfterLayouted, targetViewY, adjustment) - bubbleToolTip.marginBottom + bubbleToolTip.marginTop;
-                        layoutParams.setMargins( fixedX, fixedY, 0, 0);
+                        layoutParams.setMargins(fixedX, fixedY, 0, 0);
                         KLog.v("VexGuideView", ": HPtes1 x : " + fixedX + "   y : " + fixedY);
 
                     }

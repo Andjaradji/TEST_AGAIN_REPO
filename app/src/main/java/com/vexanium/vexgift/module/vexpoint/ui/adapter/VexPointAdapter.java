@@ -16,7 +16,7 @@ import com.vexanium.vexgift.bean.model.VexPointRecord;
 
 import java.util.ArrayList;
 
-public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.FilterViewHolder>{
+public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.FilterViewHolder> {
 
     private Context context;
     private ArrayList<VexPointRecord> dataList = new ArrayList<>();
@@ -40,11 +40,11 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     @Override
     public void onBindViewHolder(@NonNull final FilterViewHolder holder, int pos) {
         final VexPointRecord data = dataList.get(pos);
-        if(data.getVexPointLogType()!=null) {
+        if (data.getVexPointLogType() != null) {
             holder.mVpMainText.setText(data.getVexPointLogType().getName());
         }
 
-        if(data.getVoucher()!=null){
+        if (data.getVoucher() != null) {
             holder.mVpMainText.setText(data.getVoucher().getTitle());
         }
 
@@ -59,16 +59,16 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
             holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
-            holder.mVpIndicatorText.setText("- "  + StaticGroup.convertVpFormat((float) data.getAmount()));
+            holder.mVpIndicatorText.setText("- " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_minus));
         }
 
-        switch (data.getVpLogTypeId()){
+        switch (data.getVpLogTypeId()) {
             case 1:
                 holder.mContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
+                        if (dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
                             if (holder.mDetailContainer.getVisibility() == View.GONE) {
                                 holder.mDetailContainer.setVisibility(View.VISIBLE);
                                 holder.ivArrow.setRotation(90);
@@ -80,22 +80,21 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
                     }
                 });
 
-                if(data.getVexCounted3() > 0){
-                    holder.mVpVex3.setText(data.getVexCounted3()+"");
-                }else{
+                if (data.getVexCounted3() > 0) {
+                    holder.mVpVex3.setText(data.getVexCounted3() + "");
+                } else {
                     holder.mVpVex3.setText("-");
                 }
 
-                if(data.getVexCounted2() > 0){
-                    holder.mVpVex2.setText(data.getVexCounted2()+"");
-                }else{
+                if (data.getVexCounted2() > 0) {
+                    holder.mVpVex2.setText(data.getVexCounted2() + "");
+                } else {
                     holder.mVpVex2.setText("-");
                 }
 
-                if(data.getVexCounted1() > 0){
-                    holder.mVpVex1.setText(data.getVexCounted1()+"");
-                }
-                else{
+                if (data.getVexCounted1() > 0) {
+                    holder.mVpVex1.setText(data.getVexCounted1() + "");
+                } else {
                     holder.mVpVex1.setText("-");
                 }
                 break;
@@ -104,7 +103,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
                 break;
         }
 
-        if(holder.mDetailContainer.getVisibility() == View.VISIBLE){
+        if (holder.mDetailContainer.getVisibility() == View.VISIBLE) {
             holder.mDetailContainer.setVisibility(View.GONE);
         }
 
@@ -135,7 +134,6 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     public void removeAll() {
         dataList.clear();
     }
-
 
 
     public class FilterViewHolder extends RecyclerView.ViewHolder {

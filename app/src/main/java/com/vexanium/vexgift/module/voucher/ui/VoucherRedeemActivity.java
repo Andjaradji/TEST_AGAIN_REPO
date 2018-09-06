@@ -127,9 +127,9 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             toolbarLayout.setTitle(vendor.getName());
 
             Answers.getInstance().logContentView(new ContentViewEvent()
-                    .putContentName("Voucher Redeem View "+voucher.getTitle())
+                    .putContentName("Voucher Redeem View " + voucher.getTitle())
                     .putContentType("Voucher Redeem View")
-                    .putContentId("viewRedeem"+voucher.getId()));
+                    .putContentId("viewRedeem" + voucher.getId()));
 
             if (voucherCode.isBeingGifted()) {
                 state = VOUCHER_IS_BEING_GIFTED;

@@ -28,6 +28,13 @@ public class HoleView {
     public boolean isAlwaysAllowClick;
     public HoleStyle holeStyle;
 
+    public HoleView(View view) {
+        this.view = view;
+        holeStyle = HoleStyle.UN_SET;
+        isViewPager = false;
+        isAlwaysAllowClick = false;
+    }
+
     public HoleView holeStyle(HoleStyle holeStyle) {
         this.holeStyle = holeStyle;
         return this;
@@ -38,18 +45,9 @@ public class HoleView {
         return this;
     }
 
-
     public HoleView isAlwaysAllowClick(boolean isAlwaysAllowClick) {
         this.isAlwaysAllowClick = isAlwaysAllowClick;
         return this;
-    }
-
-
-    public HoleView(View view) {
-        this.view = view;
-        holeStyle = HoleStyle.UN_SET;
-        isViewPager = false;
-        isAlwaysAllowClick = false;
     }
 
     public int getHeight() {
@@ -84,9 +82,9 @@ public class HoleView {
 
     public HoleView setPadding(Activity activity, int paddingLeft, int paddingTop, int paddingRight, int paddingBottom) {
         this.paddingLeft = MeasureUtil.dip2px(activity, paddingLeft);
-        this.paddingTop = MeasureUtil.dip2px(activity,paddingTop);
-        this.paddingBottom = MeasureUtil.dip2px(activity,paddingBottom);
-        this.paddingRight = MeasureUtil.dip2px(activity,paddingRight);
+        this.paddingTop = MeasureUtil.dip2px(activity, paddingTop);
+        this.paddingBottom = MeasureUtil.dip2px(activity, paddingBottom);
+        this.paddingRight = MeasureUtil.dip2px(activity, paddingRight);
         return this;
     }
 

@@ -56,10 +56,10 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
     int currentCountdown = 8;
+    String url;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     protected void initView() {
         if (getIntent().hasExtra("url")) {
             url = getIntent().getStringExtra("url");
-            KLog.v("LoginActivity","initView: getDeeplink "+url );
+            KLog.v("LoginActivity", "initView: getDeeplink " + url);
             getIntent().removeExtra("url");
         }
 

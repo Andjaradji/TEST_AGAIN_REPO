@@ -26,6 +26,7 @@ import java.io.Serializable;
 public class ChangePasswordActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
     User user;
     boolean isPassSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,7 @@ public class ChangePasswordActivity extends BaseActivity<IProfilePresenter> impl
         String newPass = ((TextInputEditText) findViewById(R.id.et_password)).getText().toString();
         String newPassConf = ((TextInputEditText) findViewById(R.id.et_confirm_password)).getText().toString();
 
-        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_password,  R.id.et_confirm_password);
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_password, R.id.et_confirm_password);
         if (isValid) {
             if (!newPass.equalsIgnoreCase(newPassConf)) {
                 isValid = false;
@@ -102,9 +103,9 @@ public class ChangePasswordActivity extends BaseActivity<IProfilePresenter> impl
 
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
-        }else{
-            if(!isPassSet) {
-                User.setIsPasswordSet(this,true);
+        } else {
+            if (!isPassSet) {
+                User.setIsPasswordSet(this, true);
                 new VexDialog.Builder(this)
                         .optionType(DialogOptionType.OK)
                         .okText("OK")
@@ -120,7 +121,7 @@ public class ChangePasswordActivity extends BaseActivity<IProfilePresenter> impl
                         })
                         .cancelable(false)
                         .show();
-            }else{
+            } else {
                 new VexDialog.Builder(this)
                         .optionType(DialogOptionType.OK)
                         .okText("OK")

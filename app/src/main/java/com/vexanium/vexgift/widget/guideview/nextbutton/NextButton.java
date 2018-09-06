@@ -25,7 +25,7 @@ public class NextButton {
     LayoutInflater layoutInflater;
 
 
-    public NextButton(Activity activity){
+    public NextButton(Activity activity) {
         mEnterAnimation = new AlphaAnimation(0.3f, 1f);
         mEnterAnimation.setDuration(500);
         mEnterAnimation.setRepeatCount(2);
@@ -39,7 +39,7 @@ public class NextButton {
         imNext = (ImageView) view.findViewById(R.id.im_next);
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return mWidth;
     }
 

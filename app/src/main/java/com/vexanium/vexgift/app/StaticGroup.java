@@ -916,7 +916,7 @@ public class StaticGroup {
     public static void showCommonErrorDialog(Context context, HttpResponse errorResponse) {
         if (errorResponse.getMeta() != null) {
             Answers.getInstance().logCustom(new CustomEvent("Common Error")
-                    .putCustomAttribute("Error Code",String.valueOf(errorResponse.getMeta().getStatus()))
+                    .putCustomAttribute("Error Code", String.valueOf(errorResponse.getMeta().getStatus()))
                     .putCustomAttribute("Error Message", errorResponse.getMeta().getMessage()));
             if (errorResponse.getMeta().isRequestError()) {
                 if (errorResponse.getMeta().getStatus() != 408)

@@ -33,22 +33,19 @@ public class BoxFragment extends BaseFragment {
     private static final int VOUCHER_FRAGMENT = 0;
     private static final int TOKEN_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
+    public ImageButton mReceiveButton;
+    public ImageButton mHistoryButton;
+    public View view;
     private String mParam1;
     private String mParam2;
     private VoucherFragment voucherFragment;
     private TokenFragment tokenFragment;
-
     private IconTextTabBarView mTabBarView;
     private CustomViewPager mViewPager;
-
-    public ImageButton mReceiveButton;
-    public ImageButton mHistoryButton;
     private RelativeLayout mNotifBar;
     private TextView mNotifText;
     private TextView mNotifSeeMore;
-
     private BoxFragmentChangeListener listener;
-    public View view ;
 
     public static BoxFragment newInstance() {
         return new BoxFragment();

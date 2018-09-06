@@ -297,9 +297,9 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
-                if(isToken){
+                if (isToken) {
                     vouchers = vouchersResponse.getTokens();
-                }else {
+                } else {
                     vouchers = vouchersResponse.getVouchers();
                 }
 
@@ -414,7 +414,7 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                     else
                         holder.setViewGone(R.id.iv_premium, true);
 
-                    if(item.getVoucherTypeId() != 5){
+                    if (item.getVoucherTypeId() != 5) {
                         if (item.getQtyAvailable() == 0) {
                             holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
                             holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
@@ -423,10 +423,10 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                                     getString(R.string.free) :
                                     String.format(getString(R.string.vex_point_format), item.getPrice()));
 
-                    }else{
+                    } else {
                         holder.setText(R.id.tv_price, getString(R.string.coming_soon));
                         holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
-                        holder.setViewGone(R.id.tv_coupon_exp,true);
+                        holder.setViewGone(R.id.tv_coupon_exp, true);
                     }
 
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {

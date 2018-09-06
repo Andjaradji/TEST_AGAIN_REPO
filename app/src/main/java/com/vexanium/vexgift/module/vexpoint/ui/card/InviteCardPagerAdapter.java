@@ -50,11 +50,11 @@ public class InviteCardPagerAdapter extends PagerAdapter implements CardAdapter 
 
     @Override
     public CardView getCardViewAt(int position) {
-        return mViews.size() > 0 ? mViews.get(position):null;
+        return mViews.size() > 0 ? mViews.get(position) : null;
     }
 
     public InviteCardResponse.InviteCard getDataAt(int position) {
-        return mData.size() > 0 ? mData.get(position):null;
+        return mData.size() > 0 ? mData.get(position) : null;
     }
 
     @Override
@@ -72,12 +72,12 @@ public class InviteCardPagerAdapter extends PagerAdapter implements CardAdapter 
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_invite_card, container, false);
         container.addView(view);
 
-        final CardView cardView =  view.findViewById(R.id.cardView);
+        final CardView cardView = view.findViewById(R.id.cardView);
 
-        TextView h2TextView =  cardView.findViewById(R.id.invite_card_h2);
-        TextView h3TextView =  cardView.findViewById(R.id.invite_card_h3);
-        TextView h4TextView =  cardView.findViewById(R.id.invite_card_h4);
-        final ImageView imageView =  cardView.findViewById(R.id.invite_card_image);
+        TextView h2TextView = cardView.findViewById(R.id.invite_card_h2);
+        TextView h3TextView = cardView.findViewById(R.id.invite_card_h3);
+        TextView h4TextView = cardView.findViewById(R.id.invite_card_h4);
+        final ImageView imageView = cardView.findViewById(R.id.invite_card_image);
 
         if (mData != null && mData.size() > 0 && mData.size() > position) {
             InviteCardResponse.InviteCard inviteCard = mData.get(position);
@@ -116,7 +116,6 @@ public class InviteCardPagerAdapter extends PagerAdapter implements CardAdapter 
                         .into(imageView);
             }
         }
-
 
 
         if (mBaseElevation == 0) {

@@ -170,7 +170,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
 
     private void updatePendingBuyView(final PremiumPurchase premiumPurchase) {
 
-        verifTimeLeft.setTimeInMillis(TimeUnit.SECONDS.toMillis (premiumPurchase.getPaidBefore() ));
+        verifTimeLeft.setTimeInMillis(TimeUnit.SECONDS.toMillis(premiumPurchase.getPaidBefore()));
 //        ((TextView)findViewById(R.id.tv_vex_address)).setText(userAddress.getActAddress());
 //        ((TextView)findViewById(R.id.tv_vex_amount)).setText(premiumPurchase.getPaidAmount());
 //        ((TextView)findViewById(R.id.tv_address_send_to)).setText(premiumPurchase.getPaidTo());
@@ -183,7 +183,7 @@ public class PremiumHistoryDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
-                StaticGroup.copyToClipboard(PremiumHistoryDetailActivity.this, premiumPurchase.getPaidAmount()+"");
+                StaticGroup.copyToClipboard(PremiumHistoryDetailActivity.this, premiumPurchase.getPaidAmount() + "");
             }
         });
 
