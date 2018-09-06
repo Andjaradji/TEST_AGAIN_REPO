@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -46,6 +48,10 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
 
         findViewById(R.id.btn_receive_voucher).setOnClickListener(this);
 
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Receive Voucher")
+                .putContentType("Voucher")
+                .putContentId("voucher"));
     }
 
     @Override

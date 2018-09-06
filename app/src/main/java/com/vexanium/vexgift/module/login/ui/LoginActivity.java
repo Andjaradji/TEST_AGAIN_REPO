@@ -303,7 +303,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                toast("Google Error : " + connectionResult.getErrorMessage());
+//                toast("Google Error : " + connectionResult.getErrorMessage());
             }
         }).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
     }

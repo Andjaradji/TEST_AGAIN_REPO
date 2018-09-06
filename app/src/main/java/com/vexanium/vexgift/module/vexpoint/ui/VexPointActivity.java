@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -104,6 +107,19 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.iv_ask).setOnClickListener(this);
+
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        boolean isFirstTimeOpenVexPoint = tpUtil.getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_VP, false);
+        if(!isFirstTimeOpenVexPoint){
+            Intent intent = new Intent(this, VexPointGuideActivity.class);
+            startActivity(intent);
+            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_VP, true);
+        }
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Vex Point Activity View")
+                .putContentType("Vex Point")
+                .putContentId("vexpoint"));
 
     }
 
@@ -289,7 +305,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 startActivity(intent);
                 break;
             case R.id.iv_ask:
-                Intent intent1 = new Intent(this, FaqActivity.class);
+                Intent intent1 = new Intent(this, VexPointGuideActivity.class);
                 startActivity(intent1);
                 break;
         }
@@ -386,7 +402,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
 
-        String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
+        String time = String.format(Locale.getDefault(), getString(R.string.time_hour_min_sec),
                 TimeUnit.MILLISECONDS.toHours(remainTime),
                 TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
                 TimeUnit.MILLISECONDS.toSeconds(remainTime) -

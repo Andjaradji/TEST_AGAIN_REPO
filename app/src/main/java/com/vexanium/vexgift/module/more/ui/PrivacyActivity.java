@@ -20,7 +20,7 @@ public class PrivacyActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mWvPrivacy = (WebView) findViewById(R.id.webview);
+        mWvPrivacy = findViewById(R.id.webview);
         mLoadingContainer = findViewById(R.id.av_indicator_container);
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);

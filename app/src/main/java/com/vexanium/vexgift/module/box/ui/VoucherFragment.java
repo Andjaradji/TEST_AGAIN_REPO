@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -113,6 +115,11 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
         });
 
         mPresenter.requestUserVoucherList(user.getId());
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Voucher Fragment View")
+                .putContentType("Voucher")
+                .putContentId("voucher"));
     }
 
     @Override

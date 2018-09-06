@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -123,6 +125,11 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
+
+            Answers.getInstance().logContentView(new ContentViewEvent()
+                    .putContentName("Voucher Redeem View "+voucher.getTitle())
+                    .putContentType("Voucher Redeem View")
+                    .putContentId("viewRedeem"+voucher.getId()));
 
             if (voucherCode.isBeingGifted()) {
                 state = VOUCHER_IS_BEING_GIFTED;

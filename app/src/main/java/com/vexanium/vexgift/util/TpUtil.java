@@ -10,6 +10,7 @@ import net.grandcentrix.tray.TrayPreferences;
 
 public class TpUtil extends TrayPreferences {
     public static final String KEY_REG_ID = "key_reg_id";
+    public static final String KEY_LEAVE_APP = "key_leave_app";
     public static String KEY_CURRENT_LOGGED_IN_USER = "key_current_logged_in_user";
     public static String KEY_IS_PASS_SET = "key_is_pass_set";
     public static String KEY_IS_VEX_ADD_SET = "key_is_vex_add_set";
@@ -23,6 +24,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
     public static String KEY_IS_LATEST_CHECK_VERSION= "key_already_notice_update";
     public static String KEY_IS_ALREADY_GUIDE_HOME = "key_is_already_guide_home";
+    public static String KEY_IS_ALREADY_GUIDE_VP = "key_is_already_guide_vp";
     public static String KEY_IS_ALREADY_GUIDE_MYBOX = "key_is_already_guide_mybox";
     private static TpUtil _tpUtil;
     public TpUtil(final Context context) {

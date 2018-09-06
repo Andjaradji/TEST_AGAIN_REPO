@@ -26,6 +26,7 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.ConstantGroup;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Kyc;
@@ -103,7 +104,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
         } else if (errorResponse != null) {
             KLog.v("MyProfileActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         } else {
             RxBus.get().post("kycStatusUpdate", true);
             new VexDialog.Builder(KycActivity.this)

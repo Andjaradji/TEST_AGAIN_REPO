@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
             android:gravity="center"
-            android:text="NEXT"
+            android:text="@string/security_google2fa_next"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:textColor="@color/material_white"
             android:textSize="28sp" />

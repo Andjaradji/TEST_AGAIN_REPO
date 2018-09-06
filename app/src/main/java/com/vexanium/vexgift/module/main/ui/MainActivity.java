@@ -15,6 +15,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -102,14 +104,13 @@ public class MainActivity extends BaseActivity {
         mVoucherGuidanceObservable = RxBus.get().register(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, View.class);
         mVoucherGuidanceObservable.subscribe(new Action1<View>() {
             @Override
-            public void call(View view) {
+            public void call(final View view) {
                 KLog.v("MainActivity", "call: HPtes rxbus guidance called");
                 if (view != null) {
                     boolean isAlreadyGuideVoucherToken = TpUtil.getInstance(App.getContext()).getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_HOME, false);
                     if (!isAlreadyGuideVoucherToken) {
                         openGuidanceHome(view);
                     }
-//                    view.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
                 }
             }
         });
@@ -266,7 +267,6 @@ public class MainActivity extends BaseActivity {
                 .setGravity(Gravity.BOTTOM | Gravity.END);
 
         final HoleView holeViewFirst = new HoleView(targetView).setPadding(this, 0, 0, 0, 0).isAlwaysAllowClick(true);
-        final HoleView holeViewSecond = new HoleView(targetView).setPadding(this, 0, 0, 0, 0);
         final HoleView holeView = new HoleView(vexPointView).setPadding(this, 0, 0, 0, 0);
 
         animStepCounter = 0;
@@ -320,6 +320,10 @@ public class MainActivity extends BaseActivity {
 //                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
 //                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
 //                }
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("Finish Open Guidance Home")
+                        .putContentType("Guidance")
+                        .putContentId("guide"));
             }
         };
         if (vexGuideView == null) {
@@ -418,6 +422,10 @@ public class MainActivity extends BaseActivity {
 //                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
 //                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
 //                }
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("Finish Open Guidance Box 1")
+                        .putContentType("Guidance")
+                        .putContentId("guide"));
             }
         };
         if (vexGuideView == null) {
@@ -464,7 +472,7 @@ public class MainActivity extends BaseActivity {
         final NextButton nextButton = new NextButton(this)
                 .setGravity(Gravity.BOTTOM | Gravity.END);
 
-        final HoleView holeView = new HoleView(receiveView).setPadding(this, 0,0,0,0);
+        final HoleView holeView = new HoleView(receiveView).setPadding(this, 0, 0, 0, 0);
 
         animStepCounter = 0;
         final int INITIAL_COUNTER = 1;
@@ -493,7 +501,8 @@ public class MainActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             resetGuidance(true);
-
+                            TpUtil tpUtil = new TpUtil(App.getContext());
+                            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_MYBOX, true);
                         }
                     });
                 }
@@ -508,10 +517,17 @@ public class MainActivity extends BaseActivity {
                 AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, nextButton.view, nextButton.imNext);
                 ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, nextButton.view, nextButton.imNext);
 
+                TpUtil tpUtil = new TpUtil(App.getContext());
+                tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_MYBOX, true);
+
 //                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
 //                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
 //                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
 //                }
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("Finish Open Guidance Box 2")
+                        .putContentType("Guidance")
+                        .putContentId("guide"));
             }
         };
         if (vexGuideView == null) {

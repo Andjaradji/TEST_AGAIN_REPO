@@ -3,67 +3,84 @@
     android:id="@+id/rl_vexpoint_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
+    android:background="@drawable/shape_ripple_transparent"
     android:clickable="true"
-    android:background="@drawable/shape_ripple_transparent">
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <LinearLayout
         android:id="@+id/ll_main_text_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="6"
+            android:gravity="left|center_vertical"
             android:orientation="vertical"
-            android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:gravity="left|center_vertical">
+            android:paddingTop="15dp">
 
             <TextView
                 android:id="@+id/tv_vexpoint_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/material_black"
-                android:singleLine="true"
+                android:layout_marginBottom="2dp"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
-                android:layout_marginBottom="2dp"/>
+                android:singleLine="true"
+                android:textColor="@color/material_black"
+                android:textSize="@dimen/text_small_medium"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/tv_vexpoint_item_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="@dimen/text_xxtiny"
-                android:textColor="@color/material_black"
-                android:singleLine="true"
                 android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever" />
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:textColor="@color/material_black"
+                android:textSize="@dimen/text_xxtiny"
+                android:textStyle="italic" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_vexpoint_indicator"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_small_medium"
-            android:paddingTop="15dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="3"
+            android:ellipsize="marquee"
+            android:gravity="right|center_vertical"
+            android:marqueeRepeatLimit="1"
             android:paddingBottom="15dp"
             android:paddingLeft="15dp"
-            android:textColor="@color/vexpoint_plus"
+            android:paddingTop="15dp"
             android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="1"
-            android:layout_alignParentEnd="true"
-            android:gravity="right|center_vertical"/>
+            android:textColor="@color/vexpoint_plus"
+            android:textSize="@dimen/text_small_medium" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|end">
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:rotation="270"
+                android:src="@drawable/ic_back"
+                android:tint="@color/material_black_sub_text_color" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -72,10 +89,10 @@
         android:id="@+id/rl_detail_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/ll_main_text_container"
-        android:visibility="gone"
         android:paddingBottom="15dp"
-        android:layout_alignParentStart="true">
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/rl_v3_container"
@@ -86,21 +103,20 @@
                 android:id="@+id/tv_vex3_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount of VEX counted in this snapshot"
-                android:textSize="@dimen/text_xxtiny"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
+                android:text="@string/vex_point_snap3"
+                android:textSize="@dimen/text_xxtiny" />
 
             <TextView
                 android:id="@+id/tv_vex3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="@dimen/text_tiny"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@id/tv_vex3_detail"
-                />
+                android:layout_centerVertical="true"
+                android:text="-"
+                android:textSize="@dimen/text_tiny" />
 
         </RelativeLayout>
 
@@ -108,28 +124,27 @@
             android:id="@+id/rl_v2_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/rl_v3_container">
+            android:layout_below="@id/rl_v3_container"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:id="@+id/tv_vex2_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount of VEX to be counted in next 1 snapshot"
-                android:textSize="@dimen/text_xxtiny"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
+                android:text="@string/vex_point_snap1"
+                android:textSize="@dimen/text_xxtiny" />
 
             <TextView
                 android:id="@+id/tv_vex2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="@dimen/text_tiny"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@id/tv_vex2_detail"
-                />
+                android:layout_centerVertical="true"
+                android:text="-"
+                android:textSize="@dimen/text_tiny" />
 
         </RelativeLayout>
 
@@ -137,31 +152,29 @@
             android:id="@+id/rl_v1_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/rl_v2_container">
+            android:layout_below="@id/rl_v2_container"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:id="@+id/tv_vex1_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount of VEX to be counted in next 2 snapshots"
-                android:textSize="@dimen/text_xxtiny"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
+                android:text="@string/vex_point_snap2"
+                android:textSize="@dimen/text_xxtiny" />
 
             <TextView
                 android:id="@+id/tv_vex1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="@dimen/text_tiny"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@id/tv_vex1_detail"
-                />
+                android:layout_centerVertical="true"
+                android:text="-"
+                android:textSize="@dimen/text_tiny" />
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>

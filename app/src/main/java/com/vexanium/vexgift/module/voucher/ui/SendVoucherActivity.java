@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -74,7 +76,6 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                     getString(R.string.free) :
                     String.format(getString(R.string.vex_point_format), voucher.getPrice()));
 
-
         }
 
         updateView();
@@ -91,6 +92,10 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 R.id.send_voucher_share_whatsapp_button,
                 R.id.send_voucher_share_sm_button
         );
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Send Voucher")
+                .putContentType("Voucher")
+                .putContentId("voucher"));
     }
 
     @Override

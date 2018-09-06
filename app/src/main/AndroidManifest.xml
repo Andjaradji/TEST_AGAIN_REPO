@@ -91,8 +91,7 @@
             android:theme="@style/AppTheme.LauncherAppTheme" />
         <activity
             android:name=".module.login.ui.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".module.voucher.ui.VoucherActivity"
             android:screenOrientation="portrait" />
@@ -177,7 +176,6 @@
         <activity
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".module.register.ui.RegisterConfirmationActivity"
             android:screenOrientation="portrait" />
@@ -223,9 +221,13 @@
         <activity
             android:name=".module.voucher.ui.VoucherWebViewActivity"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e22256c8656e634c132431e0e0f1bd58d3c42820" />
+
+        <activity android:name=".module.vexpoint.ui.VexPointGuideActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

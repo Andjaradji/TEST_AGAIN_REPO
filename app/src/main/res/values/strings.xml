@@ -31,8 +31,8 @@
     <string name="image_content_description">Image</string>
 
     <string name="notif_expired">[%s] was expired</string>
-    <string name="notif_success_claim">Congrats! You got [%s] , Use this coupon before <b>%s</b></string>
-    <string name="notif_expire_soon">[%s] will expire soon! Use this coupon before <b>%s</b></string>
+    <string name="notif_success_claim">Congrats! You got [%s] , Use this voucher before <b>%s</b></string>
+    <string name="notif_expire_soon">[%s] will expire soon! Use this voucher before <b>%s</b></string>
     <string name="notif_is_available">[%s] is available now! Go and claim yours!</string>
 
     <string name="notif_item_time_now">Just now</string>
@@ -537,9 +537,37 @@
     <string name="guidance_box_1">View your used voucher here
 Your expired and used voucher will be shown here</string>
     <string name="guidance_box_2">You can get receive voucher from friend here. Just input the gift code and the voucher is yours</string>
+    
+    <string name="guidance_vp_title_1">How To Get Vex Point ?</string>
+    <string name="guidance_vp_title_2">1. Top up VEX on Your Wallet</string>
+    <string name="guidance_vp_title_3">2. Wait for Snapshot</string>
+    <string name="guidance_vp_title_4">3. See Snapshot Details</string>
+    
+    <string name="guidance_vp_subtitle_1">Collect Vex Point by Holding Vex</string>
+    <string name="guidance_vp_subtitle_2">Top Up Vex and Collect Vex Point Everyday</string>
+    <string name="guidance_vp_subtitle_3">Snapshot is Running Every day</string>
+    <string name="guidance_vp_subtitle_4">Click to See the Details</string>
+
+    <string name="guidance_vp_desc_1">Just hold Vex in your wallet and you will get Vex point</string>
+    <string name="guidance_vp_desc_2">There is no minimum vex to join the snapshot</string>
+    <string name="guidance_vp_desc_3">You will pass through 2 phase of snapshots and will start to earn VEX point on snapshot phase 3</string>
+    <string name="guidance_vp_desc_4">You can see the snapshot details by click Vex Point record</string>
+
+    <string name="guidance_vp_note_1">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
+    <string name="guidance_vp_note_2">Maximum Vex Point that you received is 2500 VP</string>
+    <string name="guidance_vp_note_3">Snapshot is run at 12:00 GMT+7 and 00:00 GMT+7</string>
+    <string name="guidance_vp_note_4">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
+
+    <string name="time_hour_min_sec">%02d HOUR, %02d MIN, %02d SEC</string>
+    <string name="time_day_hour_min">%d DAY, %02d HOUR, %02d MIN</string>
+
+    <string name="vex_point_snap1">Amount of VEX to be counted in next 1 snapshot</string>
+    <string name="vex_point_snap2">Amount of VEX to be counted in next 2 snapshot</string>
+    <string name="vex_point_snap3">Amount of VEX counted in this snapshot</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="asset_statements" translatable="false">[{ \"include\": \"https://www.vexgift.com/.well-known/assetlinks.json\" }]</string>
+    
 </resources>

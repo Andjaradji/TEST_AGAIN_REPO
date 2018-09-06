@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.home.ui;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
@@ -71,6 +74,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -262,6 +266,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
 
         checkAppVersion();
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Home Fragment View")
+                .putContentType("Home")
+                .putContentId("home"));
     }
 
     @Override
@@ -554,8 +563,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onGlobalLayout() {
                                 if (!isAlreadyGuideVoucherToken) {
-                                    RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
-                                    isAlreadyGuideVoucherToken = true;
+                                    CountDownTimer countDownTimer = new CountDownTimer(500,100) {
+                                        @Override
+                                        public void onTick(long l) {
+
+                                        }
+
+                                        @Override
+                                        public void onFinish() {
+                                            RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
+                                            isAlreadyGuideVoucherToken = true;
+                                        }
+                                    };
+
+                                    countDownTimer.start();
                                 }
                             }
                         });

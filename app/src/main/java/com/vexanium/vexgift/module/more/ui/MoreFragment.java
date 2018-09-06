@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
@@ -122,6 +124,11 @@ public class MoreFragment extends BaseFragment {
 
         ViewUtil.setText(fragmentRootView, R.id.tv_version,
                 String.format(getString(R.string.appversion_need_update_version_current), BuildConfig.VERSION_NAME));
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("More Fragment View")
+                .putContentType("More")
+                .putContentId("more"));
     }
 
     @Override

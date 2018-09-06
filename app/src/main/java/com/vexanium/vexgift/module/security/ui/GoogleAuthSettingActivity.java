@@ -104,7 +104,8 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
         } else if (errorResponse != null) {
             hideProgress();
             KLog.v("GoogleAuthSettingActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+//            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 
