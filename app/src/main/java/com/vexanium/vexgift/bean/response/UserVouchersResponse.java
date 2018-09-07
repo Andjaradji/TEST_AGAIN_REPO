@@ -27,10 +27,10 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
-            if(!voucherCode.getVoucher().isToken())
-            if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
-                activeVouchers.add(voucherCode);
-            }
+            if (!voucherCode.getVoucher().isToken())
+                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                    activeVouchers.add(voucherCode);
+                }
         }
 
         return activeVouchers;
@@ -41,10 +41,10 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
-            if(!voucherCode.getVoucher().isToken())
-                if  (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis()) {
-                inActiveVouchers.add(voucherCode);
-            }
+            if (!voucherCode.getVoucher().isToken())
+                if (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis()) {
+                    inActiveVouchers.add(voucherCode);
+                }
         }
 
         return inActiveVouchers;
@@ -55,7 +55,7 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
-            if(voucherCode.getVoucher().isToken())
+            if (voucherCode.getVoucher().isToken())
                 if ((!voucherCode.isBeingGifted() && TextUtils.isEmpty(voucherCode.getAddress()) && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
@@ -69,7 +69,7 @@ public class UserVouchersResponse implements Serializable {
         if (voucherCodes == null) voucherCodes = new ArrayList<>();
 
         for (VoucherCode voucherCode : voucherCodes) {
-            if(voucherCode.getVoucher().isToken())
+            if (voucherCode.getVoucher().isToken())
                 if ((voucherCode.isBeingGifted() || !TextUtils.isEmpty(voucherCode.getAddress()) || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
                     inActiveVouchers.add(voucherCode);
                 }

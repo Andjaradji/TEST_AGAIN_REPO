@@ -85,8 +85,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_ask"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
                                 android:padding="@dimen/interval_small"

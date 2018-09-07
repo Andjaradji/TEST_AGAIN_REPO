@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -84,12 +86,12 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        if(data!=null){
-            if(data instanceof NotificationResponse){
+        if (data != null) {
+            if (data instanceof NotificationResponse) {
                 dataList = new ArrayList<>(((NotificationResponse) data).getNotifications());
                 initNotifList();
             }
-        }else if(errorResponse!=null){
+        } else if (errorResponse != null) {
 
         }
     }
@@ -137,6 +139,11 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
             }
         });
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Notification Fragment View")
+                .putContentType("Notification")
+                .putContentId("notification"));
     }
 
     @Override
@@ -226,7 +233,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 @Override
                 public void bindData(BaseRecyclerViewHolder holder, int position, final NotificationModel item) {
 
-                    holder.setText(R.id.tv_brand,item.getTitle());
+                    holder.setText(R.id.tv_brand, item.getTitle());
                     holder.setText(R.id.tv_content, item.getBody());
                     holder.setOnClickListener(R.id.root, new View.OnClickListener() {
                         @Override

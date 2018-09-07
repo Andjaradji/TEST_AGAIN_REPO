@@ -18,6 +18,10 @@ import android.widget.TextView;
 
 import com.asksira.loopingviewpager.LoopingPagerAdapter;
 import com.asksira.loopingviewpager.LoopingViewPager;
+import com.crashlytics.android.answers.AddToCartEvent;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+import com.crashlytics.android.answers.PurchaseEvent;
 import com.rd.PageIndicatorView;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -49,6 +53,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,16 +85,16 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
     PremiumPlanAdapter mAdapter;
-    private Subscription timeSubsription;
-
     User user;
+    private Subscription timeSubsription;
+    private PremiumPlan premiumPlan;
 
     @Override
     protected void initView() {
         mPresenter = new IPremiumPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mHistoryButton = findViewById(R.id.ib_history);
+        mHistoryButton = findViewById(R.id.ib_history_premium);
         mHistoryButton.setEnabled(false);
         mHistoryButton.setVisibility(View.GONE);
         mVpPremium = findViewById(R.id.vp_premium_member);
@@ -147,6 +152,11 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         }
 
         updateData();
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("View Premium Activity")
+                .putContentType("Premium")
+                .putContentId("premium"));
     }
 
     @Override
@@ -159,7 +169,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.ib_history:
+            case R.id.ib_history_premium:
                 Intent intent = new Intent(this, PremiumHistoryActivity.class);
                 intent.putExtra("premium_history_list", mPremiumHistoryList);
                 startActivity(intent);
@@ -194,6 +204,14 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 Intent intent = new Intent(PremiumMemberActivity.this, PremiumHistoryDetailActivity.class);
                 intent.putExtra("premium_history_detail", premiumPurchaseResponse.getPremiumPurchase());
                 startActivity(intent);
+                if (premiumPlan != null) {
+                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                            .putItemPrice(BigDecimal.valueOf(premiumPlan.getPrice()))
+                            .putItemName(premiumPlan.getName())
+                            .putItemType("Premium Membership")
+                            .putItemId("pm" + premiumPlan.getId())
+                            .putSuccess(true));
+                }
                 callPremiumHistoryList();
             } else if (data instanceof PremiumHistoryResponse) {
                 mPremiumHistoryList = ((PremiumHistoryResponse) data).getPremiumPurchase();
@@ -307,7 +325,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
 
-        String time = String.format(Locale.getDefault(), "%d DAY, %02d HOUR, %02d MIN",
+        String time = String.format(Locale.getDefault(), getString(R.string.time_day_hour_min),
                 TimeUnit.MILLISECONDS.toDays(remainTime),
                 TimeUnit.MILLISECONDS.toHours(remainTime) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(remainTime)),
                 TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)));
@@ -417,6 +435,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     }
 
     private void doBuy(final PremiumPlan plan) {
+        premiumPlan = plan;
 
         View view = View.inflate(this, R.layout.include_buy_premium_confirmation, null);
         final TextView tvDay = view.findViewById(R.id.tv_premium_confirmation_day);
@@ -428,6 +447,12 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         tvDay.setText(plan.getName());
         tvVex.setText(plan.getPrice() / day + " " + getString(R.string.premium_buy_vex));
         tvTotal.setText(plan.getPrice() + " VEX");
+
+        Answers.getInstance().logAddToCart(new AddToCartEvent()
+                .putItemPrice(BigDecimal.valueOf(plan.getPrice()))
+                .putItemName(plan.getName())
+                .putItemType("Premium Membership")
+                .putItemId("pm" + plan.getId()));
 
         new VexDialog.Builder(this)
                 .optionType(DialogOptionType.YES_NO)

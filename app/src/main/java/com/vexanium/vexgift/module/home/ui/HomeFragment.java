@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.home.ui;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
@@ -51,7 +54,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -87,32 +89,29 @@ import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
 
+    public LinearLayout mVexPointButton;
+    public View exploreView;
     private AVLoadingIndicatorView mAvi;
     private SwipeRefreshLayout mSrlHome;
-    private LinearLayout mVexPointButton;
     private TextView mVexPointText;
     private GridLayoutManager layoutListManager;
     private RecyclerView mRecyclerview;
-
     private LinearLayout mLlErrorView;
     private ImageView mIvError;
     private TextView mTvErrorTitle, mTvErrorBody;
-
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<Voucher> vouchers;
-
     private ArrayList<BestVoucher> featuredVoucherList;
     private ArrayList<BestVoucher> bestVoucherList;
     private BaseRecyclerAdapter<BestVoucher> mFeaturedAdapter;
     private User user;
     private Animation mFadeIn;
-
     private Observable<Integer> mVexPointObservable;
-
     private Handler mRefreshHandler;
     private Runnable mRefreshRunnable;
     private View rootView;
+    private boolean isAlreadyGuideVoucherToken = false;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -258,6 +257,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
 
         checkAppVersion();
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Home Fragment View")
+                .putContentType("Home")
+                .putContentId("home"));
     }
 
     @Override
@@ -303,12 +307,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             } else if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
                 TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
-            } else if(data instanceof VexPointResponse){
+            } else if (data instanceof VexPointResponse) {
                 VexPointResponse vexPointResponse = (VexPointResponse) data;
                 user.setVexPoint(vexPointResponse.getVexPoint());
                 User.updateCurrentUser(this.getActivity(), user);
                 updateUserInfo(rootView);
-            } else if (data instanceof PremiumDueDateResponse){
+            } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);
                 User.updateCurrentUser(this.getActivity(), user);
@@ -515,6 +519,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 }
                             });
                         }
+//                        if(!isAlreadyGuideVP){
+//                            RxBus.get().post(RxBus.KEY_VP_GUIDANCE, holder.getView(R.id.ll_shortcut));
+//                            isAlreadyGuideVP = true;
+//                        }
                         break;
                     case HOT_LIST:
                         if (item.object instanceof ArrayList<?>) {
@@ -528,6 +536,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
                                 intent.putExtra("isToken", true);
+                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                 startActivity(intent);
                             }
                         });
@@ -536,7 +545,30 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                 startActivity(intent);
+                            }
+                        });
+                        exploreView = holder.getView(R.id.ll_explore);
+                        exploreView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                if (!isAlreadyGuideVoucherToken) {
+                                    CountDownTimer countDownTimer = new CountDownTimer(500, 100) {
+                                        @Override
+                                        public void onTick(long l) {
+
+                                        }
+
+                                        @Override
+                                        public void onFinish() {
+                                            RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
+                                            isAlreadyGuideVoucherToken = true;
+                                        }
+                                    };
+
+                                    countDownTimer.start();
+                                }
                             }
                         });
                         break;
@@ -703,7 +735,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 else
                     holder.setViewGone(R.id.iv_premium, true);
 
-                if(item.getVoucherTypeId() != 5) {
+                if (item.getVoucherTypeId() != 5) {
                     if (item.getQtyAvailable() == 0) {
                         holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
                         holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
@@ -713,10 +745,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 String.format(getString(R.string.vex_point_format), item.getPrice()));
 
 
-                }else{
+                } else {
                     holder.setText(R.id.tv_price, getString(R.string.coming_soon));
                     holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
-                    holder.setViewGone(R.id.tv_coupon_exp,true);
+                    holder.setViewGone(R.id.tv_coupon_exp, true);
                 }
 
                 holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {

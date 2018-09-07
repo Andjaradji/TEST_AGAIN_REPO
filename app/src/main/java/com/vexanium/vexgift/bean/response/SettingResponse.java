@@ -6,7 +6,6 @@ import com.vexanium.vexgift.bean.model.Setting;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SettingResponse implements Serializable {
@@ -22,10 +21,10 @@ public class SettingResponse implements Serializable {
         this.settings = settings;
     }
 
-    public long getMinimumVersion(){
-        if(settings != null && settings.size() > 0){
-            for(Setting setting : settings){
-                if(setting.getName().equalsIgnoreCase("minimum_app_version")){
+    public long getMinimumVersion() {
+        if (settings != null && settings.size() > 0) {
+            for (Setting setting : settings) {
+                if (setting.getName().equalsIgnoreCase("minimum_app_version")) {
                     return setting.getValue();
                 }
             }
@@ -33,10 +32,10 @@ public class SettingResponse implements Serializable {
         return -1;
     }
 
-    public long getSettingValByKey(String key){
-        if(settings != null && settings.size() > 0){
-            for(Setting setting : settings){
-                if(setting.getName().equalsIgnoreCase(key)){
+    public long getSettingValByKey(String key) {
+        if (settings != null && settings.size() > 0) {
+            for (Setting setting : settings) {
+                if (setting.getName().equalsIgnoreCase(key)) {
                     return setting.getValue();
                 }
             }

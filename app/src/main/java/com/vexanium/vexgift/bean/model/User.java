@@ -104,6 +104,8 @@ public class User implements Serializable {
     private List<String> facebookLocationIdList;
     @JsonProperty("fb_friend_count")
     private int facebookFriendCount;
+    @JsonProperty("act_address")
+    private String actAddress;
 
     public User() {
     }
@@ -731,5 +733,13 @@ public class User implements Serializable {
 
     public void setNotificationId(String notificationId) {
         this.notificationId = notificationId;
+    }
+
+    public String getActAddress() {
+        return actAddress;
+    }
+
+    public void setActAddress(String actAddress) {
+        this.actAddress = actAddress;
     }
 }

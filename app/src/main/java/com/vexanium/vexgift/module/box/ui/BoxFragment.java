@@ -22,6 +22,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.module.box.ui.helper.BoxFragmentChangeListener;
 import com.vexanium.vexgift.module.voucher.ui.ReceiveVoucherActivity;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
@@ -32,20 +33,18 @@ public class BoxFragment extends BaseFragment {
     private static final int VOUCHER_FRAGMENT = 0;
     private static final int TOKEN_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
+    public ImageButton mReceiveButton;
+    public ImageButton mHistoryButton;
+    public View view;
     private String mParam1;
     private String mParam2;
     private VoucherFragment voucherFragment;
     private TokenFragment tokenFragment;
-
     private IconTextTabBarView mTabBarView;
     private CustomViewPager mViewPager;
-
-    private ImageButton mReceiveButton;
-    private ImageButton mHistoryButton;
     private RelativeLayout mNotifBar;
     private TextView mNotifText;
     private TextView mNotifSeeMore;
-
     private BoxFragmentChangeListener listener;
 
     public static BoxFragment newInstance() {
@@ -54,6 +53,7 @@ public class BoxFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
+        view = fragmentRootView;
 
         mHistoryButton = fragmentRootView.findViewById(R.id.ib_history);
         mReceiveButton = fragmentRootView.findViewById(R.id.ib_receive);
@@ -79,7 +79,12 @@ public class BoxFragment extends BaseFragment {
         setPagerListener();
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        RxBus.get().post(RxBus.KEY_MY_BOX_GUIDANCE, view);
     }
 
     @Override

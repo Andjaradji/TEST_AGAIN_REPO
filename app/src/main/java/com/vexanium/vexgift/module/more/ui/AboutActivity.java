@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.about.ui;
+package com.vexanium.vexgift.module.more.ui;
 
 import android.os.Bundle;
 import android.view.View;

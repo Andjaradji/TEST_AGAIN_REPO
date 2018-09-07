@@ -3,13 +3,11 @@ package com.vexanium.vexgift.module.login.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -22,7 +20,6 @@ import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenter;
 import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
-import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -43,10 +40,9 @@ import rx.functions.Action1;
 public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter> implements ILoginView {
 
     TextView mTvTitle, mTvBody;
-    private Subscription timeSubsription;
     EditText mEtCode;
-
     String email, resetToken;
+    private Subscription timeSubsription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,15 +83,15 @@ public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter>
                 ForgotPasswordCodeActivity.this.startActivity(intent);
                 break;
             case R.id.resend_email_button:
-                if(isAbleToResend()) {
+                if (isAbleToResend()) {
                     mPresenter.requestResetPassword(email);
                 }
                 break;
             case R.id.confirm_code_button:
-                if(mEtCode.getText()==null){
+                if (mEtCode.getText() == null) {
                     mEtCode.setError("Invalid code");
-                }else {
-                    mPresenter.requestResetPasswordCodeValidation(email,mEtCode.getText().toString());
+                } else {
+                    mPresenter.requestResetPasswordCodeValidation(email, mEtCode.getText().toString());
                 }
                 break;
         }
@@ -137,24 +133,24 @@ public class ForgotPasswordCodeActivity extends BaseActivity<IForgotPwPresenter>
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            if(data instanceof ResetPasswordCodeResponse){
-                if(((ResetPasswordCodeResponse) data).getResetPasswordToken()!=null) {
+            if (data instanceof ResetPasswordCodeResponse) {
+                if (((ResetPasswordCodeResponse) data).getResetPasswordToken() != null) {
                     resetToken = ((ResetPasswordCodeResponse) data).getResetPasswordToken();
                     //setCurrentView(1);
-                    Intent intent = new Intent(this,ForgotPasswordResetActivity.class);
-                    intent.putExtra("reset_password_token",resetToken);
-                    intent.putExtra("reset_password_email",email);
+                    Intent intent = new Intent(this, ForgotPasswordResetActivity.class);
+                    intent.putExtra("reset_password_token", resetToken);
+                    intent.putExtra("reset_password_email", email);
                     startActivity(intent);
                     finish();
                 }
             }
 
-        } else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("ForgotPwCodeActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
-        }else{
+        } else {
             new VexDialog.Builder(this)
                     .title("Email sent")
                     .content("Check your email for validation code")

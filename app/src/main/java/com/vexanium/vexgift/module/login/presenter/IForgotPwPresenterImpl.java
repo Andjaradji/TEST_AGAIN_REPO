@@ -54,13 +54,13 @@ public class IForgotPwPresenterImpl extends BasePresenterImpl<ILoginView, Serial
 
     @Override
     public void requestResetPasswordCodeValidation(String email, String code) {
-        Subscription subscription = mResetPwInteractor.requestResetPasswordCodeValidation(this, email,code);
+        Subscription subscription = mResetPwInteractor.requestResetPasswordCodeValidation(this, email, code);
         compositeSubscription.add(subscription);
     }
 
     @Override
     public void requestResetPasswordTokenValidation(String email, String token, String pass, String confirmPass) {
-        Subscription subscription = mResetPwInteractor.requestResetPasswordTokenValidation(this, email,token,pass,confirmPass);
+        Subscription subscription = mResetPwInteractor.requestResetPasswordTokenValidation(this, email, token, pass, confirmPass);
         compositeSubscription.add(subscription);
     }
 }

@@ -157,6 +157,15 @@ public class ViewUtil {
         }
     }
 
+    public static void setVisiblityToAllView(int viewVisibility, View... views) {
+        for (View view : views) {
+            if (view != null) {
+                if (view.getVisibility() != viewVisibility)
+                    view.setVisibility(viewVisibility);
+            }
+        }
+    }
+
     public static <T extends View> T findViewById(View root, int viewId) {
         View view = root.findViewById(viewId);
         return (T) view;

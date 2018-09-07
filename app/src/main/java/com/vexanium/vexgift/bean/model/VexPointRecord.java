@@ -134,7 +134,7 @@ public class VexPointRecord implements Serializable {
     public String getCreatedAtDate() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = dateFormat.parse(createdAt);
             return dateOutput.format(date);

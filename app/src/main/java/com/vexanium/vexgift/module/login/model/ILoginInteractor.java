@@ -7,7 +7,9 @@ import rx.Subscription;
 
 public interface ILoginInteractor<T> {
     Subscription requestLogin(RequestCallback<T> callback, User user);
+
     Subscription requestSetting(RequestCallback<T> callback, int userId);
+
     Subscription requestAppStatus(RequestCallback<T> callback);
 
 }

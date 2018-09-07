@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -15,7 +14,6 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenter;
 import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
@@ -31,7 +29,7 @@ public class ForgotPasswordResetActivity extends BaseActivity<IForgotPwPresenter
 
     EditText mEtPass, mEtConfirmPass;
 
-    String email,resetToken;
+    String email, resetToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +71,14 @@ public class ForgotPasswordResetActivity extends BaseActivity<IForgotPwPresenter
                 ForgotPasswordResetActivity.this.startActivity(intent);
                 break;
             case R.id.new_reset_password_button:
-                if(mEtPass.getText()==null && mEtPass.getText().toString().length() < 3) {
+                if (mEtPass.getText() == null && mEtPass.getText().toString().length() < 3) {
                     mEtPass.setError("Password field must be filled");
-                }else if(mEtConfirmPass == null && mEtConfirmPass.getText().toString().length() < 3){
+                } else if (mEtConfirmPass == null && mEtConfirmPass.getText().toString().length() < 3) {
                     mEtPass.setError("Password confirmation field must be filled");
-                }else if(!mEtPass.getText().toString().equals(mEtConfirmPass.getText().toString())){
+                } else if (!mEtPass.getText().toString().equals(mEtConfirmPass.getText().toString())) {
                     mEtPass.setError("Password and pass confirmation must be the same");
-                }else {
-                    mPresenter.requestResetPasswordTokenValidation(email,resetToken,mEtPass.getText().toString(),mEtConfirmPass.getText().toString());
+                } else {
+                    mPresenter.requestResetPasswordTokenValidation(email, resetToken, mEtPass.getText().toString(), mEtConfirmPass.getText().toString());
                 }
                 break;
         }
@@ -90,12 +88,12 @@ public class ForgotPasswordResetActivity extends BaseActivity<IForgotPwPresenter
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
 
-        } else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("ForgotPwCodeActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
-        }else{
+        } else {
             new VexDialog.Builder(this)
                     .title(getString(R.string.forgot_password_success_title))
                     .content(getString(R.string.forgot_password_success_body))

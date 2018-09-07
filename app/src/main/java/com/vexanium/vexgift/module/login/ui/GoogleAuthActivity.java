@@ -73,7 +73,7 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
 
         } else if (errorResponse != null) {
             KLog.v("GoogleAuthActivity handleResult error : " + errorResponse.getMeta().getMessage());
-            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
+//            toast(errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta().getStatus() != 200) {
                 new VexDialog.Builder(GoogleAuthActivity.this)
                         .optionType(DialogOptionType.OK)

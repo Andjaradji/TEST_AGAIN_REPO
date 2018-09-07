@@ -2,13 +2,11 @@ package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -21,9 +19,6 @@ import com.vexanium.vexgift.module.login.presenter.IForgotPwPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.widget.dialog.DialogAction;
-import com.vexanium.vexgift.widget.dialog.DialogOptionType;
-import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 
@@ -64,10 +59,10 @@ public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> imp
                 ForgotPasswordActivity.this.startActivity(intent);
                 break;
             case R.id.reset_password_button:
-                if(mEtEmail.getText()==null || !(mEtEmail.getText().toString().length() >= 5) || !Patterns.EMAIL_ADDRESS.matcher(mEtEmail.getText().toString()).matches()){
+                if (mEtEmail.getText() == null || !(mEtEmail.getText().toString().length() >= 5) || !Patterns.EMAIL_ADDRESS.matcher(mEtEmail.getText().toString()).matches()) {
 
                     ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
-                }else {
+                } else {
                     mPresenter.requestResetPassword(mEtEmail.getText().toString());
 
                 }
@@ -80,16 +75,16 @@ public class ForgotPasswordActivity extends BaseActivity<IForgotPwPresenter> imp
         KLog.v("ForgotPwActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
 
-        } else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("ForgotPwActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
 
 
-        }else{
-            Intent intent = new Intent(this,ForgotPasswordCodeActivity.class);
-            intent.putExtra("reset_password_email",mEtEmail.getText().toString());
+        } else {
+            Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+            intent.putExtra("reset_password_email", mEtEmail.getText().toString());
             startActivity(intent);
             finish();
         }

@@ -8,6 +8,7 @@
     android:padding="@dimen/interval_main">
 
     <LinearLayout
+        android:id="@+id/ll_explore"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_explore_height"
         android:orientation="horizontal">

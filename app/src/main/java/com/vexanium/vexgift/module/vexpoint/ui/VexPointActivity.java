@@ -7,13 +7,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -27,7 +31,6 @@ import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
 import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -104,6 +107,19 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.iv_ask).setOnClickListener(this);
 
+        TpUtil tpUtil = new TpUtil(App.getContext());
+        boolean isFirstTimeOpenVexPoint = tpUtil.getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_VP, false);
+        if (!isFirstTimeOpenVexPoint) {
+            Intent intent = new Intent(this, VexPointGuideActivity.class);
+            startActivity(intent);
+            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_VP, true);
+        }
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Vex Point Activity View")
+                .putContentType("Vex Point")
+                .putContentId("vexpoint"));
+
     }
 
     @Override
@@ -132,8 +148,11 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {
-            if (errorResponse.getMeta().getStatus() / 100 == 4) {
+            if (errorResponse.getMeta().getStatus() / 100 == 4 && errorResponse.getMeta().getStatus() != 408) {
                 User.setIsVexAddressSet(this, false);
+            }
+            if (!TextUtils.isEmpty(user.getActAddress())) {
+                User.setIsVexAddressSet(this, true);
             }
 
             updateView();
@@ -159,8 +178,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                     findViewById(R.id.ll_copy_vex_point).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(ClickUtil.isFastDoubleClick())return;
-                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount()+"");
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            StaticGroup.copyToClipboard(VexPointActivity.this, userAddress.getAmount() + "");
                         }
                     });
 
@@ -285,7 +304,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 startActivity(intent);
                 break;
             case R.id.iv_ask:
-                Intent intent1 = new Intent(this, FaqActivity.class);
+                Intent intent1 = new Intent(this, VexPointGuideActivity.class);
                 startActivity(intent1);
                 break;
         }
@@ -382,7 +401,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 
         long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
 
-        String time = String.format(Locale.getDefault(), "%02d HOUR, %02d MIN, %02d SEC",
+        String time = String.format(Locale.getDefault(), getString(R.string.time_hour_min_sec),
                 TimeUnit.MILLISECONDS.toHours(remainTime),
                 TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
                 TimeUnit.MILLISECONDS.toSeconds(remainTime) -

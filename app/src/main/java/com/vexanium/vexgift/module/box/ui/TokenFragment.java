@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -114,6 +116,11 @@ public class TokenFragment extends BaseFragment<IBoxPresenter> implements IBoxVi
         });
 
         mPresenter.requestUserVoucherList(user.getId());
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Token Fragment View")
+                .putContentType("Token")
+                .putContentId("token"));
     }
 
     @Override

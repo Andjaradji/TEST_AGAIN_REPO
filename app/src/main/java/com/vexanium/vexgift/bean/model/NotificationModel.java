@@ -115,7 +115,7 @@ public class NotificationModel implements Serializable {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             Date date = dateFormat.parse(createdAt);
             return date.getTime();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }

@@ -35,6 +35,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -229,7 +231,7 @@ public class StaticGroup {
 
     public static String convertVpFormat(float vpValue) {
         DecimalFormat formatter = new DecimalFormat("");
-        formatter.setMaximumFractionDigits(5);
+        formatter.setMaximumFractionDigits(2);
         String output = formatter.format(vpValue);
         return output;//.replace(",", ".");
     }
@@ -913,12 +915,17 @@ public class StaticGroup {
 
     public static void showCommonErrorDialog(Context context, HttpResponse errorResponse) {
         if (errorResponse.getMeta() != null) {
+            Answers.getInstance().logCustom(new CustomEvent("Common Error")
+                    .putCustomAttribute("Error Code", String.valueOf(errorResponse.getMeta().getStatus()))
+                    .putCustomAttribute("Error Message", errorResponse.getMeta().getMessage()));
             if (errorResponse.getMeta().isRequestError()) {
-                showCommonErrorDialog(context, errorResponse.getMeta().getMessage());
+                if (errorResponse.getMeta().getStatus() != 408)
+                    showCommonErrorDialog(context, errorResponse.getMeta().getMessage());
             } else {
                 showCommonErrorDialog(context, errorResponse.getMeta().getStatus());
             }
         } else {
+            Answers.getInstance().logCustom(new CustomEvent("Unknown Error"));
             showCommonErrorDialog(context, -1);
         }
     }

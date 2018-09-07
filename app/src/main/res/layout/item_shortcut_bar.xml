@@ -7,6 +7,7 @@
     android:layout_gravity="center">
 
     <LinearLayout
+        android:id="@+id/ll_shortcut"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="3"

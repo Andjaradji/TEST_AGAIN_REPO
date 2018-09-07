@@ -50,8 +50,8 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
     protected static int currentCountdown = 8;
-    private Class<? extends Activity> destinationActivity;
     Uri uri;
+    private Class<? extends Activity> destinationActivity;
 
     public static Class<? extends Activity> getDestinationActivity(Context context) {
         Class<? extends Activity> destination;
@@ -116,7 +116,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         long currentVersion = BuildConfig.VERSION_CODE;
         boolean isNeedUpdate = currentVersion < minimumVersion;
 
-        if (isMaintenance == 1 && false) {
+        if (isMaintenance == 1) {
             findViewById(R.id.ll_maintenance).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_need_update).setVisibility(View.GONE);
 
@@ -217,6 +217,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             return false;
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
