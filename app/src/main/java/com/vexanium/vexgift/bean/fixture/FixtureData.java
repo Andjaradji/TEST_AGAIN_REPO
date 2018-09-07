@@ -12,7 +12,7 @@ public class FixtureData {
         {
             add("ID Card");
             add("Passport");
-            add("Driving Licence");
+            add("Driving License");
         }
     };
 

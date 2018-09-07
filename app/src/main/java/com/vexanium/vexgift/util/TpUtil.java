@@ -26,6 +26,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_IS_ALREADY_GUIDE_HOME = "key_is_already_guide_home";
     public static String KEY_IS_ALREADY_GUIDE_VP = "key_is_already_guide_vp";
     public static String KEY_IS_ALREADY_GUIDE_MYBOX = "key_is_already_guide_mybox";
+    public static String KEY_COUNTRY_LIST = "key_country_list";
     private static TpUtil _tpUtil;
 
     public TpUtil(final Context context) {

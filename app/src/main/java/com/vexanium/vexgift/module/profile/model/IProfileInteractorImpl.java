@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.profile.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.Kyc;
+import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -52,6 +53,20 @@ public class IProfileInteractorImpl implements IProfileInteractor {
 
                         KLog.json("HPtes", JsonUtil.toString(kyc));
                         return Observable.just(kyc);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription getCountries(RequestCallback callback) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestCountryList().compose(RxUtil.<CountriesResponse>handleResult())
+                .flatMap(new Func1<CountriesResponse, Observable<CountriesResponse>>() {
+                    @Override
+                    public Observable<CountriesResponse> call(CountriesResponse countriesResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(countriesResponse));
+                        return Observable.just(countriesResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));

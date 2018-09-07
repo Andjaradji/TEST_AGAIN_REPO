@@ -169,7 +169,6 @@ public class User implements Serializable {
     public static void setPremiumDueDate(Context context, int dueDate) {
         TpUtil tpUtil = TpUtil.getInstance(context);
         tpUtil.put(TpUtil.KEY_USER_PREMIUM_DUE_DATE, dueDate);
-
         User user = getCurrentUser(context);
         user.setPremiumUntil(dueDate);
 

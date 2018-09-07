@@ -65,4 +65,10 @@ public class IProfilePresenterImpl extends BasePresenterImpl<IProfileView, Seria
         Subscription subscription = mInteractor.changePassword(this, id, oldPass, newPass);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void getCountries() {
+        Subscription subscription = mInteractor.getCountries(this);
+        compositeSubscription.add(subscription);
+    }
 }
