@@ -254,98 +254,12 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 .show();
     }
 
-//    private void doCaptcha() {
-//        View view = View.inflate(this, R.layout.include_captcha_get_voucher, null);
-//        final EditText etCaptcha = view.findViewById(R.id.et_captcha);
-//        final CaptchaImageView captchaImageView = view.findViewById(R.id.iv_captcha);
-//        view.findViewById(R.id.iv_refresh).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                captchaImageView.regenerate();
-//            }
-//        });
-//
-//        new VexDialog.Builder(this)
-//                .optionType(DialogOptionType.YES_NO)
-//                .title(getString(R.string.captcha_dialog_title))
-//                .content(getString(R.string.captcha_dialog_content))
-//                .addCustomView(view)
-//                .positiveText(getString(R.string.dialog_get_now))
-//                .negativeText(getString(R.string.dialog_cancel))
-//                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-//                        if (TextUtils.isEmpty(etCaptcha.getText().toString())) {
-//                            etCaptcha.setError(getString(R.string.validate_empty_field));
-//                            captchaImageView.regenerate();
-//                        } else if (!etCaptcha.getText().toString().equalsIgnoreCase(captchaImageView.getCaptchaCode())) {
-//                            etCaptcha.setError(getString(R.string.captcha_validation_message));
-//                            etCaptcha.setText("");
-//                            captchaImageView.regenerate();
-//                        } else {
-//                            dialog.dismiss();
-//                            simulateGetVoucher();
-//                        }
-//                    }
-//                })
-//                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .autoDismiss(false)
-//                .canceledOnTouchOutside(false)
-//                .show();
-//    }
-
     private void doGetVoucher(String pin) {
         User user = User.getCurrentUser(this);
         mPresenter.requestBuyVoucher(user.getId(), voucher.getId(), pin);
-//        simulateGetVoucher();
     }
 
-//    private void simulateGetVoucher() {
-//        CountDownTimer countDownTimer = new CountDownTimer(1000, 500) {
-//            @Override
-//            public void onTick(long l) {
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                new VexDialog.Builder(VoucherDetailActivity.this)
-//                        .optionType(DialogOptionType.OK)
-//                        .title("Get Voucher")
-//                        .content("Your request is in queue. We will inform you through notification.")
-//                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-//                            @Override
-//                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-//                                VoucherDetailActivity.this.finish();
-//                                simulateGetVoucherSuccess();
-//                            }
-//                        })
-//                        .cancelable(false)
-//                        .autoDismiss(true)
-//                        .show();
-//            }
-//        };
-//        countDownTimer.start();
-//    }
-
     private void getVoucherSuccess() {
-//        Notification notification = new Notification();
-//        notification.setVoucher(voucher);
-//        notification.setType(Notification.TYPE_GET_SUCCESS);
-//        notification.setTime(System.currentTimeMillis());
-//        notification.setUrl("vexgift://box");
-//        notification.setNew(true);
-//
-//        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
-//        if (notifications == null) notifications = new ArrayList<>();
-//        notifications.add(notification);
-//
-//        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
 
         RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
         RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
@@ -369,43 +283,6 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 });
 
     }
-
-//    private void simulateGetVoucherSuccess() {
-//        Notification notification = new Notification();
-//        notification.setVoucher(voucher);
-//        notification.setType(Notification.TYPE_GET_SUCCESS);
-//        notification.setTime(System.currentTimeMillis());
-//        notification.setUrl("vexgift://box");
-//        notification.setNew(true);
-//
-//        ArrayList<Notification> notifications = TableContentDaoUtil.getInstance().getNotifs();
-//        if (notifications == null) notifications = new ArrayList<>();
-//        notifications.add(notification);
-//
-//        TableContentDaoUtil.getInstance().saveNotifsToDb(JsonUtil.toString(notifications));
-//
-//        KLog.v("Post", "call: HPtes masuk");
-//        RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
-//        RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
-//
-//        CountDownTimer countDownTimer = new CountDownTimer(2000, 500) {
-//            @Override
-//            public void onTick(long l) {
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//
-//                String title = "Get Voucher Success";
-//                String message = String.format("Congratulation! You got %s ", voucher.getTitle());
-//                String url = "vexgift://notif";
-//
-//                StaticGroup.sendLocalNotification(App.getContext(), title, message, url);
-//            }
-//        };
-//        countDownTimer.start();
-//    }
 
     @Override
     public void finish() {

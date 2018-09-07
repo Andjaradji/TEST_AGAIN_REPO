@@ -101,7 +101,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private TextView mTvErrorTitle, mTvErrorBody;
     private BaseRecyclerAdapter<HomeFeedResponse> mAdapter;
     private ArrayList<HomeFeedResponse> data;
-    private ArrayList<Voucher> vouchers;
     private ArrayList<BestVoucher> featuredVoucherList;
     private ArrayList<BestVoucher> bestVoucherList;
     private BaseRecyclerAdapter<BestVoucher> mFeaturedAdapter;
@@ -267,7 +266,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("HomeFragment onCreateView");
-        //super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -319,7 +317,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 updateUserInfo(rootView);
             }
         } else if (errorResponse != null) {
-//            Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_SHORT).show();
             if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().isRequestError()) {
                     if (!errorResponse.getMeta().getMessage().contains("KYC"))
@@ -768,7 +765,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         discreteScrollView.setAdapter(mFeaturedAdapter);
         discreteScrollView.setItemViewCacheSize(30);
         discreteScrollView.setOrientation(DSVOrientation.HORIZONTAL);
-//        discreteScrollView.setSlideOnFling(true);
         discreteScrollView.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.9f)
                 .setPivotX(Pivot.X.CENTER)

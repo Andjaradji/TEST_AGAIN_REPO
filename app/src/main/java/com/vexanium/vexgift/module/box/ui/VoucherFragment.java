@@ -195,11 +195,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
                     holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            if (voucher.isForPremium() && !user.isPremiumMember()) {
-//                                StaticGroup.showPremiumMemberDialog(VoucherFragment.this.getActivity());
-//                            } else {
                             goToVoucherRedeemActivity(item, holder.getImageView(R.id.iv_coupon_image));
-//                            }
                         }
                     });
 
@@ -209,7 +205,8 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
             mRecyclerview.setLayoutManager(layoutListManager);
             mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(context, 16)));
             mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerview.getItemAnimator().setAddDuration(250);
+            if (mRecyclerview.getItemAnimator() != null)
+                mRecyclerview.getItemAnimator().setAddDuration(250);
             mRecyclerview.getItemAnimator().setMoveDuration(250);
             mRecyclerview.getItemAnimator().setChangeDuration(250);
             mRecyclerview.getItemAnimator().setRemoveDuration(250);
@@ -217,8 +214,6 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setItemViewCacheSize(30);
-            mRecyclerview.setDrawingCacheEnabled(true);
-            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             mRecyclerview.setAdapter(mAdapter);
             mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -247,6 +242,7 @@ public class VoucherFragment extends BaseFragment<IBoxPresenter> implements IBox
     private void goToVoucherRedeemActivity(VoucherCode voucherResponse, ImageView ivVoucher) {
         Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
+        if (this.getActivity() == null) return;
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
         startActivity(intent, options.toBundle());

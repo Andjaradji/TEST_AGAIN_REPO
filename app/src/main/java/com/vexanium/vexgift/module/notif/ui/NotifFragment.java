@@ -1,18 +1,10 @@
 package com.vexanium.vexgift.module.notif.ui;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +26,12 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.NotificationModel;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenter;
 import com.vexanium.vexgift.module.notif.presenter.INotifPresenterImpl;
 import com.vexanium.vexgift.module.notif.view.INotifView;
-import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -55,8 +44,6 @@ import java.util.Comparator;
 
 import rx.Observable;
 import rx.functions.Action1;
-
-import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_notif)
 public class NotifFragment extends BaseFragment<INotifPresenter> implements INotifView, View.OnClickListener {
@@ -91,8 +78,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
                 dataList = new ArrayList<>(((NotificationResponse) data).getNotifications());
                 initNotifList();
             }
-        } else if (errorResponse != null) {
-
         }
     }
 
@@ -101,13 +86,13 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         mPresenter = new INotifPresenterImpl(this);
         user = User.getCurrentUser(getActivity());
 
-        mRefreshLayout = (SwipeRefreshLayout) fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        mRecyclerview = (RecyclerView) fragmentRootView.findViewById(R.id.notif_recyclerview);
+        mRecyclerview = fragmentRootView.findViewById(R.id.notif_recyclerview);
         layoutListManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
@@ -173,6 +158,9 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mNotifObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_NOTIF_ADDED, mNotifObservable);
+        }
     }
 
     public void loadData() {
@@ -187,40 +175,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         });
         KLog.json("HPtes", JsonUtil.toString(dataList));
     }
-
-    private void setTextSpan(String content, TextView textView, final Voucher voucher, final boolean isNew) {
-
-        int i1 = content.indexOf("[");
-        int i2 = content.indexOf("]") - 1;
-        content = content.replace("[", "<b>").replace("]", "</b>");
-
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(content);
-//        textView.setHighlightColor(isNew ? getResources().getColor(R.color.colorPrimaryDark) : Color.TRANSPARENT);
-
-        if (Build.VERSION.SDK_INT >= 24) {
-            textView.setText(Html.fromHtml(content, FROM_HTML_MODE_LEGACY));
-        } else {
-            textView.setText(Html.fromHtml(content));
-        }
-        SpannableString ss = (SpannableString) textView.getText();
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                if (ClickUtil.isFastDoubleClick()) return;
-                goToVoucherDetailActivity(voucher);
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setColor(getResources().getColor(isNew ? R.color.colorPrimaryDark : R.color.material_black_sub_text_color));
-                ds.setUnderlineText(false);
-            }
-        };
-        ss.setSpan(clickableSpan, i1, i2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
-
 
     public void initNotifList() {
         if (mNotifListAdapter == null) {
@@ -263,9 +217,11 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
             mNotifListAdapter.setHasStableIds(true);
             mRecyclerview.setLayoutManager(layoutListManager);
-            mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
+            if (this.getActivity() != null)
+                mRecyclerview.addItemDecoration(new BaseSpacesItemDecoration(MeasureUtil.dip2px(this.getActivity(), 16)));
             mRecyclerview.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerview.getItemAnimator().setAddDuration(250);
+            if (mRecyclerview.getItemAnimator() != null)
+                mRecyclerview.getItemAnimator().setAddDuration(250);
             mRecyclerview.getItemAnimator().setMoveDuration(250);
             mRecyclerview.getItemAnimator().setChangeDuration(250);
             mRecyclerview.getItemAnimator().setRemoveDuration(250);
@@ -273,8 +229,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
             mRecyclerview.setItemViewCacheSize(30);
-            mRecyclerview.setDrawingCacheEnabled(true);
-            mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             mRecyclerview.setAdapter(mNotifListAdapter);
             mRecyclerview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -299,11 +253,5 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
 
             mRecyclerview.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void goToVoucherDetailActivity(Voucher voucherResponse) {
-        Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
-        intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
-        startActivity(intent);
     }
 }

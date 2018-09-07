@@ -76,13 +76,9 @@ public class MainActivity extends BaseActivity {
     private Observable<Boolean> mClearGuidanceObservable;
     private View boxFragmentView;
     private CountDownTimer animationCountDownTimer;
-    private boolean isAlreadyGuideMyBox = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if(User.getCurrentUser(this) == null){
-//            StaticGroup.logOutClear(this,0);
-//        }else {
         super.onCreate(savedInstanceState);
 
         setToolbar();
@@ -96,7 +92,6 @@ public class MainActivity extends BaseActivity {
             openDeepLink(url);
         }
         handlePushAction();
-//        }
     }
 
     @Override
@@ -122,7 +117,6 @@ public class MainActivity extends BaseActivity {
                 KLog.v("MainActivity", "call: HPtes rxbus guidance called");
                 if (view != null) {
                     boxFragmentView = view;
-//                    view.setBackgroundResource(R.drawable.shape_white_round_rect_with_grey_border);
                 }
             }
         });
@@ -210,16 +204,7 @@ public class MainActivity extends BaseActivity {
         View tokenView = targetView.findViewById(R.id.token_button);
 
         final View vexPointView = homeFragment.mVexPointButton;
-//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
         if (vexPointView == null) return;
-
-        int[] vPos = new int[2];
-        int[] tPos = new int[2];
-        int[] vpPos = new int[2];
-        voucherView.getLocationOnScreen(vPos);
-        KLog.v("MainActivity", "openGuidance: HPtes x : " + vPos[0] + "   y : " + vPos[1]);
-        tokenView.getLocationOnScreen(tPos);
-        vexPointView.getLocationOnScreen(vpPos);
 
         final Overlay overlay = new Overlay()
                 .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
@@ -308,15 +293,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 KLog.v("guidance finish");
-//                resetGuidance(false);
 
                 AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, bubbleToolTip2.view, nextButton.view, nextButton.imNext);
                 ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, bubbleToolTip2.view, nextButton.view, nextButton.imNext);
 
-//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
-//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
-//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
-//                }
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("Finish Open Guidance Home")
                         .putContentType("Guidance")
@@ -337,10 +317,11 @@ public class MainActivity extends BaseActivity {
     public void openGuidanceMyBox1() {
         KLog.v("MainActivity", "openGuidance: guidance open 2");
 
+        if(boxFragmentView == null || homeFragment == null) return;
+
         final View historyView = boxFragmentView.findViewById(R.id.ib_history);
 
         final View vexPointView = homeFragment.mVexPointButton;
-//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
         if (vexPointView == null) return;
 
         final Overlay overlay = new Overlay()
@@ -415,10 +396,6 @@ public class MainActivity extends BaseActivity {
                 AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, nextButton.view, nextButton.imNext);
                 ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, nextButton.view, nextButton.imNext);
 
-//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
-//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
-//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
-//                }
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("Finish Open Guidance Box 1")
                         .putContentType("Guidance")
@@ -440,7 +417,6 @@ public class MainActivity extends BaseActivity {
         KLog.v("MainActivity", "openGuidance: guidance open 2");
 
         final View receiveView = boxFragmentView.findViewById(R.id.ib_receive);
-//        voucherView = homeFragment.getView().findViewById(R.id.voucher_button);
 
         final Overlay overlay = new Overlay()
                 .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
@@ -517,10 +493,6 @@ public class MainActivity extends BaseActivity {
                 TpUtil tpUtil = new TpUtil(App.getContext());
                 tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_MYBOX, true);
 
-//                int appGuidanceStep = GuideStatusCode.getCurrentAppStatusCode();
-//                if (appGuidanceStep == GuideStatusCode.STATUS_NEED_TO_APP_STEP_2.codeNumber()) {
-//                    SpUtil.put(Constant.KEY_APP_GUIDANCE_STEP, GuideStatusCode.STATUS_NEED_TO_APP_STEP_3.codeNumber());
-//                }
                 Answers.getInstance().logContentView(new ContentViewEvent()
                         .putContentName("Finish Open Guidance Box 2")
                         .putContentType("Guidance")
@@ -636,7 +608,6 @@ public class MainActivity extends BaseActivity {
     public void openDeepLink(String url) {
         KLog.v("MainActivity", "openDeepLink: " + url);
 
-        // TODO: 09/08/18 handle Deeplink
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
         Intent intent;
         if (!isAlreadyHandled) {
@@ -696,7 +667,6 @@ public class MainActivity extends BaseActivity {
     public void gotoPage(int page, int secondaryPage) {
         mCustomViewPager.setCurrentItem(page, false);
 
-        //for boxframent
         if (page == 1) {
             Fragment fragment = mainScreenPagerAdapter.getRegisteredFragment(1);
             if (fragment instanceof BoxBaseFragment) {

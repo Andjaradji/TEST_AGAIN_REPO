@@ -32,11 +32,7 @@ public class WalletFragment extends BaseFragment {
     TextView mTvErrorHead, mTvErrorBody;
 
     private RecyclerView mRecycler;
-    private LinearLayoutManager linearLayoutManager;
     private WalletAdapter mAdapter;
-
-    private LinearLayout mMainContainer, mButtonContainer, mRecordContainer;
-    private ImageView mIvComingSoon;
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -53,10 +49,10 @@ public class WalletFragment extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        mMainContainer = fragmentRootView.findViewById(R.id.ll_vex_main);
-        mButtonContainer = fragmentRootView.findViewById(R.id.ll_vex_button_container);
-        mRecordContainer = fragmentRootView.findViewById(R.id.ll_vex_record_container);
-        mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
+        LinearLayout mMainContainer = fragmentRootView.findViewById(R.id.ll_vex_main);
+        LinearLayout mButtonContainer = fragmentRootView.findViewById(R.id.ll_vex_button_container);
+        LinearLayout mRecordContainer = fragmentRootView.findViewById(R.id.ll_vex_record_container);
+        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
 
         //Coming soon view
         mIvComingSoon.setVisibility(View.VISIBLE);
@@ -65,18 +61,20 @@ public class WalletFragment extends BaseFragment {
         mRecordContainer.setVisibility(View.GONE);
 
         if (mIvComingSoon.getVisibility() != View.VISIBLE) {
-            linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             mRecycler.setLayoutManager(linearLayoutManager);
 
             mAdapter = new WalletAdapter(getActivity());
             mRecycler.setAdapter(mAdapter);
 
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                    linearLayoutManager.getOrientation());
-            dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
-            mRecycler.addItemDecoration(dividerItemDecoration);
+            if (getContext() != null && getActivity() != null) {
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                        linearLayoutManager.getOrientation());
+                dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
+                mRecycler.addItemDecoration(dividerItemDecoration);
 
-            setRecordlist(new ArrayList<WalletRecord>());
+                setRecordlist(new ArrayList<WalletRecord>());
+            }
         }
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
