@@ -1,19 +1,25 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -32,6 +38,8 @@ import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
+
+import net.glxn.qrgen.android.QRCode;
 
 import java.io.Serializable;
 
@@ -107,6 +115,18 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 if (voucherGiftCode != null) {
                     code = voucherGiftCode.getCode();
                     KLog.v("SendVoucherActivity", "handleResult: code " + code);
+                    if(!TextUtils.isEmpty(code)){
+                        Bitmap bitmap = QRCode.from(code).withSize(150, 150).bitmap();
+                        ImageView view = findViewById(R.id.iv_qr_code);
+                        Glide.with(App.getContext())
+                                .asBitmap()
+                                .apply(RequestOptions
+                                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                                        .centerCrop()
+                                )
+                                .load(bitmap)
+                                .into(view);
+                    }
                     isGenerated = true;
                     updateView();
                 }
@@ -123,11 +143,13 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
             findViewById(R.id.btn_generate_code).setVisibility(View.GONE);
             findViewById(R.id.ll_send_code_container).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_share_container).setVisibility(View.VISIBLE);
+            findViewById(R.id.iv_qr_code).setVisibility(View.GONE);
             ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_guide));
             ViewUtil.setText(this, R.id.tv_code, code);
         } else {
             findViewById(R.id.btn_generate_code).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_send_code_container).setVisibility(View.GONE);
+            findViewById(R.id.iv_qr_code).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_share_container).setVisibility(View.GONE);
             ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_generated_guide));
         }

@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -8,6 +9,8 @@ import android.widget.EditText;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -47,6 +50,7 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
         }
 
         findViewById(R.id.btn_receive_voucher).setOnClickListener(this);
+        findViewById(R.id.btn_scan).setOnClickListener(this);
 
         Answers.getInstance().logContentView(new ContentViewEvent()
                 .putContentName("Receive Voucher")
@@ -89,6 +93,20 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                toast( "Cancelled");
+            } else {
+                ((EditText) findViewById(R.id.et_code)).setText(result.getContents());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
 
@@ -100,6 +118,16 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
                 } else {
                     doCaptcha();
                 }
+                break;
+            case R.id.btn_scan:
+                IntentIntegrator integrator = new IntentIntegrator(this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setPrompt("Scan a VexGift barcode");
+                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(true);
+                integrator.initiateScan();
+                break;
         }
     }
 

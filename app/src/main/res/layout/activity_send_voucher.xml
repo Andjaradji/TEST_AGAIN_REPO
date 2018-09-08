@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar"
+        android:gravity="center_horizontal"
         android:background="@color/material_white"
         android:orientation="vertical">
 
@@ -145,6 +146,17 @@
             android:text="@string/exchange_send_voucher_guide"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/interval_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:background="@drawable/shape_white_round_rect_with_grey_border"
+            android:contentDescription="@string/image_content_description"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:id="@+id/ll_send_code_container"

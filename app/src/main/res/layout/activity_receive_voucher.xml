@@ -54,7 +54,7 @@
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_receive_text_container"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -71,15 +71,38 @@
                     android:id="@+id/et_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/interval_submain"
+                    android:layout_marginStart="@dimen/interval_submain"
                     android:hint="@string/exchange_receive_voucher_prompt_text"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/btn_scan"
                     android:textColor="@color/material_black_text_color"
                     android:background="@color/transparent"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:textSize="@dimen/text_small_medium" />
 
-            </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/btn_scan"
+                    android:background="@color/material_grey_d8"/>
+
+                <LinearLayout
+                    android:id="@id/btn_scan"
+                    android:gravity="center"
+                    android:layout_width="50dp"
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_tiny"
+                        android:layout_height="@dimen/icon_tiny"
+                        android:src="@drawable/ic_qr_code"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/btn_receive_voucher"
