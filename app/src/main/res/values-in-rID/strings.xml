@@ -280,7 +280,7 @@
     <string name="appversion_need_update_goto_gp">Menuju Google Play dalam %s detik</string>
     <string name="sort_by_price_asc">Harga Termahal</string>
     <string name="share_voucher_template">Hai Saya menemukan voucher bagus untukmu. Cek disini : %s</string>
-    <string name="exchange_send_voucher_share_text">Hai Saya punya hadiah untukmu, Voucher %s. Buka aplikasi Vexgift dan gunakan kode ini untuk mendapatkan voucher</string>
+    <string name="exchange_send_voucher_share_text">Hai Saya punya hadiah untukmu, Voucher %s. Buka aplikasi Vexgift dan gunakan kode ini untuk mendapatkan voucher\n\nKode: %s\n\n%s</string>
     <string name="myprofile_id_info">Dokumen Identitas</string>
     <string name="term_agree">Saya sudah membaca dan menyetujui  aturan penggunaan</string>
     <string name="exchange_send_voucher_warning_dialog_desc">Jika kamu menghadiahkan voucher ini, kamu tidak dapat menggunakan voucher ini lagi</string>
