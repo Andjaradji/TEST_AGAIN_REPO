@@ -12,6 +12,7 @@ import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
+import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
@@ -695,5 +696,11 @@ public class RetrofitManager {
 
         return mUserService.getUserNotification(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NotificationResponse>>());
     }
+
+    public Observable<HttpResponse<CountriesResponse>> requestCountryList() {
+            Map<String, Object> params = Api.getBasicParam();
+
+            return mOtherService.getCountries(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
+        }
 
 }

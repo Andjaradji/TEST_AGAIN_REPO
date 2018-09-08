@@ -9,4 +9,6 @@ public interface IProfilePresenter extends BasePresenter {
     void submitKyc(Kyc kyc);
 
     void changePass(int id, String oldPass, String newPass);
+
+    void getCountries();
 }

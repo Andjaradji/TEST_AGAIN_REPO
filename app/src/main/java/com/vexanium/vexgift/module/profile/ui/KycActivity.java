@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -29,14 +31,17 @@ import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
+import com.vexanium.vexgift.bean.model.Country;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -44,6 +49,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_kyc, toolbarTitle = R.string.myprofile_kyc, withLoadingAnim = true)
 public class KycActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
@@ -51,6 +57,12 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
     String frontIdView;
     String backIdView;
     String selfieIdView;
+
+    ArrayList<Country> countries = new ArrayList<>();
+
+    TpUtil tpUtil;
+
+    Spinner spCountry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,31 +88,40 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         spDocTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDocType.setAdapter(spDocTypeAdapter);
 
-        Spinner spCountry = findViewById(R.id.sp_country);
-        ArrayAdapter<String> spCountryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, FixtureData.countries) {
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
-                return view;
-            }
-        };
-        spCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spCountry.setAdapter(spCountryAdapter);
+        spCountry = findViewById(R.id.sp_country);
 
-        ViewUtil.setOnClickListener(this, this,
-                R.id.btn_next,
-                R.id.ll_document_front_button,
-                R.id.ll_document_back_button,
-                R.id.ll_document_selfie_button);
+
+        tpUtil = new TpUtil(this);
+        String countriesStr = tpUtil.getString(TpUtil.KEY_COUNTRY_LIST, "");
+        if (!TextUtils.isEmpty(countriesStr)) {
+            try {
+                countries = (ArrayList<Country>) JsonUtil.toObject(countriesStr, CountriesResponse.class);
+            }catch (Exception e){
+                mPresenter.getCountries();
+            }
+        }else{
+            mPresenter.getCountries();
+        }
+
+        if(countries!=null) {
+            updateCountryAdapter();
+            ViewUtil.setOnClickListener(this, this,
+                    R.id.btn_next,
+                    R.id.ll_document_front_button,
+                    R.id.ll_document_back_button,
+                    R.id.ll_document_selfie_button);
+        }
     }
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("KycActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-
+            if(data instanceof CountriesResponse){
+                tpUtil.put(TpUtil.KEY_COUNTRY_LIST,JsonUtil.toString(data));
+                countries = ((CountriesResponse) data).getCountryArrayList();
+                updateCountryAdapter();
+            }
 
         } else if (errorResponse != null) {
             KLog.v("MyProfileActivity handleResult error : " + errorResponse.getMeta().getMessage());
@@ -167,6 +188,36 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         }
     }
 
+    private void updateCountryAdapter(){
+        ArrayAdapter<Country> spCountryAdapter = new ArrayAdapter<Country>(this, android.R.layout.simple_spinner_item, countries) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                TextView view = (TextView) super.getView(position, convertView, parent);
+                view.setText(countries.get(position).getCountryName());
+                view.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                TextView label = (TextView) super.getDropDownView(position, convertView, parent);
+                label.setText(countries.get(position).getCountryName());
+
+                return label;
+            }
+
+            @Nullable
+            @Override
+            public Country getItem(int position) {
+                return super.getItem(position);
+            }
+        };
+        spCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCountry.setAdapter(spCountryAdapter);
+    }
+
     private String setIdPhoto(Uri selectedUri, @IdRes int idRes) {
         if (selectedUri != null) {
             ViewUtil.setImageUrl(KycActivity.this, idRes, selectedUri);
@@ -202,7 +253,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
         String name = ((TextInputEditText) findViewById(R.id.et_myprofile_name)).getText().toString();
         String idType = (String) ((Spinner) findViewById(R.id.sp_document_type)).getSelectedItem();
-        String country = (String) ((Spinner) findViewById(R.id.sp_country)).getSelectedItem();
+        String country = ((Country) ((Spinner) findViewById(R.id.sp_country)).getSelectedItem()).getCountryName();
         String idNumber = ((TextInputEditText) findViewById(R.id.myprofile_id_number)).getText().toString();
         CheckBox checkBox = (findViewById(R.id.cb_addree));
 

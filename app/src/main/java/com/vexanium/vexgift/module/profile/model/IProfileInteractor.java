@@ -11,4 +11,6 @@ public interface IProfileInteractor<T> {
     Subscription submitKyc(RequestCallback<T> callback, Kyc kyc);
 
     Subscription changePassword(RequestCallback<T> callback, int id, String password, String newPassword);
+
+    Subscription getCountries(RequestCallback<T> callback);
 }
