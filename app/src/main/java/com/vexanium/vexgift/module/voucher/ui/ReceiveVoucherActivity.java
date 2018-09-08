@@ -126,6 +126,7 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
                 integrator.setCameraId(0);  // Use a specific camera of the device
                 integrator.setBeepEnabled(false);
                 integrator.setBarcodeImageEnabled(true);
+                integrator.setOrientationLocked(false);
                 integrator.initiateScan();
                 break;
         }
