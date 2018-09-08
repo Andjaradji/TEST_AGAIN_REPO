@@ -143,15 +143,17 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
             findViewById(R.id.btn_generate_code).setVisibility(View.GONE);
             findViewById(R.id.ll_send_code_container).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_share_container).setVisibility(View.VISIBLE);
-            findViewById(R.id.iv_qr_code).setVisibility(View.GONE);
-            ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_guide));
+            findViewById(R.id.iv_qr_code).setVisibility(View.VISIBLE);
             ViewUtil.setText(this, R.id.tv_code, code);
+            ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_generated_guide));
+
         } else {
             findViewById(R.id.btn_generate_code).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_send_code_container).setVisibility(View.GONE);
-            findViewById(R.id.iv_qr_code).setVisibility(View.VISIBLE);
+            findViewById(R.id.iv_qr_code).setVisibility(View.GONE);
             findViewById(R.id.ll_share_container).setVisibility(View.GONE);
-            ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_generated_guide));
+            ViewUtil.setText(this, R.id.tv_guidance, getString(R.string.exchange_send_voucher_guide));
+
         }
     }
 

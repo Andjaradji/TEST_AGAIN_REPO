@@ -229,6 +229,9 @@
 
         <activity android:name=".module.vexpoint.ui.VexPointGuideActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
