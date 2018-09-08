@@ -121,10 +121,10 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
                 break;
             case R.id.btn_scan:
                 IntentIntegrator integrator = new IntentIntegrator(this);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
                 integrator.setPrompt("Scan a VexGift barcode");
                 integrator.setCameraId(0);  // Use a specific camera of the device
-                integrator.setBeepEnabled(false);
+                integrator.setBeepEnabled(true);
                 integrator.setBarcodeImageEnabled(true);
                 integrator.setOrientationLocked(false);
                 integrator.initiateScan();
