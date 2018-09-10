@@ -51,4 +51,10 @@ public class IGoogleAuthStatePresenterImpl extends BasePresenterImpl<IGoogleAuth
         Subscription subscription = mGoogleAuthStateInteractor.updateGoogle2faState(this, id, key, token, isSetToEnable);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestCode(int id) {
+        Subscription subscription = mGoogleAuthStateInteractor.requestCode(this, id);
+        compositeSubscription.add(subscription);
+    }
 }

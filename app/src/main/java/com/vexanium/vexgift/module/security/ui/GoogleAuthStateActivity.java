@@ -8,11 +8,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
@@ -33,6 +35,9 @@ import java.io.Serializable;
 public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresenter> implements IGoogleAuthStateView {
 
     Boolean isEnable;
+    User user;
+    Google2faResponse google2faResponse;
+    TpUtil tpUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +51,18 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
 
     @Override
     protected void initView() {
+        user = User.getCurrentUser(this);
         mPresenter = new IGoogleAuthStatePresenterImpl(this);
+        tpUtil = new TpUtil(this);
 
         findViewById(R.id.btn_next).setOnClickListener(this);
+
+        String g2faString = tpUtil.getString(TpUtil.KEY_GOOGLE2FA, "");
+        if (!TextUtils.isEmpty(g2faString)) {
+            google2faResponse = (Google2faResponse) JsonUtil.toObject(g2faString, Google2faResponse.class);
+        }else{
+            mPresenter.requestCode(user.getId());
+        }
     }
 
     @Override
@@ -65,7 +79,11 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("KycActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-
+            if(data instanceof Google2faResponse){
+                google2faResponse = (Google2faResponse) data;
+                tpUtil = new TpUtil(this);
+                tpUtil.put(TpUtil.KEY_GOOGLE2FA, JsonUtil.toString(google2faResponse));
+            }
 
         } else if (errorResponse != null) {
             KLog.v("MyProfileActivity handleResult error : " + errorResponse.getMeta().getMessage());
@@ -88,7 +106,7 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
             }
         } else {
             isEnable = !isEnable;
-
+            Toast.makeText(this, "isenable = "+isEnable, Toast.LENGTH_SHORT).show();
             User updatedUser = User.getCurrentUser(this);
             updatedUser.setAuthenticatorEnable(isEnable);
             User.updateCurrentUser(this, updatedUser);
@@ -125,20 +143,13 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
             isValid = false;
         }
 
-        TpUtil tpUtil = new TpUtil(this);
-        Google2faResponse google2faResponse = null;
-        String g2faString = tpUtil.getString(TpUtil.KEY_GOOGLE2FA, "");
-        if (!TextUtils.isEmpty(g2faString)) {
-            google2faResponse = (Google2faResponse) JsonUtil.toObject(g2faString, Google2faResponse.class);
+        if (isValid && google2faResponse != null) {
+            mPresenter.updateGoogle2faState(user.getId(), google2faResponse.getAuthenticationCode(), code, isSetToEnable);
+        }else if(google2faResponse == null){
+            mPresenter.requestCode(user.getId());
+            StaticGroup.showCommonErrorDialog(this, "Google2fa key not found");
         }
 
-        User user = User.getCurrentUser(App.getContext());
-        if (user != null) {
-            int id = user.getId();
-            if (isValid && google2faResponse != null) {
-                mPresenter.updateGoogle2faState(id, google2faResponse.getAuthenticationCode(), code, isSetToEnable);
-            }
-        }
     }
 
     private void setContent(boolean isEnable) {
@@ -151,5 +162,9 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
             ((TextView) findViewById(R.id.tv_desc)).setText(getString(R.string.google2fa_disable_desc));
             ((TextView) findViewById(R.id.tv_button)).setText(getString(R.string.security_google2fa_disable));
         }
+    }
+
+    private void updateGoogle2faState(){
+
     }
 }
