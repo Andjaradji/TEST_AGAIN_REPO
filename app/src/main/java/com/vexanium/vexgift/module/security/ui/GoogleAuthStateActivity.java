@@ -31,7 +31,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_google_auth_enable, toolbarTitle = R.string.security_google_auth_label)
+@ActivityFragmentInject(contentViewId = R.layout.activity_google_auth_enable, toolbarTitle = R.string.security_google_auth_label, withLoadingAnim = true)
 public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresenter> implements IGoogleAuthStateView {
 
     Boolean isEnable;
@@ -106,7 +106,6 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
             }
         } else {
             isEnable = !isEnable;
-            Toast.makeText(this, "isenable = "+isEnable, Toast.LENGTH_SHORT).show();
             User updatedUser = User.getCurrentUser(this);
             updatedUser.setAuthenticatorEnable(isEnable);
             User.updateCurrentUser(this, updatedUser);
@@ -147,7 +146,6 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
             mPresenter.updateGoogle2faState(user.getId(), google2faResponse.getAuthenticationCode(), code, isSetToEnable);
         }else if(google2faResponse == null){
             mPresenter.requestCode(user.getId());
-            StaticGroup.showCommonErrorDialog(this, "Google2fa key not found");
         }
 
     }

@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,9 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.VexPointRecord;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
 
 import java.util.ArrayList;
 
@@ -92,6 +95,14 @@ public class PointRecordFragment extends BaseFragment {
                 }
             }
         });
+
+        TpUtil tpUtil = new TpUtil(getActivity());
+        String userVpRecord = tpUtil.getString(TpUtil.KEY_USER_VP_RECORD, "");
+        if(!TextUtils.isEmpty(userVpRecord)){
+            VexPointRecordResponse vexPointRecordResponse = (VexPointRecordResponse) JsonUtil.toObject(userVpRecord, VexPointRecordResponse.class);
+            dataList.clear();
+            dataList.addAll(vexPointRecordResponse.getVexPointLogs());
+        }
 
         populateData();
 

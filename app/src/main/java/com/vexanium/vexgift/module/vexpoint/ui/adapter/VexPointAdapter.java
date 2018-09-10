@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.vexpoint.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,14 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
             holder.mVpMainText.setText(data.getVoucher().getTitle());
         }
 
-        holder.mVpSubText.setText(data.getCreatedAtDate());
+        String date = data.getCreatedAtDate() + Html.fromHtml("&nbsp;");
+        holder.mVpSubText.setText(date);
 
         holder.mVpMainText.setSelected(true);
         holder.mVpSubText.setSelected(true);
 
         holder.ivArrow.setRotation(270);
+        holder.ivArrow.setVisibility(View.GONE);
 
         if (data.getVpLogTypeId() < 2) {
             holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
@@ -65,6 +68,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
 
         switch (data.getVpLogTypeId()) {
             case 1:
+                holder.ivArrow.setVisibility(View.VISIBLE);
                 holder.mContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

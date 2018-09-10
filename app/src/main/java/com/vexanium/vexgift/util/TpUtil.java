@@ -19,6 +19,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_GOOGLE2FA_LOCK = "key_google2fa_lock";
     public static String KEY_LAST_ACTIVE_TIME = "key_last_active_time";
     public static String KEY_USER_ADDRESS = "key_user_address";
+    public static String KEY_USER_VP_RECORD = "key_user_vp_record";
     public static String KEY_REFERRER = "key_referrer";
     public static String KEY_LAST_EMAIL_SEND_TIME = "key_time_email";
     public static String KEY_USER_PREMIUM_DUE_DATE = "key_user_premium_due_date";
@@ -70,6 +71,9 @@ public class TpUtil extends TrayPreferences {
 
         put(TpUtil.KEY_IS_LATEST_CHECK_VERSION, "");
         remove(TpUtil.KEY_IS_LATEST_CHECK_VERSION);
+
+        put(TpUtil.KEY_USER_VP_RECORD, "");
+        remove(TpUtil.KEY_USER_VP_RECORD);
     }
 
 

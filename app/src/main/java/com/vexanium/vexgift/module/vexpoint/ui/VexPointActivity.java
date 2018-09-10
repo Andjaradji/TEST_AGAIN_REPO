@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -70,6 +71,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private View notifView;
     private Subscription timeSubsription;
     private User user;
+    TpUtil tpUtil;
     private boolean isTimeUp;
 
     @Override
@@ -82,6 +84,8 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     protected void initView() {
         mPresenter = new IVexpointPresenterImpl(this);
         user = User.getCurrentUser(this);
+        tpUtil = new TpUtil(App.getContext());
+
         findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +111,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.iv_ask).setOnClickListener(this);
 
-        TpUtil tpUtil = new TpUtil(App.getContext());
+
         boolean isFirstTimeOpenVexPoint = tpUtil.getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_VP, false);
         if (!isFirstTimeOpenVexPoint) {
             Intent intent = new Intent(this, VexPointGuideActivity.class);
@@ -132,7 +136,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                 if (userAddressResponse != null && userAddressResponse.getUserAddress() != null) {
                     UserAddress userAddress = userAddressResponse.getUserAddress();
 
-                    TpUtil tpUtil = new TpUtil(this);
                     tpUtil.put(TpUtil.KEY_USER_ADDRESS, JsonUtil.toString(userAddress));
 
                     if (userAddress.getStatus() == 1) {
@@ -145,6 +148,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
                     updateView();
                 }
             } else if (data instanceof VexPointRecordResponse) {
+                tpUtil.put(TpUtil.KEY_USER_VP_RECORD, JsonUtil.toString(data));
                 RxBus.get().post(RxBus.KEY_VP_RECORD_ADDED, (data));
             }
         } else if (errorResponse != null) {
