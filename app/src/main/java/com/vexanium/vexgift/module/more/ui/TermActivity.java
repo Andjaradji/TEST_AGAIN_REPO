@@ -52,7 +52,7 @@ public class TermActivity extends BaseActivity {
                 mWvTerm.startAnimation(fadeIn);
             }
         });
-        mWvTerm.loadUrl("http://www.vexgift.com/term.html");
+        mWvTerm.loadUrl("http://www.vexgift.com/term");
     }
 
     @Override

@@ -53,7 +53,7 @@ public class FaqActivity extends BaseActivity {
             }
         });
         mWvTerm.getSettings().setJavaScriptEnabled(true);
-        mWvTerm.loadUrl("http://www.vexgift.com/faq.html");
+        mWvTerm.loadUrl("http://www.vexgift.com/faq");
     }
 
     @Override

@@ -52,7 +52,7 @@ public class PrivacyActivity extends BaseActivity {
                 mWvPrivacy.startAnimation(fadeIn);
             }
         });
-        mWvPrivacy.loadUrl("http://www.vexgift.com/privacy.html");
+        mWvPrivacy.loadUrl("http://www.vexgift.com/privacy");
     }
 
     @Override
