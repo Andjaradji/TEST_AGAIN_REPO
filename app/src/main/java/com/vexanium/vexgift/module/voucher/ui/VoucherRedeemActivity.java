@@ -221,9 +221,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 VoucherCodeResponse voucherCodeResponse = (VoucherCodeResponse) data;
 
                 if (voucherCodeResponse != null && voucherCodeResponse.getVoucherCode() != null) {
-
 //                        Voucher voucher = voucherCodeResponse.getVoucherCode().getVoucher();
-
                     if (voucher.isThirdParty()) {
                         voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
                         state = VOUCHER_3RD_REDEEMED;
@@ -231,6 +229,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
                         state = VOUCHER_ONLINE_REDEEMED;
                     } else if (voucher.isVendorCode()) {
+                        voucherCode.setVoucherCode(voucherCodeResponse.getVoucherCode().getVoucherCode());
                         state = VOUCHER_VENDOR_IN_REDEEM_PROCESS;
                     } else if (voucher.isToken()) {
                         voucherCode.setAddress(voucherCodeResponse.getVoucherCode().getAddress());
@@ -542,6 +541,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_deactivated_voucher));
+                setCode(voucherCode.getVoucherCode());
                 break;
             case VOUCHER_VENDOR_REDEEMED:
                 KLog.v("VoucherRedeemActivity", "updateView: VOUCHER REDEEMED");

@@ -570,10 +570,10 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
 
-        if (!TextUtils.isEmpty(voucherCode))
-            params.put("vendorCode", vendorCode);
+        if (!TextUtils.isEmpty(vendorCode))
+            params.put("vendor_code", vendorCode);
 
-        params.put("voucherCode", "");
+        params.put("voucher_code", "");
         params.put("voucher_id", voucherId);
 
         if (!TextUtils.isEmpty(address))

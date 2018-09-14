@@ -32,6 +32,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
@@ -150,7 +151,10 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 break;
             case R.id.btn_claim:
                 if (voucher.getVoucherTypeId() != 5) {
-                    if (voucher.getQtyAvailable() == 0) {
+                    if (voucher.isForPremium() && !user.isPremiumMember()) {
+                        StaticGroup.showPremiumMemberDialog(this);
+                    }
+                    else if (voucher.getQtyAvailable() == 0) {
                         new VexDialog.Builder(this)
                                 .optionType(DialogOptionType.OK)
                                 .title(getString(R.string.voucher_soldout_dialog_title))

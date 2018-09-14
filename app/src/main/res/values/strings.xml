@@ -537,12 +537,12 @@
     <string name="guidance_box_1">View your used voucher here
 Your expired and used voucher will be shown here</string>
     <string name="guidance_box_2">You can get receive voucher from friend here. Just input the gift code and the voucher is yours</string>
-    
+
     <string name="guidance_vp_title_1">How To Get Vex Point ?</string>
     <string name="guidance_vp_title_2">1. Top up VEX on Your Wallet</string>
     <string name="guidance_vp_title_3">2. Wait for Snapshot</string>
     <string name="guidance_vp_title_4">3. See Snapshot Details</string>
-    
+
     <string name="guidance_vp_subtitle_1">Collect Vex Point by Holding Vex</string>
     <string name="guidance_vp_subtitle_2">Top Up Vex and Collect Vex Point Everyday</string>
     <string name="guidance_vp_subtitle_3">Snapshot is Running Every day</string>
@@ -565,9 +565,11 @@ Your expired and used voucher will be shown here</string>
     <string name="vex_point_snap2">Amount of VEX to be counted in next 2 snapshot</string>
     <string name="vex_point_snap3">Amount of VEX counted in this snapshot</string>
 
+    <string name="deposit_title">Deposit Loyalty Program</string>
+
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="asset_statements" translatable="false">[{ \"include\": \"https://www.vexgift.com/.well-known/assetlinks.json\" }]</string>
-    
+
 </resources>

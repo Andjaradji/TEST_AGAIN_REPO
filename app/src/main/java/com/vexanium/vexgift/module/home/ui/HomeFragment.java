@@ -675,11 +675,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     public void onClick(View v) {
                         if (ClickUtil.isFastDoubleClick()) return;
                         if (HomeFragment.this.getActivity() != null) {
-                            if (item.isForPremium() && !user.isPremiumMember()) {
-                                StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
-                            } else {
-                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
-                            }
+                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
                         }
                     }
                 });
@@ -752,11 +748,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                     @Override
                     public void onClick(View v) {
                         if (HomeFragment.this.getActivity() != null) {
-                            if (item.isForPremium() && !user.isPremiumMember()) {
-                                StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
-                            } else {
-                                StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
-                            }
+                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
                         }
                     }
                 });
