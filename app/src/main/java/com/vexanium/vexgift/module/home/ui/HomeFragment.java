@@ -517,10 +517,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    //((MainActivity) getActivity()).gotoPage(2, 0);
-                                    //TODO change back to wallet
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
-                                    startActivity(intent);
+                                    ((MainActivity) getActivity()).gotoPage(2, 0);
+                                    //TODO uncomment to try deposit
+                                    //Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                    //startActivity(intent);
                                 }
                             });
                         }
