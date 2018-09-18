@@ -209,6 +209,8 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
             @Override
             public void onRefresh() {
                 updateData();
+                resetFilter();
+                resetSort();
             }
         });
 

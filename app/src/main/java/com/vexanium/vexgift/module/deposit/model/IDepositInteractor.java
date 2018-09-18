@@ -5,5 +5,5 @@ import com.vexanium.vexgift.callback.RequestCallback;
 import rx.Subscription;
 
 public interface IDepositInteractor<T> {
-
+    Subscription requestDepositList(RequestCallback<T> callback, int id);
 }

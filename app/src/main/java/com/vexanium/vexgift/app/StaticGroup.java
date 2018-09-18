@@ -94,6 +94,7 @@ import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
  */
 
 public class StaticGroup {
+    public static final int DEPOSIT = 0;
     public static final int SHORTCUT_BAR = 1;
     public static final int HOT_LIST = 2;
     public static final int EXPLORE_BAR = 3;
