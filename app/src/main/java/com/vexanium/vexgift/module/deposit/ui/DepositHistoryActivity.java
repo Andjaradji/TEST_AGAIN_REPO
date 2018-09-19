@@ -20,10 +20,8 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserDeposit;
-import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
-import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.database.TableDepositDaoUtil;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenter;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenterImpl;
@@ -31,7 +29,6 @@ import com.vexanium.vexgift.module.deposit.view.IDepositView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
-import com.vexanium.vexgift.util.TpUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,12 +37,10 @@ import java.util.ArrayList;
 public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> implements IDepositView {
 
     UserDepositResponse userDepositResponse;
-    private ArrayList<UserDeposit> userDeposits;
-
     GridLayoutManager layoutListManager;
     BaseRecyclerAdapter<UserDeposit> mAdapter;
     RecyclerView mRecyclerview;
-
+    private ArrayList<UserDeposit> userDeposits;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
 
@@ -63,12 +58,11 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
 
         userDepositResponse = TableDepositDaoUtil.getInstance().getUserDepositListResponse();
         if (userDepositResponse != null) {
-            KLog.v("DepositHistoryActivity","initView: HPtes tidak kosong");
+            KLog.v("DepositHistoryActivity", "initView: HPtes tidak kosong");
 
             userDeposits = userDepositResponse.getUserDeposits();
-        }
-        else {
-            KLog.v("DepositHistoryActivity","initView: HPtes kosong");
+        } else {
+            KLog.v("DepositHistoryActivity", "initView: HPtes kosong");
         }
         if (userDeposits == null) {
             userDeposits = new ArrayList<>();
@@ -95,7 +89,7 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         mRefreshLayout.setRefreshing(false);
         if (data != null) {
-           if (data instanceof UserDepositResponse) {
+            if (data instanceof UserDepositResponse) {
                 UserDepositResponse userDepositResponse = (UserDepositResponse) data;
                 TableDepositDaoUtil.getInstance().saveUserDepositsToDb(JsonUtil.toString(userDepositResponse));
 
@@ -145,7 +139,7 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
                     holder.setOnClickListener(R.id.rl_deposit_history_item, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(ClickUtil.isFastDoubleClick())return;
+                            if (ClickUtil.isFastDoubleClick()) return;
                             Intent intent = new Intent(DepositHistoryActivity.this, DepositListActivity.class);
                             intent.putExtra("user_deposit", JsonUtil.toString(item));
                             startActivity(intent);

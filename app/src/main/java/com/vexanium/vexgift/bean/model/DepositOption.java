@@ -26,6 +26,10 @@ public class DepositOption implements Serializable {
     private int quantityAvailable;
     @JsonProperty("quantity_left")
     private int quantityLeft;
+    @JsonProperty("created_at")
+    private String createdAt;
+    @JsonProperty("updated_at")
+    private String updatedAt;
 
     public int getId() {
         return id;
@@ -114,11 +118,6 @@ public class DepositOption implements Serializable {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    @JsonProperty("created_at")
-    private String createdAt;
-    @JsonProperty("updated_at")
-    private String updatedAt;
 
 
 }

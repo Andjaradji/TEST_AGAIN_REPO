@@ -248,7 +248,7 @@ public class TokenFragment extends BaseFragment<IBoxPresenter> implements IBoxVi
     private void goToVoucherRedeemActivity(VoucherCode voucherResponse, ImageView ivVoucher) {
         Intent intent = new Intent(this.getActivity(), VoucherRedeemActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucherResponse));
-        if(this.getActivity() == null) return;
+        if (this.getActivity() == null) return;
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this.getActivity(), ivVoucher, "voucher_image");
         startActivity(intent, options.toBundle());

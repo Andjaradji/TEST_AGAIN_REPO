@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.bean.model.UserDeposit;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDepositSingleResponse implements Serializable {

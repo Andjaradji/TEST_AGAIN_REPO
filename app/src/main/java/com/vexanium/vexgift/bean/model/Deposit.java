@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Deposit implements Serializable {
@@ -37,6 +33,8 @@ public class Deposit implements Serializable {
     private String createdAt;
     @JsonProperty("updated_at")
     private String updatedAt;
+    @JsonProperty("deposit_option")
+    private ArrayList<DepositOption> depositOptions;
 
     public int getId() {
         return id;
@@ -141,9 +139,5 @@ public class Deposit implements Serializable {
     public void setDepositOptions(ArrayList<DepositOption> depositOptions) {
         this.depositOptions = depositOptions;
     }
-
-
-    @JsonProperty("deposit_option")
-    private ArrayList<DepositOption> depositOptions;
 
 }

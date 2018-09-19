@@ -45,9 +45,8 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
     BaseRecyclerAdapter<Deposit> mAdapter;
     ArrayList<Deposit> deposits;
     GridLayoutManager layoutListManager;
-    private SwipeRefreshLayout mRefreshLayout;
-
     RecyclerView mRecyclerview;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +117,7 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
 
             } else if (data instanceof UserDepositResponse) {
                 UserDepositResponse userDepositResponse = (UserDepositResponse) data;
-                KLog.json("DepositActivity","HPtes: "+JsonUtil.toString(userDepositResponse));
+                KLog.json("DepositActivity", "HPtes: " + JsonUtil.toString(userDepositResponse));
                 TableDepositDaoUtil.getInstance().saveUserDepositsToDb(JsonUtil.toString(userDepositResponse));
             }
         } else if (errorResponse != null) {

@@ -1197,7 +1197,7 @@ public class StaticGroup {
         return filteredVoucher;
     }
 
-    public static String getDate(String mDate){
+    public static String getDate(String mDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");

@@ -317,7 +317,7 @@ public class MainActivity extends BaseActivity {
     public void openGuidanceMyBox1() {
         KLog.v("MainActivity", "openGuidance: guidance open 2");
 
-        if(boxFragmentView == null || homeFragment == null) return;
+        if (boxFragmentView == null || homeFragment == null) return;
 
         final View historyView = boxFragmentView.findViewById(R.id.ib_history);
 

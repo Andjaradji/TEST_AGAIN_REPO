@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDeposit implements Serializable{
+public class UserDeposit implements Serializable {
     @JsonProperty("id")
     private int id;
     @JsonProperty("user_id")

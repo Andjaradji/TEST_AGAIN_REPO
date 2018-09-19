@@ -95,9 +95,9 @@ public class ReceiveVoucherActivity extends BaseActivity<IVoucherPresenter> impl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                toast( "Cancelled");
+        if (result != null) {
+            if (result.getContents() == null) {
+                toast("Cancelled");
             } else {
                 ((EditText) findViewById(R.id.et_code)).setText(result.getContents());
             }

@@ -12,7 +12,6 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,6 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.BestVoucher;
-import com.vexanium.vexgift.bean.model.Deposit;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
@@ -53,7 +51,6 @@ import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
-import com.vexanium.vexgift.module.deposit.ui.DepositListActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
@@ -84,7 +81,6 @@ import rx.functions.Action1;
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
 import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
-import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.IMG_BANNER;
@@ -463,7 +459,6 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
 
 
-
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }
@@ -612,7 +607,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if(ClickUtil.isFastDoubleClick())return;
+                                if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
                                 startActivity(intent);
                             }

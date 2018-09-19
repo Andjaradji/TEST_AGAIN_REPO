@@ -3,7 +3,6 @@ package com.vexanium.vexgift.bean.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.bean.model.Deposit;
-import com.vexanium.vexgift.bean.model.PremiumPlan;
 
 import java.io.Serializable;
 import java.util.ArrayList;

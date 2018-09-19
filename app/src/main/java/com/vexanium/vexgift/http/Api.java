@@ -27,7 +27,7 @@ public class Api {
             case HostType.COMMON_API: {
                 boolean isDevEnv = BuildConfig.TARGET_ENV.equals("development");
 //                if(isDevEnv)
-                    return DEV_API_HOST;
+                return DEV_API_HOST;
 //                return String.format("%s://%s/", isDevEnv ? "https" : "https", API_HOST);
 //                return API_HOST;
             }

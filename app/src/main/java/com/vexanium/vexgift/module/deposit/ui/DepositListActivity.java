@@ -62,28 +62,21 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     public static final int STATE_PENDING = 1002;
     public static final int STATE_CONFIRMED = 1003;
     public static final int STATE_REJECTED = 1004;
-
+    public int selectedOption = -1;
     FrameLayout mFlFragmentContainer;
-
     ImageView mIvHeaderIcon;
     TextView mTvHeaderStep, mTvHeaderTitle;
-    private Subscription timeSubsription;
     GridLayoutManager layoutListManager;
     BaseRecyclerAdapter<DepositOption> mAdapter;
-    private SwipeRefreshLayout mRefreshLayout;
-
     ArrayList<DepositOption> depositOptions;
     DepositOption selectedDepositOption;
-
     RecyclerView mRecyclerview;
     UserDepositSingleResponse userDepositResponse;
-
     UserDeposit userDeposit;
-
     User user;
-
     int state = STATE_CHOOSE;
-    public int selectedOption = -1;
+    private Subscription timeSubsription;
+    private SwipeRefreshLayout mRefreshLayout;
     private int depositId = -1;
 
     @Override
@@ -217,15 +210,15 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                 }
             } else if (data instanceof UserDepositResponse) {
                 UserDepositResponse userDepositResponse = (UserDepositResponse) data;
-                KLog.json("DepositActivity","HPtes: "+JsonUtil.toString(userDepositResponse));
+                KLog.json("DepositActivity", "HPtes: " + JsonUtil.toString(userDepositResponse));
                 TableDepositDaoUtil.getInstance().saveUserDepositsToDb(JsonUtil.toString(userDepositResponse));
 
                 userDeposit = userDepositResponse.findUserDepositById(userDeposit.getId());
                 if (userDeposit.getStatus() == 0) {
                     state = STATE_PENDING;
-                }else if(userDeposit.getStatus() == 1){
+                } else if (userDeposit.getStatus() == 1) {
                     state = STATE_CONFIRMED;
-                }else if(userDeposit.getStatus() == 2){
+                } else if (userDeposit.getStatus() == 2) {
                     state = STATE_REJECTED;
                 }
                 updateView();

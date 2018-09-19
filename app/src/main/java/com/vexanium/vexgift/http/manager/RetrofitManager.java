@@ -701,9 +701,9 @@ public class RetrofitManager {
     }
 
     public Observable<HttpResponse<CountriesResponse>> requestCountryList() {
-            Map<String, Object> params = Api.getBasicParam();
+        Map<String, Object> params = Api.getBasicParam();
 
-            return mOtherService.getCountries(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
+        return mOtherService.getCountries(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
     }
 
     public Observable<HttpResponse<DepositListResponse>> requestDepositList(int userId) {

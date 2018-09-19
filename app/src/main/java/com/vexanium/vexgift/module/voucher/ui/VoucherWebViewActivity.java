@@ -51,7 +51,7 @@ public class VoucherWebViewActivity extends BaseActivity {
         if (getIntent().hasExtra("voucher")) {
             if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
                 voucher = (Voucher) JsonUtil.toObject(getIntent().getStringExtra("voucher"), Voucher.class);
-                if(voucher.getId() == 5 || voucher.getId() == 6){
+                if (voucher.getId() == 5 || voucher.getId() == 6) {
                     isKFC3rd = true;
                 }
             }
@@ -71,7 +71,7 @@ public class VoucherWebViewActivity extends BaseActivity {
         mWebView.getSettings().setJavaScriptEnabled(true);
 
         showProgress();
-        KLog.v("VoucherWebViewActivity","initView: HPtes url "+url);
+        KLog.v("VoucherWebViewActivity", "initView: HPtes url " + url);
         mWebView.loadUrl(url);
 
         CookieManager cookieManager = CookieManager.getInstance();
@@ -134,7 +134,7 @@ public class VoucherWebViewActivity extends BaseActivity {
                 if (uri.getScheme().contains("http")) {
                     showProgress();
                 }
-                KLog.v("VoucherWebViewClient","shouldOverrideUrlLoading: "+url);
+                KLog.v("VoucherWebViewClient", "shouldOverrideUrlLoading: " + url);
                 handleWebPageUrl(url);
             }
 
@@ -169,7 +169,7 @@ public class VoucherWebViewActivity extends BaseActivity {
             }
 
             // KFC giftN patch
-            if(isKFC3rd){
+            if (isKFC3rd) {
                 mWebView.loadUrl("javascript:(function() { " +
                         "var rows = document.getElementsByTagName(\"table\")[0].rows;\n" +
                         "rows[8].parentNode.removeChild(rows[8]);\n" +

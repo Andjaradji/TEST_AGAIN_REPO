@@ -94,7 +94,7 @@ public class GoogleAuthSettingActivity extends BaseActivity<IGoogleAuthSettingPr
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("GoogleAuthSettingActivity", "handleResult: " + JsonUtil.toString(data));
         if (data != null) {
-            if(data instanceof Google2faResponse) {
+            if (data instanceof Google2faResponse) {
                 google2faResponse = (Google2faResponse) data;
 
                 TpUtil tpUtil = new TpUtil(GoogleAuthSettingActivity.this);

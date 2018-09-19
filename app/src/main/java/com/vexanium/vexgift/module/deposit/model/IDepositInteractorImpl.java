@@ -9,9 +9,6 @@ import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.util.RxUtil;
 
-import java.util.Collections;
-import java.util.Comparator;
-
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Func1;

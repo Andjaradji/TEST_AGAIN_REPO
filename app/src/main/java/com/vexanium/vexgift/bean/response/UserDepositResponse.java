@@ -21,10 +21,10 @@ public class UserDepositResponse implements Serializable {
         this.userDeposits = userDeposits;
     }
 
-    public UserDeposit findUserDepositById(int id){
-        for(UserDeposit userDeposit : userDeposits){
-            if(userDeposit.getId() == id){
-                return  userDeposit;
+    public UserDeposit findUserDepositById(int id) {
+        for (UserDeposit userDeposit : userDeposits) {
+            if (userDeposit.getId() == id) {
+                return userDeposit;
             }
         }
         return null;

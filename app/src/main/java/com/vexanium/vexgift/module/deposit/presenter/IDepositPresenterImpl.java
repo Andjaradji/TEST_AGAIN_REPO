@@ -4,8 +4,6 @@ import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.deposit.model.IDepositInteractorImpl;
 import com.vexanium.vexgift.module.deposit.view.IDepositView;
-import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractorImpl;
-import com.vexanium.vexgift.module.security.view.IGoogleAuthSettingView;
 
 import java.io.Serializable;
 

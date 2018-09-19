@@ -8,13 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
-import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
@@ -60,7 +57,7 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
         String g2faString = tpUtil.getString(TpUtil.KEY_GOOGLE2FA, "");
         if (!TextUtils.isEmpty(g2faString)) {
             google2faResponse = (Google2faResponse) JsonUtil.toObject(g2faString, Google2faResponse.class);
-        }else{
+        } else {
             mPresenter.requestCode(user.getId());
         }
     }
@@ -79,7 +76,7 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("KycActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-            if(data instanceof Google2faResponse){
+            if (data instanceof Google2faResponse) {
                 google2faResponse = (Google2faResponse) data;
                 tpUtil = new TpUtil(this);
                 tpUtil.put(TpUtil.KEY_GOOGLE2FA, JsonUtil.toString(google2faResponse));
@@ -144,7 +141,7 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
 
         if (isValid && google2faResponse != null) {
             mPresenter.updateGoogle2faState(user.getId(), google2faResponse.getAuthenticationCode(), code, isSetToEnable);
-        }else if(google2faResponse == null){
+        } else if (google2faResponse == null) {
             mPresenter.requestCode(user.getId());
         }
 
@@ -162,7 +159,7 @@ public class GoogleAuthStateActivity extends BaseActivity<IGoogleAuthStatePresen
         }
     }
 
-    private void updateGoogle2faState(){
+    private void updateGoogle2faState() {
 
     }
 }

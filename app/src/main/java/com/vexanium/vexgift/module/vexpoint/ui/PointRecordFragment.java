@@ -98,7 +98,7 @@ public class PointRecordFragment extends BaseFragment {
 
         TpUtil tpUtil = new TpUtil(getActivity());
         String userVpRecord = tpUtil.getString(TpUtil.KEY_USER_VP_RECORD, "");
-        if(!TextUtils.isEmpty(userVpRecord)){
+        if (!TextUtils.isEmpty(userVpRecord)) {
             VexPointRecordResponse vexPointRecordResponse = (VexPointRecordResponse) JsonUtil.toObject(userVpRecord, VexPointRecordResponse.class);
             dataList.clear();
             dataList.addAll(vexPointRecordResponse.getVexPointLogs());

@@ -5,6 +5,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 
 import java.io.Serializable;
 
-public interface IDepositView extends BaseView{
+public interface IDepositView extends BaseView {
     void handleResult(Serializable data, HttpResponse errorResponse);
 }
