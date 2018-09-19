@@ -566,6 +566,10 @@ Your expired and used voucher will be shown here</string>
     <string name="vex_point_snap3">Amount of VEX counted in this snapshot</string>
 
     <string name="deposit_title">Deposit Loyalty Program</string>
+    <string name="deposit_desc">Description</string>
+    <string name="deposit_duration">Duration</string>
+    <string name="deposit_total">Total Deposited</string>
+    <string name="deposit_button">Deposit</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

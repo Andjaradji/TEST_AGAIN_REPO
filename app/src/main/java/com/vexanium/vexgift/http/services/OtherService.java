@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.CountriesResponse;
+import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
@@ -68,10 +69,16 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
-
     @GET("country")
     Observable<HttpResponse<CountriesResponse>> getCountries(
             @Header("Cache-Control") String cacheControl,
             @QueryMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("deposit/get")
+    Observable<HttpResponse<DepositListResponse>> getDeposits(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
 }

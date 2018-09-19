@@ -2,7 +2,8 @@ package com.vexanium.vexgift.module.deposit.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractor;
+import com.vexanium.vexgift.module.deposit.model.IDepositInteractorImpl;
+import com.vexanium.vexgift.module.deposit.view.IDepositView;
 import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractorImpl;
 import com.vexanium.vexgift.module.security.view.IGoogleAuthSettingView;
 
@@ -10,13 +11,13 @@ import java.io.Serializable;
 
 import rx.Subscription;
 
-public class IDepositPresenterImpl extends BasePresenterImpl<IGoogleAuthSettingView, Serializable> implements IDepositPresenter {
-    private IGoogleAuthSettingInteractor<Serializable> mGoogleAuthSettingInteractor;
+public class IDepositPresenterImpl extends BasePresenterImpl<IDepositView, Serializable> implements IDepositPresenter {
+    private IDepositInteractorImpl<Serializable> mDepositInteractorImpl;
     private boolean mHasInit;
 
-    public IDepositPresenterImpl(IGoogleAuthSettingView view) {
+    public IDepositPresenterImpl(IDepositView view) {
         super(view);
-        mGoogleAuthSettingInteractor = new IGoogleAuthSettingInteractorImpl();
+        mDepositInteractorImpl = new IDepositInteractorImpl<>();
     }
 
     @Override
@@ -46,9 +47,10 @@ public class IDepositPresenterImpl extends BasePresenterImpl<IGoogleAuthSettingV
         }
     }
 
+
     @Override
-    public void requestCode(int id) {
-        Subscription subscription = mGoogleAuthSettingInteractor.requestCode(this, id);
+    public void requstDepositList(int id) {
+        Subscription subscription = mDepositInteractorImpl.requestDepositList(this, id);
         compositeSubscription.add(subscription);
     }
 }

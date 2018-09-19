@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
+import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
@@ -701,6 +702,14 @@ public class RetrofitManager {
             Map<String, Object> params = Api.getBasicParam();
 
             return mOtherService.getCountries(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
-        }
+    }
+
+    public Observable<HttpResponse<DepositListResponse>> requestDepositList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getDeposits(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DepositListResponse>>());
+    }
 
 }
