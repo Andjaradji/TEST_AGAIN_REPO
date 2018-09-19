@@ -66,7 +66,7 @@ public class VoucherWebViewActivity extends BaseActivity {
         final VoucherWebViewClient mWebClient = new VoucherWebViewClient();
         mWebView.setWebViewClient(mWebClient);
 
-        mWebChromeClient = new BaseWebChromeClient(getContext());
+        mWebChromeClient = new BaseWebChromeClient(this);
         mWebView.setWebChromeClient(mWebChromeClient);
         mWebView.getSettings().setJavaScriptEnabled(true);
 
@@ -178,6 +178,7 @@ public class VoucherWebViewActivity extends BaseActivity {
                         "var logo = document.getElementById(\"g_gmktLogo\");\n" +
                         "logo.parentNode.removeChild(logo);" +
                         "})()");
+                mWebView.getSettings().setJavaScriptEnabled(true);
             }
 
             StaticGroup.syncCookies();
