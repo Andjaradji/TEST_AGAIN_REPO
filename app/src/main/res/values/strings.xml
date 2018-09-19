@@ -264,7 +264,7 @@
     <string name="myprofile_email_desc">Your email here</string>
     <string name="myprofile_firstname">First Name</string>
     <string name="myprofile_firstname_desc">Your first name here</string>
-    <string name="myprofile_act_address">Vex Address</string>
+    <string name="myprofile_act_address">Vex Address (from Kcash/Achain Wallet)</string>
 
     <string name="myprofile_name">Name</string>
     <string name="myprofile_name_desc">Your name here</string>
@@ -548,7 +548,7 @@ Your expired and used voucher will be shown here</string>
     <string name="guidance_vp_subtitle_3">Snapshot is Running Every day</string>
     <string name="guidance_vp_subtitle_4">Click to See the Details</string>
 
-    <string name="guidance_vp_desc_1">Just hold Vex in your wallet and you will get Vex point</string>
+    <string name="guidance_vp_desc_1">Just hold Vex in your wallet (Kcash/Achain Wallet) and you will get Vex point</string>
     <string name="guidance_vp_desc_2">There is no minimum vex to join the snapshot</string>
     <string name="guidance_vp_desc_3">You will pass through 2 phase of snapshots and will start to earn VEX point on snapshot phase 3</string>
     <string name="guidance_vp_desc_4">You can see the snapshot details by click Vex Point record</string>

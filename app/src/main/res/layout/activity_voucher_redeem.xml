@@ -177,6 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_small"
+                        android:textIsSelectable="true"
                         android:layout_marginTop="@dimen/interval_main"
                         android:tag="bold"
                         android:textColor="@color/material_black_text_color"

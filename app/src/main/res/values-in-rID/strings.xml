@@ -328,7 +328,7 @@
     <string name="more_report_problem">Laporkan Masalah</string>
     <string name="more_rate_us">Berikan penilaian di Google Play</string>
     <string name="myprofile_user_info">Informasi Pengguna</string>
-    <string name="myprofile_act_address">Alamat Vex</string>
+    <string name="myprofile_act_address">Alamat Vex (dari Kcash/Achain Wallet)</string>
     <string name="myprofile_document_type_desc">contoh : KTP, SIM</string>
     <string name="myprofile_id_selfie">Foto anda memegang Dokumen Identitas</string>
     <string name="myprofile_upload">unggah</string>
@@ -395,7 +395,7 @@
     <string name="guidance_vp_title_2">1. Masukan Vex kedalam Wallet Anda</string>
     <string name="guidance_vp_title_3">2. Tunggu Proses Snapshot</string>
     <string name="guidance_vp_title_4">3. Lihat Detail Snapshot</string>
-    <string name="guidance_vp_desc_1">Hanya dengan menyimpan Vex di wallet anda maka anda akan mendapatkan Vex Point</string>
+    <string name="guidance_vp_desc_1">Hanya dengan menyimpan Vex di wallet(Kcash/Achain Wallet) anda maka anda akan mendapatkan Vex Point</string>
     <string name="guidance_vp_desc_2">Tidak ada minimum vex untuk mengikuti snapshot</string>
     <string name="guidance_vp_desc_3">Anda akan melewati 2 fase snapshot dan akan mendapatkan Vex Point di fase snapshot 3</string>
     <string name="guidance_vp_desc_4">Kamu dapat melihat detail snapshot dengan menekan Vex Point Record</string>
