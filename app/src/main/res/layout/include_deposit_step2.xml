@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:tag="bold"
-        android:text="Please Send"
+        android:text="@string/deposit_step2_send_to"
         android:textSize="@dimen/text_tiny"
         android:textColor="@color/material_black_text_color" />
 
@@ -37,11 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:tag="bold"
-        android:text="To This Address"
+        android:text="@string/deposit_step2_to_address"
         android:textSize="@dimen/text_tiny"
         android:textColor="@color/material_black_text_color" />
 
     <LinearLayout
+        android:id="@+id/ll_address_send_to"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_big"
@@ -63,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:tag="bold"
-        android:text="Time Left for Deposit"
+        android:text="@string/deposit_step2_time_left"
         android:textSize="@dimen/text_tiny"
         android:textColor="@color/material_black_text_color" />
 

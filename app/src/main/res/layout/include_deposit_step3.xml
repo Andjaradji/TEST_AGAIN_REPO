@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:tag="bold"
-        android:text="Your Deposit of"
+        android:text="@string/deposit_step3_your_deposit"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_tiny" />
 
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tag="bold"
-            android:text="Has been"
+            android:text="@string/deposit_step3_has_been"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_tiny" />
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="bold"
-                android:text="CONFIRMED"
+                android:text="@string/deposit_step3_confirmed"
                 android:textColor="@color/material_white"
                 android:textSize="@dimen/text_tiny" />
         </LinearLayout>
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="bold"
-                android:text="REJECTED"
+                android:text="@string/deposit_step3_rejected"
                 android:textColor="@color/material_white"
                 android:textSize="@dimen/text_tiny" />
         </LinearLayout>
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_content"
             android:tag="bold"
-            android:text="You can check the transaction through the link below"
+            android:text="@string/deposit_step3_link_check"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_tiny" />
 
@@ -108,7 +108,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_big"
             android:tag="bold"
-            android:text="ACTF2fF2xDdgfTyj3ABccmAZpmWpp38Ruf5kLTuAtvBhCzP78Wn0NVf3qjeRdHQEUmDM"
             android:textColor="@color/material_blue_3651"
             android:textSize="@dimen/text_xtiny" />
 
@@ -118,7 +117,7 @@
             android:layout_marginBottom="@dimen/interval_content"
             android:tag="bold"
             android:textSize="@dimen/text_tiny"
-            android:text="Wee will distribute"
+            android:text="@string/deposit_step3_will_distribute"
             android:textColor="@color/material_black_text_color" />
 
         <LinearLayout
@@ -147,7 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To your VEX Address before"
+                android:text="@string/deposit_step3_to_your_address_before"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_tiny" />
 
@@ -157,7 +156,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/interval_content"
                 android:tag="bold"
-                android:text="10 days 14:59:20"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_tiny" />
         </LinearLayout>

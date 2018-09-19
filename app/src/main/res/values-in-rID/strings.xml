@@ -421,5 +421,25 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_title">Deposit Loyalty Program</string>
     <string name="deposit_option_qty">sisa %d dari %d</string>
 
+    <string name="deposit_step_1">Pilih Jumlah Deposit</string>
+    <string name="deposit_step_2">Deposit Vex</string>
+    <string name="deposit_step_3">Detail Deposit</string>
+
+    <string name="deposit_no_choice_title">Oops</string>
+    <string name="deposit_dialog_title">Apakah anda yakin?</string>
+    <string name="deposit_no_choice_desc">Anda belum memilih pilihan jumlah deposit</string>
+    <string name="deposit_dialog_desc">Apakah Anda yakin memilih deposit sejumlah %s VEX? Anda tidak dapat merubah jumlah deposit paling tidak selama 1 jam.</string>
+
+    <string name="deposit_step2_send_to">Tolong Kirim</string>
+    <string name="deposit_step2_to_address">Ke Alamat</string>
+    <string name="deposit_step2_time_left">Waktu tersisa untuk deposit</string>
+
+    <string name="deposit_step3_your_deposit">Deposit Anda sejumlah</string>
+    <string name="deposit_step3_has_been">Telah</string>
+    <string name="deposit_step3_confirmed">TERKONFIRMASI</string>
+    <string name="deposit_step3_rejected">DITOLAK</string>
+    <string name="deposit_step3_link_check">Anda dapat melakukan pengecekan melalui link berikut</string>
+    <string name="deposit_step3_will_distribute">Kami akan mendistribusi</string>
+    <string name="deposit_step3_to_your_address_before">Ke Alamat Vex anda sebelum</string>
 
 </resources>

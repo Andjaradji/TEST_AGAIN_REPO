@@ -342,7 +342,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                 public void bindData(final BaseRecyclerViewHolder holder, int position, final DepositOption item) {
 
                     holder.setText(R.id.tv_deposit_title, item.getName());
-                    holder.setText(R.id.tv_deposit_subtitle, String.format(getString(R.string.deposit_option_qty), item.getQuantityLeft(), item.getQuantityAvailable()));
+                    holder.setText(R.id.tv_deposit_subtitle, String.format(getString(R.string.deposit_option_qty), item.getQuantityAvailable(), item.getQuantityLeft()));
 
                     holder.setBackgroundRes(R.id.rl_deposit_list_container, item.getId() == selectedOption ? R.drawable.shape_ripple_orange_rounded : R.drawable.shape_ripple_grey_rounded);
 
@@ -404,7 +404,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
             case STATE_CHOOSE:
                 mIvHeaderIcon.setImageResource(R.drawable.ic_premium_luckydraw);
                 mTvHeaderStep.setText("Step 1/3");
-                mTvHeaderTitle.setText("Deposit Amount");
+                mTvHeaderTitle.setText(getString(R.string.deposit_step_1));
 
                 findViewById(R.id.ll_phase_1).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_phase_2).setVisibility(View.GONE);
@@ -413,11 +413,19 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
             case STATE_PENDING:
                 mIvHeaderIcon.setImageResource(R.drawable.ic_premium_luckydraw);
                 mTvHeaderStep.setText("Step 2/3");
-                mTvHeaderTitle.setText("Deposit Vex");
+                mTvHeaderTitle.setText(getString(R.string.deposit_step_2));
 
                 findViewById(R.id.ll_phase_1).setVisibility(View.GONE);
                 findViewById(R.id.ll_phase_2).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_phase_3).setVisibility(View.GONE);
+
+                findViewById(R.id.ll_address_send_to).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        StaticGroup.copyToClipboard(DepositListActivity.this, userDeposit.getDepositTo());
+                    }
+                });
 
                 if (userDeposit != null) {
                     try {
@@ -436,7 +444,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
             case STATE_REJECTED:
                 mIvHeaderIcon.setImageResource(R.drawable.ic_premium_luckydraw);
                 mTvHeaderStep.setText("Step 3/3");
-                mTvHeaderTitle.setText("Deposit Detail");
+                mTvHeaderTitle.setText(getString(R.string.deposit_step_3));
 
                 findViewById(R.id.ll_phase_1).setVisibility(View.GONE);
                 findViewById(R.id.ll_phase_2).setVisibility(View.GONE);
@@ -455,6 +463,15 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                     }
                     try {
                         ViewUtil.setText(this, R.id.tv_transaction, userDeposit.getDepositTxId());
+                        findViewById(R.id.tv_transaction).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                String url = "https://browser.achain.com/#/searchResult?fromAddress=%s";
+                                String fullUrl = String.format(url, userDeposit.getDepositTxId());
+                                StaticGroup.openAndroidBrowser(DepositListActivity.this, fullUrl);
+                            }
+                        });
                     } catch (Exception e) {
                         ViewUtil.setText(this, R.id.tv_transaction, "-");
                     }
