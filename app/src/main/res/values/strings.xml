@@ -145,7 +145,7 @@
     <string name="vexpoint_estimate_reward">EST. REWARD</string>
 
     <string name="vexpoint_fill_address">Fill Vex Address</string>
-    <string name="vexpoint_fill_address_note">note : Please use address from wallet. You can not use address from exchanges</string>
+    <string name="vexpoint_fill_address_note">note : Please use address from wallet (from Kcash/Achain Wallet). You can not use address from exchanges</string>
     <string name="vexpoint_update_address">Update Vex Address</string>
 
     <string name="vexpoint_address_verif_desc">To verify your address below :</string>

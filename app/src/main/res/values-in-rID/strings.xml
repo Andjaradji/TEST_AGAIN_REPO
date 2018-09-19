@@ -105,7 +105,7 @@
     <string name="vexpoint_invite_point">Point dari Undangan</string>
     <string name="vexpoint_estimate_reward">EST. HADIAH</string>
     <string name="vexpoint_fill_address">Masukan Alamat Vex</string>
-    <string name="vexpoint_fill_address_note">catatan : Mohon gunakan alamat dari wallet. Kamu tidak dapat menggunakan alamat dari exchange</string>
+    <string name="vexpoint_fill_address_note">catatan : Mohon gunakan alamat dari wallet (dari Kcash/Achain Wallet). Kamu tidak dapat menggunakan alamat dari exchange</string>
     <string name="vexpoint_update_address">Perbaharui Alamat Vex</string>
     <string name="vexpoint_address_verif_desc">Untuk verifikasi alamat dibawah ini :</string>
     <string name="vexpoint_address_verif_note">catatan : Kamu harus menggunakan alamat ini untuk mengirim</string>
