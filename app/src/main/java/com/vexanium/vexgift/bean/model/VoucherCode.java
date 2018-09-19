@@ -137,20 +137,6 @@ public class VoucherCode implements Serializable {
 
     public String getRedeemedDate() {
 //        if(TextUtils.isEmpty(updatedAt)) return "";
-        Calendar calendar = Calendar.getInstance();
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        Date date;
-        try {
-            date = format.parse(updatedAt);
-        } catch (Exception e) {
-            date = new Date();
-        }
-        calendar.setTime(date);
-
-        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
-        return dateFormat.format(calendar.getTime());
+        return StaticGroup.getDate(updatedAt);
     }
 }

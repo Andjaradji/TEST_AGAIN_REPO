@@ -1,48 +1,47 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_header_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:paddingBottom="20dp"
-    android:paddingStart="@dimen/interval_big"
-    android:paddingEnd="@dimen/interval_big">
+    android:paddingEnd="@dimen/interval_big"
+    android:paddingStart="@dimen/interval_big">
 
     <ImageView
         android:id="@+id/iv_header_icon"
-        android:src="@drawable/ic_premium_luckydraw"
         android:layout_width="70dp"
         android:layout_height="90dp"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"/>
+        android:src="@drawable/ic_premium_luckydraw" />
 
     <LinearLayout
         android:id="@+id/ll_header_text_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/interval_medium"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/interval_content"
         android:layout_toEndOf="@id/iv_header_icon"
-        android:layout_centerVertical="true">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_tiny"
-            android:textColor="@color/text_secondary"
-            android:tag="hnMed"
-            android:layout_marginBottom="@dimen/interval_xsmall"/>
+            android:layout_marginBottom="@dimen/interval_xsmall"
+            android:tag="bold"
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_tiny" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_big_medium"
-            android:textColor="@color/text_primary"
-            android:tag="hnMed" />
+            android:tag="bold"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_big_medium" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

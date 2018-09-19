@@ -28,6 +28,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_IS_ALREADY_GUIDE_VP = "key_is_already_guide_vp";
     public static String KEY_IS_ALREADY_GUIDE_MYBOX = "key_is_already_guide_mybox";
     public static String KEY_COUNTRY_LIST = "key_country_list";
+    public static String KEY_USER_DEPOSIT = "key_user_deposit";
     private static TpUtil _tpUtil;
 
     public TpUtil(final Context context) {
@@ -42,6 +43,9 @@ public class TpUtil extends TrayPreferences {
     }
 
     public void removePrivate() {
+        put(TpUtil.KEY_USER_DEPOSIT, "");
+        remove(TpUtil.KEY_USER_DEPOSIT);
+
         put(TpUtil.KEY_CURRENT_LOGGED_IN_USER, "");
         remove(TpUtil.KEY_CURRENT_LOGGED_IN_USER);
 

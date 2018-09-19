@@ -28,6 +28,8 @@ import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
+import com.vexanium.vexgift.bean.response.UserDepositResponse;
+import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -710,6 +712,24 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mOtherService.getDeposits(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DepositListResponse>>());
+    }
+
+    public Observable<HttpResponse<UserDepositResponse>> requestUserDepositList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getDepositHistory(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositResponse>>());
+    }
+
+    public Observable<HttpResponse<UserDepositSingleResponse>> requestDeposit(int userId, int depositId, int depositOptionId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("deposit_id", depositId);
+        params.put("deposit_option_id", depositOptionId);
+
+        return mOtherService.requestDeposit(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
     }
 
 }

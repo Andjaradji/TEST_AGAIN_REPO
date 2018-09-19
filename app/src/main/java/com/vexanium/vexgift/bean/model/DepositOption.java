@@ -3,8 +3,10 @@ package com.vexanium.vexgift.bean.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DepositOption extends BaseType {
+public class DepositOption implements Serializable {
 
     @JsonProperty("id")
     private int id;
@@ -25,12 +27,10 @@ public class DepositOption extends BaseType {
     @JsonProperty("quantity_left")
     private int quantityLeft;
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -43,12 +43,10 @@ public class DepositOption extends BaseType {
         this.depositId = depositId;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -101,22 +99,18 @@ public class DepositOption extends BaseType {
         this.quantityLeft = quantityLeft;
     }
 
-    @Override
     public String getCreatedAt() {
         return createdAt;
     }
 
-    @Override
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    @Override
     public String getUpdatedAt() {
         return updatedAt;
     }
 
-    @Override
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }

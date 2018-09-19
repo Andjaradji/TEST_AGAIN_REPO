@@ -64,7 +64,7 @@ public class Deposit1Fragment extends BaseFragment<IDepositPresenter> implements
         mDepositOptionAdapter = new DepositOptionAdapter(getActivity(),this);
         mRvDeposit.setAdapter(mDepositOptionAdapter);
 
-        mPresenter.requstDepositList(user.getId());
+        mPresenter.requestDepositList(user.getId());
 
     }
 

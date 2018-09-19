@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -96,6 +97,10 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
+
+            Linkify.addLinks((TextView) findViewById(R.id.tv_desc), Linkify.ALL);
+            Linkify.addLinks((TextView) findViewById(R.id.tv_terms), Linkify.ALL);
+
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
 

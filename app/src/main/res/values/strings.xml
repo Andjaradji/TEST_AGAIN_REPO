@@ -570,6 +570,13 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_duration">Duration</string>
     <string name="deposit_total">Total Deposited</string>
     <string name="deposit_button">Deposit</string>
+    <string name="deposit_history_title">Deposit History</string>
+    <string name="deposit_option_qty">%d out of %d</string>
+
+    <string name="deposit_no_choice_title">Oops</string>
+    <string name="deposit_dialog_title">Are You Sure?</string>
+    <string name="deposit_no_choice_desc">You have not choose any Deposit amount yet</string>
+    <string name="deposit_dialog_desc">Are you sure choose to %s? You can\'t change your deposit amount at least 1 hour.</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

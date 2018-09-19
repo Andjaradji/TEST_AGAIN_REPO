@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_phase_3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/interval_main">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:tag="bold"
+        android:text="Your Deposit of"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:background="@drawable/shape_white_round_rect_with_black_border"
+        android:gravity="center"
+        android:padding="@dimen/interval_main">
+
+        <TextView
+            android:id="@+id/tv_vex_count2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="bold"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_big"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="bold"
+            android:text="Has been"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_tiny" />
+
+        <LinearLayout
+            android:id="@+id/ll_confirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/interval_small"
+            android:background="@drawable/shape_deposit_confirmed_bg"
+            android:paddingBottom="2dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="bold"
+                android:text="CONFIRMED"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_tiny" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_rejected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/interval_small"
+            android:background="@drawable/shape_deposit_rejected_bg"
+            android:paddingBottom="2dp"
+            android:paddingEnd="4dp"
+            android:visibility="gone"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="bold"
+                android:text="REJECTED"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_tiny" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/ll_confirmed_view"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:tag="bold"
+            android:text="You can check the transaction through the link below"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_tiny" />
+
+        <TextView
+            android:id="@+id/tv_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_big"
+            android:tag="bold"
+            android:text="ACTF2fF2xDdgfTyj3ABccmAZpmWpp38Ruf5kLTuAtvBhCzP78Wn0NVf3qjeRdHQEUmDM"
+            android:textColor="@color/material_blue_3651"
+            android:textSize="@dimen/text_xtiny" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:tag="bold"
+            android:textSize="@dimen/text_tiny"
+            android:text="Wee will distribute"
+            android:textColor="@color/material_black_text_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:background="@drawable/shape_white_round_rect_with_black_border"
+            android:gravity="center"
+            android:padding="@dimen/interval_main">
+
+            <TextView
+                android:id="@+id/tv_vex_distribute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="bold"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_title" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_big"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To your VEX Address before"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_tiny" />
+
+            <TextView
+                android:id="@+id/tv_time_distribute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/interval_content"
+                android:tag="bold"
+                android:text="10 days 14:59:20"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_tiny" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_content"
+            android:layout_marginTop="@dimen/interval_submain"
+            android:tag="bold"
+            android:text="Note :"
+            android:visibility="gone"
+            android:textColor="@color/material_black_text_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_xtiny" />
+    </LinearLayout>
+
+
+</LinearLayout>

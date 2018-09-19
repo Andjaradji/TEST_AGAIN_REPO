@@ -76,12 +76,16 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import rx.Subscriber;
@@ -102,6 +106,7 @@ public class StaticGroup {
     public static final int NORMAL_COUPON = 5;
     public static final int COMPLETE_FORM = 6;
     public static final int CONNECT_FB = 7;
+    public static final int IMG_BANNER = 8;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
@@ -1190,6 +1195,19 @@ public class StaticGroup {
 
 
         return filteredVoucher;
+    }
+
+    public static String getDate(String mDate){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = dateFormat.parse(mDate);
+            return dateOutput.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return mDate;
+        }
     }
 
 

@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/interval_content"
     android:paddingBottom="@dimen/interval_content"
+    android:layout_marginStart="@dimen/interval_main"
+    android:layout_marginEnd="@dimen/interval_main"
     android:layout_marginBottom="@dimen/interval_content"
     android:background="@drawable/shape_ripple_grey_rounded">
 
@@ -23,6 +25,7 @@
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="@dimen/text_small_medium"
+            android:tag="bold"
             android:textColor="@color/text_secondary"
             android:layout_marginBottom="2dp"/>
 
@@ -30,6 +33,7 @@
             android:id="@+id/tv_deposit_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="bold"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="@dimen/text_tiny"

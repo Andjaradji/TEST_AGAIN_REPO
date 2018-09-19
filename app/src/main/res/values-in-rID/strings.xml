@@ -49,7 +49,7 @@
     <string name="coupon_redeem_token">Gunakan Token</string>
     <string name="coupon_redeem_voucher">Gunakan Voucher</string>
     <string name="coupon_deactivated_voucher">Gunakan Voucher</string>
-    <string name="voucher_availability">%d tersedia dari %d</string>
+    <string name="voucher_availability">sisa %d dari %d</string>
     <string name="voucher_soldout_dialog_title">Oops</string>
     <string name="voucher_soldout_dialog_desc">Voucher ini sudah habis</string>
     <string name="coupon_redeem_voucher_code">Kode Voucher</string>
@@ -419,5 +419,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_total">Total Deposit</string>
     <string name="deposit_button">Deposit</string>
     <string name="deposit_title">Deposit Loyalty Program</string>
+    <string name="deposit_option_qty">sisa %d dari %d</string>
+
 
 </resources>

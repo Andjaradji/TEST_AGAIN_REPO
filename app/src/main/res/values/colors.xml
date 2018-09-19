@@ -134,6 +134,7 @@
     <color name="material_yellow_e620">#ffe620</color>
     <color name="material_yellow_ee00">#F7EE00</color>
     <color name="material_white">#FFFFFF</color>
+    <color name="material_white_dd">#fdfdfd</color>
     <color name="material_white_trans_ef">#EFFFFFFF</color>
 
     <color name="material_white_trans_df">#DFFFFFFF</color>

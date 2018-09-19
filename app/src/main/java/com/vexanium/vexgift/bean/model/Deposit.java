@@ -3,10 +3,15 @@ package com.vexanium.vexgift.bean.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Deposit extends BaseType {
+public class Deposit implements Serializable {
 
     @JsonProperty("id")
     private int id;
@@ -33,22 +38,18 @@ public class Deposit extends BaseType {
     @JsonProperty("updated_at")
     private String updatedAt;
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -117,22 +118,18 @@ public class Deposit extends BaseType {
         this.limitPerUser = limitPerUser;
     }
 
-    @Override
     public String getCreatedAt() {
         return createdAt;
     }
 
-    @Override
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    @Override
     public String getUpdatedAt() {
         return updatedAt;
     }
 
-    @Override
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -144,6 +141,7 @@ public class Deposit extends BaseType {
     public void setDepositOptions(ArrayList<DepositOption> depositOptions) {
         this.depositOptions = depositOptions;
     }
+
 
     @JsonProperty("deposit_option")
     private ArrayList<DepositOption> depositOptions;

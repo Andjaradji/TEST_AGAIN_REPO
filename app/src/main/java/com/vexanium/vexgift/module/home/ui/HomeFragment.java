@@ -87,6 +87,7 @@ import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
 import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
+import static com.vexanium.vexgift.app.StaticGroup.IMG_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
@@ -451,6 +452,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
+        data.add(++idx, new HomeFeedResponse(IMG_BANNER));
+
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
             data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", ""));
@@ -458,6 +461,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         if (user.getKyc() == null || !user.isKycApprove())
             data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
+
+
 
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
@@ -488,6 +493,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_fill_kyc;
                     case CONNECT_FB:
                         return R.layout.item_connect_fb;
+                    case IMG_BANNER:
+                        return R.layout.item_image_banner;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -597,6 +604,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        break;
+                    case IMG_BANNER:
+                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(ClickUtil.isFastDoubleClick())return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
                                 startActivity(intent);
                             }
                         });
