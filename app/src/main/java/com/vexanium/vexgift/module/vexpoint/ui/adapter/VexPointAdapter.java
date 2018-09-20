@@ -58,7 +58,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         holder.ivArrow.setRotation(270);
         holder.ivArrow.setVisibility(View.GONE);
 
-        if (data.getVpLogTypeId() < 2) {
+        if (data.getVpLogTypeId() != 3) {
             holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
@@ -103,6 +103,8 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
                 }
                 break;
             case 2:
+            case 3:
+            case 4:
                 holder.mContainer.setOnClickListener(null);
                 break;
         }
