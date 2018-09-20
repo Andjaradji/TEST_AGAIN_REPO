@@ -20,4 +20,11 @@ public class DepositListResponse implements Serializable {
     public void setDeposits(ArrayList<Deposit> deposits) {
         this.deposits = deposits;
     }
+
+    public Deposit getDepositById(int id){
+        for(Deposit deposit : deposits){
+            if(deposit.getId() == id) return deposit;
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -181,7 +182,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onItemClick(PremiumPlan data) {
-        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || User.getUserAddressStatus() != 1) {
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
             if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || mPremiumHistoryList.get(0).getStatus() != 0) {

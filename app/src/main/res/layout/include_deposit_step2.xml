@@ -83,13 +83,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginTop="@dimen/interval_submain"
         android:tag="bold"
         android:text="Note :"
         android:textColor="@color/material_black_text_color" />
 
     <TextView
+        android:id="@+id/tv_note_step2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/material_black_text_color"

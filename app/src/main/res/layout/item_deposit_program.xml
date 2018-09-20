@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
@@ -15,16 +16,26 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_small"
+        android:layout_marginTop="@dimen/interval_main"
         android:tag="bold"
-        android:text="Deposit Loyalty 5% - 6 Week"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_title" />
 
+    <TextView
+        android:id="@+id/tv_deposit_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginStart="@dimen/interval_small"
+        android:tag="bold"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="154dp"
         android:background="@drawable/rect_shadow"
         android:orientation="vertical"
         android:padding="@dimen/interval_submain">
@@ -33,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_small"
-            android:text="Description"
+            android:text="@string/deposit_description"
             android:textColor="@color/material_black_sub_text_color"
             android:textSize="@dimen/text_small" />
 
@@ -51,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/interval_small"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:weightSum="2">
 
         <LinearLayout
@@ -129,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
-                android:text="Coin Deposited"
+                android:text="@string/deposit_coin_deposit"
                 android:textSize="@dimen/text_xtiny" />
 
             <TextView
@@ -156,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
-                android:text="Max Coin Deposit"
+                android:text="@string/deposit_max_coin"
                 android:textSize="@dimen/text_xtiny" />
 
             <TextView
