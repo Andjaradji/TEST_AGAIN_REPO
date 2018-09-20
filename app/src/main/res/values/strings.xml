@@ -594,8 +594,8 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_step3_confirmed">CONFIRMED</string>
     <string name="deposit_step3_rejected">REJECTED</string>
     <string name="deposit_step3_link_check">You can check the transaction through the link below</string>
-    <string name="deposit_step3_will_distribute">We will distribute</string>
-    <string name="deposit_step3_to_your_address_before">To your VEX Address before</string>
+    <string name="deposit_step3_will_distribute">Total Vex with bonus</string>
+    <string name="deposit_step3_to_your_address_before">Your Vex will be deposit until</string>
 
     <string name="deposit_max_coin">Max Coin Deposit</string>
     <string name="deposit_coin_deposit">Coin Deposited</string>
