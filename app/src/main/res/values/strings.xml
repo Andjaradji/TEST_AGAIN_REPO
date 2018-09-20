@@ -580,7 +580,10 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_no_choice_title">Oops</string>
     <string name="deposit_dialog_title">Are You Sure?</string>
     <string name="deposit_no_choice_desc">You have not choose any Deposit amount yet</string>
-    <string name="deposit_dialog_desc">Are you sure choose to %s? You can\'t change your deposit amount at least 1 hour.</string>
+    <string name="deposit_dialog_desc">Are you sure choose to %s? You can\'t change your deposit amount until current deposit countdown finished.</string>
+
+    <string name="deposit_not_available">Oops</string>
+    <string name="deposit_not_available_desc">This Deposit Plan is not available</string>
 
     <string name="deposit_step2_send_to">Please Send</string>
     <string name="deposit_step2_to_address">To This Address</string>
@@ -593,6 +596,10 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_step3_link_check">You can check the transaction through the link below</string>
     <string name="deposit_step3_will_distribute">We will distribute</string>
     <string name="deposit_step3_to_your_address_before">To your VEX Address before</string>
+
+    <string name="deposit_max_coin">Max Coin Deposit</string>
+    <string name="deposit_coin_deposit">Coin Deposited</string>
+    <string name="deposit_description">Description</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

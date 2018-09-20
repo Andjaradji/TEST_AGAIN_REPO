@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -448,7 +450,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
-        data.add(++idx, new HomeFeedResponse(IMG_BANNER));
+        if(StaticGroup.isDepositAvailable()) {
+            data.add(++idx, new HomeFeedResponse(IMG_BANNER));
+        }
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
@@ -608,8 +612,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
-                                startActivity(intent);
+                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                }else {
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         });
                         break;

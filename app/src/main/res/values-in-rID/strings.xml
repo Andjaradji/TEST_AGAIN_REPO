@@ -428,7 +428,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_no_choice_title">Oops</string>
     <string name="deposit_dialog_title">Apakah anda yakin?</string>
     <string name="deposit_no_choice_desc">Anda belum memilih pilihan jumlah deposit</string>
-    <string name="deposit_dialog_desc">Apakah Anda yakin memilih deposit sejumlah %s VEX? Anda tidak dapat merubah jumlah deposit paling tidak selama 1 jam.</string>
+    <string name="deposit_dialog_desc">Apakah Anda yakin memilih deposit sejumlah %s VEX? Anda tidak dapat merubah jumlah deposit sebelum waktu hitung mundur dari deposit yang sekarang selesai.</string>
 
     <string name="deposit_step2_send_to">Tolong Kirim</string>
     <string name="deposit_step2_to_address">Ke Alamat</string>
@@ -441,5 +441,9 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_step3_link_check">Anda dapat melakukan pengecekan melalui link berikut</string>
     <string name="deposit_step3_will_distribute">Kami akan mendistribusi</string>
     <string name="deposit_step3_to_your_address_before">Ke Alamat Vex anda sebelum</string>
+
+    <string name="deposit_max_coin">Max Coin yang terdeposit</string>
+    <string name="deposit_coin_deposit">Coin terdeposit</string>
+    <string name="deposit_description">Deskripsi</string>
 
 </resources>

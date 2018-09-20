@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -78,6 +79,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     private Subscription timeSubsription;
     private SwipeRefreshLayout mRefreshLayout;
     private int depositId = -1;
+    Deposit deposit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,11 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.requestUserDepositList(user.getId());
+                if (state == STATE_CHOOSE) {
+                    mPresenter.requestDepositList(user.getId());
+                } else {
+                    mPresenter.requestUserDepositList(user.getId());
+                }
             }
         });
 
@@ -122,7 +128,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                 }
             }
         } else if (getIntent().hasExtra("deposit")) {
-            Deposit deposit = (Deposit) JsonUtil.toObject(getIntent().getStringExtra("deposit"), Deposit.class);
+            deposit = (Deposit) JsonUtil.toObject(getIntent().getStringExtra("deposit"), Deposit.class);
             if (deposit != null) {
                 depositOptions = deposit.getDepositOptions();
                 depositId = deposit.getId();
@@ -137,6 +143,12 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
             }
 
             setDepositOptionList();
+        }
+
+        if (state == STATE_CHOOSE) {
+            mPresenter.requestDepositList(user.getId());
+        } else {
+            mPresenter.requestUserDepositList(user.getId());
         }
 
         updateView();
@@ -194,8 +206,11 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
         if (data != null) {
             if (data instanceof DepositListResponse) {
                 DepositListResponse depositListResponse = (DepositListResponse) data;
-
                 TableDepositDaoUtil.getInstance().saveDepositsToDb(JsonUtil.toString(depositListResponse));
+
+                Deposit deposit = depositListResponse.getDepositById(depositId);
+                depositOptions = deposit.getDepositOptions();
+                setDepositOptionList();
 
             } else if (data instanceof UserDepositSingleResponse) {
                 userDepositResponse = (UserDepositSingleResponse) data;
@@ -212,14 +227,15 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                 UserDepositResponse userDepositResponse = (UserDepositResponse) data;
                 KLog.json("DepositActivity", "HPtes: " + JsonUtil.toString(userDepositResponse));
                 TableDepositDaoUtil.getInstance().saveUserDepositsToDb(JsonUtil.toString(userDepositResponse));
-
-                userDeposit = userDepositResponse.findUserDepositById(userDeposit.getId());
-                if (userDeposit.getStatus() == 0) {
-                    state = STATE_PENDING;
-                } else if (userDeposit.getStatus() == 1) {
-                    state = STATE_CONFIRMED;
-                } else if (userDeposit.getStatus() == 2) {
-                    state = STATE_REJECTED;
+                if (userDeposit != null) {
+                    userDeposit = userDepositResponse.findUserDepositById(userDeposit.getId());
+                    if (userDeposit.getStatus() == 0) {
+                        state = STATE_PENDING;
+                    } else if (userDeposit.getStatus() == 1) {
+                        state = STATE_CONFIRMED;
+                    } else if (userDeposit.getStatus() == 2) {
+                        state = STATE_REJECTED;
+                    }
                 }
                 updateView();
             }
@@ -237,6 +253,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
 
     @Override
     protected void onPause() {
+        KLog.v("VexPointActivity", "onPause: ");
         if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
             timeSubsription.unsubscribe();
             timeSubsription = null;
@@ -245,9 +262,25 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     }
 
     @Override
+    protected void onStop() {
+        KLog.v("VexPointActivity", "onStop: ");
+        super.onStop();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+            timeSubsription = null;
+        }
+    }
+
+    @Override
     protected void onResume() {
+        KLog.v("VexPointActivity", "onResume: ");
         super.onResume();
         startDateTimer();
+        if (state == STATE_CHOOSE) {
+            mPresenter.requestDepositList(user.getId());
+        } else {
+            mPresenter.requestUserDepositList(user.getId());
+        }
         user = User.getCurrentUser(this);
     }
 
@@ -262,7 +295,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     }
 
     private void startDateTimer() {
-        if (timeSubsription == null && StaticGroup.isScreenOn(this, true)) {
+        if (timeSubsription == null ) {
             timeSubsription = Observable.interval(0, 1, TimeUnit.SECONDS)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -301,6 +334,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
 
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
+        if(remainTime < 0) remainTime = 0;
 
         String time = String.format(Locale.getDefault(), getString(R.string.time_hour_min_sec),
                 TimeUnit.MILLISECONDS.toHours(remainTime),
@@ -320,6 +354,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
         premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(userDeposit.getTransferBefore()));
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
+        if(remainTime < 0) remainTime = 0;
 
         String time = String.format(Locale.getDefault(), getString(R.string.time_day_hour_min),
                 TimeUnit.MILLISECONDS.toDays(remainTime),
@@ -427,6 +462,12 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                     }
                 });
 
+                if(deposit!= null && !TextUtils.isEmpty(deposit.getNotePending())){
+                    ViewUtil.setText(this, R.id.tv_note_step2, userDeposit.getDeposit().getNotePending());
+                }else{
+                    ViewUtil.setText(this, R.id.tv_note_step2, "-");
+                }
+
                 if (userDeposit != null) {
                     try {
                         ViewUtil.setText(this, R.id.tv_vex_count, userDeposit.getDepositOption().getAmount() + " VEX");
@@ -474,6 +515,16 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                         });
                     } catch (Exception e) {
                         ViewUtil.setText(this, R.id.tv_transaction, "-");
+                    }
+
+                    if (userDeposit.getDeposit() != null) {
+                        if (!TextUtils.isEmpty(userDeposit.getDeposit().getNoteAccepted()) && userDeposit.getStatus() == 1) {
+                            ViewUtil.setText(this, R.id.tv_note_step3, userDeposit.getDeposit().getNoteAccepted());
+                        } else if (!TextUtils.isEmpty(userDeposit.getDeposit().getNoteRejected()) && userDeposit.getStatus() == 2) {
+                            ViewUtil.setText(this, R.id.tv_note_step3, userDeposit.getDeposit().getNoteRejected());
+                        } else {
+                            ViewUtil.setText(this, R.id.tv_note_step3, "-");
+                        }
                     }
 
                     findViewById(R.id.ll_rejected).setVisibility(userDeposit.getStatus() == 1 ? View.GONE : View.VISIBLE);

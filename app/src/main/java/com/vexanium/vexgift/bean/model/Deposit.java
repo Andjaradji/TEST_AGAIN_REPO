@@ -2,9 +2,13 @@ package com.vexanium.vexgift.bean.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Deposit implements Serializable {
@@ -29,6 +33,16 @@ public class Deposit implements Serializable {
     private int coinDeposited;
     @JsonProperty("limit_per_user")
     private int limitPerUser;
+
+    @JsonProperty("note_pending")
+    private String notePending;
+
+    @JsonProperty("note_accepted")
+    private String noteAccepted;
+
+    @JsonProperty("note_rejected")
+    private String noteRejected;
+
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
@@ -138,6 +152,42 @@ public class Deposit implements Serializable {
 
     public void setDepositOptions(ArrayList<DepositOption> depositOptions) {
         this.depositOptions = depositOptions;
+    }
+
+    public String getNotePending() {
+        return notePending;
+    }
+
+    public void setNotePending(String notePending) {
+        this.notePending = notePending;
+    }
+
+    public String getNoteAccepted() {
+        return noteAccepted;
+    }
+
+    public void setNoteAccepted(String noteAccepted) {
+        this.noteAccepted = noteAccepted;
+    }
+
+    public String getNoteRejected() {
+        return noteRejected;
+    }
+
+    public void setNoteRejected(String noteRejected) {
+        this.noteRejected = noteRejected;
+    }
+
+    public boolean isAvailable(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        long start = StaticGroup.getDateFromString(startTime);
+        long end = StaticGroup.getDateFromString(endTime);
+
+        long time = TimeUnit.MILLISECONDS.toSeconds(calendar.getTimeInMillis());
+        return (time >= start && time <= end) && (maxCoin != coinDeposited);
     }
 
 }

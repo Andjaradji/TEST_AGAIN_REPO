@@ -80,6 +80,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -236,10 +237,19 @@ public class StaticGroup {
 //    }
 
     public static String convertVpFormat(float vpValue) {
-        DecimalFormat formatter = new DecimalFormat("");
+        DecimalFormat formatter = new DecimalFormat("#,###,###,##0.00");
         formatter.setMaximumFractionDigits(2);
         String output = formatter.format(vpValue);
         return output;//.replace(",", ".");
+    }
+
+    public static String convertVpFormat(float vpValue, boolean isReplace) {
+        DecimalFormat formatter = new DecimalFormat("#,###,###,###");
+        formatter.setMaximumFractionDigits(2);
+        String output = formatter.format(vpValue);
+        if (isReplace)
+            return output.replace(",", ".");
+        else return output;
     }
 
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher, ImageView ivVoucher) {
@@ -1210,6 +1220,23 @@ public class StaticGroup {
         }
     }
 
+    public static long getDateFromString(String mDate) {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            date = dateFormat.parse(mDate);
+            calendar.setTime(date);
+            return TimeUnit.MILLISECONDS.toSeconds(calendar.getTimeInMillis());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return TimeUnit.MILLISECONDS.toSeconds(calendar.getTimeInMillis());
+        }
+    }
+
 
     public static long getSleepTime() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
@@ -1235,6 +1262,15 @@ public class StaticGroup {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("address_confirmation_countdown"));
         } else {
             return VEX_ADDRESS_VERIF_TIME;
+        }
+    }
+
+    public static boolean isDepositAvailable() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_deposit_available") != -1) {
+            return settingResponse.getSettingValByKey("is_deposit_available") == 1;
+        } else {
+            return false;
         }
     }
 

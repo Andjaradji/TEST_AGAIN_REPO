@@ -83,6 +83,27 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
         layoutListManager.setItemPrefetchEnabled(false);
 
         setDepositHistoryList();
+
+        if (getIntent().hasExtra("id")) {
+            int id = getIntent().getIntExtra("id", 0);
+            if (id > 0) {
+                if (userDepositResponse != null) {
+                    UserDeposit ud = userDepositResponse.findUserDepositById(id);
+                    if (ud != null) {
+                        Intent intent = new Intent(this, DepositListActivity.class);
+                        intent.putExtra("user_deposit", JsonUtil.toString(ud));
+                        startActivity(intent);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.requestUserDepositList(user.getId());
+
     }
 
     @Override
@@ -127,6 +148,7 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
 
                     holder.setText(R.id.tv_deposit_history_subtitle, item.getCreatedAtDate());
                     if (item.getStatus() == 0) {
+                        holder.setTextColor(R.id.tv_deposit_history_status, getResources().getColor(R.color.material_black_text_color));
                         holder.setText(R.id.tv_deposit_history_status, getText(R.string.premium_purchase_pending));
                     } else if (item.getStatus() == 1) {
                         holder.setTextColor(R.id.tv_deposit_history_status, getResources().getColor(R.color.vexpoint_plus));
