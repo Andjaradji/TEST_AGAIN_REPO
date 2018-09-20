@@ -346,12 +346,12 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     }
 
     private void setWatchTextDistribute() {
-        if (userDeposit == null) return;
+        if (userDeposit == null || userDeposit.getDeposit() == null) return;
 
         TextView mTvCountdownVp = findViewById(R.id.tv_time_distribute);
         Calendar now = Calendar.getInstance();
         Calendar premiumUntil = Calendar.getInstance();
-        premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(userDeposit.getTransferBefore()));
+        premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(StaticGroup.getDateFromString(userDeposit.getDeposit().getEndTime())));
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
         if(remainTime < 0) remainTime = 0;
@@ -509,7 +509,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 String url = "https://browser.achain.com/#/searchResult?fromAddress=%s";
-                                String fullUrl = String.format(url, userDeposit.getDepositTxId());
+                                String fullUrl = String.format(url, userDeposit.getDepositTo());
                                 StaticGroup.openAndroidBrowser(DepositListActivity.this, fullUrl);
                             }
                         });
