@@ -445,5 +445,12 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_max_coin">Max Coin yang terdeposit</string>
     <string name="deposit_coin_deposit">Coin terdeposit</string>
     <string name="deposit_description">Deskripsi</string>
+    <string name="voucher_minimum_lp">Loyalty Point yang dibutuhkan : %d</string>
+
+    <string name="loyalty_point">Loyalty Point Saya</string>
+
+
+    <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
+
 
 </resources>

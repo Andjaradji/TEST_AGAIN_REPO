@@ -45,6 +45,7 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -219,6 +220,8 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
 
                 userDeposit = userDepositResponse.getUserDeposit();
 
+                mPresenter.requestDepositList(user.getId());
+
                 if (userDeposit.getStatus() == 0) {
                     state = STATE_PENDING;
                     updateView();
@@ -295,7 +298,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     }
 
     private void startDateTimer() {
-        if (timeSubsription == null ) {
+        if (timeSubsription == null) {
             timeSubsription = Observable.interval(0, 1, TimeUnit.SECONDS)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -334,7 +337,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
 
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
-        if(remainTime < 0) remainTime = 0;
+        if (remainTime < 0) remainTime = 0;
 
         String time = String.format(Locale.getDefault(), getString(R.string.time_hour_min_sec),
                 TimeUnit.MILLISECONDS.toHours(remainTime),
@@ -351,10 +354,10 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
         TextView mTvCountdownVp = findViewById(R.id.tv_time_distribute);
         Calendar now = Calendar.getInstance();
         Calendar premiumUntil = Calendar.getInstance();
-        premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(StaticGroup.getDateFromString(userDeposit.getDeposit().getEndTime())));
+        premiumUntil.setTimeInMillis(TimeUnit.SECONDS.toMillis(userDeposit.getDeposit().getDuration() + StaticGroup.getDateFromString(userDeposit.getDeposit().getEndTime())));
 
         long remainTime = premiumUntil.getTimeInMillis() - now.getTimeInMillis();
-        if(remainTime < 0) remainTime = 0;
+        if (remainTime < 0) remainTime = 0;
 
         String time = String.format(Locale.getDefault(), getString(R.string.time_day_hour_min),
                 TimeUnit.MILLISECONDS.toDays(remainTime),
@@ -462,9 +465,13 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                     }
                 });
 
-                if(deposit!= null && !TextUtils.isEmpty(deposit.getNotePending())){
+                if (deposit != null) {
+                    if (!TextUtils.isEmpty(deposit.getNotePending()))
+                        ViewUtil.setText(this, R.id.tv_note_step2, deposit.getNotePending());
+                }
+                if (userDeposit.getDeposit() != null && !TextUtils.isEmpty(userDeposit.getDeposit().getNotePending())) {
                     ViewUtil.setText(this, R.id.tv_note_step2, userDeposit.getDeposit().getNotePending());
-                }else{
+                } else {
                     ViewUtil.setText(this, R.id.tv_note_step2, "-");
                 }
 
@@ -498,7 +505,14 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
                         ViewUtil.setText(this, R.id.tv_vex_count2, "-");
                     }
                     try {
-                        ViewUtil.setText(this, R.id.tv_vex_distribute, (userDeposit.getDepositOption().getAmount() * (userDeposit.getDepositOption().getCoinBonus() / 100) + " VEX"));
+                        BigDecimal bd = new BigDecimal(100f);
+//                        ViewUtil.setText(this, R.id.tv_vex_distribute,
+//                                (( new BigDecimal(userDeposit.getDepositOption().getAmount()).multiply(
+//                                         (new BigDecimal((double) userDeposit.getDepositOption().getCoinBonus()).add(bd)).divide(bd)
+//                                               )
+//                                ).toString()) +" VEX"
+//                        );
+                        ViewUtil.setText(this, R.id.tv_vex_distribute, ((int)(((double) userDeposit.getDepositOption().getAmount()) + (((double) userDeposit.getDepositOption().getAmount()) * (double) (userDeposit.getDepositOption().getCoinBonus()) / 100f)))+" VEX" );
                     } catch (Exception e) {
                         ViewUtil.setText(this, R.id.tv_vex_distribute, "-");
                     }

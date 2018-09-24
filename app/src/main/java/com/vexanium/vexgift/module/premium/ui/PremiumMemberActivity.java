@@ -82,6 +82,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     RelativeLayout mRlBecomePremiumTopContainer;
     LinearLayout mLlAlreadyPremiumTopContainer;
     TextView mTvAlreadyPremium;
+    TextView mLoyaltyPoint;
 
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
@@ -105,6 +106,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mLlAlreadyPremiumTopContainer = findViewById(R.id.ll_premium_top_already_premium);
         mTvAlreadyPremium = findViewById(R.id.tv_already_premium);
+
+        mLoyaltyPoint = findViewById(R.id.tv_lp);
 
         ArrayList<IconText> data = new ArrayList<>();
         data.add(new IconText(R.drawable.ic_premium_voucher, R.string.premium_access_voucher));
@@ -139,6 +142,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mRvPremiumPlan.setAdapter(mAdapter);
 
         mHistoryButton.setOnClickListener(this);
+
+        mLoyaltyPoint.setText(user.getLoyaltyPoint()+"");
 
         try {
             Field mScroller;
@@ -224,6 +229,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 });
                 mHistoryButton.setVisibility(View.VISIBLE);
                 mHistoryButton.setEnabled(true);
+                mLoyaltyPoint.setText(((PremiumHistoryResponse) data).getLoyaltyPoint()+"");
             } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);

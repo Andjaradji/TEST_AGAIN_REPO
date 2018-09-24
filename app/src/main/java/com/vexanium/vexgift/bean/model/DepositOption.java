@@ -16,9 +16,9 @@ public class DepositOption implements Serializable {
     private String name;
     @JsonProperty("coin_type")
     private String coinType;
-    @JsonProperty("coin_bonus")
+    @JsonProperty("coin_bonus_percentage")
     private float coinBonus;
-    @JsonProperty("vex_point_bonus")
+    @JsonProperty("vex_point_bonus_percentage")
     private float vexPointBonus;
     @JsonProperty("amount")
     private int amount;

@@ -603,6 +603,7 @@ public class MainActivity extends BaseActivity {
         String url = getIntent().getStringExtra("t_url");
         if (!TextUtils.isEmpty(url)) {
             openDeepLink(url);
+            getIntent().removeExtra("t_url");
         }
     }
 

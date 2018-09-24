@@ -111,6 +111,11 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 } else {
                     ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
                 }
+                if(voucher.getLoyaltyPointRequired() > 0 ){
+                    ViewUtil.setText(this,  R.id.tv_minimum_lp,String.format(getString(R.string.voucher_minimum_lp), voucher.getLoyaltyPointRequired()));
+                }else{
+                    findViewById(R.id.tv_minimum_lp).setVisibility(View.GONE);
+                }
             } else {
                 ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
                 findViewById(R.id.tv_price_info).setVisibility(View.GONE);

@@ -72,6 +72,7 @@
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
     <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
+    <string name="voucher_minimum_lp">Loyalty Point Required : %d</string>
 
     <string name="voucher_soldout_dialog_title">Oops</string>
     <string name="voucher_soldout_dialog_desc">This voucher is Soldout</string>
@@ -600,6 +601,10 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_max_coin">Max Coin Deposit</string>
     <string name="deposit_coin_deposit">Coin Deposited</string>
     <string name="deposit_description">Description</string>
+
+    <string name="deposit_note">note : You should use the same Vex Address that you use in vexgift application</string>
+
+    <string name="loyalty_point">My Loyalty Point</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

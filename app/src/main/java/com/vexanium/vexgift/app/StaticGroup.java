@@ -1214,7 +1214,7 @@ public class StaticGroup {
             dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = dateFormat.parse(mDate);
             return dateOutput.format(date);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return mDate;
         }

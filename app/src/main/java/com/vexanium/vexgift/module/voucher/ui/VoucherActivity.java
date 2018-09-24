@@ -435,11 +435,11 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                         @Override
                         public void onClick(View v) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            if (item.isForPremium() && !user.isPremiumMember()) {
-                                StaticGroup.showPremiumMemberDialog(VoucherActivity.this);
-                            } else {
+//                            if (item.isForPremium() && !user.isPremiumMember()) {
+//                                StaticGroup.showPremiumMemberDialog(VoucherActivity.this);
+//                            } else {
                                 StaticGroup.goToVoucherDetailActivity(VoucherActivity.this, item, holder.getImageView(R.id.iv_coupon_image));
-                            }
+//                            }
                         }
                     });
                 }

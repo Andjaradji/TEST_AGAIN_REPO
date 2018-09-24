@@ -35,6 +35,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/material_red_4F39"
+        android:textSize="@dimen/text_tiny"
+        android:layout_marginTop="@dimen/interval_content"
+        android:layout_marginBottom="@dimen/interval_big"
+        android:text="@string/deposit_note"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:tag="bold"
         android:text="@string/deposit_step2_to_address"
