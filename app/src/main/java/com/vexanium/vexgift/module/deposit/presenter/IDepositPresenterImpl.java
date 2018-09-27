@@ -4,8 +4,6 @@ import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.deposit.model.IDepositInteractorImpl;
 import com.vexanium.vexgift.module.deposit.view.IDepositView;
-import com.vexanium.vexgift.module.security.model.IGoogleAuthSettingInteractorImpl;
-import com.vexanium.vexgift.module.security.view.IGoogleAuthSettingView;
 
 import java.io.Serializable;
 
@@ -49,8 +47,20 @@ public class IDepositPresenterImpl extends BasePresenterImpl<IDepositView, Seria
 
 
     @Override
-    public void requstDepositList(int id) {
+    public void requestDepositList(int id) {
         Subscription subscription = mDepositInteractorImpl.requestDepositList(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestUserDepositList(int id) {
+        Subscription subscription = mDepositInteractorImpl.requestUserDepositList(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestDeposit(int id, int depositId, int depositOptionId) {
+        Subscription subscription = mDepositInteractorImpl.requestDeposit(this, id, depositId, depositOptionId);
         compositeSubscription.add(subscription);
     }
 }

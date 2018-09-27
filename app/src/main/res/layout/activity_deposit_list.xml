@@ -34,14 +34,122 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fl_fragment_container"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar">
-    </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/material_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/include_deposit_header" />
+
+                <LinearLayout
+                    android:id="@+id/ll_phase_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recylerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rl_header_container"></android.support.v7.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:id="@+id/btn_choose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/interval_main"
+                        android:layout_marginEnd="@dimen/interval_main"
+                        android:layout_marginLeft="@dimen/interval_main"
+                        android:layout_marginRight="@dimen/interval_main"
+                        android:layout_marginStart="@dimen/interval_main"
+                        android:layout_marginTop="@dimen/interval_big"
+                        android:background="@drawable/shape_ripple_main_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_submain"
+                            android:tag="bold"
+                            android:text="Choose"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_title" />
+                    </LinearLayout>
+                </LinearLayout>
 
 
-    <include layout="@layout/include_loading_view"/>
+                <include layout="@layout/include_deposit_step2" />
+
+                <include layout="@layout/include_deposit_step3" />
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/material_white">-->
+
+                <!--<LinearLayout-->
+                <!--android:id="@id/white_bg"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/material_white"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<LinearLayout-->
+                <!--android:id="@+id/btn_redeem"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_marginBottom="@dimen/interval_main"-->
+                <!--android:layout_marginEnd="@dimen/interval_main"-->
+                <!--android:layout_marginLeft="@dimen/interval_main"-->
+                <!--android:layout_marginRight="@dimen/interval_main"-->
+                <!--android:layout_marginStart="@dimen/interval_main"-->
+                <!--android:layout_marginTop="@dimen/interval_small"-->
+                <!--android:background="@drawable/shape_ripple_main_button"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:gravity="center">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_btn"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/interval_submain"-->
+                <!--android:tag="bold"-->
+                <!--android:text="@string/coupon_redeem_voucher"-->
+                <!--android:textColor="@color/material_white"-->
+                <!--android:textSize="@dimen/text_title" />-->
+                <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
+                <!--</RelativeLayout>-->
+            </LinearLayout>
+
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--<FrameLayout-->
+    <!--android:id="@+id/fl_fragment_container"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@id/app_bar">-->
+    <!--</FrameLayout>-->
+
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

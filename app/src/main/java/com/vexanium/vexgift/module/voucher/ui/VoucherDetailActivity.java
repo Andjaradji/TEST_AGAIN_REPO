@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,7 +33,6 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
@@ -96,6 +96,10 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
+
+            Linkify.addLinks((TextView) findViewById(R.id.tv_desc), Linkify.ALL);
+            Linkify.addLinks((TextView) findViewById(R.id.tv_terms), Linkify.ALL);
+
             ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             toolbarLayout.setTitle(vendor.getName());
 
@@ -106,6 +110,11 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                     findViewById(R.id.tv_price_info).setVisibility(View.GONE);
                 } else {
                     ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
+                }
+                if(voucher.getLoyaltyPointRequired() > 0 ){
+                    ViewUtil.setText(this,  R.id.tv_minimum_lp,String.format(getString(R.string.voucher_minimum_lp), voucher.getLoyaltyPointRequired()));
+                }else{
+                    findViewById(R.id.tv_minimum_lp).setVisibility(View.GONE);
                 }
             } else {
                 ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
@@ -153,8 +162,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 if (voucher.getVoucherTypeId() != 5) {
                     if (voucher.isForPremium() && !user.isPremiumMember()) {
                         StaticGroup.showPremiumMemberDialog(this);
-                    }
-                    else if (voucher.getQtyAvailable() == 0) {
+                    } else if (voucher.getQtyAvailable() == 0) {
                         new VexDialog.Builder(this)
                                 .optionType(DialogOptionType.OK)
                                 .title(getString(R.string.voucher_soldout_dialog_title))

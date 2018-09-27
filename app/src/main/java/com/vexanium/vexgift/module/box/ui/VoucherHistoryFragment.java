@@ -81,7 +81,7 @@ public class VoucherHistoryFragment extends BaseFragment<IBoxPresenter> implemen
             context = getActivity();
         }
 
-        mRefreshLayout =  fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
         mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);

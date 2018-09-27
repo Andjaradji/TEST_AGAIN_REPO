@@ -235,10 +235,13 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".module.deposit.ui.DepositActivity"
-            android:screenOrientation="portrait" ></activity>
-        <activity android:name=".module.deposit.ui.DepositListActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".module.deposit.ui.DepositActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.deposit.ui.DepositListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".module.deposit.ui.DepositHistoryActivity"></activity>
     </application>
 
 </manifest>

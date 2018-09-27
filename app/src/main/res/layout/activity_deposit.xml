@@ -28,143 +28,34 @@
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
 
-            <include layout="@layout/content_toolbar_back" />
+            <include layout="@layout/content_toolbar_deposit" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar"
-        android:background="@color/material_white">
+        android:layout_below="@id/app_bar">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/interval_main"
-            android:paddingRight="@dimen/interval_main"
-            android:paddingTop="20dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_deposit_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_big_medium"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_small"/>
+        </android.support.v7.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/tv_deposit_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_xtiny"
-                android:textColor="@color/text_secondary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_main"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-            <TextView
-                android:id="@+id/tv_desc_header"
-                android:text="@string/deposit_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_small"/>
+    <include layout="@layout/include_loading_view" />
 
-            <TextView
-                android:id="@+id/tv_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_main"/>
-
-            <TextView
-                android:id="@+id/tv_duration_header"
-                android:text="@string/deposit_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_small"/>
-
-            <TextView
-                android:id="@+id/tv_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_main"/>
-
-            <TextView
-                android:id="@+id/tv_total_header"
-                android:text="@string/deposit_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_small"/>
-
-            <TextView
-                android:id="@+id/tv_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_primary"
-                android:tag="hnMed"
-                android:layout_marginBottom="@dimen/interval_main"/>
-
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/rl_submit_button_container"
+    <include
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/material_white"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true">
+        layout="@layout/content_error_view">
 
-        <LinearLayout
-            android:id="@+id/btn_deposit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="@dimen/interval_main"
-            android:layout_marginEnd="@dimen/interval_main"
-            android:layout_marginLeft="@dimen/interval_main"
-            android:layout_marginRight="@dimen/interval_main"
-            android:layout_marginStart="@dimen/interval_main"
-            android:layout_marginTop="@dimen/interval_small"
-            android:background="@drawable/shape_ripple_main_button"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/interval_submain"
-                android:tag="bold"
-                android:text="@string/deposit_button"
-                android:textAllCaps="true"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_medium" />
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <include layout="@layout/include_loading_view"/>
+    </include>
 
 </RelativeLayout>

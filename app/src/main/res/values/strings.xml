@@ -72,6 +72,7 @@
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
     <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
+    <string name="voucher_minimum_lp">Loyalty Point Required : %d</string>
 
     <string name="voucher_soldout_dialog_title">Oops</string>
     <string name="voucher_soldout_dialog_desc">This voucher is Soldout</string>
@@ -570,6 +571,40 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_duration">Duration</string>
     <string name="deposit_total">Total Deposited</string>
     <string name="deposit_button">Deposit</string>
+    <string name="deposit_history_title">Deposit History</string>
+    <string name="deposit_option_qty">%d out of %d</string>
+
+    <string name="deposit_step_1">Choose Deposit Amount</string>
+    <string name="deposit_step_2">Deposit Vex</string>
+    <string name="deposit_step_3">Deposit Detail</string>
+
+    <string name="deposit_no_choice_title">Oops</string>
+    <string name="deposit_dialog_title">Are You Sure?</string>
+    <string name="deposit_no_choice_desc">You have not choose any Deposit amount yet</string>
+    <string name="deposit_dialog_desc">Are you sure choose to %s? You can\'t change your deposit amount until current deposit countdown finished.</string>
+
+    <string name="deposit_not_available">Oops</string>
+    <string name="deposit_not_available_desc">This Deposit Plan is not available</string>
+
+    <string name="deposit_step2_send_to">Please Send</string>
+    <string name="deposit_step2_to_address">To This Address</string>
+    <string name="deposit_step2_time_left">Time Left for Deposit</string>
+
+    <string name="deposit_step3_your_deposit">Your Deposit of</string>
+    <string name="deposit_step3_has_been">Has been</string>
+    <string name="deposit_step3_confirmed">CONFIRMED</string>
+    <string name="deposit_step3_rejected">REJECTED</string>
+    <string name="deposit_step3_link_check">You can check the transaction through the link below</string>
+    <string name="deposit_step3_will_distribute">Total Vex with bonus</string>
+    <string name="deposit_step3_to_your_address_before">Your Vex will be deposit until</string>
+
+    <string name="deposit_max_coin">Max Coin Deposit</string>
+    <string name="deposit_coin_deposit">Coin Deposited</string>
+    <string name="deposit_description">Description</string>
+
+    <string name="deposit_note">note : You should use the same Vex Address that you use in vexgift application</string>
+
+    <string name="loyalty_point">My Loyalty Point</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

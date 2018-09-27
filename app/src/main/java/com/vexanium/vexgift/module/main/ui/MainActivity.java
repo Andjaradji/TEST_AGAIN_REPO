@@ -25,6 +25,7 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
+import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
@@ -317,7 +318,7 @@ public class MainActivity extends BaseActivity {
     public void openGuidanceMyBox1() {
         KLog.v("MainActivity", "openGuidance: guidance open 2");
 
-        if(boxFragmentView == null || homeFragment == null) return;
+        if (boxFragmentView == null || homeFragment == null) return;
 
         final View historyView = boxFragmentView.findViewById(R.id.ib_history);
 
@@ -602,6 +603,7 @@ public class MainActivity extends BaseActivity {
         String url = getIntent().getStringExtra("t_url");
         if (!TextUtils.isEmpty(url)) {
             openDeepLink(url);
+            getIntent().removeExtra("t_url");
         }
     }
 
@@ -614,6 +616,7 @@ public class MainActivity extends BaseActivity {
             Uri uri = Uri.parse(url);
             String path = url.replace("http://www.vexgift.com/", "")
                     .replace("https://www.vexgift.com/", "")
+                    .replace("www.vexgift.com/", "")
                     .replace("vexgift://", "");
 
             if (path.startsWith("main")) {
@@ -648,6 +651,19 @@ public class MainActivity extends BaseActivity {
             } else if (path.startsWith("notif")) {
                 gotoPage(NOTIF_FRAGMENT);
 
+            } else if (path.startsWith("deposit")) {
+                if(StaticGroup.isDepositAvailable()){
+                    String sId = uri.getQueryParameter("id");
+                    int id = 0;
+                    try {
+                        id = Integer.parseInt(sId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    intent = new Intent(this, DepositActivity.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
+                }
             } else if (path.startsWith("receive")) {
                 String code = uri.getQueryParameter("c");
                 intent = new Intent(this, VoucherActivity.class);

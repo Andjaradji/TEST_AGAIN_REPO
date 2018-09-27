@@ -106,6 +106,8 @@ public class User implements Serializable {
     private int facebookFriendCount;
     @JsonProperty("act_address")
     private String actAddress;
+    @JsonProperty("loyalty_point")
+    private int loyaltyPoint;
 
     public User() {
     }
@@ -740,5 +742,13 @@ public class User implements Serializable {
 
     public void setActAddress(String actAddress) {
         this.actAddress = actAddress;
+    }
+
+    public int getLoyaltyPoint() {
+        return loyaltyPoint;
+    }
+
+    public void setLoyaltyPoint(int loyaltyPoint) {
+        this.loyaltyPoint = loyaltyPoint;
     }
 }

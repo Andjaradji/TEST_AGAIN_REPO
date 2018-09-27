@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -57,6 +56,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private static final int INVITE_POINT_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
     Calendar verifTimeLeft;
+    TpUtil tpUtil;
     private SwipeRefreshLayout mRefreshLayout;
     private PointRecordFragment pointRecordFragment;
     private InvitePointFragment invitePointFragment;
@@ -71,7 +71,6 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private View notifView;
     private Subscription timeSubsription;
     private User user;
-    TpUtil tpUtil;
     private boolean isTimeUp;
 
     @Override

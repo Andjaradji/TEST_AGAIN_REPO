@@ -58,7 +58,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         holder.ivArrow.setRotation(270);
         holder.ivArrow.setVisibility(View.GONE);
 
-        if (data.getVpLogTypeId() < 2) {
+        if (data.getVpLogTypeId() != 3) {
             holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {
@@ -69,18 +69,13 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         switch (data.getVpLogTypeId()) {
             case 1:
                 holder.ivArrow.setVisibility(View.VISIBLE);
+//                if(holder.getAdapterPosition() == 0){
+//                    expand(holder);
+//                }
                 holder.mContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
-                            if (holder.mDetailContainer.getVisibility() == View.GONE) {
-                                holder.mDetailContainer.setVisibility(View.VISIBLE);
-                                holder.ivArrow.setRotation(90);
-                            } else {
-                                holder.mDetailContainer.setVisibility(View.GONE);
-                                holder.ivArrow.setRotation(270);
-                            }
-                        }
+                        expand(holder);
                     }
                 });
 
@@ -103,6 +98,8 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
                 }
                 break;
             case 2:
+            case 3:
+            case 4:
                 holder.mContainer.setOnClickListener(null);
                 break;
         }
@@ -121,6 +118,18 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    public void expand(FilterViewHolder holder){
+        if (dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
+            if (holder.mDetailContainer.getVisibility() == View.GONE) {
+                holder.mDetailContainer.setVisibility(View.VISIBLE);
+                holder.ivArrow.setRotation(90);
+            } else {
+                holder.mDetailContainer.setVisibility(View.GONE);
+                holder.ivArrow.setRotation(270);
+            }
+        }
     }
 
     public void addItem(VexPointRecord item) {

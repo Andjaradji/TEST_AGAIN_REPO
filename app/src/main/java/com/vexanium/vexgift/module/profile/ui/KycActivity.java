@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -96,14 +95,14 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         if (!TextUtils.isEmpty(countriesStr)) {
             try {
                 countries = (ArrayList<Country>) JsonUtil.toObject(countriesStr, CountriesResponse.class);
-            }catch (Exception e){
+            } catch (Exception e) {
                 mPresenter.getCountries();
             }
-        }else{
+        } else {
             mPresenter.getCountries();
         }
 
-        if(countries!=null) {
+        if (countries != null) {
             updateCountryAdapter();
             ViewUtil.setOnClickListener(this, this,
                     R.id.btn_next,
@@ -117,8 +116,8 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("KycActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
-            if(data instanceof CountriesResponse){
-                tpUtil.put(TpUtil.KEY_COUNTRY_LIST,JsonUtil.toString(data));
+            if (data instanceof CountriesResponse) {
+                tpUtil.put(TpUtil.KEY_COUNTRY_LIST, JsonUtil.toString(data));
                 countries = ((CountriesResponse) data).getCountryArrayList();
                 updateCountryAdapter();
             }
@@ -188,7 +187,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         }
     }
 
-    private void updateCountryAdapter(){
+    private void updateCountryAdapter() {
         ArrayAdapter<Country> spCountryAdapter = new ArrayAdapter<Country>(this, android.R.layout.simple_spinner_item, countries) {
             @NonNull
             @Override

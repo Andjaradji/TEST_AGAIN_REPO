@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/material_white"
-        android:paddingTop="20dp">
+        android:background="@color/material_white">
 
         <include layout="@layout/include_deposit_header" />
 
@@ -41,10 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginBottom="@dimen/interval_main"
-            android:layout_marginEnd="@dimen/interval_main"
-            android:layout_marginLeft="@dimen/interval_main"
-            android:layout_marginRight="@dimen/interval_main"
-            android:layout_marginStart="@dimen/interval_main"
             android:layout_marginTop="@dimen/interval_small"
             android:background="@drawable/shape_ripple_main_button"
             android:clickable="true"

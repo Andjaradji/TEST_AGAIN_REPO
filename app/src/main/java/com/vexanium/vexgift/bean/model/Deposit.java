@@ -2,11 +2,16 @@ package com.vexanium.vexgift.bean.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vexanium.vexgift.app.StaticGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Deposit extends BaseType {
+public class Deposit implements Serializable {
 
     @JsonProperty("id")
     private int id;
@@ -28,27 +33,35 @@ public class Deposit extends BaseType {
     private int coinDeposited;
     @JsonProperty("limit_per_user")
     private int limitPerUser;
+
+    @JsonProperty("note_pending")
+    private String notePending;
+
+    @JsonProperty("note_accepted")
+    private String noteAccepted;
+
+    @JsonProperty("note_rejected")
+    private String noteRejected;
+
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
     private String updatedAt;
+    @JsonProperty("deposit_option")
+    private ArrayList<DepositOption> depositOptions;
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -117,22 +130,18 @@ public class Deposit extends BaseType {
         this.limitPerUser = limitPerUser;
     }
 
-    @Override
     public String getCreatedAt() {
         return createdAt;
     }
 
-    @Override
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    @Override
     public String getUpdatedAt() {
         return updatedAt;
     }
 
-    @Override
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -145,7 +154,40 @@ public class Deposit extends BaseType {
         this.depositOptions = depositOptions;
     }
 
-    @JsonProperty("deposit_option")
-    private ArrayList<DepositOption> depositOptions;
+    public String getNotePending() {
+        return notePending;
+    }
+
+    public void setNotePending(String notePending) {
+        this.notePending = notePending;
+    }
+
+    public String getNoteAccepted() {
+        return noteAccepted;
+    }
+
+    public void setNoteAccepted(String noteAccepted) {
+        this.noteAccepted = noteAccepted;
+    }
+
+    public String getNoteRejected() {
+        return noteRejected;
+    }
+
+    public void setNoteRejected(String noteRejected) {
+        this.noteRejected = noteRejected;
+    }
+
+    public boolean isAvailable(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        long start = StaticGroup.getDateFromString(startTime);
+        long end = StaticGroup.getDateFromString(endTime);
+
+        long time = TimeUnit.MILLISECONDS.toSeconds(calendar.getTimeInMillis());
+        return (time >= start && time <= end) && (maxCoin != coinDeposited);
+    }
 
 }

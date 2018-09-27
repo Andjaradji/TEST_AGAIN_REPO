@@ -77,6 +77,8 @@ public class Voucher implements Serializable {
     private Category category;
     @JsonProperty("vendor")
     private Vendor vendor;
+    @JsonProperty("loyalty_point_required")
+    private int loyaltyPointRequired;
 
     @JsonProperty("voucher_type_id")
     private int voucherTypeId;
@@ -381,5 +383,13 @@ public class Voucher implements Serializable {
         } else {
             return memberType.getName().equalsIgnoreCase("Premium");
         }
+    }
+
+    public int getLoyaltyPointRequired() {
+        return loyaltyPointRequired;
+    }
+
+    public void setLoyaltyPointRequired(int loyaltyPointRequired) {
+        this.loyaltyPointRequired = loyaltyPointRequired;
     }
 }

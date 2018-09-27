@@ -12,8 +12,8 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +38,6 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.BestVoucher;
-import com.vexanium.vexgift.bean.model.Deposit;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
@@ -53,11 +52,11 @@ import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
-import com.vexanium.vexgift.module.deposit.ui.DepositListActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -84,9 +83,9 @@ import rx.functions.Action1;
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
 import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
-import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
+import static com.vexanium.vexgift.app.StaticGroup.IMG_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
@@ -451,6 +450,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
+        if(StaticGroup.isDepositAvailable()) {
+            data.add(++idx, new HomeFeedResponse(IMG_BANNER));
+        }
+
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
             data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", ""));
@@ -458,6 +461,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
         if (user.getKyc() == null || !user.isKycApprove())
             data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
+
 
 //        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
 //        data.add(3, new HomeFeedResponse(CONNECT_FB));
@@ -488,6 +492,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_fill_kyc;
                     case CONNECT_FB:
                         return R.layout.item_connect_fb;
+                    case IMG_BANNER:
+                        return R.layout.item_image_banner;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -598,6 +604,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
                                 startActivity(intent);
+                            }
+                        });
+                        break;
+                    case IMG_BANNER:
+                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                }else {
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         });
                         break;

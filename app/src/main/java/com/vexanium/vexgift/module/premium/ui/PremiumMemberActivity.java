@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
     RelativeLayout mRlBecomePremiumTopContainer;
     LinearLayout mLlAlreadyPremiumTopContainer;
     TextView mTvAlreadyPremium;
+    TextView mLoyaltyPoint;
 
     ArrayList<PremiumPurchase> mPremiumHistoryList = new ArrayList<>();
 
@@ -104,6 +106,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mLlAlreadyPremiumTopContainer = findViewById(R.id.ll_premium_top_already_premium);
         mTvAlreadyPremium = findViewById(R.id.tv_already_premium);
+
+        mLoyaltyPoint = findViewById(R.id.tv_lp);
 
         ArrayList<IconText> data = new ArrayList<>();
         data.add(new IconText(R.drawable.ic_premium_voucher, R.string.premium_access_voucher));
@@ -138,6 +142,8 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
         mRvPremiumPlan.setAdapter(mAdapter);
 
         mHistoryButton.setOnClickListener(this);
+
+        mLoyaltyPoint.setText(user.getLoyaltyPoint()+"");
 
         try {
             Field mScroller;
@@ -181,7 +187,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
     @Override
     public void onItemClick(PremiumPlan data) {
-        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || User.getUserAddressStatus() != 1) {
+        if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
             StaticGroup.openRequirementDialog(PremiumMemberActivity.this, true);
         } else {
             if (mPremiumHistoryList == null || mPremiumHistoryList.size() == 0 || mPremiumHistoryList.get(0).getStatus() != 0) {
@@ -223,6 +229,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 });
                 mHistoryButton.setVisibility(View.VISIBLE);
                 mHistoryButton.setEnabled(true);
+                mLoyaltyPoint.setText(((PremiumHistoryResponse) data).getLoyaltyPoint()+"");
             } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);

@@ -115,7 +115,7 @@ public class SendVoucherActivity extends BaseActivity<IVoucherPresenter> impleme
                 if (voucherGiftCode != null) {
                     code = voucherGiftCode.getCode();
                     KLog.v("SendVoucherActivity", "handleResult: code " + code);
-                    if(!TextUtils.isEmpty(code)){
+                    if (!TextUtils.isEmpty(code)) {
                         Bitmap bitmap = QRCode.from(code).withSize(150, 150).bitmap();
                         ImageView view = findViewById(R.id.iv_qr_code);
                         Glide.with(App.getContext())

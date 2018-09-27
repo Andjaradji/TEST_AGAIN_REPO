@@ -5,11 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VoucherCode implements Serializable {
@@ -137,20 +132,6 @@ public class VoucherCode implements Serializable {
 
     public String getRedeemedDate() {
 //        if(TextUtils.isEmpty(updatedAt)) return "";
-        Calendar calendar = Calendar.getInstance();
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        Date date;
-        try {
-            date = format.parse(updatedAt);
-        } catch (Exception e) {
-            date = new Date();
-        }
-        calendar.setTime(date);
-
-        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  hh:mm";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
-
-        return dateFormat.format(calendar.getTime());
+        return StaticGroup.getDate(updatedAt);
     }
 }

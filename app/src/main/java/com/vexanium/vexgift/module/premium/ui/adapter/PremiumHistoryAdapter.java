@@ -14,6 +14,7 @@ import com.vexanium.vexgift.bean.model.PremiumPurchase;
 import com.vexanium.vexgift.module.premium.ui.helper.AdapterHistoryOnClick;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAdapter.FilterViewHolder> {
 
@@ -46,6 +47,7 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
         holder.mHistoryTitle.setText("PREMIUM #" + data.getId());
         holder.mHistorySubtitle.setText(data.getCreatedAtDate());
         holder.mHistoryAmount.setText(data.getPaidAmount() + " VEX");
+        holder.mLoyaltyPoint.setText("+ "+(data.getStatus() == 1? TimeUnit.SECONDS.toDays(data.getDuration()):0)+" Loyalty Point");
 
         if (data.getStatus() == 0) {
             holder.mHistoryStatus.setText(context.getText(R.string.premium_purchase_pending));
@@ -86,7 +88,7 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
     public class FilterViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout mContainer;
-        TextView mHistoryTitle, mHistorySubtitle, mHistoryAmount, mHistoryStatus;
+        TextView mHistoryTitle, mHistorySubtitle, mHistoryAmount, mHistoryStatus, mLoyaltyPoint;
         private Context mContext;
 
 
@@ -98,6 +100,7 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
             mHistorySubtitle = itemView.findViewById(R.id.tv_purchase_history_subtitle);
             mHistoryAmount = itemView.findViewById(R.id.tv_purchase_history_amount);
             mHistoryStatus = itemView.findViewById(R.id.tv_purchase_history_status);
+            mLoyaltyPoint = itemView.findViewById(R.id.tv_loyalty_point);
         }
 
 

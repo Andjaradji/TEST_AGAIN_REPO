@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.bean.model.DepositOption;
 import com.vexanium.vexgift.module.deposit.ui.helper.AdapterOptionOnClick;
-import com.vexanium.vexgift.module.premium.ui.helper.AdapterBuyOnClick;
 
 import java.util.ArrayList;
 
@@ -46,13 +45,13 @@ public class DepositOptionAdapter extends RecyclerView.Adapter<DepositOptionAdap
 
         holder.mDepositTitle.setText(data.getName());
 
-        String subtitle = data.getQuantityLeft() + " out of "+ data.getQuantityAvailable();
+        String subtitle = data.getQuantityLeft() + " out of " + data.getQuantityAvailable();
         holder.mDepositSubtitle.setText(subtitle);
 
         holder.mContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener!=null){
+                if (listener != null) {
                     listener.onItemClick(data);
                 }
             }

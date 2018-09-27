@@ -8,6 +8,8 @@ import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.UserDepositResponse;
+import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
 import java.util.Map;
@@ -77,6 +79,20 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("deposit/get")
     Observable<HttpResponse<DepositListResponse>> getDeposits(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("deposit/get-deposit-history")
+    Observable<HttpResponse<UserDepositResponse>> getDepositHistory(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("deposit/deposit")
+    Observable<HttpResponse<UserDepositSingleResponse>> requestDeposit(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

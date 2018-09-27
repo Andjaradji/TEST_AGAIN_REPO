@@ -1,14 +1,11 @@
 package com.vexanium.vexgift.module.deposit.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +18,6 @@ import com.vexanium.vexgift.bean.model.DepositOption;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.box.ui.BoxFragment;
-import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
-import com.vexanium.vexgift.module.box.ui.helper.BoxFragmentChangeListener;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenter;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenterImpl;
 import com.vexanium.vexgift.module.deposit.ui.adapter.DepositOptionAdapter;
@@ -33,7 +27,7 @@ import com.vexanium.vexgift.module.deposit.view.IDepositView;
 import java.io.Serializable;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_deposit_step1)
-public class Deposit1Fragment extends BaseFragment<IDepositPresenter> implements IDepositView, AdapterOptionOnClick{
+public class Deposit1Fragment extends BaseFragment<IDepositPresenter> implements IDepositView, AdapterOptionOnClick {
 
     ImageView mIvHeaderIcon;
     TextView mTvHeaderStep, mTvHeaderTitle;
@@ -61,10 +55,10 @@ public class Deposit1Fragment extends BaseFragment<IDepositPresenter> implements
         mTvHeaderTitle.setText("Deposit Amount");
 
         mRvDeposit.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mDepositOptionAdapter = new DepositOptionAdapter(getActivity(),this);
+        mDepositOptionAdapter = new DepositOptionAdapter(getActivity(), this);
         mRvDeposit.setAdapter(mDepositOptionAdapter);
 
-        mPresenter.requstDepositList(user.getId());
+        mPresenter.requestDepositList(user.getId());
 
     }
 

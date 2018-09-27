@@ -40,9 +40,63 @@
         android:layout_below="@id/app_bar"
         android:background="@color/material_white">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_white_underline">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loyalty_point"
+                        android:tag="bold"
+                        android:textSize="@dimen/text_small"
+                        android:textColor="@color/material_black_text_color" />
+
+                    <TextView
+                        android:id="@+id/tv_loyalty_point"
+                        android:layout_marginLeft="@dimen/interval_content"
+                        android:layout_width="wrap_content"
+                        android:text="0"
+                        android:visibility="gone"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small"
+                        android:tag="bold"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_lp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_tiny"
+                    android:layout_alignParentEnd="true"
+                    android:tag="bold"
+                    android:text="0"
+                    android:layout_marginRight="@dimen/interval_content"
+                    android:textColor="@color/material_black_text_color"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/interval_content"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor"
+                    android:layout_alignParentBottom="true"
+                    />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_premium_top_container"
@@ -166,8 +220,7 @@
             <RelativeLayout
                 android:id="@+id/rl_premium_plan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_premium_top_container">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_premium_plan"
@@ -193,7 +246,7 @@
             </RelativeLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 

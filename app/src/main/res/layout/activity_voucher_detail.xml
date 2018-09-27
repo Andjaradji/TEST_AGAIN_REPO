@@ -173,6 +173,15 @@
                     android:textColor="@color/material_black_sub_text_color"
                     android:textSize="@dimen/text_xtiny" />
 
+                <TextView
+                    android:id="@+id/tv_minimum_lp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="light"
+                    android:textAlignment="center"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
