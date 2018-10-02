@@ -28,6 +28,7 @@ import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
@@ -47,7 +48,7 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
  */
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_splash, withLoadingAnim = true)
-public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
+public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILoginView, StaticGroup.CommonErrorDialogListener {
 
     protected static int currentCountdown = 8;
     Uri uri;
@@ -75,16 +76,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        destinationActivity = getDestinationActivity(this);
-
-        if (destinationActivity != null) {
-            if (checkLoginInfo()) {
-                User user = User.getCurrentUser(this);
-                mPresenter.requestSetting(user.getId());
-            } else {
-                mPresenter.requestAppStatus();
-            }
-        }
+        load();
     }
 
     @Override
@@ -108,7 +100,24 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }
         } else if (errorResponse != null) {
-            StaticGroup.showCommonErrorDialog(this, errorResponse);
+            if(NetworkUtil.isOnline(this)) {
+                StaticGroup.showCommonErrorDialog(this, errorResponse, this);
+            }else{
+                StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body), this);
+            }
+        }
+    }
+
+    private void load(){
+        destinationActivity = getDestinationActivity(this);
+
+        if (destinationActivity != null) {
+            if (checkLoginInfo()) {
+                User user = User.getCurrentUser(this);
+                mPresenter.requestSetting(user.getId());
+            } else {
+                mPresenter.requestAppStatus();
+            }
         }
     }
 
@@ -231,5 +240,10 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         }
         String text = "Version " + BuildConfig.VERSION_NAME + "\n" + getString(R.string.app_copyright);
         ViewUtil.setText(this, R.id.tv_main_copyright, text);
+    }
+
+    @Override
+    public void onErrorDismiss() {
+        load();
     }
 }

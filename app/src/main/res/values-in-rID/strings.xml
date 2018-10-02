@@ -101,7 +101,7 @@
     <string name="wallet">Wallet</string>
     <string name="send">Kirim</string>
     <string name="receive">Terima</string>
-    <string name="vexpoint_point_record">Catatan Point</string>
+    <string name="vexpoint_point_record">Riwayat Point</string>
     <string name="vexpoint_invite_point">Point dari Undangan</string>
     <string name="vexpoint_estimate_reward">EST. HADIAH</string>
     <string name="vexpoint_fill_address">Masukan Alamat Vex</string>
@@ -371,7 +371,7 @@
     <string name="premium_buy_vex">VEX/hari</string>
     <string name="premium_buy_total">total pembayaran:</string>
     <string name="premium_buy_warning">catatan: sekali Tombol <b>Beli Sekarang</b> ditekan,\nanda tidak dapat mengganti rencana pembelian selama 1 jam</string>
-    <string name="premium_history">CATATAN PREMIUM</string>
+    <string name="premium_history">RIWAYAT PREMIUM</string>
     <string name="premium_purchase_history">Catatan Pembelian</string>
     <string name="premium_purchase_pending">Menunggu</string>
     <string name="premium_purchase_plan">Rencana</string>

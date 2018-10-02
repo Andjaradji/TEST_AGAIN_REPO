@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -909,37 +910,65 @@ public class StaticGroup {
                 .show();
     }
 
+    public interface CommonErrorDialogListener{
+        void onErrorDismiss();
+    }
+
     public static void showCommonErrorDialog(Context context, String title, String message) {
+        showCommonErrorDialog(context,title,message,null);
+    }
+
+    public static void showCommonErrorDialog(Context context, String title, String message, final CommonErrorDialogListener listener) {
         new VexDialog.Builder(context)
                 .optionType(DialogOptionType.OK)
                 .title(title)
                 .content(message)
                 .autoDismiss(true)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        if(listener!=null){
+                            listener.onErrorDismiss();
+                        }
+                    }
+                })
                 .show();
     }
 
     public static void showCommonErrorDialog(Context context, String message) {
+        showCommonErrorDialog(context, message, (CommonErrorDialogListener) null);
+    }
+
+    public static void showCommonErrorDialog(Context context, String message, CommonErrorDialogListener listener) {
         String title = context.getString(R.string.cm_dialog_all_error_title);
         String desc = message;
-        showCommonErrorDialog(context, title, desc);
+        showCommonErrorDialog(context, title, desc, listener);
     }
 
     public static void showCommonErrorDialog(Context context, int code) {
+        showCommonErrorDialog(context, code, null);
+    }
+
+    public static void showCommonErrorDialog(Context context, int code, CommonErrorDialogListener listener) {
         String title = context.getString(R.string.cm_dialog_all_error_title);
         String desc = String.format(context.getString(R.string.cm_dialog_all_error_desc), String.valueOf(code));
-        showCommonErrorDialog(context, title, desc);
+        showCommonErrorDialog(context, title, desc, listener);
     }
 
     public static void showCommonErrorDialog(Context context, HttpResponse errorResponse) {
+        showCommonErrorDialog(context,errorResponse,null);
+    }
+
+    public static void showCommonErrorDialog(Context context, HttpResponse errorResponse, CommonErrorDialogListener listener) {
         if (errorResponse.getMeta() != null) {
             Answers.getInstance().logCustom(new CustomEvent("Common Error")
                     .putCustomAttribute("Error Code", String.valueOf(errorResponse.getMeta().getStatus()))
                     .putCustomAttribute("Error Message", errorResponse.getMeta().getMessage()));
             if (errorResponse.getMeta().isRequestError()) {
                 if (errorResponse.getMeta().getStatus() != 408)
-                    showCommonErrorDialog(context, errorResponse.getMeta().getMessage());
+                    showCommonErrorDialog(context, errorResponse.getMeta().getMessage(),listener);
             } else {
-                showCommonErrorDialog(context, errorResponse.getMeta().getStatus());
+                showCommonErrorDialog(context, errorResponse.getMeta().getStatus(),listener);
             }
         } else {
             Answers.getInstance().logCustom(new CustomEvent("Unknown Error"));
