@@ -83,11 +83,11 @@
     <string name="register_button_fb_login">Daftar dengan Facebook</string>
     <string name="register_button_google_login">Daftar dengan Google</string>
     <string name="register_button_or">atau Daftar dengan</string>
-    <string name="register_confirmation_text">Terimakasih sudah mendaftar</string>
+    <string name="register_confirmation_text">Terimakasih sudah mendaftar\nKami akan mengirimkan kode konfirmasi ke %s</string>
     <string name="register_confirmation_hint">Masukan Kode Konfirmasi</string>
     <string name="register_confirmation_button">Konfirmasi Email</string>
     <string name="register_confirmation_resend">Kirim Ulang Email</string>
-    <string name="register_confirmation_resend_time">Kirim Ulang Email</string>
+    <string name="register_confirmation_resend_time">Kirim Ulang Email %s</string>
     <string name="register_confirmation_resend_success">Konfirmasi Email dikirim kembali</string>
     <string name="register_confirmation_success">Konfirmasi Email sukses</string>
     <string name="box_title">My Box</string>
@@ -448,6 +448,12 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="voucher_minimum_lp">Loyalty Point yang dibutuhkan : %d</string>
 
     <string name="loyalty_point">Loyalty Point Saya</string>
+    <string name="token_freeze_title">Token Freeze</string>
+
+    <string name="shortcut_gift_voucher">GIFT VOUCHER</string>
+    <string name="shortcut_token_airdrop">TOKEN AIRDROP</string>
+    <string name="shortcut_token_sale">TOKEN SALE</string>
+    <string name="shortcut_deposit">DEPOSIT</string>
 
 
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>

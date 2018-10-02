@@ -107,7 +107,8 @@ public class StaticGroup {
     public static final int NORMAL_COUPON = 5;
     public static final int COMPLETE_FORM = 6;
     public static final int CONNECT_FB = 7;
-    public static final int IMG_BANNER = 8;
+    public static final int DEPOSIT_BANNER = 8;
+    public static final int TOKEN_FREEZE_BANNER = 9;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;

@@ -190,6 +190,10 @@
     <string name="shortcut_my_voucher">MY VOUCHER</string>
     <string name="shortcut_my_token">MY TOKEN</string>
     <string name="shortcut_my_wallet">MY WALLET</string>
+    <string name="shortcut_gift_voucher">GIFT VOUCHER</string>
+    <string name="shortcut_token_airdrop">TOKEN AIRDROP</string>
+    <string name="shortcut_token_sale">TOKEN SALE</string>
+    <string name="shortcut_deposit">DEPOSIT</string>
 
     <string name="home_explore_voucher">GIFT VOUCHER</string>
     <string name="home_explore_voucher_desc">Various of \nGift Voucher</string>
@@ -605,6 +609,7 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_note">note : You should use the same Vex Address that you use in vexgift application</string>
 
     <string name="loyalty_point">My Loyalty Point</string>
+    <string name="token_freeze_title">Token Freeze</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

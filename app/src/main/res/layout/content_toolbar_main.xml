@@ -64,7 +64,6 @@
             android:maxWidth="100dp"
             android:minWidth="20dp"
             android:tag="hnBoldCond"
-            android:text="1500"
             android:textAlignment="textEnd"
             android:textColor="@color/material_white"
             android:transitionName="vexpoint_amount"

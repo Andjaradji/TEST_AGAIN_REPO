@@ -56,7 +56,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -85,9 +84,10 @@ import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
 import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
-import static com.vexanium.vexgift.app.StaticGroup.IMG_BANNER;
+import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
+import static com.vexanium.vexgift.app.StaticGroup.TOKEN_FREEZE_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
@@ -448,10 +448,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
-        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
+//        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
+
+//        if(StaticGroup.isDepositAvailable()) {
+//            data.add(++idx, new HomeFeedResponse(DEPOSIT_BANNER));
+//        }
 
         if(StaticGroup.isDepositAvailable()) {
-            data.add(++idx, new HomeFeedResponse(IMG_BANNER));
+            data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
         }
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
@@ -492,8 +496,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_fill_kyc;
                     case CONNECT_FB:
                         return R.layout.item_connect_fb;
-                    case IMG_BANNER:
+                    case DEPOSIT_BANNER:
                         return R.layout.item_image_banner;
+                    case TOKEN_FREEZE_BANNER:
+                        return R.layout.item_vaults_banner;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -509,27 +515,67 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(1, 0);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                    startActivity(intent);
                                 }
                             });
                             holder.setOnClickListener(R.id.my_token_button, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(1, 1);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    intent.putExtra("isToken", true);
+                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                    startActivity(intent);
+                                }
+                            });
+                            holder.setOnClickListener(R.id.token_sale_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+
                                 }
                             });
                             holder.setOnClickListener(R.id.my_wallet_button, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    ((MainActivity) getActivity()).gotoPage(2, 0);
+//                                    ((MainActivity) getActivity()).gotoPage(2, 0);
                                     //TODO uncomment to try deposit
                                     //Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
                                     //startActivity(intent);
+                                    if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                        StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                    }else {
+                                        Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                        startActivity(intent);
+                                    }
                                 }
                             });
                         }
+                        exploreView = holder.getView(R.id.my_voucher_button);
+                        exploreView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                if (!isAlreadyGuideVoucherToken) {
+                                    CountDownTimer countDownTimer = new CountDownTimer(500, 100) {
+                                        @Override
+                                        public void onTick(long l) {
+
+                                        }
+
+                                        @Override
+                                        public void onFinish() {
+                                            RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
+                                            isAlreadyGuideVoucherToken = true;
+                                        }
+                                    };
+
+                                    countDownTimer.start();
+                                }
+                            }
+                        });
 //                        if(!isAlreadyGuideVP){
 //                            RxBus.get().post(RxBus.KEY_VP_GUIDANCE, holder.getView(R.id.ll_shortcut));
 //                            isAlreadyGuideVP = true;
@@ -560,28 +606,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 startActivity(intent);
                             }
                         });
-                        exploreView = holder.getView(R.id.ll_explore);
-                        exploreView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                            @Override
-                            public void onGlobalLayout() {
-                                if (!isAlreadyGuideVoucherToken) {
-                                    CountDownTimer countDownTimer = new CountDownTimer(500, 100) {
-                                        @Override
-                                        public void onTick(long l) {
 
-                                        }
-
-                                        @Override
-                                        public void onFinish() {
-                                            RxBus.get().post(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, exploreView);
-                                            isAlreadyGuideVoucherToken = true;
-                                        }
-                                    };
-
-                                    countDownTimer.start();
-                                }
-                            }
-                        });
                         break;
                     case CATEGORY_BAR:
                         holder.setText(R.id.tv_category_title, item.title);
@@ -607,7 +632,21 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             }
                         });
                         break;
-                    case IMG_BANNER:
+                    case DEPOSIT_BANNER:
+                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                }else {
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                        break;
+                    case TOKEN_FREEZE_BANNER:
                         holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -201,8 +201,8 @@ public class MainActivity extends BaseActivity {
     public void openGuidanceHome(View targetView) {
         KLog.v("MainActivity", "openGuidance: guidance open 1");
 
-        final View voucherView = targetView.findViewById(R.id.voucher_button);
-        View tokenView = targetView.findViewById(R.id.token_button);
+        final View voucherView = targetView;
+//        View tokenView = targetView.findViewById(R.id.token_button);
 
         final View vexPointView = homeFragment.mVexPointButton;
         if (vexPointView == null) return;
@@ -231,20 +231,21 @@ public class MainActivity extends BaseActivity {
                 .target(vexPointView);
 
         final BubbleToolTip bubbleToolTip2 = new BubbleToolTip(this)
-                .arrowDirection(ArrowDirection.BOTTOM_CENTER)
+                .arrowDirection(ArrowDirection.TOP_LEFT)
                 .setDescription(getString(R.string.guidance_home_2))
                 .setWidthPercent(80)
                 .setMargin(0, 0, 0, 0)
-                .setGravity(Gravity.TOP)
+                .setGravity(Gravity.BOTTOM)
                 .target(targetView);
 
         final HandGuide handGuide = new HandGuide(this)
                 .setGravity(Gravity.BOTTOM | Gravity.END)
+                .setMargin(0, 0, -16, -16)
                 .target(voucherView);
 
-        final HandGuide handGuide2 = new HandGuide(this)
-                .setGravity(Gravity.BOTTOM | Gravity.END)
-                .target(tokenView);
+//        final HandGuide handGuide2 = new HandGuide(this)
+//                .setGravity(Gravity.BOTTOM | Gravity.END)
+//                .target(targetView);
 
         final NextButton nextButton = new NextButton(this)
                 .setGravity(Gravity.BOTTOM | Gravity.END);
@@ -285,8 +286,8 @@ public class MainActivity extends BaseActivity {
                     handGuide.view.setVisibility(View.VISIBLE);
                     handGuide.view.startAnimation(handGuide.mEnterAnimation);
 
-                    handGuide2.view.setVisibility(View.VISIBLE);
-                    handGuide2.view.startAnimation(handGuide2.mEnterAnimation);
+//                    handGuide2.view.setVisibility(View.VISIBLE);
+//                    handGuide2.view.startAnimation(handGuide2.mEnterAnimation);
                 }
                 KLog.v("guidance time " + millisUntilFinished);
             }
@@ -309,7 +310,7 @@ public class MainActivity extends BaseActivity {
                     .motionType(MotionType.CLICK_ONLY)
                     .overlay(overlay.setStyle(HoleStyle.NO_HOLE))
                     .bubbleTooltip(bubbleToolTip2, bubbleToolTip)
-                    .handGuide(handGuide, handGuide2)
+                    .handGuide(handGuide)
                     .show();
             animationCountDownTimer.start();
         }
