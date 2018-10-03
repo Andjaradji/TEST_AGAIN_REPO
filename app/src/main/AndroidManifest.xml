@@ -243,6 +243,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".module.deposit.ui.DepositHistoryActivity" />
         <activity android:name=".module.deposit.ui.TokenFreezeActivity"></activity>
+        <activity
+            android:name=".module.tokensale.ui.TokenSaleActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

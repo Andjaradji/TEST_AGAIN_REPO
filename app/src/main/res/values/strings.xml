@@ -370,11 +370,16 @@
 
     <string name="error_voucher_empty_header">No Voucher Found</string>
     <string name="error_token_empty_header">No Token Found</string>
+    <string name="error_deposit_empty_header">No Deposit Found</string>
+    <string name="error_token_sale_empty_header">No Token Sale Found</string>
+
 
     <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
     <string name="error_my_token_empty_body">You don\'t have any token</string>
     <string name="error_history_voucher_empty_body">You haven\'t redeemed any voucher</string>
     <string name="error_history_token_empty_body">You haven\'t redeemed any token</string>
+    <string name="error_my_deposit_empty_body">There isn\'t any deposit</string>
+    <string name="error_my_token_sale_empty_body">There isn\'t any token sale</string>
 
     <string name="error_vp_point_record_empty_header">No Record Found</string>
     <string name="error_vp_invite_point_empty_header">No Point Found</string>
@@ -610,6 +615,13 @@ Your expired and used voucher will be shown here</string>
 
     <string name="loyalty_point">My Loyalty Point</string>
     <string name="token_freeze_title">Token Freeze</string>
+
+    <string name="token_sale_title">Token Sale</string>
+    <string name="token_sale_token_type">Token Type</string>
+    <string name="token_sale_token_name">Token Name</string>
+    <string name="token_sale_token_available">Total token sale</string>
+    <string name="token_sale_token_left">Token Left</string>
+    <string name="token_sale_buy_list">Buy list</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

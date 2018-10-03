@@ -27,6 +27,7 @@ import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
@@ -730,6 +731,14 @@ public class RetrofitManager {
         params.put("deposit_option_id", depositOptionId);
 
         return mOtherService.requestDeposit(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
+    }
+
+    public Observable<HttpResponse<TokenSaleResponse>> requestTokenSaleList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getTokenSales(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleResponse>>());
     }
 
 }
