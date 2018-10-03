@@ -42,10 +42,8 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_deposit, withLoadingAnim = true)
+@ActivityFragmentInject(contentViewId = R.layout.activity_token_sale, withLoadingAnim = true)
 public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {
-
-    LinearLayout mBtnDeposit;
 
     User user;
     BaseRecyclerAdapter<TokenSale> mAdapter;
@@ -75,8 +73,6 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         mIvError = findViewById(R.id.iv_error_view);
         mTvErrorHead = findViewById(R.id.tv_error_head);
         mTvErrorBody = findViewById(R.id.tv_error_body);
-        
-        mBtnDeposit = findViewById(R.id.btn_deposit);
 
 //        DepositListResponse depositListResponse = TableDepositDaoUtil.getInstance().getDepositListResponse();
 //        if (depositListResponse != null) {
@@ -91,24 +87,27 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //mPresenter.requestDepositList(user.getId());
-                mPresenter.requestTokenSaleList(user.getId());
+//                mPresenter.requestTokenSaleList(user.getId());
             }
         });
 
-        mPresenter.requestTokenSaleList(user.getId());
+//        mPresenter.requestTokenSaleList(user.getId());
 
-        if(getIntent().hasExtra("id")){
-            int id = getIntent().getIntExtra("id",0);
-            if(id > 0){
+//        if(getIntent().hasExtra("id")){
+//            int id = getIntent().getIntExtra("id",0);
+//            if(id > 0){
 //                Intent intent = new Intent(this, DepositHistoryActivity.class);
 //                intent.putExtra("id",id);
 //                startActivity(intent);
-            }
-        }
+//            }
+//        }
 
         ViewUtil.setText(this, R.id.tv_toolbar_title, getString(R.string.token_sale_title));
         ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.history_button);
+
+        //TODO comment if ready to launch
+        findViewById(R.id.history_button).setVisibility(View.GONE);
+        mRefreshLayout.setEnabled(false);
     }
 
     @Override
@@ -133,8 +132,6 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
             if (data instanceof TokenSaleResponse) {
                 TokenSaleResponse tokenSaleResponse = (TokenSaleResponse) data;
                 tokenSales = tokenSaleResponse.getTokenSales();
-
-                //TableDepositDaoUtil.getInstance().saveDepositsToDb(JsonUtil.toString(depositListResponse));
 
                 setTokenSaleList();
 
