@@ -5,6 +5,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
+import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.util.JsonUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -47,6 +48,14 @@ public class TableDepositDaoUtil extends BaseDaoUtil {
                 }.getType()) : null;
     }
 
+    public VexVaultResponse getVexVaultListResponse() {
+        QueryBuilder<TableDeposit> query = mTableDepositDao.queryBuilder().orderAsc(TableDepositDao.Properties.Id);
+
+        return query.list().size() > 0 && query.list().get(0).getVexVaults() != null ?
+                (VexVaultResponse) JsonUtil.toObject(query.list().get(0).getVexVaults(), new TypeToken<VexVaultResponse>() {
+                }.getType()) : null;
+    }
+
     public UserDepositResponse getUserDepositListResponse() {
         QueryBuilder<TableDeposit> query = mTableDepositDao.queryBuilder().orderAsc(TableDepositDao.Properties.Id);
 
@@ -65,6 +74,21 @@ public class TableDepositDaoUtil extends BaseDaoUtil {
         } else {
             tableDao = new TableDeposit();
             tableDao.setDeposits(deposits);
+            mTableDepositDao.insert(tableDao);
+        }
+        KLog.v("============== Deposit Database saved ===============");
+    }
+
+    public void saveTokenFreezeToDb(String tokenFreeze) {
+        TableDeposit tableDao;
+        QueryBuilder<TableDeposit> query = mTableDepositDao.queryBuilder().orderAsc(TableDepositDao.Properties.Id);
+        if (query.list().size() > 0) {
+            tableDao = query.list().get(0);
+            tableDao.setVexVaults(tokenFreeze);
+            mTableDepositDao.update(tableDao);
+        } else {
+            tableDao = new TableDeposit();
+            tableDao.setVexVaults(tokenFreeze);
             mTableDepositDao.insert(tableDao);
         }
         KLog.v("============== Deposit Database saved ===============");

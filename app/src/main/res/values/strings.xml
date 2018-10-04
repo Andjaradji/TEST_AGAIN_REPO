@@ -611,6 +611,9 @@ Your expired and used voucher will be shown here</string>
     <string name="loyalty_point">My Loyalty Point</string>
     <string name="token_freeze_title">Token Freeze</string>
 
+    <string name="token_freeze_coin_amount">Coin Amount</string>
+    <string name="token_freeze_description">Description</string>
+
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

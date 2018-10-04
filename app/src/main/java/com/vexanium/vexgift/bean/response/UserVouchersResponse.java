@@ -28,7 +28,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (!voucherCode.getVoucher().isToken())
-                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getExpiredAt() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
         }
@@ -42,7 +42,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (!voucherCode.getVoucher().isToken())
-                if (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis()) {
+                if (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getExpiredAt() < System.currentTimeMillis()) {
                     inActiveVouchers.add(voucherCode);
                 }
         }
@@ -56,7 +56,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (voucherCode.getVoucher().isToken())
-                if ((!voucherCode.isBeingGifted() && TextUtils.isEmpty(voucherCode.getAddress()) && voucherCode.getVoucher().getValidUntil() > System.currentTimeMillis())) {
+                if ((!voucherCode.isBeingGifted() && TextUtils.isEmpty(voucherCode.getAddress()) && voucherCode.getExpiredAt() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
         }
@@ -70,7 +70,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (voucherCode.getVoucher().isToken())
-                if ((voucherCode.isBeingGifted() || !TextUtils.isEmpty(voucherCode.getAddress()) || voucherCode.getVoucher().getValidUntil() < System.currentTimeMillis())) {
+                if ((voucherCode.isBeingGifted() || !TextUtils.isEmpty(voucherCode.getAddress()) || voucherCode.getExpiredAt() < System.currentTimeMillis())) {
                     inActiveVouchers.add(voucherCode);
                 }
         }

@@ -52,6 +52,7 @@ import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
+import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
@@ -454,9 +455,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //            data.add(++idx, new HomeFeedResponse(DEPOSIT_BANNER));
 //        }
 
-        if(StaticGroup.isDepositAvailable()) {
+//        if(StaticGroup.isDepositAvailable()) {
             data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
-        }
+//        }
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
@@ -651,12 +652,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
-                                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
-                                }else {
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), TokenFreezeActivity.class);
                                     startActivity(intent);
-                                }
                             }
                         });
                         break;

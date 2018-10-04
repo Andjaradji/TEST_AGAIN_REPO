@@ -35,6 +35,7 @@ import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.bean.response.VexPointResponse;
+import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
@@ -720,6 +721,15 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mOtherService.getDepositHistory(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositResponse>>());
+    }
+
+    public Observable<HttpResponse<VexVaultResponse>> requestTokenFreeze(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("limit", 100);
+
+        return mOtherService.getTokenFreeze(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexVaultResponse>>());
     }
 
     public Observable<HttpResponse<UserDepositSingleResponse>> requestDeposit(int userId, int depositId, int depositOptionId) {

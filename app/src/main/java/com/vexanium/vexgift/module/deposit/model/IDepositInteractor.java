@@ -10,4 +10,6 @@ public interface IDepositInteractor<T> {
     Subscription requestUserDepositList(RequestCallback<T> callback, int id);
 
     Subscription requestDeposit(RequestCallback<T> callback, int id, int depositId, int depositOptionId);
+
+    Subscription requestTokenFreeze(RequestCallback<T> callback, int id);
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/interval_content"
+    android:layout_marginEnd="@dimen/interval_main"
+    android:layout_marginLeft="@dimen/interval_main"
+    android:layout_marginRight="@dimen/interval_main"
+    android:layout_marginStart="@dimen/interval_main"
+    android:layout_marginTop="@dimen/interval_content">
+
+    <LinearLayout
+        android:id="@+id/rl_banner_info"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:paddingBottom="@dimen/interval_main"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/interval_medium"
+            android:paddingBottom="@dimen/interval_medium"
+            android:paddingLeft="@dimen/interval_main"
+            android:paddingRight="@dimen/interval_main"
+            android:tag="bold"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lineColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingLeft="@dimen/interval_main"
+            android:paddingTop="@dimen/interval_content"
+            android:tag="bold"
+            android:text="@string/token_freeze_description"
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingLeft="@dimen/interval_main"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_xtiny" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingLeft="@dimen/interval_main"
+            android:paddingTop="@dimen/interval_content"
+            android:tag="bold"
+            android:text="@string/token_freeze_coin_amount"
+            android:textColor="@color/material_black_sub_text_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_coin_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingLeft="@dimen/interval_main"
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_xtiny" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ad_list_item_fb_frame_image"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/frame_ad_item"
+        android:orientation="horizontal" />
+
+
+</RelativeLayout>

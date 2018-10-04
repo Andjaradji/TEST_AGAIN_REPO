@@ -8,4 +8,6 @@ public interface IDepositPresenter extends BasePresenter {
     void requestUserDepositList(int id);
 
     void requestDeposit(int id, int depositId, int depositOptionId);
+
+    void requestTokenFreeze(int userId);
 }

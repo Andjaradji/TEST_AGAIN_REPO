@@ -4,6 +4,7 @@ import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
@@ -46,6 +47,18 @@ public class IDepositInteractorImpl<T> implements IDepositInteractor {
                 .flatMap(new Func1<UserDepositSingleResponse, Observable<UserDepositSingleResponse>>() {
                     @Override
                     public Observable<UserDepositSingleResponse> call(UserDepositSingleResponse depositListResponse) {
+                        return Observable.just(depositListResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestTokenFreeze(RequestCallback callback, int userId) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestTokenFreeze(userId).compose(RxUtil.<VexVaultResponse>handleResult())
+                .flatMap(new Func1<VexVaultResponse, Observable<VexVaultResponse>>() {
+                    @Override
+                    public Observable<VexVaultResponse> call(VexVaultResponse depositListResponse) {
                         return Observable.just(depositListResponse);
                     }
                 })
