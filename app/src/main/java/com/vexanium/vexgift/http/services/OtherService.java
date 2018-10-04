@@ -8,6 +8,7 @@ import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.bean.response.VexVaultResponse;
@@ -101,6 +102,12 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("vex-vault/get")
     Observable<HttpResponse<VexVaultResponse>> getTokenFreeze(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @POST("token-sale/get")
+    Observable<HttpResponse<TokenSaleResponse>> getTokenSales(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

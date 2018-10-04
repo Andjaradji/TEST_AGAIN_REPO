@@ -1,0 +1,54 @@
+package com.vexanium.vexgift.module.tokensale.presenter;
+
+import com.vexanium.vexgift.base.BasePresenterImpl;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.tokensale.model.ITokenSaleInteractorImpl;
+import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
+
+import java.io.Serializable;
+
+import rx.Subscription;
+
+public class ITokenSalePresenterImpl extends BasePresenterImpl<ITokenSaleView, Serializable> implements ITokenSalePresenter {
+    private ITokenSaleInteractorImpl<Serializable> mTokenSaleInteractorImpl;
+    private boolean mHasInit;
+
+    public ITokenSalePresenterImpl(ITokenSaleView view) {
+        super(view);
+        mTokenSaleInteractorImpl = new ITokenSaleInteractorImpl<>();
+    }
+
+    @Override
+    public void beforeRequest() {
+        if (!mHasInit) {
+            mHasInit = true;
+            if (mView != null) {
+                mView.showProgress();
+            }
+        }
+    }
+
+    @Override
+    public void requestError(HttpResponse response) {
+        if (response != null) {
+            super.requestError(response);
+            if (mView != null) {
+                mView.handleResult(null, response);
+            }
+        }
+    }
+
+    @Override
+    public void requestSuccess(Serializable data) {
+        if (mView != null) {
+            mView.handleResult(data, null);
+        }
+    }
+
+
+    @Override
+    public void requestTokenSaleList(int id) {
+        Subscription subscription = mTokenSaleInteractorImpl.requestTokenSaleList(this, id);
+        compositeSubscription.add(subscription);
+    }
+}
