@@ -105,7 +105,6 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
             }
         }
 
-        ViewUtil.setText(this, R.id.tv_toolbar_title, getString(R.string.deposit_title));
         ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.history_button);
     }
 

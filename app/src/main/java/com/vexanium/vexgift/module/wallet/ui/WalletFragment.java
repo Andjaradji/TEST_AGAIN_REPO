@@ -55,10 +55,11 @@ public class WalletFragment extends BaseFragment {
         ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
 
         //Coming soon view
-        mIvComingSoon.setVisibility(View.GONE);
-        mMainContainer.setVisibility(View.VISIBLE);
-        mButtonContainer.setVisibility(View.VISIBLE);
-        mRecordContainer.setVisibility(View.VISIBLE);
+        boolean isDev = false;
+        mIvComingSoon.setVisibility(isDev ? View.GONE : View.VISIBLE);
+        mMainContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
+        mButtonContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
+        mRecordContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
 
         if (mIvComingSoon.getVisibility() != View.VISIBLE) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

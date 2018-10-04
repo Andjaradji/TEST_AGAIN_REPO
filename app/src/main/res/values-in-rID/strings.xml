@@ -441,6 +441,8 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_step3_link_check">Anda dapat melakukan pengecekan melalui link berikut</string>
     <string name="deposit_step3_will_distribute">Total Vex anda + Bonus</string>
     <string name="deposit_step3_to_your_address_before">Vex anda akan dideposit selama </string>
+    <string name="deposit_toolbar_title">DEPOSIT</string>
+
 
     <string name="deposit_max_coin">Max Coin yang terdeposit</string>
     <string name="deposit_coin_deposit">Coin terdeposit</string>

@@ -140,7 +140,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 state = VOUCHER_IS_BEING_GIFTED;
             } else if (voucherCode.isDeactivated()) {
                 state = VOUCHER_VENDOR_REDEEMED;
-            } else if (voucher.getValidUntil() < System.currentTimeMillis()) {
+            } else if (voucherCode.getExpiredAt() < System.currentTimeMillis()) {
                 state = VOUCHER_EXPIRED;
             } else if (voucher.isVendorCode()) {
                 state = VOUCHER_VENDOR;
