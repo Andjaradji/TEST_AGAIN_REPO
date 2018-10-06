@@ -194,6 +194,10 @@
     <string name="shortcut_token_airdrop">TOKEN AIRDROP</string>
     <string name="shortcut_token_sale">TOKEN SALE</string>
     <string name="shortcut_deposit">DEPOSIT</string>
+    <string name="shortcut_lucky_draw">LUCKY DRAW</string>
+    <string name="shortcut_shop">SHOP</string>
+    <string name="shortcut_vex">BUY VEX</string>
+    <string name="shortcut_more">MORE</string>
 
     <string name="home_explore_voucher">GIFT VOUCHER</string>
     <string name="home_explore_voucher_desc">Various of \nGift Voucher</string>
@@ -621,8 +625,10 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_token_name">Token Name</string>
     <string name="token_sale_token_available">Total token sale</string>
     <string name="token_sale_token_left">Token Left</string>
-    <string name="token_sale_buy_list">Buy list</string>
-
+    <string name="token_sale_buy_list">PAYMENT OPTIONS</string>
+    <string name="token_sale_payment_options">Payment Options</string>
+    <string name="token_sale_buy">BUY</string>
+    <string name="token_sale_history_title">Token Sale History</string>
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

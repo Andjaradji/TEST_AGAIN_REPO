@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/material_white_dd"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/interval_small"
+    android:paddingTop="@dimen/interval_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/interval_small"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="8"
+            android:background="@drawable/rect_shadow"
+            android:orientation="vertical"
+            android:padding="@dimen/interval_submain"
+            android:paddingRight="@dimen/interval_main">
+
+            <TextView
+                android:id="@+id/tv_payment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_small"
+                android:textSize="@dimen/text_xtiny" />
+
+            <TextView
+                android:id="@+id/tv_payment_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_small"
+                android:tag="bold"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_xtiny" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="2"
+            android:paddingLeft="@dimen/interval_small"
+            android:paddingRight="@dimen/interval_small"
+            android:paddingBottom="@dimen/interval_submain"
+            android:paddingTop="@dimen/interval_submain">
+
+            <LinearLayout
+                android:id="@+id/btn_buy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_ripple_main_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="bold"
+                    android:text="@string/token_sale_buy"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

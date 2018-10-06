@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_coupon"
     android:layout_width="match_parent"
-    android:layout_height="108dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center">
 
     <LinearLayout
@@ -11,12 +11,189 @@
         android:layout_width="match_parent"
         android:paddingStart="@dimen/interval_content"
         android:paddingEnd="@dimen/interval_content"
-        android:layout_height="match_parent"
-        android:weightSum="4"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/my_voucher_button"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/my_voucher_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="72dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/icon_shortcut"
+                            android:contentDescription="@string/image_content_description"
+                            android:src="@drawable/ic_gift" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:tag="hnBoldCond"
+                    android:text="@string/shortcut_gift_voucher"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="@dimen/text_shortcut" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/my_token_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="72dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/icon_shortcut"
+                            android:contentDescription="@string/image_content_description"
+                            android:src="@drawable/ic_coin" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:tag="hnBoldCond"
+                    android:text="@string/shortcut_token_airdrop"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="@dimen/text_shortcut" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/token_sale_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="72dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/icon_shortcut"
+                            android:contentDescription="@string/image_content_description"
+                            android:src="@drawable/ic_token_sale" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:tag="hnBoldCond"
+                    android:text="@string/shortcut_token_sale"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="@dimen/text_shortcut" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/my_wallet_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="72dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/icon_shortcut"
+                            android:contentDescription="@string/image_content_description"
+                            android:src="@drawable/ic_wallet" />
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:tag="hnBoldCond"
+                    android:text="@string/shortcut_deposit"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="@dimen/text_shortcut" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:id="@+id/lucky_draw_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/icon_shortcut"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_gift" />
+                        android:src="@drawable/ic_lucky_draw" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -50,14 +227,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:tag="hnBoldCond"
-                android:text="@string/shortcut_gift_voucher"
+                android:text="@string/shortcut_lucky_draw"
                 android:textAlignment="center"
                 android:textColor="@color/primary_dark"
                 android:textSize="@dimen/text_shortcut" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/my_token_button"
+            android:id="@+id/shop_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/icon_shortcut"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_coin" />
+                        android:src="@drawable/ic_cart" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -91,14 +268,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:tag="hnBoldCond"
-                android:text="@string/shortcut_token_airdrop"
+                android:text="@string/shortcut_shop"
                 android:textAlignment="center"
                 android:textColor="@color/primary_dark"
                 android:textSize="@dimen/text_shortcut" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/token_sale_button"
+            android:id="@+id/buy_vex_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -121,7 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/icon_shortcut"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_token_sale" />
+                        android:src="@drawable/ic_vex_exchange" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -132,14 +309,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:tag="hnBoldCond"
-                android:text="@string/shortcut_token_sale"
+                android:text="@string/shortcut_vex"
                 android:textAlignment="center"
                 android:textColor="@color/primary_dark"
                 android:textSize="@dimen/text_shortcut" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/my_wallet_button"
+            android:id="@+id/more_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -162,7 +339,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/icon_shortcut"
                         android:contentDescription="@string/image_content_description"
-                        android:src="@drawable/ic_wallet" />
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:src="@drawable/ic_category_more" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -173,11 +352,15 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:tag="hnBoldCond"
-                android:text="@string/shortcut_deposit"
+                android:text="@string/shortcut_more"
                 android:textAlignment="center"
                 android:textColor="@color/primary_dark"
                 android:textSize="@dimen/text_shortcut" />
         </LinearLayout>
+
+
+    </LinearLayout>
+
 
     </LinearLayout>
 

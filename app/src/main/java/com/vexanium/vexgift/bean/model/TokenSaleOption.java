@@ -15,7 +15,7 @@ public class TokenSaleOption implements Serializable {
     @JsonProperty("payment_coin")
     private String paymentCoin;
     @JsonProperty("price_per_coin")
-    private String pricePerCoin;
+    private float pricePerCoin;
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
@@ -45,11 +45,11 @@ public class TokenSaleOption implements Serializable {
         this.paymentCoin = paymentCoin;
     }
 
-    public String getPricePerCoin() {
+    public float getPricePerCoin() {
         return pricePerCoin;
     }
 
-    public void setPricePerCoin(String pricePerCoin) {
+    public void setPricePerCoin(float pricePerCoin) {
         this.pricePerCoin = pricePerCoin;
     }
 

@@ -155,10 +155,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btn_buy"
+        android:id="@+id/btn_payment_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/interval_main"
         android:layout_marginTop="@dimen/interval_small"
         android:background="@drawable/shape_ripple_main_button"
@@ -175,5 +174,28 @@
             android:textColor="@color/material_white"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_payment_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/interval_small"
+        android:layout_marginTop="@dimen/interval_main"
+        android:layout_marginBottom="@dimen/interval_submain"
+        android:tag="bold"
+        android:visibility="gone"
+        android:text="@string/token_sale_payment_options"
+        android:textAlignment="textStart"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_medium" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_payment_options"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>
 

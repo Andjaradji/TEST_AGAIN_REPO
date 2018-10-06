@@ -40,7 +40,7 @@ public class TokenSale implements Serializable {
     @JsonProperty("updated_at")
     private String updatedAt;
     @JsonProperty("token_sale_payment_options")
-    private ArrayList<DepositOption> tokenSalePaymentOptions;
+    private ArrayList<TokenSaleOption> tokenSalePaymentOptions;
 
     public int getId() {
         return id;
@@ -138,11 +138,11 @@ public class TokenSale implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public ArrayList<DepositOption> getTokenSalePaymentOptions() {
+    public ArrayList<TokenSaleOption> getTokenSalePaymentOptions() {
         return tokenSalePaymentOptions;
     }
 
-    public void setTokenSalePaymentOptions(ArrayList<DepositOption> tokenSalePaymentOptions) {
+    public void setTokenSalePaymentOptions(ArrayList<TokenSaleOption> tokenSalePaymentOptions) {
         this.tokenSalePaymentOptions = tokenSalePaymentOptions;
     }
 

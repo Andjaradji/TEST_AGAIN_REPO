@@ -2,12 +2,14 @@ package com.vexanium.vexgift.module.tokensale.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.Deposit;
 import com.vexanium.vexgift.bean.model.TokenSale;
+import com.vexanium.vexgift.bean.model.TokenSaleOption;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
@@ -87,27 +90,30 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                mPresenter.requestTokenSaleList(user.getId());
+                mPresenter.requestTokenSaleList(user.getId());
             }
         });
 
-//        mPresenter.requestTokenSaleList(user.getId());
+        mPresenter.requestTokenSaleList(user.getId());
 
-//        if(getIntent().hasExtra("id")){
-//            int id = getIntent().getIntExtra("id",0);
-//            if(id > 0){
-//                Intent intent = new Intent(this, DepositHistoryActivity.class);
-//                intent.putExtra("id",id);
-//                startActivity(intent);
-//            }
-//        }
+        if(getIntent().hasExtra("id")){
+            int id = getIntent().getIntExtra("id",0);
+            if(id > 0){
+                Intent intent = new Intent(this, TokenSaleHistoryActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        }
 
         ViewUtil.setText(this, R.id.tv_toolbar_title, getString(R.string.token_sale_title));
         ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.history_button);
 
         //TODO comment if ready to launch
-        findViewById(R.id.history_button).setVisibility(View.GONE);
+        //findViewById(R.id.history_button).setVisibility(View.GONE);
         mRefreshLayout.setEnabled(false);
+
+        //TODO uncomment if ready to launch
+        findViewById(R.id.iv_coming_soon).setVisibility(View.GONE);
     }
 
     @Override
@@ -118,8 +124,8 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                 finish();
                 break;
             case R.id.history_button:
-                //Intent intent = new Intent(TokenSaleActivity.this, DepositHistoryActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(TokenSaleActivity.this, TokenSaleHistoryActivity.class);
+                startActivity(intent);
                 break;
             default:
         }
@@ -160,6 +166,8 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     holder.setText(R.id.tv_token_left,item.getTokenLeft()+"");
                     holder.setText(R.id.tv_token_total,item.getTokenAvailable()+"");
 
+                    setTokenSalePaymentOptionList(holder,position,item);
+
                     App.setTextViewStyle((ViewGroup) holder.getView(R.id.root_view));
 
                 }
@@ -195,6 +203,56 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
             mErrorView.setVisibility(View.GONE);
             mRecyclerview.setVisibility(View.VISIBLE);
 
+        }
+    }
+
+    public void setTokenSalePaymentOptionList(BaseRecyclerViewHolder holder, int position, final TokenSale token){
+        final LinearLayout btnPaymentOptions =  (LinearLayout)holder.getView(R.id.btn_payment_options);
+        final RecyclerView recyclerView = holder.getRecyclerView(R.id.rv_payment_options);
+        if(recyclerView!=null) {
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+            holder.getRecyclerView(R.id.rv_payment_options).setAdapter(new BaseRecyclerAdapter<TokenSaleOption>(this, token.getTokenSalePaymentOptions(), gridLayoutManager) {
+                @Override
+                public int getItemLayoutId(int viewType) {
+                    return R.layout.item_token_sale_payment_options;
+                }
+
+                @Override
+                public void bindData(BaseRecyclerViewHolder holder, int position, TokenSaleOption item) {
+                    if(item.getPaymentCoin()!=null) {
+                        String title = String.format("Payment by %s", item.getPaymentCoin());
+                        holder.setText(R.id.tv_payment_title, title);
+                    }else{
+                        holder.setText(R.id.tv_payment_title, "error");
+                        holder.getButton(R.id.btn_buy).setEnabled(false);
+                    }
+
+                    if(item.getPricePerCoin() > 0){
+                        String body = String.format("1 %s = %s", token.getTokenType(), item.getPricePerCoin() + " " + item.getPaymentCoin());
+                        holder.setText(R.id.tv_payment_body, body);
+                    }else{
+                        holder.setText(R.id.tv_payment_body, "error");
+                        holder.getButton(R.id.btn_buy).setEnabled(false);
+                    }
+                }
+
+
+            });
+
+            btnPaymentOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerView.getVisibility() == View.GONE){
+                        btnPaymentOptions.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        findViewById(R.id.tv_payment_options).setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+        }else{
+            btnPaymentOptions.setVisibility(View.GONE);
         }
     }
 }
