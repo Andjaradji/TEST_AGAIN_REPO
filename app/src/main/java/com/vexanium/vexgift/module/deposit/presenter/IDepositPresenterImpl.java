@@ -63,4 +63,10 @@ public class IDepositPresenterImpl extends BasePresenterImpl<IDepositView, Seria
         Subscription subscription = mDepositInteractorImpl.requestDeposit(this, id, depositId, depositOptionId);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestTokenFreeze(int userId) {
+        Subscription subscription = mDepositInteractorImpl.requestTokenFreeze(this, userId);
+        compositeSubscription.add(subscription);
+    }
 }

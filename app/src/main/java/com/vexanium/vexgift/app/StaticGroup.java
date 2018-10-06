@@ -1192,22 +1192,22 @@ public class StaticGroup {
                         }
                     };
                     break;
-                case SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC:
-                    comparator = new Comparator<Voucher>() {
-                        @Override
-                        public int compare(Voucher voucher, Voucher t1) {
-                            return Long.compare(voucher.getValidUntil(), t1.getValidUntil());
-                        }
-                    };
-                    break;
-                case SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC:
-                    comparator = new Comparator<Voucher>() {
-                        @Override
-                        public int compare(Voucher voucher, Voucher t1) {
-                            return Long.compare(t1.getValidUntil(), voucher.getValidUntil());
-                        }
-                    };
-                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(voucher.getValidUntil(), t1.getValidUntil());
+//                        }
+//                    };
+//                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(t1.getValidUntil(), voucher.getValidUntil());
+//                        }
+//                    };
+//                    break;
                 case SortFilterCondition.SORT_BY_RELEASE_DATE_DESC:
                     comparator = new Comparator<Voucher>() {
                         @Override

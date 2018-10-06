@@ -11,6 +11,7 @@ import com.vexanium.vexgift.bean.response.SettingResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
 import java.util.Map;
@@ -99,6 +100,12 @@ public interface OtherService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("vex-vault/get")
+    Observable<HttpResponse<VexVaultResponse>> getTokenFreeze(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
     @POST("token-sale/get")
     Observable<HttpResponse<TokenSaleResponse>> getTokenSales(
             @Header("X-Vexanium-Key") String key,

@@ -455,6 +455,8 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="shortcut_token_sale">TOKEN SALE</string>
     <string name="shortcut_deposit">DEPOSIT</string>
 
+    <string name="token_freeze_coin_amount">Jumlah Koin</string>
+    <string name="token_freeze_description">Deskripsi</string>
 
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
 

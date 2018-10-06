@@ -230,16 +230,16 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
         sorts.add(getString(SortFilterCondition.SORT_BY_PRICE_DESC));
         sorts.add(getString(SortFilterCondition.SORT_BY_RELEASE_DATE_ASC));
         sorts.add(getString(SortFilterCondition.SORT_BY_RELEASE_DATE_DESC));
-        sorts.add(getString(SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC));
-        sorts.add(getString(SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC));
+//        sorts.add(getString(SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC));
+//        sorts.add(getString(SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC));
 
         final List<Integer> sortVals = new ArrayList<>();
         sortVals.add(SortFilterCondition.SORT_BY_PRICE_ASC);
         sortVals.add(SortFilterCondition.SORT_BY_PRICE_DESC);
         sortVals.add(SortFilterCondition.SORT_BY_RELEASE_DATE_ASC);
         sortVals.add(SortFilterCondition.SORT_BY_RELEASE_DATE_DESC);
-        sortVals.add(SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC);
-        sortVals.add(SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC);
+//        sortVals.add(SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC);
+//        sortVals.add(SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC);
 
         spDocType = findViewById(R.id.spin_sort);
         ArrayAdapter<String> spDocTypeAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, sorts) {

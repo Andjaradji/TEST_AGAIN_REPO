@@ -14,15 +14,17 @@ public class TableDeposit {
     private long id;
     private String deposits;
     private String userDeposits;
+    private String vexVaults;
     private long createdTime;
     private long updatedTime;
 
-    @Generated(hash = 2048385194)
+    @Generated(hash = 1671343505)
     public TableDeposit(long id, String deposits, String userDeposits,
-                        long createdTime, long updatedTime) {
+            String vexVaults, long createdTime, long updatedTime) {
         this.id = id;
         this.deposits = deposits;
         this.userDeposits = userDeposits;
+        this.vexVaults = vexVaults;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
     }
@@ -69,5 +71,13 @@ public class TableDeposit {
 
     public void setUserDeposits(String userDeposits) {
         this.userDeposits = userDeposits;
+    }
+
+    public String getVexVaults() {
+        return this.vexVaults;
+    }
+
+    public void setVexVaults(String vexVaults) {
+        this.vexVaults = vexVaults;
     }
 }

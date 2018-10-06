@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VoucherCode implements Serializable {
@@ -33,6 +34,8 @@ public class VoucherCode implements Serializable {
     private Voucher voucher;
     @JsonProperty("address")
     private String address;
+    @JsonProperty("expired_at")
+    private long expiredAt;
 
     public int getId() {
         return id;
@@ -133,5 +136,13 @@ public class VoucherCode implements Serializable {
     public String getRedeemedDate() {
 //        if(TextUtils.isEmpty(updatedAt)) return "";
         return StaticGroup.getDate(updatedAt);
+    }
+
+    public long getExpiredAt() {
+        return TimeUnit.SECONDS.toMillis(expiredAt);
+    }
+
+    public void setExpiredAt(long expiredAt) {
+        this.expiredAt = expiredAt;
     }
 }

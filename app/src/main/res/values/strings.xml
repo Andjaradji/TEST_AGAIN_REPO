@@ -620,6 +620,8 @@ Your expired and used voucher will be shown here</string>
     <string name="loyalty_point">My Loyalty Point</string>
     <string name="token_freeze_title">Token Freeze</string>
 
+    <string name="token_freeze_coin_amount">Coin Amount</string>
+    <string name="token_freeze_description">Description</string>
     <string name="token_sale_title">Token Sale</string>
     <string name="token_sale_token_type">Token Type</string>
     <string name="token_sale_token_name">Token Name</string>
