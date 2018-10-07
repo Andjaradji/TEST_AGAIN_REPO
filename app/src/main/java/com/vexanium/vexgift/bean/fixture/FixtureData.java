@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.bean.fixture;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -216,5 +217,19 @@ public class FixtureData {
             add("Zimbabwe");
         }
     };
+
+    public static final ArrayList<Exchanger> exchangerList = new ArrayList<Exchanger>() {
+        {
+            add(new Exchanger("BTC-alpha","https://btc-alpha.com/exchange/VEX_BTC/"));
+            add(new Exchanger("Tokenomy","https://exchange.tokenomy.com/login"));
+            add(new Exchanger("Indodax","https://indodax.com/"));
+            add(new Exchanger("Exrates","https://exrates.me/dashboard"));
+            add(new Exchanger("Sistemkoin","https://sistemkoin.com/#/"));
+            add(new Exchanger("Bitinka","https://www.bitinka.com/pe/bitinka/home"));
+        }
+    };
+
+
+
 
 }

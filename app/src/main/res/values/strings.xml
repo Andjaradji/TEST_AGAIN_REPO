@@ -636,6 +636,8 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_transfer_from">Transfer from</string>
     <string name="token_sale_transfer_to">Transfer to</string>
 
+    <string name ="buy_vex">BUY VEX</string>
+
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

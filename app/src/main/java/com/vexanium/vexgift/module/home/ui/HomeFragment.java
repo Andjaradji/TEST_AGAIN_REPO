@@ -53,6 +53,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
 import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
+import com.vexanium.vexgift.module.exchanger.ui.BuyVexActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
@@ -537,6 +538,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
                                     Intent intent = new Intent(HomeFragment.this.getActivity(), TokenSaleActivity.class);
+                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                    startActivity(intent);
+
+                                }
+                            });
+                            holder.setOnClickListener(R.id.buy_vex_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), BuyVexActivity.class);
                                     RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                     startActivity(intent);
 
