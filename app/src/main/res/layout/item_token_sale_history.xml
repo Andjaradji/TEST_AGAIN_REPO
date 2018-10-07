@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_token_sale_history_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/interval_main"
+    android:paddingRight="@dimen/interval_main"
+    android:paddingTop="@dimen/interval_content"
+    android:paddingBottom="@dimen/interval_content"
+    android:background="@drawable/shape_ripple_transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/rect_shadow"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_submain">
+
+        <LinearLayout
+            android:id="@+id/ll_token_sale_history_text_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="@dimen/interval_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_token_sale_history_title"
+                android:text="TOKEN SALE #3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_medium"
+                android:tag="bold"
+                android:textColor="@color/material_black"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_token_sale_history_subtitle"
+                android:text="10/10/2018"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_xxtiny"
+                android:textColor="@color/material_grey_8080" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_token_sale_history_right_text_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/interval_small"
+            android:paddingBottom="@dimen/interval_small"
+            android:paddingLeft="@dimen/interval_main"
+            android:gravity="right|center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/tv_token_sale_history_amount"
+                android:text="10000 vex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:tag="bold"
+                android:textAlignment="inherit"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_small_medium" />
+
+            <TextView
+                android:id="@+id/tv_token_sale_history_status"
+                android:text="Pending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_small_medium"
+                android:textColor="@color/material_black_text_color"
+                android:gravity="right"
+                android:textAlignment="inherit" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

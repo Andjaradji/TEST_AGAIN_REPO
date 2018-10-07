@@ -16,6 +16,12 @@ public class TokenSaleOption implements Serializable {
     private String paymentCoin;
     @JsonProperty("price_per_coin")
     private float pricePerCoin;
+    @JsonProperty("min_purchase")
+    private float minPurchase;
+    @JsonProperty("max_purchase")
+    private float maxPurchase;
+    @JsonProperty("base_payment_address")
+    private String basePaymentAddress;
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
@@ -51,6 +57,30 @@ public class TokenSaleOption implements Serializable {
 
     public void setPricePerCoin(float pricePerCoin) {
         this.pricePerCoin = pricePerCoin;
+    }
+
+    public float getMinPurchase() {
+        return minPurchase;
+    }
+
+    public void setMinPurchase(float minPurchase) {
+        this.minPurchase = minPurchase;
+    }
+
+    public float getMaxPurchase() {
+        return maxPurchase;
+    }
+
+    public void setMaxPurchase(float maxPurchase) {
+        this.maxPurchase = maxPurchase;
+    }
+
+    public String getBasePaymentAddress() {
+        return basePaymentAddress;
+    }
+
+    public void setBasePaymentAddress(String basePaymentAddress) {
+        this.basePaymentAddress = basePaymentAddress;
     }
 
     public String getCreatedAt() {

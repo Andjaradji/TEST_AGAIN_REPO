@@ -250,6 +250,12 @@
         <activity
             android:name=".module.tokensale.ui.TokenSaleHistoryActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tokensale.ui.TokenSaleBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tokensale.ui.TokenSaleHistoryDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

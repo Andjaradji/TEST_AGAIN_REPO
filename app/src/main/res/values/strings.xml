@@ -631,6 +631,12 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_payment_options">Payment Options</string>
     <string name="token_sale_buy">BUY</string>
     <string name="token_sale_history_title">Token Sale History</string>
+    <string name="token_sale_payment_amount">Payment amount</string>
+    <string name="token_sale_purchased_amount">Purchased amount</string>
+    <string name="token_sale_transfer_from">Transfer from</string>
+    <string name="token_sale_transfer_to">Transfer to</string>
+
+
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

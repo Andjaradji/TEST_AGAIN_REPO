@@ -8,6 +8,8 @@ import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
+import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
@@ -106,11 +108,25 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
     @POST("token-sale/get")
     Observable<HttpResponse<TokenSaleResponse>> getTokenSales(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("token-sale/get-token-sale-payment-history")
+    Observable<HttpResponse<TokenSaleHistoryResponse>> getTokenSaleHistories(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("token-sale/buy")
+    Observable<HttpResponse<TokenSalePaymentResponse>> buyTokenSales(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
 }

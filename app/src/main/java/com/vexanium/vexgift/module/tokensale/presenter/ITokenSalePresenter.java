@@ -4,4 +4,6 @@ import com.vexanium.vexgift.base.BasePresenter;
 
 public interface ITokenSalePresenter extends BasePresenter {
     void requestTokenSaleList(int id);
+    void requestTokenSaleHistoryList(int id);
+    void buyTokenSale(int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount, String distributionAddress);
 }

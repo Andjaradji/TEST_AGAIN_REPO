@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.tokensale.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -35,6 +37,7 @@ import com.vexanium.vexgift.module.deposit.ui.DepositListActivity;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenter;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenterImpl;
 import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
+import com.vexanium.vexgift.module.voucher.ui.VoucherRedeemActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -49,6 +52,7 @@ import java.util.ArrayList;
 public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {
 
     User user;
+    TokenSaleResponse tokenSaleResponse;
     BaseRecyclerAdapter<TokenSale> mAdapter;
     ArrayList<TokenSale> tokenSales;
     GridLayoutManager layoutListManager;
@@ -136,7 +140,7 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof TokenSaleResponse) {
-                TokenSaleResponse tokenSaleResponse = (TokenSaleResponse) data;
+                tokenSaleResponse = (TokenSaleResponse) data;
                 tokenSales = tokenSaleResponse.getTokenSales();
 
                 setTokenSaleList();
@@ -206,7 +210,7 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         }
     }
 
-    public void setTokenSalePaymentOptionList(BaseRecyclerViewHolder holder, int position, final TokenSale token){
+    public void setTokenSalePaymentOptionList(BaseRecyclerViewHolder holder, final int tokenPosition, final TokenSale token){
         final LinearLayout btnPaymentOptions =  (LinearLayout)holder.getView(R.id.btn_payment_options);
         final RecyclerView recyclerView = holder.getRecyclerView(R.id.rv_payment_options);
         if(recyclerView!=null) {
@@ -220,13 +224,13 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                 }
 
                 @Override
-                public void bindData(BaseRecyclerViewHolder holder, int position, TokenSaleOption item) {
+                public void bindData(final BaseRecyclerViewHolder holder, final int position, TokenSaleOption item) {
                     if(item.getPaymentCoin()!=null) {
                         String title = String.format("Payment by %s", item.getPaymentCoin());
                         holder.setText(R.id.tv_payment_title, title);
                     }else{
                         holder.setText(R.id.tv_payment_title, "error");
-                        holder.getButton(R.id.btn_buy).setEnabled(false);
+                        holder.getView(R.id.btn_buy).setEnabled(false);
                     }
 
                     if(item.getPricePerCoin() > 0){
@@ -234,8 +238,19 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                         holder.setText(R.id.tv_payment_body, body);
                     }else{
                         holder.setText(R.id.tv_payment_body, "error");
-                        holder.getButton(R.id.btn_buy).setEnabled(false);
+                        holder.getView(R.id.btn_buy).setEnabled(false);
                     }
+
+                    holder.getView(R.id.btn_buy).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(TokenSaleActivity.this, TokenSaleBuyActivity.class);
+                            intent.putExtra("token_sale", JsonUtil.toString(tokenSaleResponse));
+                            intent.putExtra("token_position", tokenPosition);
+                            intent.putExtra("option_position", holder.getAdapterPosition());
+                            startActivity(intent);
+                        }
+                    });
                 }
 
 

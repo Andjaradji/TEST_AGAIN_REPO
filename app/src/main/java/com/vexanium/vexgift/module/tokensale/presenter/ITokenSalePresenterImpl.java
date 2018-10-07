@@ -51,4 +51,16 @@ public class ITokenSalePresenterImpl extends BasePresenterImpl<ITokenSaleView, S
         Subscription subscription = mTokenSaleInteractorImpl.requestTokenSaleList(this, id);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestTokenSaleHistoryList(int id) {
+        Subscription subscription = mTokenSaleInteractorImpl.requestTokenSaleHistoryList(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void buyTokenSale(int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount, String distributionAddress) {
+        Subscription subscription = mTokenSaleInteractorImpl.requestBuyTokenSale(this, id,tokenSaleId,tokenSalePaymentOptionId,amount,distributionAddress);
+        compositeSubscription.add(subscription);
+    }
 }

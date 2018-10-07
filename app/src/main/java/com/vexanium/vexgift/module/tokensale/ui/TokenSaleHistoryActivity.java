@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -18,15 +17,18 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.model.TokenSaleHistory;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserDeposit;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.database.TableDepositDaoUtil;
-import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenter;
-import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenterImpl;
 import com.vexanium.vexgift.module.deposit.ui.DepositListActivity;
-import com.vexanium.vexgift.module.deposit.view.IDepositView;
+import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenter;
+import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenterImpl;
+import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
@@ -34,14 +36,14 @@ import com.vexanium.vexgift.util.MeasureUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_deposit_history, toolbarTitle = R.string.token_sale_history_title, withLoadingAnim = true)
-public class TokenSaleHistoryActivity extends BaseActivity<IDepositPresenter> implements IDepositView {
+@ActivityFragmentInject(contentViewId = R.layout.activity_token_sale_history, toolbarTitle = R.string.token_sale_history_title, withLoadingAnim = true)
+public class TokenSaleHistoryActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {
 
-    UserDepositResponse userDepositResponse;
+    TokenSaleHistoryResponse tokenSaleHistoryResponse;
     GridLayoutManager layoutListManager;
-    BaseRecyclerAdapter<UserDeposit> mAdapter;
+    BaseRecyclerAdapter<TokenSaleHistory> mAdapter;
     RecyclerView mRecyclerview;
-    private ArrayList<UserDeposit> userDeposits;
+    private ArrayList<TokenSaleHistory> tokenSaleHistories;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
 
@@ -55,47 +57,28 @@ public class TokenSaleHistoryActivity extends BaseActivity<IDepositPresenter> im
     @Override
     protected void initView() {
         user = User.getCurrentUser(this);
-        mPresenter = new IDepositPresenterImpl(this);
+        mPresenter = new ITokenSalePresenterImpl(this);
 
-        userDepositResponse = TableDepositDaoUtil.getInstance().getUserDepositListResponse();
-        if (userDepositResponse != null) {
-            KLog.v("DepositHistoryActivity", "initView: HPtes tidak kosong");
-
-            userDeposits = userDepositResponse.getUserDeposits();
-        } else {
-            KLog.v("DepositHistoryActivity", "initView: HPtes kosong");
-        }
-        if (userDeposits == null) {
-            userDeposits = new ArrayList<>();
-        }
+        tokenSaleHistories = new ArrayList<>();
 
         mRefreshLayout = findViewById(R.id.srl_refresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.requestUserDepositList(user.getId());
+                mPresenter.requestTokenSaleHistoryList(user.getId());
             }
         });
-
-        mPresenter.requestUserDepositList(user.getId());
 
         mRecyclerview = findViewById(R.id.recylerview);
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
-        setDepositHistoryList();
+        setTokenSaleHistoryList();
 
         if (getIntent().hasExtra("id")) {
             int id = getIntent().getIntExtra("id", 0);
             if (id > 0) {
-                if (userDepositResponse != null) {
-                    UserDeposit ud = userDepositResponse.findUserDepositById(id);
-                    if (ud != null) {
-                        Intent intent = new Intent(this, DepositListActivity.class);
-                        intent.putExtra("user_deposit", JsonUtil.toString(ud));
-                        startActivity(intent);
-                    }
-                }
+                //do something
             }
         }
     }
@@ -103,7 +86,7 @@ public class TokenSaleHistoryActivity extends BaseActivity<IDepositPresenter> im
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.requestUserDepositList(user.getId());
+        mPresenter.requestTokenSaleHistoryList(user.getId());
 
     }
 
@@ -111,60 +94,57 @@ public class TokenSaleHistoryActivity extends BaseActivity<IDepositPresenter> im
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         mRefreshLayout.setRefreshing(false);
         if (data != null) {
-            if (data instanceof UserDepositResponse) {
-                UserDepositResponse userDepositResponse = (UserDepositResponse) data;
-                TableDepositDaoUtil.getInstance().saveUserDepositsToDb(JsonUtil.toString(userDepositResponse));
+            if (data instanceof TokenSaleHistoryResponse) {
+                tokenSaleHistoryResponse = (TokenSaleHistoryResponse) data;
 
-                userDeposits = userDepositResponse.getUserDeposits();
-                setDepositHistoryList();
+                tokenSaleHistories = tokenSaleHistoryResponse.getTokenSaleHistories();
+                setTokenSaleHistoryList();
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 
-    public void setDepositHistoryList() {
+    public void setTokenSaleHistoryList() {
         if (mAdapter == null) {
-            mAdapter = new BaseRecyclerAdapter<UserDeposit>(this, userDeposits, layoutListManager) {
+            mAdapter = new BaseRecyclerAdapter<TokenSaleHistory>(this, tokenSaleHistories, layoutListManager) {
 
                 @Override
                 public int getItemLayoutId(int viewType) {
-                    return R.layout.item_deposit_history;
+                    return R.layout.item_token_sale_history;
                 }
 
                 @Override
-                public void bindData(final BaseRecyclerViewHolder holder, int position, final UserDeposit item) {
+                public void bindData(final BaseRecyclerViewHolder holder, final int position, final TokenSaleHistory item) {
 
-                    if (item.getDeposit() != null) {
-                        holder.setText(R.id.tv_deposit_history_title, item.getDeposit().getName());
-                    } else {
-                        holder.setText(R.id.tv_deposit_history_title, "-");
+
+                    holder.setText(R.id.tv_token_sale_history_title, "TOKEN SALE #" + item.getId());
+
+                    if(item.getTokenSalePaymentOption()!=null && item.getTokenSalePaymentOption()!=null) {
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()/item.getTokenSalePaymentOption().getPricePerCoin() + " " + item.getTokenSale().getTokenType());
+                    }else{
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()+"");
                     }
-
-                    if (item.getDepositOption() != null) {
-                        holder.setText(R.id.tv_deposit_history_amount, item.getDepositOption().getAmount() + " VEX");
-                    } else {
-                        holder.setText(R.id.tv_deposit_history_amount, "-");
-                    }
-
-                    holder.setText(R.id.tv_deposit_history_subtitle, item.getCreatedAtDate());
+                    holder.setText(R.id.tv_token_sale_history_subtitle, item.getCreatedAtDate());
+                    
                     if (item.getStatus() == 0) {
-                        holder.setTextColor(R.id.tv_deposit_history_status, getResources().getColor(R.color.material_black_text_color));
-                        holder.setText(R.id.tv_deposit_history_status, getText(R.string.premium_purchase_pending));
+                        holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.material_black_text_color));
+                        holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_pending));
                     } else if (item.getStatus() == 1) {
-                        holder.setTextColor(R.id.tv_deposit_history_status, getResources().getColor(R.color.vexpoint_plus));
-                        holder.setText(R.id.tv_deposit_history_status, getText(R.string.premium_purchase_success));
+                        holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_plus));
+                        holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_success));
                     } else {
-                        holder.setTextColor(R.id.tv_deposit_history_status, getResources().getColor(R.color.vexpoint_minus));
-                        holder.setText(R.id.tv_deposit_history_status, getText(R.string.premium_purchase_failed));
+                        holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_minus));
+                        holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_failed));
                     }
 
-                    holder.setOnClickListener(R.id.rl_deposit_history_item, new View.OnClickListener() {
+                    holder.setOnClickListener(R.id.rl_token_sale_history_item, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            Intent intent = new Intent(TokenSaleHistoryActivity.this, DepositListActivity.class);
-                            intent.putExtra("user_deposit", JsonUtil.toString(item));
+                            Intent intent = new Intent(TokenSaleHistoryActivity.this, TokenSaleHistoryDetailActivity.class);
+                            intent.putExtra("token_sale_history_detail", JsonUtil.toString(tokenSaleHistoryResponse));
+                            intent.putExtra("position", holder.getAdapterPosition());
                             startActivity(intent);
                         }
                     });
@@ -192,7 +172,7 @@ public class TokenSaleHistoryActivity extends BaseActivity<IDepositPresenter> im
                 }
             });
         } else {
-            mAdapter.setData(userDeposits);
+            mAdapter.setData(tokenSaleHistories);
         }
 
 //        if (data.size() <= 0) {
