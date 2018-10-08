@@ -37,7 +37,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
     TokenSaleOption tokenSaleOption;
     TokenSaleResponse tokenSaleResponse;
 
-    EditText etAmount;
+    EditText etAddress, etAmount;
     TextView tvPurchasedTotal;
 
     float amountTotal = 0, amount = 0;
@@ -52,9 +52,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
         mPresenter = new ITokenSalePresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mPresenter.requestTokenSaleList(user.getId());
-
         etAmount = findViewById(R.id.et_amount);
+        etAddress = findViewById(R.id.et_address);
         tvPurchasedTotal = findViewById(R.id.tv_purchased_total_body);
 
         if(getIntent().hasExtra("token_sale")){
@@ -143,8 +142,10 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 break;
 
             case R.id.btn_buy:
-                if(etAmount.getText().toString().length() == 0) {
+                if(etAddress.getText().toString().length() == 0 || etAmount.getText().toString().length() == 0) {
                     StaticGroup.showCommonErrorDialog(this, "address and amount field must not be empty");
+                }else if(etAddress.getText().toString().length() < 5){
+                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
                 }else if(amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()){
                     StaticGroup.showCommonErrorDialog(this, "amount must be or higher than "+ tokenSaleOption.getMinPurchase() + " and must be or lower than "+tokenSaleOption.getMaxPurchase());
                 }else {
@@ -163,12 +164,13 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 
                 final TokenSalePayment tokenSalePayment = tokenSalePaymentResponse.getTokenSalePayment();
 
+                mPresenter.updateDistributionAddress(user.getId(),tokenSalePayment.getId(),etAddress.getText().toString());
 
-            }else if(data instanceof EmptyResponse){
-                finish();
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
+        } else{
+            finish();
         }
     }
 
