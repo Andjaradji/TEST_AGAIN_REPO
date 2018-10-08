@@ -761,16 +761,25 @@ public class RetrofitManager {
         return mOtherService.getTokenSaleHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryResponse>>());
     }
 
-    public Observable<HttpResponse<TokenSalePaymentResponse>> requestBuyTokenSale(int userId, int tokenSaleId, int tokenSalePaymentOptionId, float amount, String address) {
+    public Observable<HttpResponse<TokenSalePaymentResponse>> requestBuyTokenSale(int userId, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("token_sale_id", tokenSaleId);
         params.put("token_sale_payment_option_id", tokenSalePaymentOptionId);
         params.put("amount", amount);
-        params.put("distribution_address", address);
 
         return mOtherService.buyTokenSales(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSalePaymentResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestUpdateDistributionAddress(int userId, int tokenSalePaymentId, String address) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("token_sale_payment_id", tokenSalePaymentId);
+        params.put("distribution_address", address);
+
+        return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
 }

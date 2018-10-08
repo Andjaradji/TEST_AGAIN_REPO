@@ -45,44 +45,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/interval_main"
-                android:text="Enter distribution address"
-                android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_small_medium" />
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-
-                android:layout_marginEnd="@dimen/interval_main"
-                android:layout_marginLeft="@dimen/interval_main"
-                android:layout_marginRight="@dimen/interval_main"
-                android:layout_marginStart="@dimen/interval_main"
-                android:layout_marginTop="@dimen/interval_small"
-                android:background="@drawable/shape_voucher_availability"
-                android:gravity="center">
-
-                <EditText
-                    android:id="@+id/et_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/interval_submain"
-                    android:hint="Your address"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/btn_scan"
-                    android:textColor="@color/material_black_text_color"
-                    android:background="@color/transparent"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:textSize="@dimen/text_small_medium" />
-
-            </RelativeLayout>
-
             <TextView
                 android:id="@+id/tv_amount"
                 android:layout_width="match_parent"

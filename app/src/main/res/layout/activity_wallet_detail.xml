@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".module.wallet.ui.WalletFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_white">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="0dp"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:padding="0dp"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
+
+                <include layout="@layout/content_toolbar_back" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_vex_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/interval_medium"
+            android:paddingRight="@dimen/interval_medium"
+            android:paddingTop="@dimen/interval_medium"
+            android:gravity="center_vertical"
+            android:layout_below="@id/app_bar">
+
+            <RelativeLayout
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:background="@drawable/shape_circle_empty"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:src="@drawable/vex_logo"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:scaleType="fitCenter"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_vex_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_large"
+                    android:textColor="@color/material_black"
+                    android:text="12,030 VEX"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_vex_idr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_small_medium"
+                    android:textColor="@color/material_grey_400"
+                    android:text="10,000 IDR"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_vex_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/ll_vex_main"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/interval_medium"
+                android:paddingRight="6dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_btn_vex_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ripple_primary_button"
+                    android:padding="@dimen/interval_submain"
+                    android:layout_marginBottom="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:text="SEND"
+                        android:letterSpacing="0.04"
+                        android:textAllCaps="true"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_small_medium" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="6dp"
+                android:paddingRight="@dimen/interval_medium"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_btn_vex_receive"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_ripple_secondary_button"
+                    android:padding="@dimen/interval_submain"
+                    android:layout_marginBottom="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:text="RECEIVE"
+                        android:letterSpacing="0.04"
+                        android:textAllCaps="true"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_small_medium" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_vex_record_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_vex_button_container"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_more_line"
+                android:background="@color/lineColor" />
+
+            <TextView
+                android:id="@+id/tv_transaction_records"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction Records"
+                android:textSize="@dimen/text_small_medium"
+                android:tag="hnBoldCond"
+                android:padding="@dimen/interval_main"
+                android:textColor="@color/material_black"
+                android:layout_gravity="center_horizontal"
+                android:textAllCaps="true"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor" />
+
+            <include
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/interval_submain"
+                layout="@layout/content_error_view">
+            </include>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_wallet_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

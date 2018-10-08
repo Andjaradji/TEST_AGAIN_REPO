@@ -2,6 +2,7 @@ package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
@@ -125,6 +126,13 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("token-sale/buy")
     Observable<HttpResponse<TokenSalePaymentResponse>> buyTokenSales(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("token-sale/update-distribution-address")
+    Observable<HttpResponse<EmptyResponse>> updateDistributionAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

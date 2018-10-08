@@ -3,6 +3,7 @@ package com.vexanium.vexgift.module.tokensale.model;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
@@ -51,14 +52,28 @@ public class ITokenSaleInteractorImpl<T> implements ITokenSaleInteractor {
     }
 
     @Override
-    public Subscription requestBuyTokenSale(RequestCallback callback, int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount, String distributionAddress) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestBuyTokenSale(id,tokenSaleId,tokenSalePaymentOptionId,amount,distributionAddress).compose(RxUtil.<TokenSalePaymentResponse>handleResult())
+    public Subscription requestBuyTokenSale(RequestCallback callback, int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBuyTokenSale(id,tokenSaleId,tokenSalePaymentOptionId,amount).compose(RxUtil.<TokenSalePaymentResponse>handleResult())
                 .flatMap(new Func1<TokenSalePaymentResponse, Observable<TokenSalePaymentResponse>>() {
                     @Override
                     public Observable<TokenSalePaymentResponse> call(TokenSalePaymentResponse tokenSalePaymentResponse) {
 
                         KLog.json("HPtes", JsonUtil.toString(tokenSalePaymentResponse));
                         return Observable.just(tokenSalePaymentResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestUpdateDistributionAddress(RequestCallback callback, int id, int tokenSalePaymentId, String address) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateDistributionAddress(id,tokenSalePaymentId,address).compose(RxUtil.<EmptyResponse>handleResult())
+                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
+                    @Override
+                    public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(emptyResponse));
+                        return Observable.just(emptyResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));

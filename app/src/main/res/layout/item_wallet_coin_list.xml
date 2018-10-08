@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_wallet_coin_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/interval_main"
+    android:paddingRight="@dimen/interval_main"
+    android:paddingTop="@dimen/interval_main"
+    android:paddingBottom="@dimen/interval_main"
+    android:clickable="true"
+    android:background="@drawable/shape_ripple_transparent">
+
+    <RelativeLayout
+        android:id="@+id/rl_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:background="@drawable/shape_circle_empty"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:src="@drawable/vex_logo"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_wallet_coin_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rl_icon"
+        android:layout_marginLeft="@dimen/interval_medium"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_wallet_coin_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_small_medium"
+            android:textColor="@color/material_black"
+            android:layout_marginBottom="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_wallet_coin_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_xxtiny"
+            android:textColor="@color/material_grey_8080" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_wallet_coin_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_small_medium"
+        android:textColor="@color/material_black"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="2dp"/>
+
+</RelativeLayout>

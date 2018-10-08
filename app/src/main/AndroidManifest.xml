@@ -260,6 +260,9 @@
         <activity
             android:name=".module.exchanger.ui.BuyVexActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.wallet.ui.WalletDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
