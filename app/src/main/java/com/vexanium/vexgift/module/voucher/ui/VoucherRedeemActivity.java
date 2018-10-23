@@ -121,7 +121,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             Vendor vendor = voucher.getVendor();
             ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
-            ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
+            ViewUtil.setText(this, R.id.tv_time, "Expired in " + voucherCode.getStrExpiredAt());
             ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
             ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
 
@@ -705,7 +705,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
 
         Calendar now = Calendar.getInstance();
         Calendar finish = Calendar.getInstance();
-        finish.setTimeInMillis(voucher.getValidUntil());
+        finish.setTimeInMillis(voucherCode.getExpiredAt());
 
         long remainTime = finish.getTimeInMillis() - now.getTimeInMillis();
 

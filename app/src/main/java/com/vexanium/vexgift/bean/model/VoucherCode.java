@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -140,6 +143,16 @@ public class VoucherCode implements Serializable {
 
     public long getExpiredAt() {
         return TimeUnit.SECONDS.toMillis(expiredAt);
+    }
+
+    public String getStrExpiredAt(){
+        long l = TimeUnit.SECONDS.toMillis(expiredAt);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(l);
+        String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  HH:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
     public void setExpiredAt(long expiredAt) {
