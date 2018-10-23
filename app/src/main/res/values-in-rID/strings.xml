@@ -277,7 +277,7 @@
     <string name="premium_referral_bonus">Dapatkan Bonus referal</string>
     <string name="captcha_dialog_title">Dapatkan Voucher</string>
     <string name="exchange_receive_voucher_button_get">Dapatkan Voucher</string>
-    <string name="appversion_need_update_goto_gp">Menuju Google Play dalam %s detik</string>
+    <string name="appversion_need_update_goto_gp">Menuju Google Play dalam %d detik</string>
     <string name="sort_by_price_asc">Harga Termahal</string>
     <string name="share_voucher_template">Hai Saya menemukan voucher bagus untukmu. Cek disini : %s</string>
     <string name="exchange_send_voucher_share_text">Hai Saya punya hadiah untukmu, Voucher %s. Buka aplikasi Vexgift dan gunakan kode ini untuk mendapatkan voucher\n\nKode: %s\n\n%s</string>
