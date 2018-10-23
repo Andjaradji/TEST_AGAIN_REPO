@@ -28,7 +28,7 @@ public class Api {
                 boolean isDevEnv = BuildConfig.TARGET_ENV.equals("development");
 //                if(isDevEnv)
 //                    return DEV_API_HOST;
-//                return String.format("%s://%s/", isDevEnv ? "https" : "https", API_HOST);
+//               return String.format("%s://%s/", isDevEnv ? "https" : "https", API_HOST);
                 return API_HOST;
             }
             case HostType.TEST_API: {

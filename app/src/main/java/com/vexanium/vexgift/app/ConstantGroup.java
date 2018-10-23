@@ -25,6 +25,10 @@ public class ConstantGroup {
     public static final int KYC_BACK_PHOTO_RESULT_CODE = 1223;
     public static final int KYC_SELFIE_PHOTO_RESULT_CODE = 1224;
 
+    public static final int KYC_CAMERA_FRONT_PHOTO_RESULT_CODE = 1322;
+    public static final int KYC_CAMERA_BACK_PHOTO_RESULT_CODE = 1323;
+    public static final int KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE = 1324;
+
     public static final int GOOGLE2FA_STATE_RESULT_CODE = 1124;
     public static final int ID_LOCAL_PUSH = 412;
     public static final String DB_NAME = "VexGiftDb";
