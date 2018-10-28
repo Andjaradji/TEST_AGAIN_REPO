@@ -4,6 +4,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleHistoryDetailResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
@@ -60,6 +61,20 @@ public class ITokenSaleInteractorImpl<T> implements ITokenSaleInteractor {
 
                         KLog.json("HPtes", JsonUtil.toString(tokenSalePaymentResponse));
                         return Observable.just(tokenSalePaymentResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestTokenSalePayment(RequestCallback callback, int id, int tokenSalePaymentId) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestTokenSalePayment(id,tokenSalePaymentId).compose(RxUtil.<TokenSaleHistoryDetailResponse>handleResult())
+                .flatMap(new Func1<TokenSaleHistoryDetailResponse, Observable<TokenSaleHistoryDetailResponse>>() {
+                    @Override
+                    public Observable<TokenSaleHistoryDetailResponse> call(TokenSaleHistoryDetailResponse tokenSaleHistoryDetailResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(tokenSaleHistoryDetailResponse));
+                        return Observable.just(tokenSaleHistoryDetailResponse);
                     }
                 })
                 .subscribe(new BaseSubscriber<>(callback));

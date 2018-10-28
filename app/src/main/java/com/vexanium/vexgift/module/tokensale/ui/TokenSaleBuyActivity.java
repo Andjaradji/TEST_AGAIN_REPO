@@ -1,5 +1,6 @@
 package com.vexanium.vexgift.module.tokensale.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -82,7 +83,10 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 finish();
             }
 
-            String amountHeader = String.format("Min = %s, Max = %s",tokenSaleOption.getMinPurchase()+ " "+tokenSaleOption.getPaymentCoin(), tokenSaleOption.getMaxPurchase()+ " "+tokenSaleOption.getPaymentCoin());
+            String min = String.format("%.05f",tokenSaleOption.getMinPurchase());
+            String max = String.format("%.05f",tokenSaleOption.getMaxPurchase());
+
+            String amountHeader = String.format("Min = %s, Max = %s", min +" "+tokenSaleOption.getPaymentCoin(), max+ " "+tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
             ViewUtil.setText(this, R.id.tv_token_title, tokenSale.getTitle());
             String time = String.format("%s - %s", tokenSale.getTimeStampDate(tokenSale.getStartTime()), tokenSale.getTimeStampDate(tokenSale.getEndTime()));
@@ -166,7 +170,10 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 
                 final TokenSalePayment tokenSalePayment = tokenSalePaymentResponse.getTokenSalePayment();
 
-                //mPresenter.updateDistributionAddress(user.getId(),tokenSalePayment.getId(),etAddress.getText().toString());
+                Intent intent = new Intent(TokenSaleBuyActivity.this, TokenSaleHistoryDetailActivity.class);
+                intent.putExtra("token_payment_id", tokenSalePayment.getId());
+                startActivity(intent);
+                finish();
 
             }
         } else if (errorResponse != null) {

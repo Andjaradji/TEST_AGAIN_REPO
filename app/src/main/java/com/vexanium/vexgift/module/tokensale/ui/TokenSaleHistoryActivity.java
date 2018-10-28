@@ -133,6 +133,11 @@ public class TokenSaleHistoryActivity extends BaseActivity<ITokenSalePresenter> 
                     } else if (item.getStatus() == 1) {
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_plus));
                         holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_success));
+                        if(item.getDistributionAddress()==null){
+                            holder.setViewGone(R.id.iv_red_dot,false);
+                        }else{
+                            holder.setViewGone(R.id.iv_red_dot,true);
+                        }
                     } else {
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_minus));
                         holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_failed));

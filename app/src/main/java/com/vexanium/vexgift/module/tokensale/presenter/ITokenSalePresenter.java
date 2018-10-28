@@ -7,4 +7,5 @@ public interface ITokenSalePresenter extends BasePresenter {
     void requestTokenSaleHistoryList(int id);
     void buyTokenSale(int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount);
     void updateDistributionAddress(int id, int tokenSalePaymentId, String address);
+    void getTokenSalePayment(int id, int tokenSalePaymentId);
 }

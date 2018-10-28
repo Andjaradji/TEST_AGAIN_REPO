@@ -70,4 +70,10 @@ public class ITokenSalePresenterImpl extends BasePresenterImpl<ITokenSaleView, S
         compositeSubscription.add(subscription);
     }
 
+    @Override
+    public void getTokenSalePayment(int id, int tokenSalePaymentId) {
+        Subscription subscription = mTokenSaleInteractorImpl.requestTokenSalePayment(this, id,tokenSalePaymentId);
+        compositeSubscription.add(subscription);
+    }
+
 }

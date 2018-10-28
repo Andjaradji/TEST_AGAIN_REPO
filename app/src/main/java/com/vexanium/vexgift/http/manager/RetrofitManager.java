@@ -27,6 +27,7 @@ import com.vexanium.vexgift.bean.response.PremiumListResponse;
 import com.vexanium.vexgift.bean.response.PremiumPurchaseResponse;
 import com.vexanium.vexgift.bean.response.ResetPasswordCodeResponse;
 import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.bean.response.TokenSaleHistoryDetailResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
@@ -770,6 +771,15 @@ public class RetrofitManager {
         params.put("amount", amount);
 
         return mOtherService.buyTokenSales(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSalePaymentResponse>>());
+    }
+
+    public Observable<HttpResponse<TokenSaleHistoryDetailResponse>> requestTokenSalePayment(int userId, int tokenSalePaymentId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("token_sale_payment_id", tokenSalePaymentId);
+
+        return mOtherService.getTokenSalePayment(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryDetailResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateDistributionAddress(int userId, int tokenSalePaymentId, String address) {

@@ -634,9 +634,9 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_history_title">Token Sale History</string>
     <string name="token_sale_payment_amount">Payment amount</string>
     <string name="token_sale_purchased_amount">Purchased amount</string>
-    <string name="token_sale_transfer_from">Transfer from</string>
+    <string name="token_sale_distribution_address">Distribution address</string>
     <string name="token_sale_transfer_to">Transfer to</string>
-
+    <string name="token_sale_input_distribution_address">INPUT DISTRIBUTION ADDRESS</string>
     <string name ="buy_vex">BUY VEX</string>
 
     <string name ="my_wallet_title">MY WALLET</string>
