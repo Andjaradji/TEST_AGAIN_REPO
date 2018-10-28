@@ -19,4 +19,12 @@ public class VexVaultResponse implements Serializable{
     public void setVexVaults(ArrayList<VexVault> vexVaults) {
         this.vexVaults = vexVaults;
     }
+
+    public float getTotalFrozen(){
+        float total = 0;
+        for(VexVault vexVault : vexVaults){
+            total += vexVault.getCoinAmount();
+        }
+        return total;
+    }
 }

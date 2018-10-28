@@ -89,7 +89,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
             ViewUtil.setText(this, R.id.tv_payment_title, "Payment By " + tokenSaleOption.getPaymentCoin());
-            String paymentBody = String.format("1 %s = %s", tokenSale.getTokenType(), tokenSaleOption.getPricePerCoin() + " " + tokenSaleOption.getPaymentCoin());
+            String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), tokenSaleOption.getPricePerCoin() + " " + tokenSaleOption.getPaymentCoin());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
             ViewUtil.setText(this, R.id.tv_purchased_total_body, "-");
@@ -113,7 +113,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                        String purchasedTotal = amountTotal + " " + tokenSale.getTokenType();
+                        String purchasedTotal = amountTotal + " " + tokenSale.getTokenName();
                         tvPurchasedTotal.setText(purchasedTotal);
                     }else{
                         tvPurchasedTotal.setText("-");
@@ -142,11 +142,13 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 break;
 
             case R.id.btn_buy:
-                if(etAddress.getText().toString().length() == 0 || etAmount.getText().toString().length() == 0) {
-                    StaticGroup.showCommonErrorDialog(this, "address and amount field must not be empty");
-                }else if(etAddress.getText().toString().length() < 5){
-                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
-                }else if(amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()){
+//                if(etAddress.getText().toString().length() == 0 || etAmount.getText().toString().length() == 0) {
+//                    StaticGroup.showCommonErrorDialog(this, "address and amount field must not be empty");
+//                }else
+//                if(etAddress.getText().toString().length() < 5){
+//                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
+//                }else
+                if(amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()){
                     StaticGroup.showCommonErrorDialog(this, "amount must be or higher than "+ tokenSaleOption.getMinPurchase() + " and must be or lower than "+tokenSaleOption.getMaxPurchase());
                 }else {
                     mPresenter.buyTokenSale(user.getId(), tokenSale.getId(), tokenSaleOption.getId(), amount);
@@ -164,7 +166,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 
                 final TokenSalePayment tokenSalePayment = tokenSalePaymentResponse.getTokenSalePayment();
 
-                mPresenter.updateDistributionAddress(user.getId(),tokenSalePayment.getId(),etAddress.getText().toString());
+                //mPresenter.updateDistributionAddress(user.getId(),tokenSalePayment.getId(),etAddress.getText().toString());
 
             }
         } else if (errorResponse != null) {

@@ -51,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/interval_main"
                 android:text="Enter distribution address"
+                android:visibility="gone"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
 
@@ -58,7 +59,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-
+                android:visibility="gone"
                 android:layout_marginEnd="@dimen/interval_main"
                 android:layout_marginLeft="@dimen/interval_main"
                 android:layout_marginRight="@dimen/interval_main"

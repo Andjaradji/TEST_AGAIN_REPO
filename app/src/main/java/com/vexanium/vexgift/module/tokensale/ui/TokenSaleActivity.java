@@ -109,7 +109,6 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
             }
         }
 
-        ViewUtil.setText(this, R.id.tv_toolbar_title, getString(R.string.token_sale_title));
         ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.history_button);
 
         //TODO comment if ready to launch
@@ -234,7 +233,7 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     }
 
                     if(item.getPricePerCoin() > 0){
-                        String body = String.format("1 %s = %s", token.getTokenType(), item.getPricePerCoin() + " " + item.getPaymentCoin());
+                        String body = String.format("1 %s = %s", token.getTokenName(), item.getPricePerCoin() + " " + item.getPaymentCoin());
                         holder.setText(R.id.tv_payment_body, body);
                     }else{
                         holder.setText(R.id.tv_payment_body, "error");

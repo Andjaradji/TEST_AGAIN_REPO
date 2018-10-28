@@ -1,13 +1,16 @@
 package com.vexanium.vexgift.module.tokensale.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -27,6 +30,9 @@ import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +44,7 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
     private TokenSaleHistory tokenSaleHistory;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
+    private String tempDistributionAddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +97,50 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
 
                 float amount = tokenSaleHistory.getAmount();
                 ViewUtil.setText(this, R.id.tv_payment_amount, amount+" "+tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
-                ViewUtil.setText(this, R.id.tv_purchased_amount, amount/tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin()+ " "+tokenSaleHistory.getTokenSale().getTokenType());
+                ViewUtil.setText(this, R.id.tv_purchased_amount, amount/tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin()+ " "+tokenSaleHistory.getTokenSale().getTokenName());
                 if(tokenSaleHistory.getDistributionAddress() != null && tokenSaleHistory.getDistributionAddress().length() > 0) {
-                    ViewUtil.setText(this, R.id.tv_transfer_from, tokenSaleHistory.getDistributionAddress());
+                    ViewUtil.setText(this, R.id.tv_distribution_address, tokenSaleHistory.getDistributionAddress());
                 }else{
-                    ViewUtil.setText(this, R.id.tv_transfer_from, "-");
+                    if(tokenSaleHistory.getStatus() != 1) {
+                        ViewUtil.setText(this, R.id.tv_distribution_address, "-");
+                    }else{
+                        if(tokenSaleHistory.getDistributionAddress() == null || tokenSaleHistory.getDistributionAddress().length() == 0) {
+                            ViewUtil.setText(this, R.id.tv_distribution_address, "Click here to input address");
+                            ViewUtil.setOnClickListener(this, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View clickedView) {
+                                    View view = View.inflate(TokenSaleHistoryDetailActivity.this, R.layout.include_distribution_address, null);
+                                    final EditText etAddress = view.findViewById(R.id.et_address);
+
+                                    new VexDialog.Builder(TokenSaleHistoryDetailActivity.this)
+                                            .title("Input distibution address")
+                                            .content("Input your " + tokenSaleHistory.getTokenSale().getTokenType() + " address")
+                                            .addCustomView(view)
+                                            .optionType(DialogOptionType.YES_NO)
+                                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                                    if (etAddress.getText().toString().length() == 0) {
+                                                        StaticGroup.showCommonErrorDialog(TokenSaleHistoryDetailActivity.this, "address field must not be empty");
+                                                    } else if (etAddress.getText().toString().length() < 5) {
+                                                        StaticGroup.showCommonErrorDialog(TokenSaleHistoryDetailActivity.this, "please input a valid address");
+                                                    } else {
+                                                        tempDistributionAddress = etAddress.getText().toString();
+                                                        mPresenter.updateDistributionAddress(user.getId(),tokenSaleHistory.getId(),tempDistributionAddress);
+                                                        dialog.dismiss();
+                                                    }
+                                                }
+                                            })
+                                            .autoDismiss(false)
+                                            .cancelable(false)
+                                            .canceledOnTouchOutside(false)
+                                            .show();
+                                }
+                            },R.id.tv_distribution_address);
+                        }else{
+                            ViewUtil.setText(this, R.id.tv_distribution_address, tokenSaleHistory.getDistributionAddress());
+                        }
+                    }
                 }
                 ViewUtil.setText(this, R.id.tv_transfer_to, tokenSaleHistory.getPaymentAddress());
                 ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
@@ -129,6 +175,10 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
+        }else{
+            //updated distribution address
+            ViewUtil.setText(this, R.id.tv_distribution_address, tempDistributionAddress);
+            Toast.makeText(this, "Your distribution address has been updated successfully", Toast.LENGTH_SHORT).show();
         }
     }
 

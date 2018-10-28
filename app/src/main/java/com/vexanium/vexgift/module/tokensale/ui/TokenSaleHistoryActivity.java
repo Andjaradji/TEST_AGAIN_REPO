@@ -121,7 +121,7 @@ public class TokenSaleHistoryActivity extends BaseActivity<ITokenSalePresenter> 
                     holder.setText(R.id.tv_token_sale_history_title, "TOKEN SALE #" + item.getId());
 
                     if(item.getTokenSalePaymentOption()!=null && item.getTokenSalePaymentOption()!=null) {
-                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()/item.getTokenSalePaymentOption().getPricePerCoin() + " " + item.getTokenSale().getTokenType());
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()/item.getTokenSalePaymentOption().getPricePerCoin() + " " + item.getTokenSale().getTokenName());
                     }else{
                         holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()+"");
                     }

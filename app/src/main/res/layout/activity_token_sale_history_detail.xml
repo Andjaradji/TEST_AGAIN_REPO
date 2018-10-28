@@ -197,7 +197,7 @@
                             android:textSize="@dimen/text_xtiny" />
 
                         <TextView
-                            android:id="@+id/tv_transfer_from"
+                            android:id="@+id/tv_distribution_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/interval_small"
