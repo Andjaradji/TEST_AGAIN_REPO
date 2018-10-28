@@ -83,6 +83,11 @@ public class WalletFragment extends BaseFragment {
 
         //Coming soon view
         mIvComingSoon.setVisibility(View.GONE);
+        boolean isDev = false;
+        mIvComingSoon.setVisibility(isDev ? View.GONE : View.VISIBLE);
+//        mMainContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
+//        mButtonContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
+//        mRecordContainer.setVisibility(isDev ? View.VISIBLE : View.GONE);
 
         if (mIvComingSoon.getVisibility() != View.VISIBLE) {
             layoutListManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);

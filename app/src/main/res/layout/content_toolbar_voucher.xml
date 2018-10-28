@@ -22,6 +22,7 @@
         android:orientation="horizontal">
 
         <ImageView
+
             android:id="@+id/iv_toolbar_logo"
             android:layout_width="26dp"
             android:layout_height="18dp"

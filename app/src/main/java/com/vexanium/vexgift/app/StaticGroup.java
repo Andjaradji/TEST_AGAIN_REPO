@@ -58,6 +58,7 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.login.ui.SplashActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -329,10 +330,10 @@ public class StaticGroup {
         NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
         Intent targetIntent;
         if (!getRecentTaskInfo(context)) {
-            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent = new Intent(context, SplashActivity.class);
             targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else {
-            targetIntent = new Intent(context, MainActivity.class);
+            targetIntent = new Intent(context, SplashActivity.class);
             targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         targetIntent.putExtra("t_url", url);

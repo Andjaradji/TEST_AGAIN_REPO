@@ -27,24 +27,52 @@
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
-            
+
             <include layout="@layout/content_toolbar_back" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/total_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/app_bar"
+        android:background="@color/vex_orange"
+        android:gravity="center"
+        android:orientation="horizontal">
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Frozen : "
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_total_frozen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 VEX"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:tag="bold"
+            android:textColor="@color/material_white" />
+
+    </LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar">
+        android:layout_below="@id/total_bar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerview"
             android:layout_width="match_parent"
-            android:background="@color/material_white"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/material_white">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -53,9 +81,8 @@
     <include layout="@layout/include_loading_view" />
 
     <include
-        android:layout_height="match_parent"
+        layout="@layout/content_error_view"
         android:layout_width="match_parent"
-        layout="@layout/content_error_view">
-    </include>
+        android:layout_height="match_parent"></include>
 
 </RelativeLayout>

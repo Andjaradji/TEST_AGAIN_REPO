@@ -172,6 +172,10 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 intent.putExtra("url", uri.toString());
                 KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));
                 getIntent().setData(null);
+            }else if(getIntent().hasExtra("t_url")){
+                intent.putExtra("url", getIntent().getStringExtra("t_url"));
+                KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));
+                getIntent().removeExtra("t_url");
             }
 
             finish();

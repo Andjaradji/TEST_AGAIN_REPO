@@ -28,7 +28,7 @@
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
 
-            <include layout="@layout/content_toolbar_deposit" />
+            <include layout="@layout/content_toolbar_token_sale" />
 
         </android.support.v7.widget.Toolbar>
 

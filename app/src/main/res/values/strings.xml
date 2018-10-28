@@ -584,6 +584,7 @@ Your expired and used voucher will be shown here</string>
     <string name="deposit_duration">Duration</string>
     <string name="deposit_total">Total Deposited</string>
     <string name="deposit_button">Deposit</string>
+    <string name="deposit_toolbar_title">DEPOSIT</string>
     <string name="deposit_history_title">Deposit History</string>
     <string name="deposit_option_qty">%d out of %d</string>
 
@@ -620,7 +621,7 @@ Your expired and used voucher will be shown here</string>
     <string name="loyalty_point">My Loyalty Point</string>
     <string name="token_freeze_title">Token Freeze</string>
 
-    <string name="token_freeze_coin_amount">Coin Amount</string>
+    <string name="token_freeze_coin_amount">Vex Amount</string>
     <string name="token_freeze_description">Description</string>
     <string name="token_sale_title">Token Sale</string>
     <string name="token_sale_token_type">Token Type</string>
@@ -640,6 +641,10 @@ Your expired and used voucher will be shown here</string>
 
     <string name ="my_wallet_title">MY WALLET</string>
 
+
+    <string name="kyc_choose_method">Please choose a method of getting your picture</string>
+    <string name="kyc_from_camera">Take a picture</string>
+    <string name="kyc_from_gallery">Choose from gallery</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
