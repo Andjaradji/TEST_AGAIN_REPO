@@ -264,8 +264,6 @@
         <activity
             android:name=".module.wallet.ui.WalletDetailActivity"
             android:screenOrientation="portrait" />
-
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.vexanium.vexgift.fileprovider"
@@ -275,9 +273,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-
-
->>>>>>> master
     </application>
 
 </manifest>
