@@ -200,6 +200,13 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
             }
         }
         ViewUtil.setText(this, R.id.tv_transfer_to, tokenSaleHistory.getPaymentAddress());
+        ViewUtil.findViewById(this,R.id.ll_transfer_to).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StaticGroup.copyToClipboard(TokenSaleHistoryDetailActivity.this, tokenSaleHistory.getPaymentAddress());
+            }
+        });
+        ViewUtil.setText(this, R.id.tv_transfer_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
         ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
         ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " ("+tokenSaleHistory.getTokenSale().getTokenType()+")");
         ViewUtil.setText(this, R.id.tv_desc, tokenSaleHistory.getTokenSale().getDescription());

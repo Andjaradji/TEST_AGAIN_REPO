@@ -49,16 +49,15 @@ public class WalletFragmentOld extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        LinearLayout mMainContainer = fragmentRootView.findViewById(R.id.ll_vex_main);
-        LinearLayout mButtonContainer = fragmentRootView.findViewById(R.id.ll_vex_button_container);
-        LinearLayout mRecordContainer = fragmentRootView.findViewById(R.id.ll_vex_record_container);
+        LinearLayout mMainContainer = fragmentRootView.findViewById(R.id.ll_wallet_main);
+        LinearLayout mButtonContainer = fragmentRootView.findViewById(R.id.ll_wallet_coin_container);
         ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
 
         //Coming soon view
-        mIvComingSoon.setVisibility(View.GONE);
-        mMainContainer.setVisibility(View.VISIBLE);
-        mButtonContainer.setVisibility(View.VISIBLE);
-        mRecordContainer.setVisibility(View.VISIBLE);
+        mIvComingSoon.setVisibility(View.VISIBLE);
+        mMainContainer.setVisibility(View.GONE);
+        mButtonContainer.setVisibility(View.GONE);
+        //mRecordContainer.setVisibility(View.VISIBLE);
 
         if (mIvComingSoon.getVisibility() != View.VISIBLE) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

@@ -238,6 +238,7 @@
                     android:weightSum="2">
 
                     <LinearLayout
+                        android:id="@+id/ll_transfer_to"
                         android:layout_width="0dp"
                         android:layout_height="90dp"
                         android:layout_marginEnd="2dp"
@@ -253,14 +254,72 @@
                             android:text="@string/token_sale_transfer_to"
                             android:textSize="@dimen/text_xtiny" />
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_transfer_to"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/interval_small"
+                                android:tag="bold"
+                                android:textColor="@color/material_black_text_color"
+                                android:paddingRight="36dp"
+                                android:textSize="@dimen/text_xtiny" />
+
+                            <ImageView
+                                android:src="@drawable/ic_copy"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="@dimen/interval_submain"/>
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
                         <TextView
-                            android:id="@+id/tv_transfer_to"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/interval_small"
-                            android:tag="bold"
-                            android:textColor="@color/material_black_text_color"
+                            android:text="@string/token_sale_transfer_deadline"
                             android:textSize="@dimen/text_xtiny" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_transfer_deadline"
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/interval_small"
+                                android:tag="bold"
+                                android:textColor="@color/material_black_text_color"
+                                android:textSize="@dimen/text_xtiny" />
+                        </RelativeLayout>
+
 
                     </LinearLayout>
                 </LinearLayout>
