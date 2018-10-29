@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -397,7 +398,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         tvCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkPermission(code)) {
+                if (checkCameraPermission(code)) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivityForResult(intent, code);
@@ -513,14 +514,30 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
     }
 
     private boolean checkPermission(int requestCode) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        requestCode);
+
+                return false;
+            } else {
+                return true;
+
+            }
+        return true;
+    }
+
+
+    private boolean checkCameraPermission(int requestCode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
                         requestCode);
 
                 return false;
