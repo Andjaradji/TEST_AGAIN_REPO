@@ -206,6 +206,7 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
                 StaticGroup.copyToClipboard(TokenSaleHistoryDetailActivity.this, tokenSaleHistory.getPaymentAddress());
             }
         });
+        ViewUtil.setText(this, R.id.tv_transfer_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
         ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
         ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " ("+tokenSaleHistory.getTokenSale().getTokenType()+")");
         ViewUtil.setText(this, R.id.tv_desc, tokenSaleHistory.getTokenSale().getDescription());
