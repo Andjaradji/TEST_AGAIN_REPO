@@ -70,10 +70,14 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             }
         });
 
-        if ((user.getUserAddressStatus() == 1 && user.getUserAddress() != null && user.getUserAddress().getActAddress() != null) || !TextUtils.isEmpty(user.getActAddress())) {
+        if ((User.getUserAddressStatus() == 1 && User.getUserAddress() != null && User.getUserAddress().getActAddress() != null) || !TextUtils.isEmpty(user.getActAddress())) {
             KLog.v("MyProfileActivity", "initView: HPtes A");
 
-            ViewUtil.setText(this, R.id.tv_vex_address, user.getUserAddress().getActAddress());
+            if (User.getUserAddress() != null && User.getUserAddress().getActAddress() != null)
+                ViewUtil.setText(this, R.id.tv_vex_address, User.getUserAddress().getActAddress());
+            else
+                ViewUtil.setText(this, R.id.tv_vex_address, user.getActAddress());
+
             findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
