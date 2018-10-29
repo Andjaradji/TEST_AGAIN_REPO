@@ -3,69 +3,23 @@ package com.vexanium.vexgift.module.exchanger.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
-import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.fixture.Exchanger;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
-import com.vexanium.vexgift.bean.model.TokenSaleHistory;
-import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.model.UserAddress;
-import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.UserAddressResponse;
-import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
-import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryActivity;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryDetailActivity;
-import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenter;
-import com.vexanium.vexgift.module.vexpoint.presenter.IVexpointPresenterImpl;
-import com.vexanium.vexgift.module.vexpoint.ui.InvitePointFragment;
-import com.vexanium.vexgift.module.vexpoint.ui.PointRecordFragment;
-import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
-import com.vexanium.vexgift.module.vexpoint.ui.VexPointGuideActivity;
-import com.vexanium.vexgift.module.vexpoint.view.IVexpointView;
-import com.vexanium.vexgift.util.ClickUtil;
-import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
-import com.vexanium.vexgift.util.RxBus;
-import com.vexanium.vexgift.util.TpUtil;
-import com.vexanium.vexgift.util.ViewUtil;
-import com.vexanium.vexgift.widget.IconTextTabBarView;
-
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
-
-import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_buy_vex, toolbarTitle = R.string.buy_vex, withLoadingAnim = false)
 public class BuyVexActivity extends BaseActivity {

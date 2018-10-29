@@ -1,23 +1,18 @@
 package com.vexanium.vexgift.module.wallet.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -28,17 +23,9 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
-import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.Exchanger;
 import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.fixture.WalletToken;
-import com.vexanium.vexgift.bean.model.WalletRecord;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryActivity;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryDetailActivity;
-import com.vexanium.vexgift.module.wallet.ui.adapter.WalletAdapter;
 import com.vexanium.vexgift.util.ClickUtil;
-import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.text.DecimalFormat;

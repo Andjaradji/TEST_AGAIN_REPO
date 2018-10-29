@@ -3,41 +3,30 @@ package com.vexanium.vexgift.module.tokensale.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
-import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.base.BaseRecyclerAdapter;
-import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
-import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.TokenSaleHistory;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryDetailResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
-import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenter;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenterImpl;
 import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_token_sale_history_detail, toolbarTitle = R.string.token_sale_history_title, withLoadingAnim = true)
 public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {

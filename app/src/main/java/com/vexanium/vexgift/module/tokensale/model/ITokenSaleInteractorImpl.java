@@ -2,19 +2,14 @@ package com.vexanium.vexgift.module.tokensale.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryDetailResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
-import com.vexanium.vexgift.bean.response.UserAddressResponse;
-import com.vexanium.vexgift.bean.response.UserDepositResponse;
-import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
-import com.vexanium.vexgift.module.deposit.model.IDepositInteractor;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxUtil;
 

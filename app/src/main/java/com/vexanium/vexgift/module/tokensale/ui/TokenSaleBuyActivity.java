@@ -2,13 +2,11 @@ package com.vexanium.vexgift.module.tokensale.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -18,7 +16,6 @@ import com.vexanium.vexgift.bean.model.TokenSale;
 import com.vexanium.vexgift.bean.model.TokenSaleOption;
 import com.vexanium.vexgift.bean.model.TokenSalePayment;
 import com.vexanium.vexgift.bean.model.User;
-import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;

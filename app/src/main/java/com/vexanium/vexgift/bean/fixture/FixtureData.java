@@ -2,7 +2,6 @@ package com.vexanium.vexgift.bean.fixture;
 
 import com.vexanium.vexgift.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
