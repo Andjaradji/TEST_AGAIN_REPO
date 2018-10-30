@@ -227,6 +227,8 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                         holder.getView(R.id.btn_buy).setEnabled(false);
                     }
 
+                    App.setTextViewStyle((ViewGroup) holder.getView(R.id.root_view));
+
                     holder.getView(R.id.btn_buy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

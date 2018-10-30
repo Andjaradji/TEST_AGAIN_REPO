@@ -330,10 +330,10 @@ public class StaticGroup {
         NotificationCompat.Builder builder = StaticGroup.getDefaultNotificationBuilder(context, message, title, null, System.currentTimeMillis(), 0, true);
         Intent targetIntent;
         if (!getRecentTaskInfo(context)) {
-            targetIntent = new Intent(context, SplashActivity.class);
+            targetIntent = new Intent(context, MainActivity.class);
             targetIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else {
-            targetIntent = new Intent(context, SplashActivity.class);
+            targetIntent = new Intent(context, MainActivity.class);
             targetIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         targetIntent.putExtra("t_url", url);

@@ -536,9 +536,13 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), TokenSaleActivity.class);
-                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
-                                    startActivity(intent);
+                                    if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                        StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                    }else {
+                                        Intent intent = new Intent(HomeFragment.this.getActivity(), TokenSaleActivity.class);
+                                        RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                        startActivity(intent);
+                                    }
 
                                 }
                             });

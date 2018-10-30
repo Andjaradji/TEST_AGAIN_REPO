@@ -381,48 +381,48 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         final TextView tvCamera = view.findViewById(R.id.tv_camera);
         final TextView tvGallery = view.findViewById(R.id.tv_gallery);
 
-        final VexDialog vexDialog = new VexDialog.Builder(this)
-                .optionType(DialogOptionType.NONE)
-                .title("Choose method")
-                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .addCustomView(view)
-                .autoDismiss(false)
-                .canceledOnTouchOutside(true)
-                .show();
-
-        tvCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkCameraPermission(code)) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(intent, code);
-                    }
-                }
-                if(vexDialog!=null){
-                    vexDialog.dismiss();
-                }
-            }
-        });
-
-        tvGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        final VexDialog vexDialog = new VexDialog.Builder(this)
+//                .optionType(DialogOptionType.NONE)
+//                .title("Choose method")
+//                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+//                        dialog.dismiss();
+//                    }
+//                })
+//                .addCustomView(view)
+//                .autoDismiss(false)
+//                .canceledOnTouchOutside(true)
+//                .show();
+//
+//        tvCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (checkCameraPermission(code)) {
+//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    if (intent.resolveActivity(getPackageManager()) != null) {
+//                        startActivityForResult(intent, code);
+//                    }
+//                }
+//                if(vexDialog!=null){
+//                    vexDialog.dismiss();
+//                }
+//            }
+//        });
+//
+//        tvGallery.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
                 if (checkPermission(code)) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(Intent.createChooser(intent, "Select Photo"), code);
                 }
-                if(vexDialog!=null){
-                    vexDialog.dismiss();
-                }
-            }
-        });
+//                if(vexDialog!=null){
+//                    vexDialog.dismiss();
+//                }
+//            }
+//        });
 
     }
 
