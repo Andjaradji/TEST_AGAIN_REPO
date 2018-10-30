@@ -20,6 +20,7 @@ import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenter;
 import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenterImpl;
 import com.vexanium.vexgift.module.tokensale.view.ITokenSaleView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -178,6 +179,13 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
                                                 mPresenter.updateDistributionAddress(user.getId(),tokenSaleHistory.getId(),tempDistributionAddress);
                                                 dialog.dismiss();
                                             }
+                                        }
+                                    })
+                                    .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                            if(ClickUtil.isFastDoubleClick())return;
+                                            dialog.dismiss();
                                         }
                                     })
                                     .autoDismiss(false)
