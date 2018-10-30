@@ -24,7 +24,7 @@ public class TokenSaleHistory implements Serializable {
     @JsonProperty("token_sale_payment_option_id")
     private int tokenSalePaymentOptionId;
     @JsonProperty("amount")
-    private int amount;
+    private float amount;
     @JsonProperty("payment_address")
     private String paymentAddress;
     @JsonProperty("payment_deadline")
@@ -78,11 +78,11 @@ public class TokenSaleHistory implements Serializable {
         this.tokenSalePaymentOptionId = tokenSalePaymentOptionId;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

@@ -140,8 +140,11 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         ViewUtil.setText(this, R.id.tv_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
 
         float amount = tokenSaleHistory.getAmount();
-        ViewUtil.setText(this, R.id.tv_payment_amount, amount+" "+tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
-        ViewUtil.setText(this, R.id.tv_purchased_amount, amount/tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin()+ " "+tokenSaleHistory.getTokenSale().getTokenName());
+        String paymentAmount = String.format("%.010f",amount);
+        String purchasedAmount = String.format("%.010f",amount/tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin());
+
+        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount+" "+tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
+        ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount+ " "+tokenSaleHistory.getTokenSale().getTokenName());
         if(tokenSaleHistory.getDistributionAddress() != null && tokenSaleHistory.getDistributionAddress().length() > 0) {
             ViewUtil.setText(this, R.id.tv_distribution_address, tokenSaleHistory.getDistributionAddress());
         }else{
@@ -199,8 +202,8 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
         ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " ("+tokenSaleHistory.getTokenSale().getTokenType()+")");
         ViewUtil.setText(this, R.id.tv_desc, tokenSaleHistory.getTokenSale().getDescription());
-        String left = String.format("%.020f",tokenSaleHistory.getTokenSale().getTokenLeft());
-        String available = String.format("%.020f",tokenSaleHistory.getTokenSale().getTokenAvailable());
+        String left = String.format("%.010f",tokenSaleHistory.getTokenSale().getTokenLeft());
+        String available = String.format("%.010f",tokenSaleHistory.getTokenSale().getTokenAvailable());
         ViewUtil.setText(this, R.id.tv_token_left, left);
         ViewUtil.setText(this, R.id.tv_token_total, available);
     }
