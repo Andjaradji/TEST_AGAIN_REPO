@@ -90,7 +90,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
             ViewUtil.setText(this, R.id.tv_payment_title, "Payment By " + tokenSaleOption.getPaymentCoin());
-            String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), tokenSaleOption.getPricePerCoin() + " " + tokenSaleOption.getPaymentCoin());
+            String paymentBody = String.format("1 %s = %s", tokenSaleOption.getPaymentCoin(), tokenSaleOption.getPricePerCoin() + " " + tokenSale.getTokenName());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
             ViewUtil.setText(this, R.id.tv_purchased_total_body, "-");

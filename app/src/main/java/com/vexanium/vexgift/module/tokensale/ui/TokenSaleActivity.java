@@ -153,8 +153,10 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     String time = String.format("%s - %s", item.getTimeStampDate(item.getStartTime()), item.getTimeStampDate(item.getEndTime()));
                     holder.setText(R.id.tv_sale_time,time);
                     holder.setText(R.id.tv_token_type,item.getTokenName()+ " ("+ item.getTokenType()+")");
-                    holder.setText(R.id.tv_token_left,item.getTokenLeft()+"");
-                    holder.setText(R.id.tv_token_total,item.getTokenAvailable()+"");
+                    String left = String.format("%.05f",item.getTokenLeft());
+                    String available = String.format("%.05f",item.getTokenAvailable());
+                    holder.setText(R.id.tv_token_left,left);
+                    holder.setText(R.id.tv_token_total,available);
 
                     setTokenSalePaymentOptionList(holder,position,item);
 
@@ -220,7 +222,7 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     }
 
                     if(item.getPricePerCoin() > 0){
-                        String body = String.format("1 %s = %s", token.getTokenName(), item.getPricePerCoin() + " " + item.getPaymentCoin());
+                        String body = String.format("1 %s = %s", item.getPaymentCoin(), item.getPricePerCoin() + " " + token.getTokenName());
                         holder.setText(R.id.tv_payment_body, body);
                     }else{
                         holder.setText(R.id.tv_payment_body, "error");

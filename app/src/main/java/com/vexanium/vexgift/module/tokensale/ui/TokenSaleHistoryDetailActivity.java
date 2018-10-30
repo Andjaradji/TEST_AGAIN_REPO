@@ -192,8 +192,10 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
         ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " ("+tokenSaleHistory.getTokenSale().getTokenType()+")");
         ViewUtil.setText(this, R.id.tv_desc, tokenSaleHistory.getTokenSale().getDescription());
-        ViewUtil.setText(this, R.id.tv_token_left, tokenSaleHistory.getTokenSale().getTokenLeft()+"");
-        ViewUtil.setText(this, R.id.tv_token_total, tokenSaleHistory.getTokenSale().getTokenAvailable()+"");
+        String left = String.format("%.05f",tokenSaleHistory.getTokenSale().getTokenLeft());
+        String available = String.format("%.05f",tokenSaleHistory.getTokenSale().getTokenAvailable());
+        ViewUtil.setText(this, R.id.tv_token_left, left);
+        ViewUtil.setText(this, R.id.tv_token_total, available);
     }
 
 
