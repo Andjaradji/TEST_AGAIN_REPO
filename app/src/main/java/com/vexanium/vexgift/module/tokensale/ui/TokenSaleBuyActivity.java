@@ -80,8 +80,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 finish();
             }
 
-            String min = String.format("%.05f",tokenSaleOption.getMinPurchase());
-            String max = String.format("%.05f",tokenSaleOption.getMaxPurchase());
+            String min = String.format("%.010f",tokenSaleOption.getMinPurchase());
+            String max = String.format("%.010f",tokenSaleOption.getMaxPurchase());
 
             String amountHeader = String.format("Min = %s, Max = %s", min +" "+tokenSaleOption.getPaymentCoin(), max+ " "+tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
@@ -90,7 +90,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
             ViewUtil.setText(this, R.id.tv_payment_title, "Payment By " + tokenSaleOption.getPaymentCoin());
-            String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), tokenSaleOption.getPricePerCoin() + " " + tokenSaleOption.getPaymentCoin());
+            String coin = String.format("%.010f",tokenSaleOption.getPricePerCoin());
+            String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), coin + " " + tokenSaleOption.getPaymentCoin());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
             ViewUtil.setText(this, R.id.tv_purchased_total_body, "-");
