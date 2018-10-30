@@ -171,7 +171,7 @@ public class TokenSaleHistory implements Serializable {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(l);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
 

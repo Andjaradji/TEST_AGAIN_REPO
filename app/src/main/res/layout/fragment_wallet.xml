@@ -105,7 +105,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/ll_vex_coin_container"
+                    android:id="@+id/ll_wallet_coin_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ll_wallet_main"

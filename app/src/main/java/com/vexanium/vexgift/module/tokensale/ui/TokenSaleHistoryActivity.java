@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import com.vexanium.vexgift.R;
@@ -137,6 +138,9 @@ public class TokenSaleHistoryActivity extends BaseActivity<ITokenSalePresenter> 
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_minus));
                         holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_failed));
                     }
+
+                    App.setTextViewStyle((ViewGroup) holder.getView(R.id.rl_token_sale_history_item));
+
 
                     holder.setOnClickListener(R.id.rl_token_sale_history_item, new View.OnClickListener() {
                         @Override
