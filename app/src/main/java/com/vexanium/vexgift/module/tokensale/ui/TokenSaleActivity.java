@@ -222,7 +222,7 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     }
 
                     if(item.getPricePerCoin() > 0){
-                        String body = String.format("1 %s = %s", item.getPaymentCoin(), item.getPricePerCoin() + " " + token.getTokenName());
+                        String body = String.format("1 %s = %s", token.getTokenName(), item.getPricePerCoin() + " " + item.getPaymentCoin());
                         holder.setText(R.id.tv_payment_body, body);
                     }else{
                         holder.setText(R.id.tv_payment_body, "error");
