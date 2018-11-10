@@ -31,6 +31,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
     TextView mTvInvitedCount, mTvInviteLink;
     ImageView mIvCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
 
+    String mPlaystoreLink;
     String mShareText;
     User user;
 
@@ -57,9 +58,13 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mIvShare.setOnClickListener(this);
 
 
-        mTvInviteLink.setText(user.getReferralCode());
+
         mTvInvitedCount.setText("" + 0);
-        mShareText = "VexGift is a great wat to get free vouchers. Check it out here " + user.getReferralCode();
+
+        mPlaystoreLink = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift&referrer=" + user.getReferralCode();
+        mShareText = "VexGift is a great wat to get free vouchers. Check it out here \n" + mPlaystoreLink;
+
+        mTvInviteLink.setText(mPlaystoreLink);
         mPresenter.requestUserReferral(user.getId());
     }
 
