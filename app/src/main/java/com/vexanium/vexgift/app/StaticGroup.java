@@ -1306,6 +1306,15 @@ public class StaticGroup {
         }
     }
 
+    public static boolean isReferralAvailable() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_available") != -1) {
+            return settingResponse.getSettingValByKey("is_referral_available") == 1;
+        } else {
+            return false;
+        }
+    }
+
     public static long getEmailResendCountdown() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("email_resend_countdown") != -1) {
