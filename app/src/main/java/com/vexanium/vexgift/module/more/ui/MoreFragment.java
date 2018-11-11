@@ -187,9 +187,10 @@ public class MoreFragment extends BaseFragment {
                 StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_problem_button:
-                subject = String.format(Locale.getDefault(), "[PROBLEM] #%04d", user.getId());
-                message = "Hi Vexgift Support!\nI've problem with...";
-                StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
+//                subject = String.format(Locale.getDefault(), "[PROBLEM] #%04d", user.getId());
+//                message = "Hi Vexgift Support!\nI've problem with...";
+//                StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
+                intentToActivity(SupportActivity.class);
                 break;
             case R.id.more_gp_button:
                 StaticGroup.openVexgiftGooglePlay(MoreFragment.this.getActivity());

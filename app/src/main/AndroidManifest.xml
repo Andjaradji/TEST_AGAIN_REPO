@@ -17,7 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-feature android:name="android.hardware.camera"    android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".app.App"
@@ -172,6 +174,9 @@
             android:name=".module.more.ui.TermActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.more.ui.SupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.more.ui.FaqActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -244,7 +249,7 @@
             android:name=".module.deposit.ui.DepositListActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".module.deposit.ui.DepositHistoryActivity" />
-        <activity android:name=".module.deposit.ui.TokenFreezeActivity"></activity>
+        <activity android:name=".module.deposit.ui.TokenFreezeActivity" />
         <activity
             android:name=".module.tokensale.ui.TokenSaleActivity"
             android:screenOrientation="portrait" />
@@ -257,13 +262,13 @@
         <activity
             android:name=".module.tokensale.ui.TokenSaleHistoryDetailActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".module.exchanger.ui.BuyVexActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.wallet.ui.WalletDetailActivity"
             android:screenOrientation="portrait" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.vexanium.vexgift.fileprovider"
@@ -271,8 +276,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
     </application>
 
 </manifest>
