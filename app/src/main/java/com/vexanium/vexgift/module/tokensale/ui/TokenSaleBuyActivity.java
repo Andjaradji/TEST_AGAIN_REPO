@@ -54,43 +54,43 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
         etAddress = findViewById(R.id.et_address);
         tvPurchasedTotal = findViewById(R.id.tv_purchased_total_body);
 
-        if(getIntent().hasExtra("token_sale")){
+        if (getIntent().hasExtra("token_sale")) {
             String tokenSaleString = getIntent().getStringExtra("token_sale");
-            tokenSaleResponse = (TokenSaleResponse) JsonUtil.toObject(tokenSaleString,TokenSaleResponse.class);
+            tokenSaleResponse = (TokenSaleResponse) JsonUtil.toObject(tokenSaleString, TokenSaleResponse.class);
 
             int tokenPosition = -1;
-            if(getIntent().hasExtra("token_position")){
-                tokenPosition = getIntent().getIntExtra("token_position",-1);
+            if (getIntent().hasExtra("token_position")) {
+                tokenPosition = getIntent().getIntExtra("token_position", -1);
             }
 
-            if(tokenPosition != -1) {
+            if (tokenPosition != -1) {
                 tokenSale = tokenSaleResponse.getTokenSales().get(tokenPosition);
-            }else{
+            } else {
                 finish();
             }
 
             int optionPosition = -1;
-            if(getIntent().hasExtra("option_position")){
-                optionPosition = getIntent().getIntExtra("option_position",-1);
+            if (getIntent().hasExtra("option_position")) {
+                optionPosition = getIntent().getIntExtra("option_position", -1);
             }
 
-            if(optionPosition != -1) {
+            if (optionPosition != -1) {
                 tokenSaleOption = tokenSaleResponse.getTokenSales().get(tokenPosition).getTokenSalePaymentOptions().get(optionPosition);
-            }else{
+            } else {
                 finish();
             }
 
-            String min = String.format("%.010f",tokenSaleOption.getMinPurchase());
-            String max = String.format("%.010f",tokenSaleOption.getMaxPurchase());
+            String min = String.format("%.010f", tokenSaleOption.getMinPurchase());
+            String max = String.format("%.010f", tokenSaleOption.getMaxPurchase());
 
-            String amountHeader = String.format("Min = %s, Max = %s", min +" "+tokenSaleOption.getPaymentCoin(), max+ " "+tokenSaleOption.getPaymentCoin());
+            String amountHeader = String.format("Min = %s, Max = %s", min + " " + tokenSaleOption.getPaymentCoin(), max + " " + tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
             ViewUtil.setText(this, R.id.tv_token_title, tokenSale.getTitle());
             String time = String.format("%s - %s", tokenSale.getTimeStampDate(tokenSale.getStartTime()), tokenSale.getTimeStampDate(tokenSale.getEndTime()));
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
             ViewUtil.setText(this, R.id.tv_payment_title, "Payment By " + tokenSaleOption.getPaymentCoin());
-            String coin = String.format("%.010f",tokenSaleOption.getPricePerCoin());
+            String coin = String.format("%.010f", tokenSaleOption.getPricePerCoin());
             String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), coin + " " + tokenSaleOption.getPaymentCoin());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
@@ -104,20 +104,20 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if(etAmount.getText().toString().length() > 0) {
-                        try{
+                    if (etAmount.getText().toString().length() > 0) {
+                        try {
                             amount = Float.valueOf(etAmount.getText().toString());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         try {
                             amountTotal = amount / tokenSaleOption.getPricePerCoin();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         String purchasedTotal = amountTotal + " " + tokenSale.getTokenName();
                         tvPurchasedTotal.setText(purchasedTotal);
-                    }else{
+                    } else {
                         tvPurchasedTotal.setText("-");
                     }
                 }
@@ -150,9 +150,9 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 //                if(etAddress.getText().toString().length() < 5){
 //                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
 //                }else
-                if(amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()){
-                    StaticGroup.showCommonErrorDialog(this, "amount must be or higher than "+ tokenSaleOption.getMinPurchase() + " and must be or lower than "+tokenSaleOption.getMaxPurchase());
-                }else {
+                if (amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()) {
+                    StaticGroup.showCommonErrorDialog(this, "amount must be or higher than " + tokenSaleOption.getMinPurchase() + " and must be or lower than " + tokenSaleOption.getMaxPurchase());
+                } else {
                     mPresenter.buyTokenSale(user.getId(), tokenSale.getId(), tokenSaleOption.getId(), amount);
                 }
             default:
@@ -176,7 +176,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
-        } else{
+        } else {
             finish();
         }
     }

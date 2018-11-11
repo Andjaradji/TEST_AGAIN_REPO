@@ -49,7 +49,7 @@ public class ITokenSaleInteractorImpl<T> implements ITokenSaleInteractor {
 
     @Override
     public Subscription requestBuyTokenSale(RequestCallback callback, int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestBuyTokenSale(id,tokenSaleId,tokenSalePaymentOptionId,amount).compose(RxUtil.<TokenSalePaymentResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBuyTokenSale(id, tokenSaleId, tokenSalePaymentOptionId, amount).compose(RxUtil.<TokenSalePaymentResponse>handleResult())
                 .flatMap(new Func1<TokenSalePaymentResponse, Observable<TokenSalePaymentResponse>>() {
                     @Override
                     public Observable<TokenSalePaymentResponse> call(TokenSalePaymentResponse tokenSalePaymentResponse) {
@@ -63,7 +63,7 @@ public class ITokenSaleInteractorImpl<T> implements ITokenSaleInteractor {
 
     @Override
     public Subscription requestTokenSalePayment(RequestCallback callback, int id, int tokenSalePaymentId) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestTokenSalePayment(id,tokenSalePaymentId).compose(RxUtil.<TokenSaleHistoryDetailResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestTokenSalePayment(id, tokenSalePaymentId).compose(RxUtil.<TokenSaleHistoryDetailResponse>handleResult())
                 .flatMap(new Func1<TokenSaleHistoryDetailResponse, Observable<TokenSaleHistoryDetailResponse>>() {
                     @Override
                     public Observable<TokenSaleHistoryDetailResponse> call(TokenSaleHistoryDetailResponse tokenSaleHistoryDetailResponse) {
@@ -77,7 +77,7 @@ public class ITokenSaleInteractorImpl<T> implements ITokenSaleInteractor {
 
     @Override
     public Subscription requestUpdateDistributionAddress(RequestCallback callback, int id, int tokenSalePaymentId, String address) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateDistributionAddress(id,tokenSalePaymentId,address).compose(RxUtil.<EmptyResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateDistributionAddress(id, tokenSalePaymentId, address).compose(RxUtil.<EmptyResponse>handleResult())
                 .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
                     @Override
                     public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {

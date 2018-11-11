@@ -411,6 +411,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view_white_bg"/>
 
 </RelativeLayout>

@@ -166,7 +166,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
                     final EditText etPin = view.findViewById(R.id.et_pin);
                     etPin.setHint(getString(R.string.referral_code_field_dialog_et));
-                    if(!TextUtils.isEmpty(refCode)) {
+                    if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
                     }
 
@@ -180,11 +180,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                             .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                        dialog.dismiss();
-                                        if(!refCode.equalsIgnoreCase(etPin.getText().toString())) {
-                                            refCode = etPin.getText().toString();
-                                        }
-                                        requestFacebookLogin();
+                                    dialog.dismiss();
+                                    if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                        refCode = etPin.getText().toString();
+                                    }
+                                    requestFacebookLogin();
                                 }
                             })
                             .onNegative(new VexDialog.MaterialDialogButtonCallback() {
@@ -197,7 +197,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                             .canceledOnTouchOutside(false)
                             .show();
 
-                }else {
+                } else {
                     requestFacebookLogin();
                 }
                 break;
@@ -206,7 +206,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
                     final EditText etPin = view.findViewById(R.id.et_pin);
                     etPin.setHint(getString(R.string.referral_code_field_dialog_et));
-                    if(!TextUtils.isEmpty(refCode)) {
+                    if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
                     }
 
@@ -221,7 +221,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
-                                    if(!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                    if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
                                         refCode = etPin.getText().toString();
                                     }
                                     requestGoogleLogin();
@@ -237,7 +237,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                             .canceledOnTouchOutside(false)
                             .show();
 
-                }else {
+                } else {
                     requestGoogleLogin();
                 }
                 break;

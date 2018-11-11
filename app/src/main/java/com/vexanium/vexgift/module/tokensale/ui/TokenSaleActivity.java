@@ -44,10 +44,10 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
     ArrayList<TokenSale> tokenSales;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
-    private SwipeRefreshLayout mRefreshLayout;
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +87,11 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
 
         mPresenter.requestTokenSaleList(user.getId());
 
-        if(getIntent().hasExtra("id")){
-            int id = getIntent().getIntExtra("id",0);
-            if(id > 0){
+        if (getIntent().hasExtra("id")) {
+            int id = getIntent().getIntExtra("id", 0);
+            if (id > 0) {
                 Intent intent = new Intent(this, TokenSaleHistoryActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         }
@@ -151,14 +151,14 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
                     holder.setText(R.id.tv_title, item.getTitle());
                     holder.setText(R.id.tv_desc, item.getDescription());
                     String time = String.format("%s - %s", item.getTimeStampDate(item.getStartTime()), item.getTimeStampDate(item.getEndTime()));
-                    holder.setText(R.id.tv_sale_time,time);
-                    holder.setText(R.id.tv_token_type,item.getTokenName()+ " ("+ item.getTokenType()+")");
-                    String left = String.format("%.010f",item.getTokenLeft());
-                    String available = String.format("%.010f",item.getTokenAvailable());
-                    holder.setText(R.id.tv_token_left,left);
-                    holder.setText(R.id.tv_token_total,available);
+                    holder.setText(R.id.tv_sale_time, time);
+                    holder.setText(R.id.tv_token_type, item.getTokenName() + " (" + item.getTokenType() + ")");
+                    String left = String.format("%.010f", item.getTokenLeft());
+                    String available = String.format("%.010f", item.getTokenAvailable());
+                    holder.setText(R.id.tv_token_left, left);
+                    holder.setText(R.id.tv_token_total, available);
 
-                    setTokenSalePaymentOptionList(holder,position,item);
+                    setTokenSalePaymentOptionList(holder, position, item);
 
                     App.setTextViewStyle((ViewGroup) holder.getView(R.id.root_view));
 
@@ -198,10 +198,10 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
         }
     }
 
-    public void setTokenSalePaymentOptionList(BaseRecyclerViewHolder holder, final int tokenPosition, final TokenSale token){
-        final LinearLayout btnPaymentOptions =  (LinearLayout)holder.getView(R.id.btn_payment_options);
+    public void setTokenSalePaymentOptionList(BaseRecyclerViewHolder holder, final int tokenPosition, final TokenSale token) {
+        final LinearLayout btnPaymentOptions = (LinearLayout) holder.getView(R.id.btn_payment_options);
         final RecyclerView recyclerView = holder.getRecyclerView(R.id.rv_payment_options);
-        if(recyclerView!=null) {
+        if (recyclerView != null) {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -213,19 +213,19 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
 
                 @Override
                 public void bindData(final BaseRecyclerViewHolder holder, final int position, TokenSaleOption item) {
-                    if(item.getPaymentCoin()!=null) {
+                    if (item.getPaymentCoin() != null) {
                         String title = String.format("Payment by %s", item.getPaymentCoin());
                         holder.setText(R.id.tv_payment_title, title);
-                    }else{
+                    } else {
                         holder.setText(R.id.tv_payment_title, "error");
                         holder.getView(R.id.btn_buy).setEnabled(false);
                     }
 
-                    if(item.getPricePerCoin() > 0){
-                        String coin = String.format("%.010f",item.getPricePerCoin());
+                    if (item.getPricePerCoin() > 0) {
+                        String coin = String.format("%.010f", item.getPricePerCoin());
                         String body = String.format("1 %s = %s", token.getTokenName(), coin + " " + item.getPaymentCoin());
                         holder.setText(R.id.tv_payment_body, body);
-                    }else{
+                    } else {
                         holder.setText(R.id.tv_payment_body, "error");
                         holder.getView(R.id.btn_buy).setEnabled(false);
                     }
@@ -250,14 +250,14 @@ public class TokenSaleActivity extends BaseActivity<ITokenSalePresenter> impleme
             btnPaymentOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(recyclerView.getVisibility() == View.GONE){
+                    if (recyclerView.getVisibility() == View.GONE) {
                         btnPaymentOptions.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
                         findViewById(R.id.tv_payment_options).setVisibility(View.VISIBLE);
                     }
                 }
             });
-        }else{
+        } else {
             btnPaymentOptions.setVisibility(View.GONE);
         }
     }

@@ -21,9 +21,9 @@ public class DepositListResponse implements Serializable {
         this.deposits = deposits;
     }
 
-    public Deposit getDepositById(int id){
-        for(Deposit deposit : deposits){
-            if(deposit.getId() == id) return deposit;
+    public Deposit getDepositById(int id) {
+        for (Deposit deposit : deposits) {
+            if (deposit.getId() == id) return deposit;
         }
         return null;
     }

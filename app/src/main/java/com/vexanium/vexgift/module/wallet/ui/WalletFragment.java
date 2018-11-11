@@ -96,8 +96,8 @@ public class WalletFragment extends BaseFragment {
     private void setRecordlist(ArrayList<WalletToken> dataList) {
         mRefreshLayout.setRefreshing(false);
         float totalAsset = 0f;
-        for(WalletToken token : FixtureData.tokenList){
-            totalAsset += token.getAmount()*token.getEstPriceInIDR();
+        for (WalletToken token : FixtureData.tokenList) {
+            totalAsset += token.getAmount() * token.getEstPriceInIDR();
         }
 
         DecimalFormat df = new DecimalFormat("#,###.##");
@@ -117,7 +117,7 @@ public class WalletFragment extends BaseFragment {
                     holder.setText(R.id.tv_wallet_coin_title, item.getName());
                     holder.setImageResource(R.id.iv_icon, item.getResIcon());
                     DecimalFormat df = new DecimalFormat("#,###.##");
-                    holder.setText(R.id.tv_wallet_coin_subtitle, "~"+df.format(item.getEstPriceInIDR())+" IDR");
+                    holder.setText(R.id.tv_wallet_coin_subtitle, "~" + df.format(item.getEstPriceInIDR()) + " IDR");
                     holder.setText(R.id.tv_wallet_coin_amount, df.format(item.getAmount()));
                     holder.setOnClickListener(R.id.rl_wallet_coin_item, new View.OnClickListener() {
                         @Override

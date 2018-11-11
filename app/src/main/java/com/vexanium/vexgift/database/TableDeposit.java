@@ -20,7 +20,7 @@ public class TableDeposit {
 
     @Generated(hash = 1671343505)
     public TableDeposit(long id, String deposits, String userDeposits,
-            String vexVaults, long createdTime, long updatedTime) {
+                        String vexVaults, long createdTime, long updatedTime) {
         this.id = id;
         this.deposits = deposits;
         this.userDeposits = userDeposits;

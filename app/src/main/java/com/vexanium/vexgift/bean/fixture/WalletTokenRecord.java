@@ -14,7 +14,7 @@ public class WalletTokenRecord implements Serializable {
     private float amount;
     private String date;
 
-    public WalletTokenRecord(int id, int tokenId, String title, int type, float amount, String date){
+    public WalletTokenRecord(int id, int tokenId, String title, int type, float amount, String date) {
         this.id = id;
         this.tokenId = tokenId;
         this.title = title;

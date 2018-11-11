@@ -116,24 +116,24 @@ public class TokenSaleHistoryActivity extends BaseActivity<ITokenSalePresenter> 
 
                     holder.setText(R.id.tv_token_sale_history_title, "TOKEN SALE #" + item.getId());
 
-                    if(item.getTokenSalePaymentOption()!=null && item.getTokenSalePaymentOption()!=null) {
+                    if (item.getTokenSalePaymentOption() != null && item.getTokenSalePaymentOption() != null) {
 
-                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()/item.getTokenSalePaymentOption().getPricePerCoin() + " " + item.getTokenSale().getTokenName());
-                    }else{
-                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount()+"");
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount() / item.getTokenSalePaymentOption().getPricePerCoin() + " " + item.getTokenSale().getTokenName());
+                    } else {
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount() + "");
                     }
                     holder.setText(R.id.tv_token_sale_history_subtitle, item.getCreatedAtDate());
-                    
+
                     if (item.getStatus() == 0) {
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.material_black_text_color));
                         holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_pending));
                     } else if (item.getStatus() == 1) {
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_plus));
                         holder.setText(R.id.tv_token_sale_history_status, getText(R.string.premium_purchase_success));
-                        if(item.getDistributionAddress()==null){
-                            holder.setViewGone(R.id.iv_red_dot,false);
-                        }else{
-                            holder.setViewGone(R.id.iv_red_dot,true);
+                        if (item.getDistributionAddress() == null) {
+                            holder.setViewGone(R.id.iv_red_dot, false);
+                        } else {
+                            holder.setViewGone(R.id.iv_red_dot, true);
                         }
                     } else {
                         holder.setTextColor(R.id.tv_token_sale_history_status, getResources().getColor(R.color.vexpoint_minus));

@@ -452,7 +452,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
-        if(StaticGroup.isReferralBannerActive()) {
+        if (StaticGroup.isReferralBannerActive()) {
             data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
         }
 
@@ -463,7 +463,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        }
 
 //        if(StaticGroup.isDepositAvailable()) {
-            data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
+        data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
 //        }
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
@@ -546,7 +546,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                     if (ClickUtil.isFastDoubleClick()) return;
                                     if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
                                         StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
-                                    }else {
+                                    } else {
                                         Intent intent = new Intent(HomeFragment.this.getActivity(), TokenSaleActivity.class);
                                         RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                         startActivity(intent);
@@ -574,7 +574,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                     //startActivity(intent);
                                     if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
                                         StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
-                                    }else {
+                                    } else {
                                         Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
                                         startActivity(intent);
                                     }
@@ -666,7 +666,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
                                     StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
-                                }else {
+                                } else {
                                     Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
                                     startActivity(intent);
                                 }
@@ -678,8 +678,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), TokenFreezeActivity.class);
-                                    startActivity(intent);
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), TokenFreezeActivity.class);
+                                startActivity(intent);
                             }
                         });
                         break;

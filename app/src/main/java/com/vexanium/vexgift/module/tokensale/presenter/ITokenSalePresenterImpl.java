@@ -60,19 +60,19 @@ public class ITokenSalePresenterImpl extends BasePresenterImpl<ITokenSaleView, S
 
     @Override
     public void buyTokenSale(int id, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
-        Subscription subscription = mTokenSaleInteractorImpl.requestBuyTokenSale(this, id,tokenSaleId,tokenSalePaymentOptionId,amount);
+        Subscription subscription = mTokenSaleInteractorImpl.requestBuyTokenSale(this, id, tokenSaleId, tokenSalePaymentOptionId, amount);
         compositeSubscription.add(subscription);
     }
 
     @Override
     public void updateDistributionAddress(int id, int tokenSalePaymentId, String address) {
-        Subscription subscription = mTokenSaleInteractorImpl.requestUpdateDistributionAddress(this, id,tokenSalePaymentId,address);
+        Subscription subscription = mTokenSaleInteractorImpl.requestUpdateDistributionAddress(this, id, tokenSalePaymentId, address);
         compositeSubscription.add(subscription);
     }
 
     @Override
     public void getTokenSalePayment(int id, int tokenSalePaymentId) {
-        Subscription subscription = mTokenSaleInteractorImpl.requestTokenSalePayment(this, id,tokenSalePaymentId);
+        Subscription subscription = mTokenSaleInteractorImpl.requestTokenSalePayment(this, id, tokenSalePaymentId);
         compositeSubscription.add(subscription);
     }
 

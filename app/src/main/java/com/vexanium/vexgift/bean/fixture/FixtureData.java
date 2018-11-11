@@ -221,28 +221,28 @@ public class FixtureData {
 
     public static final ArrayList<Exchanger> exchangerList = new ArrayList<Exchanger>() {
         {
-            add(new Exchanger("BTC-alpha","https://btc-alpha.com/exchange/VEX_BTC/"));
-            add(new Exchanger("Tokenomy","https://exchange.tokenomy.com/login"));
-            add(new Exchanger("Indodax","https://indodax.com/"));
-            add(new Exchanger("Exrates","https://exrates.me/dashboard"));
-            add(new Exchanger("Sistemkoin","https://sistemkoin.com/#/"));
-            add(new Exchanger("Bitinka","https://www.bitinka.com/pe/bitinka/home"));
+            add(new Exchanger("BTC-alpha", "https://btc-alpha.com/exchange/VEX_BTC/"));
+            add(new Exchanger("Tokenomy", "https://exchange.tokenomy.com/login"));
+            add(new Exchanger("Indodax", "https://indodax.com/"));
+            add(new Exchanger("Exrates", "https://exrates.me/dashboard"));
+            add(new Exchanger("Sistemkoin", "https://sistemkoin.com/#/"));
+            add(new Exchanger("Bitinka", "https://www.bitinka.com/pe/bitinka/home"));
         }
     };
 
 
     public static final ArrayList<WalletToken> tokenList = new ArrayList<WalletToken>() {
         {
-            add(new WalletToken(1,"BTC", R.drawable.bitcoin_logo,1.2434f,101774808));
-            add(new WalletToken(2,"VEX", R.drawable.vex_logo,560213.584f,195));
+            add(new WalletToken(1, "BTC", R.drawable.bitcoin_logo, 1.2434f, 101774808));
+            add(new WalletToken(2, "VEX", R.drawable.vex_logo, 560213.584f, 195));
         }
     };
 
     public static final ArrayList<WalletTokenRecord> tokenRecordList = new ArrayList<WalletTokenRecord>() {
         {
-            add(new WalletTokenRecord(1,1,"ACTsnied34dfcbjawye",WalletTokenRecord.SEND, 1.1f,"16-08-2018 15:12 GMT"));
-            add(new WalletTokenRecord(2,1,"ACTse32vre2rf2ffds4",WalletTokenRecord.RECEIVE, 3.3434f,"16-08-2018 12:34 GMT"));
-            add(new WalletTokenRecord(2,2,"ACTg099mfclrsitj34j",WalletTokenRecord.RECEIVE, 560213.584f,"14-08-2018 03:34 GMT"));
+            add(new WalletTokenRecord(1, 1, "ACTsnied34dfcbjawye", WalletTokenRecord.SEND, 1.1f, "16-08-2018 15:12 GMT"));
+            add(new WalletTokenRecord(2, 1, "ACTse32vre2rf2ffds4", WalletTokenRecord.RECEIVE, 3.3434f, "16-08-2018 12:34 GMT"));
+            add(new WalletTokenRecord(2, 2, "ACTg099mfclrsitj34j", WalletTokenRecord.RECEIVE, 560213.584f, "14-08-2018 03:34 GMT"));
         }
     };
 

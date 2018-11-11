@@ -120,7 +120,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         return dataList.size();
     }
 
-    public void expand(FilterViewHolder holder){
+    public void expand(FilterViewHolder holder) {
         if (dataList.get(holder.getAdapterPosition()).getVpLogTypeId() == 1) {
             if (holder.mDetailContainer.getVisibility() == View.GONE) {
                 holder.mDetailContainer.setVisibility(View.VISIBLE);

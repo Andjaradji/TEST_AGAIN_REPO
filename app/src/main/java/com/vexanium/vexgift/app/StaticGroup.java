@@ -58,7 +58,6 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
-import com.vexanium.vexgift.module.login.ui.SplashActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -912,12 +911,8 @@ public class StaticGroup {
                 .show();
     }
 
-    public interface CommonErrorDialogListener{
-        void onErrorDismiss();
-    }
-
     public static void showCommonErrorDialog(Context context, String title, String message) {
-        showCommonErrorDialog(context,title,message,null);
+        showCommonErrorDialog(context, title, message, null);
     }
 
     public static void showCommonErrorDialog(Context context, String title, String message, final CommonErrorDialogListener listener) {
@@ -929,7 +924,7 @@ public class StaticGroup {
                 .dismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        if(listener!=null){
+                        if (listener != null) {
                             listener.onErrorDismiss();
                         }
                     }
@@ -958,7 +953,7 @@ public class StaticGroup {
     }
 
     public static void showCommonErrorDialog(Context context, HttpResponse errorResponse) {
-        showCommonErrorDialog(context,errorResponse,null);
+        showCommonErrorDialog(context, errorResponse, null);
     }
 
     public static void showCommonErrorDialog(Context context, HttpResponse errorResponse, CommonErrorDialogListener listener) {
@@ -968,9 +963,9 @@ public class StaticGroup {
                     .putCustomAttribute("Error Message", errorResponse.getMeta().getMessage()));
             if (errorResponse.getMeta().isRequestError()) {
                 if (errorResponse.getMeta().getStatus() != 408)
-                    showCommonErrorDialog(context, errorResponse.getMeta().getMessage(),listener);
+                    showCommonErrorDialog(context, errorResponse.getMeta().getMessage(), listener);
             } else {
-                showCommonErrorDialog(context, errorResponse.getMeta().getStatus(),listener);
+                showCommonErrorDialog(context, errorResponse.getMeta().getStatus(), listener);
             }
         } else {
             Answers.getInstance().logCustom(new CustomEvent("Unknown Error"));
@@ -998,7 +993,6 @@ public class StaticGroup {
                 "public_profile"
         );
     }
-
 
     public static void checkPushToken(User user) {
         if (user == null) return;
@@ -1124,7 +1118,6 @@ public class StaticGroup {
                 .autoDismiss(true)
                 .show();
     }
-
 
     public static ArrayList<Voucher> getFilteredVoucher(final ArrayList<Voucher> vouchers, SortFilterCondition sortFilterCondition) {
         ArrayList<Voucher> filteredVoucher = new ArrayList<>();
@@ -1269,7 +1262,6 @@ public class StaticGroup {
         }
     }
 
-
     public static long getSleepTime() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("ga_local_session_time") != -1) {
@@ -1331,5 +1323,9 @@ public class StaticGroup {
         } else {
             return EMAIL_RESEND_TIME;
         }
+    }
+
+    public interface CommonErrorDialogListener {
+        void onErrorDismiss();
     }
 }

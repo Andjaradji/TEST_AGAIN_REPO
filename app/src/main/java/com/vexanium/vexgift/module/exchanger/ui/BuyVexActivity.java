@@ -24,10 +24,10 @@ import com.vexanium.vexgift.util.MeasureUtil;
 @ActivityFragmentInject(contentViewId = R.layout.activity_buy_vex, toolbarTitle = R.string.buy_vex, withLoadingAnim = false)
 public class BuyVexActivity extends BaseActivity {
 
-    private SwipeRefreshLayout mRefreshLayout;
     RecyclerView mRecyclerview;
     GridLayoutManager layoutListManager;
     BaseRecyclerAdapter<Exchanger> mAdapter;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

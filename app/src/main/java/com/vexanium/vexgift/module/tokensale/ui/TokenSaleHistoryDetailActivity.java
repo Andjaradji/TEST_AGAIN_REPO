@@ -58,9 +58,9 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(tokenSaleHistory!=null) {
+                if (tokenSaleHistory != null) {
                     mPresenter.getTokenSalePayment(user.getId(), tokenSaleHistory.getId());
-                }else{
+                } else {
                     mRefreshLayout.setRefreshing(false);
                 }
             }
@@ -69,26 +69,26 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
 
         if (getIntent().hasExtra("token_sale_history_detail")) {
             String TokenSaleHistoryString = getIntent().getStringExtra("token_sale_history_detail");
-            TokenSaleHistoryResponse tokenSaleResponse = (TokenSaleHistoryResponse) JsonUtil.toObject(TokenSaleHistoryString,TokenSaleHistoryResponse.class);
-            
-            if(getIntent().hasExtra("position")){
-                int position = getIntent().getIntExtra("position",0);
+            TokenSaleHistoryResponse tokenSaleResponse = (TokenSaleHistoryResponse) JsonUtil.toObject(TokenSaleHistoryString, TokenSaleHistoryResponse.class);
+
+            if (getIntent().hasExtra("position")) {
+                int position = getIntent().getIntExtra("position", 0);
                 tokenSaleHistory = tokenSaleResponse.getTokenSaleHistories().get(position);
 
-               updateView();
+                updateView();
 
 
-            }else{
+            } else {
 
             }
-        }else if(getIntent().hasExtra("token_payment_id")){
-            int paymentId = getIntent().getIntExtra("token_payment_id",-1);
-            if(paymentId != -1) {
+        } else if (getIntent().hasExtra("token_payment_id")) {
+            int paymentId = getIntent().getIntExtra("token_payment_id", -1);
+            if (paymentId != -1) {
                 mPresenter.getTokenSalePayment(user.getId(), paymentId);
-            }else{
+            } else {
                 Toast.makeText(this, "Payment not found", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
             Toast.makeText(this, "nothing", Toast.LENGTH_SHORT).show();
         }
     }
@@ -96,7 +96,7 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
     @Override
     protected void onResume() {
         super.onResume();
-        if(tokenSaleHistory!=null) {
+        if (tokenSaleHistory != null) {
             mPresenter.getTokenSalePayment(user.getId(), tokenSaleHistory.getId());
         }
     }
@@ -114,17 +114,17 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);
-        }else{
+        } else {
             //updated distribution address
             ViewUtil.setText(this, R.id.tv_distribution_address, tempDistributionAddress);
             ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this, R.id.ll_distribution_address).setVisibility(View.VISIBLE);
-            ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this,R.id.btn_input_distribution_address).setVisibility(View.GONE);
+            ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this, R.id.btn_input_distribution_address).setVisibility(View.GONE);
             Toast.makeText(this, "Your distribution address has been updated successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void updateView(){
-        ViewUtil.setText(this, R.id.tv_title, "TOKEN "+tokenSaleHistory.getId());
+    void updateView() {
+        ViewUtil.setText(this, R.id.tv_title, "TOKEN " + tokenSaleHistory.getId());
         ViewUtil.setText(this, R.id.tv_date, tokenSaleHistory.getCreatedAtDate());
 
         if (tokenSaleHistory.getStatus() == 0) {
@@ -141,21 +141,21 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         ViewUtil.setText(this, R.id.tv_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
 
         float amount = tokenSaleHistory.getAmount();
-        String paymentAmount = String.format("%.010f",amount);
-        String purchasedAmount = String.format("%.010f",amount/tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin());
+        String paymentAmount = String.format("%.010f", amount);
+        String purchasedAmount = String.format("%.010f", amount / tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin());
 
-        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount+" "+tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
-        ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount+ " "+tokenSaleHistory.getTokenSale().getTokenName());
-        if(tokenSaleHistory.getDistributionAddress() != null && tokenSaleHistory.getDistributionAddress().length() > 0) {
+        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " " + tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
+        ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount + " " + tokenSaleHistory.getTokenSale().getTokenName());
+        if (tokenSaleHistory.getDistributionAddress() != null && tokenSaleHistory.getDistributionAddress().length() > 0) {
             ViewUtil.setText(this, R.id.tv_distribution_address, tokenSaleHistory.getDistributionAddress());
-        }else{
+        } else {
             ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this, R.id.ll_distribution_address).setVisibility(View.VISIBLE);
-            if(tokenSaleHistory.getStatus() != 1) {
+            if (tokenSaleHistory.getStatus() != 1) {
                 ViewUtil.setText(this, R.id.tv_distribution_address, "-");
-            }else{
-                if(tokenSaleHistory.getDistributionAddress() == null || tokenSaleHistory.getDistributionAddress().length() == 0) {
+            } else {
+                if (tokenSaleHistory.getDistributionAddress() == null || tokenSaleHistory.getDistributionAddress().length() == 0) {
                     ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this, R.id.ll_distribution_address).setVisibility(View.GONE);
-                    ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this,R.id.btn_input_distribution_address).setVisibility(View.VISIBLE);
+                    ViewUtil.findViewById(TokenSaleHistoryDetailActivity.this, R.id.btn_input_distribution_address).setVisibility(View.VISIBLE);
                     ViewUtil.setOnClickListener(this, new View.OnClickListener() {
                         @Override
                         public void onClick(View clickedView) {
@@ -176,7 +176,7 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
                                                 StaticGroup.showCommonErrorDialog(TokenSaleHistoryDetailActivity.this, "please input a valid address");
                                             } else {
                                                 tempDistributionAddress = etAddress.getText().toString();
-                                                mPresenter.updateDistributionAddress(user.getId(),tokenSaleHistory.getId(),tempDistributionAddress);
+                                                mPresenter.updateDistributionAddress(user.getId(), tokenSaleHistory.getId(), tempDistributionAddress);
                                                 dialog.dismiss();
                                             }
                                         }
@@ -184,7 +184,7 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
                                     .onNegative(new VexDialog.MaterialDialogButtonCallback() {
                                         @Override
                                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                            if(ClickUtil.isFastDoubleClick())return;
+                                            if (ClickUtil.isFastDoubleClick()) return;
                                             dialog.dismiss();
                                         }
                                     })
@@ -193,14 +193,14 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
                                     .canceledOnTouchOutside(false)
                                     .show();
                         }
-                    },R.id.btn_input_distribution_address);
-                }else{
+                    }, R.id.btn_input_distribution_address);
+                } else {
                     ViewUtil.setText(this, R.id.tv_distribution_address, tokenSaleHistory.getDistributionAddress());
                 }
             }
         }
         ViewUtil.setText(this, R.id.tv_transfer_to, tokenSaleHistory.getPaymentAddress());
-        ViewUtil.findViewById(this,R.id.ll_transfer_to).setOnClickListener(new View.OnClickListener() {
+        ViewUtil.findViewById(this, R.id.ll_transfer_to).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StaticGroup.copyToClipboard(TokenSaleHistoryDetailActivity.this, tokenSaleHistory.getPaymentAddress());
@@ -208,10 +208,10 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
         });
         ViewUtil.setText(this, R.id.tv_transfer_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
         ViewUtil.setText(this, R.id.tv_token_title, tokenSaleHistory.getTokenSale().getTitle());
-        ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " ("+tokenSaleHistory.getTokenSale().getTokenType()+")");
+        ViewUtil.setText(this, R.id.tv_token_type, tokenSaleHistory.getTokenSale().getTokenName() + " (" + tokenSaleHistory.getTokenSale().getTokenType() + ")");
         ViewUtil.setText(this, R.id.tv_desc, tokenSaleHistory.getTokenSale().getDescription());
-        String left = String.format("%.010f",tokenSaleHistory.getTokenSale().getTokenLeft());
-        String available = String.format("%.010f",tokenSaleHistory.getTokenSale().getTokenAvailable());
+        String left = String.format("%.010f", tokenSaleHistory.getTokenSale().getTokenLeft());
+        String available = String.format("%.010f", tokenSaleHistory.getTokenSale().getTokenAvailable());
         ViewUtil.setText(this, R.id.tv_token_left, left);
         ViewUtil.setText(this, R.id.tv_token_total, available);
     }

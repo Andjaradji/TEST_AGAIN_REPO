@@ -47,7 +47,7 @@ public class PremiumHistoryAdapter extends RecyclerView.Adapter<PremiumHistoryAd
         holder.mHistoryTitle.setText("PREMIUM #" + data.getId());
         holder.mHistorySubtitle.setText(data.getCreatedAtDate());
         holder.mHistoryAmount.setText(data.getPaidAmount() + " VEX");
-        holder.mLoyaltyPoint.setText("+ "+(data.getStatus() == 1? TimeUnit.SECONDS.toDays(data.getDuration()):0)+" Loyalty Point");
+        holder.mLoyaltyPoint.setText("+ " + (data.getStatus() == 1 ? TimeUnit.SECONDS.toDays(data.getDuration()) : 0) + " Loyalty Point");
 
         if (data.getStatus() == 0) {
             holder.mHistoryStatus.setText(context.getText(R.string.premium_purchase_pending));

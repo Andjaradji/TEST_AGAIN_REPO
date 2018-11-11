@@ -50,10 +50,10 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
     ArrayList<Deposit> deposits;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
-    private SwipeRefreshLayout mRefreshLayout;
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
         mIvError = findViewById(R.id.iv_error_view);
         mTvErrorHead = findViewById(R.id.tv_error_head);
         mTvErrorBody = findViewById(R.id.tv_error_body);
-        
+
         mBtnDeposit = findViewById(R.id.btn_deposit);
 
         DepositListResponse depositListResponse = TableDepositDaoUtil.getInstance().getDepositListResponse();
@@ -96,11 +96,11 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
         mPresenter.requestDepositList(user.getId());
         mPresenter.requestUserDepositList(user.getId());
 
-        if(getIntent().hasExtra("id")){
-            int id = getIntent().getIntExtra("id",0);
-            if(id > 0){
+        if (getIntent().hasExtra("id")) {
+            int id = getIntent().getIntExtra("id", 0);
+            if (id > 0) {
                 Intent intent = new Intent(this, DepositHistoryActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         }
@@ -160,12 +160,12 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
                     holder.setText(R.id.tv_title, item.getName());
                     holder.setText(R.id.tv_desc, item.getDescription());
                     String time = String.format("%s - %s", StaticGroup.getDate(item.getStartTime()), StaticGroup.getDate(item.getEndTime()));
-                    holder.setText(R.id.tv_deposit_time, time );
+                    holder.setText(R.id.tv_deposit_time, time);
                     holder.setText(R.id.tv_start, StaticGroup.getDate(item.getStartTime()));
                     holder.setText(R.id.tv_end, StaticGroup.getDate(item.getEndTime()));
-                    holder.setText(R.id.tv_coin_deposited, StaticGroup.convertVpFormat(item.getCoinDeposited(),true) + "");
-                    holder.setText(R.id.tv_max_coin, StaticGroup.convertVpFormat(item.getMaxCoin(),true) + "");
-                    holder.setAlpha(R.id.root_view, item.isAvailable() ? 1f: 0.7f);
+                    holder.setText(R.id.tv_coin_deposited, StaticGroup.convertVpFormat(item.getCoinDeposited(), true) + "");
+                    holder.setText(R.id.tv_max_coin, StaticGroup.convertVpFormat(item.getMaxCoin(), true) + "");
+                    holder.setAlpha(R.id.root_view, item.isAvailable() ? 1f : 0.7f);
 
                     App.setTextViewStyle((ViewGroup) holder.getView(R.id.root_view));
 
@@ -173,11 +173,11 @@ public class DepositActivity extends BaseActivity<IDepositPresenter> implements 
                         @Override
                         public void onClick(View view) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            if(item.isAvailable()) {
+                            if (item.isAvailable()) {
                                 Intent intent = new Intent(DepositActivity.this, DepositListActivity.class);
                                 intent.putExtra("deposit", JsonUtil.toString(item));
                                 startActivity(intent);
-                            }else {
+                            } else {
                                 new VexDialog.Builder(DepositActivity.this)
                                         .optionType(DialogOptionType.OK)
                                         .title(getString(R.string.deposit_not_available))

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VexVaultResponse implements Serializable{
+public class VexVaultResponse implements Serializable {
     @JsonProperty("vex_vaults")
     private ArrayList<VexVault> vexVaults;
 
@@ -20,9 +20,9 @@ public class VexVaultResponse implements Serializable{
         this.vexVaults = vexVaults;
     }
 
-    public float getTotalFrozen(){
+    public float getTotalFrozen() {
         float total = 0;
-        for(VexVault vexVault : vexVaults){
+        for (VexVault vexVault : vexVaults) {
             total += vexVault.getCoinAmount();
         }
         return total;

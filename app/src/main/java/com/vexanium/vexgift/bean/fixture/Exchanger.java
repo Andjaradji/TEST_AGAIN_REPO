@@ -6,7 +6,7 @@ public class Exchanger implements Serializable {
     private String name;
     private String url;
 
-    public Exchanger(String name, String url){
+    public Exchanger(String name, String url) {
         this.name = name;
         this.url = url;
     }

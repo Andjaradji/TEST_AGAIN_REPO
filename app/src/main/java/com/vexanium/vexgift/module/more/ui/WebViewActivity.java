@@ -57,7 +57,7 @@ public class WebViewActivity extends BaseActivity {
                 mWvTerm.startAnimation(fadeIn);
             }
         });
-        if(getIntent().hasExtra("url")){
+        if (getIntent().hasExtra("url")) {
             url = getIntent().getStringExtra("url");
             mWvTerm.loadUrl(url);
 

@@ -18,7 +18,6 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
-import com.vexanium.vexgift.module.more.ui.WebViewActivity;
 import com.vexanium.vexgift.module.referral.presenter.IReferralPresenter;
 import com.vexanium.vexgift.module.referral.presenter.IReferralPresenterImpl;
 import com.vexanium.vexgift.module.referral.view.IReferralView;
@@ -110,7 +109,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
             case R.id.tv_referral_note:
 //                intent = new Intent(ReferralActivity.this, WebViewActivity.class);
 //                intent.putExtra("url", "http://blog.vexanium.com/");
-                StaticGroup.openAndroidBrowser(ReferralActivity.this,"http://blog.vexanium.com/");
+                StaticGroup.openAndroidBrowser(ReferralActivity.this, "http://blog.vexanium.com/");
 //                startActivity(intent);
                 break;
         }

@@ -145,7 +145,11 @@ public class VoucherCode implements Serializable {
         return TimeUnit.SECONDS.toMillis(expiredAt);
     }
 
-    public String getStrExpiredAt(){
+    public void setExpiredAt(long expiredAt) {
+        this.expiredAt = expiredAt;
+    }
+
+    public String getStrExpiredAt() {
         long l = TimeUnit.SECONDS.toMillis(expiredAt);
 
         Calendar calendar = Calendar.getInstance();
@@ -153,9 +157,5 @@ public class VoucherCode implements Serializable {
         String sDate = (StaticGroup.isInIDLocale() ? "dd MMM yyyy" : "MMMM dd, yyyy") + "  HH:mm";
         SimpleDateFormat dateFormat = new SimpleDateFormat(sDate, Locale.getDefault());
         return dateFormat.format(calendar.getTime());
-    }
-
-    public void setExpiredAt(long expiredAt) {
-        this.expiredAt = expiredAt;
     }
 }

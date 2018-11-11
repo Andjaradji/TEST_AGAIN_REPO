@@ -30,7 +30,6 @@ import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
-import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -654,7 +653,7 @@ public class MainActivity extends BaseActivity {
                 gotoPage(NOTIF_FRAGMENT);
 
             } else if (path.startsWith("deposit")) {
-                if(StaticGroup.isDepositAvailable()){
+                if (StaticGroup.isDepositAvailable()) {
                     String sId = uri.getQueryParameter("id");
                     int id = 0;
                     try {
@@ -663,7 +662,7 @@ public class MainActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                     intent = new Intent(this, DepositActivity.class);
-                    intent.putExtra("id",id);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 }
             } else if (path.startsWith("receive")) {

@@ -178,7 +178,7 @@ public class Deposit implements Serializable {
         this.noteRejected = noteRejected;
     }
 
-    public boolean isAvailable(){
+    public boolean isAvailable() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

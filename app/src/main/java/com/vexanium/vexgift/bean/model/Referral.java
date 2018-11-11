@@ -25,7 +25,7 @@ public class Referral implements Serializable {
 
     @JsonProperty("is_kyc")
     private boolean isKyc;
-    
+
     @JsonProperty("is_premium_member")
     private boolean isPremiumMember;
 

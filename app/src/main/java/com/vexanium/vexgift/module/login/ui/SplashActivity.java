@@ -100,15 +100,15 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }
         } else if (errorResponse != null) {
-            if(NetworkUtil.isOnline(this)) {
+            if (NetworkUtil.isOnline(this)) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse, this);
-            }else{
+            } else {
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body), this);
             }
         }
     }
 
-    private void load(){
+    private void load() {
         destinationActivity = getDestinationActivity(this);
 
         if (destinationActivity != null) {
@@ -172,7 +172,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 intent.putExtra("url", uri.toString());
                 KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));
                 getIntent().setData(null);
-            }else if(getIntent().hasExtra("t_url")){
+            } else if (getIntent().hasExtra("t_url")) {
                 intent.putExtra("url", getIntent().getStringExtra("t_url"));
                 KLog.v("SplashActivity", "checkApp: sendDeeplink " + intent.getStringExtra("url"));
                 getIntent().removeExtra("t_url");

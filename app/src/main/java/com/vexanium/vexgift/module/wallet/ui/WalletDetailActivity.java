@@ -45,19 +45,18 @@ public class WalletDetailActivity extends BaseActivity {
     protected void initView() {
 
 
-
-        ivIcon = findViewById(R.id.iv_icon);;
+        ivIcon = findViewById(R.id.iv_icon);
+        ;
         mRecyclerview = findViewById(R.id.rv_wallet_record);
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
         mRecyclerview.setLayoutManager(layoutListManager);
 
         if (getIntent().hasExtra("wallet_token")) {
-            walletToken = (WalletToken)getIntent().getSerializableExtra("wallet_token");
+            walletToken = (WalletToken) getIntent().getSerializableExtra("wallet_token");
 
             setWalletRecordList();
         }
-
 
 
     }
@@ -65,13 +64,13 @@ public class WalletDetailActivity extends BaseActivity {
     public void setWalletRecordList() {
 
         DecimalFormat df = new DecimalFormat("#,###.##");
-        ViewUtil.setText(this, R.id.tv_vex_amount, df.format(walletToken.getAmount())+ " "+walletToken.getName());
-        ViewUtil.setText(this, R.id.tv_vex_idr, df.format(walletToken.getAmount()*walletToken.getEstPriceInIDR())+" IDR");
+        ViewUtil.setText(this, R.id.tv_vex_amount, df.format(walletToken.getAmount()) + " " + walletToken.getName());
+        ViewUtil.setText(this, R.id.tv_vex_idr, df.format(walletToken.getAmount() * walletToken.getEstPriceInIDR()) + " IDR");
         ivIcon.setImageResource(walletToken.getResIcon());
 
         walletTokenRecords = new ArrayList<>();
-        for(WalletTokenRecord walletTokenRecord : FixtureData.tokenRecordList){
-            if(walletTokenRecord.getTokenId() == walletToken.getId()){
+        for (WalletTokenRecord walletTokenRecord : FixtureData.tokenRecordList) {
+            if (walletTokenRecord.getTokenId() == walletToken.getId()) {
                 walletTokenRecords.add(walletTokenRecord);
             }
         }
@@ -86,17 +85,17 @@ public class WalletDetailActivity extends BaseActivity {
 
                 @Override
                 public void bindData(final BaseRecyclerViewHolder holder, final int position, final WalletTokenRecord item) {
-                    holder.setText(R.id.tv_wallet_record_title,item.getTitle());
-                    holder.setText(R.id.tv_wallet_record_subtitle,item.getDate());
+                    holder.setText(R.id.tv_wallet_record_title, item.getTitle());
+                    holder.setText(R.id.tv_wallet_record_subtitle, item.getDate());
 
                     if (item.getType() == WalletTokenRecord.RECEIVE) {
-                        holder.setImageResource(R.id.iv_wallet_record_type,R.drawable.record_receive);
+                        holder.setImageResource(R.id.iv_wallet_record_type, R.drawable.record_receive);
                         holder.getImageView(R.id.iv_wallet_record_type).setRotation(90);
-                        holder.setText(R.id.tv_wallet_record_vex,"+ " + item.getAmount() + " "+walletToken.getName());
+                        holder.setText(R.id.tv_wallet_record_vex, "+ " + item.getAmount() + " " + walletToken.getName());
                     } else {
-                        holder.setImageResource(R.id.iv_wallet_record_type,R.drawable.record_send);
+                        holder.setImageResource(R.id.iv_wallet_record_type, R.drawable.record_send);
                         holder.getImageView(R.id.iv_wallet_record_type).setRotation(-90);
-                        holder.setText(R.id.tv_wallet_record_vex,"- " + item.getAmount() + " "+walletToken.getName());
+                        holder.setText(R.id.tv_wallet_record_vex, "- " + item.getAmount() + " " + walletToken.getName());
                     }
 
 

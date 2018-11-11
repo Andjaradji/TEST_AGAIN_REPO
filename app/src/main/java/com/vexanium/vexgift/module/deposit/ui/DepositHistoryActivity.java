@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -22,7 +21,6 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserDeposit;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
-import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TableDepositDaoUtil;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenter;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenterImpl;

@@ -1,12 +1,10 @@
 package com.vexanium.vexgift.module.profile.ui;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,7 +50,6 @@ import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -91,6 +88,23 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
     private String frontIdUri, backIdUri, selfieIdUri;
     private int countryPos = 0, idPos = 0;
     private String kycName, kycIdNumber;
+
+    public static Uri getOutputMediaFileUri(Context context) {
+        File mediaStorageDir = new File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Camera");
+        //If File is not present create directory
+        if (!mediaStorageDir.exists()) {
+            if (mediaStorageDir.mkdir())
+                KLog.e("Create Directory", "Main Directory Created : " + mediaStorageDir);
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());//Get Current timestamp
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");//create image path with system mill and image format
+        return Uri.fromFile(mediaFile);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +164,6 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
     @Override
     protected void initView() {
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, "MyPicture");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
-
         mPresenter = new IProfilePresenterImpl(this);
 
         findViewById(R.id.btn_next).setOnClickListener(this);
@@ -300,10 +310,10 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 break;
             case ConstantGroup.KYC_CAMERA_FRONT_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    if(Build.VERSION.SDK_INT > 22){
+                    if (Build.VERSION.SDK_INT > 22) {
                         frontIdUri = fileUri.toString();
-                        frontIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_front);
-                    }else{
+                        frontIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this, fileUri), R.id.iv_document_front);
+                    } else {
                         frontIdUri = data.getData().toString();
                         frontIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_front);
                     }
@@ -311,10 +321,10 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 break;
             case ConstantGroup.KYC_CAMERA_BACK_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    if(Build.VERSION.SDK_INT > 22){
+                    if (Build.VERSION.SDK_INT > 22) {
                         backIdUri = fileUri.toString();
-                        backIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_back);
-                    }else{
+                        backIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this, fileUri), R.id.iv_document_back);
+                    } else {
                         backIdUri = data.getData().toString();
                         backIdView = setIdPhoto(Uri.parse(backIdUri), R.id.iv_document_back);
                     }
@@ -322,33 +332,16 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 break;
             case ConstantGroup.KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    if(Build.VERSION.SDK_INT > 22){
+                    if (Build.VERSION.SDK_INT > 22) {
                         selfieIdUri = fileUri.toString();
-                        selfieIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_selfie);
-                    }else{
+                        selfieIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this, fileUri), R.id.iv_document_selfie);
+                    } else {
                         selfieIdUri = data.getData().toString();
                         selfieIdView = setIdPhoto(Uri.parse(selfieIdUri), R.id.iv_document_selfie);
                     }
                 }
                 break;
         }
-    }
-
-    public static Uri getOutputMediaFileUri(Context context) {
-        File mediaStorageDir = new File(
-                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Camera");
-        //If File is not present create directory
-        if (!mediaStorageDir.exists()) {
-            if (mediaStorageDir.mkdir())
-                KLog.e("Create Directory", "Main Directory Created : " + mediaStorageDir);
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());//Get Current timestamp
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "IMG_" + timeStamp + ".jpg");//create image path with system mill and image format
-        return Uri.fromFile(mediaFile);
-
     }
 
     private void updateCountryAdapter() {
@@ -402,7 +395,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         return "";
     }
 
-    private String setIdPhotoWithUrl(String url, @IdRes int idRes){
+    private String setIdPhotoWithUrl(String url, @IdRes int idRes) {
         ViewUtil.setImageUrl(KycActivity.this, idRes, url);
         File file = new File(url);
         if (file.exists()) {
@@ -439,13 +432,13 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 if (checkCameraPermission(code)) {
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if(Build.VERSION.SDK_INT > 22) {
+                    if (Build.VERSION.SDK_INT > 22) {
                         fileUri = getOutputMediaFileUri(KycActivity.this);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
                         if (intent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(intent, code2);
                         }
-                    }else{
+                    } else {
                         if (intent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(intent, code);
                         }

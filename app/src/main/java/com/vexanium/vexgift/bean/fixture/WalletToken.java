@@ -9,7 +9,7 @@ public class WalletToken implements Serializable {
     private float amount;
     private float estPriceInIDR;
 
-    public WalletToken(int id, String name, int resIcon, float amount, float estPriceInIDR){
+    public WalletToken(int id, String name, int resIcon, float amount, float estPriceInIDR) {
         this.id = id;
         this.name = name;
         this.resIcon = resIcon;

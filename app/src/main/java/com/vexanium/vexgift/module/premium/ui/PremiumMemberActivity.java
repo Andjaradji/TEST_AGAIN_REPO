@@ -143,7 +143,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
 
         mHistoryButton.setOnClickListener(this);
 
-        mLoyaltyPoint.setText(user.getLoyaltyPoint()+"");
+        mLoyaltyPoint.setText(user.getLoyaltyPoint() + "");
 
         try {
             Field mScroller;
@@ -229,7 +229,7 @@ public class PremiumMemberActivity extends BaseActivity<IPremiumPresenter> imple
                 });
                 mHistoryButton.setVisibility(View.VISIBLE);
                 mHistoryButton.setEnabled(true);
-                mLoyaltyPoint.setText(((PremiumHistoryResponse) data).getLoyaltyPoint()+"");
+                mLoyaltyPoint.setText(((PremiumHistoryResponse) data).getLoyaltyPoint() + "");
             } else if (data instanceof PremiumDueDateResponse) {
                 int dueDate = ((PremiumDueDateResponse) data).getPremiumUntil();
                 user.setPremiumUntil(dueDate);

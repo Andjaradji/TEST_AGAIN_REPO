@@ -77,10 +77,10 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
     UserDeposit userDeposit;
     User user;
     int state = STATE_CHOOSE;
+    Deposit deposit;
     private Subscription timeSubsription;
     private SwipeRefreshLayout mRefreshLayout;
     private int depositId = -1;
-    Deposit deposit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -512,7 +512,7 @@ public class DepositListActivity extends BaseActivity<IDepositPresenter> impleme
 //                                               )
 //                                ).toString()) +" VEX"
 //                        );
-                        ViewUtil.setText(this, R.id.tv_vex_distribute, ((int)(((double) userDeposit.getDepositOption().getAmount()) + (((double) userDeposit.getDepositOption().getAmount()) * (double) (userDeposit.getDepositOption().getCoinBonus()) / 100f)))+" VEX" );
+                        ViewUtil.setText(this, R.id.tv_vex_distribute, ((int) (((double) userDeposit.getDepositOption().getAmount()) + (((double) userDeposit.getDepositOption().getAmount()) * (double) (userDeposit.getDepositOption().getCoinBonus()) / 100f))) + " VEX");
                     } catch (Exception e) {
                         ViewUtil.setText(this, R.id.tv_vex_distribute, "-");
                     }

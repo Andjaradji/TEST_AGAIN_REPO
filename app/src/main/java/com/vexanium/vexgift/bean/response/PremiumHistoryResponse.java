@@ -18,17 +18,17 @@ public class PremiumHistoryResponse implements Serializable {
         return premiumPurchase;
     }
 
-    public int getLoyaltyPoint(){
+    public void setPremiumPurchase(ArrayList<PremiumPurchase> premiumPurchase) {
+        this.premiumPurchase = premiumPurchase;
+    }
+
+    public int getLoyaltyPoint() {
         int lp = 0;
-        for(PremiumPurchase pp : premiumPurchase){
-            if(pp.getStatus() == 1){
+        for (PremiumPurchase pp : premiumPurchase) {
+            if (pp.getStatus() == 1) {
                 lp += TimeUnit.SECONDS.toDays(pp.getDuration());
             }
         }
         return lp;
-    }
-
-    public void setPremiumPurchase(ArrayList<PremiumPurchase> premiumPurchase) {
-        this.premiumPurchase = premiumPurchase;
     }
 }

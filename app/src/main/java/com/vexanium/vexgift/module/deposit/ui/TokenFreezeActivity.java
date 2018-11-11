@@ -42,10 +42,10 @@ public class TokenFreezeActivity extends BaseActivity<IDepositPresenter> impleme
     ArrayList<VexVault> vexVaults;
     GridLayoutManager layoutListManager;
     RecyclerView mRecyclerview;
-    private SwipeRefreshLayout mRefreshLayout;
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class TokenFreezeActivity extends BaseActivity<IDepositPresenter> impleme
 
         VexVaultResponse vexVaultResponse = TableDepositDaoUtil.getInstance().getVexVaultListResponse();
         if (vexVaultResponse != null) {
-            ViewUtil.setText(TokenFreezeActivity.this, R.id.tv_total_frozen, vexVaultResponse.getTotalFrozen()+" VEX");
+            ViewUtil.setText(TokenFreezeActivity.this, R.id.tv_total_frozen, vexVaultResponse.getTotalFrozen() + " VEX");
             vexVaults = vexVaultResponse.getVexVaults();
         }
 
@@ -86,6 +86,7 @@ public class TokenFreezeActivity extends BaseActivity<IDepositPresenter> impleme
 
         mPresenter.requestTokenFreeze(user.getId());
     }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -104,7 +105,7 @@ public class TokenFreezeActivity extends BaseActivity<IDepositPresenter> impleme
                 vexVaults = vexVaultResponse.getVexVaults();
 
                 TableDepositDaoUtil.getInstance().saveTokenFreezeToDb(JsonUtil.toString(vexVaultResponse));
-                ViewUtil.setText(TokenFreezeActivity.this, R.id.tv_total_frozen, vexVaultResponse.getTotalFrozen()+" VEX");
+                ViewUtil.setText(TokenFreezeActivity.this, R.id.tv_total_frozen, vexVaultResponse.getTotalFrozen() + " VEX");
 
                 setVexVaults();
 
@@ -128,7 +129,7 @@ public class TokenFreezeActivity extends BaseActivity<IDepositPresenter> impleme
 
                     holder.setText(R.id.tv_title, item.getTitle());
                     holder.setText(R.id.tv_desc, item.getDescription());
-                    holder.setText(R.id.tv_coin_amount, item.getCoinAmount() + " "+item.getCoinName());
+                    holder.setText(R.id.tv_coin_amount, item.getCoinAmount() + " " + item.getCoinName());
 
                     App.setTextViewStyle((ViewGroup) holder.getView(R.id.rl_root));
                 }
