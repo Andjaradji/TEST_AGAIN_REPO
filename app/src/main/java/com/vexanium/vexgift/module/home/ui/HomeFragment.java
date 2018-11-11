@@ -58,6 +58,7 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
+import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.tokensale.ui.TokenSaleActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -88,6 +89,7 @@ import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
+import static com.vexanium.vexgift.app.StaticGroup.REFERRAL_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.TOKEN_FREEZE_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
@@ -450,6 +452,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
+        data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
+
 //        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
 //        if(StaticGroup.isDepositAvailable()) {
@@ -502,6 +506,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_image_banner;
                     case TOKEN_FREEZE_BANNER:
                         return R.layout.item_vaults_banner;
+                    case REFERRAL_BANNER:
+                        return R.layout.item_referral_banner;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -672,6 +678,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                     Intent intent = new Intent(HomeFragment.this.getActivity(), TokenFreezeActivity.class);
                                     startActivity(intent);
+                            }
+                        });
+                        break;
+                    case REFERRAL_BANNER:
+                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                Intent intent = new Intent(HomeFragment.this.getActivity(), ReferralActivity.class);
+                                startActivity(intent);
                             }
                         });
                         break;

@@ -111,6 +111,7 @@ public class StaticGroup {
     public static final int CONNECT_FB = 7;
     public static final int DEPOSIT_BANNER = 8;
     public static final int TOKEN_FREEZE_BANNER = 9;
+    public static final int REFERRAL_BANNER = 10;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
