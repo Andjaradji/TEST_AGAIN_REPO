@@ -108,6 +108,7 @@
     <string name="register_email">Email</string>
     <string name="register_password">Password</string>
     <string name="register_repassword">Re enter password</string>
+    <string name="register_referral_code">Referral Code</string>
     <string name="register_phone">Phone Number</string>
     <string name="register_button_register">Register</string>
     <string name="register_already_have_account">Already have an account?</string>
@@ -116,7 +117,7 @@
     <string name="register_button_google_login">Sign Up with Google</string>
     <string name="register_button_or">or Sign Up with</string>
 
-    <string name="register_confirmation_text">Thanks for singing up!\nWe\'ve sent you a confirmation code to %s</string>
+    <string name="register_confirmation_text">Thanks for signing up!\nWe\'ve sent you a confirmation code to %s</string>
     <string name="register_confirmation_hint">Input confirmation code</string>
     <string name="register_confirmation_button">Confirm Email</string>
     <string name="register_confirmation_resend">Resend Email</string>
@@ -373,12 +374,14 @@
     <string name="error_token_empty_body">There is nothing here</string>
 
     <string name="error_voucher_empty_header">No Voucher Found</string>
+    <string name="error_referral_empty_header">No Referral Found</string>
     <string name="error_token_empty_header">No Token Found</string>
     <string name="error_deposit_empty_header">No Deposit Found</string>
     <string name="error_token_sale_empty_header">No Token Sale Found</string>
 
 
     <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
+    <string name="error_referral_empty_body">You don\'t have any referral</string>
     <string name="error_my_token_empty_body">You don\'t have any token</string>
     <string name="error_history_voucher_empty_body">You haven\'t redeemed any voucher</string>
     <string name="error_history_token_empty_body">You haven\'t redeemed any token</string>
@@ -495,8 +498,8 @@
 
 
     <string name="referral_invite_others">INVITE OTHERS</string>
-    <string name="referral_title">Get 10% of invited user\'s snapshot!</string>
-    <string name="referral_note">invited user\'s snapshot won\'t be deducted</string>
+    <string name="referral_title">Get 100 VP\nand Free 2 Days Premium Member\nfrom invited user</string>
+    <string name="referral_note">See how ></string>
     <string name="referral_invited_user">invited user(s)</string>
     <string name="referral_share_on_sm">Share on Social Media</string>
 
@@ -638,10 +641,16 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_transfer_to">Transfer to</string>
     <string name="token_sale_transfer_deadline">Transfer dealine</string>
     <string name="token_sale_input_distribution_address">INPUT DISTRIBUTION ADDRESS</string>
-    <string name ="buy_vex">BUY VEX</string>
+    <string name="buy_vex">BUY VEX</string>
 
-    <string name ="my_wallet_title">MY WALLET</string>
+    <string name="my_wallet_title">MY WALLET</string>
 
+    <string name="referral_detail_title">Referral Detail</string>
+    <string name="referral_detail_already_kyc">already KYC</string>
+    <string name="referral_detail_havent_kyc">haven\'t KYC</string>
+    <string name="referral_detail_already_buy_premium_member">already buy premium member</string>
+    <string name="referral_detail_havent_buy_premium_member">haven\'t buy premium member</string>
+    <string name="referral_see_details">See Details ></string>
 
     <string name="kyc_choose_method">Please choose a method of getting your picture</string>
     <string name="kyc_from_camera">Take a picture</string>

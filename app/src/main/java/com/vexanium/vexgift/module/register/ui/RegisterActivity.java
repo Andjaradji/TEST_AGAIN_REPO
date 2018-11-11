@@ -80,6 +80,17 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 R.id.register_button,
                 R.id.login_google_button);
 
+
+        if(!StaticGroup.isReferralActive()){
+            findViewById(R.id.ll_referral_field).setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.ll_referral_field).setVisibility(View.VISIBLE);
+        }
+        String referralCode = StaticGroup.checkReferrerData();
+        if (!TextUtils.isEmpty(referralCode)) {
+            ((EditText)findViewById(R.id.et_referral_code)).setText(referralCode);
+        }
+
         initialize();
 
     }
@@ -185,9 +196,14 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
                         String referralCode = StaticGroup.checkReferrerData();
-                        if (!TextUtils.isEmpty(referralCode)) {
+                        String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
+                        if(!TextUtils.isEmpty(rc)){
+                            user.setReferralCode(rc);
+                        }
+                        else if (!TextUtils.isEmpty(referralCode)) {
                             user.setReferralCode(referralCode);
                         }
+
 
                         mPresenter.requestLogin(user);
                     } else {
@@ -207,6 +223,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
         String pass = ((EditText) findViewById(R.id.et_password)).getText().toString();
         String repass = ((EditText) findViewById(R.id.et_repassword)).getText().toString();
+        String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
 
         boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_username, R.id.et_email, R.id.et_password, R.id.et_repassword);
 
@@ -228,7 +245,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             user.setPassword(pass);
 
             String referralCode = StaticGroup.checkReferrerData();
-            if (!TextUtils.isEmpty(referralCode)) {
+            if(!TextUtils.isEmpty(rc)){
+                user.setReferralCode(rc);
+            }
+            else if (!TextUtils.isEmpty(referralCode)) {
                 user.setReferralCode(referralCode);
             }
 
@@ -314,9 +334,14 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                     User facebookUserInfo = User.createWithFacebook(userInfo);
 
                                     String referralCode = StaticGroup.checkReferrerData();
-                                    if (!TextUtils.isEmpty(referralCode)) {
+                                    String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
+                                    if(!TextUtils.isEmpty(rc)){
+                                        facebookUserInfo.setReferralCode(rc);
+                                    }
+                                    else if (!TextUtils.isEmpty(referralCode)) {
                                         facebookUserInfo.setReferralCode(referralCode);
                                     }
+
 
                                     hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);

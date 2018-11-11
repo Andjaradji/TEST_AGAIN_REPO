@@ -5,12 +5,14 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.NotificationModel;
+import com.vexanium.vexgift.bean.model.Referral;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
+import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
@@ -72,6 +74,14 @@ public class TableContentDaoUtil extends BaseDaoUtil {
 
         return query.list().size() > 0 && query.list().get(0).getNotifs() != null ?
                 (ArrayList<Notification>) JsonUtil.toObject(query.list().get(0).getNotifs(), new TypeToken<ArrayList<Notification>>() {
+                }.getType()) : null;
+    }
+
+    public UserReferralResponse getReferrals() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getReferrals() != null ?
+                (UserReferralResponse) JsonUtil.toObject(query.list().get(0).getReferrals(), new TypeToken<UserReferralResponse>() {
                 }.getType()) : null;
     }
 

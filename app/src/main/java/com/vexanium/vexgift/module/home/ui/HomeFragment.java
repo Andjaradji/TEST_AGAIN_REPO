@@ -452,7 +452,9 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
-        data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
+        if(StaticGroup.isReferralBannerActive()) {
+            data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
+        }
 
 //        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 

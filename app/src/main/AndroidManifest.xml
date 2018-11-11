@@ -186,6 +186,9 @@
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.more.ui.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.register.ui.RegisterConfirmationActivity"
             android:screenOrientation="portrait" />
 
@@ -279,6 +282,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".module.referral.ui.ReferralDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

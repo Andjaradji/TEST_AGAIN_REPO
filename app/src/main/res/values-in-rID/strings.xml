@@ -75,6 +75,7 @@
     <string name="register_username">Nama</string>
     <string name="register_email">Email</string>
     <string name="register_password">Kata Sandi</string>
+    <string name="register_referral_code">Kode Referal</string>
     <string name="register_repassword">Ketik Ulang Kata Sandi</string>
     <string name="register_phone">Nomor Telepon</string>
     <string name="register_button_register">Daftar</string>
@@ -164,6 +165,7 @@
     <string name="google2fa_account">Anda masuk dengan <b>%s</b></string>
     <string name="notif_kyc">Anda belum mengisi KYC</string>
     <string name="error_notif_empty_body">Anda tidak memiliki notifikasi saat ini</string>
+    <string name="error_referral_empty_body">Anda tidak memiliki referal saat ini</string>
     <string name="error_history_voucher_empty_body">Anda belum menggunakan voucher apapun</string>
     <string name="error_history_token_empty_body">Anda belum menggunakan token apapun</string>
     <string name="exchange_receive_voucher_success_dialog_content">Anda mendapatkan Voucher %s, Check voucher anda di My Box sekarang</string>
@@ -270,7 +272,7 @@
     <string name="myprofile_id_front">Tampak Depan dari dokumen indentitas anda</string>
     <string name="exchange_send_voucher_button_generate">Hasilkan Kode</string>
     <string name="exchange_send_voucher_button_generate_code">Hasilkan Kode</string>
-    <string name="referral_title">Dapatkan 10% dari teman yang anda undang</string>
+    <string name="referral_title">Dapatkan 100 VP\ndan Gratis 2 hari Premium Member\ndari teman yang anda undang</string>
     <string name="appversion_dialog_content">Dapatkan keuntungan lebih dengan menggunakan versi terbaru</string>
     <string name="home_explore_get_button">Dapatkan sekarang</string>
     <string name="dialog_get_now">Dapatkan sekarang</string>
@@ -342,6 +344,7 @@
     <string name="google2fa_enable_input_desc">Mohon buka Google Authenticator dan masukan kode</string>
     <string name="google2fa_enable_input_field">Kode Google Authenticator</string>
     <string name="error_voucher_gift_empty_header">Tidak ada Voucher ditemukan</string>
+    <string name="error_referral_empty_header">Tidak ada Referal ditemukan</string>
     <string name="error_token_airdrop_empty_header">Tidak ada Token ditemukan</string>
     <string name="error_voucher_empty_header">Tidak ada Voucher</string>
     <string name="error_token_empty_header">Tidak ada Token</string>
@@ -459,6 +462,12 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
 
     <string name="token_freeze_coin_amount">Jumlah Koin</string>
     <string name="token_freeze_description">Deskripsi</string>
+    <string name="referral_detail_title">Detail Referal</string>
+    <string name="referral_detail_already_kyc">sudah KYC</string>
+    <string name="referral_detail_havent_kyc">belum KYC</string>
+    <string name="referral_detail_already_buy_premium_member">sudah beli premium member</string>
+    <string name="referral_detail_havent_buy_premium_member">belum beli premium member</string>
+    <string name="referral_see_details">Lihat Detail ></string>
 
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
 

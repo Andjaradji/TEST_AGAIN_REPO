@@ -13,10 +13,12 @@ import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
+import com.vexanium.vexgift.module.more.ui.WebViewActivity;
 import com.vexanium.vexgift.module.referral.presenter.IReferralPresenter;
 import com.vexanium.vexgift.module.referral.presenter.IReferralPresenterImpl;
 import com.vexanium.vexgift.module.referral.view.IReferralView;
@@ -57,12 +59,13 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mIvFb.setOnClickListener(this);
         mIvShare.setOnClickListener(this);
 
-
+        findViewById(R.id.tv_referral_note).setOnClickListener(this);
+        findViewById(R.id.cv_invited_user).setOnClickListener(this);
 
         mTvInvitedCount.setText("" + 0);
 
         mPlaystoreLink = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift&referrer=" + user.getReferralCode();
-        mShareText = "VexGift is a great wat to get free vouchers. Check it out here \n" + mPlaystoreLink;
+        mShareText = "VexGift is a great way to get free vouchers. Check it out here \n" + mPlaystoreLink;
 
         mTvInviteLink.setText(mPlaystoreLink);
         mPresenter.requestUserReferral(user.getId());
@@ -77,6 +80,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        Intent intent;
         switch (v.getId()) {
             case R.id.iv_referral_copy:
                 copyToClipboard(mShareText);
@@ -99,7 +103,16 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
             case R.id.referral_share_sm_button:
                 shareSm(mShareText);
                 break;
-
+            case R.id.cv_invited_user:
+                intent = new Intent(ReferralActivity.this, ReferralDetailActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_referral_note:
+//                intent = new Intent(ReferralActivity.this, WebViewActivity.class);
+//                intent.putExtra("url", "http://blog.vexanium.com/");
+                StaticGroup.openAndroidBrowser(ReferralActivity.this,"http://blog.vexanium.com/");
+//                startActivity(intent);
+                break;
         }
     }
 
@@ -108,7 +121,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         if (data != null) {
             if (data instanceof UserReferralResponse) {
                 int referralsCount = ((UserReferralResponse) data).getReferrals().size();
-                mTvInvitedCount.setText(referralsCount + "");
+                mTvInvitedCount.setText(String.valueOf(referralsCount));
             }
         } else if (errorResponse != null) {
 
