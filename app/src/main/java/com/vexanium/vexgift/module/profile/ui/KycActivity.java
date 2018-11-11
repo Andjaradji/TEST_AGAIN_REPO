@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -44,6 +43,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.util.ImagePathMarshmallow;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.TpUtil;
@@ -59,17 +59,18 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_kyc, toolbarTitle = R.string.myprofile_kyc, withLoadingAnim = true)
 public class KycActivity extends BaseActivity<IProfilePresenter> implements IProfileView {
 
-    private static final String KEY_KYC_FRONT_ID_URI =      "key_kyc_front_id_uri";
-    private static final String KEY_KYC_BACK_ID_URI =       "key_kyc_back_id_uri";
-    private static final String KEY_KYC_SELFIE_ID_URI =     "key_kyc_selfie_id_uri";
-    private static final String KEY_KYC_COUNTRY_POSITION =  "key_kyc_country_position";
-    private static final String KEY_KYC_ID_POSITION =       "key_kyc_id_position";
-    private static final String KEY_KYC_NAME_STRING =       "key_kyc_name_string";
-    private static final String KEY_KYC_ID_STRING =         "key_kyc_id_string";
+    private static final String KEY_KYC_FRONT_ID_URI = "key_kyc_front_id_uri";
+    private static final String KEY_KYC_BACK_ID_URI = "key_kyc_back_id_uri";
+    private static final String KEY_KYC_SELFIE_ID_URI = "key_kyc_selfie_id_uri";
+    private static final String KEY_KYC_COUNTRY_POSITION = "key_kyc_country_position";
+    private static final String KEY_KYC_ID_POSITION = "key_kyc_id_position";
+    private static final String KEY_KYC_NAME_STRING = "key_kyc_name_string";
+    private static final String KEY_KYC_ID_STRING = "key_kyc_id_string";
 
     String frontIdView;
     String backIdView;
@@ -84,6 +85,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
 
     String fileName = "", mCurrentPhotoPath = "";
+    Uri fileUri;
 
 
     private String frontIdUri, backIdUri, selfieIdUri;
@@ -92,7 +94,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             frontIdUri = savedInstanceState.getString(KEY_KYC_FRONT_ID_URI);
             backIdUri = savedInstanceState.getString(KEY_KYC_BACK_ID_URI);
             selfieIdUri = savedInstanceState.getString(KEY_KYC_SELFIE_ID_URI);
@@ -195,31 +197,31 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                     R.id.ll_document_selfie_button);
         }
 
-        if(frontIdUri!=null){
+        if (frontIdUri != null) {
             frontIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_front);
         }
 
-        if(backIdUri!=null){
+        if (backIdUri != null) {
             backIdView = setIdPhoto(Uri.parse(backIdUri), R.id.iv_document_back);
         }
 
-        if(selfieIdUri!=null){
+        if (selfieIdUri != null) {
             selfieIdView = setIdPhoto(Uri.parse(selfieIdUri), R.id.iv_document_selfie);
         }
 
-        if(kycName!=null){
+        if (kycName != null) {
             etName.setText(kycName);
         }
 
-        if(kycIdNumber!=null){
+        if (kycIdNumber != null) {
             etIdNumber.setText(kycIdNumber);
         }
 
-        if(countryPos >= 0){
+        if (countryPos >= 0) {
             spCountry.setSelection(countryPos);
         }
 
-        if(idPos >= 0){
+        if (idPos >= 0) {
             spIdType.setSelection(idPos);
         }
     }
@@ -263,13 +265,13 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 doSubmitKyc();
                 break;
             case R.id.ll_document_front_button:
-                getPhoto(ConstantGroup.KYC_FRONT_PHOTO_RESULT_CODE);
+                getPhoto(ConstantGroup.KYC_FRONT_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_FRONT_PHOTO_RESULT_CODE);
                 break;
             case R.id.ll_document_back_button:
-                getPhoto(ConstantGroup.KYC_BACK_PHOTO_RESULT_CODE);
+                getPhoto(ConstantGroup.KYC_BACK_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_BACK_PHOTO_RESULT_CODE);
                 break;
             case R.id.ll_document_selfie_button:
-                getPhoto(ConstantGroup.KYC_SELFIE_PHOTO_RESULT_CODE);
+                getPhoto(ConstantGroup.KYC_SELFIE_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE);
                 break;
         }
     }
@@ -298,30 +300,55 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 break;
             case ConstantGroup.KYC_CAMERA_FRONT_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    frontIdUri = data.getData().toString();
-                    frontIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_front);
+                    if(Build.VERSION.SDK_INT > 22){
+                        frontIdUri = fileUri.toString();
+                        frontIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_front);
+                    }else{
+                        frontIdUri = fileUri.toString();
+                        frontIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_front);
+                    }
                 }
                 break;
             case ConstantGroup.KYC_CAMERA_BACK_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    backIdUri = data.getData().toString();
-                    backIdView = setIdPhoto(Uri.parse(backIdUri), R.id.iv_document_back);
+                    if(Build.VERSION.SDK_INT > 22){
+                        backIdUri = fileUri.toString();
+                        backIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_back);
+                    }else{
+                        backIdUri = fileUri.toString();
+                        backIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_back);
+                    }
                 }
                 break;
             case ConstantGroup.KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    selfieIdUri = data.getData().toString();
-                    selfieIdView = setIdPhoto(Uri.parse(selfieIdUri), R.id.iv_document_selfie);
+                    if(Build.VERSION.SDK_INT > 22){
+                        selfieIdUri = fileUri.toString();
+                        selfieIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_selfie);
+                    }else{
+                        selfieIdUri = fileUri.toString();
+                        selfieIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_selfie);
+                    }
                 }
                 break;
         }
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, fileName, null);
-        return Uri.parse(path);
+    public static Uri getOutputMediaFileUri(Context context) {
+        File mediaStorageDir = new File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Camera");
+        //If File is not present create directory
+        if (!mediaStorageDir.exists()) {
+            if (mediaStorageDir.mkdir())
+                KLog.e("Create Directory", "Main Directory Created : " + mediaStorageDir);
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());//Get Current timestamp
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");//create image path with system mill and image format
+        return Uri.fromFile(mediaFile);
+
     }
 
     private void updateCountryAdapter() {
@@ -353,7 +380,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         };
         spCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCountry.setAdapter(spCountryAdapter);
-        if(countryPos >= 0){
+        if (countryPos >= 0) {
             spCountry.setSelection(countryPos);
         }
     }
@@ -375,54 +402,68 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
         return "";
     }
 
-    private void getPhoto(final int code) {
+    private String setIdPhotoWithUrl(String url, @IdRes int idRes){
+        ViewUtil.setImageUrl(KycActivity.this, idRes, url);
+        File file = new File(url);
+        if (file.exists()) {
+            return url;
+        } else {
+            KLog.v("KycActivity", "setIdPhoto: photoUri no exists");
+            return "";
+        }
+    }
+
+    private void getPhoto(final int code, final int code2) {
 
         View view = View.inflate(this, R.layout.include_kyc_photo_method, null);
         final TextView tvCamera = view.findViewById(R.id.tv_camera);
         final TextView tvGallery = view.findViewById(R.id.tv_gallery);
 
-//        final VexDialog vexDialog = new VexDialog.Builder(this)
-//                .optionType(DialogOptionType.NONE)
-//                .title("Choose method")
-//                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .addCustomView(view)
-//                .autoDismiss(false)
-//                .canceledOnTouchOutside(true)
-//                .show();
-//
-//        tvCamera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (checkCameraPermission(code)) {
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    if (intent.resolveActivity(getPackageManager()) != null) {
-//                        startActivityForResult(intent, code);
-//                    }
-//                }
-//                if(vexDialog!=null){
-//                    vexDialog.dismiss();
-//                }
-//            }
-//        });
-//
-//        tvGallery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        final VexDialog vexDialog = new VexDialog.Builder(this)
+                .optionType(DialogOptionType.NONE)
+                .title("Choose method")
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .addCustomView(view)
+                .autoDismiss(false)
+                .canceledOnTouchOutside(true)
+                .show();
+
+        tvCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkCameraPermission(code)) {
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    fileUri = getOutputMediaFileUri(KycActivity.this);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(intent, code2);
+                    }
+                }
+                if (vexDialog != null) {
+                    vexDialog.dismiss();
+                }
+            }
+        });
+
+        tvGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (checkPermission(code)) {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(Intent.createChooser(intent, "Select Photo"), code);
                 }
-//                if(vexDialog!=null){
-//                    vexDialog.dismiss();
-//                }
-//            }
-//        });
+                if (vexDialog != null) {
+                    vexDialog.dismiss();
+                }
+            }
+        });
 
     }
 
@@ -556,15 +597,15 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
             switch (requestCode) {
                 case ConstantGroup.KYC_FRONT_PHOTO_RESULT_CODE:
                 case ConstantGroup.KYC_CAMERA_FRONT_PHOTO_RESULT_CODE:
-                    getPhoto(requestCode);
+                    getPhoto(ConstantGroup.KYC_FRONT_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_FRONT_PHOTO_RESULT_CODE);
                     break;
                 case ConstantGroup.KYC_BACK_PHOTO_RESULT_CODE:
                 case ConstantGroup.KYC_CAMERA_BACK_PHOTO_RESULT_CODE:
-                    getPhoto(requestCode);
+                    getPhoto(ConstantGroup.KYC_BACK_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_BACK_PHOTO_RESULT_CODE);
                     break;
                 case ConstantGroup.KYC_SELFIE_PHOTO_RESULT_CODE:
                 case ConstantGroup.KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE:
-                    getPhoto(requestCode);
+                    getPhoto(ConstantGroup.KYC_SELFIE_PHOTO_RESULT_CODE, ConstantGroup.KYC_CAMERA_SELFIE_PHOTO_RESULT_CODE);
                     break;
             }
         }

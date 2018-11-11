@@ -229,6 +229,19 @@ public class ViewUtil {
                 .into(view);
     }
 
+
+    public static void setImageUrl(Activity root, int viewId, String imgUrl) {
+        ImageView view = findViewById(root, viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .centerCrop()
+                )
+                .load(imgUrl)
+                .into(view);
+    }
+
     public static void setImageUrl(Activity activity, int viewId, String imgUrl, @DrawableRes int errorImage) {
         ImageView view = activity.findViewById(viewId);
         Glide.with(App.getContext())
