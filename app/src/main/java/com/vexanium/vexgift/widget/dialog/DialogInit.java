@@ -4,7 +4,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.UiThread;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
@@ -29,15 +28,16 @@ public class DialogInit {
     public static void init(final VexDialog dialog) {
         final VexDialog.Builder builder = dialog.builder;
 
-        dialog.mdTitle = (TextView) dialog.view.findViewById(R.id.md_title);
-        dialog.mdContent = (TextView) dialog.view.findViewById(R.id.md_content);
+        dialog.mdTitle = dialog.view.findViewById(R.id.md_title);
+        dialog.mdContent = dialog.view.findViewById(R.id.md_content);
 
-        dialog.mdBackground = (RelativeLayout) dialog.view.findViewById(R.id.md_background);
+        dialog.mdBackground = dialog.view.findViewById(R.id.md_background);
+        dialog.lButtonContainer = dialog.view.findViewById(R.id.ll_button_container);
 
-        dialog.positiveButtonTxt = (TextView) dialog.view.findViewById(R.id.positive_button_txt);
-        dialog.negativeButtonTxt = (TextView) dialog.view.findViewById(R.id.negative_button_txt);
-        dialog.positiveButton = (RelativeLayout) dialog.view.findViewById(R.id.positive_button);
-        dialog.negativeButton = (RelativeLayout) dialog.view.findViewById(R.id.negative_button);
+        dialog.positiveButtonTxt = dialog.view.findViewById(R.id.positive_button_txt);
+        dialog.negativeButtonTxt = dialog.view.findViewById(R.id.negative_button_txt);
+        dialog.positiveButton = dialog.view.findViewById(R.id.positive_button);
+        dialog.negativeButton = dialog.view.findViewById(R.id.negative_button);
 
         //Set up title and content
         if (builder.title != null) {
@@ -88,13 +88,16 @@ public class DialogInit {
 
         //Set Up the button based on OptionType
         if (builder.optionType == DialogOptionType.OK) {
+            dialog.lButtonContainer.setVisibility(View.VISIBLE);
             dialog.negativeButton.setVisibility(View.GONE);
             dialog.positiveButtonTxt.setText(builder.okText != null ? builder.okText : DialogDefaultConfig.DEFAULT_OK_TEXT);
 
         } else if (builder.optionType == DialogOptionType.NONE) {
             dialog.negativeButton.setVisibility(View.GONE);
             dialog.positiveButton.setVisibility(View.GONE);
+            dialog.lButtonContainer.setVisibility(View.GONE);
         } else {
+            dialog.lButtonContainer.setVisibility(View.VISIBLE);
             dialog.positiveButtonTxt.setText(builder.positiveText != null ? builder.positiveText : DialogDefaultConfig.DEFAULT_POSITIVE_TEXT);
             dialog.negativeButtonTxt.setText(builder.negativeText != null ? builder.negativeText : DialogDefaultConfig.DEFAULT_NEGATIVE_TEXT);
         }

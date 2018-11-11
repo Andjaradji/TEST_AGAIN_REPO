@@ -13,6 +13,7 @@
         android:focusable="true"
         android:padding="@dimen/interval_submain"
         android:text="@string/kyc_from_camera"
+        android:textAlignment="center"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_small_medium" />
 
@@ -24,6 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         android:padding="@dimen/interval_submain"
+        android:textAlignment="center"
         android:text="@string/kyc_from_gallery"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_small_medium" />

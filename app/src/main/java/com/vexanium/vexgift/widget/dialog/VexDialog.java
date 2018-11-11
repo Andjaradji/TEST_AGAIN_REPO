@@ -49,6 +49,7 @@ public class VexDialog extends BaseDialog implements View.OnClickListener {
     protected TextView mdContent;
     protected View mdDivider;
     protected RelativeLayout mdBackground;
+    protected RelativeLayout lButtonContainer;
     protected LinearLayout mdCustomView;
 
     protected DialogTheme theme = DialogDefaultConfig.DEFALUT_DIALOG_THEME;
