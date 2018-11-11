@@ -1306,10 +1306,19 @@ public class StaticGroup {
         }
     }
 
-    public static boolean isReferralAvailable() {
+    public static boolean isReferralActive() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_available") != -1) {
-            return settingResponse.getSettingValByKey("is_referral_available") == 1;
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_active") != -1) {
+            return settingResponse.getSettingValByKey("is_referral_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isReferralBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_referral_banner_active") == 1;
         } else {
             return false;
         }

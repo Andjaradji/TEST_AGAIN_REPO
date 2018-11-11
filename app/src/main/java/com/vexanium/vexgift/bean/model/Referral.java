@@ -23,6 +23,12 @@ public class Referral implements Serializable {
     @JsonProperty("updated_at")
     private String updatedAt;
 
+    @JsonProperty("is_kyc")
+    private boolean isKyc;
+    
+    @JsonProperty("is_premium_member")
+    private boolean isPremiumMember;
+
     @JsonProperty("user")
     private User user;
 
@@ -72,5 +78,21 @@ public class Referral implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isKyc() {
+        return isKyc;
+    }
+
+    public void setKyc(boolean kyc) {
+        isKyc = kyc;
+    }
+
+    public boolean isPremiumMember() {
+        return isPremiumMember;
+    }
+
+    public void setPremiumMember(boolean premiumMember) {
+        isPremiumMember = premiumMember;
     }
 }

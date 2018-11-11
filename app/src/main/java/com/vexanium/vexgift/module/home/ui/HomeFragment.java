@@ -93,7 +93,6 @@ import static com.vexanium.vexgift.app.StaticGroup.REFERRAL_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.TOKEN_FREEZE_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
-import static com.vexanium.vexgift.app.StaticGroup.isReferralAvailable;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
@@ -453,9 +452,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
-//        if(isReferralAvailable()) {
+        if(StaticGroup.isReferralBannerActive()) {
             data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
-//        }
+        }
+
 //        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
 //        if(StaticGroup.isDepositAvailable()) {

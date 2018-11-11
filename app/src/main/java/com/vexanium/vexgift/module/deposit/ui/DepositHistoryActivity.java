@@ -22,6 +22,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.UserDeposit;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TableDepositDaoUtil;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenter;
 import com.vexanium.vexgift.module.deposit.presenter.IDepositPresenterImpl;
@@ -56,13 +57,9 @@ public class DepositHistoryActivity extends BaseActivity<IDepositPresenter> impl
         user = User.getCurrentUser(this);
         mPresenter = new IDepositPresenterImpl(this);
 
-        userDepositResponse = TableDepositDaoUtil.getInstance().getUserDepositListResponse();
+//        userDepositResponse = TableContentDaoUtil.getInstance().();
         if (userDepositResponse != null) {
-            KLog.v("DepositHistoryActivity", "initView: HPtes tidak kosong");
-
             userDeposits = userDepositResponse.getUserDeposits();
-        } else {
-            KLog.v("DepositHistoryActivity", "initView: HPtes kosong");
         }
         if (userDeposits == null) {
             userDeposits = new ArrayList<>();
