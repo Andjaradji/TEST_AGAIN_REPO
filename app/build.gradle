@@ -24,7 +24,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 972
-        versionName "0.9.7.0 (Beta)"
+        versionName "0.9.7.2 (Beta)"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
