@@ -60,6 +60,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
 
+    private String refCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +82,15 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 R.id.login_google_button);
 
 
-        if(!StaticGroup.isReferralActive()){
+        if (!StaticGroup.isReferralActive()) {
             findViewById(R.id.ll_referral_field).setVisibility(View.GONE);
-        }else{
+        } else {
             findViewById(R.id.ll_referral_field).setVisibility(View.VISIBLE);
         }
         String referralCode = StaticGroup.checkReferrerData();
         if (!TextUtils.isEmpty(referralCode)) {
-            ((EditText)findViewById(R.id.et_referral_code)).setText(referralCode);
+            refCode = referralCode;
+            ((EditText) findViewById(R.id.et_referral_code)).setText(refCode);
         }
 
         initialize();
@@ -160,10 +162,84 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 doRegister();
                 break;
             case R.id.login_fake_fb_button:
-                requestFacebookLogin();
+                if (StaticGroup.isReferralActive()) {
+                    View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
+                    final EditText etPin = view.findViewById(R.id.et_pin);
+                    etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    if(!TextUtils.isEmpty(refCode)) {
+                        etPin.setText(refCode);
+                    }
+
+                    new VexDialog.Builder(this)
+                            .optionType(DialogOptionType.YES_NO)
+                            .title(getString(R.string.referral_code_field_dialog_title))
+                            .content(getString(R.string.referral_code_field_dialog_desc))
+                            .addCustomView(view)
+                            .positiveText(getString(R.string.ok))
+                            .negativeText(getString(R.string.dialog_cancel))
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                        dialog.dismiss();
+                                        if(!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                            refCode = etPin.getText().toString();
+                                        }
+                                        requestFacebookLogin();
+                                }
+                            })
+                            .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .autoDismiss(false)
+                            .canceledOnTouchOutside(false)
+                            .show();
+
+                }else {
+                    requestFacebookLogin();
+                }
                 break;
             case R.id.login_google_button:
-                requestGoogleLogin();
+                if (StaticGroup.isReferralActive()) {
+                    View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
+                    final EditText etPin = view.findViewById(R.id.et_pin);
+                    etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    if(!TextUtils.isEmpty(refCode)) {
+                        etPin.setText(refCode);
+                    }
+
+                    new VexDialog.Builder(this)
+                            .optionType(DialogOptionType.YES_NO)
+                            .title(getString(R.string.referral_code_field_dialog_title))
+                            .content(getString(R.string.referral_code_field_dialog_desc))
+                            .addCustomView(view)
+                            .positiveText(getString(R.string.ok))
+                            .negativeText(getString(R.string.dialog_cancel))
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    if(!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                        refCode = etPin.getText().toString();
+                                    }
+                                    requestGoogleLogin();
+                                }
+                            })
+                            .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .autoDismiss(false)
+                            .canceledOnTouchOutside(false)
+                            .show();
+
+                }else {
+                    requestGoogleLogin();
+                }
                 break;
             case R.id.register_login_button:
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -196,11 +272,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
                         String referralCode = StaticGroup.checkReferrerData();
-                        String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
-                        if(!TextUtils.isEmpty(rc)){
+                        String rc = refCode;
+                        if (!TextUtils.isEmpty(rc)) {
                             user.setReferralCode(rc);
-                        }
-                        else if (!TextUtils.isEmpty(referralCode)) {
+                        } else if (!TextUtils.isEmpty(referralCode)) {
                             user.setReferralCode(referralCode);
                         }
 
@@ -245,10 +320,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             user.setPassword(pass);
 
             String referralCode = StaticGroup.checkReferrerData();
-            if(!TextUtils.isEmpty(rc)){
+            if (!TextUtils.isEmpty(rc)) {
                 user.setReferralCode(rc);
-            }
-            else if (!TextUtils.isEmpty(referralCode)) {
+            } else if (!TextUtils.isEmpty(referralCode)) {
                 user.setReferralCode(referralCode);
             }
 
@@ -334,11 +408,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                     User facebookUserInfo = User.createWithFacebook(userInfo);
 
                                     String referralCode = StaticGroup.checkReferrerData();
-                                    String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
-                                    if(!TextUtils.isEmpty(rc)){
+                                    String rc = refCode;
+                                    if (!TextUtils.isEmpty(rc)) {
                                         facebookUserInfo.setReferralCode(rc);
-                                    }
-                                    else if (!TextUtils.isEmpty(referralCode)) {
+                                    } else if (!TextUtils.isEmpty(referralCode)) {
                                         facebookUserInfo.setReferralCode(referralCode);
                                     }
 

@@ -469,6 +469,10 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="referral_detail_havent_buy_premium_member">belum beli premium member</string>
     <string name="referral_see_details">Lihat Detail ></string>
 
+    <string name="referral_code_field_dialog_title">Kode Referral</string>
+    <string name="referral_code_field_dialog_desc">Masukan kode referal (opsional)</string>
+    <string name="referral_code_field_dialog_et">Kode Referal (opsional)</string>
+
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
 
 
