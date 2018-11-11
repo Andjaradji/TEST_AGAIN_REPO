@@ -1306,7 +1306,6 @@ public class StaticGroup {
         }
     }
 
-
     public static boolean isReferralActive() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_active") != -1) {

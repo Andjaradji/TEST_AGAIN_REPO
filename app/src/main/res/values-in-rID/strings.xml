@@ -75,7 +75,7 @@
     <string name="register_username">Nama</string>
     <string name="register_email">Email</string>
     <string name="register_password">Kata Sandi</string>
-    <string name="register_referral_code">Kode Referal</string>
+    <string name="register_referral_code">Kode Referal (Optional)</string>
     <string name="register_repassword">Ketik Ulang Kata Sandi</string>
     <string name="register_phone">Nomor Telepon</string>
     <string name="register_button_register">Daftar</string>
