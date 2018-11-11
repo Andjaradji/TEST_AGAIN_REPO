@@ -304,7 +304,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                         frontIdUri = fileUri.toString();
                         frontIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_front);
                     }else{
-                        frontIdUri = fileUri.toString();
+                        frontIdUri = data.getData().toString();
                         frontIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_front);
                     }
                 }
@@ -315,8 +315,8 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                         backIdUri = fileUri.toString();
                         backIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_back);
                     }else{
-                        backIdUri = fileUri.toString();
-                        backIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_back);
+                        backIdUri = data.getData().toString();
+                        backIdView = setIdPhoto(Uri.parse(backIdUri), R.id.iv_document_back);
                     }
                 }
                 break;
@@ -326,8 +326,8 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                         selfieIdUri = fileUri.toString();
                         selfieIdView = setIdPhotoWithUrl(ImagePathMarshmallow.getPath(KycActivity.this ,fileUri), R.id.iv_document_selfie);
                     }else{
-                        selfieIdUri = fileUri.toString();
-                        selfieIdView = setIdPhoto(Uri.parse(frontIdUri), R.id.iv_document_selfie);
+                        selfieIdUri = data.getData().toString();
+                        selfieIdView = setIdPhoto(Uri.parse(selfieIdUri), R.id.iv_document_selfie);
                     }
                 }
                 break;
@@ -439,10 +439,16 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                 if (checkCameraPermission(code)) {
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    fileUri = getOutputMediaFileUri(KycActivity.this);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(intent, code2);
+                    if(Build.VERSION.SDK_INT > 22) {
+                        fileUri = getOutputMediaFileUri(KycActivity.this);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(intent, code2);
+                        }
+                    }else{
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(intent, code);
+                        }
                     }
                 }
                 if (vexDialog != null) {
