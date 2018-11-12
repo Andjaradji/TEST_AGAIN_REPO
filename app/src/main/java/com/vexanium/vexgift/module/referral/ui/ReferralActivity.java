@@ -29,8 +29,8 @@ import static com.vexanium.vexgift.app.StaticGroup.isAppAvailable;
 @ActivityFragmentInject(contentViewId = R.layout.activity_referral, toolbarTitle = R.string.referral_invite_others)
 public class ReferralActivity extends BaseActivity<IReferralPresenter> implements IReferralView {
 
-    TextView mTvInvitedCount, mTvInviteLink;
-    ImageView mIvCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
+    TextView mTvInvitedCount, mTvInviteLink, mTvReferralCode;
+    ImageView mIvCopy, mIvCodeCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
 
     String mPlaystoreLink;
     String mShareText;
@@ -42,7 +42,9 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         user = User.getCurrentUser(this);
         mTvInvitedCount = findViewById(R.id.tv_referral_invited_user_count);
         mTvInviteLink = findViewById(R.id.tv_referral_link);
+        mTvReferralCode = findViewById(R.id.tv_referral_code);
         mIvCopy = findViewById(R.id.iv_referral_copy);
+        mIvCodeCopy = findViewById(R.id.iv_referral_code_copy);
         mIvWhatsapp = findViewById(R.id.referral_share_whatsapp_button);
         mIvTelegram = findViewById(R.id.referral_share_telegram_button);
         mIvLine = findViewById(R.id.referral_share_line_button);
@@ -51,6 +53,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mIvShare = findViewById(R.id.referral_share_sm_button);
 
         mIvCopy.setOnClickListener(this);
+        mIvCodeCopy.setOnClickListener(this);
         mIvWhatsapp.setOnClickListener(this);
         mIvTelegram.setOnClickListener(this);
         mIvLine.setOnClickListener(this);
@@ -67,6 +70,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mShareText = "VexGift is a great way to get free vouchers. Check it out here \n" + mPlaystoreLink;
 
         mTvInviteLink.setText(mPlaystoreLink);
+        mTvReferralCode.setText(user.getReferralCode());
         mPresenter.requestUserReferral(user.getId());
     }
 
@@ -83,6 +87,9 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         switch (v.getId()) {
             case R.id.iv_referral_copy:
                 copyToClipboard(mShareText);
+                break;
+            case R.id.iv_referral_code_copy:
+                copyToClipboard(mTvReferralCode.getText().toString());
                 break;
             case R.id.referral_share_whatsapp_button:
                 shareWhatsApp(mShareText);

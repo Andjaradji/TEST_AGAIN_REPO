@@ -140,6 +140,63 @@
             </android.support.v7.widget.CardView>
 
             <TextView
+                android:id="@+id/tv_referral_code_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_big"
+                android:tag="bold"
+                android:text="@string/referral_code"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_big_medium"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_main"
+                android:background="@drawable/shape_white_round_rect_with_grey_border">
+
+                <TextView
+                    android:id="@+id/tv_referral_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40dp"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/interval_submain"
+                    android:paddingEnd="@dimen/interval_content"
+                    android:paddingLeft="@dimen/interval_submain"
+                    android:paddingTop="@dimen/interval_submain"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_3d3d"
+                    android:textSize="@dimen/text_medium" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/material_grey_d5">
+
+                    </View>
+
+                    <ImageView
+                        android:id="@+id/iv_referral_code_copy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/interval_submain"
+                        android:src="@drawable/ic_copy" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
                 android:id="@+id/tv_referral_share_on_sm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
