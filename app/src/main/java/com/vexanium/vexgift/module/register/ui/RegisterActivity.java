@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -166,8 +167,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
                     final EditText etPin = view.findViewById(R.id.et_pin);
                     etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
+                    }else if(!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())){
+                        etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
                     new VexDialog.Builder(this)
@@ -206,8 +210,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
                     final EditText etPin = view.findViewById(R.id.et_pin);
                     etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
+                    }else if(!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())){
+                        etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
                     new VexDialog.Builder(this)
