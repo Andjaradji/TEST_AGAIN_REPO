@@ -34,13 +34,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        layout="@layout/content_error_view"
-        android:layout_below="@id/app_bar">
-
-    </include>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_refresh"
@@ -56,5 +49,14 @@
             android:background="@color/material_white" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/content_error_view"
+        android:layout_below="@id/app_bar">
+
+    </include>
 
 </RelativeLayout>

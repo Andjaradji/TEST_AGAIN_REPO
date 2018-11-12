@@ -23,8 +23,8 @@ android {
         applicationId "com.vexanium.vexgift"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 980
-        versionName "0.9.8.0 (Beta)"
+        versionCode 982
+        versionName "0.9.8.2 (Beta)"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
