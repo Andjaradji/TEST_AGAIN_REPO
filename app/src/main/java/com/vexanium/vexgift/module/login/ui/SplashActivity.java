@@ -93,9 +93,9 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         if (data != null) {
             if (data instanceof SettingResponse) {
                 SettingResponse settingResponse = (SettingResponse) data;
-                if (checkLoginInfo()) {
+//                if (checkLoginInfo()) {
                     TablePrefDaoUtil.getInstance().saveSettingToDb(JsonUtil.toString(settingResponse));
-                }
+//                }
 //                findViewById(R.id.splash_container).setVisibility(View.GONE);
                 checkApp(settingResponse.getMinimumVersion(), settingResponse.getSettingValByKey("is_maintenance"));
             }

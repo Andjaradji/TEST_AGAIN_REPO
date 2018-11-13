@@ -61,7 +61,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
 
-    private String refCode;
+    private String refCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +185,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
+                                    if(refCode == null){
+                                        refCode = "";
+                                    }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
                                         refCode = etPin.getText().toString();
                                     }
@@ -228,6 +231,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
+                                    if(refCode == null){
+                                        refCode = "";
+                                    }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
                                         refCode = etPin.getText().toString();
                                     }
@@ -285,7 +291,6 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                         } else if (!TextUtils.isEmpty(referralCode)) {
                             user.setReferralCode(referralCode);
                         }
-
 
                         mPresenter.requestLogin(user);
                     } else {

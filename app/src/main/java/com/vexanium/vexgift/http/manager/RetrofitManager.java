@@ -248,6 +248,9 @@ public class RetrofitManager {
         if (user.getGoogleToken() != null) {
             params.put("google_id_token", user.getGoogleToken());
         }
+        if (!TextUtils.isEmpty(user.getReferralCode())) {
+            params.put("user_referral_code", user.getReferralCode());
+        }
 
         params.put("fb_friend_count", user.getFacebookFriendCount());
         params.put("age", user.getAge());

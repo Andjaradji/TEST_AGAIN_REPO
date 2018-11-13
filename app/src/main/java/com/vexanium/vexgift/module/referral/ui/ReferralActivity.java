@@ -66,7 +66,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
 
         mTvInvitedCount.setText("" + 0);
 
-        mPlaystoreLink = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift&referrer=" + user.getReferralCode();
+        mPlaystoreLink = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift&referrer=utm_source%3Dvexgift%26utm_medium%3Dinvite%26i%3D" + user.getReferralCode();
         mShareText = "VexGift is a great way to get free vouchers. Check it out here \n" + mPlaystoreLink;
 
         mTvInviteLink.setText(mPlaystoreLink);
