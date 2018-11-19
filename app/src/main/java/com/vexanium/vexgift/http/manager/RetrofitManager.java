@@ -18,6 +18,7 @@ import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
@@ -793,6 +794,34 @@ public class RetrofitManager {
         params.put("distribution_address", address);
 
         return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<LuckyDrawResponse>> requestLuckyDrawList(int userId, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        if(limit > -1){
+            params.put("limit", limit);
+        }
+
+        if(offset > -1){
+            params.put("offset", offset);
+        }
+
+        if(luckyDrawCategoryId > -1){
+            params.put("luck_draw_category_id", luckyDrawCategoryId);
+        }
+
+        if(memberTypeId > -1){
+            params.put("member_type_id", memberTypeId);
+        }
+
+        if(paymentTypeId > -1){
+            params.put("payment_type_id", paymentTypeId);
+        }
+
+        return mOtherService.getLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
     }
 
 }

@@ -554,6 +554,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
                                 }
                             });
+                            holder.setOnClickListener(R.id.lucky_draw_button, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (ClickUtil.isFastDoubleClick()) return;
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                    startActivity(intent);
+                                }
+                            });
                             holder.setOnClickListener(R.id.buy_vex_button, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
