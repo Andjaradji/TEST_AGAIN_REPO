@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -44,6 +45,9 @@ import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import org.json.JSONObject;
 
@@ -60,6 +64,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
+    private String refCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +107,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 //        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
+        String referralCode = StaticGroup.checkReferrerData();
+        if (!TextUtils.isEmpty(referralCode)) {
+            refCode = referralCode;
+        }
+
 //        checkAppVersion();
         initialize();
     }
@@ -143,10 +153,92 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         Intent intent;
         switch (v.getId()) {
             case R.id.login_fake_fb_button:
-                requestFacebookLogin();
+                if (StaticGroup.isReferralActive()) {
+                    View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
+                    final EditText etPin = view.findViewById(R.id.et_pin);
+                    etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    etPin.setInputType(InputType.TYPE_CLASS_TEXT);
+                    if (!TextUtils.isEmpty(refCode)) {
+                        etPin.setText(refCode);
+                    }
+
+                    new VexDialog.Builder(this)
+                            .optionType(DialogOptionType.YES_NO)
+                            .title(getString(R.string.referral_code_field_dialog_title))
+                            .content(getString(R.string.referral_code_field_dialog_desc))
+                            .addCustomView(view)
+                            .positiveText(getString(R.string.ok))
+                            .negativeText(getString(R.string.dialog_cancel))
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    if(refCode == null){
+                                        refCode = "";
+                                    }
+                                    if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                        refCode = etPin.getText().toString();
+                                    }
+                                    requestFacebookLogin();
+                                }
+                            })
+                            .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .autoDismiss(false)
+                            .canceledOnTouchOutside(false)
+                            .show();
+
+                } else {
+                    requestFacebookLogin();
+                }
                 break;
             case R.id.login_google_button:
-                requestGoogleLogin();
+                if (StaticGroup.isReferralActive()) {
+                    View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
+                    final EditText etPin = view.findViewById(R.id.et_pin);
+                    etPin.setHint(getString(R.string.referral_code_field_dialog_et));
+                    etPin.setInputType(InputType.TYPE_CLASS_TEXT);
+                    if (!TextUtils.isEmpty(refCode)) {
+                        etPin.setText(refCode);
+                    }
+
+                    new VexDialog.Builder(this)
+                            .optionType(DialogOptionType.YES_NO)
+                            .title(getString(R.string.referral_code_field_dialog_title))
+                            .content(getString(R.string.referral_code_field_dialog_desc))
+                            .addCustomView(view)
+                            .positiveText(getString(R.string.ok))
+                            .negativeText(getString(R.string.dialog_cancel))
+                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    if(refCode == null){
+                                        refCode = "";
+                                    }
+                                    if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
+                                        refCode = etPin.getText().toString();
+                                    }
+                                    requestGoogleLogin();
+                                }
+                            })
+                            .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .autoDismiss(false)
+                            .canceledOnTouchOutside(false)
+                            .show();
+
+                } else {
+                    requestGoogleLogin();
+                }
                 break;
             case R.id.login_button:
                 doLogin();
