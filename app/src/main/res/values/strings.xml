@@ -70,6 +70,7 @@
     <string name="coupon_detail_get_with_vp">Get with Vex Point</string>
     <string name="coupon_redeem_token">Redeem Token</string>
     <string name="coupon_redeem_voucher">Redeem Voucher</string>
+    <string name="coupon_send_voucher">Send Voucher as a Gift</string>
     <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
     <string name="voucher_minimum_lp">Loyalty Point Required : %d</string>

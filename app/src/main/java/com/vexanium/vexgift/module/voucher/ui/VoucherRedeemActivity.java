@@ -173,7 +173,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             StaticGroup.showCommonErrorDialog(this, 10);
         }
         updateView();
-        ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.send_button, R.id.btn_redeem);
+        ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.send_button, R.id.btn_redeem, R.id.btn_send_voucher_2);
 
     }
 
@@ -186,6 +186,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 finish();
                 break;
             case R.id.send_button:
+            case R.id.btn_send_voucher_2:
                 intent = new Intent(VoucherRedeemActivity.this, SendVoucherActivity.class);
                 intent.putExtra("voucher", JsonUtil.toString(voucherCode));
                 startActivity(intent);

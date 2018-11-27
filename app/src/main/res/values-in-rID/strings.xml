@@ -48,6 +48,7 @@
     <string name="coupon_detail_get_with_vp">Dapatkan dengan Vex Point</string>
     <string name="coupon_redeem_token">Gunakan Token</string>
     <string name="coupon_redeem_voucher">Gunakan Voucher</string>
+    <string name="coupon_send_voucher">Hadiahkan Voucher</string>
     <string name="coupon_deactivated_voucher">Gunakan Voucher</string>
     <string name="voucher_availability">sisa %d dari %d</string>
     <string name="voucher_soldout_dialog_title">Oops</string>
