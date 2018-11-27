@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -430,6 +431,9 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
             @Override
             public void onClick(View view) {
                 if (checkCameraPermission(code)) {
+
+                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(builder.build());
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (Build.VERSION.SDK_INT > 22) {
