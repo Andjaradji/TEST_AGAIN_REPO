@@ -53,8 +53,8 @@
                     android:id="@+id/rl_notif_info"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:visibility="gone"
-                    android:background="#e86c26">
+                    android:background="#e86c26"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -133,41 +133,40 @@
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
                         android:text="@string/more_setting"
-                        android:visibility="gone"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium" />
+                        android:textSize="@dimen/text_small_medium"
+                        android:visibility="gone" />
 
 
                     <LinearLayout
                         android:id="@+id/more_premium_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:background="@drawable/shape_ripple_transparent">
+                        android:background="@drawable/shape_ripple_transparent"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/margin_more_list"
                             android:paddingBottom="8dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="4dp"
+                            android:paddingTop="@dimen/margin_more_list"
                             android:text="@string/more_premium_member"
                             android:textColor="@color/material_black_text_color"
                             android:textSize="@dimen/text_small_medium" />
 
                         <ImageView
                             android:id="@+id/iv_premium_crown"
-                            android:src="@drawable/ic_crown"
-                            android:visibility="gone"
-                            android:layout_height="match_parent"
                             android:layout_width="wrap_content"
-                            android:paddingTop="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
                             android:paddingBottom="10dp"
-                            android:layout_gravity="center_vertical"/>
+                            android:paddingTop="10dp"
+                            android:src="@drawable/ic_crown"
+                            android:visibility="gone" />
 
                     </LinearLayout>
-
 
 
                     <View
@@ -190,14 +189,14 @@
                         android:id="@+id/more_merchant_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:background="@drawable/shape_ripple_transparent"
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="@dimen/margin_more_list"
                         android:text="@string/more_merchant_list"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium" />
+                        android:textSize="@dimen/text_small_medium"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/more_feedback_buttton"
@@ -270,6 +269,7 @@
                         android:text="@string/more_terms_of_service"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
+
                     <TextView
                         android:id="@+id/more_faq"
                         android:layout_width="match_parent"

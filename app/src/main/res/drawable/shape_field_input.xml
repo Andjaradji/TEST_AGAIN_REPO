@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="#61000000"/>
-    <corners android:radius="4dp"/>
-    <padding android:bottom="@dimen/input_field_padding"
-        android:top="@dimen/input_field_padding"
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#61000000" />
+    <corners android:radius="4dp" />
+    <padding
+        android:bottom="@dimen/input_field_padding"
+        android:left="@dimen/input_field_padding"
         android:right="@dimen/input_field_padding"
-        android:left="@dimen/input_field_padding"/>
+        android:top="@dimen/input_field_padding" />
 </shape>

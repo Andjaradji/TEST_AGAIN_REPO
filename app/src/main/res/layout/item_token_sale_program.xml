@@ -53,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
+                android:tag="bold"
                 android:text="@string/token_sale_token_type"
                 android:textColor="@color/material_black_sub_text_color"
-                android:tag="bold"
                 android:textSize="@dimen/text_xtiny" />
 
             <TextView
@@ -81,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_small"
-            android:text="@string/deposit_description"
             android:tag="bold"
+            android:text="@string/deposit_description"
             android:textColor="@color/material_black_sub_text_color"
             android:textSize="@dimen/text_small" />
 
@@ -115,8 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
-                android:text="@string/token_sale_token_left"
                 android:tag="bold"
+                android:text="@string/token_sale_token_left"
                 android:textColor="@color/material_black_sub_text_color"
                 android:textSize="@dimen/text_xtiny" />
 
@@ -144,9 +144,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
+                android:tag="bold"
                 android:text="@string/token_sale_token_available"
                 android:textColor="@color/material_black_sub_text_color"
-                android:tag="bold"
                 android:textSize="@dimen/text_xtiny" />
 
             <TextView
@@ -186,21 +186,21 @@
         android:id="@+id/tv_payment_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/interval_submain"
         android:layout_marginStart="@dimen/interval_small"
         android:layout_marginTop="@dimen/interval_main"
-        android:layout_marginBottom="@dimen/interval_submain"
         android:tag="bold"
-        android:visibility="gone"
         android:text="@string/token_sale_payment_options"
         android:textAlignment="textStart"
         android:textColor="@color/material_black_text_color"
-        android:textSize="@dimen/text_medium" />
+        android:textSize="@dimen/text_medium"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_payment_options"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
     </android.support.v7.widget.RecyclerView>
 

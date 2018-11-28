@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/interval_submain"
@@ -7,7 +8,6 @@
     android:paddingLeft="@dimen/interval_main"
     android:paddingRight="@dimen/interval_main"
     android:paddingStart="@dimen/interval_main"
-    android:id="@+id/root"
     android:paddingTop="@dimen/interval_submain">
 
     <LinearLayout
@@ -41,10 +41,10 @@
                 android:id="@id/ll_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -59,8 +59,8 @@
                     android:layout_width="6dp"
                     android:layout_height="6dp"
                     android:layout_marginLeft="6dp"
-                    android:tint="@color/vex_orange"
-                    android:src="@drawable/dot" />
+                    android:src="@drawable/dot"
+                    android:tint="@color/vex_orange" />
             </LinearLayout>
 
 
@@ -70,8 +70,8 @@
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:textColorLink="@color/material_black_text_color"
             android:textSize="@dimen/text_tiny" />
 

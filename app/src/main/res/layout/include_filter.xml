@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@string/reset"
                 android:padding="@dimen/interval_small"
+                android:text="@string/reset"
                 android:textColor="@color/material_blue_2D7C"
                 android:textSize="@dimen/text_xtiny" />
 
@@ -68,8 +68,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/interval_main"
                 android:layout_marginEnd="0dp"
+                android:layout_marginStart="@dimen/interval_main"
                 android:layout_toEndOf="@id/tv_sort_by"
                 android:prompt="@string/sort_popularity"
                 android:textAlignment="textEnd">
@@ -117,8 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@string/reset"
                 android:padding="@dimen/interval_small"
+                android:text="@string/reset"
                 android:textColor="@color/material_blue_2D7C"
                 android:textSize="@dimen/text_xtiny" />
 

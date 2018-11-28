@@ -7,23 +7,23 @@
 
     <ImageButton
         android:id="@+id/ib_back"
-        android:src="@drawable/ic_back"
-        android:background="@color/transparent"
-        android:scaleType="fitCenter"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
+        android:background="@color/transparent"
+        android:contentDescription="@string/image_content_description"
         android:padding="15dp"
-        android:contentDescription="@string/image_content_description"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/tv_box_title"
-        android:text="@string/box_history_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/ib_back"
         android:tag="hnBoldCond"
+        android:text="@string/box_history_title"
         android:textAllCaps="true"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />

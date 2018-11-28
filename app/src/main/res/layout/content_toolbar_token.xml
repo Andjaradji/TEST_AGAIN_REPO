@@ -8,10 +8,10 @@
         android:id="@+id/back_button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/interval_submain"
         android:layout_marginStart="@dimen/interval_submain"
+        android:padding="@dimen/interval_small"
         android:src="@drawable/ic_back" />
 
     <LinearLayout
@@ -25,9 +25,10 @@
             android:id="@+id/iv_vex_logo"
             android:layout_width="21dp"
             android:layout_height="18dp"
-            android:layout_marginRight="@dimen/interval_content"
             android:layout_marginEnd="@dimen/interval_content"
+            android:layout_marginRight="@dimen/interval_content"
             android:src="@drawable/ic_coin" />
+
         <TextView
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
@@ -42,11 +43,11 @@
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/interval_main"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/interval_main"
-        android:src="@drawable/ic_search"/>
+        android:layout_marginRight="@dimen/interval_main"
+        android:src="@drawable/ic_search" />
 
 </RelativeLayout>

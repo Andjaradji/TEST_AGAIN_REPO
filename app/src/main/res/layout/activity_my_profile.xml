@@ -127,9 +127,9 @@
                     android:id="@+id/tv_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/interval_small"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:padding="@dimen/interval_small"
                     android:text="EDIT"
                     android:textColor="@color/material_black_sub_text_color"
                     android:textSize="@dimen/text_xtiny" />

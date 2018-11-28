@@ -62,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_main"
-        android:textColor="@color/material_red_6242"
         android:text="@string/appversion_need_update_version_new"
+        android:textColor="@color/material_red_6242"
         android:textSize="@dimen/text_tiny" />
 
 

@@ -1,19 +1,18 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:background="@color/material_white"
+    android:gravity="center"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_content"
         android:layout_marginEnd="@dimen/interval_main"
         android:layout_marginLeft="@dimen/interval_main"
         android:layout_marginRight="@dimen/interval_main"
         android:layout_marginStart="@dimen/interval_main"
-        android:layout_marginBottom="@dimen/interval_content"
         android:background="@drawable/shape_voucher_availability"
         android:gravity="center">
 
@@ -21,14 +20,14 @@
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/interval_submain"
-            android:hint="Your address"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/interval_submain"
             android:layout_toStartOf="@id/btn_scan"
-            android:textColor="@color/material_black_text_color"
             android:background="@color/transparent"
-            android:singleLine="true"
+            android:hint="Your address"
             android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
 
     </RelativeLayout>

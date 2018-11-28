@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_fill_kyc"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,41 +13,41 @@
         android:id="@+id/tv_complete_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:tag="bold"
         android:text="@string/home_item_complete_profile"
         android:textColor="@color/material_black"
-        android:textSize="@dimen/text_big_medium"
-        android:tag="bold"/>
+        android:textSize="@dimen/text_big_medium" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/interval_main"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/interval_main"
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/kyc_illustration"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:scaleType="fitCenter"
-            android:layout_gravity="center_vertical"/>
+            android:src="@drawable/kyc_illustration" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/interval_main"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/interval_main"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_fill_kyc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_xsmall"
+                android:tag="bold"
                 android:text="@string/home_item_fill_kyc"
                 android:textColor="@color/material_black"
-                android:textSize="@dimen/text_medium"
-                android:layout_marginBottom="@dimen/interval_xsmall"
-                android:tag="bold"/>
+                android:textSize="@dimen/text_medium" />
 
             <TextView
                 android:id="@+id/tv_fill_kyc_detail"
@@ -57,28 +55,28 @@
                 android:layout_height="wrap_content"
                 android:text="@string/home_item_fill_kyc_detail"
                 android:textColor="@color/material_grey_400"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
             <LinearLayout
                 android:id="@+id/ll_fill_kyc_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/interval_content"
+                android:background="@drawable/shape_ripple_small_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/shape_ripple_small_button">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="bold"
-                    android:text="@string/home_item_fill_now"
-                    android:textColor="@color/material_white"
+                    android:paddingBottom="@dimen/interval_content"
                     android:paddingLeft="@dimen/interval_main"
                     android:paddingRight="@dimen/interval_main"
                     android:paddingTop="@dimen/interval_content"
-                    android:paddingBottom="@dimen/interval_content"
+                    android:tag="bold"
+                    android:text="@string/home_item_fill_now"
+                    android:textColor="@color/material_white"
                     android:textSize="@dimen/text_xtiny" />
 
             </LinearLayout>

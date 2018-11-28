@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-android:color="@color/material_grey_ee">
-<item android:id="@android:id/mask">
-    <shape android:shape="rectangle">
-        <solid
-            android:color="@color/material_grey_f9" />
-        <corners android:radius="7dp" />
-        <padding
-            android:bottom="4dp"
-            android:left="12dp"
-            android:right="12dp"
-            android:top="4dp"></padding>
-    </shape>
-</item>
+    android:color="@color/material_grey_ee">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/material_grey_f9" />
+            <corners android:radius="7dp" />
+            <padding
+                android:bottom="4dp"
+                android:left="12dp"
+                android:right="12dp"
+                android:top="4dp"></padding>
+        </shape>
+    </item>
 
-<item android:id="@android:id/background">
-    <shape android:shape="rectangle">
-        <gradient
-            android:angle="315"
-            android:endColor="@color/vex_pink"
-            android:startColor="@color/vex_orange" />
-        <corners android:radius="7dp" />
-        <padding
-            android:bottom="4dp"
-            android:left="12dp"
-            android:right="12dp"
-            android:top="4dp"></padding>
-    </shape>
-</item>
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="315"
+                android:endColor="@color/vex_pink"
+                android:startColor="@color/vex_orange" />
+            <corners android:radius="7dp" />
+            <padding
+                android:bottom="4dp"
+                android:left="12dp"
+                android:right="12dp"
+                android:top="4dp"></padding>
+        </shape>
+    </item>
 </ripple>

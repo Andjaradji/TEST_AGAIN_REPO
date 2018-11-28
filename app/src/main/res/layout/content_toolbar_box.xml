@@ -7,13 +7,13 @@
 
     <TextView
         android:id="@+id/tv_box_title"
-        android:text="@string/box_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:tag="hnBoldCond"
+        android:text="@string/box_title"
         android:textAllCaps="true"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />
@@ -30,23 +30,23 @@
 
         <ImageButton
             android:id="@+id/ib_receive"
-            android:src="@drawable/ic_receive"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_content_description"
             android:padding="15dp"
-            android:contentDescription="@string/image_content_description"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_receive" />
 
         <ImageButton
             android:id="@+id/ib_history"
-            android:src="@drawable/history"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_content_description"
             android:padding="15dp"
-            android:contentDescription="@string/image_content_description"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/history" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -30,10 +30,10 @@
         android:layout_width="@dimen/icon_tiny"
         android:layout_height="@dimen/icon_tiny"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_crown"
-        android:visibility="gone"
         android:layout_marginEnd="@dimen/interval_content"
-        android:layout_toStartOf="@+id/home_vp_button"/>
+        android:layout_toStartOf="@+id/home_vp_button"
+        android:src="@drawable/ic_crown"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@id/home_vp_button"
@@ -45,8 +45,8 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/shape_vp_bg"
-        android:transitionName="vexpoint_button"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:transitionName="vexpoint_button">
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,8 +66,8 @@
             android:tag="hnBoldCond"
             android:textAlignment="textEnd"
             android:textColor="@color/material_white"
-            android:transitionName="vexpoint_amount"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_small"
+            android:transitionName="vexpoint_amount" />
 
     </LinearLayout>
 

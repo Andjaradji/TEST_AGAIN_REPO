@@ -13,8 +13,8 @@
     <ImageView
         android:id="@+id/iv_coupon_image"
         android:layout_width="match_parent"
-        android:contentDescription="@string/image_content_description"
         android:layout_height="@dimen/voucher_image_height"
+        android:contentDescription="@string/image_content_description"
         android:scaleType="centerCrop"
         android:transitionName="voucher_image" />
 

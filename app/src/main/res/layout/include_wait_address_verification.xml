@@ -95,23 +95,24 @@
     <LinearLayout
         android:id="@+id/ll_copy_vex_point"
         android:layout_width="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_content"
         android:gravity="center_vertical"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_vex_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tag="bold"
             android:textSize="@dimen/text_small_medium" />
+
         <ImageView
             android:layout_width="@dimen/icon_xtiny"
             android:layout_height="@dimen/icon_xtiny"
             android:layout_marginLeft="@dimen/padding_small"
-            android:src="@drawable/ic_copy"/>
+            android:src="@drawable/ic_copy" />
     </LinearLayout>
-
 
 
     <TextView

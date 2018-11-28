@@ -17,8 +17,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/shape_drop_shadow_reverse"
-        android:layout_above="@id/custom_tabbarview"></View>
+        android:layout_above="@id/custom_tabbarview"
+        android:background="@drawable/shape_drop_shadow_reverse"></View>
 
     <com.vexanium.vexgift.widget.CustomTabBarView
         android:id="@id/custom_tabbarview"

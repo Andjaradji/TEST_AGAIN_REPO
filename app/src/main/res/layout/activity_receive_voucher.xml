@@ -71,34 +71,34 @@
                     android:id="@+id/et_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/interval_submain"
-                    android:hint="@string/exchange_receive_voucher_prompt_text"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/interval_submain"
                     android:layout_toStartOf="@id/btn_scan"
-                    android:textColor="@color/material_black_text_color"
                     android:background="@color/transparent"
-                    android:singleLine="true"
+                    android:hint="@string/exchange_receive_voucher_prompt_text"
                     android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_small_medium" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/btn_scan"
-                    android:background="@color/material_grey_d8"/>
+                    android:background="@color/material_grey_d8" />
 
                 <LinearLayout
                     android:id="@id/btn_scan"
-                    android:gravity="center"
                     android:layout_width="50dp"
-                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:layout_height="match_parent">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/icon_tiny"
                         android:layout_height="@dimen/icon_tiny"
-                        android:src="@drawable/ic_qr_code"/>
+                        android:src="@drawable/ic_qr_code" />
 
                 </LinearLayout>
 
@@ -134,6 +134,6 @@
 
     </ScrollView>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

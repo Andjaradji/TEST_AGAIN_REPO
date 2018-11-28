@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -55,9 +54,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/interval_content"
                     android:layout_marginTop="@dimen/interval_medium"
-                    android:tag="bold"
                     android:paddingLeft="@dimen/interval_main"
                     android:paddingRight="@dimen/interval_main"
+                    android:tag="bold"
                     android:text="@string/premium_purchase_history"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_title" />
@@ -66,8 +65,7 @@
                     android:id="@+id/rv_purchase_history"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/tv_purchase_history"
-                    >
+                    android:layout_below="@id/tv_purchase_history">
 
                 </android.support.v7.widget.RecyclerView>
 

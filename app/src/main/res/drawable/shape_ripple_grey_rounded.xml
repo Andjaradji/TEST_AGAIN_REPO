@@ -12,8 +12,9 @@
 
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <stroke android:color="@color/material_grey_E8E8E8"
-                android:width="2dp"/>
+            <stroke
+                android:width="2dp"
+                android:color="@color/material_grey_E8E8E8" />
             <corners android:radius="8dp">
 
             </corners>

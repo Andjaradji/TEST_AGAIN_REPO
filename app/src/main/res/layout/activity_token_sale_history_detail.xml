@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,8 +36,8 @@
         android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/material_white"
-        android:layout_below="@id/app_bar">
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -64,10 +63,10 @@
                         android:id="@+id/tv_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TOKEN #1"
                         android:layout_marginStart="@dimen/interval_small"
                         android:layout_marginTop="@dimen/interval_main"
                         android:tag="bold"
+                        android:text="TOKEN #1"
                         android:textAlignment="textStart"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_title" />
@@ -76,22 +75,22 @@
                         android:id="@+id/tv_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="15/08/2018 01:00"
+                        android:layout_below="@id/tv_title"
                         android:layout_marginBottom="@dimen/interval_content"
                         android:layout_marginStart="@dimen/interval_small"
                         android:tag="bold"
+                        android:text="15/08/2018 01:00"
                         android:textColor="@color/material_black_text_color"
-                        android:layout_below="@id/tv_title"
                         android:textSize="@dimen/text_tiny" />
 
                     <TextView
                         android:id="@+id/tv_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pending"
                         android:layout_marginStart="@dimen/interval_small"
                         android:layout_marginTop="@dimen/interval_main"
                         android:tag="bold"
+                        android:text="Pending"
                         android:textAlignment="textEnd"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_medium" />
@@ -100,13 +99,13 @@
                         android:id="@+id/tv_deadline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="15/08/2018 01:00"
+                        android:layout_below="@id/tv_title"
                         android:layout_marginBottom="@dimen/interval_content"
                         android:layout_marginStart="@dimen/interval_small"
                         android:tag="bold"
+                        android:text="15/08/2018 01:00"
                         android:textAlignment="textEnd"
                         android:textColor="@color/vexpoint_minus"
-                        android:layout_below="@id/tv_title"
                         android:textSize="@dimen/text_tiny" />
 
                 </RelativeLayout>
@@ -175,14 +174,14 @@
 
                 <LinearLayout
                     android:id="@+id/btn_input_distribution_address"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_small"
                     android:background="@drawable/shape_ripple_main_button"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -201,6 +200,7 @@
                     android:layout_marginTop="@dimen/interval_small"
                     android:orientation="horizontal"
                     android:weightSum="2">
+
                     <LinearLayout
 
                         android:layout_width="0dp"
@@ -260,21 +260,21 @@
 
                             <TextView
                                 android:id="@+id/tv_transfer_to"
-                                android:layout_alignParentStart="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginBottom="@dimen/interval_small"
+                                android:paddingRight="36dp"
                                 android:tag="bold"
                                 android:textColor="@color/material_black_text_color"
-                                android:paddingRight="36dp"
                                 android:textSize="@dimen/text_xtiny" />
 
                             <ImageView
-                                android:src="@drawable/ic_copy"
-                                android:layout_alignParentEnd="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingRight="@dimen/interval_submain"/>
+                                android:layout_alignParentEnd="true"
+                                android:paddingRight="@dimen/interval_submain"
+                                android:src="@drawable/ic_copy" />
 
                         </RelativeLayout>
 
@@ -311,9 +311,9 @@
 
                             <TextView
                                 android:id="@+id/tv_transfer_deadline"
-                                android:layout_alignParentStart="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginBottom="@dimen/interval_small"
                                 android:tag="bold"
                                 android:textColor="@color/material_black_text_color"
@@ -462,17 +462,14 @@
         </ScrollView>
 
 
-
-
-
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/include_loading_view" />
 
     <include
-        android:layout_height="match_parent"
+        layout="@layout/content_error_view"
         android:layout_width="match_parent"
-        layout="@layout/content_error_view">
+        android:layout_height="match_parent">
 
     </include>
 

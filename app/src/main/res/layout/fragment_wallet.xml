@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,8 +41,8 @@
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/material_white"
-            android:layout_below="@id/app_bar">
+            android:layout_below="@id/app_bar"
+            android:background="@color/material_white">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -52,12 +52,12 @@
                     android:id="@+id/ll_wallet_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/interval_medium"
                     android:paddingRight="@dimen/interval_medium"
-                    android:paddingTop="@dimen/interval_medium"
-                    android:gravity="center_vertical"
-                    android:layout_centerHorizontal="true">
+                    android:paddingTop="@dimen/interval_medium">
 
                     <RelativeLayout
                         android:id="@+id/wallet_box"
@@ -70,18 +70,18 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:layout_centerInParent="true">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:letterSpacing="0.04"
                                 android:tag="bold"
                                 android:text="Total asset (IDR)"
-                                android:letterSpacing="0.04"
                                 android:textAlignment="center"
-                                android:gravity="center"
                                 android:textColor="@color/material_white"
                                 android:textSize="@dimen/text_small" />
 
@@ -89,11 +89,11 @@
                                 android:id="@+id/tv_total_asset"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:letterSpacing="0.04"
                                 android:tag="bold"
                                 android:text="239.1230"
                                 android:textAlignment="center"
-                                android:gravity="center"
-                                android:letterSpacing="0.04"
                                 android:textColor="@color/material_white"
                                 android:textSize="@dimen/text_large" />
 
@@ -121,31 +121,29 @@
                             android:id="@+id/tv_your_coin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Your Coins"
-                            android:textSize="@dimen/text_small_medium"
-                            android:tag="hnBoldCond"
-                            android:textColor="@color/material_black"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:textAllCaps="true"/>
+                            android:tag="hnBoldCond"
+                            android:text="Your Coins"
+                            android:textAllCaps="true"
+                            android:textColor="@color/material_black"
+                            android:textSize="@dimen/text_small_medium" />
 
                         <ImageView
-                            android:src="@drawable/ic_wallet_add_more"
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_wallet_add_more" />
 
                     </RelativeLayout>
 
 
-
                     <include
-                        android:layout_height="match_parent"
+                        layout="@layout/content_error_view"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/interval_submain"
-                        layout="@layout/content_error_view">
-                    </include>
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/interval_submain"></include>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_wallet_coin"
@@ -159,17 +157,16 @@
             </RelativeLayout>
 
 
-
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/iv_coming_soon"
-            android:src="@drawable/wallet_soon"
-            android:visibility="gone"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:scaleType="fitCenter"
-            android:layout_centerInParent="true"/>
+            android:src="@drawable/wallet_soon"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </FrameLayout>

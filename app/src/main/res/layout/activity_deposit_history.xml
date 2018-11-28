@@ -40,56 +40,56 @@
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/material_white" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/material_white" />
 
-    <!--<android.support.v4.widget.NestedScrollView-->
-    <!--android:id="@+id/sv_purchase_history"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_below="@id/app_bar"-->
-    <!--android:background="@color/material_white">-->
+        <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:id="@+id/sv_purchase_history"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/app_bar"-->
+        <!--android:background="@color/material_white">-->
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/rl_purchase_history"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content">-->
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_purchase_history"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-    <!--<TextView-->
-    <!--android:id="@+id/tv_deposit_history"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="@dimen/interval_content"-->
-    <!--android:layout_marginTop="@dimen/interval_medium"-->
-    <!--android:tag="bold"-->
-    <!--android:paddingLeft="@dimen/interval_main"-->
-    <!--android:paddingRight="@dimen/interval_main"-->
-    <!--android:text="@string/deposit_history_title"-->
-    <!--android:textColor="@color/material_black_text_color"-->
-    <!--android:textSize="@dimen/text_title" />-->
+        <!--<TextView-->
+        <!--android:id="@+id/tv_deposit_history"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/interval_content"-->
+        <!--android:layout_marginTop="@dimen/interval_medium"-->
+        <!--android:tag="bold"-->
+        <!--android:paddingLeft="@dimen/interval_main"-->
+        <!--android:paddingRight="@dimen/interval_main"-->
+        <!--android:text="@string/deposit_history_title"-->
+        <!--android:textColor="@color/material_black_text_color"-->
+        <!--android:textSize="@dimen/text_title" />-->
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/recylerview"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@id/tv_deposit_history"-->
-    <!--&gt;-->
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recylerview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/tv_deposit_history"-->
+        <!--&gt;-->
 
-    <!--</android.support.v7.widget.RecyclerView>-->
+        <!--</android.support.v7.widget.RecyclerView>-->
 
-    <!--</RelativeLayout>-->
+        <!--</RelativeLayout>-->
 
 
-    <!--</RelativeLayout>-->
+        <!--</RelativeLayout>-->
 
-    <!--</android.support.v4.widget.NestedScrollView>-->
+        <!--</android.support.v4.widget.NestedScrollView>-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
 

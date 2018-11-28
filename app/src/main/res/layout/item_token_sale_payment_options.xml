@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/interval_small"
         android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
         android:weightSum="10">
 
         <LinearLayout
@@ -48,19 +48,19 @@
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_weight="2"
+            android:paddingBottom="@dimen/interval_submain"
             android:paddingLeft="@dimen/interval_small"
             android:paddingRight="@dimen/interval_small"
-            android:paddingBottom="@dimen/interval_submain"
             android:paddingTop="@dimen/interval_submain">
 
             <LinearLayout
                 android:id="@+id/btn_buy"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_ripple_main_button"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_gravity="center_vertical"
                 android:gravity="center">
 
                 <TextView

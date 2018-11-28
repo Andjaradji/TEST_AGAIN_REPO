@@ -60,52 +60,56 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:gravity="center"
         android:id="@+id/ll_detail"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="30dp">
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:visibility="gone">
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:paddingRight="@dimen/padding_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:paddingLeft="@dimen/padding_content"
-            android:layout_height="wrap_content">
+            android:paddingRight="@dimen/padding_content">
+
             <ImageView
-                android:layout_width="15dp"
-                android:src="@drawable/ic_checked_green"
                 android:id="@+id/iv_kyc"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_margin="@dimen/padding_small"
-                android:layout_height="15dp" />
+                android:src="@drawable/ic_checked_green" />
+
             <TextView
+                android:id="@+id/tv_already_kyc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_already_kyc"
-                android:textSize="@dimen/text_xtiny"
                 android:layout_marginLeft="@dimen/padding_content"
-                android:text="@string/referral_detail_already_kyc"/>
+                android:text="@string/referral_detail_already_kyc"
+                android:textSize="@dimen/text_xtiny" />
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:paddingRight="@dimen/padding_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:paddingLeft="@dimen/padding_content"
-            android:layout_height="wrap_content">
+            android:paddingRight="@dimen/padding_content">
+
             <ImageView
-                android:layout_width="15dp"
-                android:src="@drawable/ic_checked_green"
-                android:layout_margin="@dimen/padding_small"
                 android:id="@+id/iv_pm"
-                android:layout_height="15dp" />
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="@dimen/padding_small"
+                android:src="@drawable/ic_checked_green" />
+
             <TextView
+                android:id="@+id/tv_pm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_pm"
-                android:textSize="@dimen/text_xtiny"
                 android:layout_marginLeft="@dimen/padding_content"
-                android:text="@string/referral_detail_already_buy_premium_member"/>
+                android:text="@string/referral_detail_already_buy_premium_member"
+                android:textSize="@dimen/text_xtiny" />
         </LinearLayout>
 
     </LinearLayout>
@@ -113,10 +117,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/interval_content"
         android:layout_marginLeft="@dimen/interval_content"
         android:layout_marginRight="@dimen/interval_content"
         android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginBottom="@dimen/interval_content"
-        android:background="@color/lineColor"/>
+        android:background="@color/lineColor" />
 
 </LinearLayout>

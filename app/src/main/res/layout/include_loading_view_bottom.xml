@@ -11,8 +11,8 @@
         style="@style/AVLoadingIndicatorView"
         android:layout_width="50dp"
         android:layout_height="200dp"
-        android:paddingTop="150dp"
         android:layout_centerInParent="true"
+        android:paddingTop="150dp"
         android:visibility="visible"
         app:indicatorColor="@color/vex_orange"
         app:indicatorName="TriangleSkewSpinIndicator" />

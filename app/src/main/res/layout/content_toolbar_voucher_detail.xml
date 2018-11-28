@@ -8,12 +8,12 @@
         android:id="@+id/back_button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/interval_submain"
         android:layout_marginStart="@dimen/interval_submain"
+        android:padding="@dimen/interval_small"
         android:src="@drawable/ic_back"
-        android:tint="@color/material_white"/>
+        android:tint="@color/material_white" />
 
     <LinearLayout
         android:id="@+id/voucher_title"
@@ -25,9 +25,9 @@
         android:layout_toEndOf="@id/back_button"
         android:layout_toLeftOf="@id/share_button"
         android:layout_toRightOf="@id/back_button"
-        android:visibility="gone"
         android:layout_toStartOf="@+id/share_button"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_toolbar_title"

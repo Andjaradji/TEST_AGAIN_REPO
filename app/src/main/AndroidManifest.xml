@@ -283,7 +283,8 @@
         </provider>
 
 
-        <activity android:name=".module.referral.ui.ReferralDetailActivity"
+        <activity
+            android:name=".module.referral.ui.ReferralDetailActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

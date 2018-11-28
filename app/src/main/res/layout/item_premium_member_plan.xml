@@ -3,41 +3,41 @@
     android:id="@+id/rl_premium_plan_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/interval_content"
     android:paddingLeft="@dimen/interval_main"
     android:paddingRight="@dimen/interval_main"
-    android:paddingTop="@dimen/interval_content"
-    android:paddingBottom="@dimen/interval_content">
+    android:paddingTop="@dimen/interval_content">
 
     <LinearLayout
         android:id="@+id/ll_premium_plan_text_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:paddingRight="60dp"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingRight="60dp">
 
         <TextView
             android:id="@+id/tv_premium_plan_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:singleLine="true"
+            android:layout_marginBottom="2dp"
             android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
             android:fadingEdge="horizontal"
-            android:textSize="@dimen/text_small_medium"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:tag="bold"
             android:textColor="@color/material_black"
-            android:layout_marginBottom="2dp"/>
+            android:textSize="@dimen/text_small_medium" />
 
         <TextView
             android:id="@+id/tv_premium_plan_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="@dimen/text_xxtiny"
-            android:textColor="@color/material_grey_8080" />
+            android:textColor="@color/material_grey_8080"
+            android:textSize="@dimen/text_xxtiny" />
 
     </LinearLayout>
 
@@ -45,27 +45,27 @@
         android:id="@+id/ll_premium_plan_buy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_ripple_premium_plan_buy"
         android:clickable="true"
         android:focusable="true"
-        android:paddingTop="@dimen/interval_small"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/interval_small"
         android:paddingLeft="@dimen/interval_main"
         android:paddingRight="@dimen/interval_main"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/shape_ripple_premium_plan_buy">
+        android:paddingTop="@dimen/interval_small">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="@dimen/text_small_medium"
-            android:textColor="@color/material_white"
-            android:textAlignment="center"
-            android:text="BUY"
+            android:gravity="center"
             android:tag="bold"
-            android:gravity="center"/>
+            android:text="BUY"
+            android:textAlignment="center"
+            android:textColor="@color/material_white"
+            android:textSize="@dimen/text_small_medium" />
 
 
     </LinearLayout>

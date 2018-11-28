@@ -173,7 +173,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
-                                    if(refCode == null){
+                                    if (refCode == null) {
                                         refCode = "";
                                     }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
@@ -217,7 +217,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
-                                    if(refCode == null){
+                                    if (refCode == null) {
                                         refCode = "";
                                     }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {

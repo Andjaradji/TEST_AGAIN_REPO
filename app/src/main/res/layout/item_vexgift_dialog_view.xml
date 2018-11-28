@@ -15,15 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:paddingTop="@dimen/interval_medium"
-            android:paddingBottom="@dimen/interval_main"
             android:layout_marginEnd="@dimen/interval_medium"
             android:layout_marginLeft="@dimen/interval_medium"
             android:layout_marginRight="@dimen/interval_medium"
             android:layout_marginStart="@dimen/interval_medium"
             android:background="@drawable/shape_dialog_bg"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/interval_main"
+            android:paddingTop="@dimen/interval_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
