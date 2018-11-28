@@ -419,6 +419,7 @@
     <string name="vex_point_snap3">Jumah VEX yang terhitung di snapshot saat ini</string>
     <string name="guidance_box_1">Lihat Voucher yang sudah anda gunakan
 Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
+    <string name="guidance_send_voucher">Kirim Voucher-mu sebagai hadiah disini</string>
     <string name="deposit_desc">Deskripsi</string>
     <string name="deposit_duration">Durasi</string>
     <string name="deposit_total">Total Deposit</string>

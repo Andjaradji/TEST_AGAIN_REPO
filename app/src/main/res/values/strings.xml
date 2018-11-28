@@ -555,6 +555,7 @@
         Click this Voucher or Token Banner and explore various Gift Voucher</string>
     <string name="guidance_box_1">View your used voucher here
 Your expired and used voucher will be shown here</string>
+    <string name="guidance_send_voucher">Send your voucher as a Gift here</string>
     <string name="guidance_box_2">You can get receive voucher from friend here. Just input the gift code and the voucher is yours</string>
 
     <string name="guidance_vp_title_1">How To Get Vex Point ?</string>

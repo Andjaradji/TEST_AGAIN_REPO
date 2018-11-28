@@ -3,13 +3,16 @@ package com.vexanium.vexgift.module.voucher.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,17 +34,29 @@ import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.model.VoucherCode;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
 import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
 import com.vexanium.vexgift.module.voucher.view.IVoucherView;
+import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
+import com.vexanium.vexgift.widget.guideview.HoleStyle;
+import com.vexanium.vexgift.widget.guideview.HoleView;
+import com.vexanium.vexgift.widget.guideview.MotionType;
+import com.vexanium.vexgift.widget.guideview.Overlay;
+import com.vexanium.vexgift.widget.guideview.VexGuideView;
+import com.vexanium.vexgift.widget.guideview.bubbletooltip.ArrowDirection;
+import com.vexanium.vexgift.widget.guideview.bubbletooltip.BubbleToolTip;
+import com.vexanium.vexgift.widget.guideview.nextbutton.NextButton;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -55,6 +70,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
+
+import static android.view.View.VISIBLE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_redeem, withLoadingAnim = true)
 public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
@@ -71,6 +88,12 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
     private static final int VOUCHER_IS_BEING_GIFTED = 105;
     private static final int GOODS_VOUCHER = 401;
     private static final int GOODS_VOUCHER_REDEEMED = 402;
+
+    private final int GUIDE_ANIMATION_INTERVAL = 400;
+    int animStepCounter = 0;
+    VexGuideView vexGuideView;
+    private CountDownTimer animationCountDownTimer;
+
     private int state = VOUCHER_VENDOR;
 
     private VoucherCode voucherCode;
@@ -278,6 +301,120 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 .cancelable(false)
                 .autoDismiss(true)
                 .show();
+    }
+
+    public void openGuidanceSendVoucher() {
+        KLog.v("MainActivity", "openGuidance: guidance open 2");
+
+        final View sendVoucherView = findViewById(R.id.send_button);
+
+        final Overlay overlay = new Overlay()
+                .setBackgroundColor(ColorUtil.getColor(this, R.color.guide_background_color))
+                .disableClick(true)
+                .disableClickThroughHole(true)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KLog.v("HPtes Overlay clicked");
+                    }
+                })
+                .setHolePadding(20)
+                .setEnterAnimation(AnimUtil.getFadeIn(sendVoucherView, GUIDE_ANIMATION_INTERVAL))
+                .setExitAnimation(AnimUtil.getFadeOut(sendVoucherView, GUIDE_ANIMATION_INTERVAL))
+                .setStyle(HoleStyle.CIRCLE);
+
+        final BubbleToolTip bubbleToolTip = new BubbleToolTip(this)
+                .arrowDirection(ArrowDirection.TOP_RIGHT)
+                .setDescription(getString(R.string.guidance_send_voucher))
+                .setWidthPercent(80)
+                .setMargin(0, 0, 14, 0)
+                .setGravity(Gravity.BOTTOM)
+                .target(sendVoucherView);
+
+
+        final NextButton nextButton = new NextButton(this)
+                .setGravity(Gravity.BOTTOM | Gravity.END);
+
+        final HoleView holeView = new HoleView(sendVoucherView).setPadding(this, 0, 0, 0, 0);
+
+        animStepCounter = 0;
+        final int INITIAL_COUNTER = 1;
+        animationCountDownTimer = new CountDownTimer(GUIDE_ANIMATION_INTERVAL * (INITIAL_COUNTER + 8), GUIDE_ANIMATION_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (vexGuideView == null) return;
+
+                animStepCounter++;
+                KLog.v("HPtes ===== " + animStepCounter);
+                if (animStepCounter == INITIAL_COUNTER) {
+                    vexGuideView.overlay(overlay.setStyle(HoleStyle.CIRCLE).setHoleRadius(25)).addNewHole(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 1) {
+                    vexGuideView.highlightAnimOn(holeView);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 3) {
+                    bubbleToolTip.view.setVisibility(View.VISIBLE);
+                    AnimUtil.transBottomIn(bubbleToolTip.view, true);
+
+                } else if (animStepCounter == INITIAL_COUNTER + 5) {
+                    AnimUtil.fadeIn(nextButton.view, 1000);
+                    nextButton.view.setVisibility(View.VISIBLE);
+                    nextButton.imNext.setAnimation(nextButton.mEnterAnimation);
+                    nextButton.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            resetGuidance(true);
+
+//                            TpUtil tpUtil = new TpUtil(App.getContext());
+//                            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_SEND_VOUCHER, true);
+                        }
+                    });
+                }
+                KLog.v("guidance time " + millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                KLog.v("guidance finish");
+                resetGuidance(false);
+
+                AnimUtil.stopAnimOnAllViews(bubbleToolTip.view, nextButton.view, nextButton.imNext);
+                ViewUtil.setVisiblityToAllView(VISIBLE, bubbleToolTip.view, nextButton.view, nextButton.imNext);
+
+                Answers.getInstance().logContentView(new ContentViewEvent()
+                        .putContentName("Finish Open Guidance Send Voucher")
+                        .putContentType("Guidance")
+                        .putContentId("guide"));
+            }
+        };
+        if (vexGuideView == null) {
+            vexGuideView = new VexGuideView().init(VoucherRedeemActivity.this)
+                    .motionType(MotionType.CLICK_ONLY)
+                    .overlay(overlay.setStyle(HoleStyle.NO_HOLE))
+                    .bubbleTooltip(bubbleToolTip)
+                    .nextButton(nextButton)
+                    .show();
+            animationCountDownTimer.start();
+        }
+    }
+
+    public void releaseAnimTimer() {
+        KLog.v("releaseAnimTimer");
+        if (animationCountDownTimer != null) {
+            animationCountDownTimer.cancel();
+            animationCountDownTimer = null;
+        }
+    }
+
+    private void resetGuidance(boolean withLayout) {
+        animStepCounter = 0;
+        releaseAnimTimer();
+
+        if (withLayout && vexGuideView != null) {
+            KLog.v("ctGuideView cleanUpAll");
+            vexGuideView.cleanUpAll(true);
+            vexGuideView = null;
+        }
     }
 
     private void doSimulateDeactive() {
@@ -614,6 +751,17 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_expired));
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucher.getExpiredDate());
                 break;
+        }
+
+        boolean isAlreadyGuideSendVoucher = TpUtil.getInstance(App.getContext()).getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_SEND_VOUCHER, false);
+        if (!isAlreadyGuideSendVoucher && (state == TOKEN || state == VOUCHER_ONLINE || state == VOUCHER_3RD || state == VOUCHER_VENDOR || state == GOODS_VOUCHER)) {
+            findViewById(R.id.send_button).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    openGuidanceSendVoucher();
+                    findViewById(R.id.send_button).getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
         }
 
     }
