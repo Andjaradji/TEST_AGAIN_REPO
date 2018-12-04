@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.voucher.ui;
+package com.vexanium.vexgift.module.luckydraw.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -29,13 +29,14 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.LuckyDraw;
+import com.vexanium.vexgift.bean.model.LuckyDrawWinner;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
-import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenter;
-import com.vexanium.vexgift.module.voucher.presenter.IVoucherPresenterImpl;
-import com.vexanium.vexgift.module.voucher.view.IVoucherView;
+import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenter;
+import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenterImpl;
+import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -49,9 +50,9 @@ import java.util.Locale;
 
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_voucher_detail)
-public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> implements IVoucherView {
+public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> implements ILuckyDrawView {
 
-    private Voucher voucher;
+    private LuckyDraw luckyDraw;
     private User user;
 
     @Override
@@ -61,14 +62,17 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
 
     @Override
     protected void initView() {
-        mPresenter = new IVoucherPresenterImpl(this);
+        mPresenter = new ILuckyDrawPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        if (getIntent().hasExtra("voucher")) {
-            if (!TextUtils.isEmpty(getIntent().getStringExtra("voucher"))) {
-                voucher = (Voucher) JsonUtil.toObject(getIntent().getStringExtra("voucher"), Voucher.class);
+        if (getIntent().hasExtra("luckyDraw")) {
+            if (!TextUtils.isEmpty(getIntent().getStringExtra("luckyDraw"))) {
+                luckyDraw = (LuckyDraw) JsonUtil.toObject(getIntent().getStringExtra("luckyDraw"), LuckyDraw.class);
             }
         }
+
+        //TODO show share button
+        ((ImageView) findViewById(R.id.share_button)).setVisibility(View.GONE);
 
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.collapsingToolbar);
         toolbar = findViewById(R.id.toolbar);
@@ -77,58 +81,91 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
                 if (state == State.COLLAPSED) {
                     findViewById(R.id.voucher_title).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_black));
-                    ((ImageView) findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_black));
+                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(LuckyDrawDetailActivity.this, R.color.material_black));
+                    ((ImageView) findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(LuckyDrawDetailActivity.this, R.color.material_black));
                 } else {
                     findViewById(R.id.voucher_title).setVisibility(View.GONE);
-                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_white));
-                    ((ImageView) findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(VoucherDetailActivity.this, R.color.material_white));
+                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(LuckyDrawDetailActivity.this, R.color.material_white));
+                    ((ImageView) findViewById(R.id.share_button)).setColorFilter(ContextCompat.getColor(LuckyDrawDetailActivity.this, R.color.material_white));
                 }
             }
         });
-        if (voucher != null) {
-            Vendor vendor = voucher.getVendor();
-            ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-
+        if (luckyDraw != null) {
+            Vendor vendor = luckyDraw.getVendor();
+            ViewUtil.setImageUrl(this, R.id.iv_coupon_image, luckyDraw.getThumbnail(), R.drawable.placeholder);
             if(vendor != null) {
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
-                ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
                 toolbarLayout.setTitle(vendor.getName());
+                ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
             }
-            ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
 
-            ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
-            ViewUtil.setText(this, R.id.tv_desc, voucher.getLongDecription());
-            ViewUtil.setText(this, R.id.tv_terms, voucher.getTermsAndCond());
+            ViewUtil.setText(this, R.id.tv_coupon_title, luckyDraw.getTitle());
+
+            findViewById(R.id.ll_voucher_quantity_container).setVisibility(View.GONE);
+            findViewById(R.id.ll_luckydraw_quantity_container).setVisibility(View.VISIBLE);
+
+            if(luckyDraw.getUserPurchasedTotal() < 0) {
+                ViewUtil.setText(this, R.id.tv_your_coupon_count, "?");
+            }else{
+                ViewUtil.setText(this, R.id.tv_your_coupon_count, luckyDraw.getUserPurchasedTotal()+"");
+            }
+            ViewUtil.setText(this, R.id.tv_your_coupon_max, "max: " + luckyDraw.getLimitPerUser());
+            ViewUtil.setText(this, R.id.tv_total_coupon_max, "min: " + luckyDraw.getMinTicket() + ", max: " + luckyDraw.getMaxTicket());
+            ViewUtil.setText(this, R.id.tv_total_coupon_count, luckyDraw.getTotalPurchased()+"");
+
+            if(luckyDraw.getLuckyDrawWinners()!=null && luckyDraw.getLuckyDrawWinners().size() > 0){
+                ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.VISIBLE);
+                String winnerText = "";
+                int number = 1;
+                for(LuckyDrawWinner winner : luckyDraw.getLuckyDrawWinners()){
+
+                    if(!winnerText.equals("")){
+                        winnerText = winnerText + "\n";
+                    }
+
+                    if(winner.getLuckyDrawId() == luckyDraw.getId()){
+                        winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + winner.getUser().getEmail() + ")";
+                        number = number + 1;
+                    }
+                }
+
+                if(!winnerText.equals("")){
+                    ViewUtil.setText(this,R.id.tv_luckydraw_winner_body, winnerText);
+                }
+            }else{
+                ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.GONE);
+                ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.GONE);
+            }
+
+            ViewUtil.setText(this, R.id.tv_desc_title, getString(R.string.luckydraw_detail_desc_title));
+            ViewUtil.setText(this, R.id.tv_desc, luckyDraw.getLongDecription());
+            ViewUtil.setText(this, R.id.tv_terms, luckyDraw.getTermsAndCond());
+
+            ViewUtil.setText(this, R.id.tv_btn_text, getString(R.string.luckydraw_detail_claim_coupon));
 
             Linkify.addLinks((TextView) findViewById(R.id.tv_desc), Linkify.ALL);
             Linkify.addLinks((TextView) findViewById(R.id.tv_terms), Linkify.ALL);
-
-            if (voucher.getVoucherTypeId() != 5) {
-                ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());
-                if (voucher.getPrice() == 0) {
-                    ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
-                    findViewById(R.id.tv_price_info).setVisibility(View.GONE);
-                } else {
-                    ViewUtil.setText(this, R.id.tv_price, voucher.getPrice() + " VP");
-                }
-                if (voucher.getLoyaltyPointRequired() > 0) {
-                    ViewUtil.setText(this, R.id.tv_minimum_lp, String.format(getString(R.string.voucher_minimum_lp), voucher.getLoyaltyPointRequired()));
-                } else {
-                    findViewById(R.id.tv_minimum_lp).setVisibility(View.GONE);
-                }
-            } else {
-                ViewUtil.setText(this, R.id.tv_price, getString(R.string.coming_soon));
+            
+            ViewUtil.setText(this, R.id.tv_time, "Available until " + luckyDraw.getExpiredDate());
+            if (luckyDraw.getPrice() == 0) {
+                ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
                 findViewById(R.id.tv_price_info).setVisibility(View.GONE);
-
-                //hide checkbox
-                findViewById(R.id.cb_agree).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.tv_per_coupon).setVisibility(View.VISIBLE);
+                ViewUtil.setText(this, R.id.tv_price, luckyDraw.getPrice() + " VP");
             }
+            if (luckyDraw.getLoyaltyPointRequired() > 0) {
+                ViewUtil.setText(this, R.id.tv_minimum_lp, String.format(getString(R.string.voucher_minimum_lp), luckyDraw.getLoyaltyPointRequired()));
+            } else {
+                findViewById(R.id.tv_minimum_lp).setVisibility(View.GONE);
+            }
+
             Answers.getInstance().logContentView(new ContentViewEvent()
-                    .putContentName("Voucher Detail View " + voucher.getTitle())
-                    .putContentType("Voucher Detail View")
-                    .putContentId("viewDetail" + voucher.getId()));
+                    .putContentName("LuckyDraw Detail View " + luckyDraw.getTitle())
+                    .putContentType("LuckyDraw Detail View")
+                    .putContentId("viewDetail" + luckyDraw.getId()));
         }
 
         findViewById(R.id.back_button).setOnClickListener(this);
@@ -146,63 +183,38 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 break;
             case R.id.share_button:
                 String deepUrl;
-                if (voucher.isToken()) {
-                    deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/token?id=%d", voucher.getId());
-                } else {
-                    deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/voucher?id=%d", voucher.getId());
-                }
+                deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/luckyDraw?id=%d", luckyDraw.getId());
                 String message = String.format(getString(R.string.share_voucher_template), deepUrl);
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
 
                 Answers.getInstance().logShare(new ShareEvent()
                         .putMethod("Common")
-                        .putContentName("Share Voucher " + voucher.getTitle())
+                        .putContentName("Share Voucher " + luckyDraw.getTitle())
                         .putContentType("Share Voucher")
-                        .putContentId("" + voucher.getId()));
+                        .putContentId("" + luckyDraw.getId()));
                 break;
             case R.id.btn_claim:
-                if (voucher.getVoucherTypeId() != 5) {
-                    if (voucher.isForPremium() && !user.isPremiumMember()) {
-                        StaticGroup.showPremiumMemberDialog(this);
-                    } else if (voucher.getQtyAvailable() == 0) {
+                
+                if (luckyDraw.isForPremium() && !user.isPremiumMember()) {
+                    StaticGroup.showPremiumMemberDialog(this);
+                } else {
+                    CheckBox cbAggree = findViewById(R.id.cb_agree);
+                    if (cbAggree.isChecked()) {
+                        if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
+                            StaticGroup.openRequirementDialog(LuckyDrawDetailActivity.this, false);
+                        } else {
+                            doGoogle2fa();
+                        }
+                    } else {
                         new VexDialog.Builder(this)
                                 .optionType(DialogOptionType.OK)
-                                .title(getString(R.string.voucher_soldout_dialog_title))
-                                .content(getString(R.string.voucher_soldout_dialog_desc))
+                                .title(getString(R.string.validate_checkbox_aggree_title))
+                                .content(getString(R.string.validate_checkbox_aggree_content))
                                 .autoDismiss(true)
                                 .show();
-                    } else {
-                        CheckBox cbAggree = findViewById(R.id.cb_agree);
-                        if (cbAggree.isChecked()) {
-                            if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
-                                StaticGroup.openRequirementDialog(VoucherDetailActivity.this, false);
-                            } else {
-                                doGoogle2fa();
-                            }
-                        } else {
-                            new VexDialog.Builder(this)
-                                    .optionType(DialogOptionType.OK)
-                                    .title(getString(R.string.validate_checkbox_aggree_title))
-                                    .content(getString(R.string.validate_checkbox_aggree_content))
-                                    .autoDismiss(true)
-                                    .show();
-                        }
                     }
-                } else {
-                    new VexDialog.Builder(VoucherDetailActivity.this)
-                            .optionType(DialogOptionType.OK)
-                            .title("Coming soon")
-                            .content("This voucher is currently unavailable")
-                            .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .cancelable(true)
-                            .autoDismiss(true)
-                            .show();
                 }
+                
                 break;
         }
     }
@@ -210,7 +222,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
-            KLog.v("VoucherDetailActivity", "handleResult: " + JsonUtil.toString(data));
+            KLog.v("LuckyDrawDetailActivity", "handleResult: " + JsonUtil.toString(data));
         } else if (errorResponse != null) {
             if (NetworkUtil.isOnline(this)) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse);
@@ -218,15 +230,15 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
         } else {
-            new VexDialog.Builder(VoucherDetailActivity.this)
+            new VexDialog.Builder(LuckyDrawDetailActivity.this)
                     .optionType(DialogOptionType.OK)
-                    .title("Get Voucher")
-                    .content("Successfully get voucher")
+                    .title("Get Lucky Draw")
+                    .content("Successfully get Lucky Draw")
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                            VoucherDetailActivity.this.finish();
-                            getVoucherSuccess();
+                            LuckyDrawDetailActivity.this.finish();
+                            getLuckyDrawSuccess();
                         }
                     })
                     .cancelable(false)
@@ -253,7 +265,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                             etPin.setError(getString(R.string.validate_empty_field));
                         } else {
                             dialog.dismiss();
-                            doGetVoucher(etPin.getText().toString());
+                            doGetLuckyDraw(etPin.getText().toString());
                         }
                     }
                 })
@@ -268,19 +280,19 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 .show();
     }
 
-    private void doGetVoucher(String pin) {
+    private void doGetLuckyDraw(String pin) {
         User user = User.getCurrentUser(this);
-        mPresenter.requestBuyVoucher(user.getId(), voucher.getId(), pin);
+        mPresenter.buyLuckyDraw(user.getId(), luckyDraw.getId(), pin);
     }
 
-    private void getVoucherSuccess() {
+    private void getLuckyDrawSuccess() {
 
         RxBus.get().post(RxBus.KEY_NOTIF_ADDED, 1);
         RxBus.get().post(RxBus.KEY_BOX_CHANGED, 1);
         RxBus.get().post(RxBus.KEY_VEXPOINT_UPDATE, 1);
 
-        final String title = "Get Voucher Success";
-        final String message = String.format("Congratulation! You got %s ", voucher.getTitle());
+        final String title = "Get Lucky Draw Success";
+        final String message = String.format("Congratulation! You got %s ", luckyDraw.getTitle());
         final String url = "vexgift://notif";
 
         Glide.with(this)
@@ -288,7 +300,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
                 .apply(RequestOptions
                         .diskCacheStrategyOf(DiskCacheStrategy.ALL)
                         .format(DecodeFormat.PREFER_RGB_565))
-                .load(voucher.getThumbnail())
+                .load(luckyDraw.getThumbnail())
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, Transition<? super Bitmap> transition) {

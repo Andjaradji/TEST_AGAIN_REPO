@@ -47,6 +47,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.LuckyDraw;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
@@ -58,6 +59,8 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
+import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawDetailActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -266,6 +269,20 @@ public class StaticGroup {
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucher));
+        activity.startActivity(intent);
+    }
+
+    public static void goToLuckyDrawDetailActivity(Activity activity, LuckyDraw luckyDraw, ImageView ivVoucher) {
+        Intent intent = new Intent(activity, LuckyDrawDetailActivity.class);
+        intent.putExtra("luckyDraw", JsonUtil.toString(luckyDraw));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(activity, ivVoucher, "luckyDraw_image");
+        activity.startActivity(intent, options.toBundle());
+    }
+
+    public static void goToLuckyDrawDetailActivity(Activity activity, LuckyDraw luckyDraw) {
+        Intent intent = new Intent(activity, LuckyDrawDetailActivity.class);
+        intent.putExtra("luckyDraw", JsonUtil.toString(luckyDraw));
         activity.startActivity(intent);
     }
 
@@ -1230,6 +1247,119 @@ public class StaticGroup {
 
 
         return filteredVoucher;
+    }
+
+    public static ArrayList<LuckyDraw> getFilteredLuckyDraw(final ArrayList<LuckyDraw> luckyDraws, SortFilterCondition sortFilterCondition) {
+        ArrayList<LuckyDraw> filteredLuckyDraw = new ArrayList<>();
+        ArrayList<LuckyDraw> temp;
+        boolean isFiltered = false;
+
+        if (sortFilterCondition != null) {
+            if (sortFilterCondition.getCategories() != null && sortFilterCondition.getCategories().size() > 0) {
+                for (LuckyDraw luckyDraw : luckyDraws) {
+                    List<String> filterField = sortFilterCondition.getCategories();
+                    if (filterField.contains(luckyDraw.getLuckyDrawCategory().getName())) {
+                        filteredLuckyDraw.add(luckyDraw);
+                    }
+                }
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getMemberTypes() != null && sortFilterCondition.getMemberTypes().size() > 0) {
+                if (filteredLuckyDraw.size() == 0 && !isFiltered) filteredLuckyDraw = luckyDraws;
+
+                temp = new ArrayList<>(filteredLuckyDraw);
+                for (LuckyDraw luckyDraw : filteredLuckyDraw) {
+                    List<String> filterField = sortFilterCondition.getMemberTypes();
+                    if (!filterField.contains(luckyDraw.getMemberType().getName())) {
+                        temp.remove(luckyDraw);
+                    }
+                }
+                filteredLuckyDraw = temp;
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getPaymentTypes() != null && sortFilterCondition.getPaymentTypes().size() > 0) {
+                if (filteredLuckyDraw.size() == 0 && !isFiltered) filteredLuckyDraw = luckyDraws;
+
+                temp = new ArrayList<>(filteredLuckyDraw);
+                for (LuckyDraw luckyDraw : filteredLuckyDraw) {
+                    List<String> filterField = sortFilterCondition.getPaymentTypes();
+                    if (!filterField.contains(luckyDraw.getPaymentType().getName())) {
+                        temp.remove(luckyDraw);
+                    }
+                }
+                filteredLuckyDraw = temp;
+                isFiltered = true;
+            }
+        }
+
+        if (isFiltered == false) {
+            filteredLuckyDraw = luckyDraws;
+        }
+
+        if (sortFilterCondition.getSort() != -1) {
+            Comparator<LuckyDraw> comparator;
+            switch (sortFilterCondition.getSort()) {
+                case SortFilterCondition.SORT_BY_PRICE_DESC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Integer.compare(luckyDraw.getPrice(), t1.getPrice());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_PRICE_ASC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Integer.compare(t1.getPrice(), luckyDraw.getPrice());
+                        }
+                    };
+                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(voucher.getValidUntil(), t1.getValidUntil());
+//                        }
+//                    };
+//                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(t1.getValidUntil(), voucher.getValidUntil());
+//                        }
+//                    };
+//                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_DESC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Long.compare(luckyDraw.getValidFrom(), t1.getValidFrom());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_ASC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Long.compare(t1.getValidFrom(), luckyDraw.getValidFrom());
+                        }
+                    };
+                    break;
+                default:
+                    comparator = null;
+                    break;
+            }
+            if (comparator != null) {
+                Collections.sort(filteredLuckyDraw, comparator);
+            }
+        }
+
+
+        return filteredLuckyDraw;
     }
 
     public static String getDate(String mDate) {

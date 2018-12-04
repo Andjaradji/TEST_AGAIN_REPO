@@ -84,8 +84,21 @@ public class LuckyDraw implements Serializable {
     @JsonProperty("member_type")
     private MemberType memberType;
 
-    //@JsonProperty("lucky_draw_winners")
-    //private ArrayList<String> luckyDrawWinners;
+    @JsonProperty("vendor")
+    private Vendor vendor;
+
+    @JsonProperty("lucky_draw_winners")
+    private ArrayList<LuckyDrawWinner> luckyDrawWinners;
+
+    private int userPurchasedTotal = -1;
+
+    public int getUserPurchasedTotal() {
+        return userPurchasedTotal;
+    }
+
+    public void setUserPurchasedTotal(int userPurchasedTotal) {
+        this.userPurchasedTotal = userPurchasedTotal;
+    }
 
 
     public int getId() {
@@ -345,5 +358,21 @@ public class LuckyDraw implements Serializable {
 
     public void setMemberType(MemberType memberType) {
         this.memberType = memberType;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public ArrayList<LuckyDrawWinner> getLuckyDrawWinners() {
+        return luckyDrawWinners;
+    }
+
+    public void setLuckyDrawWinners(ArrayList<LuckyDrawWinner> luckyDrawWinners) {
+        this.luckyDrawWinners = luckyDrawWinners;
     }
 }

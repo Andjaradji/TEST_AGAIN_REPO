@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.home.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.home.model.IHomeInteractor;
 import com.vexanium.vexgift.module.home.model.IHomeInteractorImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 

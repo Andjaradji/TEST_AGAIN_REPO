@@ -6,16 +6,17 @@ import com.vexanium.vexgift.module.home.model.IHomeInteractorImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.luckydraw.model.ILuckyDrawInteractor;
 import com.vexanium.vexgift.module.luckydraw.model.ILuckyDrawInteractorImpl;
+import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
 
 import java.io.Serializable;
 
 import rx.Subscription;
 
-public class ILuckyDrawPresenterImpl extends BasePresenterImpl<IHomeView, Serializable> implements ILuckyDrawPresenter {
+public class ILuckyDrawPresenterImpl extends BasePresenterImpl<ILuckyDrawView, Serializable> implements ILuckyDrawPresenter {
     private ILuckyDrawInteractor<Serializable> LuckyDrawInteractor;
     private boolean mHasInit;
 
-    public ILuckyDrawPresenterImpl(IHomeView view) {
+    public ILuckyDrawPresenterImpl(ILuckyDrawView view) {
         super(view);
         LuckyDrawInteractor = new ILuckyDrawInteractorImpl();
     }
@@ -56,6 +57,30 @@ public class ILuckyDrawPresenterImpl extends BasePresenterImpl<IHomeView, Serial
     @Override
     public void requestLuckyDrawList(int id, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
         Subscription subscription = LuckyDrawInteractor.requestLuckyDraw(this, id, limit, offset, luckyDrawCategoryId, memberTypeId, paymentTypeId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestLuckyDrawById(int id, int luckyDrawId) {
+        Subscription subscription = LuckyDrawInteractor.requestLuckyDraw(this, id, luckyDrawId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void requestUserLuckyDrawList(int id) {
+        Subscription subscription = LuckyDrawInteractor.requestUserLuckyDrawList(this, id);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void buyLuckyDraw(int id, int luckyDrawId, String token) {
+        Subscription subscription = LuckyDrawInteractor.buyLuckyDraw(this, id, luckyDrawId, token);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void setUserLuckyDrawAddress(int id, int userLuckyDrawId, String address) {
+        Subscription subscription = LuckyDrawInteractor.setUserLuckyDrawAddress(this, id, userLuckyDrawId, address);
         compositeSubscription.add(subscription);
     }
 }

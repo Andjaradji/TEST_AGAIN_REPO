@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_voucher_quantity_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_voucher_availability_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interval_main"
+        android:text="@string/coupon_detail_availability"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny" />
+
+    <LinearLayout
+        android:id="@+id/ll_voucher_availability_container"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/interval_medium"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginLeft="@dimen/interval_main"
+        android:layout_marginRight="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:background="@drawable/shape_voucher_availability"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_avail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/interval_content"
+            android:tag="bold"
+            android:text="@string/voucher_availability"
+            android:textSize="@dimen/text_medium" />
+    </LinearLayout>
+
+
+</LinearLayout>
