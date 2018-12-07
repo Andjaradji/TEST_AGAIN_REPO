@@ -4,6 +4,8 @@ import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
@@ -15,6 +17,8 @@ import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
@@ -141,6 +145,41 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("token-sale/get-token-sale-payment")
     Observable<HttpResponse<TokenSaleHistoryDetailResponse>> getTokenSalePayment(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw")
+    Observable<HttpResponse<LuckyDrawListResponse>> getLuckyDrawList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/get")
+    Observable<HttpResponse<LuckyDrawResponse>> getLuckyDraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/get-user-lucky-draw")
+    Observable<HttpResponse<UserLuckyDrawListResponse>> getUserLuckyDrawList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/buy-lucky-draw")
+    Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/set-address")
+    Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

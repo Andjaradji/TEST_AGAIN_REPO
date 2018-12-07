@@ -373,13 +373,14 @@
     <string name="error_token_airdrop_empty_header">No Token Airdrop Found</string>
     <string name="error_voucher_empty_body">There is nothing here</string>
     <string name="error_token_empty_body">There is nothing here</string>
+    <string name="error_luckydraw_empty_header">No Lucky Draw Found</string>
+    <string name="error_luckydraw_empty_body">There is nothing here</string>
 
     <string name="error_voucher_empty_header">No Voucher Found</string>
     <string name="error_referral_empty_header">No Referral Found</string>
     <string name="error_token_empty_header">No Token Found</string>
     <string name="error_deposit_empty_header">No Deposit Found</string>
     <string name="error_token_sale_empty_header">No Token Sale Found</string>
-
 
     <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
     <string name="error_referral_empty_body">You don\'t have any referral</string>
@@ -662,6 +663,16 @@ Your expired and used voucher will be shown here</string>
     <string name="referral_code_field_dialog_title">Referral Code</string>
     <string name="referral_code_field_dialog_desc">Fill referral code\n(optional)</string>
     <string name="referral_code_field_dialog_et">Referral code (optional)</string>
+
+    <string name="luckydraw_title">LUCKY DRAW</string>
+    <string name="luckydraw_winner_title">LUCKY DRAW WINNER</string>
+    <string name="luckydraw_your_coupon">Your Coupon</string>
+    <string name="luckydraw_total_coupon">Total Coupon</string>
+    <string name="luckydraw">Lucky Draw</string>
+    <string name="luckydraw_detail_desc_title">Coupon Description</string>
+    <string name="luckydraw_detail_claim_coupon">Get Coupon</string>
+    <string name="luckydraw_per_coupon">/coupon</string>
+    <string name="luckydraw_winner">Winner</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->

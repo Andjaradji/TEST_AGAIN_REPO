@@ -18,6 +18,8 @@ import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
@@ -35,6 +37,8 @@ import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
@@ -793,6 +797,71 @@ public class RetrofitManager {
         params.put("distribution_address", address);
 
         return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<LuckyDrawListResponse>> requestLuckyDrawList(int userId, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        if(limit > -1){
+            params.put("limit", limit);
+        }
+
+        if(offset > -1){
+            params.put("offset", offset);
+        }
+
+        if(luckyDrawCategoryId > -1){
+            params.put("luck_draw_category_id", luckyDrawCategoryId);
+        }
+
+        if(memberTypeId > -1){
+            params.put("member_type_id", memberTypeId);
+        }
+
+        if(paymentTypeId > -1){
+            params.put("payment_type_id", paymentTypeId);
+        }
+
+        return mOtherService.getLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawListResponse>>());
+    }
+
+    public Observable<HttpResponse<LuckyDrawResponse>> requestLuckyDraw(int userId, int luckyDrawId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("luck_draw_id", luckyDrawId);
+
+        return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getUserLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawListResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(int userId, int luckyDrawId, String token) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("lucky_draw_id", luckyDrawId);
+        params.put("token",token);
+
+        return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(int userId, int userLuckyDrawId, String address) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("user_luck_draw_id", userLuckyDrawId);
+        params.put("address",address);
+
+        return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }
 
 }

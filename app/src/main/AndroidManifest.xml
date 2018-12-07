@@ -286,6 +286,15 @@
         <activity
             android:name=".module.referral.ui.ReferralDetailActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".module.luckydraw.ui.LuckyDrawActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".module.luckydraw.ui.LuckyDrawWinnerActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".module.luckydraw.ui.LuckyDrawDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
