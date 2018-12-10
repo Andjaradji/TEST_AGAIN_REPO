@@ -117,6 +117,8 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
             if(luckyDraw.getLuckyDrawWinners()!=null && luckyDraw.getLuckyDrawWinners().size() > 0){
                 ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.VISIBLE);
                 ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this,R.id.btn_claim).setVisibility(View.GONE);
+                ViewUtil.findViewById(this,R.id.cb_agree).setVisibility(View.GONE);
                 String winnerText = "";
                 int number = 1;
                 for(LuckyDrawWinner winner : luckyDraw.getLuckyDrawWinners()){
@@ -137,6 +139,8 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
             }else{
                 ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.GONE);
                 ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.GONE);
+                ViewUtil.findViewById(this,R.id.btn_claim).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this,R.id.cb_agree).setVisibility(View.VISIBLE);
             }
 
             ViewUtil.setText(this, R.id.tv_desc_title, getString(R.string.luckydraw_detail_desc_title));
@@ -194,7 +198,9 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                         .putContentId("" + luckyDraw.getId()));
                 break;
             case R.id.btn_claim:
-                
+                if(luckyDraw.getLuckyDrawWinners()!=null && luckyDraw.getLuckyDrawWinners().size() >0){
+                    return;
+                }
                 if (luckyDraw.isForPremium() && !user.isPremiumMember()) {
                     StaticGroup.showPremiumMemberDialog(this);
                 } else {

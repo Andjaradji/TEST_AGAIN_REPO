@@ -193,7 +193,7 @@
         android:visibility="visible"
         android:weightSum="4">
 
-            <LinearLayout
+    <LinearLayout
                 android:id="@+id/lucky_draw_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
