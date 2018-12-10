@@ -51,6 +51,7 @@ import com.vexanium.vexgift.bean.response.VexPointResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
+import com.vexanium.vexgift.module.buyback.ui.BuybackActivity;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
 import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.exchanger.ui.BuyVexActivity;
@@ -83,6 +84,7 @@ import java.util.ArrayList;
 import rx.Observable;
 import rx.functions.Action1;
 
+import static com.vexanium.vexgift.app.StaticGroup.BUYBACK_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
 import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
@@ -457,6 +459,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
         }
 
+        if(StaticGroup.isBuybackBannerActive()){
+            data.add(++idx, new HomeFeedResponse(BUYBACK_BANNER));
+        }
+
 //        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
 //        if(StaticGroup.isDepositAvailable()) {
@@ -466,6 +472,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 //        if(StaticGroup.isDepositAvailable()) {
         data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
 //        }
+
 
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
@@ -507,6 +514,8 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_connect_fb;
                     case DEPOSIT_BANNER:
                         return R.layout.item_image_banner;
+                    case BUYBACK_BANNER:
+                        return R.layout.item_buyback_banner;
                     case TOKEN_FREEZE_BANNER:
                         return R.layout.item_vaults_banner;
                     case REFERRAL_BANNER:
@@ -666,6 +675,20 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 if (ClickUtil.isFastDoubleClick()) return;
                                 Intent intent = new Intent(HomeFragment.this.getActivity(), MyProfileActivity.class);
                                 startActivity(intent);
+                            }
+                        });
+                        break;
+                    case BUYBACK_BANNER:
+                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (ClickUtil.isFastDoubleClick()) return;
+                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                    StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
+                                } else {
+                                    Intent intent = new Intent(HomeFragment.this.getActivity(), BuybackActivity.class);
+                                    startActivity(intent);
+                                }
                             }
                         });
                         break;

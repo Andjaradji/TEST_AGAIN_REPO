@@ -1,5 +1,9 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.model.BuybackHistory;
+import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
+import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
+import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
@@ -180,6 +184,34 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("lucky-draw/set-address")
     Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/get-buy-back-history")
+    Observable<HttpResponse<BuybackHistoryResponse>> getBuybackHistories(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back")
+    Observable<HttpResponse<BuybackPaymentResponse>> doBuyback(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/get")
+    Observable<HttpResponse<BuybackResponse>> getBuyback(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/update-distribution-address")
+    Observable<HttpResponse<EmptyResponse>> updateBuybackDistributionAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

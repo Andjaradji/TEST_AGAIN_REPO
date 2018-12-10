@@ -635,10 +635,15 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_token_name">Token Name</string>
     <string name="token_sale_token_available">Total token sale</string>
     <string name="token_sale_token_left">Token Left</string>
+    <string name="buyback_coin_bought">Token Bought</string>
+    <string name="buyback_coin_total">Total Token </string>
+
     <string name="token_sale_buy_list">PAYMENT OPTIONS</string>
     <string name="token_sale_payment_options">Payment Options</string>
+    <string name="buyback_options">Buyback Options</string>
     <string name="token_sale_buy">BUY</string>
     <string name="token_sale_history_title">Token Sale History</string>
+    <string name="buyback_history_title">Buyback History</string>
     <string name="token_sale_payment_amount">Payment amount</string>
     <string name="token_sale_purchased_amount">Purchased amount</string>
     <string name="token_sale_distribution_address">Distribution address</string>
