@@ -209,4 +209,11 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("buy-back/update-distribution-address")
+    Observable<HttpResponse<EmptyResponse>> updateBuybackDistributionAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 }

@@ -6,6 +6,7 @@ import com.vexanium.vexgift.bean.model.BuybackHistory;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
+import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
@@ -76,18 +77,18 @@ public class IBuybackInteractorImpl<T> implements IBuybackInteractor {
 //                .subscribe(new BaseSubscriber<>(callback));
 //    }
 //
-//    @Override
-//    public Subscription requestUpdateDistributionAddress(RequestCallback callback, int id, int tokenSalePaymentId, String address) {
-//        return RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateDistributionAddress(id, tokenSalePaymentId, address).compose(RxUtil.<EmptyResponse>handleResult())
-//                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
-//                    @Override
-//                    public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {
-//
-//                        KLog.json("HPtes", JsonUtil.toString(emptyResponse));
-//                        return Observable.just(emptyResponse);
-//                    }
-//                })
-//                .subscribe(new BaseSubscriber<>(callback));
-//    }
+    @Override
+    public Subscription requestUpdateDistributionAddress(RequestCallback callback, int id, int buybackPaymentId, String address) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestUpdateBuybackDistributionAddress(id, buybackPaymentId, address).compose(RxUtil.<EmptyResponse>handleResult())
+                .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
+                    @Override
+                    public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(emptyResponse));
+                        return Observable.just(emptyResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
 }
 

@@ -13,5 +13,5 @@ public interface IBuybackInteractor<T> {
 
 //    Subscription requestBuybackPayment(RequestCallback<T> callback, int id, int buybackPaymentId);
 
-//    Subscription requestUpdateDistributionAddress(RequestCallback<T> callback, int id, int buybackPaymentId, String address);
+    Subscription requestUpdateDistributionAddress(RequestCallback<T> callback, int id, int buybackPaymentId, String address);
 }

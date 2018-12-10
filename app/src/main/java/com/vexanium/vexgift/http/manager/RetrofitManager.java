@@ -776,6 +776,16 @@ public class RetrofitManager {
         return mOtherService.getBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackResponse>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> requestUpdateBuybackDistributionAddress(int userId, int buybackPaymentId, String address) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("user_buy_back_id", buybackPaymentId);
+        params.put("distribution_address", address);
+
+        return mOtherService.updateBuybackDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
     public Observable<HttpResponse<BuybackHistoryResponse>> requestBuybackHistoryList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
