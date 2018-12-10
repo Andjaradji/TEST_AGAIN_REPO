@@ -114,6 +114,7 @@ public class StaticGroup {
     public static final int DEPOSIT_BANNER = 8;
     public static final int TOKEN_FREEZE_BANNER = 9;
     public static final int REFERRAL_BANNER = 10;
+    public static final int BUYBACK_BANNER = 11;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
@@ -1441,6 +1442,15 @@ public class StaticGroup {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_banner_active") != -1) {
             return settingResponse.getSettingValByKey("is_referral_banner_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isBuybackBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_buyback_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_buyback_banner_active") == 1;
         } else {
             return false;
         }

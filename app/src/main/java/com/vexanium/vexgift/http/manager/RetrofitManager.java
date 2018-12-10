@@ -8,9 +8,13 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
+import com.vexanium.vexgift.bean.model.BuybackHistory;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
+import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
+import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
@@ -753,6 +757,33 @@ public class RetrofitManager {
         return mOtherService.requestDeposit(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
     }
 
+    public Observable<HttpResponse<BuybackPaymentResponse>> requestDoBuyback(int userId, int buyBackId, int buyBackOptionId, float amount) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("buy_back_id", buyBackId);
+        params.put("buy_back_option_id", buyBackOptionId);
+        params.put("amount", amount);
+
+        return mOtherService.doBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackPaymentResponse>>());
+    }
+
+    public Observable<HttpResponse<BuybackResponse>> requestBuybackList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackResponse>>());
+    }
+
+    public Observable<HttpResponse<BuybackHistoryResponse>> requestBuybackHistoryList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getBuybackHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackHistoryResponse>>());
+    }
+
     public Observable<HttpResponse<TokenSaleResponse>> requestTokenSaleList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -768,6 +799,7 @@ public class RetrofitManager {
 
         return mOtherService.getTokenSaleHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryResponse>>());
     }
+
 
     public Observable<HttpResponse<TokenSalePaymentResponse>> requestBuyTokenSale(int userId, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
         Map<String, Object> params = Api.getBasicParam();

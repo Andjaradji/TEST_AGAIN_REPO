@@ -266,6 +266,18 @@
             android:name=".module.tokensale.ui.TokenSaleHistoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.buyback.ui.BuybackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackHistoryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.exchanger.ui.BuyVexActivity"
             android:screenOrientation="portrait" />
         <activity
