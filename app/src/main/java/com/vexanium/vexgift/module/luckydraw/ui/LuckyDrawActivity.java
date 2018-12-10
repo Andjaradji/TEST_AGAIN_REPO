@@ -327,14 +327,14 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                                 tempLuckyDraws.get(i).setUserPurchasedTotal(userPurchased);
                                 break;
                             }else{
-                                tempLuckyDraws.get(i).setUserPurchasedTotal(0);
+                                //tempLuckyDraws.get(i).setUserPurchasedTotal(0);
                             }
                         }
                     }
                 }else{
-                    for (int i = 0; i < tempLuckyDraws.size(); i++) {
-                        tempLuckyDraws.get(i).setUserPurchasedTotal(0);
-                    }
+//                    for (int i = 0; i < tempLuckyDraws.size(); i++) {
+//                        tempLuckyDraws.get(i).setUserPurchasedTotal(0);
+//                    }
                 }
 
                 completedLuckyDraws = new ArrayList<>();
@@ -462,7 +462,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                         holder.setViewGone(R.id.iv_premium, true);
 
                     if(item.getUserPurchasedTotal() < 0) {
-                        holder.setText(R.id.tv_your_coupon_count, "?/" + item.getLimitPerUser());
+                        holder.setText(R.id.tv_your_coupon_count, "0/" + item.getLimitPerUser());
                     }else{
                         holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() + "/" + item.getLimitPerUser());
                     }
