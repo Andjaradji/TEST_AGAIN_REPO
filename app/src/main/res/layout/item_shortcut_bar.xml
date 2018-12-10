@@ -193,16 +193,7 @@
         android:visibility="visible"
         android:weightSum="4">
 
-        <!--TODO set visibility-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="108dp"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            android:weightSum="4">
-
-            <LinearLayout
+    <LinearLayout
                 android:id="@+id/lucky_draw_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -368,10 +359,8 @@
                     android:textSize="@dimen/text_shortcut" />
             </LinearLayout>
 
-
         </LinearLayout>
 
-    </LinearLayout>
     </LinearLayout>
 
 
