@@ -118,7 +118,7 @@ public class BuybackHistoryActivity extends BaseActivity<IBuybackPresenter> impl
 
                     if (item.getBuybackOption() != null && item.getBuybackOption() != null) {
 
-                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount() / item.getBuybackOption().getPrice() + " " + "VEX");
+                        holder.setText(R.id.tv_token_sale_history_amount, item.getAmount() * item.getBuybackOption().getPrice() + " " + item.getBuybackOption().getCoinName());
                     } else {
                         holder.setText(R.id.tv_token_sale_history_amount, item.getAmount() + "");
                     }
