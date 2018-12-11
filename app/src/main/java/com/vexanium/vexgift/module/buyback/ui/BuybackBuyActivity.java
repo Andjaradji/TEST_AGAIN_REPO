@@ -83,7 +83,7 @@ public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implemen
             String min = String.format("%.08f", buybackOption.getMinSell());
             String max = String.format("%.08f", buybackOption.getMaxSell());
 
-            String amountHeader = String.format("Min = %s, Max = %s", min + " " + buybackOption.getCoinName(), max + " " + buybackOption.getCoinName());
+            String amountHeader = String.format("Min = %s, Max = %s", min + " " + "VEX", max + " " + "VEX");
             etAmount.setHint(amountHeader);
             ViewUtil.setText(this, R.id.tv_token_title, buyback.getName());
             String time = String.format("%s - %s", buyback.getTimeStampDate(buyback.getStartTime()), buyback.getTimeStampDate(buyback.getEndTime()));
@@ -111,11 +111,11 @@ public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implemen
                             e.printStackTrace();
                         }
                         try {
-                            amountTotal = amount / buybackOption.getPrice();
+                            amountTotal = amount * buybackOption.getPrice();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String purchasedTotal = amountTotal + " " +"VEX";
+                        String purchasedTotal = amountTotal + " " +buybackOption.getCoinName();
                         tvPurchasedTotal.setText(purchasedTotal);
                     } else {
                         tvPurchasedTotal.setText("-");

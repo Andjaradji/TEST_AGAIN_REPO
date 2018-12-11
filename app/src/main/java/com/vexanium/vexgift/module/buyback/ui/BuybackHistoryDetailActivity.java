@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -79,8 +80,9 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
             }
         } else if (getIntent().hasExtra("token_payment_id")) {
             paymentId = getIntent().getIntExtra("token_payment_id", -1);
+            KLog.v("BuybackHistoryDetailActivity","initView: HPtes token_payment_id : "+paymentId);
             if (paymentId != -1) {
-                mPresenter.getBuybackPayment(user.getId(), paymentId);
+                mPresenter.requestBuybackHistoryList(user.getId());
             } else {
                 Toast.makeText(this, "Payment not found", Toast.LENGTH_SHORT).show();
             }
@@ -138,10 +140,10 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
 
         float amount = buybackHistory.getAmount();
         String paymentAmount = String.format("%.010f", amount);
-        String purchasedAmount = String.format("%.010f", amount / buybackHistory.getBuybackOption().getPrice());
+        String purchasedAmount = String.format("%.010f", amount * buybackHistory.getBuybackOption().getPrice());
 
-        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " " + buybackHistory.getBuybackOption().getCoinName());
-        ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount + " " + "VEX");
+        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " VEX" );
+        ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount + " " + buybackHistory.getBuybackOption().getCoinName());
         if (buybackHistory.getDistributionAddress() != null && buybackHistory.getDistributionAddress().length() > 0) {
             ViewUtil.setText(this, R.id.tv_distribution_address, buybackHistory.getDistributionAddress());
         } else {

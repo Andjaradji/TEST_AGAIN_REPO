@@ -227,6 +227,7 @@ public class FixtureData {
             add(new Exchanger("Exrates", "https://exrates.me/dashboard"));
             add(new Exchanger("Sistemkoin", "https://sistemkoin.com/#/"));
             add(new Exchanger("Bitinka", "https://www.bitinka.com/pe/bitinka/home"));
+            add(new Exchanger("Coinone", "https://www.bitinka.com/pe/bitinka/home"));
         }
     };
 

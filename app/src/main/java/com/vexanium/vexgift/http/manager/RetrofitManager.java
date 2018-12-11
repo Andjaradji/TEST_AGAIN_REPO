@@ -19,6 +19,7 @@ import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -338,6 +339,14 @@ public class RetrofitManager {
         params.put("user_id", id);
 
         return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
+    }
+
+    public Observable<HttpResponse<ExchangeResponse>> requestExchangeList(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getExchangeList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<ExchangeResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResetPass(String email) {

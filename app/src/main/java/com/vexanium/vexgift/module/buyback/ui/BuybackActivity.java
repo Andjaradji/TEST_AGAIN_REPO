@@ -216,7 +216,7 @@ public class BuybackActivity extends BaseActivity<IBuybackPresenter> implements 
                 @Override
                 public void bindData(final BaseRecyclerViewHolder holder, final int position, BuybackOption item) {
                     if (item.getCoinName() != null) {
-                        String title = String.format("Payment by %s", item.getCoinName());
+                        String title = String.format("Buyback with %s", item.getCoinName());
                         holder.setText(R.id.tv_payment_title, title);
                     } else {
                         holder.setText(R.id.tv_payment_title, "error");
@@ -231,6 +231,8 @@ public class BuybackActivity extends BaseActivity<IBuybackPresenter> implements 
                         holder.setText(R.id.tv_payment_body, "error");
                         holder.getView(R.id.btn_buy).setEnabled(false);
                     }
+
+                    holder.setText(R.id.tv_slot_total, ""+item.getLimitSellPerUser());
 
 //                    holder.setText(R.id.tv_slot_left, item.get)
 

@@ -7,6 +7,7 @@ import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
@@ -49,6 +50,13 @@ public interface OtherService {
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @QueryMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("exchange/get")
+    Observable<HttpResponse<ExchangeResponse>> getExchangeList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("voucher")

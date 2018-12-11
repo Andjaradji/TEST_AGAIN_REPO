@@ -247,6 +247,10 @@
     <string name="more_premium_member">Premium Member</string>
     <string name="more_security">Security</string>
     <string name="more_others">Others</string>
+    <string name="more_social_media">Social Media</string>
+
+    <string name="more_youtube">Youtube</string>
+    <string name="more_instagram">Instagram</string>
     <string name="more_merchant_list">Merchant List</string>
     <string name="more_send_feedback">Send Feedback</string>
     <string name="more_report_problem">Report a Problem</string>
@@ -642,6 +646,7 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_payment_options">Payment Options</string>
     <string name="buyback_options">Buyback Options</string>
     <string name="token_sale_buy">BUY</string>
+    <string name="buyback_sell">SELL</string>
     <string name="token_sale_history_title">Token Sale History</string>
     <string name="buyback_history_title">Buyback History</string>
     <string name="token_sale_payment_amount">Payment amount</string>

@@ -414,7 +414,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/interval_small"
-                            android:text="@string/token_sale_token_left"
+                            android:text="@string/buyback_coin_bought"
                             android:textSize="@dimen/text_xtiny" />
 
                         <TextView
@@ -441,7 +441,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/interval_small"
-                            android:text="@string/token_sale_token_available"
+                            android:text="@string/buyback_coin_total"
                             android:textSize="@dimen/text_xtiny" />
 
                         <TextView
