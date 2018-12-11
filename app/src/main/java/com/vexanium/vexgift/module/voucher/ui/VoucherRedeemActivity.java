@@ -364,8 +364,8 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         public void onClick(View v) {
                             resetGuidance(true);
 
-//                            TpUtil tpUtil = new TpUtil(App.getContext());
-//                            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_SEND_VOUCHER, true);
+                            TpUtil tpUtil = new TpUtil(App.getContext());
+                            tpUtil.put(TpUtil.KEY_IS_ALREADY_GUIDE_SEND_VOUCHER, true);
                         }
                     });
                 }

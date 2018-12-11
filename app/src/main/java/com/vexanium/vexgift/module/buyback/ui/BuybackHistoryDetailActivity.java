@@ -42,7 +42,7 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
     }
 
     @Override
