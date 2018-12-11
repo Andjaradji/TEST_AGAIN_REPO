@@ -106,7 +106,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
             findViewById(R.id.ll_luckydraw_quantity_container).setVisibility(View.VISIBLE);
 
             if(luckyDraw.getUserPurchasedTotal() < 0) {
-                ViewUtil.setText(this, R.id.tv_your_coupon_count, "?");
+                ViewUtil.setText(this, R.id.tv_your_coupon_count, "0");
             }else{
                 ViewUtil.setText(this, R.id.tv_your_coupon_count, luckyDraw.getUserPurchasedTotal()+"");
             }
