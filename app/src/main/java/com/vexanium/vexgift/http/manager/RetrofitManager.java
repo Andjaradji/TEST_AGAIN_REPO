@@ -886,11 +886,12 @@ public class RetrofitManager {
         return mOtherService.getUserLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawListResponse>>());
     }
 
-    public Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(int userId, int luckyDrawId, String token) {
+    public Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(int userId, int luckyDrawId, int amount, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("lucky_draw_id", luckyDrawId);
+        params.put("amount",amount);
         params.put("token",token);
 
         return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
