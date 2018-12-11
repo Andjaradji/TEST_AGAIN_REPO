@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.CheckBox;
@@ -54,6 +56,8 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
 
     private LuckyDraw luckyDraw;
     private User user;
+
+    private int amount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +213,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                         if (!user.isAuthenticatorEnable() || !user.isKycApprove()) {
                             StaticGroup.openRequirementDialog(LuckyDrawDetailActivity.this, false);
                         } else {
-                            doGoogle2fa();
+                            doEnterAmount();
                         }
                     } else {
                         new VexDialog.Builder(this)
@@ -253,7 +257,69 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
         }
     }
 
-    private void doGoogle2fa() {
+    private void doEnterAmount(){
+        View view = View.inflate(this, R.layout.include_luckydraw_dialog_amount, null);
+        final EditText etAmount = view.findViewById(R.id.et_amount);
+        final TextView tvTotal = view.findViewById(R.id.tv_amount_count_total);
+        tvTotal.setText("-");
+        etAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (etAmount.getText().toString().length() > 0) {
+                    try {
+                        amount = Integer.parseInt(etAmount.getText().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    String purchasedTotal = "Total = " + amount + " x " + luckyDraw.getPrice() + " = " + amount*luckyDraw.getPrice();
+                    tvTotal.setText(purchasedTotal);
+                } else {
+                    tvTotal.setText("-");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        new VexDialog.Builder(this)
+                .optionType(DialogOptionType.YES_NO)
+                .title(getString(R.string.luckydraw_coupon_amount))
+                .content(getString(R.string.luckydraw_coupon_amount_body))
+                .addCustomView(view)
+                .positiveText(getString(R.string.dialog_get_now))
+                .negativeText(getString(R.string.dialog_cancel))
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        if (TextUtils.isEmpty(etAmount.getText().toString())) {
+                            etAmount.setError(getString(R.string.validate_empty_field));
+                        } else {
+                            dialog.dismiss();
+                            doGoogle2fa(Integer.parseInt(etAmount.getText().toString()));
+                        }
+                    }
+                })
+                .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .autoDismiss(false)
+                .canceledOnTouchOutside(false)
+                .show();
+    }
+
+    private void doGoogle2fa(final int amount) {
         View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
         final EditText etPin = view.findViewById(R.id.et_pin);
 
@@ -271,7 +337,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                             etPin.setError(getString(R.string.validate_empty_field));
                         } else {
                             dialog.dismiss();
-                            doGetLuckyDraw(etPin.getText().toString());
+                            doGetLuckyDraw(etPin.getText().toString(),amount);
                         }
                     }
                 })
@@ -286,9 +352,9 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                 .show();
     }
 
-    private void doGetLuckyDraw(String pin) {
+    private void doGetLuckyDraw(String pin, int amount) {
         User user = User.getCurrentUser(this);
-        mPresenter.buyLuckyDraw(user.getId(), luckyDraw.getId(), pin);
+        mPresenter.buyLuckyDraw(user.getId(), luckyDraw.getId(),amount, pin);
     }
 
     private void getLuckyDrawSuccess() {

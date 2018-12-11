@@ -488,6 +488,19 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="referral_code_field_dialog_desc">Masukan kode referal (opsional)</string>
     <string name="referral_code_field_dialog_et">Kode Referal (opsional)</string>
 
+    <string name="luckydraw_title">LUCKY DRAW</string>
+    <string name="luckydraw_winner_title">PEMENANG LUCKY DRAW</string>
+    <string name="luckydraw_your_coupon">Kupon Saya</string>
+    <string name="luckydraw_total_coupon">Total Kupon</string>
+    <string name="luckydraw">Lucky Draw</string>
+    <string name="luckydraw_detail_desc_title">Deskripsi Kupon</string>
+    <string name="luckydraw_detail_claim_coupon">Ambil Kupon</string>
+    <string name="luckydraw_per_coupon">/kupon</string>
+    <string name="luckydraw_winner">pemenang</string>
+    <string name="luckydraw_coupon_amount">Jumlah kupon</string>
+    <string name="luckydraw_amount_hint">Jumlah kupon</string>
+    <string name="luckydraw_coupon_amount_body">Masukkan jumlah kupon yang ingin didapatkan</string>
+
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
 
 

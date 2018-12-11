@@ -7,7 +7,7 @@ public interface ILuckyDrawPresenter extends BasePresenter {
     void requestLuckyDrawList(int id, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId);
     void requestLuckyDrawById(int id, int luckyDrawId);
     void requestUserLuckyDrawList(int id);
-    void buyLuckyDraw(int id, int luckyDrawId, String token);
+    void buyLuckyDraw(int id, int luckyDrawId, int amount, String token);
     void setUserLuckyDrawAddress(int id, int userLuckyDrawId, String address);
 
 }

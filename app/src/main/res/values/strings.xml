@@ -683,6 +683,9 @@ Your expired and used voucher will be shown here</string>
     <string name="luckydraw_detail_claim_coupon">Get Coupon</string>
     <string name="luckydraw_per_coupon">/coupon</string>
     <string name="luckydraw_winner">Winner</string>
+    <string name="luckydraw_coupon_amount">Coupon Amount</string>
+    <string name="luckydraw_amount_hint">Enter Amount</string>
+    <string name="luckydraw_coupon_amount_body">Please enter the coupon amount that you want to buy</string>
 
     <string name="share_voucher_template">Hi I found best voucher for you. Check here : %s</string>
     <!-- TODO: Remove or change this placeholder text -->
