@@ -72,6 +72,8 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_logout_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_gp_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_faq).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_youtube).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_instagram).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -203,6 +205,12 @@ public class MoreFragment extends BaseFragment {
                 break;
             case R.id.more_terms_button:
                 intentToActivity(TermActivity.class);
+                break;
+            case R.id.more_youtube:
+                StaticGroup.openAndroidBrowser(this.getActivity(), "https://www.youtube.com/channel/UC39E4RaDoa45RZ4h6TEatwg/videos");
+                break;
+            case R.id.more_instagram:
+                StaticGroup.openAndroidBrowser(this.getActivity(), "https://www.instagram.com/vexgift");
                 break;
             case R.id.more_faq:
                 intentToActivity(FaqActivity.class);

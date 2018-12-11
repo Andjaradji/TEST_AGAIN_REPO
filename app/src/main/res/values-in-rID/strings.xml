@@ -329,8 +329,13 @@
     <string name="premium_dialog_desc">Voucher ini hanya untuk member premium saja\nDapatkan Voucher terbaik, Airdrop Token dan keuntungan lainnya : Jadi Premium</string>
     <string name="push_notification_title">Notifikasi</string>
     <string name="more_others">Lainnya</string>
+    <string name="more_social_media">Social Media</string>
+    <string name="more_youtube">Youtube</string>
+    <string name="more_instagram">Instagram</string>
     <string name="more_report_problem">Laporkan Masalah</string>
     <string name="more_rate_us">Berikan penilaian di Google Play</string>
+    <string name="buyback_sell">JUAL</string>
+
     <string name="myprofile_user_info">Informasi Pengguna</string>
     <string name="myprofile_act_address">Alamat Vex (dari Kcash/Achain Wallet)</string>
     <string name="myprofile_document_type_desc">contoh : KTP, SIM</string>

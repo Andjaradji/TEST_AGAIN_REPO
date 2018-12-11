@@ -464,7 +464,8 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                     if(item.getUserPurchasedTotal() < 0) {
                         holder.setText(R.id.tv_your_coupon_count, "0/" + item.getLimitPerUser());
                     }else{
-                        holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() + "/" + item.getLimitPerUser());
+                        holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() +"");
+//                        holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() + "/" + item.getLimitPerUser());
                     }
                     holder.setText(R.id.tv_total_coupon_count, item.getTotalPurchased()+"");
                     holder.setText(R.id.tv_date, item.getCreatedDate());
