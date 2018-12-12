@@ -44,6 +44,8 @@ public class LuckyDraw implements Serializable {
     private long validFrom;
     @JsonProperty("valid_until")
     private long validUntil;
+    @JsonProperty("draw_date")
+    private long drawDate;
     @JsonProperty("country")
     private String country;
     @JsonProperty("region")
@@ -162,6 +164,14 @@ public class LuckyDraw implements Serializable {
 //            validUntil = calendar.getTimeInMillis();
 //        }
         return TimeUnit.SECONDS.toMillis(validUntil);
+    }
+
+    public long getDrawDate() {
+        return drawDate;
+    }
+
+    public void setDrawDate(long drawDate) {
+        this.drawDate = drawDate;
     }
 
     public void setValidUntil(long validUntil) {
