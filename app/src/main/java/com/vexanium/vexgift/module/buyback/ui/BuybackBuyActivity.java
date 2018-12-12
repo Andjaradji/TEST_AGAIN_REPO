@@ -115,7 +115,7 @@ public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implemen
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String purchasedTotal = amountTotal + " " +buybackOption.getCoinName();
+                        String purchasedTotal = String.format("%.010f",amountTotal) + " " +buybackOption.getCoinName();
                         tvPurchasedTotal.setText(purchasedTotal);
                     } else {
                         tvPurchasedTotal.setText("-");

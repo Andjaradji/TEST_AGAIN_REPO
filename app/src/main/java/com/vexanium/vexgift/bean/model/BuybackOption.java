@@ -30,6 +30,8 @@ public class BuybackOption implements Serializable {
     private float maxSell;
     @JsonProperty("limit_sell_per_user")
     private int limitSellPerUser;
+    @JsonProperty("distribution_address_type")
+    private String distributionAddressType;
 
 
     public int getId() {
@@ -112,5 +114,13 @@ public class BuybackOption implements Serializable {
 
     public void setLimitSellPerUser(int limitSellPerUser) {
         this.limitSellPerUser = limitSellPerUser;
+    }
+
+    public String getDistributionAddressType() {
+        return distributionAddressType;
+    }
+
+    public void setDistributionAddressType(String distributionAddressType) {
+        this.distributionAddressType = distributionAddressType;
     }
 }

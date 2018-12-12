@@ -43,7 +43,6 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
@@ -161,8 +160,8 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
                             final EditText etAddress = view.findViewById(R.id.et_address);
 
                             new VexDialog.Builder(BuybackHistoryDetailActivity.this)
-                                    .title("Input distibution address")
-                                    .content("Input your " + buybackHistory.getBuyback().getCoinName() + " address")
+                                    .title("Input distribution address")
+                                    .content(buybackHistory.getBuybackOption().getDistributionAddressType())
                                     .addCustomView(view)
                                     .optionType(DialogOptionType.YES_NO)
                                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
