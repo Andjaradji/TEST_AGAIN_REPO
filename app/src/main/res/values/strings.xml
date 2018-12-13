@@ -385,6 +385,7 @@
     <string name="error_token_empty_header">No Token Found</string>
     <string name="error_deposit_empty_header">No Deposit Found</string>
     <string name="error_token_sale_empty_header">No Token Sale Found</string>
+    <string name="error_buyback_empty_header">No Buyback Found</string>
 
     <string name="error_my_voucher_empty_body">You don\'t have any voucher</string>
     <string name="error_referral_empty_body">You don\'t have any referral</string>
@@ -393,6 +394,7 @@
     <string name="error_history_token_empty_body">You haven\'t redeemed any token</string>
     <string name="error_my_deposit_empty_body">There isn\'t any deposit</string>
     <string name="error_my_token_sale_empty_body">There isn\'t any token sale</string>
+    <string name="error_my_buyback_empty_body">There isn\'t any buyback</string>
 
     <string name="error_vp_point_record_empty_header">No Record Found</string>
     <string name="error_vp_invite_point_empty_header">No Point Found</string>
