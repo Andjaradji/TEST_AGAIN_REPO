@@ -189,8 +189,8 @@ public class BuybackActivity extends BaseActivity<IBuybackPresenter> implements 
         if (buybacks.size() <= 0) {
             mErrorView.setVisibility(View.VISIBLE);
             mIvError.setImageResource(R.drawable.voucher_empty);
-            mTvErrorHead.setText(getString(R.string.error_token_sale_empty_header));
-            mTvErrorBody.setText(getString(R.string.error_my_token_sale_empty_body));
+            mTvErrorHead.setText(getString(R.string.error_buyback_empty_header));
+            mTvErrorBody.setText(getString(R.string.error_my_buyback_empty_body));
 
             mRecyclerview.setVisibility(View.GONE);
         } else {
