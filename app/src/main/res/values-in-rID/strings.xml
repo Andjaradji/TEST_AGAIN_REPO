@@ -59,7 +59,7 @@
     <string name="token_address_field">Masukan alamat aset anda</string>
     <string name="token_address_field_hint">Alamat Aset</string>
     <string name="goods_address_field">Masukan alamat anda untuk pengiriman</string>
-    <string name="goods_address_field_hint">Alamat Pengiriman Anda</string>
+    <string name="goods_address_field_hint">Alamat lengkap, tipe barang, ukuran barang</string>
     <string name="merchant_info_title">Petunjuk penggunaan Voucher</string>
     <string name="merchant_info_desc">Untuk menggunakan voucher ini, salin atau pindah kode ke dalam sistem anda</string>
     <string name="voucher_online_info_title">Petunjuk penggunaan Voucher</string>
