@@ -132,7 +132,9 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                     }
 
                     if(winner.getLuckyDrawId() == luckyDraw.getId()){
-                        winnerText = winnerText + number+". " + winner.getUser().getName();
+                        String email = winner.getUser().getEmail();
+                        String shownEmail = email.substring(0,3) + "***" +email.substring(6,email.length());
+                        winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + shownEmail + ")";
                         number = number + 1;
                     }
                 }

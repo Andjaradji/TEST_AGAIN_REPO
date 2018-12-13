@@ -481,7 +481,9 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                             }
 
                             if(winner.getLuckyDrawId() == item.getId()){
-                                winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + winner.getUser().getEmail() + ")";
+                                String email = winner.getUser().getEmail();
+                                String shownEmail = email.substring(0,3) + "***" +email.substring(6,email.length());
+                                winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + shownEmail + ")";
                                 number = number + 1;
                             }
                         }
