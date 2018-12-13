@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.luckydraw.ui;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -36,6 +37,7 @@ import com.vexanium.vexgift.bean.model.LuckyDrawWinner;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Vendor;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.module.luckydraw.helper.WinnerCoverAsync;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenter;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenterImpl;
 import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
@@ -123,25 +125,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                 ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.VISIBLE);
                 ViewUtil.findViewById(this,R.id.btn_claim).setVisibility(View.GONE);
                 ViewUtil.findViewById(this,R.id.cb_agree).setVisibility(View.GONE);
-                String winnerText = "";
-                int number = 1;
-                for(LuckyDrawWinner winner : luckyDraw.getLuckyDrawWinners()){
-
-                    if(!winnerText.equals("")){
-                        winnerText = winnerText + "\n";
-                    }
-
-                    if(winner.getLuckyDrawId() == luckyDraw.getId()){
-                        String email = winner.getUser().getEmail();
-                        String shownEmail = email.substring(0,3) + "***" +email.substring(6,email.length());
-                        winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + shownEmail + ")";
-                        number = number + 1;
-                    }
-                }
-
-                if(!winnerText.equals("")){
-                    ViewUtil.setText(this,R.id.tv_luckydraw_winner_body, winnerText);
-                }
+                new WinnerCoverAsync((TextView)ViewUtil.findViewById(LuckyDrawDetailActivity.this,R.id.tv_luckydraw_winner_body),luckyDraw).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }else{
                 ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.GONE);
                 ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.GONE);
