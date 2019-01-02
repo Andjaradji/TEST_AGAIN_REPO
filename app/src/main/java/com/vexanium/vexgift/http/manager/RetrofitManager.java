@@ -11,6 +11,7 @@ import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.BuybackHistory;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
@@ -415,6 +416,14 @@ public class RetrofitManager {
         params.put("user_id", id);
 
         return mUserService.getUserVexPoint(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointResponse>>());
+    }
+
+    public Observable<HttpResponse<BannerResponse>> requestBanner(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BannerResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> checkToken(int id, String token) {

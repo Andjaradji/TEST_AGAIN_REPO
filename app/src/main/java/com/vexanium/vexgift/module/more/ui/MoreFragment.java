@@ -2,6 +2,7 @@ package com.vexanium.vexgift.module.more.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.security.ui.SecurityActivity;
@@ -74,6 +76,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_faq).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_youtube).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_instagram).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_guide).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -214,6 +217,14 @@ public class MoreFragment extends BaseFragment {
                 break;
             case R.id.more_faq:
                 intentToActivity(FaqActivity.class);
+                break;
+            case R.id.more_guide:
+                String url = "http://www.vexgift.com/guide/en";
+                if (StaticGroup.isInIDLocale()) {
+                    url = "http://www.vexgift.com/guide/id";
+                }
+                ((MainActivity) getActivity()).openDeepLink("in.app.web?t="+Uri.encode("Vexgift Guide","UTF-8")+"&l=" + Uri.encode(url, "UTF-8"));
+
                 break;
             case R.id.more_logout_button:
                 doLogout();

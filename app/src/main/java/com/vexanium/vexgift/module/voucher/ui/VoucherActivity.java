@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -415,6 +416,11 @@ public class VoucherActivity extends BaseActivity<IVoucherPresenter> implements 
                         holder.setViewGone(R.id.iv_premium, false);
                     else
                         holder.setViewGone(R.id.iv_premium, true);
+
+                    holder.setViewGone(R.id.ll_label, TextUtils.isEmpty(item.getLabel()));
+                    if (!TextUtils.isEmpty(item.getLabel())) {
+                        holder.setText(R.id.tv_label, item.getLabel());
+                    }
 
                     if (item.getVoucherTypeId() != 5) {
                         if (item.getQtyAvailable() == 0) {

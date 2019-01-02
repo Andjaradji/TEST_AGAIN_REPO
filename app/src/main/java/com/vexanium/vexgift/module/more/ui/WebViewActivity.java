@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.more.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -8,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -61,6 +63,14 @@ public class WebViewActivity extends BaseActivity {
             url = getIntent().getStringExtra("url");
             mWvTerm.loadUrl(url);
 
+        }
+
+        if (getIntent().hasExtra("title")) {
+            String title = getIntent().getStringExtra("title");
+            if (!TextUtils.isEmpty(title)) {
+                TextView tvTitle = findViewById(R.id.tv_toolbar_title);
+                tvTitle.setText(title);
+            }
         }
     }
 

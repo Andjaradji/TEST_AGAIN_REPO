@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
@@ -44,6 +42,7 @@ import com.vexanium.vexgift.bean.model.UserLuckyDraw;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenter;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenterImpl;
 import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
@@ -105,13 +104,14 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 //            Intent intent = new Intent(this, ReceiveVoucherActivity.class);
 //            intent.putExtra("code", getIntent().getStringExtra("code"));
 //            startActivity(intent);
-//        } else if (getIntent().hasExtra("id")) {
-//            int id = getIntent().getIntExtra("id", 0);
-//            ArrayList<Voucher> luckyDraws = TableContentDaoUtil.getInstance().getVouchers();
-//            Voucher voucher = StaticGroup.getVoucherById(luckyDraws, id);
-//            if (voucher != null)
-//                StaticGroup.goToVoucherDetailActivity(this, voucher);
-//        }
+//        } else
+        if (getIntent().hasExtra("id")) {
+            int id = getIntent().getIntExtra("id", 0);
+            ArrayList<LuckyDraw> luckyDraws = TableContentDaoUtil.getInstance().getLuckyDraws();
+            LuckyDraw luckyDraw = StaticGroup.getLuckyDrawById(luckyDraws, id);
+            if (luckyDraw != null)
+                StaticGroup.goToLuckyDrawDetailActivity(this, luckyDraw);
+        }
 
         mAviContainer = findViewById(R.id.av_indicator_container);
         mRefreshLayout = findViewById(R.id.srl_refresh);
@@ -151,7 +151,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 
         loadLuckyDrawAsync = new LoadLuckyDrawAsync();
 
-        //luckyDraws = TableContentDaoUtil.getInstance().getVouchers();
+        luckyDraws = TableContentDaoUtil.getInstance().getLuckyDraws();
         if (luckyDraws == null) luckyDraws = new ArrayList<>();
         setLuckyDrawList(luckyDraws);
 
@@ -280,7 +280,6 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
         setFilterItem(R.id.tg_payment, R.id.filter_payment, "payment");
         setFilterItem(R.id.tg_location, R.id.filter_location, "location");
 
-
         mPanelScrollview.setOnScrollListener(new LockableScrollView.OnScrollListener() {
             @Override
             public void onScrollChanged(LockableScrollView scrollView, int x, int y, int oldX, int oldY) {
@@ -304,7 +303,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
         if (data != null) {
             if (data instanceof LuckyDrawListResponse) {
                 LuckyDrawListResponse luckyDrawListResponse = (LuckyDrawListResponse) data;
-                //TableContentDaoUtil.getInstance().saveVouchersToDb(JsonUtil.toString(vouchersResponse));
+                TableContentDaoUtil.getInstance().saveLuckdrawsToDb(JsonUtil.toString(luckyDrawListResponse));
                 tempLuckyDraws = luckyDrawListResponse.getLuckyDraws();
 
                 mPresenter.requestUserLuckyDrawList(user.getId());

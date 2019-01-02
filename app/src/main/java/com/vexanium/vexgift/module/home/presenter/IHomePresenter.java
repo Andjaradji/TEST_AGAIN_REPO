@@ -15,4 +15,6 @@ public interface IHomePresenter extends BasePresenter {
 
     void requestUserVexPoint(int userId);
 
+    void requestBanner(int userId);
+
 }

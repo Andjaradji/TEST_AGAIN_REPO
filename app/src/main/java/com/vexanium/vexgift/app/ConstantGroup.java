@@ -39,4 +39,5 @@ public class ConstantGroup {
     public static final String SUPPORT_EMAIL = "support@vexgift.com";
 
     public static final String KEY_LAST_LINK_VERSIONS = "key_last_link_version";
+    public static final String DEFAULT_REF_GUIDANCE_LINK = "http://blog.vexanium.com/";
 }

@@ -103,7 +103,6 @@ import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
  */
 
 public class StaticGroup {
-    public static final int DEPOSIT = 0;
     public static final int SHORTCUT_BAR = 1;
     public static final int HOT_LIST = 2;
     public static final int EXPLORE_BAR = 3;
@@ -111,10 +110,8 @@ public class StaticGroup {
     public static final int NORMAL_COUPON = 5;
     public static final int COMPLETE_FORM = 6;
     public static final int CONNECT_FB = 7;
-    public static final int DEPOSIT_BANNER = 8;
-    public static final int TOKEN_FREEZE_BANNER = 9;
-    public static final int REFERRAL_BANNER = 10;
-    public static final int BUYBACK_BANNER = 11;
+    public static final int BANNER_A = 10;
+    public static final int BANNER_B = 11;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
@@ -869,9 +866,15 @@ public class StaticGroup {
     }
 
     public static Voucher getVoucherById(ArrayList<Voucher> origin, int id) {
-        ArrayList<Voucher> vouchers = new ArrayList<>();
         for (Voucher voucher : origin) {
             if (voucher.getId() == id) return voucher;
+        }
+        return null;
+    }
+
+    public static LuckyDraw getLuckyDrawById(ArrayList<LuckyDraw> origin, int id) {
+        for (LuckyDraw luckyDraw : origin) {
+            if (luckyDraw.getId() == id) return luckyDraw;
         }
         return null;
     }
@@ -1456,12 +1459,31 @@ public class StaticGroup {
         }
     }
 
+
+    public static boolean isTokenFreezeBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_token_freeze_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_token_freeze_banner_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
     public static long getEmailResendCountdown() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("email_resend_countdown") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("email_resend_countdown"));
         } else {
             return EMAIL_RESEND_TIME;
+        }
+    }
+
+    public static String getStringValFromSettingKey(String key){
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if(settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))){
+            return settingResponse.getSettingStringValByKey(key);
+        }else {
+            return "";
         }
     }
 

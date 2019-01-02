@@ -36,12 +36,12 @@
     <string name="notif_is_available">[%s] is available now! Go and claim yours!</string>
 
     <string name="notif_item_time_now">Just now</string>
-    <string name="notif_item_time_min">%d min ago</string>
-    <string name="notif_item_time_hour">%d hr ago</string>
-    <string name="notif_item_time_day">%d d ago</string>
-    <string name="notif_item_time_week">%d w ago</string>
-    <string name="notif_item_time_month">%d m ago</string>
-    <string name="notif_item_time_year">%d yr ago</string>
+    <string name="notif_item_time_min">%dmin ago</string>
+    <string name="notif_item_time_hour">%dhr ago</string>
+    <string name="notif_item_time_day">%dd ago</string>
+    <string name="notif_item_time_week">%dw ago</string>
+    <string name="notif_item_time_month">%dm ago</string>
+    <string name="notif_item_time_year">%dyr ago</string>
 
     <string name="days">%d Day(s)</string>
 
@@ -247,6 +247,8 @@
     <string name="more_premium_member">Premium Member</string>
     <string name="more_security">Security</string>
     <string name="more_others">Others</string>
+    <string name="more_guide">First Time Guide</string>
+    <string name="more_helps">Help</string>
     <string name="more_social_media">Social Media</string>
 
     <string name="more_youtube">Youtube</string>

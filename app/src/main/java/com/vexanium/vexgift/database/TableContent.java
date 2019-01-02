@@ -22,15 +22,17 @@ public class TableContent {
     private String bestVoucher;
     private String featuredVoucher;
     private String referrals;
+    private String luckydraws;
+    private String banners;
     private long createdTime;
     private long updatedTime;
 
 
-    @Generated(hash = 287081520)
+    @Generated(hash = 143465161)
     public TableContent(long id, String vouchers, String tokens, String notifs, String myBoxs,
-                        String voucherTypes, String paymentTypes, String memberTypes, String categories,
-                        String bestVoucher, String featuredVoucher, String referrals, long createdTime,
-                        long updatedTime) {
+            String voucherTypes, String paymentTypes, String memberTypes, String categories,
+            String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
+            String banners, long createdTime, long updatedTime) {
         this.id = id;
         this.vouchers = vouchers;
         this.tokens = tokens;
@@ -43,6 +45,8 @@ public class TableContent {
         this.bestVoucher = bestVoucher;
         this.featuredVoucher = featuredVoucher;
         this.referrals = referrals;
+        this.luckydraws = luckydraws;
+        this.banners = banners;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
     }
@@ -162,5 +166,21 @@ public class TableContent {
 
     public void setReferrals(String referrals) {
         this.referrals = referrals;
+    }
+
+    public String getBanners() {
+        return this.banners;
+    }
+
+    public void setBanners(String banners) {
+        this.banners = banners;
+    }
+
+    public String getLuckydraws() {
+        return this.luckydraws;
+    }
+
+    public void setLuckydraws(String luckydraws) {
+        this.luckydraws = luckydraws;
     }
 }

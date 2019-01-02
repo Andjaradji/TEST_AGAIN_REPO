@@ -9,15 +9,17 @@
         android:id="@+id/ll_banner"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:layout_margin="@dimen/interval_submain">
+        android:layout_marginLeft="@dimen/interval_submain"
+        android:layout_marginTop="@dimen/interval_content"
+        android:layout_marginBottom="@dimen/interval_content"
+        android:layout_marginRight="@dimen/interval_submain">
 
         <ImageView
             android:id="@+id/iv_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/depo" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:id="@+id/ad_list_item_fb_frame_image"
