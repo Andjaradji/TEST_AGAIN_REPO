@@ -46,6 +46,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.module.luckydraw.helper.WinnerCoverAsync;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenter;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenterImpl;
 import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
@@ -417,7 +418,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
                         holder.setViewGone(R.id.iv_premium, true);
 
                     if(item.getUserPurchasedTotal() < 0) {
-                        holder.setText(R.id.tv_your_coupon_count, "?/" + item.getLimitPerUser());
+                        holder.setText(R.id.tv_your_coupon_count, "0/" + item.getLimitPerUser());
                     }else{
                         holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() + "/" + item.getLimitPerUser());
                     }
@@ -426,25 +427,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
 
                     if(item.getLuckyDrawWinners()!=null && item.getLuckyDrawWinners().size() > 0){
                         holder.setViewGone(R.id.ll_winner_container,false);
-                        String winnerText = "";
-                        int number = 1;
-                        for(LuckyDrawWinner winner : item.getLuckyDrawWinners()){
-
-                            if(!winnerText.equals("")){
-                                winnerText = winnerText + "\n";
-                            }
-
-                            if(winner.getLuckyDrawId() == item.getId()){
-                                String email = winner.getUser().getEmail();
-                                String shownEmail = email.substring(0,3) + "***" +email.substring(6,email.length());
-                                winnerText = winnerText + number+". " + winner.getUser().getName() + " (" + shownEmail + ")";
-                                number = number + 1;
-                            }
-                        }
-
-                        if(!winnerText.equals("")){
-                            holder.setText(R.id.tv_winner, winnerText);
-                        }
+                        new WinnerCoverAsync(holder.getTextView(R.id.tv_winner),item).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }else{
                         holder.setViewGone(R.id.ll_winner_container,true);
                     }
