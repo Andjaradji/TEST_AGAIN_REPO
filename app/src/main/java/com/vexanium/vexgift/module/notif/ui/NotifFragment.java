@@ -76,6 +76,12 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         if (data != null) {
             if (data instanceof NotificationResponse) {
                 dataList = new ArrayList<>(((NotificationResponse) data).getNotifications());
+                Collections.sort(dataList, new Comparator<NotificationModel>() {
+                    @Override
+                    public int compare(NotificationModel notificationModel, NotificationModel t1) {
+                        return t1.getCreatedAt().compareTo(notificationModel.getCreatedAt());
+                    }
+                });
                 initNotifList();
             }
         }
@@ -169,8 +175,8 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
             dataList = new ArrayList<>();
         Collections.sort(dataList, new Comparator<NotificationModel>() {
             @Override
-            public int compare(NotificationModel notification, NotificationModel t1) {
-                return t1.getCreatedAtDate().compareTo(notification.getCreatedAtDate());
+            public int compare(NotificationModel notificationModel, NotificationModel t1) {
+                return notificationModel.getCreatedAt().compareTo(t1.getCreatedAt());
             }
         });
         KLog.json("HPtes", JsonUtil.toString(dataList));

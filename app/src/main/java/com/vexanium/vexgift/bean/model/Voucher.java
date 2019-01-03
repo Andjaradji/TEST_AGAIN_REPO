@@ -32,6 +32,8 @@ public class Voucher implements Serializable {
     private String termsAndCond;
     @JsonProperty("voucher_type")
     private VoucherType voucherType;
+    @JsonProperty("label")
+    private String label;
 
     /*
      * Free
@@ -391,5 +393,13 @@ public class Voucher implements Serializable {
 
     public void setLoyaltyPointRequired(int loyaltyPointRequired) {
         this.loyaltyPointRequired = loyaltyPointRequired;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -13,6 +13,8 @@ public class Setting implements Serializable {
     private String name;
     @JsonProperty("value")
     private long value;
+    @JsonProperty("text")
+    private String text;
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
@@ -40,6 +42,14 @@ public class Setting implements Serializable {
 
     public void setValue(long value) {
         this.value = value;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getCreatedAt() {

@@ -2,7 +2,9 @@ package com.vexanium.vexgift.module.home.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
+import com.vexanium.vexgift.bean.model.Banner;
 import com.vexanium.vexgift.bean.model.Kyc;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
@@ -99,4 +101,17 @@ public class IHomeInteractorImpl implements IHomeInteractor {
                 .subscribe(new BaseSubscriber<>(callback));
     }
 
+    @Override
+    public Subscription requestBanner(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBanner(id).compose(RxUtil.<BannerResponse>handleResult())
+                .flatMap(new Func1<BannerResponse, Observable<BannerResponse>>() {
+                    @Override
+                    public Observable<BannerResponse> call(BannerResponse bannerResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(bannerResponse));
+                        return Observable.just(bannerResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
 }

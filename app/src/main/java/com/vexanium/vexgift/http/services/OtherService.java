@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.model.BuybackHistory;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
@@ -41,6 +42,13 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("setting")
     Observable<HttpResponse<SettingResponse>> getSettings(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("banner")
+    Observable<HttpResponse<BannerResponse>> getBanners(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

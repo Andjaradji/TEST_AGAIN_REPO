@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/interval_content"
     android:gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/interval_content"
     android:orientation="vertical">
 
     <com.vexanium.vexgift.widget.discretescrollview.DiscreteScrollView

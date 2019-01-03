@@ -37,10 +37,12 @@ import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
+import com.vexanium.vexgift.bean.model.Banner;
 import com.vexanium.vexgift.bean.model.BestVoucher;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
@@ -51,16 +53,14 @@ import com.vexanium.vexgift.bean.response.VexPointResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
-import com.vexanium.vexgift.module.buyback.ui.BuybackActivity;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
-import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.exchanger.ui.BuyVexActivity;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenter;
 import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
-import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.tokensale.ui.TokenSaleActivity;
 import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
@@ -84,17 +84,15 @@ import java.util.ArrayList;
 import rx.Observable;
 import rx.functions.Action1;
 
-import static com.vexanium.vexgift.app.StaticGroup.BUYBACK_BANNER;
+import static com.vexanium.vexgift.app.StaticGroup.BANNER_A;
+import static com.vexanium.vexgift.app.StaticGroup.BANNER_B;
 import static com.vexanium.vexgift.app.StaticGroup.CATEGORY_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.COMPLETE_FORM;
 import static com.vexanium.vexgift.app.StaticGroup.CONNECT_FB;
-import static com.vexanium.vexgift.app.StaticGroup.DEPOSIT_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.EXPLORE_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
-import static com.vexanium.vexgift.app.StaticGroup.REFERRAL_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
-import static com.vexanium.vexgift.app.StaticGroup.TOKEN_FREEZE_BANNER;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
@@ -114,6 +112,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private ArrayList<HomeFeedResponse> data;
     private ArrayList<BestVoucher> featuredVoucherList;
     private ArrayList<BestVoucher> bestVoucherList;
+    private ArrayList<Banner> banners;
     private BaseRecyclerAdapter<BestVoucher> mFeaturedAdapter;
     private User user;
     private Animation mFadeIn;
@@ -174,8 +173,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         } else {
             featuredVoucherList = new ArrayList<>();
         }
+        BannerResponse bannerResponse = TableContentDaoUtil.getInstance().getBanners();
+        if (bannerResponse != null) {
+            banners = bannerResponse.getBanners();
+        } else {
+            banners = new ArrayList<>();
+        }
 
-        loadData(bestVoucherList, featuredVoucherList);
+        loadData(bestVoucherList, featuredVoucherList, banners);
         initHomeList();
 
         updateUserInfo(fragmentRootView);
@@ -257,6 +262,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestVoucherList(user.getId());
         mPresenter.requestUserVexPoint(user.getId());
         mPresenter.requestUserPremiumDueDate(user.getId());
+        mPresenter.requestBanner(user.getId());
 
         mVexPointObservable = RxBus.get().register(RxBus.KEY_VEXPOINT_UPDATE, Integer.class);
         mVexPointObservable.subscribe(new Action1<Integer>() {
@@ -291,10 +297,19 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 KLog.json(JsonUtil.toString(bestVoucherResponse));
                 TableContentDaoUtil.getInstance().saveBestVoucherToDb(JsonUtil.toString(bestVoucherResponse));
                 bestVoucherList = bestVoucherResponse.getBestVouchers();
-                loadData(bestVoucherList, featuredVoucherList);
+                loadData(bestVoucherList, featuredVoucherList, banners);
 
                 setAdapterData();
 
+            } else if (data instanceof BannerResponse) {
+                BannerResponse bannerResponse = (BannerResponse) data;
+
+                KLog.v("HomeFragment", "handleResult: Load Banners");
+                TableContentDaoUtil.getInstance().saveBannersToDb(JsonUtil.toString(bannerResponse));
+                banners = bannerResponse.getBanners();
+                loadData(bestVoucherList, featuredVoucherList, banners);
+
+                setAdapterData();
             } else if (data instanceof FeaturedVoucherResponse) {
                 FeaturedVoucherResponse bestVoucherResponse = (FeaturedVoucherResponse) data;
                 KLog.v("HomeFragment", "HPtes handleResult: Load Featured Voucher");
@@ -303,15 +318,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
                 TableContentDaoUtil.getInstance().saveFeaturedVoucherToDb(JsonUtil.toString(bestVoucherResponse));
                 featuredVoucherList = bestVoucherResponse.getFeaturedVoucher();
-                loadData(bestVoucherList, featuredVoucherList);
+                loadData(bestVoucherList, featuredVoucherList, banners);
 
                 setAdapterData();
             } else if (data instanceof Kyc) {
                 Kyc kyc = (Kyc) data;
                 user.updateKyc(kyc);
                 User.updateCurrentUser(HomeFragment.this.getActivity(), user);
-                loadData(bestVoucherList, featuredVoucherList);
-
+                loadData(bestVoucherList, featuredVoucherList, banners);
                 setAdapterData();
             } else if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
@@ -442,49 +456,57 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestKyc(user.getId());
         mPresenter.requestUserVexPoint(user.getId());
         mPresenter.requestUserPremiumDueDate(user.getId());
+        mPresenter.requestBanner(user.getId());
     }
 
-    public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher) {
+    public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher, ArrayList<Banner> banners) {
 
         data = new ArrayList<>();
-        int idx = -1;
-
-        data.add(++idx, new HomeFeedResponse(SHORTCUT_BAR));
+        data.add(new HomeFeedResponse(SHORTCUT_BAR));
+        ArrayList<Banner> aboveBanner = new ArrayList<>();
+        ArrayList<Banner> belowBanner = new ArrayList<>();
 
         if (featuredVoucher != null && featuredVoucher.size() > 0) {
-            data.add(++idx, new HomeFeedResponse(HOT_LIST, featuredVoucher));
+            data.add(new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
-        if (StaticGroup.isReferralBannerActive()) {
-            data.add(++idx, new HomeFeedResponse(REFERRAL_BANNER));
+        if (banners != null) {
+            for (Banner banner : banners) {
+                if (banner.getPriority() < 100) {
+                    aboveBanner.add(banner);
+                } else {
+                    belowBanner.add(banner);
+                }
+            }
         }
 
-        if(StaticGroup.isBuybackBannerActive()){
-            data.add(++idx, new HomeFeedResponse(BUYBACK_BANNER));
+        for (Banner banner : aboveBanner) {
+            data.add(new HomeFeedResponse(BANNER_A, banner));
         }
 
 //        data.add(++idx, new HomeFeedResponse(EXPLORE_BAR));
 
-//        if(StaticGroup.isDepositAvailable()) {
-//            data.add(++idx, new HomeFeedResponse(DEPOSIT_BANNER));
-//        }
-
-//        if(StaticGroup.isDepositAvailable()) {
-        data.add(++idx, new HomeFeedResponse(TOKEN_FREEZE_BANNER));
-//        }
-
-
         if (bestVouchers != null && bestVouchers.size() > 0) {
             // TODO: 25/08/18 change title
-            data.add(++idx, new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", ""));
+            data.add(new HomeFeedResponse(CATEGORY_BAR, bestVouchers, "Best Voucher", ""));
         }
 
+        for (Banner banner : belowBanner) {
+            data.add(new HomeFeedResponse(BANNER_B, banner));
+        }
+
+//        if (banners != null) {
+//            for (Banner banner : banners) {
+//                if (banner.getPriority() >= 100) {
+//                    KLog.v("HomeFragment","loadData: KenTes "+banner.getName());
+//                    data.add( new HomeFeedResponse(BANNER, banner));
+//                }
+//            }
+//        }
+
         if (user.getKyc() == null || !user.isKycApprove())
-            data.add(++idx, new HomeFeedResponse(COMPLETE_FORM));
+            data.add(new HomeFeedResponse(COMPLETE_FORM));
 
-
-//        data.add(2, new HomeFeedResponse(COMPLETE_FORM));
-//        data.add(3, new HomeFeedResponse(CONNECT_FB));
     }
 
     public void initHomeList() {
@@ -512,14 +534,10 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         return R.layout.item_fill_kyc;
                     case CONNECT_FB:
                         return R.layout.item_connect_fb;
-                    case DEPOSIT_BANNER:
+                    case BANNER_A:
                         return R.layout.item_image_banner;
-                    case BUYBACK_BANNER:
-                        return R.layout.item_buyback_banner;
-                    case TOKEN_FREEZE_BANNER:
-                        return R.layout.item_vaults_banner;
-                    case REFERRAL_BANNER:
-                        return R.layout.item_referral_banner;
+                    case BANNER_B:
+                        return R.layout.item_image_banner;
                     case NORMAL_COUPON:
                     default:
                         return R.layout.item_coupon_list;
@@ -632,28 +650,28 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             setFeaturedVoucherList(holder, (ArrayList<BestVoucher>) item.object);
                         }
                         break;
-                    case EXPLORE_BAR:
-                        holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
-                                intent.putExtra("isToken", true);
-                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
-                                startActivity(intent);
-                            }
-                        });
-                        holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
-                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
-                                startActivity(intent);
-                            }
-                        });
-
-                        break;
+//                    case EXPLORE_BAR:
+//                        holder.setOnClickListener(R.id.token_button, new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                if (ClickUtil.isFastDoubleClick()) return;
+//                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+//                                intent.putExtra("isToken", true);
+//                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                        holder.setOnClickListener(R.id.voucher_button, new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                if (ClickUtil.isFastDoubleClick()) return;
+//                                Intent intent = new Intent(HomeFragment.this.getActivity(), VoucherActivity.class);
+//                                RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+//                                startActivity(intent);
+//                            }
+//                        });
+//
+//                        break;
                     case CATEGORY_BAR:
                         holder.setText(R.id.tv_category_title, item.title);
                         holder.setText(R.id.tv_category_desc, item.desc);
@@ -678,51 +696,49 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                             }
                         });
                         break;
-                    case BUYBACK_BANNER:
+                    case BANNER_A:
+                        if (!(item.object instanceof Banner)) break;
+                        final Banner banner = (Banner) item.object;
+                        KLog.v("HomeFragment", "VPtes image " + banner.getImage());
+                        KLog.v("HomeFragment", "VPtes name " + banner.getName());
+                        holder.setImageUrl(R.id.iv_banner, banner.getImage(), R.drawable.placeholder);
                         holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                if ((banner.isRequiredKyc() && (!user.isAuthenticatorEnable() || !user.isKycApprove())) || ((User.getUserAddressStatus() != 1)
+                                        && TextUtils.isEmpty(user.getActAddress()) && banner.isRequiredVerificationAddress())) {
                                     StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
                                 } else {
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), BuybackActivity.class);
-                                    startActivity(intent);
+                                    if (banner.isRequiredPremium() && !user.isPremiumMember()) {
+                                        StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                                    } else {
+                                        ((MainActivity) HomeFragment.this.getActivity()).openDeepLink(banner.getLink());
+                                    }
                                 }
                             }
                         });
                         break;
-                    case DEPOSIT_BANNER:
+                    case BANNER_B:
+                        if (!(item.object instanceof Banner)) break;
+                        final Banner bannerB = (Banner) item.object;
+                        KLog.v("HomeFragment", "VPtes image " + bannerB.getImage());
+                        KLog.v("HomeFragment", "VPtes name " + bannerB.getName());
+                        holder.setImageUrl(R.id.iv_banner, bannerB.getImage(), R.drawable.placeholder);
                         holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (ClickUtil.isFastDoubleClick()) return;
-                                if (!user.isAuthenticatorEnable() || !user.isKycApprove() || (User.getUserAddressStatus() != 1) && TextUtils.isEmpty(user.getActAddress())) {
+                                if ((bannerB.isRequiredKyc() && (!user.isAuthenticatorEnable() || !user.isKycApprove())) || ((User.getUserAddressStatus() != 1)
+                                        && TextUtils.isEmpty(user.getActAddress()) && bannerB.isRequiredVerificationAddress())) {
                                     StaticGroup.openRequirementDialog(HomeFragment.this.getActivity(), true);
                                 } else {
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), DepositActivity.class);
-                                    startActivity(intent);
+                                    if (bannerB.isRequiredPremium() && !user.isPremiumMember()) {
+                                        StaticGroup.showPremiumMemberDialog(HomeFragment.this.getActivity());
+                                    } else {
+                                        ((MainActivity) HomeFragment.this.getActivity()).openDeepLink(bannerB.getLink());
+                                    }
                                 }
-                            }
-                        });
-                        break;
-                    case TOKEN_FREEZE_BANNER:
-                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-                                Intent intent = new Intent(HomeFragment.this.getActivity(), TokenFreezeActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        break;
-                    case REFERRAL_BANNER:
-                        holder.setOnClickListener(R.id.ll_banner, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (ClickUtil.isFastDoubleClick()) return;
-                                Intent intent = new Intent(HomeFragment.this.getActivity(), ReferralActivity.class);
-                                startActivity(intent);
                             }
                         });
                         break;
@@ -788,6 +804,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
                 holder.setText(R.id.tv_coupon_title, item.getTitle());
                 holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+
+                holder.setViewGone(R.id.ll_label, TextUtils.isEmpty(item.getLabel()));
+                if (!TextUtils.isEmpty(item.getLabel())) {
+                    holder.setText(R.id.tv_label, item.getLabel());
+                }
 
                 if (item.getQtyAvailable() == 0) {
                     holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
