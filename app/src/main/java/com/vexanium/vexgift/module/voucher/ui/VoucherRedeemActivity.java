@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -60,7 +61,9 @@ import com.vexanium.vexgift.widget.guideview.nextbutton.NextButton;
 import net.glxn.qrgen.android.QRCode;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -89,6 +92,9 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
     private static final int GOODS_VOUCHER_REDEEMED = 402;
 
     private final int GUIDE_ANIMATION_INTERVAL = 400;
+
+    private boolean fromButton = false;
+
     int animStepCounter = 0;
     VexGuideView vexGuideView;
     private CountDownTimer animationCountDownTimer;
@@ -269,7 +275,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     if (voucherCodeResponse.getVoucherCode().isDeactivated()) {
                         state = VOUCHER_VENDOR_REDEEMED;
                     }
-                    updateView();
+                    updateView(fromButton);
                 }
             }
 
@@ -476,6 +482,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            fromButton = true;
                             mPresenter.requestRedeeemVoucher(user.getId(), voucherCode.getId(), merchantCode, code, voucher.getId());
                         }
                     })
@@ -516,6 +523,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            fromButton = true;
                             mPresenter.requestRedeeemVoucherWithAddress(user.getId(), voucherCode.getId(), merchantCode, code, voucher.getId());
                         }
                     })
@@ -566,7 +574,11 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 .show();
     }
 
-    private void updateView() {
+    private void updateView(){
+        updateView(fromButton);
+    }
+
+    private void updateView(boolean fromButton) {
         switch (state) {
             case TOKEN:
                 KLog.v("VoucherRedeemActivity", "updateView: TOKEN ACTIVE");
@@ -637,7 +649,15 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.voucher_online_button));
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
-                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                if(!fromButton) {
+                    ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                }else {
+                    Date c = Calendar.getInstance().getTime();
+                    
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                    String formattedDate = df.format(c);
+                    ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
+                }
                 setCode(voucherCode.getVoucherCode());
                 break;
             case VOUCHER_3RD_REDEEMED:
@@ -656,7 +676,15 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_3rd_party_info_desc));
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.voucher_online_button));
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
-                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                if(!fromButton) {
+                    ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                }else {
+                    Date c = Calendar.getInstance().getTime();
+                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                    String formattedDate = df.format(c);
+                    ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
+                }
                 break;
             case VOUCHER_VENDOR:
                 KLog.v("VoucherRedeemActivity", "updateView: VOUCHER ACTIVE");
@@ -698,7 +726,15 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
-                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                if(!fromButton) {
+                    ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                }else {
+                    Date c = Calendar.getInstance().getTime();
+                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                    String formattedDate = df.format(c);
+                    ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
+                }
                 break;
             case TOKEN_REDEEMED:
             case GOODS_VOUCHER_REDEEMED:
@@ -716,7 +752,15 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_redeemed));
-                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                if(!fromButton) {
+                    ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                }else {
+                    Date c = Calendar.getInstance().getTime();
+                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                    String formattedDate = df.format(c);
+                    ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
+                }
                 ViewUtil.setText(this, R.id.tv_address_sent, voucherCode.getAddress());
                 break;
             case VOUCHER_IS_BEING_GIFTED:
@@ -732,7 +776,15 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setBnwImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setBnwImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_voucher_inactive, getString(R.string.coupon_gifted));
-                ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                if(!fromButton) {
+                    ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
+                }else {
+                    Date c = Calendar.getInstance().getTime();
+                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                    String formattedDate = df.format(c);
+                    ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
+                }
                 break;
             case VOUCHER_EXPIRED:
                 KLog.v("VoucherRedeemActivity", "updateView: VOUCHER EXPIRED");
@@ -751,6 +803,9 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 ViewUtil.setText(this, R.id.tv_inactive_time, voucher.getExpiredDate());
                 break;
         }
+
+        if(fromButton)
+            this.fromButton = false;
 
         boolean isAlreadyGuideSendVoucher = TpUtil.getInstance(App.getContext()).getBoolean(TpUtil.KEY_IS_ALREADY_GUIDE_SEND_VOUCHER, false);
         if (!isAlreadyGuideSendVoucher && (state == TOKEN || state == VOUCHER_ONLINE || state == VOUCHER_3RD || state == VOUCHER_VENDOR || state == GOODS_VOUCHER)) {

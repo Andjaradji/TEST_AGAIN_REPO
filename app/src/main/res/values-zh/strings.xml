@@ -311,7 +311,7 @@
     <string name="forgot_password_button">重置密码</string>
     <string name="forgot_password_success_title">重置密码</string>
     <string name="forgot_password_code_title">重置密码确认</string>
-    <string name="more_security">安全性</string>
+    <string name="more_security">安全与登入</string>
     <string name="security_toolbar_title">安全性</string>
     <string name="myprofile_id_selfie_desc">自拍</string>
     <string name="more_send_feedback">反馈</string>
@@ -334,7 +334,7 @@
     <string name="more_youtube">Youtube</string>
     <string name="more_instagram">Instagram</string>
     <string name="more_report_problem">举报问题</string>
-    <string name="more_rate_us">在Google Play给我们个点评</string>
+    <string name="more_rate_us">上 Google Play 给我们个点评</string>
     <string name="buyback_sell">卖出</string>
     <string name="myprofile_user_info">用户信息</string>
     <string name="myprofile_act_address">VEX地址(从Kcash/Achain 钱包)</string>

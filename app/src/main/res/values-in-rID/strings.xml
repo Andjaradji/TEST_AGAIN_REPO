@@ -36,7 +36,7 @@
     <string name="home_brand_coupon_title">Vendor Merchant</string>
     <string name="see_more_title">Tampilkan Semua</string>
     <string name="coupon_redeem_availability">Voucher akan kadaluarsa dalam :</string>
-    <string name="coupon_redeemed">Voucher sudah digunakan tanggal :</string>
+    <string name="coupon_redeemed">Voucher sudah didapatkan tanggal :</string>
     <string name="coupon_gifted">Voucher sudah dihadiahkan tanggal :</string>
     <string name="coupon_expired">Voucher sudah kadaluarsa tanggal :</string>
     <string name="coupon_detail_availability">Ketersediaan Voucher</string>
