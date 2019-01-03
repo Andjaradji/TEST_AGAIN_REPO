@@ -48,8 +48,8 @@ public class BoxHistoryFragment extends BaseFragment {
         mTabBarView = fragmentRootView.findViewById(R.id.ittbv_tabview);
         mBackButton = fragmentRootView.findViewById(R.id.ib_back);
 
-        mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
-        mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
+        mTabBarView.addTabView(0, R.drawable.box_voucher, getString(R.string.shortcut_my_voucher));
+        mTabBarView.addTabView(1, R.drawable.box_token, getString(R.string.shortcut_my_token));
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
         mViewPager.setAdapter(boxPagerAdapter);

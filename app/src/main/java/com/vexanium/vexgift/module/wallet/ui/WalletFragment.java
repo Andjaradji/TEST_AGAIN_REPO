@@ -48,7 +48,7 @@ public class WalletFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "MY WALLET");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_my_wallet));
 
         mRecycler = fragmentRootView.findViewById(R.id.rv_wallet_coin);
         mTotalAsset = fragmentRootView.findViewById(R.id.tv_total_asset);

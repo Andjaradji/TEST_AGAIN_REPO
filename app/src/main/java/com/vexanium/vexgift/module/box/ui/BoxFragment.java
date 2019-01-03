@@ -65,8 +65,8 @@ public class BoxFragment extends BaseFragment {
         mNotifText = fragmentRootView.findViewById(R.id.tv_notif_info);
         mNotifSeeMore = fragmentRootView.findViewById(R.id.tv_notif_see_all);
 
-        mTabBarView.addTabView(0, R.drawable.box_voucher, "My Voucher");
-        mTabBarView.addTabView(1, R.drawable.box_token, "My Token");
+        mTabBarView.addTabView(0, R.drawable.box_voucher, getString(R.string.shortcut_my_voucher));
+        mTabBarView.addTabView(1, R.drawable.box_token, getString(R.string.shortcut_my_token));
 
         BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
         mViewPager.setPagingEnabled(true);

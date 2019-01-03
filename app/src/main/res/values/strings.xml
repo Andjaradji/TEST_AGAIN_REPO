@@ -200,6 +200,7 @@
     <string name="shortcut_shop">SHOP</string>
     <string name="shortcut_vex">BUY VEX</string>
     <string name="shortcut_more">MORE</string>
+    <string name="shortcut_notification">NOTIFICATION</string>
 
     <string name="home_explore_voucher">GIFT VOUCHER</string>
     <string name="home_explore_voucher_desc">Various of \nGift Voucher</string>
@@ -241,6 +242,7 @@
     <string name="push_sound">Sound</string>
     <string name="push_vibrate">Vibrate</string>
 
+    <string name="title_more">MORE</string>
     <string name="more_account">Account</string>
     <string name="more_myprofile">My Profile</string>
     <string name="more_setting">Setting</string>

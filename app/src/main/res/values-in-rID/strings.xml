@@ -561,6 +561,8 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="kyc_choose_method">Pilih cara untuk mengambil gambar</string>
     <string name="kyc_from_camera">Ambil gambar</string>
     <string name="kyc_from_gallery">Pilih dari gallery</string>
+    <string name="shortcut_notification">NOTIFIKASI</string>
+    <string name="title_more">MORE</string>
 
 
 </resources>
