@@ -2,13 +2,10 @@ package com.vexanium.vexgift.module.buyback.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.model.BuybackHistory;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
-import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
-import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;

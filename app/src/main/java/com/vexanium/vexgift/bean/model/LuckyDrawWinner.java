@@ -1,16 +1,9 @@
 package com.vexanium.vexgift.bean.model;
 
-import android.text.TextUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vexanium.vexgift.app.StaticGroup;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LuckyDrawWinner implements Serializable {

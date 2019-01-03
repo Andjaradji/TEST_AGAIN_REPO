@@ -2,8 +2,6 @@ package com.vexanium.vexgift.module.luckydraw.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.module.home.model.IHomeInteractorImpl;
-import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.luckydraw.model.ILuckyDrawInteractor;
 import com.vexanium.vexgift.module.luckydraw.model.ILuckyDrawInteractorImpl;
 import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
