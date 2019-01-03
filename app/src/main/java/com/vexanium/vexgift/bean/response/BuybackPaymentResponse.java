@@ -3,7 +3,6 @@ package com.vexanium.vexgift.bean.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.bean.model.BuybackHistory;
-import com.vexanium.vexgift.bean.model.TokenSalePayment;
 
 import java.io.Serializable;
 

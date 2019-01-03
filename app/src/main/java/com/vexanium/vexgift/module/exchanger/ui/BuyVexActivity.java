@@ -1,7 +1,5 @@
 package com.vexanium.vexgift.module.exchanger.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,13 +16,10 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.fixture.Exchanger;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.model.Exchange;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.module.exchanger.presenter.IExchangePresenter;
 import com.vexanium.vexgift.module.exchanger.presenter.IExchangePresenterImpl;
 import com.vexanium.vexgift.module.exchanger.view.IExchangeView;

@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.http.services;
 
-import com.vexanium.vexgift.bean.model.BuybackHistory;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;

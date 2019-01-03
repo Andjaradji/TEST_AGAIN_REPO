@@ -5,9 +5,6 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.exchanger.model.IExchangeInteractor;
 import com.vexanium.vexgift.module.exchanger.model.IExchangeInteractorImpl;
 import com.vexanium.vexgift.module.exchanger.view.IExchangeView;
-import com.vexanium.vexgift.module.notif.model.INotifInteractor;
-import com.vexanium.vexgift.module.notif.model.INotifInteractorImpl;
-import com.vexanium.vexgift.module.notif.view.INotifView;
 
 import java.io.Serializable;
 

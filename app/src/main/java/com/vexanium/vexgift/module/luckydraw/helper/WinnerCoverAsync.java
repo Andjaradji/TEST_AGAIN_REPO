@@ -3,8 +3,6 @@ package com.vexanium.vexgift.module.luckydraw.helper;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-import com.vexanium.vexgift.R;
-import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.bean.model.LuckyDraw;
 import com.vexanium.vexgift.bean.model.LuckyDrawWinner;
 

@@ -2,7 +2,6 @@ package com.vexanium.vexgift.module.home.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.model.Banner;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
