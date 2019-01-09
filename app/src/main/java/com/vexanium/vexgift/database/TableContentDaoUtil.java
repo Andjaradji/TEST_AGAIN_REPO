@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -85,6 +86,14 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         return query.list().size() > 0 && query.list().get(0).getBanners() != null ?
                 (BannerResponse) JsonUtil.toObject(query.list().get(0).getBanners(), new TypeToken<BannerResponse>() {
                 }.getType()) : new BannerResponse();
+    }
+
+    public NewsResponse getNews(){
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getNews() != null ?
+                (NewsResponse) JsonUtil.toObject(query.list().get(0).getNews(), new TypeToken<NewsResponse>() {
+                }.getType()) : new NewsResponse();
     }
 
     public ArrayList<Notification> getNotifs() {
@@ -232,6 +241,23 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             tableContent = new TableContent();
             tableContent.setBanners(banners);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveNewsToDb(String news) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setBanners(news);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setBanners(news);
             tableContent.setCreatedTime(System.currentTimeMillis());
             mTableContentDao.insert(tableContent);
         }

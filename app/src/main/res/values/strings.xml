@@ -646,6 +646,8 @@ Your expired and used voucher will be shown here</string>
     <string name="buyback_coin_bought">Token Bought</string>
     <string name="buyback_coin_total">Total Token </string>
 
+    <string name="news_title">News</string>
+
     <string name="token_sale_buy_list">PAYMENT OPTIONS</string>
     <string name="token_sale_payment_options">Payment Options</string>
     <string name="buyback_options">Buyback Options</string>

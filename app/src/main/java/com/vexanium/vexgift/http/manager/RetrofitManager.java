@@ -26,6 +26,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
@@ -893,6 +894,14 @@ public class RetrofitManager {
         params.put("luck_draw_id", luckyDrawId);
 
         return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
+    }
+
+    public Observable<HttpResponse<NewsResponse>> requestNews(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getNews(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
     }
 
     public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {

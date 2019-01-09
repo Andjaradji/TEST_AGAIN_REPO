@@ -695,20 +695,17 @@ public class MainActivity extends BaseActivity {
             } else if (path.startsWith("box")) {
                 gotoPage(BOX_FRAGMENT);
 
-            }  else if (path.startsWith("luckydraw")) {
-                if (StaticGroup.isDepositAvailable()) {
-                    String sId = uri.getQueryParameter("id");
-                    int id = 0;
-                    try {
-                        id = Integer.parseInt(sId);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    intent = new Intent(this, LuckyDrawActivity.class);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
+            } else if (path.startsWith("luckydraw")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
+                intent = new Intent(this, LuckyDrawActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
             } else if (path.startsWith("buyback")) {
                 if (StaticGroup.isBuybackBannerActive()) {
                     String sId = uri.getQueryParameter("id");
@@ -732,7 +729,6 @@ public class MainActivity extends BaseActivity {
                 StaticGroup.openAndroidBrowser(this, url);
             }
         }
-
     }
 
     public void gotoPage(int page, int secondaryPage) {

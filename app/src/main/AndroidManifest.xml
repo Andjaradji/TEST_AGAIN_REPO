@@ -28,10 +28,10 @@
         android:icon="@drawable/small_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@drawable/small_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
@@ -295,19 +295,19 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
         <activity
             android:name=".module.referral.ui.ReferralDetailActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".module.luckydraw.ui.LuckyDrawActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".module.luckydraw.ui.LuckyDrawWinnerActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".module.luckydraw.ui.LuckyDrawDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawWinnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".module.news.ui.NewsActivity"></activity>
     </application>
 
 </manifest>
