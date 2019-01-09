@@ -543,4 +543,8 @@
     <string name="kyc_from_camera">拍照</string>
     <string name="kyc_from_gallery">图库选择</string>
     <string name="error_referral_empty_header">无推荐人</string>
+    <string name="shortcut_notification">通知</string>
+    <string name="title_more">更多</string>
+    <string name="more_helps">帮助</string>
+    <string name="more_guide">新手手册</string>
 </resources>

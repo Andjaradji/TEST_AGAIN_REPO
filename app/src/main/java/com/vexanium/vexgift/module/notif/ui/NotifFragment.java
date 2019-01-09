@@ -116,7 +116,7 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
         });
 
 
-        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "NOTIFICATION");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_notification));
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
         mPresenter.requestNotifList(user.getId());

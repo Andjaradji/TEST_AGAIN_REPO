@@ -40,7 +40,7 @@ public class WalletFragmentOld extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, "MY WALLET");
+        ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.my_wallet_title));
 
         mRecycler = fragmentRootView.findViewById(R.id.rv_wallet_record);
 
