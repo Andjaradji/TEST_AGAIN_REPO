@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExchangeResponse implements Serializable{
+public class ExchangeResponse implements Serializable {
     @JsonProperty("exchanges")
     private ArrayList<Exchange> exchanges;
 

@@ -17,16 +17,16 @@ public class BuybackResponse implements Serializable {
         return buybacks;
     }
 
-    public Buyback getBuybackById(int id){
-        for(Buyback buyback : buybacks){
-            if(buyback.getId() == id){
-                return  buyback;
+    public void setBuybacks(ArrayList<Buyback> buybacks) {
+        this.buybacks = buybacks;
+    }
+
+    public Buyback getBuybackById(int id) {
+        for (Buyback buyback : buybacks) {
+            if (buyback.getId() == id) {
+                return buyback;
             }
         }
         return null;
-    }
-
-    public void setBuybacks(ArrayList<Buyback> buybacks) {
-        this.buybacks = buybacks;
     }
 }

@@ -71,7 +71,7 @@ public class LuckyDrawWinner implements Serializable {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class User{
+    public class User {
         @JsonProperty("name")
         private String name;
         @JsonProperty("email")

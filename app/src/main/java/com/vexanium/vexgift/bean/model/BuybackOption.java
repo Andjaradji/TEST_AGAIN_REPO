@@ -43,7 +43,6 @@ public class BuybackOption implements Serializable {
     }
 
 
-
     public String getCreatedAt() {
         return createdAt;
     }

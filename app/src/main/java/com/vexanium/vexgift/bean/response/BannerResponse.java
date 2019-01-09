@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BannerResponse implements Serializable{
+public class BannerResponse implements Serializable {
     @JsonProperty("banners")
     private ArrayList<Banner> banners;
 

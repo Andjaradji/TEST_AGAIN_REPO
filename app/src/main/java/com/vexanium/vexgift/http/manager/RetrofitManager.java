@@ -864,23 +864,23 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        if(limit > -1){
+        if (limit > -1) {
             params.put("limit", limit);
         }
 
-        if(offset > -1){
+        if (offset > -1) {
             params.put("offset", offset);
         }
 
-        if(luckyDrawCategoryId > -1){
+        if (luckyDrawCategoryId > -1) {
             params.put("luck_draw_category_id", luckyDrawCategoryId);
         }
 
-        if(memberTypeId > -1){
+        if (memberTypeId > -1) {
             params.put("member_type_id", memberTypeId);
         }
 
-        if(paymentTypeId > -1){
+        if (paymentTypeId > -1) {
             params.put("payment_type_id", paymentTypeId);
         }
 
@@ -917,8 +917,8 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
         params.put("lucky_draw_id", luckyDrawId);
-        params.put("amount",amount);
-        params.put("token",token);
+        params.put("amount", amount);
+        params.put("token", token);
 
         return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
@@ -928,7 +928,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
         params.put("user_luck_draw_id", userLuckyDrawId);
-        params.put("address",address);
+        params.put("address", address);
 
         return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }

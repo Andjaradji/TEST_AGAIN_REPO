@@ -148,7 +148,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
 
         if (getIntent().hasExtra("luckyDraw_winner")) {
             String luckyDrawString = getIntent().getStringExtra("luckyDraw_winner");
-            LuckyDrawListResponse luckyDrawResponse = (LuckyDrawListResponse)JsonUtil.toObject(luckyDrawString,LuckyDrawListResponse.class);
+            LuckyDrawListResponse luckyDrawResponse = (LuckyDrawListResponse) JsonUtil.toObject(luckyDrawString, LuckyDrawListResponse.class);
             if (luckyDrawResponse != null) {
                 completedLuckyDraws = luckyDrawResponse.getLuckyDraws();
             }
@@ -306,7 +306,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
         if (data != null) {
             if (data instanceof LuckyDrawListResponse) {
 
-            }else if(data instanceof UserLuckyDrawListResponse){
+            } else if (data instanceof UserLuckyDrawListResponse) {
 
             }
         } else if (errorResponse != null) {
@@ -410,19 +410,19 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
                     else
                         holder.setViewGone(R.id.iv_premium, true);
 
-                    if(item.getUserPurchasedTotal() < 0) {
+                    if (item.getUserPurchasedTotal() < 0) {
                         holder.setText(R.id.tv_your_coupon_count, "0/" + item.getLimitPerUser());
-                    }else{
+                    } else {
                         holder.setText(R.id.tv_your_coupon_count, item.getUserPurchasedTotal() + "/" + item.getLimitPerUser());
                     }
-                    holder.setText(R.id.tv_total_coupon_count, item.getTotalPurchased()+"");
+                    holder.setText(R.id.tv_total_coupon_count, item.getTotalPurchased() + "");
                     holder.setText(R.id.tv_date, item.getCreatedDate());
 
-                    if(item.getLuckyDrawWinners()!=null && item.getLuckyDrawWinners().size() > 0){
-                        holder.setViewGone(R.id.ll_winner_container,false);
-                        new WinnerCoverAsync(holder.getTextView(R.id.tv_winner),item).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    }else{
-                        holder.setViewGone(R.id.ll_winner_container,true);
+                    if (item.getLuckyDrawWinners() != null && item.getLuckyDrawWinners().size() > 0) {
+                        holder.setViewGone(R.id.ll_winner_container, false);
+                        new WinnerCoverAsync(holder.getTextView(R.id.tv_winner), item).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        holder.setViewGone(R.id.ll_winner_container, true);
                     }
 
                     holder.setOnClickListener(R.id.rl_luckydraw, new View.OnClickListener() {

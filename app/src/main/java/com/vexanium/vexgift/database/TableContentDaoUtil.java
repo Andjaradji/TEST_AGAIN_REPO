@@ -80,7 +80,7 @@ public class TableContentDaoUtil extends BaseDaoUtil {
                 }.getType()) : new UserVouchersResponse();
     }
 
-    public BannerResponse getBanners(){
+    public BannerResponse getBanners() {
         QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
 
         return query.list().size() > 0 && query.list().get(0).getBanners() != null ?
@@ -88,7 +88,7 @@ public class TableContentDaoUtil extends BaseDaoUtil {
                 }.getType()) : new BannerResponse();
     }
 
-    public NewsResponse getNews(){
+    public NewsResponse getNews() {
         QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
 
         return query.list().size() > 0 && query.list().get(0).getNews() != null ?

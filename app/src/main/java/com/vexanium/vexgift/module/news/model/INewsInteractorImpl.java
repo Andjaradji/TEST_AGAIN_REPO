@@ -2,7 +2,6 @@ package com.vexanium.vexgift.module.news.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;

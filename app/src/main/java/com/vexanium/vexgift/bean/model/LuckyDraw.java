@@ -18,7 +18,7 @@ public class LuckyDraw implements Serializable {
 
     @JsonProperty("id")
     private int id;
-//    @JsonProperty("vendor_id")
+    //    @JsonProperty("vendor_id")
 //    private String vendorId;
     @JsonProperty("name")
     private String title;
@@ -166,16 +166,16 @@ public class LuckyDraw implements Serializable {
         return TimeUnit.SECONDS.toMillis(validUntil);
     }
 
+    public void setValidUntil(long validUntil) {
+        this.validUntil = validUntil;
+    }
+
     public long getDrawDate() {
         return drawDate;
     }
 
     public void setDrawDate(long drawDate) {
         this.drawDate = drawDate;
-    }
-
-    public void setValidUntil(long validUntil) {
-        this.validUntil = validUntil;
     }
 
     public String getCountry() {

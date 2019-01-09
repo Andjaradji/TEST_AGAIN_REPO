@@ -59,13 +59,13 @@ public class IBuybackPresenterImpl extends BasePresenterImpl<IBuybackView, Seria
 
     @Override
     public void buyBuyback(int id, int buybackId, int buybackptionId, float amount) {
-        Subscription subscription = mBuybackInteractorImpl.requestBuyBuyback(this,id, buybackId, buybackptionId, amount);
+        Subscription subscription = mBuybackInteractorImpl.requestBuyBuyback(this, id, buybackId, buybackptionId, amount);
         compositeSubscription.add(subscription);
     }
 
     @Override
     public void updateDistributionAddress(int id, int buybackHistoryId, String address) {
-        Subscription subscription= mBuybackInteractorImpl.requestUpdateDistributionAddress(this, id, buybackHistoryId, address);
+        Subscription subscription = mBuybackInteractorImpl.requestUpdateDistributionAddress(this, id, buybackHistoryId, address);
         compositeSubscription.add(subscription);
     }
 

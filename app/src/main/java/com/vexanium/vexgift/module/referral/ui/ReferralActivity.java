@@ -85,14 +85,14 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
             if (!TextUtils.isEmpty(referralTitleId)) {
                 mTvReferralTitle.setText(referralTitleId);
             }
-            if(!TextUtils.isEmpty(shareTextId)){
+            if (!TextUtils.isEmpty(shareTextId)) {
                 mShareText = shareTextId + mPlaystoreLink;
             }
         } else {
             if (!TextUtils.isEmpty(referralTitleEn)) {
                 mTvReferralTitle.setText(referralTitleEn);
             }
-            if(!TextUtils.isEmpty(shareTextEn)){
+            if (!TextUtils.isEmpty(shareTextEn)) {
                 mShareText = shareTextEn + mPlaystoreLink;
             }
         }

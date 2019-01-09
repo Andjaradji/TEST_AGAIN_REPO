@@ -232,7 +232,7 @@ public class BuybackActivity extends BaseActivity<IBuybackPresenter> implements 
                         holder.getView(R.id.btn_buy).setEnabled(false);
                     }
 
-                    holder.setText(R.id.tv_slot_total, ""+item.getLimitSellPerUser());
+                    holder.setText(R.id.tv_slot_total, "" + item.getLimitSellPerUser());
 
 //                    holder.setText(R.id.tv_slot_left, item.get)
 

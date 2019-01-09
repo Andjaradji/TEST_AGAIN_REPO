@@ -1,13 +1,8 @@
 package com.vexanium.vexgift.module.news.ui;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
@@ -24,11 +19,11 @@ import com.vexanium.vexgift.base.BaseFragment;
 public class NewsFragment extends BaseFragment {
     WebView mWebView;
     RelativeLayout mLoadingContainer;
-    
+
     private String url;
     private String javascript;
 
-    public static NewsFragment newInstance(String url, String javascript){
+    public static NewsFragment newInstance(String url, String javascript) {
         NewsFragment newsFragment = new NewsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
@@ -39,7 +34,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
-        mWebView =  fragmentRootView.findViewById(R.id.webview);
+        mWebView = fragmentRootView.findViewById(R.id.webview);
         mLoadingContainer = fragmentRootView.findViewById(R.id.av_indicator_container);
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_in_anim);
@@ -59,7 +54,7 @@ public class NewsFragment extends BaseFragment {
 
             }
         });
-        
+
         url = getArguments().getString("url");
         javascript = getArguments().getString("js");
 
@@ -77,7 +72,7 @@ public class NewsFragment extends BaseFragment {
                     mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
                 }
 
-                if(!TextUtils.isEmpty(javascript)){
+                if (!TextUtils.isEmpty(javascript)) {
                     mWebView.loadUrl(javascript);
                 }
             }
@@ -89,6 +84,6 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        KLog.v("NewsFragment","onDestroy: ");
+        KLog.v("NewsFragment", "onDestroy: ");
     }
 }

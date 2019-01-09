@@ -29,11 +29,11 @@ import java.util.ArrayList;
 @ActivityFragmentInject(contentViewId = R.layout.activity_news, withLoadingAnim = true)
 public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsView {
 
-    private User user;
     ArrayList<News> news;
     ArrayList<NewsFragment> fragments;
     CustomViewPager viewPager;
     NewsPagerAdapter newsPagerAdapter;
+    private User user;
     private SwipeRefreshLayout mRefreshLayout;
 
 

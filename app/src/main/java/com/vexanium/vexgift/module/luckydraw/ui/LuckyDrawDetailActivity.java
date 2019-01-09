@@ -98,7 +98,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
         if (luckyDraw != null) {
             Vendor vendor = luckyDraw.getVendor();
             ViewUtil.setImageUrl(this, R.id.iv_coupon_image, luckyDraw.getThumbnail(), R.drawable.placeholder);
-            if(vendor != null) {
+            if (vendor != null) {
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
                 toolbarLayout.setTitle(vendor.getName());
@@ -110,26 +110,26 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
             findViewById(R.id.ll_voucher_quantity_container).setVisibility(View.GONE);
             findViewById(R.id.ll_luckydraw_quantity_container).setVisibility(View.VISIBLE);
 
-            if(luckyDraw.getUserPurchasedTotal() < 0) {
+            if (luckyDraw.getUserPurchasedTotal() < 0) {
                 ViewUtil.setText(this, R.id.tv_your_coupon_count, "0");
-            }else{
-                ViewUtil.setText(this, R.id.tv_your_coupon_count, luckyDraw.getUserPurchasedTotal()+"");
+            } else {
+                ViewUtil.setText(this, R.id.tv_your_coupon_count, luckyDraw.getUserPurchasedTotal() + "");
             }
             ViewUtil.setText(this, R.id.tv_your_coupon_max, "max: " + luckyDraw.getLimitPerUser());
             ViewUtil.setText(this, R.id.tv_total_coupon_max, "min: " + luckyDraw.getMinTicket() + ", max: " + luckyDraw.getMaxTicket());
-            ViewUtil.setText(this, R.id.tv_total_coupon_count, luckyDraw.getTotalPurchased()+"");
+            ViewUtil.setText(this, R.id.tv_total_coupon_count, luckyDraw.getTotalPurchased() + "");
 
-            if(luckyDraw.getLuckyDrawWinners()!=null && luckyDraw.getLuckyDrawWinners().size() > 0){
-                ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.VISIBLE);
-                ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.VISIBLE);
-                ViewUtil.findViewById(this,R.id.btn_claim).setVisibility(View.GONE);
-                ViewUtil.findViewById(this,R.id.cb_agree).setVisibility(View.GONE);
-                new WinnerCoverAsync((TextView)ViewUtil.findViewById(LuckyDrawDetailActivity.this,R.id.tv_luckydraw_winner_body),luckyDraw).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }else{
-                ViewUtil.findViewById(this,R.id.tv_luckydraw_winner_header).setVisibility(View.GONE);
-                ViewUtil.findViewById(this,R.id.fl_luckydraw_winner_container).setVisibility(View.GONE);
-                ViewUtil.findViewById(this,R.id.btn_claim).setVisibility(View.VISIBLE);
-                ViewUtil.findViewById(this,R.id.cb_agree).setVisibility(View.VISIBLE);
+            if (luckyDraw.getLuckyDrawWinners() != null && luckyDraw.getLuckyDrawWinners().size() > 0) {
+                ViewUtil.findViewById(this, R.id.tv_luckydraw_winner_header).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this, R.id.fl_luckydraw_winner_container).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this, R.id.btn_claim).setVisibility(View.GONE);
+                ViewUtil.findViewById(this, R.id.cb_agree).setVisibility(View.GONE);
+                new WinnerCoverAsync((TextView) ViewUtil.findViewById(LuckyDrawDetailActivity.this, R.id.tv_luckydraw_winner_body), luckyDraw).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                ViewUtil.findViewById(this, R.id.tv_luckydraw_winner_header).setVisibility(View.GONE);
+                ViewUtil.findViewById(this, R.id.fl_luckydraw_winner_container).setVisibility(View.GONE);
+                ViewUtil.findViewById(this, R.id.btn_claim).setVisibility(View.VISIBLE);
+                ViewUtil.findViewById(this, R.id.cb_agree).setVisibility(View.VISIBLE);
             }
 
             ViewUtil.setText(this, R.id.tv_desc_title, getString(R.string.luckydraw_detail_desc_title));
@@ -140,7 +140,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
 
             Linkify.addLinks((TextView) findViewById(R.id.tv_desc), Linkify.ALL);
             Linkify.addLinks((TextView) findViewById(R.id.tv_terms), Linkify.ALL);
-            
+
             ViewUtil.setText(this, R.id.tv_time, "Available until " + luckyDraw.getExpiredDate());
             if (luckyDraw.getPrice() == 0) {
                 ViewUtil.setText(this, R.id.tv_price, getString(R.string.free));
@@ -187,7 +187,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                         .putContentId("" + luckyDraw.getId()));
                 break;
             case R.id.btn_claim:
-                if(luckyDraw.getLuckyDrawWinners()!=null && luckyDraw.getLuckyDrawWinners().size() >0){
+                if (luckyDraw.getLuckyDrawWinners() != null && luckyDraw.getLuckyDrawWinners().size() > 0) {
                     return;
                 }
                 if (luckyDraw.isForPremium() && !user.isPremiumMember()) {
@@ -209,7 +209,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                                 .show();
                     }
                 }
-                
+
                 break;
         }
     }
@@ -242,7 +242,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
         }
     }
 
-    private void doEnterAmount(){
+    private void doEnterAmount() {
         View view = View.inflate(this, R.layout.include_luckydraw_dialog_amount, null);
         final EditText etAmount = view.findViewById(R.id.et_amount);
         final TextView tvTotal = view.findViewById(R.id.tv_amount_count_total);
@@ -262,7 +262,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                         e.printStackTrace();
                     }
 
-                    String purchasedTotal = "Total = " + amount + " x " + luckyDraw.getPrice() + " = " + amount*luckyDraw.getPrice();
+                    String purchasedTotal = "Total = " + amount + " x " + luckyDraw.getPrice() + " = " + amount * luckyDraw.getPrice();
                     tvTotal.setText(purchasedTotal);
                 } else {
                     tvTotal.setText("-");
@@ -322,7 +322,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                             etPin.setError(getString(R.string.validate_empty_field));
                         } else {
                             dialog.dismiss();
-                            doGetLuckyDraw(etPin.getText().toString(),amount);
+                            doGetLuckyDraw(etPin.getText().toString(), amount);
                         }
                     }
                 })
@@ -339,7 +339,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
 
     private void doGetLuckyDraw(String pin, int amount) {
         User user = User.getCurrentUser(this);
-        mPresenter.buyLuckyDraw(user.getId(), luckyDraw.getId(),amount, pin);
+        mPresenter.buyLuckyDraw(user.getId(), luckyDraw.getId(), amount, pin);
     }
 
     private void getLuckyDrawSuccess() {

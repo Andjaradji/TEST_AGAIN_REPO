@@ -223,7 +223,7 @@ public class MoreFragment extends BaseFragment {
                 if (StaticGroup.isInIDLocale()) {
                     url = "http://www.vexgift.com/guide/id";
                 }
-                ((MainActivity) getActivity()).openDeepLink("in.app.web?t="+Uri.encode("Vexgift Guide","UTF-8")+"&l=" + Uri.encode(url, "UTF-8"));
+                ((MainActivity) getActivity()).openDeepLink("in.app.web?t=" + Uri.encode("Vexgift Guide", "UTF-8") + "&l=" + Uri.encode(url, "UTF-8"));
 
                 break;
             case R.id.more_logout_button:

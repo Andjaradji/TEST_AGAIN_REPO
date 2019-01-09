@@ -1477,11 +1477,11 @@ public class StaticGroup {
         }
     }
 
-    public static String getStringValFromSettingKey(String key){
+    public static String getStringValFromSettingKey(String key) {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
-        if(settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))){
+        if (settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))) {
             return settingResponse.getSettingStringValByKey(key);
-        }else {
+        } else {
             return "";
         }
     }

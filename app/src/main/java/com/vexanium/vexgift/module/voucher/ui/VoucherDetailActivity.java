@@ -90,7 +90,7 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
             Vendor vendor = voucher.getVendor();
             ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
 
-            if(vendor != null) {
+            if (vendor != null) {
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
                 ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());

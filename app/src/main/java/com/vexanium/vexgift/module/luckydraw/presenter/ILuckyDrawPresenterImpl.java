@@ -71,7 +71,7 @@ public class ILuckyDrawPresenterImpl extends BasePresenterImpl<ILuckyDrawView, S
     }
 
     @Override
-    public void buyLuckyDraw(int id, int luckyDrawId,int amount, String token) {
+    public void buyLuckyDraw(int id, int luckyDrawId, int amount, String token) {
         Subscription subscription = LuckyDrawInteractor.buyLuckyDraw(this, id, luckyDrawId, amount, token);
         compositeSubscription.add(subscription);
     }

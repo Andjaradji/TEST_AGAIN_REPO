@@ -70,7 +70,7 @@ public class BuyVexActivity extends BaseActivity<IExchangePresenter> implements 
 
     public void setVexExchangeList() {
         if (mAdapter == null) {
-            mAdapter = new BaseRecyclerAdapter<Exchange>(this, dataList , layoutListManager) {
+            mAdapter = new BaseRecyclerAdapter<Exchange>(this, dataList, layoutListManager) {
 
                 @Override
                 public int getItemLayoutId(int viewType) {
