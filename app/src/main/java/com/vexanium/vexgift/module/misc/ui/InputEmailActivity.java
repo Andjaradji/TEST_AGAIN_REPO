@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.luckydraw.ui;
+package com.vexanium.vexgift.module.misc.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -45,7 +45,11 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.luckydraw.helper.WinnerCoverAsync;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenter;
 import com.vexanium.vexgift.module.luckydraw.presenter.ILuckyDrawPresenterImpl;
+import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawWinnerActivity;
 import com.vexanium.vexgift.module.luckydraw.view.ILuckyDrawView;
+import com.vexanium.vexgift.module.misc.presenter.IDigifinexEmailPresenter;
+import com.vexanium.vexgift.module.misc.presenter.IDigifinexEmailPresenterImpl;
+import com.vexanium.vexgift.module.misc.view.IDigifinexEmailView;
 import com.vexanium.vexgift.module.voucher.ui.select.MultiSelectActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
@@ -59,27 +63,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_luckydraw)
-public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> implements ILuckyDrawView {
-    GridLayoutManager layoutListManager;
+public class InputEmailActivity extends BaseActivity<IDigifinexEmailPresenter> implements IDigifinexEmailView {
+
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
-    //AVLoadingIndicatorView mAvi;
-    RelativeLayout mAviContainer;
-    SwipeRefreshLayout mRefreshLayout;
-    RecyclerView mRecyclerview;
-    SlidingUpPanelLayout mSlidePanel;
-    LinearLayout mDragView;
-    LockableScrollView mPanelScrollview;
-    Spinner spDocType;
-    SortFilterCondition sortFilterCondition;
-    BaseRecyclerAdapter<LuckyDraw> mAdapter;
-    boolean isSortFilterUpdate = false;
     User user;
-    private ArrayList<LuckyDraw> tempLuckyDraws;
-    private ArrayList<LuckyDraw> luckyDraws;
-    private ArrayList<LuckyDraw> completedLuckyDraws;
-    private LoadLuckyDrawAsync loadLuckyDrawAsync;
     private Animation mFadeIn, mFadeOut;
 
     private boolean isScrolledTop = true;
@@ -93,12 +82,8 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 
     @Override
     protected void initView() {
-        mPresenter = new ILuckyDrawPresenterImpl(this);
+        mPresenter = new IDigifinexEmailPresenterImpl(this);
         user = User.getCurrentUser(this);
-
-        tempLuckyDraws = new ArrayList<>();
-        luckyDraws = new ArrayList<>();
-        completedLuckyDraws = new ArrayList<>();
 
 //        if (getIntent().hasExtra("code")) {
 //            Intent intent = new Intent(this, ReceiveVoucherActivity.class);
@@ -113,22 +98,11 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                 StaticGroup.goToLuckyDrawDetailActivity(this, luckyDraw);
         }
 
-        mAviContainer = findViewById(R.id.av_indicator_container);
-        mRefreshLayout = findViewById(R.id.srl_refresh);
-        mSlidePanel = findViewById(R.id.sliding_layout);
-        mPanelScrollview = findViewById(R.id.voucher_scrollview);
-        mDragView = findViewById(R.id.dragview);
-        mRecyclerview = findViewById(R.id.recylerview);
-
         mErrorView = findViewById(R.id.ll_error_view);
         mIvError = findViewById(R.id.iv_error_view);
         mTvErrorHead = findViewById(R.id.tv_error_head);
         mTvErrorBody = findViewById(R.id.tv_error_body);
 
-        layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        layoutListManager.setItemPrefetchEnabled(false);
-
-        sortFilterCondition = new SortFilterCondition();
 
         mFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);
         mFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out_anim);
@@ -148,8 +122,6 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 
             }
         });
-
-        loadLuckyDrawAsync = new LoadLuckyDrawAsync();
 
         luckyDraws = TableContentDaoUtil.getInstance().getLuckyDraws();
         if (luckyDraws == null) luckyDraws = new ArrayList<>();
@@ -186,7 +158,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                         mRefreshLayout.setEnabled(false);
                         mRefreshLayout.setRefreshing(false);
                         if (loadLuckyDrawAsync != null && loadLuckyDrawAsync.getStatus() != AsyncTask.Status.RUNNING) {
-                            loadLuckyDrawAsync = new LoadLuckyDrawAsync();
+                            loadLuckyDrawAsync = new com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity.LoadLuckyDrawAsync();
                             loadLuckyDrawAsync.execute();
                         }
                     }
@@ -406,7 +378,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
             @Override
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
-                Intent intent = new Intent(LuckyDrawActivity.this, MultiSelectActivity.class);
+                Intent intent = new Intent(com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity.this, MultiSelectActivity.class);
                 intent.putExtra("type", listType);
                 intent.putExtra("condition", JsonUtil.toString(sortFilterCondition));
                 startActivityForResult(intent, ConstantGroup.EDIT_FILTER);
@@ -485,7 +457,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 //                            if (item.isForPremium() && !user.isPremiumMember()) {
 //                                StaticGroup.showPremiumMemberDialog(VoucherActivity.this);
 //                            } else {
-                            StaticGroup.goToLuckyDrawDetailActivity(LuckyDrawActivity.this, item, holder.getImageView(R.id.iv_luckydraw_image));
+                            StaticGroup.goToLuckyDrawDetailActivity(com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity.this, item, holder.getImageView(R.id.iv_luckydraw_image));
 //                            }
                         }
                     });
@@ -633,5 +605,3 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
         }
     }
 }
-
-
