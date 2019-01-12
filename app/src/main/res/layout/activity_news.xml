@@ -44,20 +44,11 @@
         <com.vexanium.vexgift.widget.CustomViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="wrap_content"
             android:layout_below="@id/app_bar">
 
         </com.vexanium.vexgift.widget.CustomViewPager>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_refresh"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent"
-        android:background="@color/material_white">
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/include_loading_view" />
 
     <include
         layout="@layout/content_error_view"

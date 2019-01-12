@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.vexanium.vexgift.R;
@@ -34,7 +33,6 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
     CustomViewPager viewPager;
     NewsPagerAdapter newsPagerAdapter;
     private User user;
-    private SwipeRefreshLayout mRefreshLayout;
 
 
     @Override
@@ -47,18 +45,15 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
         mPresenter = new INewsPresenterImpl(this);
         user = User.getCurrentUser(this);
 
-        mPresenter.requestNews(user);
-
-        mRefreshLayout = findViewById(R.id.srl_refresh);
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.requestNews(user);
-            }
-        });
-
         setViewPager();
         setToolbar();
+
+        NewsResponse newsResponse = TableContentDaoUtil.getInstance().getNews();
+        if (newsResponse != null && newsResponse.getNews() != null) {
+            news = newsResponse.getNews();
+            setViewPagerData(news);
+        }
+        mPresenter.requestNews(user);
 
         findViewById(R.id.back_button).setOnClickListener(this);
     }
@@ -75,7 +70,6 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof NewsResponse) {
                 NewsResponse newsResponse = (NewsResponse) data;

@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.news.ui;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,6 +23,8 @@ public class NewsFragment extends BaseFragment {
 
     private String url;
     private String javascript;
+    private SwipeRefreshLayout mRefreshLayout;
+
 
     public static NewsFragment newInstance(String url, String javascript) {
         NewsFragment newsFragment = new NewsFragment();
@@ -36,6 +39,14 @@ public class NewsFragment extends BaseFragment {
     protected void initView(View fragmentRootView) {
         mWebView = fragmentRootView.findViewById(R.id.webview);
         mLoadingContainer = fragmentRootView.findViewById(R.id.av_indicator_container);
+
+        mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mWebView.loadUrl(url);
+            }
+        });
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_in_anim);
         fadeIn.setAnimationListener(new Animation.AnimationListener() {
@@ -65,6 +76,9 @@ public class NewsFragment extends BaseFragment {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
+                mRefreshLayout.setRefreshing(false);
+                mLoadingContainer.setVisibility(View.GONE);
+
                 mWebView.setVisibility(View.VISIBLE);
                 mWebView.startAnimation(fadeIn);
 
