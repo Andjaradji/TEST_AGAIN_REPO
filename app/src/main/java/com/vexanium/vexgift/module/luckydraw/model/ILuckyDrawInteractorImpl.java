@@ -19,7 +19,7 @@ public class ILuckyDrawInteractorImpl implements ILuckyDrawInteractor {
 
     @Override
     public Subscription requestLuckyDraw(RequestCallback callback, int id, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestLuckyDrawList(id, limit,offset,luckyDrawCategoryId,memberTypeId,paymentTypeId).compose(RxUtil.<LuckyDrawListResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestLuckyDrawList(id, limit, offset, luckyDrawCategoryId, memberTypeId, paymentTypeId).compose(RxUtil.<LuckyDrawListResponse>handleResult())
                 .flatMap(new Func1<LuckyDrawListResponse, Observable<LuckyDrawListResponse>>() {
                     @Override
                     public Observable<LuckyDrawListResponse> call(LuckyDrawListResponse luckyDrawListResponse) {

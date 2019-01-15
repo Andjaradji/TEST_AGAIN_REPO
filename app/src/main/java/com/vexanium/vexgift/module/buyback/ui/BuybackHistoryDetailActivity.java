@@ -32,12 +32,12 @@ import java.io.Serializable;
 @ActivityFragmentInject(contentViewId = R.layout.activity_token_sale_history_detail, toolbarTitle = R.string.buyback_history_title, withLoadingAnim = true)
 public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter> implements IBuybackView {
 
+    int paymentId;
     private TextView mTvStatus;
     private BuybackHistory buybackHistory;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
     private String tempDistributionAddress = "";
-    int paymentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
             }
         } else if (getIntent().hasExtra("token_payment_id")) {
             paymentId = getIntent().getIntExtra("token_payment_id", -1);
-            KLog.v("BuybackHistoryDetailActivity","initView: HPtes token_payment_id : "+paymentId);
+            KLog.v("BuybackHistoryDetailActivity", "initView: HPtes token_payment_id : " + paymentId);
             if (paymentId != -1) {
                 mPresenter.requestBuybackHistoryList(user.getId());
             } else {
@@ -141,7 +141,7 @@ public class BuybackHistoryDetailActivity extends BaseActivity<IBuybackPresenter
         String paymentAmount = String.format("%.010f", amount);
         String purchasedAmount = String.format("%.010f", amount * buybackHistory.getBuybackOption().getPrice());
 
-        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " VEX" );
+        ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " VEX");
         ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount + " " + buybackHistory.getBuybackOption().getCoinName());
         if (buybackHistory.getDistributionAddress() != null && buybackHistory.getDistributionAddress().length() > 0) {
             ViewUtil.setText(this, R.id.tv_distribution_address, buybackHistory.getDistributionAddress());

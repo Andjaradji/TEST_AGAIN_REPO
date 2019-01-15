@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-@JsonIgnoreProperties(ignoreUnknown =  true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Exchange implements Serializable {
     @JsonProperty("id")
     private int id;

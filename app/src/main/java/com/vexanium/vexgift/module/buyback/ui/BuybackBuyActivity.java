@@ -89,7 +89,7 @@ public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implemen
             String time = String.format("%s - %s", buyback.getTimeStampDate(buyback.getStartTime()), buyback.getTimeStampDate(buyback.getEndTime()));
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
-            ViewUtil.setText(this, R.id.tv_payment_title, "Buyback By "+buybackOption.getCoinName() );
+            ViewUtil.setText(this, R.id.tv_payment_title, "Buyback By " + buybackOption.getCoinName());
             String coin = String.format("%.010f", buybackOption.getPrice());
             String paymentBody = String.format("1 %s = %s", "VEX", coin + " " + buybackOption.getCoinName());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
@@ -115,7 +115,7 @@ public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implemen
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String purchasedTotal = String.format("%.010f",amountTotal) + " " +buybackOption.getCoinName();
+                        String purchasedTotal = String.format("%.010f", amountTotal) + " " + buybackOption.getCoinName();
                         tvPurchasedTotal.setText(purchasedTotal);
                     } else {
                         tvPurchasedTotal.setText("-");

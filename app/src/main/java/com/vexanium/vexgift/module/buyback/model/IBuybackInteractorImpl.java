@@ -59,7 +59,8 @@ public class IBuybackInteractorImpl<T> implements IBuybackInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
-//
+
+    //
 //    @Override
 //    public Subscription requestTokenSalePayment(RequestCallback callback, int id, int tokenSalePaymentId) {
 //        return RetrofitManager.getInstance(HostType.COMMON_API).requestTokenSalePayment(id, tokenSalePaymentId).compose(RxUtil.<TokenSaleHistoryDetailResponse>handleResult())

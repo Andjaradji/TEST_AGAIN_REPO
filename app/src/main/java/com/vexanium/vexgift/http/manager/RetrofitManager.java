@@ -28,6 +28,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
@@ -865,23 +866,23 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        if(limit > -1){
+        if (limit > -1) {
             params.put("limit", limit);
         }
 
-        if(offset > -1){
+        if (offset > -1) {
             params.put("offset", offset);
         }
 
-        if(luckyDrawCategoryId > -1){
+        if (luckyDrawCategoryId > -1) {
             params.put("luck_draw_category_id", luckyDrawCategoryId);
         }
 
-        if(memberTypeId > -1){
+        if (memberTypeId > -1) {
             params.put("member_type_id", memberTypeId);
         }
 
-        if(paymentTypeId > -1){
+        if (paymentTypeId > -1) {
             params.put("payment_type_id", paymentTypeId);
         }
 
@@ -897,6 +898,14 @@ public class RetrofitManager {
         return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
     }
 
+    public Observable<HttpResponse<NewsResponse>> requestNews(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getNews(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
+    }
+
     public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -910,8 +919,8 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
         params.put("lucky_draw_id", luckyDrawId);
-        params.put("amount",amount);
-        params.put("token",token);
+        params.put("amount", amount);
+        params.put("token", token);
 
         return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
@@ -921,7 +930,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
         params.put("user_luck_draw_id", userLuckyDrawId);
-        params.put("address",address);
+        params.put("address", address);
 
         return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }

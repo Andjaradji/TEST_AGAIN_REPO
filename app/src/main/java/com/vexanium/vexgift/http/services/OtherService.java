@@ -13,6 +13,7 @@ import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
@@ -243,6 +244,12 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("digifinex-referral/my-referrals")
     Observable<HttpResponse<DigifinexReferralListResponse>> getUserDigifinexEmailReferred(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @POST("news")
+    Observable<HttpResponse<NewsResponse>> getNews(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
