@@ -16,7 +16,6 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -678,7 +677,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
                 } else {
                     Date c = Calendar.getInstance().getTime();
-                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                     String formattedDate = df.format(c);
                     ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
@@ -728,7 +727,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
                 } else {
                     Date c = Calendar.getInstance().getTime();
-                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                     String formattedDate = df.format(c);
                     ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
@@ -754,7 +753,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
                 } else {
                     Date c = Calendar.getInstance().getTime();
-                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                     String formattedDate = df.format(c);
                     ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
@@ -778,7 +777,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                     ViewUtil.setText(this, R.id.tv_inactive_time, voucherCode.getRedeemedDate());
                 } else {
                     Date c = Calendar.getInstance().getTime();
-                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                     String formattedDate = df.format(c);
                     ViewUtil.setText(this, R.id.tv_inactive_time, formattedDate);
