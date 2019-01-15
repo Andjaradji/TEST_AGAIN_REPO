@@ -156,5 +156,18 @@ public class IVoucherInteractorImpl implements IVoucherInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
+    @Override
+    public Subscription requestArchiveVoucher(RequestCallback callback, int userId, int voucherCodeId) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestArchiveVoucher(userId, voucherCodeId).compose(RxUtil.<VoucherCodeResponse>handleResult())
+                .flatMap(new Func1<VoucherCodeResponse, Observable<VoucherCodeResponse>>() {
+                    @Override
+                    public Observable<VoucherCodeResponse> call(VoucherCodeResponse userAddressResponse) {
+                        KLog.json("HPtes", JsonUtil.toString(userAddressResponse));
+                        return Observable.just(userAddressResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
 }
 

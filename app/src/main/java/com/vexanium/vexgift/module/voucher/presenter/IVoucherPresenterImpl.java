@@ -134,5 +134,9 @@ public class IVoucherPresenterImpl extends BasePresenterImpl<IVoucherView, Seria
         compositeSubscription.add(subscription);
     }
 
-
+    @Override
+    public void requestArchiveVoucher(int userId, int voucherCodeId) {
+        Subscription subscription = mInteractor.requestBuyVoucher(this, userId, voucherCodeId);
+        compositeSubscription.add(subscription);
+    }
 }

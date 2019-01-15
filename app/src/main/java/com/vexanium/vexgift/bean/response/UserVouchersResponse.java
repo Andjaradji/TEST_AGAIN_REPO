@@ -28,7 +28,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (!voucherCode.getVoucher().isToken())
-                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && voucherCode.getExpiredAt() > System.currentTimeMillis())) {
+                if ((!voucherCode.isBeingGifted() && !voucherCode.isDeactivated() && !voucherCode.isArchived() && voucherCode.getExpiredAt() > System.currentTimeMillis())) {
                     activeVouchers.add(voucherCode);
                 }
         }
@@ -42,7 +42,7 @@ public class UserVouchersResponse implements Serializable {
 
         for (VoucherCode voucherCode : voucherCodes) {
             if (!voucherCode.getVoucher().isToken())
-                if (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.getExpiredAt() < System.currentTimeMillis()) {
+                if (voucherCode.isBeingGifted() || voucherCode.isDeactivated() || voucherCode.isArchived() || voucherCode.getExpiredAt() < System.currentTimeMillis()) {
                     inActiveVouchers.add(voucherCode);
                 }
         }

@@ -198,7 +198,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
             StaticGroup.showCommonErrorDialog(this, 10);
         }
         updateView();
-        ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.send_button, R.id.btn_redeem, R.id.btn_send_voucher_2);
+        ViewUtil.setOnClickListener(this, this, R.id.back_button, R.id.send_button, R.id.btn_redeem, R.id.btn_send_voucher_2, R.id.btn_archive);
 
     }
 
@@ -209,6 +209,9 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
         switch (v.getId()) {
             case R.id.back_button:
                 finish();
+                break;
+            case R.id.btn_archive:
+                doArchive();
                 break;
             case R.id.send_button:
             case R.id.btn_send_voucher_2:
@@ -269,7 +272,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                         voucherCode.setAddress(voucherCodeResponse.getVoucherCode().getAddress());
                         state = GOODS_VOUCHER_REDEEMED;
                     }
-                    if (voucherCodeResponse.getVoucherCode().isDeactivated()) {
+                    if (voucherCodeResponse.getVoucherCode().isDeactivated() || voucherCodeResponse.getVoucherCode().isArchived()) {
                         state = VOUCHER_VENDOR_REDEEMED;
                     }
                     updateView(fromButton);
@@ -283,6 +286,26 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body));
             }
         }
+    }
+
+    private void doArchive() {
+
+        new VexDialog.Builder(VoucherRedeemActivity.this)
+                .optionType(DialogOptionType.YES_NO)
+                .positiveText("Yes")
+                .negativeText("No")
+                .title("Confirmation")
+                .content(getString(R.string.coupon_archive_dialog))
+                .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                        if (ClickUtil.isFastDoubleClick()) return;
+                        mPresenter.requestArchiveVoucher(user.getId(), voucherCode.getId());
+                    }
+                })
+                .cancelable(false)
+                .autoDismiss(true)
+                .show();
     }
 
     private void doDeactive() {
@@ -589,6 +612,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
+                findViewById(R.id.btn_archive).setVisibility(View.GONE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
@@ -607,6 +631,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
+                findViewById(R.id.btn_archive).setVisibility(View.GONE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
@@ -626,6 +651,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
+                findViewById(R.id.btn_archive).setVisibility(View.GONE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_btn, getString(R.string.coupon_redeem_voucher));
@@ -640,7 +666,10 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_voucher_show_to_merchant).setVisibility(View.VISIBLE);
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
-                findViewById(R.id.ll_button_container).setVisibility(View.GONE);
+                findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
+                findViewById(R.id.btn_redeem).setVisibility(View.GONE);
+                findViewById(R.id.btn_send_voucher_2).setVisibility(View.GONE);
+                findViewById(R.id.btn_archive).setVisibility(VISIBLE);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_online_info_desc));
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
@@ -668,6 +697,7 @@ public class VoucherRedeemActivity extends BaseActivity<IVoucherPresenter> imple
                 findViewById(R.id.ll_merchant_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_online_voucher_info).setVisibility(View.GONE);
                 findViewById(R.id.ll_button_container).setVisibility(View.VISIBLE);
+                findViewById(R.id.btn_archive).setVisibility(View.GONE);
                 ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setImageUrl(this, R.id.iv_brand_image, voucher.getVendor().getThumbnail(), R.drawable.placeholder);
                 ViewUtil.setText(this, R.id.tv_online_voucher_info_desc, getString(R.string.voucher_3rd_party_info_desc));

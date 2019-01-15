@@ -49,11 +49,13 @@
     <string name="coupon_redeem_token">Gunakan Token</string>
     <string name="coupon_redeem_voucher">Gunakan Voucher</string>
     <string name="coupon_send_voucher">Hadiahkan Voucher</string>
+    <string name="coupon_archive">Tandai Voucher Sudah Digunakan</string>
     <string name="coupon_deactivated_voucher">Gunakan Voucher</string>
     <string name="voucher_availability">sisa %d dari %d</string>
     <string name="voucher_soldout_dialog_title">Oops</string>
     <string name="voucher_soldout_dialog_desc">Voucher ini sudah habis</string>
     <string name="coupon_redeem_voucher_code">Kode Voucher</string>
+    <string name="coupon_archive_dialog">Anda akan menandai voucher ini sebagai voucher yang sudah terpakai. Mohon pastikan anda telah menggunakan voucher ini. Aksi ini tidak bisa dibatalkan.</string>
     <string name="coupon_redeem_voucher_code_field">Kode Merchant</string>
     <string name="coupon_redeem_voucher_code_warning">Kode akan dimasukan oleh kasir</string>
     <string name="token_address_field">Masukan alamat aset anda</string>

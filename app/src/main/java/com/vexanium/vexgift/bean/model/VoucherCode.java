@@ -25,6 +25,8 @@ public class VoucherCode implements Serializable {
     private boolean isClaimed;
     @JsonProperty("is_deactivated")
     private boolean isDeactivated;
+    @JsonProperty("is_archived")
+    private boolean isArchived;
     @JsonProperty("is_being_gifted")
     private boolean isBeingGifted;
     @JsonProperty("vendor_code_id")
@@ -134,6 +136,14 @@ public class VoucherCode implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
     }
 
     public String getRedeemedDate() {
