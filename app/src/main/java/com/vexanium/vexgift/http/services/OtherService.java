@@ -10,6 +10,8 @@ import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -238,6 +240,19 @@ public interface OtherService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("digifinex-referral/submit-email")
+    Observable<HttpResponse<DigifinexReferralResponse>> submitDigifinexEmailReferred(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/my-referrals")
+    Observable<HttpResponse<DigifinexReferralListResponse>> getUserDigifinexEmailReferred(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
     @POST("news")
     Observable<HttpResponse<NewsResponse>> getNews(
             @Header("X-Vexanium-Key") String key,

@@ -23,6 +23,8 @@ import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
@@ -1007,7 +1009,22 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
-
     }
+//    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
+//        Map<String, Object> params = Api.getBasicParam();
+//
+//        params.put("user_id", userId);
+//        params.put("digifinex_email",address);
+//
+//        return mOtherService.submitDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralResponse>>());
+//    }
+//
+//    public Observable<HttpResponse<DigifinexReferralListResponse>> getDigifinexEmailReferralList(int userId) {
+//        Map<String, Object> params = Api.getBasicParam();
+//
+//        params.put("user_id", userId);
+//
+//        return mOtherService.getUserDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralListResponse>>());
+//    }
 
 }

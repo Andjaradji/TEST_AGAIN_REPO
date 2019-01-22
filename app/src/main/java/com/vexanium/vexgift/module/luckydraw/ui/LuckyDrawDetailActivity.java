@@ -176,7 +176,7 @@ public class LuckyDrawDetailActivity extends BaseActivity<ILuckyDrawPresenter> i
                 break;
             case R.id.share_button:
                 String deepUrl;
-                deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/luckyDraw?id=%d", luckyDraw.getId());
+                deepUrl = String.format(Locale.getDefault(), StaticGroup.FULL_DEEPLINK + "/luckydraw?id=%d", luckyDraw.getId());
                 String message = String.format(getString(R.string.share_voucher_template), deepUrl);
                 StaticGroup.shareWithShareDialog(App.getContext(), message, "Vex Gift");
 

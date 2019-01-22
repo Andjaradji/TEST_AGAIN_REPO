@@ -633,3 +633,5 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
         }
     }
 }
+
+
