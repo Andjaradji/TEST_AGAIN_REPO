@@ -29,7 +29,6 @@ public class IBoxInteractorImpl implements IBoxInteractor {
                                 return voucherCode.getCreatedAt().compareTo(t1.getCreatedAt());
                             }
                         });
-                        // TODO: 15/08/18 sort token 
                         return Observable.just(vouchersResponse);
                     }
                 })

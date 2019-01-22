@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".module.voucher.ui.VoucherRedeemActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/voucher_detail_heading_height"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/material_white"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/voucher_detail_heading_height"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7">
+
+                    <ImageView
+                        android:id="@+id/iv_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/voucher_detail_heading_height"
+                        android:transitionName="voucher_image" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_black_trans"></View>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="0dp"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    android:padding="0dp"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:titleTextColor="@color/material_black">
+
+                    <include layout="@layout/content_toolbar_voucher_redeem" />
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/material_white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor"></View>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/interval_main">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingEnd="4dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="4dp"
+                        android:paddingStart="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_title" />
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:tag="light"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/margin_more_line"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/margin_more_line"
+                    android:background="@color/lineColor" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recylerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:text="User Input" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_input_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:background="@drawable/shape_white_round_rect_with_black_border"
+                    android:orientation="vertical"
+                    android:padding="@dimen/interval_content">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/interval_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:background="@drawable/shape_ripple_orange_rounded"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_btn_archive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/myprofile_submit"
+                        android:textColor="@color/vex_orange"
+                        android:textSize="@dimen/text_title" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="@dimen/margin_more_line"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/margin_more_line"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:id="@+id/ll_affiliate_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/interval_main"
+                    android:paddingLeft="@dimen/interval_main"
+                    android:paddingRight="@dimen/interval_main"
+                    android:paddingStart="@dimen/interval_main">
+
+                    <TextView
+                        android:id="@+id/tv_desc_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:text="@string/deposit_desc"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/material_black_text_color"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <TextView
+                        android:id="@+id/tv_terms_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="bold"
+                        android:text="@string/coupon_detail_terms_title"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_terms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="64dp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

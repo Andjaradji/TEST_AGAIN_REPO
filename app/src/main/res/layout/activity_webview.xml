@@ -34,12 +34,12 @@
 
     <include layout="@layout/include_loading_view_white" />
 
-    <WebView
+    <com.vexanium.vexgift.base.BaseWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/app_bar">
 
-    </WebView>
+    </com.vexanium.vexgift.base.BaseWebView>
 
 </RelativeLayout>

@@ -4,12 +4,17 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
+import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
+import com.vexanium.vexgift.bean.model.AffiliateEntry;
+import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
+import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
@@ -42,6 +47,7 @@ import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.UserInputDataResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
@@ -60,13 +66,16 @@ import com.vexanium.vexgift.http.interceptor.RxErrorHandlingCallAdapterFactory;
 import com.vexanium.vexgift.http.services.OtherService;
 import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import me.echodev.resizer.Resizer;
@@ -629,6 +638,15 @@ public class RetrofitManager {
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
+    public Observable<HttpResponse<VoucherCodeResponse>> requestArchiveVoucher(int userId, int voucherCodeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+
+        return mVoucherService.requestArchiveVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
     public Observable<HttpResponse<VoucherGiftCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -904,6 +922,23 @@ public class RetrofitManager {
         return mOtherService.getNews(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
     }
 
+    public Observable<HttpResponse<UserInputDataResponse>> requestInput(int userId, String input) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("digifinex_email", input);
+
+        return mOtherService.requestUserInput(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+    }
+
+    public Observable<HttpResponse<UserInputDataResponse>> getUserInputData(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getUserInputData(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+    }
+
     public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -931,6 +966,48 @@ public class RetrofitManager {
         params.put("address", address);
 
         return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
+    }
+
+    public Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String keys, String vals) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        ArrayList<String> objectKey = (ArrayList<String>) JsonUtil.toObject(vals, ArrayList.class);
+        JsonObject objectVal = (JsonObject) JsonUtil.toObject(vals, JsonObject.class);
+
+        for (String set : objectKey){
+            params.put(set, objectVal.get(set));
+        }
+
+        params.put("user_id", userId);
+
+        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateEntry>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(int userId, int affliateProgramId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
+
+        return mOtherService.getAffiliateProgramEntries(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(int userId, int affliateProgramId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
+
+        return mOtherService.getAffiliateProgram(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgram>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
+
     }
 
 }

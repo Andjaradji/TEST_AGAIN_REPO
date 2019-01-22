@@ -1,5 +1,7 @@
 package com.vexanium.vexgift.module.more.ui;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,18 +16,22 @@ import android.widget.TextView;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.base.BaseWebChromeClient;
+import com.vexanium.vexgift.base.BaseWebView;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_webview, toolbarTitle = R.string.app_title)
 public class WebViewActivity extends BaseActivity {
 
-    WebView mWvTerm;
+    BaseWebView mWv;
+    private BaseWebChromeClient mWebChromeClient;
+
     RelativeLayout mLoadingContainer;
 
     String url;
 
     @Override
     protected void initView() {
-        mWvTerm = findViewById(R.id.webview);
+        mWv = findViewById(R.id.webview);
         mLoadingContainer = findViewById(R.id.av_indicator_container);
 
         final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_anim);
@@ -47,21 +53,30 @@ public class WebViewActivity extends BaseActivity {
         });
 
         mLoadingContainer.setVisibility(View.VISIBLE);
-        mWvTerm.setVisibility(View.GONE);
+        mWv.setVisibility(View.GONE);
 
-        mWvTerm.getSettings().setSupportZoom(true);
-        mWvTerm.getSettings().setJavaScriptEnabled(true);
-        mWvTerm.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        mWvTerm.setWebViewClient(new WebViewClient() {
+        mWebChromeClient = new BaseWebChromeClient(this);
+
+        mWv.getSettings().setSupportZoom(true);
+        mWv.setWebChromeClient(mWebChromeClient);
+        mWv.getSettings().setJavaScriptEnabled(true);
+        mWv.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        mWv.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                mWvTerm.setVisibility(View.VISIBLE);
-                mWvTerm.startAnimation(fadeIn);
+                mWv.setVisibility(View.VISIBLE);
+                mWv.startAnimation(fadeIn);
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWv.getSettings()
+                    .setMixedContentMode(
+                            WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                    );
+        }
         if (getIntent().hasExtra("url")) {
             url = getIntent().getStringExtra("url");
-            mWvTerm.loadUrl(url);
+            mWv.loadUrl(url);
 
         }
 

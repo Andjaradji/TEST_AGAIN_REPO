@@ -1,11 +1,13 @@
 package com.vexanium.vexgift.module.news.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,11 +17,15 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
+import com.vexanium.vexgift.base.BaseWebChromeClient;
+import com.vexanium.vexgift.base.BaseWebView;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_news)
 public class NewsFragment extends BaseFragment {
-    WebView mWebView;
+    BaseWebView mWebView;
     RelativeLayout mLoadingContainer;
+
+    private BaseWebChromeClient mWebChromeClient;
 
     private String url;
     private String javascript;
@@ -70,7 +76,16 @@ public class NewsFragment extends BaseFragment {
         javascript = getArguments().getString("js");
 
         mLoadingContainer.setVisibility(View.VISIBLE);
+
+        mWebChromeClient = new BaseWebChromeClient(this.getContext());
         mWebView.setVisibility(View.GONE);
+        mWebView.setWebChromeClient(mWebChromeClient);
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.setAcceptThirdPartyCookies(mWebView, true);
+        }
 
         mWebView.getSettings().setSupportZoom(true);
         mWebView.setWebViewClient(new WebViewClient() {

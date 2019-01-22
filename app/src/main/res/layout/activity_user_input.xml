@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.main.ui.UserInputActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:padding="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <include layout="@layout/content_toolbar_back" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/interval_main"
+                    android:tag="bold"
+                    android:text="My Referral"
+                    android:textColor="@color/material_black"
+                    android:textSize="@dimen/text_title" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recylerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:background="@color/material_white" />
+
+                <LinearLayout
+                    android:id="@+id/ll_referral_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/recylerview"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:background="@drawable/shape_voucher_availability"
+                    android:gravity="left|center_vertical">
+
+                    <EditText
+                        android:id="@+id/et_merchant_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center"
+                        android:hint="Add new referral"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/text_small_medium" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/ll_referral_field"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:layout_marginEnd="@dimen/interval_main"
+                    android:layout_marginLeft="@dimen/interval_main"
+                    android:layout_marginRight="@dimen/interval_main"
+                    android:layout_marginStart="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:background="@drawable/shape_ripple_main_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/coupon_redeem_voucher"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_title" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <include
+        layout="@layout/content_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar">
+
+    </include>
+
+</RelativeLayout>

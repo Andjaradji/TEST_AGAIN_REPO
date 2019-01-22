@@ -169,7 +169,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     private void initToolbar() {
-
         if (toolbar != null && mToolbarTitle != -1) {
             if (mToolbarTitle != -1) {
                 setToolbarTitle(mToolbarTitle);
@@ -185,7 +184,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 }
             });
         }
-
     }
 
     protected void setToolbarIndicator(int resId) {

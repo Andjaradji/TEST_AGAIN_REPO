@@ -1,5 +1,9 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.model.AffiliateEntry;
+import com.vexanium.vexgift.bean.model.AffiliateProgram;
+import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
+import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
@@ -23,6 +27,7 @@ import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.UserInputDataResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.VexVaultResponse;
@@ -235,6 +240,48 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("news")
     Observable<HttpResponse<NewsResponse>> getNews(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/submit-email")
+    Observable<HttpResponse<UserInputDataResponse>> requestUserInput(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/my-referrals")
+    Observable<HttpResponse<UserInputDataResponse>> getUserInputData(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program/submit-entry")
+    Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program/get-entries")
+    Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program")
+    Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program")
+    Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

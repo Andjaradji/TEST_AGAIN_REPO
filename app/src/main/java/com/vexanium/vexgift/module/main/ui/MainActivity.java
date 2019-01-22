@@ -35,6 +35,7 @@ import com.vexanium.vexgift.module.more.ui.WebViewActivity;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
+import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -616,6 +617,7 @@ public class MainActivity extends BaseActivity {
     public void openDeepLink(String url) {
         KLog.v("MainActivity", "openDeepLink: " + url);
 
+//        url = "http://www.vexgift.com/in.app.web?l=http%3A%2F%2Fvexgift.com%2Freferral%2Fleaderboard&t=Leaderboard%20Referral%20Contest";
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
         Intent intent;
         if (!isAlreadyHandled) {
@@ -644,7 +646,7 @@ public class MainActivity extends BaseActivity {
                 String sUrl = uri.getQueryParameter("l");
                 String sTitle = uri.getQueryParameter("t");
 
-                intent = new Intent(this, WebViewActivity.class);
+                intent = new Intent(this, VoucherWebViewActivity.class);
                 intent.putExtra("url", sUrl);
                 intent.putExtra("title", sTitle);
                 startActivity(intent);
