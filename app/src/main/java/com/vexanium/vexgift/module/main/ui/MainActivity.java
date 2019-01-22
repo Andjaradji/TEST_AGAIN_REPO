@@ -31,7 +31,6 @@ import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
-import com.vexanium.vexgift.module.more.ui.WebViewActivity;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;

@@ -23,8 +23,6 @@ import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
-import com.vexanium.vexgift.bean.response.DigifinexReferralListResponse;
-import com.vexanium.vexgift.bean.response.DigifinexReferralResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
 import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
@@ -77,7 +75,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import me.echodev.resizer.Resizer;
@@ -976,7 +973,7 @@ public class RetrofitManager {
         ArrayList<String> objectKey = (ArrayList<String>) JsonUtil.toObject(vals, ArrayList.class);
         JsonObject objectVal = (JsonObject) JsonUtil.toObject(vals, JsonObject.class);
 
-        for (String set : objectKey){
+        for (String set : objectKey) {
             params.put(set, objectVal.get(set));
         }
 

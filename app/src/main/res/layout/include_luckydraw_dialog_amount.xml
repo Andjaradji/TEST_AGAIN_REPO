@@ -34,15 +34,15 @@
         android:id="@+id/tv_amount_count_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/interval_main"
+        android:layout_below="@id/ll_amount"
+        android:ellipsize="end"
         android:paddingBottom="@dimen/interval_main"
         android:paddingLeft="@dimen/interval_main"
         android:paddingRight="@dimen/interval_main"
+        android:paddingTop="@dimen/interval_main"
         android:textAlignment="center"
-        android:ellipsize="end"
         android:textColor="@color/material_black_sub_text_color"
-        android:textSize="@dimen/text_small_medium"
-        android:layout_below="@id/ll_amount"/>
+        android:textSize="@dimen/text_small_medium" />
 
 
 </RelativeLayout>

@@ -307,9 +307,11 @@
         <activity
             android:name=".module.luckydraw.ui.LuckyDrawDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.news.ui.NewsActivity"
+        <activity
+            android:name=".module.news.ui.NewsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.main.ui.UserInputActivity"
+        <activity
+            android:name=".module.main.ui.UserInputActivity"
             android:screenOrientation="portrait" />
     </application>
 

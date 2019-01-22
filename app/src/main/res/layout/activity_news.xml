@@ -41,14 +41,14 @@
     </android.support.design.widget.AppBarLayout>
 
 
-        <com.vexanium.vexgift.widget.CustomViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/app_bar">
+    <com.vexanium.vexgift.widget.CustomViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </com.vexanium.vexgift.widget.CustomViewPager>
+    </com.vexanium.vexgift.widget.CustomViewPager>
 
     <include
         layout="@layout/content_error_view"

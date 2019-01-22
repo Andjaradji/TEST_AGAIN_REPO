@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInputData extends BaseType{
+public class UserInputData extends BaseType {
 
     @JsonProperty("user_id")
     private int userId;

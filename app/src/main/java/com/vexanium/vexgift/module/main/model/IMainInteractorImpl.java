@@ -6,7 +6,6 @@ import com.vexanium.vexgift.bean.model.AffiliateEntry;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
-import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.UserInputDataResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
@@ -32,6 +31,7 @@ public class IMainInteractorImpl implements IMainInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
     @Override
     public Subscription getInput(RequestCallback callback, int id) {
         return RetrofitManager.getInstance(HostType.COMMON_API).getUserInputData(id).compose(RxUtil.<UserInputDataResponse>handleResult())

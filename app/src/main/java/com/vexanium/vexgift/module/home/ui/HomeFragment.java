@@ -60,7 +60,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.main.ui.UserInputActivity;
 import com.vexanium.vexgift.module.news.ui.NewsActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.tokensale.ui.TokenSaleActivity;

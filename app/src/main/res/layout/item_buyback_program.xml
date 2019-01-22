@@ -177,8 +177,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/interval_submain"
             android:tag="bold"
-            android:textAllCaps="true"
             android:text="@string/buyback_options"
+            android:textAllCaps="true"
             android:textColor="@color/material_white"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

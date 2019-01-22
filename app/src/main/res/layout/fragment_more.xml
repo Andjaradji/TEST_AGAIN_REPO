@@ -390,7 +390,6 @@
                         android:textSize="@dimen/text_small_medium" />
 
 
-
                 </LinearLayout>
 
             </LinearLayout>

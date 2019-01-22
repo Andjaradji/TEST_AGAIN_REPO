@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.more.ui;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,11 +22,9 @@ import com.vexanium.vexgift.base.BaseWebView;
 public class WebViewActivity extends BaseActivity {
 
     BaseWebView mWv;
-    private BaseWebChromeClient mWebChromeClient;
-
     RelativeLayout mLoadingContainer;
-
     String url;
+    private BaseWebChromeClient mWebChromeClient;
 
     @Override
     protected void initView() {

@@ -58,8 +58,8 @@
                     android:layout_height="6dp"
                     android:layout_marginLeft="6dp"
                     android:src="@drawable/dot"
-                    android:visibility="gone"
-                    android:tint="@color/vex_orange" />
+                    android:tint="@color/vex_orange"
+                    android:visibility="gone" />
             </LinearLayout>
 
 

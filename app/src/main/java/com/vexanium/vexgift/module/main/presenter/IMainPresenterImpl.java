@@ -1,13 +1,10 @@
 package com.vexanium.vexgift.module.main.presenter;
 
 import com.vexanium.vexgift.base.BasePresenterImpl;
-import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.main.model.IMainInteractor;
 import com.vexanium.vexgift.module.main.model.IMainInteractorImpl;
 import com.vexanium.vexgift.module.main.view.IMainView;
-import com.vexanium.vexgift.module.news.model.INewsInteractorImpl;
-import com.vexanium.vexgift.module.news.view.INewsView;
 
 import java.io.Serializable;
 

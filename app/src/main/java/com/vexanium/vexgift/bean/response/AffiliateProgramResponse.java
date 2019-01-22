@@ -20,9 +20,9 @@ public class AffiliateProgramResponse implements Serializable {
         this.affiliatePrograms = affiliatePrograms;
     }
 
-    public  AffiliateProgram getAffiliateProgramById(int id){
-        for(AffiliateProgram affiliateProgram : affiliatePrograms){
-            if(affiliateProgram.getId() == id){
+    public AffiliateProgram getAffiliateProgramById(int id) {
+        for (AffiliateProgram affiliateProgram : affiliatePrograms) {
+            if (affiliateProgram.getId() == id) {
                 return affiliateProgram;
             }
         }

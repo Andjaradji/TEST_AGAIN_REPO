@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_luckydraw_winner_toolbar"
-    android:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:visibility="visible">
 
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/interval_submain"
         android:layout_marginStart="@dimen/interval_submain"
+        android:padding="@dimen/interval_small"
         android:src="@drawable/ic_back" />
 
     <LinearLayout
@@ -51,8 +51,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/interval_main"
-        android:visibility="gone"
         android:layout_marginRight="@dimen/interval_main"
-        android:src="@drawable/ic_trophy" />
+        android:src="@drawable/ic_trophy"
+        android:visibility="gone" />
 
 </RelativeLayout>
