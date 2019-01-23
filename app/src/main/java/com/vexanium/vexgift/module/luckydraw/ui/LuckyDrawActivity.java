@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
@@ -346,7 +347,6 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                         luckyDraws.add(luckyDraw);
                     }
                 }
-
                 setLuckyDrawList(luckyDraws);
 
                 mAdapter.notifyDataSetChanged();

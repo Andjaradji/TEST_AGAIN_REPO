@@ -565,6 +565,8 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="kyc_from_gallery">Pilih dari gallery</string>
     <string name="shortcut_notification">NOTIFIKASI</string>
     <string name="title_more">MORE</string>
+    <string name="internet_retry">Muat Ulang</string>
+    <string name="internet_exit">Tutup</string>
 
 
 </resources>

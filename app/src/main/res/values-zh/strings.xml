@@ -547,4 +547,6 @@
     <string name="title_more">更多</string>
     <string name="more_helps">帮助</string>
     <string name="more_guide">新手手册</string>
+    <string name="internet_retry">重試</string>
+    <string name="internet_exit">離開</string>
 </resources>

@@ -160,7 +160,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
         updateData();
 
         findViewById(R.id.back_button).setOnClickListener(this);
-        findViewById(R.id.token_open_filter_button).setOnClickListener(this);
+        findViewById(R.id.token_open_filter_button).setVisibility(View.GONE);
         findViewById(R.id.iv_winner).setOnClickListener(this);
 
 //        ((ImageView) findViewById(R.id.iv_toolbar_logo)).setImageResource(isToken ? R.drawable.ic_coin : R.drawable.ic_gift);
@@ -217,10 +217,12 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
             @Override
             public void onRefresh() {
                 //updateData();
-                resetFilter();
-                resetSort();
+                //resetFilter();
+                //resetSort();
             }
         });
+
+        mRefreshLayout.setEnabled(false);
 
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
