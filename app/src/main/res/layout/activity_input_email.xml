@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_white"
     android:gravity="bottom"
     app:umanoPanelHeight="0dp"
-    android:background="@color/material_white"
     tools:context=".module.misc.ui.InputEmailActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/app_bar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="4dp">
+                android:layout_centerInParent="true"
+                android:layout_margin="0dp"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:padding="0dp"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="0dp"
-                    android:contentInsetEnd="0dp"
-                    android:contentInsetLeft="0dp"
-                    android:contentInsetRight="0dp"
-                    android:contentInsetStart="0dp"
-                    android:padding="0dp"
-                    app:contentInsetEnd="0dp"
-                    app:contentInsetLeft="0dp"
-                    app:contentInsetRight="0dp"
-                    app:contentInsetStart="0dp">
+                <include layout="@layout/content_toolbar_back" />
 
-                    <include layout="@layout/content_toolbar_back" />
+            </android.support.v7.widget.Toolbar>
 
-                </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
-            </android.support.design.widget.AppBarLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/srl_refresh"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/app_bar">
+                android:layout_height="match_parent">
 
-                <RelativeLayout
+                <com.vexanium.vexgift.base.BaseWebView
+                    android:id="@+id/webview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/material_white">
 
-                    <com.vexanium.vexgift.base.BaseWebView
-                        android:id="@+id/webview"
-                        android:background="@color/material_white"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                </com.vexanium.vexgift.base.BaseWebView>
 
-                    </com.vexanium.vexgift.base.BaseWebView>
+            </RelativeLayout>
 
-                </RelativeLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/dragview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/shape_filter_bg"
         android:gravity="center|top"
-        android:orientation="vertical"
-        android:background="@drawable/shape_filter_bg">
+        android:orientation="vertical">
 
         <com.vexanium.vexgift.widget.LockableScrollView
             android:id="@+id/voucher_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-           </RelativeLayout>
+            </RelativeLayout>
 
         </com.vexanium.vexgift.widget.LockableScrollView>
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vexanium.vexgift.bean.model.DigifinexReferral;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DigifinexReferralResponse implements Serializable {

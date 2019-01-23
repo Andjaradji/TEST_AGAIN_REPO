@@ -6,7 +6,7 @@ import com.vexanium.vexgift.bean.model.UserInputData;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserInputDataResponse implements Serializable{
+public class UserInputDataResponse implements Serializable {
     @JsonProperty("digifinex_referral")
     private UserInputData userInputData;
 

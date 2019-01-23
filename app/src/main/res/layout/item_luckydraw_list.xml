@@ -17,8 +17,8 @@
         <ImageView
             android:id="@+id/iv_luckydraw_image"
             android:layout_width="match_parent"
-            android:contentDescription="@string/image_content_description"
             android:layout_height="@dimen/voucher_image_height"
+            android:contentDescription="@string/image_content_description"
             android:scaleType="centerCrop"
             android:transitionName="voucher_image" />
 
@@ -46,10 +46,10 @@
                 android:id="@+id/tv_luckydraw_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:paddingTop="@dimen/interval_small"
-                android:paddingBottom="@dimen/interval_small"
                 android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/interval_small"
+                android:paddingTop="@dimen/interval_small"
                 android:tag="bold"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
@@ -58,8 +58,8 @@
                 android:id="@+id/v_banner_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/material_grey_d8"
-                android:layout_below="@id/tv_luckydraw_title">
+                android:layout_below="@id/tv_luckydraw_title"
+                android:background="@color/material_grey_d8">
 
             </View>
 
@@ -73,8 +73,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -83,9 +83,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
+                        android:tag="bold"
                         android:text="@string/luckydraw_your_coupon"
                         android:textAllCaps="true"
-                        android:tag="bold"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xxtiny" />
 
@@ -95,8 +95,8 @@
                         android:layout_height="wrap_content"
                         android:maxLines="2"
                         android:paddingLeft="@dimen/interval_small"
-                        android:textAllCaps="true"
                         android:tag="bold"
+                        android:textAllCaps="true"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xxtiny" />
 
@@ -105,8 +105,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -115,9 +115,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
+                        android:tag="bold"
                         android:text="@string/luckydraw_total_coupon"
                         android:textAllCaps="true"
-                        android:tag="bold"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xxtiny" />
 
@@ -127,8 +127,8 @@
                         android:layout_height="wrap_content"
                         android:maxLines="2"
                         android:paddingLeft="@dimen/interval_small"
-                        android:textAllCaps="true"
                         android:tag="bold"
+                        android:textAllCaps="true"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xxtiny" />
 
@@ -137,8 +137,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -147,8 +147,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
-                        android:textAllCaps="true"
                         android:tag="bold"
+                        android:textAllCaps="true"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xxtiny" />
 
@@ -157,20 +157,19 @@
             </LinearLayout>
 
 
-
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_winner_container"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/interval_small"
+            android:layout_below="@id/rl_banner_info"
+            android:gravity="center"
             android:paddingBottom="@dimen/interval_main"
             android:paddingLeft="@dimen/interval_content"
             android:paddingRight="@dimen/interval_content"
-            android:gravity="center"
-            android:layout_below="@id/rl_banner_info">
+            android:paddingTop="@dimen/interval_small"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_winner"
@@ -184,7 +183,6 @@
         </LinearLayout>
 
     </RelativeLayout>
-
 
 
     <LinearLayout

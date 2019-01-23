@@ -48,10 +48,10 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_alignParentEnd="true"
-        android:visibility="gone"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/interval_content"
         android:padding="10dp"
-        android:src="@drawable/history" />
+        android:src="@drawable/history"
+        android:visibility="gone" />
 
 </RelativeLayout>
