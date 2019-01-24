@@ -275,7 +275,7 @@ public interface OtherService {
 
     @FormUrlEncoded
     @POST("affiliate-program/submit-entry")
-    Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(
+    Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

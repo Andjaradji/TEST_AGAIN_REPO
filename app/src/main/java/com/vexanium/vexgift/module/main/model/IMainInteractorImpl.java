@@ -18,33 +18,6 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 public class IMainInteractorImpl implements IMainInteractor {
-    @Override
-    public Subscription requestInput(RequestCallback callback, int id, String input) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestInput(id, input).compose(RxUtil.<UserInputDataResponse>handleResult())
-                .flatMap(new Func1<UserInputDataResponse, Observable<UserInputDataResponse>>() {
-                    @Override
-                    public Observable<UserInputDataResponse> call(UserInputDataResponse response) {
-
-                        KLog.json("HPtes", JsonUtil.toString(response));
-                        return Observable.just(response);
-                    }
-                })
-                .subscribe(new BaseSubscriber<>(callback));
-    }
-
-    @Override
-    public Subscription getInput(RequestCallback callback, int id) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).getUserInputData(id).compose(RxUtil.<UserInputDataResponse>handleResult())
-                .flatMap(new Func1<UserInputDataResponse, Observable<UserInputDataResponse>>() {
-                    @Override
-                    public Observable<UserInputDataResponse> call(UserInputDataResponse response) {
-
-                        KLog.json("HPtes", JsonUtil.toString(response));
-                        return Observable.just(response);
-                    }
-                })
-                .subscribe(new BaseSubscriber<>(callback));
-    }
 
     @Override
     public Subscription getAffilateProgram(RequestCallback callback, int userId, int affiliateProgramId) {
@@ -70,11 +43,11 @@ public class IMainInteractorImpl implements IMainInteractor {
     }
 
     @Override
-    public Subscription submitAffiliateProgramEntry(RequestCallback callback, int user_id, int affiliate_program_id, String keys, String vals) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).submitAffiliateProgramEntry(user_id, affiliate_program_id, keys, vals).compose(RxUtil.<AffiliateEntry>handleResult())
-                .flatMap(new Func1<AffiliateEntry, Observable<AffiliateEntry>>() {
+    public Subscription submitAffiliateProgramEntry(RequestCallback callback, int user_id, int affiliate_program_id, String vals) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).submitAffiliateProgramEntry(user_id, affiliate_program_id, vals).compose(RxUtil.<AffiliateProgramEntryResponse>handleResult())
+                .flatMap(new Func1<AffiliateProgramEntryResponse, Observable<AffiliateProgramEntryResponse>>() {
                     @Override
-                    public Observable<AffiliateEntry> call(AffiliateEntry affiliateProgramEntry) {
+                    public Observable<AffiliateProgramEntryResponse> call(AffiliateProgramEntryResponse affiliateProgramEntry) {
 
                         return Observable.just(affiliateProgramEntry);
                     }

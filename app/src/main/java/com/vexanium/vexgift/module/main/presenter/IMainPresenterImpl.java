@@ -48,20 +48,8 @@ public class IMainPresenterImpl extends BasePresenterImpl<IMainView, Serializabl
     }
 
     @Override
-    public void requestUserInputData(int id, String input) {
-        Subscription subscription = mMainInteractor.requestInput(this, id, input);
-        compositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void getUserInputData(int id) {
-        Subscription subscription = mMainInteractor.getInput(this, id);
-        compositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void submitAffiliateProgramEntry(int userId, int affiliateProgramId, String vals, String keys) {
-        Subscription subscription = mMainInteractor.submitAffiliateProgramEntry(this, userId, affiliateProgramId, vals, keys);
+    public void submitAffiliateProgramEntry(int userId, int affiliateProgramId, String vals) {
+        Subscription subscription = mMainInteractor.submitAffiliateProgramEntry(this, userId, affiliateProgramId, vals);
         compositeSubscription.add(subscription);
     }
 

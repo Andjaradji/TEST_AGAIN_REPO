@@ -74,6 +74,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -967,19 +968,16 @@ public class RetrofitManager {
         return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }
 
-    public Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String keys, String vals) {
+    public Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String vals) {
         Map<String, Object> params = Api.getBasicParam();
 
-        ArrayList<String> objectKey = (ArrayList<String>) JsonUtil.toObject(vals, ArrayList.class);
-        JsonObject objectVal = (JsonObject) JsonUtil.toObject(vals, JsonObject.class);
-
-        for (String set : objectKey) {
-            params.put(set, objectVal.get(set));
-        }
+        Map<String, Object> pVal = (Map<String, Object>) JsonUtil.toObject(vals, HashMap.class);
+        params.putAll(pVal);
 
         params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
 
-        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateEntry>>());
+        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
     }
 
     public Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(int userId, int affliateProgramId) {
@@ -1007,6 +1005,7 @@ public class RetrofitManager {
 
         return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
     }
+
 //    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
 //        Map<String, Object> params = Api.getBasicParam();
 //
