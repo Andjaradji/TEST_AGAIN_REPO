@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -25,12 +26,17 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
+import com.vexanium.vexgift.module.security.ui.SecurityActivity;
+import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -103,7 +109,31 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
             if (NetworkUtil.isOnline(this)) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse, this);
             } else {
-                StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body), this);
+                //StaticGroup.showCommonErrorDialog(this, getString(R.string.error_internet_header), getString(R.string.error_internet_body), this);
+
+                new VexDialog.Builder(this)
+                        .title(getString(R.string.error_internet_header))
+                        .content(getString(R.string.error_internet_body))
+                        .positiveText("Retry")
+                        .negativeText("Exit")
+                        .optionType(DialogOptionType.YES_NO)
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                load();
+                                dialog.dismiss();
+                            }
+                        })
+                        .onNegative(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                finish();
+                            }
+                        })
+                        .canceledOnTouchOutside(false)
+                        .cancelable(false)
+                        .autoDismiss(false)
+                        .show();
             }
         }
     }
