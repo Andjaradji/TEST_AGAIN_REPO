@@ -259,6 +259,6 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

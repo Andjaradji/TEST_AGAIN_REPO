@@ -253,6 +253,7 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
     @POST("news")
     Observable<HttpResponse<NewsResponse>> getNews(
             @Header("X-Vexanium-Key") String key,

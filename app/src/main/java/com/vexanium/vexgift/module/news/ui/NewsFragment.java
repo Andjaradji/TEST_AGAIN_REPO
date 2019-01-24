@@ -18,11 +18,10 @@ import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseWebChromeClient;
-import com.vexanium.vexgift.base.BaseWebView;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_news)
 public class NewsFragment extends BaseFragment {
-    BaseWebView mWebView;
+    WebView mWebView;
     RelativeLayout mLoadingContainer;
 
     private BaseWebChromeClient mWebChromeClient;
