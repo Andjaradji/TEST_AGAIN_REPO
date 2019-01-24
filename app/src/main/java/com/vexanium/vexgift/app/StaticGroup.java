@@ -1458,6 +1458,15 @@ public class StaticGroup {
         }
     }
 
+    public static boolean isNewsActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_news_active") != -1) {
+            return settingResponse.getSettingValByKey("is_news_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
 
     public static boolean isTokenFreezeBannerActive() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();

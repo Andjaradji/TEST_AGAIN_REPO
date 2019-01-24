@@ -656,6 +656,19 @@ public class MainActivity extends BaseActivity {
                     startActivity(intent);
                 }
 
+            } else if (path.startsWith("affiliate")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                intent = new Intent(this, UserInputActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
             } else if (path.startsWith("token")) {
                 String sId = uri.getQueryParameter("id");
                 int id = 0;
