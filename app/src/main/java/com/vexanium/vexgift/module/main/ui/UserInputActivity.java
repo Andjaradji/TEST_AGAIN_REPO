@@ -55,12 +55,6 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
     RecyclerView mRecyclerview;
     LinearLayout userInputBox;
 
-    public enum State {
-        EXPANDED,
-        COLLAPSED,
-        IDLE
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,6 +222,12 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
         } else {
             mAdapter.setData(affiliateEntries);
         }
+    }
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
     }
 
     public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {

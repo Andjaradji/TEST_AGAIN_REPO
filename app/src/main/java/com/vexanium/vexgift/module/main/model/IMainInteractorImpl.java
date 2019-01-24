@@ -2,11 +2,9 @@ package com.vexanium.vexgift.module.main.model;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.model.AffiliateEntry;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
-import com.vexanium.vexgift.bean.response.UserInputDataResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;

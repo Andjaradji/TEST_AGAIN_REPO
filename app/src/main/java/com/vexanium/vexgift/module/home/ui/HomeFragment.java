@@ -60,7 +60,6 @@ import com.vexanium.vexgift.module.home.presenter.IHomePresenterImpl;
 import com.vexanium.vexgift.module.home.view.IHomeView;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.main.ui.UserInputActivity;
 import com.vexanium.vexgift.module.news.ui.NewsActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
 import com.vexanium.vexgift.module.tokensale.ui.TokenSaleActivity;
@@ -609,7 +608,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    if(isNewsActive()) {
+                                    if (isNewsActive()) {
                                         Intent intent = new Intent(HomeFragment.this.getActivity(), NewsActivity.class);
                                         RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
                                         startActivity(intent);

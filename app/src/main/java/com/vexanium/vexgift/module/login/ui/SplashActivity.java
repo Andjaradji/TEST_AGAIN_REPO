@@ -26,8 +26,6 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
 import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
 import com.vexanium.vexgift.module.login.view.ILoginView;
-import com.vexanium.vexgift.module.security.ui.SecurityActivity;
-import com.vexanium.vexgift.module.vexpoint.ui.VexAddressActivity;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;

@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.http.services;
 
-import com.vexanium.vexgift.bean.model.AffiliateEntry;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;

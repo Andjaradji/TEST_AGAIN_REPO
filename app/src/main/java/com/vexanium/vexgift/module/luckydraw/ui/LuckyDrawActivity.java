@@ -23,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.vexanium.vexgift.R;
