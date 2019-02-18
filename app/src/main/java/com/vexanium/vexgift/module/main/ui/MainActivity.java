@@ -25,11 +25,16 @@ import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
+import com.vexanium.vexgift.module.buyback.ui.BuybackActivity;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
+import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
+import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
+import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
+import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -611,6 +616,7 @@ public class MainActivity extends BaseActivity {
     public void openDeepLink(String url) {
         KLog.v("MainActivity", "openDeepLink: " + url);
 
+//        url = "http://www.vexgift.com/in.app.web?l=http%3A%2F%2Fvexgift.com%2Freferral%2Fleaderboard&t=Leaderboard%20Referral%20Contest";
         boolean isAlreadyHandled = StaticGroup.handleUrl(this, url);
         Intent intent;
         if (!isAlreadyHandled) {
@@ -632,6 +638,34 @@ public class MainActivity extends BaseActivity {
                 }
 
                 intent = new Intent(this, VoucherActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
+            } else if (path.startsWith("in.app.web")) {
+                String sUrl = uri.getQueryParameter("l");
+                String sTitle = uri.getQueryParameter("t");
+
+                intent = new Intent(this, VoucherWebViewActivity.class);
+                intent.putExtra("url", sUrl);
+                intent.putExtra("title", sTitle);
+                startActivity(intent);
+
+            } else if (path.startsWith("tokenfreeze")) {
+                if (StaticGroup.isTokenFreezeBannerActive()) {
+                    intent = new Intent(this, TokenFreezeActivity.class);
+                    startActivity(intent);
+                }
+
+            } else if (path.startsWith("affiliate")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                intent = new Intent(this, UserInputActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
 
@@ -665,6 +699,7 @@ public class MainActivity extends BaseActivity {
                     intent.putExtra("id", id);
                     startActivity(intent);
                 }
+
             } else if (path.startsWith("receive")) {
                 String code = uri.getQueryParameter("c");
                 intent = new Intent(this, VoucherActivity.class);
@@ -674,11 +709,40 @@ public class MainActivity extends BaseActivity {
             } else if (path.startsWith("box")) {
                 gotoPage(BOX_FRAGMENT);
 
+            } else if (path.startsWith("luckydraw")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                intent = new Intent(this, LuckyDrawActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            } else if (path.startsWith("buyback")) {
+                if (StaticGroup.isBuybackBannerActive()) {
+                    String sId = uri.getQueryParameter("id");
+                    int id = 0;
+                    try {
+                        id = Integer.parseInt(sId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    intent = new Intent(this, BuybackActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                }
+
+            } else if (path.startsWith("referral")) {
+                if (StaticGroup.isReferralBannerActive()) {
+                    intent = new Intent(this, ReferralActivity.class);
+                    startActivity(intent);
+                }
             } else if (url.startsWith("http://") || url.startsWith("https://")) {
                 StaticGroup.openAndroidBrowser(this, url);
             }
         }
-
     }
 
     public void gotoPage(int page, int secondaryPage) {

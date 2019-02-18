@@ -2,20 +2,20 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="8dp"
     android:height="8dp"
-    android:viewportWidth="8"
-    android:viewportHeight="8">
+    android:viewportHeight="8"
+    android:viewportWidth="8">
 
     <group
-            android:translateX="-238.000000"
-            android:translateY="-203.000000">
+        android:translateX="-238.000000"
+        android:translateY="-203.000000">
         <group
-                android:translateX="204.000000"
-                android:translateY="198.000000">
+            android:translateX="204.000000"
+            android:translateY="198.000000">
             <path
                 android:fillColor="#FFFFFF"
                 android:fillType="evenOdd"
-                android:strokeWidth="1"
-                android:pathData="M 38 5 L 42 13 L 34 13 Z" />
+                android:pathData="M 38 5 L 42 13 L 34 13 Z"
+                android:strokeWidth="1" />
         </group>
     </group>
 </vector>

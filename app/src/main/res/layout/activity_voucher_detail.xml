@@ -52,7 +52,7 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="50dp"
                     android:layout_margin="0dp"
                     android:contentInsetEnd="0dp"
                     android:contentInsetLeft="0dp"
@@ -154,14 +154,37 @@
                     android:layout_marginTop="@dimen/margin_more_line"
                     android:background="@color/lineColor" />
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/material_black_text_color"
-                    android:tag="bold"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_title" />
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:tag="bold">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_per_coupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/interval_small"
+                        android:tag="bold"
+                        android:text="@string/luckydraw_per_coupon"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/tv_price_info"
@@ -193,36 +216,10 @@
                     android:layout_marginTop="@dimen/margin_more_line"
                     android:background="@color/lineColor" />
 
-                <TextView
-                    android:id="@+id/tv_voucher_availability_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/interval_main"
-                    android:text="@string/coupon_detail_availability"
-                    android:textColor="@color/material_black_text_color"
-                    android:textSize="@dimen/text_tiny" />
 
-                <LinearLayout
-                    android:id="@+id/ll_voucher_availability_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="@dimen/interval_medium"
-                    android:layout_marginEnd="@dimen/interval_main"
-                    android:layout_marginLeft="@dimen/interval_main"
-                    android:layout_marginRight="@dimen/interval_main"
-                    android:layout_marginStart="@dimen/interval_main"
-                    android:background="@drawable/shape_voucher_availability"
-                    android:gravity="center">
+                <include layout="@layout/include_voucher_detail_quantity" />
 
-                    <TextView
-                        android:id="@+id/tv_avail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/interval_content"
-                        android:tag="bold"
-                        android:text="@string/voucher_availability"
-                        android:textSize="@dimen/text_medium" />
-                </LinearLayout>
+                <include layout="@layout/include_luckydraw_detail_quantity" />
 
                 <View
                     android:id="@+id/v_voucher_availability_divider"
@@ -290,9 +287,7 @@
                         android:text="@string/term_agree" />
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </android.support.v4.widget.NestedScrollView>
 
 
@@ -329,6 +324,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_btn_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/interval_submain"

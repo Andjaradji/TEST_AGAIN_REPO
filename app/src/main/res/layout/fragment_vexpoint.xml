@@ -5,9 +5,9 @@
     android:background="@color/material_white">
 
     <include
-        android:layout_height="match_parent"
+        layout="@layout/content_error_view"
         android:layout_width="match_parent"
-        layout="@layout/content_error_view">
+        android:layout_height="match_parent">
 
     </include>
 

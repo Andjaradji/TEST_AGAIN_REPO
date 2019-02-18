@@ -23,8 +23,10 @@ android {
         applicationId "com.vexanium.vexgift"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 991
-        versionName "0.9.9.1 (Beta)"
+
+        versionCode 1035
+        versionName "1.0.3.5"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -78,7 +80,7 @@ android {
 }
 
 greendao {
-    schemaVersion 10
+    schemaVersion 15
 }
 
 dependencies {

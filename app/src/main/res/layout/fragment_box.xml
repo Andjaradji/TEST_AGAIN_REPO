@@ -50,33 +50,32 @@
             android:id="@+id/rl_notif_info"
             android:layout_width="match_parent"
             android:layout_height="36dp"
+            android:layout_below="@id/app_bar"
             android:background="#e86c26"
-            android:visibility="gone"
-            android:layout_below="@id/app_bar">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_notif_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You have 10 Expired and 8 Used Voucher"
-                android:textSize="@dimen/text_small_medium"
-                android:textColor="@color/material_white"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:paddingLeft="20dp"
                 android:paddingRight="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"/>
+                android:text="You have 10 Expired and 8 Used Voucher"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_small_medium" />
 
             <TextView
                 android:id="@+id/tv_notif_see_all"
-                android:text="@string/box_notif_see_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_xtiny"
-                android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                />
+                android:paddingRight="20dp"
+                android:text="@string/box_notif_see_all"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_xtiny" />
 
         </RelativeLayout>
 

@@ -8,10 +8,10 @@
         android:id="@+id/back_button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/interval_submain"
         android:layout_marginStart="@dimen/interval_submain"
+        android:padding="@dimen/interval_small"
         android:src="@drawable/ic_back" />
 
     <LinearLayout
@@ -36,13 +36,13 @@
         android:id="@+id/referral_button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:padding="@dimen/interval_small"
-        android:visibility="gone"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/interval_submain"
-        android:layout_marginEnd="@dimen/interval_submain"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_referral" />
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/interval_submain"
+        android:layout_marginRight="@dimen/interval_submain"
+        android:padding="@dimen/interval_small"
+        android:src="@drawable/ic_referral"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

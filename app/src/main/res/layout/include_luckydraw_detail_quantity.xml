@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_luckydraw_quantity_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_more_line"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_luckydraw_quantity_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interval_main"
+        android:text="@string/luckydraw"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:background="@drawable/shape_grey_rounded_empty">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/interval_main"
+                android:paddingLeft="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_main">
+
+                <TextView
+                    android:id="@+id/tv_your_coupon_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/luckydraw_your_coupon"
+                    android:textAllCaps="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
+
+                <TextView
+                    android:id="@+id/tv_your_coupon_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_big_medium" />
+
+                <TextView
+                    android:id="@+id/tv_your_coupon_max"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xxtiny" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v_separator"
+                android:layout_width="1dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@color/material_grey_d8"></View>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/v_separator"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/interval_main"
+                android:paddingLeft="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_main">
+
+                <TextView
+                    android:id="@+id/tv_total_coupon_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/luckydraw_total_coupon"
+                    android:textAllCaps="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xtiny" />
+
+                <TextView
+                    android:id="@+id/tv_total_coupon_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_big_medium" />
+
+                <TextView
+                    android:id="@+id/tv_total_coupon_max"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_sub_text_color"
+                    android:textSize="@dimen/text_xxtiny" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_luckydraw_winner_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/interval_main"
+        android:text="@string/luckydraw_winner"
+        android:textColor="@color/material_black_text_color"
+        android:textSize="@dimen/text_tiny"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/fl_luckydraw_winner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/interval_main"
+        android:layout_marginStart="@dimen/interval_main"
+        android:background="@drawable/shape_grey_rounded_empty"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_luckydraw_winner_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:paddingBottom="@dimen/interval_main"
+                android:paddingLeft="@dimen/interval_main"
+                android:paddingRight="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_main"
+                android:textAlignment="center"
+                android:textColor="@color/material_black_sub_text_color"
+                android:textSize="@dimen/text_xtiny" />
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>

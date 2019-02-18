@@ -57,7 +57,7 @@ public class IconTextTabBarView extends RelativeLayout {
     public void init(Context context) {
         this.context = context;
         view = View.inflate(context, R.layout.item_custom_tab_bar_view, this);
-        flexboxLayout = (FlexboxLayout) view.findViewById(R.id.flexbox_tab_bar);
+        flexboxLayout = view.findViewById(R.id.flexbox_tab_bar);
         tabViews = new ArrayList<>();
     }
 

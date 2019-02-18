@@ -49,9 +49,9 @@
                 android:id="@+id/rl_notif_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:background="@color/material_grey_E8E8E8"
                 android:padding="@dimen/interval_main"
-                android:background="@color/material_grey_E8E8E8">
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -83,11 +83,12 @@
                     android:background="@drawable/shape_ripple_transparent"
                     android:clickable="true"
                     android:focusable="true">
+
                     <TextView
-                        android:layout_toLeftOf="@+id/tv_change_pass"
-                        android:layout_toStartOf="@+id/tv_change_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/tv_change_pass"
+                        android:layout_toStartOf="@+id/tv_change_pass"
                         android:padding="@dimen/margin_common_list"
                         android:text="@string/security_change_password_label"
                         android:textColor="@color/material_black_text_color"
@@ -97,11 +98,11 @@
                         android:id="@id/tv_change_pass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_common_list"
-                        android:textAllCaps="true"
                         android:text="@string/security_change_password"
+                        android:textAllCaps="true"
                         android:textColor="@color/material_black_sub_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
@@ -114,11 +115,12 @@
                     android:background="@drawable/shape_ripple_transparent"
                     android:clickable="true"
                     android:focusable="true">
+
                     <TextView
-                        android:layout_toLeftOf="@+id/google_auth_status"
-                        android:layout_toStartOf="@+id/google_auth_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/google_auth_status"
+                        android:layout_toStartOf="@+id/google_auth_status"
                         android:padding="@dimen/margin_common_list"
                         android:text="@string/security_google_auth_label"
                         android:textColor="@color/material_black_text_color"
@@ -128,8 +130,8 @@
                         android:id="@id/google_auth_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_common_list"
                         android:text="OFF"
                         android:textColor="@color/material_black_sub_text_color"

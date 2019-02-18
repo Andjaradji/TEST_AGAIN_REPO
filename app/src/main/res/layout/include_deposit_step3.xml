@@ -74,9 +74,9 @@
             android:background="@drawable/shape_deposit_rejected_bg"
             android:paddingBottom="2dp"
             android:paddingEnd="4dp"
-            android:visibility="gone"
             android:paddingStart="4dp"
-            android:paddingTop="2dp">
+            android:paddingTop="2dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,10 +89,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
         android:id="@+id/ll_confirmed_view"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,9 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_content"
             android:tag="bold"
-            android:textSize="@dimen/text_tiny"
             android:text="@string/deposit_step3_will_distribute"
-            android:textColor="@color/material_black_text_color" />
+            android:textColor="@color/material_black_text_color"
+            android:textSize="@dimen/text_tiny" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,6 +162,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -168,12 +170,12 @@
         android:layout_marginTop="@dimen/interval_submain"
         android:tag="bold"
         android:text="Note :"
-        android:visibility="visible"
-        android:textColor="@color/material_black_text_color" />
+        android:textColor="@color/material_black_text_color"
+        android:visibility="visible" />
 
     <TextView
-        android:layout_width="match_parent"
         android:id="@+id/tv_note_step3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_xtiny" />

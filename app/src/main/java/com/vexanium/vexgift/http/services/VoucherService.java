@@ -99,6 +99,12 @@ public interface VoucherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("voucher/archive-voucher-code")
+    Observable<HttpResponse<VoucherCodeResponse>> requestArchiveVoucher(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("voucher-gift-code/get-gift-code")

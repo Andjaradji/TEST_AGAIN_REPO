@@ -3,13 +3,17 @@ package com.vexanium.vexgift.database;
 import com.google.gson.reflect.TypeToken;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.bean.model.LuckyDraw;
 import com.vexanium.vexgift.bean.model.Notification;
 import com.vexanium.vexgift.bean.model.NotificationModel;
 import com.vexanium.vexgift.bean.model.Voucher;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
@@ -60,12 +64,36 @@ public class TableContentDaoUtil extends BaseDaoUtil {
                 }.getType()) : null;
     }
 
+    public LuckyDrawListResponse getLuckyDraw() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getLuckydraws() != null ?
+                (LuckyDrawListResponse) JsonUtil.toObject(query.list().get(0).getLuckydraws(), new TypeToken<LuckyDrawListResponse>() {
+                }.getType()) : null;
+    }
+
     public UserVouchersResponse getMyBoxContent() {
         QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
 
         return query.list().size() > 0 && query.list().get(0).getMyBoxs() != null ?
                 (UserVouchersResponse) JsonUtil.toObject(query.list().get(0).getMyBoxs(), new TypeToken<UserVouchersResponse>() {
                 }.getType()) : new UserVouchersResponse();
+    }
+
+    public BannerResponse getBanners() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getBanners() != null ?
+                (BannerResponse) JsonUtil.toObject(query.list().get(0).getBanners(), new TypeToken<BannerResponse>() {
+                }.getType()) : new BannerResponse();
+    }
+
+    public NewsResponse getNews() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getNews() != null ?
+                (NewsResponse) JsonUtil.toObject(query.list().get(0).getNews(), new TypeToken<NewsResponse>() {
+                }.getType()) : new NewsResponse();
     }
 
     public ArrayList<Notification> getNotifs() {
@@ -133,6 +161,15 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         }
     }
 
+    public ArrayList<LuckyDraw> getLuckyDraws() {
+        LuckyDrawListResponse luckyDrawResponse = getLuckyDraw();
+        if (luckyDrawResponse != null && luckyDrawResponse.getLuckyDraws() != null) {
+            return luckyDrawResponse.getLuckyDraws();
+        } else {
+            return null;
+        }
+    }
+
     public BestVoucherResponse getBestVouchers() {
         QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
 
@@ -187,6 +224,57 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             tableContent = new TableContent();
             tableContent.setVouchers(vouchers);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveBannersToDb(String banners) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setBanners(banners);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setBanners(banners);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveNewsToDb(String news) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setBanners(news);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setBanners(news);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveLuckdrawsToDb(String luckdraws) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setLuckydraws(luckdraws);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setLuckydraws(luckdraws);
             tableContent.setCreatedTime(System.currentTimeMillis());
             mTableContentDao.insert(tableContent);
         }

@@ -21,10 +21,10 @@
             android:layout_height="wrap_content"
             android:background="@color/transparent"
             android:hint="@string/google2fa_dialog_field"
-            android:maxLines="1"
-            android:singleLine="true"
             android:inputType="number"
+            android:maxLines="1"
             android:paddingLeft="@dimen/interval_main"
+            android:singleLine="true"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_small_medium" />
     </LinearLayout>

@@ -30,7 +30,8 @@
         android:largeHeap="true"
         android:roundIcon="@drawable/small_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
@@ -266,6 +267,18 @@
             android:name=".module.tokensale.ui.TokenSaleHistoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.buyback.ui.BuybackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.buyback.ui.BuybackHistoryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.exchanger.ui.BuyVexActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -282,9 +295,24 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
-        <activity android:name=".module.referral.ui.ReferralDetailActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".module.referral.ui.ReferralDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawWinnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.luckydraw.ui.LuckyDrawDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.news.ui.NewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.main.ui.UserInputActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

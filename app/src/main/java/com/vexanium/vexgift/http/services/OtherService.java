@@ -1,9 +1,22 @@
 package com.vexanium.vexgift.http.services;
 
+import com.vexanium.vexgift.bean.model.AffiliateProgram;
+import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
+import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
+import com.vexanium.vexgift.bean.response.BannerResponse;
+import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
+import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
+import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralListResponse;
+import com.vexanium.vexgift.bean.response.DigifinexReferralResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.PremiumHistoryResponse;
 import com.vexanium.vexgift.bean.response.PremiumListResponse;
@@ -15,6 +28,9 @@ import com.vexanium.vexgift.bean.response.TokenSalePaymentResponse;
 import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.UserInputDataResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.VexVaultResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
 
@@ -36,11 +52,25 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("banner")
+    Observable<HttpResponse<BannerResponse>> getBanners(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
     @GET("setting/app-status")
     Observable<HttpResponse<SettingResponse>> getAppStatus(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @QueryMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("exchange/get")
+    Observable<HttpResponse<ExchangeResponse>> getExchangeList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("voucher")
@@ -141,6 +171,132 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("token-sale/get-token-sale-payment")
     Observable<HttpResponse<TokenSaleHistoryDetailResponse>> getTokenSalePayment(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw")
+    Observable<HttpResponse<LuckyDrawListResponse>> getLuckyDrawList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/get")
+    Observable<HttpResponse<LuckyDrawResponse>> getLuckyDraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/get-user-lucky-draw")
+    Observable<HttpResponse<UserLuckyDrawListResponse>> getUserLuckyDrawList(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/buy-lucky-draw")
+    Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("lucky-draw/set-address")
+    Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/get-buy-back-history")
+    Observable<HttpResponse<BuybackHistoryResponse>> getBuybackHistories(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back")
+    Observable<HttpResponse<BuybackPaymentResponse>> doBuyback(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/get")
+    Observable<HttpResponse<BuybackResponse>> getBuyback(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("buy-back/update-distribution-address")
+    Observable<HttpResponse<EmptyResponse>> updateBuybackDistributionAddress(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/submit-email")
+    Observable<HttpResponse<DigifinexReferralResponse>> submitDigifinexEmailReferred(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/my-referrals")
+    Observable<HttpResponse<DigifinexReferralListResponse>> getUserDigifinexEmailReferred(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("news")
+    Observable<HttpResponse<NewsResponse>> getNews(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/submit-email")
+    Observable<HttpResponse<UserInputDataResponse>> requestUserInput(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("digifinex-referral/my-referrals")
+    Observable<HttpResponse<UserInputDataResponse>> getUserInputData(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program/submit-entry")
+    Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program/get-entries")
+    Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program")
+    Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("affiliate-program")
+    Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

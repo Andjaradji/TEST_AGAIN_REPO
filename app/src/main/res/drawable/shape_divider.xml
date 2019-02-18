@@ -4,13 +4,11 @@
         android:left="15dp"
         android:right="15dp">
 
-        <shape
-            android:shape="rectangle">
-            <size
-                android:height="1dp" />
+        <shape android:shape="rectangle">
+            <size android:height="1dp" />
             <padding
                 android:left="8dp"
-                android:right="8dp"/>
+                android:right="8dp" />
             <solid android:color="@color/material_grey_E8E8E8" />
         </shape>
     </item>

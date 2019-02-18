@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <View
         android:id="@+id/bub_arrow_view"
         android:layout_width="26dp"
@@ -10,22 +11,24 @@
         android:layout_below="@+id/bub_container"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-14dp"
         android:background="@drawable/triangle"
         android:backgroundTint="@color/vex_orange"
-        android:rotation="180"
-        android:layout_marginTop="-14dp" />
+        android:rotation="180" />
+
     <RelativeLayout
         android:id="@+id/bub_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/shape_round_blue_tooltip"
         android:paddingBottom="16dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:paddingTop="16dp">
+
         <TextView
             android:id="@+id/bub_text"
             android:layout_width="wrap_content"

@@ -53,7 +53,7 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="50dp"
                     android:layout_margin="0dp"
                     android:contentInsetEnd="0dp"
                     android:contentInsetLeft="0dp"
@@ -177,10 +177,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_small"
-                        android:textIsSelectable="true"
                         android:layout_marginTop="@dimen/interval_main"
                         android:tag="bold"
                         android:textColor="@color/material_black_text_color"
+                        android:textIsSelectable="true"
                         android:textSize="@dimen/text_medium" />
 
                 </LinearLayout>
@@ -238,8 +238,8 @@
                     android:id="@+id/ll_voucher_with_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -529,8 +529,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_submain"
                         android:layout_marginTop="4dp"
-                        android:textIsSelectable="true"
                         android:textColor="@color/material_black_text_color"
+                        android:textIsSelectable="true"
                         android:textSize="@dimen/text_tiny" />
 
                     <TextView
@@ -547,7 +547,7 @@
                         android:id="@+id/tv_terms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_main"
+                        android:layout_marginBottom="64dp"
                         android:layout_marginTop="4dp"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_tiny" />
@@ -585,7 +585,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginBottom="@dimen/interval_content"
                 android:layout_marginEnd="@dimen/interval_main"
                 android:layout_marginLeft="@dimen/interval_main"
                 android:layout_marginRight="@dimen/interval_main"
@@ -604,6 +604,59 @@
                     android:tag="bold"
                     android:text="@string/coupon_redeem_voucher"
                     android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_send_voucher_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:background="@drawable/shape_ripple_orange_rounded"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_btn_send_voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_submain"
+                    android:tag="bold"
+                    android:text="@string/coupon_send_voucher"
+                    android:textColor="@color/vex_orange"
+                    android:textSize="@dimen/text_title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_archive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:background="@drawable/shape_ripple_orange_rounded"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_btn_archive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_submain"
+                    android:tag="bold"
+                    android:text="@string/coupon_archive"
+                    android:textColor="@color/vex_orange"
                     android:textSize="@dimen/text_title" />
             </LinearLayout>
         </LinearLayout>

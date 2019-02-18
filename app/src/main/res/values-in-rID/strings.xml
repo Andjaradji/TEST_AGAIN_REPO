@@ -22,12 +22,12 @@
     <string name="notif_expire_soon">[%s] akan segera kadaluarsa! Gunakan voucher ini sebelum <b>%s</b></string>
     <string name="notif_is_available">[%s] tersedia sekarang! Temukan dan dapatkan!</string>
     <string name="notif_item_time_now">Sekarang</string>
-    <string name="notif_item_time_min">%d min lalu</string>
-    <string name="notif_item_time_hour">%d jam lalu</string>
-    <string name="notif_item_time_day">%d hari lalu</string>
-    <string name="notif_item_time_week">%d minggu lalu</string>
-    <string name="notif_item_time_month">%d bulan lalu</string>
-    <string name="notif_item_time_year">%d tahun lalu</string>
+    <string name="notif_item_time_min">%dmin lalu</string>
+    <string name="notif_item_time_hour">%djam lalu</string>
+    <string name="notif_item_time_day">%dhari lalu</string>
+    <string name="notif_item_time_week">%dminggu lalu</string>
+    <string name="notif_item_time_month">%dbulan lalu</string>
+    <string name="notif_item_time_year">%dtahun lalu</string>
     <string name="days">%d Hari</string>
     <string name="coupon_exp_date_title">Tanggal kadaluarsa:</string>
     <string name="coupon_fragment_active">Aktif</string>
@@ -36,7 +36,7 @@
     <string name="home_brand_coupon_title">Vendor Merchant</string>
     <string name="see_more_title">Tampilkan Semua</string>
     <string name="coupon_redeem_availability">Voucher akan kadaluarsa dalam :</string>
-    <string name="coupon_redeemed">Voucher sudah digunakan tanggal :</string>
+    <string name="coupon_redeemed">Voucher sudah didapatkan tanggal :</string>
     <string name="coupon_gifted">Voucher sudah dihadiahkan tanggal :</string>
     <string name="coupon_expired">Voucher sudah kadaluarsa tanggal :</string>
     <string name="coupon_detail_availability">Ketersediaan Voucher</string>
@@ -48,17 +48,20 @@
     <string name="coupon_detail_get_with_vp">Dapatkan dengan Vex Point</string>
     <string name="coupon_redeem_token">Gunakan Token</string>
     <string name="coupon_redeem_voucher">Gunakan Voucher</string>
+    <string name="coupon_send_voucher">Hadiahkan Voucher</string>
+    <string name="coupon_archive">Tandai Voucher Sudah Digunakan</string>
     <string name="coupon_deactivated_voucher">Gunakan Voucher</string>
     <string name="voucher_availability">sisa %d dari %d</string>
     <string name="voucher_soldout_dialog_title">Oops</string>
     <string name="voucher_soldout_dialog_desc">Voucher ini sudah habis</string>
     <string name="coupon_redeem_voucher_code">Kode Voucher</string>
+    <string name="coupon_archive_dialog">Anda akan menandai voucher ini sebagai voucher yang sudah terpakai. Mohon pastikan anda telah menggunakan voucher ini. Aksi ini tidak bisa dibatalkan.</string>
     <string name="coupon_redeem_voucher_code_field">Kode Merchant</string>
     <string name="coupon_redeem_voucher_code_warning">Kode akan dimasukan oleh kasir</string>
     <string name="token_address_field">Masukan alamat aset anda</string>
     <string name="token_address_field_hint">Alamat Aset</string>
     <string name="goods_address_field">Masukan alamat anda untuk pengiriman</string>
-    <string name="goods_address_field_hint">Alamat Pengiriman Anda</string>
+    <string name="goods_address_field_hint">Alamat lengkap, tipe barang, ukuran barang</string>
     <string name="merchant_info_title">Petunjuk penggunaan Voucher</string>
     <string name="merchant_info_desc">Untuk menggunakan voucher ini, salin atau pindah kode ke dalam sistem anda</string>
     <string name="voucher_online_info_title">Petunjuk penggunaan Voucher</string>
@@ -328,8 +331,15 @@
     <string name="premium_dialog_desc">Voucher ini hanya untuk member premium saja\nDapatkan Voucher terbaik, Airdrop Token dan keuntungan lainnya : Jadi Premium</string>
     <string name="push_notification_title">Notifikasi</string>
     <string name="more_others">Lainnya</string>
+    <string name="more_helps">Bantuan</string>
+    <string name="more_guide">Petunjuk Pemakaian Aplikasi</string>
+    <string name="more_social_media">Social Media</string>
+    <string name="more_youtube">Youtube</string>
+    <string name="more_instagram">Instagram</string>
     <string name="more_report_problem">Laporkan Masalah</string>
     <string name="more_rate_us">Berikan penilaian di Google Play</string>
+    <string name="buyback_sell">JUAL</string>
+
     <string name="myprofile_user_info">Informasi Pengguna</string>
     <string name="myprofile_act_address">Alamat Vex (dari Kcash/Achain Wallet)</string>
     <string name="myprofile_document_type_desc">contoh : KTP, SIM</string>
@@ -359,8 +369,8 @@
     <string name="google2fa_dialog_desc">Masukan Google Authenticator PIN</string>
     <string name="google2fa_dialog_field">PIN Google Authenticator</string>
     <string name="vp_time_snapshoot">SNAPSHOOT SELANJUTNYA SETELAH :</string>
-    <string name="addnewpas_password">Kata Sandi</string>
-    <string name="addnewpass_repassword">Masukan Kata Sandi Ulang</string>
+    <string name="addnewpas_password">Kata sandi</string>
+    <string name="addnewpass_repassword">Masukan ulang kata sandi</string>
     <string name="exchange_receive_voucher">DAPATKAN VOUCHER</string>
     <string name="exchange_send_voucher_ga_body">Mohon masukan PIN Google Authenticator anda</string>
     <string name="exchange_send_voucher_view_code_ga_body">Untuk melihat Kode Hadiah Voucher. Mohon masukan PIN Google Authenticator</string>
@@ -418,6 +428,13 @@
     <string name="vex_point_snap3">Jumah VEX yang terhitung di snapshot saat ini</string>
     <string name="guidance_box_1">Lihat Voucher yang sudah anda gunakan
 Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
+    <string name="guidance_send_voucher">Kirim Voucher-mu sebagai hadiah disini</string>
+    <string name="buyback_history_title">Riwayat Buyback</string>
+    <string name="buyback_coin_bought">Token Dibeli</string>
+    <string name="buyback_coin_total">Total Token yang akan dibeli</string>
+    <string name="buyback_options">Pilihan Buyback</string>
+
+
     <string name="deposit_desc">Deskripsi</string>
     <string name="deposit_duration">Durasi</string>
     <string name="deposit_total">Total Deposit</string>
@@ -434,7 +451,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_no_choice_desc">Anda belum memilih pilihan jumlah deposit</string>
     <string name="deposit_dialog_desc">Apakah Anda yakin memilih deposit sejumlah %s VEX? Anda tidak dapat merubah jumlah deposit sebelum waktu hitung mundur dari deposit yang sekarang selesai.</string>
 
-    <string name="deposit_step2_send_to">Tolong Kirim</string>
+    <string name="deposit_step2_send_to">Mohon Kirim</string>
     <string name="deposit_step2_to_address">Ke Alamat</string>
     <string name="deposit_step2_time_left">Waktu tersisa untuk deposit</string>
 
@@ -448,7 +465,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="deposit_toolbar_title">DEPOSIT</string>
 
 
-    <string name="deposit_max_coin">Max Coin yang terdeposit</string>
+    <string name="deposit_max_coin">Maksimal Coin yang dideposit</string>
     <string name="deposit_coin_deposit">Coin terdeposit</string>
     <string name="deposit_description">Deskripsi</string>
     <string name="voucher_minimum_lp">Loyalty Point yang dibutuhkan : %d</string>
@@ -474,7 +491,81 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="referral_code_field_dialog_desc">Masukan kode referal (opsional)</string>
     <string name="referral_code_field_dialog_et">Kode Referal (opsional)</string>
 
+    <string name="luckydraw_title">LUCKY DRAW</string>
+    <string name="luckydraw_winner_title">PEMENANG LUCKY DRAW</string>
+    <string name="luckydraw_your_coupon">Kupon Saya</string>
+    <string name="luckydraw_total_coupon">Total Kupon</string>
+    <string name="luckydraw">Lucky Draw</string>
+    <string name="luckydraw_detail_desc_title">Deskripsi Kupon</string>
+    <string name="luckydraw_detail_claim_coupon">Ambil Kupon</string>
+    <string name="luckydraw_per_coupon">/kupon</string>
+    <string name="luckydraw_winner">pemenang</string>
+    <string name="luckydraw_coupon_amount">Jumlah kupon</string>
+    <string name="luckydraw_amount_hint">Jumlah kupon</string>
+    <string name="luckydraw_coupon_amount_body">Masukkan jumlah kupon yang ingin didapatkan</string>
+
     <string name="deposit_note">note : Anda harus menggunakan alamat Vex yang sama dengan alamat Vex yang anda gunakan di aplikasi VexGift</string>
+    <string name="shortcut_lucky_draw">LUCKY DRAW</string>
+    <string name="shortcut_shop">TOKO</string>
+    <string name="shortcut_vex">BELI VEX</string>
+    <string name="shortcut_more">SELEBIHNYA</string>
+    <string name="voucher_title">GIFT VOUCHER</string>
+    <string name="token_title">TOKEN AIRDROP</string>
+    <string name="reset">Reset</string>
+    <string name="sort_popularity">Popularitas</string>
+    <string name="sort_recent">Terbaru</string>
+    <string name="filter_payment">Tipe pembayaran</string>
+    <string name="push_new_coupon">Kupon Baru</string>
+    <string name="push_vibrate">Getar</string>
+    <string name="more_premium_member">Premium Member</string>
+    <string name="more_merchant_list">Daftar Merchant</string>
+    <string name="more_privacy_policy">Ketentuan Privasi</string>
+    <string name="myprofile_username">Username</string>
+    <string name="security_off">OFF</string>
+    <string name="security_on">ON</string>
+    <string name="home_item_connect_account">Sambungkan Akun dengan Facebook</string>
+    <string name="home_item_connect_fb">Sambungkan dengan Facebook</string>
+    <string name="home_item_connect_fb_detail">Sambungkan Akun dengan Facebook untuk mempermudah login</string>
+    <string name="home_item_connect_now">Sambungkan Sekarang</string>
+    <string name="error_voucher_empty_body">Tidak ada apa apa disini</string>
+    <string name="error_token_empty_body">Tidak ada apa apa disini</string>
+    <string name="error_luckydraw_empty_header">Tidak ada Lucky Draw yang ditemukan</string>
+    <string name="error_luckydraw_empty_body">Tidak ada apa apa disini</string>
+    <string name="error_deposit_empty_header">Tidak ada Deposit yang ditemukan</string>
+    <string name="error_token_sale_empty_header">Tidak ada Token Sale yang ditemukan</string>
+    <string name="error_buyback_empty_header">Tidak ada Buyback yang ditemukan</string>
+    <string name="error_my_deposit_empty_body">Tidak ada deposit</string>
+    <string name="error_my_token_sale_empty_body">Tidak ada token sale</string>
+    <string name="error_my_buyback_empty_body">Tidak ada buyback</string>
+    <string name="referral_note">Lihat ></string>
+    <string name="referral_invited_user">User yang diundang</string>
+    <string name="privacy_policy">KETENTUAN PRIVASI</string>
+    <string name="deposit_history_title">Riwayat Deposit</string>
+    <string name="deposit_not_available_desc">Perencanaan Deposit ini tidak tersedia</string>
+    <string name="token_sale_title">Token Sale</string>
+    <string name="token_sale_token_type">Tipe Token</string>
+    <string name="token_sale_token_name">Nama Token</string>
+    <string name="token_sale_token_available">Total token sale</string>
+    <string name="token_sale_token_left">Sisa token</string>
+    <string name="token_sale_buy_list">OPSI PEMBAYARAN</string>
+    <string name="token_sale_payment_options">Opsi Pembayaran</string>
+    <string name="token_sale_buy">Beli</string>
+    <string name="token_sale_history_title">Riwayat Token Sale</string>
+    <string name="token_sale_payment_amount">Jumlah pembayaran</string>
+    <string name="token_sale_purchased_amount">Jumlah pembelian</string>
+    <string name="token_sale_distribution_address">Alamat distribusi</string>
+    <string name="token_sale_transfer_to">Transfer ke</string>
+    <string name="token_sale_transfer_deadline">Batas waktu transfer</string>
+    <string name="token_sale_input_distribution_address">MASUKAN ALAMAT DISTRIBUSI</string>
+    <string name="buy_vex">BELI VEX</string>
+    <string name="my_wallet_title">MY WALLET</string>
+    <string name="kyc_choose_method">Pilih cara untuk mengambil gambar</string>
+    <string name="kyc_from_camera">Ambil gambar</string>
+    <string name="kyc_from_gallery">Pilih dari gallery</string>
+    <string name="shortcut_notification">NOTIFIKASI</string>
+    <string name="title_more">MORE</string>
+    <string name="internet_retry">Muat Ulang</string>
+    <string name="internet_exit">Tutup</string>
 
 
 </resources>

@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.box.ui.VoucherFragment"
-    android:background="@color/material_white">
+    android:background="@color/material_white"
+    tools:context=".module.box.ui.VoucherFragment">
 
     <include
-        android:layout_height="match_parent"
+        layout="@layout/content_error_view"
         android:layout_width="match_parent"
-        layout="@layout/content_error_view">
+        android:layout_height="match_parent">
 
     </include>
 

@@ -38,8 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar"
-        android:gravity="center_horizontal"
         android:background="@color/material_white"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -151,12 +151,12 @@
             android:id="@+id/iv_qr_code"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/interval_content"
             android:layout_marginBottom="@dimen/interval_content"
+            android:layout_marginTop="@dimen/interval_content"
             android:background="@drawable/shape_white_round_rect_with_grey_border"
             android:contentDescription="@string/image_content_description"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/ll_send_code_container"
@@ -213,8 +213,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/ll_share_container"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginEnd="@dimen/interval_main"
             android:layout_marginLeft="@dimen/interval_main"

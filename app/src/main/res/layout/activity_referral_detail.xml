@@ -38,9 +38,9 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
-        android:background="@color/material_white"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar">
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerview"
@@ -52,9 +52,9 @@
 
 
     <include
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
         layout="@layout/content_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/app_bar">
 
     </include>

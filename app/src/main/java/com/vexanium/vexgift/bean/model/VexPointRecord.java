@@ -31,6 +31,12 @@ public class VexPointRecord implements Serializable {
     @JsonProperty("vex_counted_3")
     private double vexCounted3;
 
+    @JsonProperty("lucky_draw_id")
+    private int luckyDrawId;
+
+    @JsonProperty("referral_id")
+    private int referralId;
+
     @JsonProperty("created_at")
     private String createdAt;
 
@@ -42,6 +48,9 @@ public class VexPointRecord implements Serializable {
 
     @JsonProperty("voucher")
     private Voucher voucher;
+
+    @JsonProperty("lucky_draw")
+    private LuckyDraw luckyDraw;
 
     public int getId() {
         return id;
@@ -142,5 +151,29 @@ public class VexPointRecord implements Serializable {
             e.printStackTrace();
             return createdAt;
         }
+    }
+
+    public int getLuckyDrawId() {
+        return luckyDrawId;
+    }
+
+    public void setLuckyDrawId(int luckyDrawId) {
+        this.luckyDrawId = luckyDrawId;
+    }
+
+    public int getReferralId() {
+        return referralId;
+    }
+
+    public void setReferralId(int referralId) {
+        this.referralId = referralId;
+    }
+
+    public LuckyDraw getLuckyDraw() {
+        return luckyDraw;
+    }
+
+    public void setLuckyDraw(LuckyDraw luckyDraw) {
+        this.luckyDraw = luckyDraw;
     }
 }

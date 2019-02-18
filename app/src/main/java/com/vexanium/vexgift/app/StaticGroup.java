@@ -47,6 +47,7 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.LuckyDraw;
 import com.vexanium.vexgift.bean.model.SortFilterCondition;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
@@ -58,6 +59,7 @@ import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawDetailActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.profile.ui.MyProfileActivity;
@@ -100,7 +102,6 @@ import static com.vexanium.vexgift.app.ConstantGroup.KYC_NONE;
  */
 
 public class StaticGroup {
-    public static final int DEPOSIT = 0;
     public static final int SHORTCUT_BAR = 1;
     public static final int HOT_LIST = 2;
     public static final int EXPLORE_BAR = 3;
@@ -108,9 +109,8 @@ public class StaticGroup {
     public static final int NORMAL_COUPON = 5;
     public static final int COMPLETE_FORM = 6;
     public static final int CONNECT_FB = 7;
-    public static final int DEPOSIT_BANNER = 8;
-    public static final int TOKEN_FREEZE_BANNER = 9;
-    public static final int REFERRAL_BANNER = 10;
+    public static final int BANNER_A = 10;
+    public static final int BANNER_B = 11;
 
     public static final int SLEEP_SIGN_TIME = 30 * 60000;
     public static final int EMAIL_RESEND_TIME = 60000;
@@ -266,6 +266,20 @@ public class StaticGroup {
     public static void goToVoucherDetailActivity(Activity activity, Voucher voucher) {
         Intent intent = new Intent(activity, VoucherDetailActivity.class);
         intent.putExtra("voucher", JsonUtil.toString(voucher));
+        activity.startActivity(intent);
+    }
+
+    public static void goToLuckyDrawDetailActivity(Activity activity, LuckyDraw luckyDraw, ImageView ivVoucher) {
+        Intent intent = new Intent(activity, LuckyDrawDetailActivity.class);
+        intent.putExtra("luckyDraw", JsonUtil.toString(luckyDraw));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(activity, ivVoucher, "luckyDraw_image");
+        activity.startActivity(intent, options.toBundle());
+    }
+
+    public static void goToLuckyDrawDetailActivity(Activity activity, LuckyDraw luckyDraw) {
+        Intent intent = new Intent(activity, LuckyDrawDetailActivity.class);
+        intent.putExtra("luckyDraw", JsonUtil.toString(luckyDraw));
         activity.startActivity(intent);
     }
 
@@ -851,9 +865,15 @@ public class StaticGroup {
     }
 
     public static Voucher getVoucherById(ArrayList<Voucher> origin, int id) {
-        ArrayList<Voucher> vouchers = new ArrayList<>();
         for (Voucher voucher : origin) {
             if (voucher.getId() == id) return voucher;
+        }
+        return null;
+    }
+
+    public static LuckyDraw getLuckyDrawById(ArrayList<LuckyDraw> origin, int id) {
+        for (LuckyDraw luckyDraw : origin) {
+            if (luckyDraw.getId() == id) return luckyDraw;
         }
         return null;
     }
@@ -1232,6 +1252,119 @@ public class StaticGroup {
         return filteredVoucher;
     }
 
+    public static ArrayList<LuckyDraw> getFilteredLuckyDraw(final ArrayList<LuckyDraw> luckyDraws, SortFilterCondition sortFilterCondition) {
+        ArrayList<LuckyDraw> filteredLuckyDraw = new ArrayList<>();
+        ArrayList<LuckyDraw> temp;
+        boolean isFiltered = false;
+
+        if (sortFilterCondition != null) {
+            if (sortFilterCondition.getCategories() != null && sortFilterCondition.getCategories().size() > 0) {
+                for (LuckyDraw luckyDraw : luckyDraws) {
+                    List<String> filterField = sortFilterCondition.getCategories();
+                    if (filterField.contains(luckyDraw.getLuckyDrawCategory().getName())) {
+                        filteredLuckyDraw.add(luckyDraw);
+                    }
+                }
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getMemberTypes() != null && sortFilterCondition.getMemberTypes().size() > 0) {
+                if (filteredLuckyDraw.size() == 0 && !isFiltered) filteredLuckyDraw = luckyDraws;
+
+                temp = new ArrayList<>(filteredLuckyDraw);
+                for (LuckyDraw luckyDraw : filteredLuckyDraw) {
+                    List<String> filterField = sortFilterCondition.getMemberTypes();
+                    if (!filterField.contains(luckyDraw.getMemberType().getName())) {
+                        temp.remove(luckyDraw);
+                    }
+                }
+                filteredLuckyDraw = temp;
+                isFiltered = true;
+            }
+
+            if (sortFilterCondition.getPaymentTypes() != null && sortFilterCondition.getPaymentTypes().size() > 0) {
+                if (filteredLuckyDraw.size() == 0 && !isFiltered) filteredLuckyDraw = luckyDraws;
+
+                temp = new ArrayList<>(filteredLuckyDraw);
+                for (LuckyDraw luckyDraw : filteredLuckyDraw) {
+                    List<String> filterField = sortFilterCondition.getPaymentTypes();
+                    if (!filterField.contains(luckyDraw.getPaymentType().getName())) {
+                        temp.remove(luckyDraw);
+                    }
+                }
+                filteredLuckyDraw = temp;
+                isFiltered = true;
+            }
+        }
+
+        if (isFiltered == false) {
+            filteredLuckyDraw = luckyDraws;
+        }
+
+        if (sortFilterCondition.getSort() != -1) {
+            Comparator<LuckyDraw> comparator;
+            switch (sortFilterCondition.getSort()) {
+                case SortFilterCondition.SORT_BY_PRICE_DESC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Integer.compare(luckyDraw.getPrice(), t1.getPrice());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_PRICE_ASC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Integer.compare(t1.getPrice(), luckyDraw.getPrice());
+                        }
+                    };
+                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_DESC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(voucher.getValidUntil(), t1.getValidUntil());
+//                        }
+//                    };
+//                    break;
+//                case SortFilterCondition.SORT_BY_EXPIRED_DATE_ASC:
+//                    comparator = new Comparator<Voucher>() {
+//                        @Override
+//                        public int compare(Voucher voucher, Voucher t1) {
+//                            return Long.compare(t1.getValidUntil(), voucher.getValidUntil());
+//                        }
+//                    };
+//                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_DESC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Long.compare(luckyDraw.getValidFrom(), t1.getValidFrom());
+                        }
+                    };
+                    break;
+                case SortFilterCondition.SORT_BY_RELEASE_DATE_ASC:
+                    comparator = new Comparator<LuckyDraw>() {
+                        @Override
+                        public int compare(LuckyDraw luckyDraw, LuckyDraw t1) {
+                            return Long.compare(t1.getValidFrom(), luckyDraw.getValidFrom());
+                        }
+                    };
+                    break;
+                default:
+                    comparator = null;
+                    break;
+            }
+            if (comparator != null) {
+                Collections.sort(filteredLuckyDraw, comparator);
+            }
+        }
+
+
+        return filteredLuckyDraw;
+    }
+
     public static String getDate(String mDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -1316,12 +1449,49 @@ public class StaticGroup {
         }
     }
 
+    public static boolean isBuybackBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_buyback_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_buyback_banner_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isNewsActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_news_active") != -1) {
+            return settingResponse.getSettingValByKey("is_news_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static boolean isTokenFreezeBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_token_freeze_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_token_freeze_banner_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
     public static long getEmailResendCountdown() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("email_resend_countdown") != -1) {
             return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("email_resend_countdown"));
         } else {
             return EMAIL_RESEND_TIME;
+        }
+    }
+
+    public static String getStringValFromSettingKey(String key) {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))) {
+            return settingResponse.getSettingStringValByKey(key);
+        } else {
+            return "";
         }
     }
 

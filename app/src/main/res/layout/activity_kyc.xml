@@ -94,8 +94,8 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/interval_content"
                 android:layout_marginBottom="@dimen/interval_content"
+                android:layout_marginTop="@dimen/interval_content"
                 android:visibility="gone"
                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
@@ -112,10 +112,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
                 android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,10 +147,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
                 android:layout_marginBottom="@dimen/margin_myprofile_list"
                 android:layout_marginTop="@dimen/margin_myprofile_list"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -311,23 +311,23 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="170dp"
+                    android:layout_height="180dp"
                     android:layout_marginBottom="@dimen/interval_submain">
 
-                <ImageView
-                    android:id="@+id/iv_example"
-                    android:src="@drawable/ic_kyc_demo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/iv_example"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/kyc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/interval_submain"
-                        android:text="EXAMPLE"
-                        android:tag="bold"
                         android:layout_centerInParent="true"
+                        android:layout_marginBottom="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="EXAMPLE"
                         android:textColor="#2a000000"
                         android:textSize="@dimen/text_xlarge" />
                 </RelativeLayout>
@@ -411,6 +411,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/include_loading_view_white_bg"/>
+    <include layout="@layout/include_loading_view_white_bg" />
 
 </RelativeLayout>

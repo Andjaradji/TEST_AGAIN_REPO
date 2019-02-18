@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -56,26 +55,26 @@
                     android:id="@+id/tv_purchase_history_detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:tag="hnBoldCond"
                     android:text="@string/premium_purchase_history"
                     android:textColor="@color/material_black_text_color"
-                    android:textSize="@dimen/text_title"
-                    android:layout_alignParentTop="true"/>
+                    android:textSize="@dimen/text_title" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:gravity="right">
+                    android:layout_alignParentTop="true"
+                    android:gravity="right"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_purchase_history_detail_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="15/12/2018"
                         android:gravity="right"
+                        android:text="15/12/2018"
                         android:textColor="@color/material_grey_8080"
                         android:textSize="@dimen/text_tiny" />
 
@@ -83,8 +82,8 @@
                         android:id="@+id/tv_purchase_history_detail_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Success"
                         android:gravity="right"
+                        android:text="Success"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_small_medium" />
 
@@ -94,30 +93,29 @@
                     android:id="@+id/ll_purchase_history_detail_plan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_purchase_history_detail_title"
                     android:layout_marginTop="@dimen/interval_big"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:layout_below="@id/tv_purchase_history_detail_title">
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:layout_weight="1"
                         android:text="@string/premium_purchase_plan"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
-                        android:layout_alignParentLeft="true"
-                         />
+                        android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/tv_purchase_history_detail_plan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_weight="1"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
                         android:gravity="right"
-                        android:layout_alignParentRight="true"/>
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
 
                 </LinearLayout>
 
@@ -125,30 +123,29 @@
                     android:id="@+id/ll_purchase_history_detail_paid_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal"
+                    android:layout_below="@id/ll_purchase_history_detail_plan"
                     android:layout_marginTop="@dimen/interval_main"
-                    android:layout_below="@id/ll_purchase_history_detail_plan">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:layout_weight="1"
                         android:text="@string/premium_purchase_paid_amount"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
-                        android:layout_alignParentLeft="true"
-                        />
+                        android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/tv_purchase_history_detail_paid_amount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_weight="1"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
                         android:gravity="right"
-                        android:layout_alignParentRight="true"/>
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
 
                 </LinearLayout>
 
@@ -156,30 +153,29 @@
                     android:id="@+id/ll_purchase_history_detail_paid_from"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal"
+                    android:layout_below="@id/ll_purchase_history_detail_paid_amount"
                     android:layout_marginTop="@dimen/interval_main"
-                    android:layout_below="@id/ll_purchase_history_detail_paid_amount">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:layout_weight="1"
                         android:text="@string/premium_purchase_paid_from"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
-                        android:layout_alignParentLeft="true"
-                        />
+                        android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/tv_purchase_history_detail_paid_from"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_weight="1"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
                         android:gravity="right"
-                        android:layout_alignParentRight="true"/>
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
 
                 </LinearLayout>
 
@@ -187,30 +183,29 @@
                     android:id="@+id/ll_purchase_history_detail_paid_to"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:orientation="horizontal"
+                    android:layout_below="@id/ll_purchase_history_detail_paid_from"
                     android:layout_marginTop="@dimen/interval_main"
-                    android:layout_below="@id/ll_purchase_history_detail_paid_from">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:layout_weight="1"
                         android:text="@string/premium_purchase_paid_to"
                         android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
-                        android:layout_alignParentLeft="true"
-                        />
+                        android:textSize="@dimen/text_small_medium" />
 
                     <TextView
                         android:id="@+id/tv_purchase_history_detail_paid_to"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_weight="1"
-                        android:textColor="@color/material_black_text_color"
-                        android:textSize="@dimen/text_small_medium"
                         android:gravity="right"
-                        android:layout_alignParentRight="true"/>
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_small_medium" />
 
                 </LinearLayout>
 

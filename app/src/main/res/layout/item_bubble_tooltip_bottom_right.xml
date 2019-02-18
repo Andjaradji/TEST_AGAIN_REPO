@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <View
         android:id="@+id/bub_arrow_view"
         android:layout_width="26dp"
@@ -14,6 +15,7 @@
         android:background="@drawable/triangle"
         android:backgroundTint="@color/vex_orange"
         android:rotation="180" />
+
     <RelativeLayout
         android:id="@+id/bub_container"
         android:layout_width="match_parent"
@@ -23,6 +25,7 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="16dp">
+
         <TextView
             android:id="@+id/bub_text"
             android:layout_width="wrap_content"

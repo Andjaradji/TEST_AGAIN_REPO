@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_error_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    android:visibility="gone"
-    android:gravity="center">
+    android:visibility="gone">
 
     <ImageView
         android:id="@+id/iv_error_view"
-        android:src="@drawable/token_empty"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/token_empty" />
 
     <TextView
         android:id="@+id/tv_error_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_voucher_gift_empty_header"
         android:layout_marginTop="@dimen/interval_main"
-        android:textSize="@dimen/text_big_medium"
-        android:textColor="@color/text_secondary"/>
+        android:text="@string/error_voucher_gift_empty_header"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/text_big_medium" />
 
     <TextView
         android:id="@+id/tv_error_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_voucher_empty_body"
         android:layout_marginTop="@dimen/interval_small"
-        android:textSize="@dimen/text_small_medium"
-        android:textColor="@color/material_grey_400"/>
+        android:text="@string/error_voucher_empty_body"
+        android:textColor="@color/material_grey_400"
+        android:textSize="@dimen/text_small_medium" />
 
 </LinearLayout>

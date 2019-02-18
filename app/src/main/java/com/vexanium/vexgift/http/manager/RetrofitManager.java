@@ -8,17 +8,28 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
+import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
+import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
+import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
+import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
+import com.vexanium.vexgift.bean.response.BuybackResponse;
 import com.vexanium.vexgift.bean.response.CategoryResponse;
 import com.vexanium.vexgift.bean.response.CountriesResponse;
 import com.vexanium.vexgift.bean.response.DepositListResponse;
 import com.vexanium.vexgift.bean.response.EmptyResponse;
+import com.vexanium.vexgift.bean.response.ExchangeResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.Google2faResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.LuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.MemberTypeResponse;
+import com.vexanium.vexgift.bean.response.NewsResponse;
 import com.vexanium.vexgift.bean.response.NotificationResponse;
 import com.vexanium.vexgift.bean.response.PaymentTypeResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
@@ -34,7 +45,10 @@ import com.vexanium.vexgift.bean.response.TokenSaleResponse;
 import com.vexanium.vexgift.bean.response.UserAddressResponse;
 import com.vexanium.vexgift.bean.response.UserDepositResponse;
 import com.vexanium.vexgift.bean.response.UserDepositSingleResponse;
+import com.vexanium.vexgift.bean.response.UserInputDataResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawListResponse;
+import com.vexanium.vexgift.bean.response.UserLuckyDrawResponse;
 import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
@@ -50,12 +64,14 @@ import com.vexanium.vexgift.http.interceptor.RxErrorHandlingCallAdapterFactory;
 import com.vexanium.vexgift.http.services.OtherService;
 import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -332,6 +348,14 @@ public class RetrofitManager {
         return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
 
+    public Observable<HttpResponse<ExchangeResponse>> requestExchangeList(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getExchangeList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<ExchangeResponse>>());
+    }
+
     public Observable<HttpResponse<EmptyResponse>> requestResetPass(String email) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -398,6 +422,14 @@ public class RetrofitManager {
         params.put("user_id", id);
 
         return mUserService.getUserVexPoint(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointResponse>>());
+    }
+
+    public Observable<HttpResponse<BannerResponse>> requestBanner(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BannerResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> checkToken(int id, String token) {
@@ -603,6 +635,15 @@ public class RetrofitManager {
         return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
+    public Observable<HttpResponse<VoucherCodeResponse>> requestArchiveVoucher(int userId, int voucherCodeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("voucher_code_id", voucherCodeId);
+
+        return mVoucherService.requestArchiveVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+    }
+
     public Observable<HttpResponse<VoucherGiftCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -749,6 +790,43 @@ public class RetrofitManager {
         return mOtherService.requestDeposit(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
     }
 
+    public Observable<HttpResponse<BuybackPaymentResponse>> requestDoBuyback(int userId, int buyBackId, int buyBackOptionId, float amount) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("buy_back_id", buyBackId);
+        params.put("buy_back_option_id", buyBackOptionId);
+        params.put("amount", amount);
+
+        return mOtherService.doBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackPaymentResponse>>());
+    }
+
+    public Observable<HttpResponse<BuybackResponse>> requestBuybackList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestUpdateBuybackDistributionAddress(int userId, int buybackPaymentId, String address) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("user_buy_back_id", buybackPaymentId);
+        params.put("distribution_address", address);
+
+        return mOtherService.updateBuybackDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<BuybackHistoryResponse>> requestBuybackHistoryList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getBuybackHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackHistoryResponse>>());
+    }
+
     public Observable<HttpResponse<TokenSaleResponse>> requestTokenSaleList(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -764,6 +842,7 @@ public class RetrofitManager {
 
         return mOtherService.getTokenSaleHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryResponse>>());
     }
+
 
     public Observable<HttpResponse<TokenSalePaymentResponse>> requestBuyTokenSale(int userId, int tokenSaleId, int tokenSalePaymentOptionId, float amount) {
         Map<String, Object> params = Api.getBasicParam();
@@ -794,5 +873,151 @@ public class RetrofitManager {
 
         return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
+
+    public Observable<HttpResponse<LuckyDrawListResponse>> requestLuckyDrawList(int userId, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        if (limit > -1) {
+            params.put("limit", limit);
+        }
+
+        if (offset > -1) {
+            params.put("offset", offset);
+        }
+
+        if (luckyDrawCategoryId > -1) {
+            params.put("luck_draw_category_id", luckyDrawCategoryId);
+        }
+
+        if (memberTypeId > -1) {
+            params.put("member_type_id", memberTypeId);
+        }
+
+        if (paymentTypeId > -1) {
+            params.put("payment_type_id", paymentTypeId);
+        }
+
+        return mOtherService.getLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawListResponse>>());
+    }
+
+    public Observable<HttpResponse<LuckyDrawResponse>> requestLuckyDraw(int userId, int luckyDrawId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("luck_draw_id", luckyDrawId);
+
+        return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
+    }
+
+    public Observable<HttpResponse<NewsResponse>> requestNews(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getNews(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
+    }
+
+    public Observable<HttpResponse<UserInputDataResponse>> requestInput(int userId, String input) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("digifinex_email", input);
+
+        return mOtherService.requestUserInput(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+    }
+
+    public Observable<HttpResponse<UserInputDataResponse>> getUserInputData(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getUserInputData(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getUserLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawListResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(int userId, int luckyDrawId, int amount, String token) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("lucky_draw_id", luckyDrawId);
+        params.put("amount", amount);
+        params.put("token", token);
+
+        return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(int userId, int userLuckyDrawId, String address) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("user_luck_draw_id", userLuckyDrawId);
+        params.put("address", address);
+
+        return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String vals) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        Map<String, Object> pVal = (Map<String, Object>) JsonUtil.toObject(vals, HashMap.class);
+        params.putAll(pVal);
+
+        params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
+
+        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(int userId, int affliateProgramId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
+
+        return mOtherService.getAffiliateProgramEntries(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(int userId, int affliateProgramId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
+
+        return mOtherService.getAffiliateProgram(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgram>>());
+    }
+
+    public Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
+    }
+
+//    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
+//        Map<String, Object> params = Api.getBasicParam();
+//
+//        params.put("user_id", userId);
+//        params.put("digifinex_email",address);
+//
+//        return mOtherService.submitDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralResponse>>());
+//    }
+//
+//    public Observable<HttpResponse<DigifinexReferralListResponse>> getDigifinexEmailReferralList(int userId) {
+//        Map<String, Object> params = Api.getBasicParam();
+//
+//        params.put("user_id", userId);
+//
+//        return mOtherService.getUserDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralListResponse>>());
+//    }
 
 }

@@ -1,11 +1,9 @@
 package com.vexanium.vexgift.module.referral.ui;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,16 +22,18 @@ import com.vexanium.vexgift.module.referral.view.IReferralView;
 
 import java.io.Serializable;
 
+import static com.vexanium.vexgift.app.ConstantGroup.DEFAULT_REF_GUIDANCE_LINK;
 import static com.vexanium.vexgift.app.StaticGroup.isAppAvailable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_referral, toolbarTitle = R.string.referral_invite_others)
 public class ReferralActivity extends BaseActivity<IReferralPresenter> implements IReferralView {
 
-    TextView mTvInvitedCount, mTvInviteLink, mTvReferralCode;
+    TextView mTvInvitedCount, mTvInviteLink, mTvReferralCode, mTvReferralTitle;
     ImageView mIvCopy, mIvCodeCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
 
     String mPlaystoreLink;
     String mShareText;
+    String refGuidanceUrl = "";
     User user;
 
     @Override
@@ -43,6 +43,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mTvInvitedCount = findViewById(R.id.tv_referral_invited_user_count);
         mTvInviteLink = findViewById(R.id.tv_referral_link);
         mTvReferralCode = findViewById(R.id.tv_referral_code);
+        mTvReferralTitle = findViewById(R.id.tv_referral_title);
         mIvCopy = findViewById(R.id.iv_referral_copy);
         mIvCodeCopy = findViewById(R.id.iv_referral_code_copy);
         mIvWhatsapp = findViewById(R.id.referral_share_whatsapp_button);
@@ -67,11 +68,39 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         mTvInvitedCount.setText("" + 0);
 
         mPlaystoreLink = "https://play.google.com/store/apps/details?id=com.vexanium.vexgift&referrer=utm_source%3Dvexgift%26utm_medium%3Dinvite%26i%3D" + user.getReferralCode();
-        mShareText = "VexGift is a great way to get free vouchers. Check it out here \n" + mPlaystoreLink;
 
         mTvInviteLink.setText(mPlaystoreLink);
         mTvReferralCode.setText(user.getReferralCode());
         mPresenter.requestUserReferral(user.getId());
+
+        String referralTitleEn = StaticGroup.getStringValFromSettingKey("referral_description_en");
+        String referralTitleId = StaticGroup.getStringValFromSettingKey("referral_description_id");
+
+        String defaultShareText = "VexGift is a great way to get free vouchers. Check it out here \n";
+        String shareTextEn = StaticGroup.getStringValFromSettingKey("referral_share_text_en");
+        String shareTextId = StaticGroup.getStringValFromSettingKey("referral_share_text_id");
+        mShareText = defaultShareText + mPlaystoreLink;
+
+        if (StaticGroup.isInIDLocale()) {
+            if (!TextUtils.isEmpty(referralTitleId)) {
+                mTvReferralTitle.setText(referralTitleId);
+            }
+            if (!TextUtils.isEmpty(shareTextId)) {
+                mShareText = shareTextId + mPlaystoreLink;
+            }
+        } else {
+            if (!TextUtils.isEmpty(referralTitleEn)) {
+                mTvReferralTitle.setText(referralTitleEn);
+            }
+            if (!TextUtils.isEmpty(shareTextEn)) {
+                mShareText = shareTextEn + mPlaystoreLink;
+            }
+        }
+
+        refGuidanceUrl = StaticGroup.getStringValFromSettingKey("referral_guidance_link");
+        if (TextUtils.isEmpty(refGuidanceUrl)) {
+            refGuidanceUrl = DEFAULT_REF_GUIDANCE_LINK;
+        }
     }
 
     @Override
@@ -86,10 +115,10 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         Intent intent;
         switch (v.getId()) {
             case R.id.iv_referral_copy:
-                copyToClipboard(mShareText);
+                StaticGroup.copyToClipboard(this, mShareText);
                 break;
             case R.id.iv_referral_code_copy:
-                copyToClipboard(mTvReferralCode.getText().toString());
+                StaticGroup.copyToClipboard(this, mTvReferralCode.getText().toString());
                 break;
             case R.id.referral_share_whatsapp_button:
                 shareWhatsApp(mShareText);
@@ -114,10 +143,7 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
                 startActivity(intent);
                 break;
             case R.id.tv_referral_note:
-//                intent = new Intent(ReferralActivity.this, WebViewActivity.class);
-//                intent.putExtra("url", "http://blog.vexanium.com/");
-                StaticGroup.openAndroidBrowser(ReferralActivity.this, "http://blog.vexanium.com/");
-//                startActivity(intent);
+                StaticGroup.openAndroidBrowser(ReferralActivity.this, refGuidanceUrl);
                 break;
         }
     }
@@ -132,13 +158,6 @@ public class ReferralActivity extends BaseActivity<IReferralPresenter> implement
         } else if (errorResponse != null) {
 
         }
-    }
-
-    private void copyToClipboard(String text) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("label", text);
-        clipboard.setPrimaryClip(clip);
-        Toast.makeText(this, "Copied to clipboard.", Toast.LENGTH_SHORT).show();
     }
 
     private void shareSm(String text) {

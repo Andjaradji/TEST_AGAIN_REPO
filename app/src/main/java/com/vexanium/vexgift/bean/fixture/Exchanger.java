@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Exchanger implements Serializable {
     private String name;
+    private String logo;
     private String url;
 
     public Exchanger(String name, String url) {

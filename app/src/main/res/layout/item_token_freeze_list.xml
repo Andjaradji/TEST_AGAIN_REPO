@@ -14,17 +14,17 @@
         android:id="@+id/rl_banner_info"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:paddingBottom="@dimen/interval_main"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/interval_main">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/interval_medium"
             android:paddingBottom="@dimen/interval_medium"
             android:paddingLeft="@dimen/interval_main"
             android:paddingRight="@dimen/interval_main"
+            android:paddingTop="@dimen/interval_medium"
             android:tag="bold"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_medium" />
@@ -49,10 +49,10 @@
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/interval_content"
-            android:paddingLeft="@dimen/interval_main"
             android:lines="4"
             android:maxLines="6"
+            android:paddingBottom="@dimen/interval_content"
+            android:paddingLeft="@dimen/interval_main"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_xtiny" />
 

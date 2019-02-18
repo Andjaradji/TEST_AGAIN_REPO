@@ -89,8 +89,13 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
         if (voucher != null) {
             Vendor vendor = voucher.getVendor();
             ViewUtil.setImageUrl(this, R.id.iv_coupon_image, voucher.getThumbnail(), R.drawable.placeholder);
-            ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
-            ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
+
+            if (vendor != null) {
+                ViewUtil.setImageUrl(this, R.id.iv_brand_image, vendor.getThumbnail(), R.drawable.placeholder);
+                ViewUtil.setText(this, R.id.tv_brand, vendor.getName());
+                ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
+                toolbarLayout.setTitle(vendor.getName());
+            }
             ViewUtil.setText(this, R.id.tv_coupon_title, voucher.getTitle());
 
             ViewUtil.setText(this, R.id.tv_avail, String.format(getString(R.string.voucher_availability), voucher.getQtyAvailable(), voucher.getQtyLeft()));
@@ -99,9 +104,6 @@ public class VoucherDetailActivity extends BaseActivity<IVoucherPresenter> imple
 
             Linkify.addLinks((TextView) findViewById(R.id.tv_desc), Linkify.ALL);
             Linkify.addLinks((TextView) findViewById(R.id.tv_terms), Linkify.ALL);
-
-            ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(vendor.getName());
-            toolbarLayout.setTitle(vendor.getName());
 
             if (voucher.getVoucherTypeId() != 5) {
                 ViewUtil.setText(this, R.id.tv_time, "Available until " + voucher.getExpiredDate());

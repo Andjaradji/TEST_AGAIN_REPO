@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:paddingTop="@dimen/interval_main"
-    android:paddingStart="@dimen/interval_main"
+    android:paddingBottom="@dimen/interval_content"
     android:paddingEnd="@dimen/interval_main"
-    android:paddingBottom="@dimen/interval_content">
+    android:paddingStart="@dimen/interval_main"
+    android:paddingTop="@dimen/interval_main">
 
     <LinearLayout
         android:id="@+id/ll_explore"

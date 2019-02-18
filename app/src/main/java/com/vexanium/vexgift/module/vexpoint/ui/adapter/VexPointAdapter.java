@@ -47,6 +47,8 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
 
         if (data.getVoucher() != null) {
             holder.mVpMainText.setText(data.getVoucher().getTitle());
+        } else if (data.getLuckyDraw() != null) {
+            holder.mVpMainText.setText(data.getLuckyDraw().getTitle());
         }
 
         String date = data.getCreatedAtDate() + Html.fromHtml("&nbsp;");
@@ -58,7 +60,7 @@ public class VexPointAdapter extends RecyclerView.Adapter<VexPointAdapter.Filter
         holder.ivArrow.setRotation(270);
         holder.ivArrow.setVisibility(View.GONE);
 
-        if (data.getVpLogTypeId() != 3) {
+        if (data.getVpLogTypeId() != 3 && data.getVpLogTypeId() != 6) {
             holder.mVpIndicatorText.setText("+ " + StaticGroup.convertVpFormat((float) data.getAmount()));
             holder.mVpIndicatorText.setTextColor(context.getResources().getColor(R.color.vexpoint_plus));
         } else {

@@ -170,7 +170,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
-                    }else if(!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())){
+                    } else if (!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())) {
                         etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
@@ -185,7 +185,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
-                                    if(refCode == null){
+                                    if (refCode == null) {
                                         refCode = "";
                                     }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {
@@ -216,7 +216,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
-                    }else if(!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())){
+                    } else if (!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())) {
                         etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
@@ -231,7 +231,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                                 @Override
                                 public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
-                                    if(refCode == null){
+                                    if (refCode == null) {
                                         refCode = "";
                                     }
                                     if (!refCode.equalsIgnoreCase(etPin.getText().toString())) {

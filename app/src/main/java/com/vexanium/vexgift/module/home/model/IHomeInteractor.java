@@ -17,4 +17,6 @@ public interface IHomeInteractor<T> {
 
     Subscription requestUserVexPoint(RequestCallback callback, int id);
 
+    Subscription requestBanner(RequestCallback callback, int id);
+
 }

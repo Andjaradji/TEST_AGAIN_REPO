@@ -42,4 +42,15 @@ public class SettingResponse implements Serializable {
         }
         return -1;
     }
+
+    public String getSettingStringValByKey(String key) {
+        if (settings != null && settings.size() > 0) {
+            for (Setting setting : settings) {
+                if (setting.getName().equalsIgnoreCase(key)) {
+                    return setting.getText();
+                }
+            }
+        }
+        return "";
+    }
 }
