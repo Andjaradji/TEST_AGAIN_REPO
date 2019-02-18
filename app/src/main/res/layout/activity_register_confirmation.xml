@@ -5,18 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".module.login.ui.LoginActivity">
 
-    <ImageView
-        android:id="@+id/v_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg">
-
-    </ImageView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/material_white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -28,17 +20,16 @@
                 android:layout_height="33dp"
                 android:layout_centerInParent="true"
                 android:contentDescription="@string/image_content_description"
-                android:src="@drawable/logo_medium" />
+                android:src="@drawable/vexgift_logo_black" />
         </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_submain"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
-            android:background="@drawable/shape_field_register_confirmation">
+            android:layout_marginBottom="@dimen/interval_main"
+            android:layout_marginLeft="@dimen/interval_big"
+            android:layout_marginRight="@dimen/interval_big">
 
             <TextView
                 android:id="@+id/tv_confirmation_text"
@@ -53,32 +44,25 @@
         </LinearLayout>
 
         <LinearLayout
+            style="@style/register_login_et_container_style"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_submain"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
-            android:background="@drawable/shape_field_input">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/et_code"
+                style="@style/register_login_edittext_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent"
                 android:hint="@string/register_confirmation_hint"
-                android:inputType="textPassword"
-                android:textColor="@color/material_white"
-                android:textSize="@dimen/text_medium" />
+                android:inputType="textPassword" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/resend_button"
+            style="@style/register_login_et_container_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_content"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
-            android:background="@drawable/shape_ripple_white_border_button"
+            android:background="@drawable/shape_ripple_main_button"
             android:gravity="center_horizontal">
 
             <TextView
@@ -86,26 +70,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_margin="@dimen/interval_main"
+                android:tag="bold"
                 android:text="@string/register_confirmation_resend"
-                android:textColor="@color/material_white" />
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_small_medium" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/confirmation_button"
+            style="@style/register_login_et_container_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_content"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
-            android:background="@drawable/shape_ripple_white_border_button"
+            android:background="@drawable/shape_ripple_main_button"
             android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_margin="@dimen/interval_main"
+                android:tag="bold"
                 android:text="@string/register_confirmation_button"
-                android:textColor="@color/material_white" />
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/text_small_medium" />
         </RelativeLayout>
 
     </LinearLayout>
