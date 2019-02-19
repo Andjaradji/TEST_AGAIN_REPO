@@ -26,7 +26,7 @@
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
 
-            <include layout="@layout/content_toolbar_back" />
+            <include layout="@layout/content_toolbar_buy_vex" />
 
         </android.support.v7.widget.Toolbar>
 

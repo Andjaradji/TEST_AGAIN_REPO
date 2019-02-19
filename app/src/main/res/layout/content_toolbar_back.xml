@@ -25,6 +25,7 @@
         android:layout_toEndOf="@id/back_button"
         android:layout_toRightOf="@id/back_button"
         android:tag="hnBoldCond"
+        android:textAllCaps="true"
         android:textColor="@color/material_black_text_color"
         android:textSize="@dimen/text_big_medium" />
 

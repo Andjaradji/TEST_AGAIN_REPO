@@ -34,6 +34,7 @@ public class App extends Application {
     public static Typeface black;
     public static Typeface light;
     public static Typeface hnBoldCond;
+    public static Typeface hnBlackCond;
     public static Typeface hnMed;
     private static Context mApplicationContext;
     private DaoSession mDaoSession;
@@ -161,7 +162,8 @@ public class App extends Application {
         medium = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Medium.ttf");
         regular = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Regular.ttf");
         light = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Light.ttf");
-        hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
+        hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueCondensedBold.ttf");
+        hnBlackCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
         hnMed = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueMed.ttf");
     }
 }
