@@ -15,15 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginEnd="@dimen/interval_medium"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
-            android:layout_marginStart="@dimen/interval_medium"
+            android:layout_marginEnd="@dimen/interval_big"
+            android:layout_marginLeft="@dimen/interval_big"
+            android:layout_marginRight="@dimen/interval_big"
+            android:layout_marginStart="@dimen/interval_big"
             android:background="@drawable/shape_dialog_bg"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/interval_main"
-            android:paddingTop="@dimen/interval_medium">
+            android:paddingBottom="@dimen/interval_big"
+            android:paddingTop="@dimen/interval_big">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,15 +35,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingLeft="@dimen/padding_main"
+                    android:paddingRight="@dimen/padding_main">
 
                     <TextView
                         android:id="@+id/md_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="bold"
-                        android:text="Title"
                         android:textAlignment="center"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="20sp" />

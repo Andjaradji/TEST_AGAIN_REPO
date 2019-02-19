@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="90dp">
@@ -101,8 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_main"
-            android:layout_marginEnd="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium"
             android:tag="light"
             android:text="@string/login_password_forgot"
             android:textAlignment="center"
@@ -137,7 +134,7 @@
                 android:id="@+id/login_google_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginBottom="@dimen/interval_big"
                 android:layout_marginLeft="@dimen/interval_big"
                 android:layout_marginRight="@dimen/interval_big"
                 android:background="@color/material_red_4F39"
