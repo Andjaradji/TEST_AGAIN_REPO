@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.vexpoint.ui;
+package com.vexanium.vexgift.module.wallet.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +32,7 @@ import rx.Observable;
 import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_vexpoint)
-public class PointRecordFragment extends BaseFragment {
+public class BonusRecordFragment extends BaseFragment {
 
     LinearLayout mErrorView;
     ImageView mIvError;
@@ -43,8 +43,8 @@ public class PointRecordFragment extends BaseFragment {
     private VexPointAdapter mAdapter;
     private Observable<VexPointRecordResponse> mVpObservable;
 
-    public static PointRecordFragment newInstance() {
-        return new PointRecordFragment();
+    public static BonusRecordFragment newInstance() {
+        return new BonusRecordFragment();
     }
 
     @Override
@@ -69,9 +69,8 @@ public class PointRecordFragment extends BaseFragment {
         dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         mRecycler.addItemDecoration(dividerItemDecoration);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mRecycler.setNestedScrollingEnabled(false);
-        mRecycler.setHasFixedSize(false);
         mRecycler.getItemAnimator().setAddDuration(250);
+        mRecycler.setNestedScrollingEnabled(false);
         mRecycler.getItemAnimator().setMoveDuration(250);
         mRecycler.getItemAnimator().setChangeDuration(250);
         mRecycler.getItemAnimator().setRemoveDuration(250);

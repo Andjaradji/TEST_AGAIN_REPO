@@ -706,4 +706,22 @@ Your expired and used voucher will be shown here</string>
     <string name="internet_retry">Retry</string>
     <string name="internet_exit">Exit</string>
 
+    <string name="wallet_total_wallet">TOTAL WALLET</string>
+    <string name="wallet_personal_wallet">PERSONAL WALLET</string>
+    <string name="wallet_expense_wallet">EXPENSE WALLET</string>
+    <string name="wallet_estimated_vex_bonus">Estimated VEX Bonus</string>
+    <string name="wallet_estimated_deposit_bonus">Deposit Staking Bonus :</string>
+    <string name="wallet_estimated_referral_bonus">Referral Staking Bonus :</string>
+    <string name="wallet_note">note :  You must have at least 100,000 VEX to participate</string>
+    <string name="wallet_time_bonus">NEXT BONUS PAYOUT : </string>
+    <string name="wallet_transaction_record">Transaction Record</string>
+    <string name="wallet_bonus_record">Bonus Record</string>
+
+    <string name="wallet_withdraw_transfer_to">Vex will be transferred to below address</string>
+    <string name="wallet_withdraw_address">Destination address</string>
+    <string name="wallet_withdraw_amount">Withdraw amount </string>
+    <string name="wallet_withdraw_button">Withdraw</string>
+
+    <string name="wallet_deposit_transfer_to">Transfer to this address</string>
+    <string name="wallet_deposit_copy_address">copy address</string>
 </resources>

@@ -1,172 +1,445 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/material_white">
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp">
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:padding="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="0dp"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:padding="0dp"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp">
+            <include layout="@layout/content_toolbar" />
 
-                <include layout="@layout/content_toolbar" />
+        </android.support.v7.widget.Toolbar>
 
-            </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white"
+        android:visibility="visible">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl_refresh"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/app_bar"
-            android:background="@color/material_white">
+            android:fillViewport="true">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/ll_wallet_main"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/interval_medium"
-                    android:paddingRight="@dimen/interval_medium"
-                    android:paddingTop="@dimen/interval_medium">
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:id="@+id/wallet_box"
-                        android:layout_width="250dp"
-                        android:layout_height="120dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="14dp"
-                        android:background="@drawable/shape_vexpoint_bg">
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="180dp"
+                        android:background="@drawable/bg_wallet" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_wallet_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/interval_main"
+                        android:paddingLeft="@dimen/interval_big"
+                        android:paddingRight="@dimen/interval_big"
+                        android:paddingTop="@dimen/interval_big">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:letterSpacing="0.04"
-                                android:tag="bold"
-                                android:text="Total asset (IDR)"
-                                android:textAlignment="center"
+                                android:text="@string/wallet_total_wallet"
                                 android:textColor="@color/material_white"
-                                android:textSize="@dimen/text_small" />
+                                android:textSize="@dimen/text_xxtiny" />
 
                             <TextView
-                                android:id="@+id/tv_total_asset"
+                                android:id="@+id/tv_total_wallet"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:letterSpacing="0.04"
                                 android:tag="bold"
-                                android:text="239.1230"
-                                android:textAlignment="center"
+                                android:text="0"
                                 android:textColor="@color/material_white"
-                                android:textSize="@dimen/text_large" />
+                                android:textSize="@dimen/text_title" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ll_personal_wallet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_ripple_transparent"
+                                android:clickable="true"
+                                android:gravity="end"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/wallet_personal_wallet"
+                                        android:textColor="@color/material_white"
+                                        android:textSize="@dimen/text_xxtiny" />
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="11dp"
+                                        android:contentDescription="@string/image_content_description"
+                                        android:paddingLeft="4dp"
+                                        android:src="@drawable/ic_ask_me" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_personal_wallet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/interval_content"
+                                    android:tag="bold"
+                                    android:text="0"
+                                    android:textColor="@color/material_white"
+                                    android:textSize="@dimen/text_small_medium" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_expense_wallet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/shape_ripple_transparent"
+                                android:clickable="true"
+                                android:gravity="right"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/wallet_expense_wallet"
+                                        android:textColor="@color/material_white"
+                                        android:textSize="@dimen/text_xxtiny" />
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="11dp"
+                                        android:contentDescription="@string/image_content_description"
+                                        android:paddingLeft="4dp"
+                                        android:src="@drawable/ic_ask_me" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_expense_wallet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/interval_content"
+                                    android:tag="bold"
+                                    android:text="0"
+                                    android:textColor="@color/material_white"
+                                    android:textSize="@dimen/text_small_medium" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/wallet_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_wallet_amount"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/interval_big"
+                        android:layout_marginRight="@dimen/interval_big"
+                        android:elevation="1dp"
+                        android:orientation="vertical"
+                        app:cardBackgroundColor="@color/material_white"
+                        app:cardCornerRadius="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/padding_main">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/padding_small"
+                                        android:tag="bold"
+                                        android:text="@string/wallet_estimated_vex_bonus"
+                                        android:textColor="@color/material_black_text_color"
+                                        android:textSize="@dimen/text_small" />
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentLeft="true"
+                                            android:text="@string/wallet_estimated_deposit_bonus"
+                                            android:textColor="@color/material_black_sub_text_color" />
+
+                                        <TextView
+                                            android:id="@+id/tv_deposit_bonus"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:text="0"
+                                            android:textColor="@color/material_black_text_color" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentLeft="true"
+                                            android:text="@string/wallet_estimated_referral_bonus"
+                                            android:textColor="@color/material_black_sub_text_color" />
+
+                                        <TextView
+                                            android:id="@+id/tv_referral_bonus"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:text="0"
+                                            android:textColor="@color/material_black_text_color" />
+                                    </RelativeLayout>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/interval_main"
+                                        android:tag="bold"
+                                        android:text="@string/wallet_note"
+                                        android:textColor="@color/material_red_4F39"
+                                        android:textSize="@dimen/text_xtiny" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/iv_ask"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/interval_small"
+                                    android:contentDescription="@string/image_content_description"
+                                    android:padding="@dimen/interval_small"
+                                    android:src="@drawable/ic_ask_me"
+                                    android:tint="@color/material_black" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/lineColor" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/ll_deposit_button"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/shape_ripple_transparent"
+                                    android:gravity="center">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="@dimen/icon_google"
+                                            android:rotation="90"
+                                            android:src="@drawable/ic_deposit_wallet" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/padding_small"
+                                            android:text="DEPOSIT"
+                                            android:textSize="@dimen/text_small" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/lineColor" />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_withdraw_button"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/shape_ripple_transparent"
+                                    android:gravity="center">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="@dimen/icon_google"
+                                            android:rotation="270"
+                                            android:src="@drawable/ic_deposit_wallet" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/padding_small"
+                                            android:text="WITHDRAW"
+                                            android:textSize="@dimen/text_small" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
 
                         </LinearLayout>
-                    </RelativeLayout>
 
+                    </android.support.v7.widget.CardView>
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/wallet_box"
+                        android:layout_marginTop="@dimen/interval_content"
+                        android:gravity="center">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/interval_content"
+                            android:layout_marginRight="@dimen/interval_content"
+                            android:text="@string/wallet_time_bonus"
+                            android:textColor="@color/material_black_sub_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_countdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_wallet_coin_container"
+                    android:id="@+id/toolbar_record"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ll_wallet_main"
+                    android:layout_marginTop="@dimen/interval_main"
                     android:orientation="vertical">
 
-
-                    <RelativeLayout
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/interval_main">
+                        android:layout_height="1dp"
+                        android:background="@color/material_grey_E8E8E8" />
 
-                        <TextView
-                            android:id="@+id/tv_your_coin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:tag="hnBoldCond"
-                            android:text="Your Coins"
-                            android:textAllCaps="true"
-                            android:textColor="@color/material_black"
-                            android:textSize="@dimen/text_small_medium" />
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_wallet_add_more" />
-
-                    </RelativeLayout>
-
-
-                    <include
-                        layout="@layout/content_error_view"
+                    <com.vexanium.vexgift.widget.IconTextTabBarView
+                        android:id="@+id/tab_wallet"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/interval_submain"></include>
+                        android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_wallet_coin"
+                    </com.vexanium.vexgift.widget.IconTextTabBarView>
+
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v7.widget.RecyclerView>
-
+                        android:layout_height="2dp"
+                        android:background="@drawable/shape_drop_shadow" />
                 </LinearLayout>
 
+                <com.vexanium.vexgift.widget.WrapContentViewPager
+                    android:id="@+id/vp_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/toolbar_record">
+
+                </com.vexanium.vexgift.widget.WrapContentViewPager>
+
+
+                <ImageView
+                    android:id="@+id/iv_coming_soon"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/wallet_soon"
+                    android:visibility="gone" />
+
+
+                <include
+                    layout="@layout/include_wallet_generate_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </RelativeLayout>
 
+        </android.support.v4.widget.NestedScrollView>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <ImageView
-            android:id="@+id/iv_coming_soon"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/wallet_soon"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

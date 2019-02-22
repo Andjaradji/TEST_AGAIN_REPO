@@ -35,6 +35,7 @@ import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
+import com.vexanium.vexgift.widget.WrapContentViewPager;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -64,7 +65,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
     private TextView mTvVp;
     private TextView mTvVpGen;
     private IconTextTabBarView mTabVp;
-    private ViewPager mPagerVp;
+    private WrapContentViewPager mPagerVp;
     private Observable<VexPointRecordResponse> mVpObservable;
     //private View mVpShadow;
     private Observable<Integer> mVexAddressObservable;

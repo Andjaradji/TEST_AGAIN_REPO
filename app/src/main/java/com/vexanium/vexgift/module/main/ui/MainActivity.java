@@ -35,6 +35,7 @@ import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
+import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -73,7 +74,7 @@ public class MainActivity extends BaseActivity {
     private CustomViewPager mCustomViewPager;
     private HomeFragment homeFragment;
     private BoxBaseFragment boxBaseFragment;
-    private WalletFragmentOld walletFragment;
+    private WalletFragment walletFragment;
     private NotifFragment notifFragment;
     private MoreFragment moreFragment;
     private MainScreenPagerAdapter mainScreenPagerAdapter;
@@ -799,7 +800,7 @@ public class MainActivity extends BaseActivity {
                     return boxBaseFragment;
                 case WALLET_FRAGMENT:
                     if (walletFragment == null) {
-                        walletFragment = WalletFragmentOld.newInstance();
+                        walletFragment = WalletFragment.newInstance();
                     }
                     return walletFragment;
                 case NOTIF_FRAGMENT:

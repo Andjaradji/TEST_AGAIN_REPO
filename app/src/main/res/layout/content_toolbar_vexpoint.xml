@@ -25,7 +25,7 @@
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="bold"
+            android:tag="hnBoldCond"
             android:text="@string/vexpoint_title"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_big_medium" />

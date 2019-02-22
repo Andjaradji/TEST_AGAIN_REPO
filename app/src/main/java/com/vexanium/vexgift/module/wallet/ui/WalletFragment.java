@@ -2,6 +2,10 @@ package com.vexanium.vexgift.module.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,27 +24,62 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
-import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
-import com.vexanium.vexgift.bean.fixture.FixtureData;
 import com.vexanium.vexgift.bean.fixture.WalletToken;
-import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.UserVouchersResponse;
+import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
+import com.vexanium.vexgift.bean.response.WalletResponse;
+import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
+import com.vexanium.vexgift.module.wallet.view.IWalletView;
+import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
+import com.vexanium.vexgift.widget.CustomViewPager;
+import com.vexanium.vexgift.widget.IconTextTabBarView;
+import com.vexanium.vexgift.widget.WrapContentViewPager;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_wallet)
-public class WalletFragment extends BaseFragment {
+public class WalletFragment extends BaseFragment<IWalletPresenter> implements IWalletView {
 
-    LinearLayout mErrorView;
-    ImageView mIvError;
-    TextView mTvErrorHead, mTvErrorBody, mTotalAsset;
-    GridLayoutManager layoutListManager;
-    private RecyclerView mRecycler;
-    private BaseRecyclerAdapter<WalletToken> mAdapter;
+    private static final int TRANSACTION_RECORD_FRAGMENT = 0;
+    private static final int BONUS_RECORD_FRAGMENT = 1;
+    private static final int PAGE_COUNT = 2;
+
+    LinearLayout mErrorView, mGenerateView;
+    TextView mTvCountdownVp;
+
+    private TextView mTvWallet;
+    private TextView mTvWalletBonusGen;
+    private IconTextTabBarView mTabWallet;
+    private WrapContentViewPager mPagerWallet;
+
+    private TransactionRecordFragment transactionRecordFragment;
+    private BonusRecordFragment bonusRecordFragment;
+
+    private Subscription timeSubsription;
+
     private SwipeRefreshLayout mRefreshLayout;
+
+    private User user;
+    private boolean isAlreadyHaveAddress;
+
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -48,35 +87,56 @@ public class WalletFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
+        user = User.getCurrentUser(this.getContext());
+
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_my_wallet));
 
-        mRecycler = fragmentRootView.findViewById(R.id.rv_wallet_coin);
-        mTotalAsset = fragmentRootView.findViewById(R.id.tv_total_asset);
+        mGenerateView = fragmentRootView.findViewById(R.id.ll_wallet_address_generate);
+        mTvCountdownVp = fragmentRootView.findViewById(R.id.tv_countdown);
+        mTabWallet = fragmentRootView.findViewById(R.id.tab_wallet);
+        mPagerWallet = fragmentRootView.findViewById(R.id.vp_wallet);
 
-        mErrorView = fragmentRootView.findViewById(R.id.ll_error_view);
-        mIvError = fragmentRootView.findViewById(R.id.iv_error_view);
-        mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
-        mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
+        fragmentRootView.findViewById(R.id.ll_deposit_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.ll_withdraw_button).setOnClickListener(this);
+
+//        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
+
 
         mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setRecordlist(FixtureData.tokenList);
+//                setRecordlist(FixtureData.tokenList);
             }
         });
 
+        mRefreshLayout.setEnabled(false);
+
         //Coming soon view
-        mIvComingSoon.setVisibility(View.GONE);
+//        mIvComingSoon.setVisibility(View.GONE);
 
-        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
-            layoutListManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
-            mRecycler.setLayoutManager(layoutListManager);
-            setRecordlist(FixtureData.tokenList);
+//        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
+//            layoutListManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
+//            mRecycler.setLayoutManager(layoutListManager);
+//        }
 
-        }
+//        mTvWallet.setText(convertVpFormat(user.getVexPoint()));
+//        mTvWalletBonusGen.setText("");
+
+        String transactionRecord = getResources().getString(R.string.wallet_transaction_record);
+        String bonusRecord = getResources().getString(R.string.wallet_bonus_record);
+
+        mTabWallet.addTabView(0, -1, transactionRecord);
+        mTabWallet.addTabView(1, -1, bonusRecord);
+
+        VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getActivity().getSupportFragmentManager());
+        mPagerWallet.setAdapter(vpPagerAdapter);
+        mPagerWallet.setOffscreenPageLimit(PAGE_COUNT);
+        mPagerWallet.setCurrentItem(0, false);
+
+        mTabWallet.setViewPager(mPagerWallet);
+        setPagerListener();
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -88,91 +148,263 @@ public class WalletFragment extends BaseFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        KLog.v("NotifFragment onCreateView");
+        KLog.v("WalletFragment onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private void setRecordlist(ArrayList<WalletToken> dataList) {
-        mRefreshLayout.setRefreshing(false);
-        float totalAsset = 0f;
-        for (WalletToken token : FixtureData.tokenList) {
-            totalAsset += token.getAmount() * token.getEstPriceInIDR();
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            if (data instanceof WalletResponse) {
+                UserVouchersResponse vouchersResponse = (UserVouchersResponse) data;
+                TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
+
+            }
+
+        } else if (errorResponse != null) {
+            StaticGroup.showCommonErrorDialog(this.getContext(), errorResponse);
         }
+    }
 
-        DecimalFormat df = new DecimalFormat("#,###.##");
-
-        mTotalAsset.setText(df.format(totalAsset));
-
-        if (mAdapter == null) {
-            mAdapter = new BaseRecyclerAdapter<WalletToken>(getActivity(), dataList, layoutListManager) {
-
-                @Override
-                public int getItemLayoutId(int viewType) {
-                    return R.layout.item_wallet_coin_list;
-                }
-
-                @Override
-                public void bindData(final BaseRecyclerViewHolder holder, final int position, final WalletToken item) {
-                    holder.setText(R.id.tv_wallet_coin_title, item.getName());
-                    holder.setImageResource(R.id.iv_icon, item.getResIcon());
-                    DecimalFormat df = new DecimalFormat("#,###.##");
-                    holder.setText(R.id.tv_wallet_coin_subtitle, "~" + df.format(item.getEstPriceInIDR()) + " IDR");
-                    holder.setText(R.id.tv_wallet_coin_amount, df.format(item.getAmount()));
-                    holder.setOnClickListener(R.id.rl_wallet_coin_item, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (ClickUtil.isFastDoubleClick()) return;
-                            Intent intent = new Intent(getActivity(), WalletDetailActivity.class);
-                            intent.putExtra("wallet_token", item);
-                            startActivity(intent);
-                        }
-                    });
-
-                }
-            };
-            mAdapter.setHasStableIds(true);
-            mRecycler.setItemAnimator(new DefaultItemAnimator());
-            if (mRecycler.getItemAnimator() != null)
-                mRecycler.getItemAnimator().setAddDuration(250);
-            mRecycler.getItemAnimator().setMoveDuration(250);
-            mRecycler.getItemAnimator().setChangeDuration(250);
-            mRecycler.getItemAnimator().setRemoveDuration(250);
-            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            mRecycler.setItemViewCacheSize(30);
-            mRecycler.setAdapter(mAdapter);
-            mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    App.setTextViewStyle(mRecycler);
-                }
-            });
-        } else {
-            mAdapter.setData(dataList);
-        }
-
-        if (dataList.size() <= 0) {
-            mErrorView.setVisibility(View.VISIBLE);
-            mIvError.setImageResource(R.drawable.voucher_empty);
-            mTvErrorHead.setText(getString(R.string.error_token_sale_empty_header));
-            mTvErrorBody.setText(getString(R.string.error_my_token_sale_empty_body));
-
-            mRecycler.setVisibility(View.GONE);
-        } else {
-            mErrorView.setVisibility(View.GONE);
-            mRecycler.setVisibility(View.VISIBLE);
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        Intent intent;
+        switch (v.getId()){
+            case R.id.ll_deposit_button:
+                intent = new Intent(this.getActivity(), WalletDepositActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_withdraw_button:
+                intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
+                startActivity(intent);
+                break;
 
         }
+    }
 
+    //    private void setRecordlist(ArrayList<WalletToken> dataList) {
+//        mRefreshLayout.setRefreshing(false);
+//        float totalAsset = 0f;
+//        for (WalletToken token : FixtureData.tokenList) {
+//            totalAsset += token.getAmount() * token.getEstPriceInIDR();
+//        }
+//
+//        DecimalFormat df = new DecimalFormat("#,###.##");
+//
+//        mTotalAsset.setText(df.format(totalAsset));
+//
+//        if (mAdapter == null) {
+//            mAdapter = new BaseRecyclerAdapter<WalletToken>(getActivity(), dataList, layoutListManager) {
+//
+//                @Override
+//                public int getItemLayoutId(int viewType) {
+//                    return R.layout.item_wallet_coin_list;
+//                }
+//
+//                @Override
+//                public void bindData(final BaseRecyclerViewHolder holder, final int position, final WalletToken item) {
+//                    holder.setText(R.id.tv_wallet_coin_title, item.getName());
+//                    holder.setImageResource(R.id.iv_icon, item.getResIcon());
+//                    DecimalFormat df = new DecimalFormat("#,###.##");
+//                    holder.setText(R.id.tv_wallet_coin_subtitle, "~" + df.format(item.getEstPriceInIDR()) + " IDR");
+//                    holder.setText(R.id.tv_wallet_coin_amount, df.format(item.getAmount()));
+//                    holder.setOnClickListener(R.id.rl_wallet_coin_item, new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            if (ClickUtil.isFastDoubleClick()) return;
+//                            Intent intent = new Intent(getActivity(), WalletDetailActivity.class);
+//                            intent.putExtra("wallet_token", item);
+//                            startActivity(intent);
+//                        }
+//                    });
+//
+//                }
+//            };
+//            mAdapter.setHasStableIds(true);
+//            mRecycler.setItemAnimator(new DefaultItemAnimator());
+//            if (mRecycler.getItemAnimator() != null)
+//                mRecycler.getItemAnimator().setAddDuration(250);
+//            mRecycler.getItemAnimator().setMoveDuration(250);
+//            mRecycler.getItemAnimator().setChangeDuration(250);
+//            mRecycler.getItemAnimator().setRemoveDuration(250);
+//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            mRecycler.setItemViewCacheSize(30);
+//            mRecycler.setAdapter(mAdapter);
+//            mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                @Override
+//                public void onGlobalLayout() {
+//                    App.setTextViewStyle(mRecycler);
+//                }
+//            });
+//        } else {
+//            mAdapter.setData(dataList);
+//        }
+//
 //        if (dataList.size() <= 0) {
 //            mErrorView.setVisibility(View.VISIBLE);
-//            mIvError.setImageResource(R.drawable.wallet_empty);
-//            mTvErrorHead.setVisibility(View.GONE);
-//            mTvErrorBody.setText(getString(R.string.error_wallet_empty_header));
+//
 //            mRecycler.setVisibility(View.GONE);
+//        } else {
+//            mErrorView.setVisibility(View.GONE);
+//            mRecycler.setVisibility(View.VISIBLE);
+//
+//        }
+//
+////        if (dataList.size() <= 0) {
+////            mErrorView.setVisibility(View.VISIBLE);
+////            mIvError.setImageResource(R.drawable.wallet_empty);
+////            mTvErrorHead.setVisibility(View.GONE);
+////            mTvErrorBody.setText(getString(R.string.error_wallet_empty_header));
+////            mRecycler.setVisibility(View.GONE);
+////        }
+//    }
+
+    @Override
+    public void onPause() {
+        KLog.v("WalletFragment", "onPause: ");
+        super.onPause();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+            timeSubsription = null;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        KLog.v("WalletFragment", "onStart: ");
+        super.onStart();
+//        startDateTimer();
+    }
+
+    @Override
+    public void onDestroy() {
+        KLog.v("WalletFragment", "onDestroy: ");
+        super.onDestroy();
+        if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+            timeSubsription.unsubscribe();
+        }
+//        if (mVpObservable != null) {
+//            RxBus.get().unregister(RxBus.KEY_VP_RECORD_ADDED, mVpObservable);
 //        }
     }
 
+    @Override
+    public void onResume() {
+        KLog.v("WalletFragment", "onResume: ");
+        super.onResume();
+        startDateTimer();
+//        user = User.getCurrentUser(this);
+//        if (User.getUserAddressStatus() != 1) {
+//            mPresenter.requestGetActAddress(user.getId());
+//        }
+    }
+
+    private void setPagerListener() {
+        mPagerWallet.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mTabWallet.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                KLog.i("Page: " + position);
+                mTabWallet.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                mTabWallet.onPageScrollStateChanged(state);
+            }
+        });
+    }
+
+    private void startDateTimer() {
+        if (timeSubsription == null && StaticGroup.isScreenOn(this.getActivity(), true)) {
+            timeSubsription = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Object>() {
+                        @Override
+                        public void call(Object o) {
+                            //KLog.v("Date Time called");
+                            if (!StaticGroup.isScreenOn(WalletFragment.this.getActivity() , true)) {
+                                if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
+                                    timeSubsription.unsubscribe();
+                                }
+                            } else {
+                                setWatchText();
+                            }
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
+                        }
+                    });
+        }
+    }
+
+    private void setWatchText() {
+
+        Calendar now = Calendar.getInstance();
+        Calendar nextSnapshoot = Calendar.getInstance();
+//        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
+            nextSnapshoot.add(Calendar.DATE, 1);
+            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+//        }
+        nextSnapshoot.set(Calendar.MINUTE, 0);
+        nextSnapshoot.set(Calendar.SECOND, 0);
+        nextSnapshoot.set(Calendar.MILLISECOND, 0);
+
+        long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
+
+        String time = String.format(Locale.getDefault(), getString(R.string.time_hour_min_sec),
+                TimeUnit.MILLISECONDS.toHours(remainTime),
+                TimeUnit.MILLISECONDS.toMinutes(remainTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainTime)),
+                TimeUnit.MILLISECONDS.toSeconds(remainTime) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
+
+        mTvCountdownVp.setText(time);
+    }
+
+    public class VpPagerAdapter extends FragmentStatePagerAdapter {
+
+        VpPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case TRANSACTION_RECORD_FRAGMENT:
+                    if (transactionRecordFragment == null) {
+                        transactionRecordFragment = TransactionRecordFragment.newInstance();
+                    }
+                    return transactionRecordFragment;
+                case BONUS_RECORD_FRAGMENT:
+                    if (bonusRecordFragment == null) {
+                        bonusRecordFragment = BonusRecordFragment.newInstance();
+                    }
+                    return bonusRecordFragment;
+
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            //TODO PAGE_COUNT
+            return 2;
+        }
+
+    }
 }

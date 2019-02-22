@@ -39,223 +39,230 @@
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/material_white"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <RelativeLayout
-                android:id="@+id/rl_vp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
+                android:background="@color/material_white"
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/rl_vexpoint_card_container"
+                    android:id="@+id/rl_vp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
 
                     <RelativeLayout
-                        android:id="@+id/rl_vexpoint_card"
+                        android:id="@+id/rl_vexpoint_card_container"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_centerInParent="true">
-
-                        <!--<View
-                            android:id="@+id/v_vexpoint_shadow"
-                            android:layout_width="250dp"
-                            android:layout_height="130dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/shadow_vexpoint"
-                            android:visibility="gone"></View>-->
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp"
+                        android:paddingTop="30dp">
 
                         <RelativeLayout
-                            android:id="@+id/vp_box"
-                            android:layout_width="250dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="20dp"
-                            android:layout_marginTop="25dp"
-                            android:background="@drawable/shape_vexpoint_bg"
-                            android:transitionName="vexpoint_button">
+                            android:id="@+id/rl_vexpoint_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:layout_centerInParent="true">
 
-                            <ImageView
-                                android:id="@+id/iv_ask"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="@dimen/interval_small"
-                                android:contentDescription="@string/image_content_description"
-                                android:padding="@dimen/interval_small"
-                                android:src="@drawable/ic_ask_me" />
+                            <!--<View
+                                android:id="@+id/v_vexpoint_shadow"
+                                android:layout_width="250dp"
+                                android:layout_height="130dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:background="@drawable/shadow_vexpoint"
+                                android:visibility="gone"></View>-->
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                            <RelativeLayout
+                                android:id="@+id/vp_box"
+                                android:layout_width="250dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="20dp"
+                                android:layout_marginTop="25dp"
+                                android:background="@drawable/shape_vexpoint_bg"
+                                android:transitionName="vexpoint_button">
 
-                                <TextView
-                                    android:id="@+id/tv_vexpoint"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:tag="hnBoldCond"
-                                    android:textColor="@color/material_white"
-                                    android:textSize="@dimen/text_xlarge"
-                                    android:transitionName="vexpoint_amount" />
+                                <ImageView
+                                    android:id="@+id/iv_ask"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_margin="@dimen/interval_small"
+                                    android:contentDescription="@string/image_content_description"
+                                    android:padding="@dimen/interval_small"
+                                    android:src="@drawable/ic_ask_me" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="@dimen/interval_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal"
-                                    android:visibility="gone">
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="@dimen/interval_content"
-                                        android:layout_marginRight="@dimen/interval_content"
-                                        android:tag="bold"
-                                        android:text="@string/vexpoint_estimate_reward"
-                                        android:textColor="#ABFFFFFF"
-                                        android:textSize="@dimen/text_small" />
-
-                                    <TextView
-                                        android:id="@+id/tv_vexpoint_generated"
+                                        android:id="@+id/tv_vexpoint"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:tag="hnBoldCond"
                                         android:textColor="@color/material_white"
-                                        android:textSize="@dimen/text_small" />
+                                        android:textSize="@dimen/text_xlarge"
+                                        android:transitionName="vexpoint_amount" />
 
-                                    <ImageView
-                                        android:layout_width="8dp"
-                                        android:layout_height="8dp"
-                                        android:layout_marginLeft="@dimen/interval_small"
-                                        android:contentDescription="@string/image_content_description"
-                                        android:src="@drawable/ic_triangle" />
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/interval_content"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal"
+                                        android:visibility="gone">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/interval_content"
+                                            android:layout_marginRight="@dimen/interval_content"
+                                            android:tag="bold"
+                                            android:text="@string/vexpoint_estimate_reward"
+                                            android:textColor="#ABFFFFFF"
+                                            android:textSize="@dimen/text_small" />
+
+                                        <TextView
+                                            android:id="@+id/tv_vexpoint_generated"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:tag="hnBoldCond"
+                                            android:textColor="@color/material_white"
+                                            android:textSize="@dimen/text_small" />
+
+                                        <ImageView
+                                            android:layout_width="8dp"
+                                            android:layout_height="8dp"
+                                            android:layout_marginLeft="@dimen/interval_small"
+                                            android:contentDescription="@string/image_content_description"
+                                            android:src="@drawable/ic_triangle" />
+                                    </LinearLayout>
                                 </LinearLayout>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/vp_box"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/interval_content"
+                                    android:layout_marginRight="@dimen/interval_content"
+                                    android:text="@string/vp_time_snapshoot"
+                                    android:textColor="@color/material_black_sub_text_color"
+                                    android:textSize="@dimen/text_xtiny" />
+
+                                <TextView
+                                    android:id="@+id/tv_countdown"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:tag="bold"
+                                    android:textColor="@color/material_black_text_color"
+                                    android:textSize="@dimen/text_xtiny" />
                             </LinearLayout>
                         </RelativeLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/vp_box"
-                            android:gravity="center">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/interval_content"
-                                android:layout_marginRight="@dimen/interval_content"
-                                android:text="@string/vp_time_snapshoot"
-                                android:textColor="@color/material_black_sub_text_color"
-                                android:textSize="@dimen/text_xtiny" />
-
-                            <TextView
-                                android:id="@+id/tv_countdown"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:tag="bold"
-                                android:textColor="@color/material_black_text_color"
-                                android:textSize="@dimen/text_xtiny" />
-                        </LinearLayout>
                     </RelativeLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rl_vexpoint_card_container"
+                        android:orientation="vertical">
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/material_grey_E8E8E8" />
+
+                        <com.vexanium.vexgift.widget.IconTextTabBarView
+                            android:id="@+id/tab_vexpoint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.vexanium.vexgift.widget.IconTextTabBarView>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@drawable/shape_drop_shadow" />
+
+                        <com.vexanium.vexgift.widget.WrapContentViewPager
+                            android:id="@+id/vp_vexpoint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.vexanium.vexgift.widget.WrapContentViewPager>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_notif_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:background="#e86c26"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_ripple_transparent" />
+
+                        <TextView
+                            android:id="@+id/tv_notif_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:paddingEnd="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="40dp"
+                            android:paddingStart="20dp"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_small_medium" />
+
+                        <TextView
+                            android:id="@+id/tv_notif_see_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:paddingEnd="20dp"
+                            android:paddingRight="20dp"
+                            android:text="@string/box_notif_see_all"
+                            android:textColor="@color/material_white"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </RelativeLayout>
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_vexpoint_card_container"
-                    android:orientation="vertical">
+                <include
+                    android:id="@+id/ll_info"
+                    layout="@layout/include_vexpoint_address_info"
+                    android:visibility="gone"></include>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/material_grey_E8E8E8" />
-
-                    <com.vexanium.vexgift.widget.IconTextTabBarView
-                        android:id="@+id/tab_vexpoint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </com.vexanium.vexgift.widget.IconTextTabBarView>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="@drawable/shape_drop_shadow" />
-
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/vp_vexpoint"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v4.view.ViewPager>
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_notif_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:background="#e86c26"
-                    android:visibility="gone">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_ripple_transparent" />
-
-                    <TextView
-                        android:id="@+id/tv_notif_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:paddingEnd="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="40dp"
-                        android:paddingStart="20dp"
-                        android:textColor="@color/material_white"
-                        android:textSize="@dimen/text_small_medium" />
-
-                    <TextView
-                        android:id="@+id/tv_notif_see_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingEnd="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/box_notif_see_all"
-                        android:textColor="@color/material_white"
-                        android:textSize="@dimen/text_xtiny" />
-
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/ll_info"
-                layout="@layout/include_vexpoint_address_info"
-                android:visibility="gone"></include>
-
-            <include
-                android:id="@+id/ll_wait_address"
-                layout="@layout/include_wait_address_verification"
-                android:visibility="gone"></include>
-        </LinearLayout>
+                <include
+                    android:id="@+id/ll_wait_address"
+                    layout="@layout/include_wait_address_verification"
+                    android:visibility="gone"></include>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

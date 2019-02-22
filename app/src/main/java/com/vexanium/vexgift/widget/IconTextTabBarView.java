@@ -79,7 +79,6 @@ public class IconTextTabBarView extends RelativeLayout {
         }
     }
 
-
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
 

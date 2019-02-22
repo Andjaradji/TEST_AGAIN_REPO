@@ -49,32 +49,32 @@ public class WalletFragmentOld extends BaseFragment {
         mTvErrorHead = fragmentRootView.findViewById(R.id.tv_error_head);
         mTvErrorBody = fragmentRootView.findViewById(R.id.tv_error_body);
 
-        LinearLayout mMainContainer = fragmentRootView.findViewById(R.id.ll_wallet_main);
-        LinearLayout mButtonContainer = fragmentRootView.findViewById(R.id.ll_wallet_coin_container);
-        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
-
-        //Coming soon view
-        mIvComingSoon.setVisibility(View.VISIBLE);
-        mMainContainer.setVisibility(View.GONE);
-        mButtonContainer.setVisibility(View.GONE);
-        //mRecordContainer.setVisibility(View.VISIBLE);
-
-        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-            mRecycler.setLayoutManager(linearLayoutManager);
-
-            mAdapter = new WalletAdapter(getActivity());
-            mRecycler.setAdapter(mAdapter);
-
-            if (getContext() != null && getActivity() != null) {
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                        linearLayoutManager.getOrientation());
-                dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
-                mRecycler.addItemDecoration(dividerItemDecoration);
-
-                setRecordlist(new ArrayList<WalletRecord>());
-            }
-        }
+//        LinearLayout mMainContainer = fragmentRootView.findViewById(R.id.ll_wallet_main);
+//        LinearLayout mButtonContainer = fragmentRootView.findViewById(R.id.ll_wallet_coin_container);
+//        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
+//
+//        //Coming soon view
+//        mIvComingSoon.setVisibility(View.VISIBLE);
+//        mMainContainer.setVisibility(View.GONE);
+//        mButtonContainer.setVisibility(View.GONE);
+//        //mRecordContainer.setVisibility(View.VISIBLE);
+//
+//        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
+//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+//            mRecycler.setLayoutManager(linearLayoutManager);
+//
+//            mAdapter = new WalletAdapter(getActivity());
+//            mRecycler.setAdapter(mAdapter);
+//
+//            if (getContext() != null && getActivity() != null) {
+//                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+//                        linearLayoutManager.getOrientation());
+//                dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
+//                mRecycler.addItemDecoration(dividerItemDecoration);
+//
+//                setRecordlist(new ArrayList<WalletRecord>());
+//            }
+//        }
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
