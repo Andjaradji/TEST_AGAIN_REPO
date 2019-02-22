@@ -313,6 +313,8 @@
         <activity
             android:name=".module.main.ui.UserInputActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".module.wallet.ui.WalletDepositActivity" />
+        <activity android:name=".module.wallet.ui.WalletWithdrawActivity"></activity>
     </application>
 
 </manifest>

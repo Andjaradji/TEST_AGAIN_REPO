@@ -35,6 +35,7 @@ import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
+import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
@@ -73,7 +74,7 @@ public class MainActivity extends BaseActivity {
     private CustomViewPager mCustomViewPager;
     private HomeFragment homeFragment;
     private BoxBaseFragment boxBaseFragment;
-    private WalletFragmentOld walletFragment;
+    private WalletFragment walletFragment;
     private NotifFragment notifFragment;
     private MoreFragment moreFragment;
     private MainScreenPagerAdapter mainScreenPagerAdapter;
@@ -656,6 +657,19 @@ public class MainActivity extends BaseActivity {
                     startActivity(intent);
                 }
 
+            } else if (path.startsWith("affiliate")) {
+                String sId = uri.getQueryParameter("id");
+                int id = 0;
+                try {
+                    id = Integer.parseInt(sId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                intent = new Intent(this, UserInputActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
             } else if (path.startsWith("token")) {
                 String sId = uri.getQueryParameter("id");
                 int id = 0;
@@ -786,7 +800,7 @@ public class MainActivity extends BaseActivity {
                     return boxBaseFragment;
                 case WALLET_FRAGMENT:
                     if (walletFragment == null) {
-                        walletFragment = WalletFragmentOld.newInstance();
+                        walletFragment = WalletFragment.newInstance();
                     }
                     return walletFragment;
                 case NOTIF_FRAGMENT:

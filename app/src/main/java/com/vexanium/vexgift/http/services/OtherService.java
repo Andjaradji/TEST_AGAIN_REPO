@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.http.services;
 
-import com.vexanium.vexgift.bean.model.AffiliateEntry;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
@@ -253,6 +252,7 @@ public interface OtherService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
     @POST("news")
     Observable<HttpResponse<NewsResponse>> getNews(
             @Header("X-Vexanium-Key") String key,
@@ -275,7 +275,7 @@ public interface OtherService {
 
     @FormUrlEncoded
     @POST("affiliate-program/submit-entry")
-    Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(
+    Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

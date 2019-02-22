@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -30,8 +31,10 @@ public class App extends Application {
     public static Typeface bold;
     public static Typeface regular;
     public static Typeface medium;
+    public static Typeface black;
     public static Typeface light;
     public static Typeface hnBoldCond;
+    public static Typeface hnBlackCond;
     public static Typeface hnMed;
     private static Context mApplicationContext;
     private DaoSession mDaoSession;
@@ -58,6 +61,8 @@ public class App extends Application {
 //                    KLog.v("HPtes Masuk "+tagObj);
                     if (tagObj.equals("bold"))
                         ((TextView) child).setTypeface(bold);
+                    else if (tagObj.equals("black"))
+                        ((TextView) child).setTypeface(black);
                     else if (tagObj.equals("medium"))
                         ((TextView) child).setTypeface(medium);
                     else if (tagObj.equals("light"))
@@ -68,8 +73,30 @@ public class App extends Application {
                         ((TextView) child).setTypeface(hnMed);
                     else
                         ((TextView) child).setTypeface(regular);
-                }
+                } else
+                    ((TextView) child).setTypeface(regular);
+            } else if (child instanceof EditText) {
+                final Object tagObj = child.getTag();
+                if (tagObj != null) {
+//                    KLog.v("HPtes Masuk "+tagObj);
+                    if (tagObj.equals("bold"))
+                        ((EditText) child).setTypeface(bold);
+                    else if (tagObj.equals("black"))
+                        ((EditText) child).setTypeface(black);
+                    else if (tagObj.equals("medium"))
+                        ((EditText) child).setTypeface(medium);
+                    else if (tagObj.equals("light"))
+                        ((EditText) child).setTypeface(light);
+                    else if (tagObj.equals("hnBoldCond"))
+                        ((EditText) child).setTypeface(hnBoldCond);
+                    else if (tagObj.equals("hnMed"))
+                        ((EditText) child).setTypeface(hnMed);
+                    else
+                        ((EditText) child).setTypeface(regular);
+                } else
+                    ((EditText) child).setTypeface(regular);
             }
+
         }
     }
 
@@ -130,11 +157,13 @@ public class App extends Application {
     }
 
     private void setupCustomFont() {
-        bold = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Bold.ttf");
-        regular = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Regular.ttf");
-        medium = Typeface.createFromAsset(this.getAssets(), "fonts/Roboto-Medium.ttf");
-        light = Typeface.createFromAsset(this.getAssets(), "fonts/SourceSansPro-Light.ttf");
-        hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
+        black = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Black.ttf");
+        bold = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Bold.ttf");
+        medium = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Medium.ttf");
+        regular = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Regular.ttf");
+        light = Typeface.createFromAsset(this.getAssets(), "fonts/Montserrat-Light.ttf");
+        hnBoldCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueCondensedBold.ttf");
+        hnBlackCond = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue-BlackCond.ttf");
         hnMed = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeueMed.ttf");
     }
 }

@@ -352,6 +352,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:tag="hnBoldCond"
+                    android:textAllCaps="true"
                     android:text="@string/news_title"
                     android:textAlignment="center"
                     android:textColor="@color/primary_dark"

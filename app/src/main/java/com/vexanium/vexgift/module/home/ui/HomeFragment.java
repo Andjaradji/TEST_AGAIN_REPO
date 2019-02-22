@@ -95,6 +95,7 @@ import static com.vexanium.vexgift.app.StaticGroup.HOT_LIST;
 import static com.vexanium.vexgift.app.StaticGroup.NORMAL_COUPON;
 import static com.vexanium.vexgift.app.StaticGroup.SHORTCUT_BAR;
 import static com.vexanium.vexgift.app.StaticGroup.convertVpFormat;
+import static com.vexanium.vexgift.app.StaticGroup.isNewsActive;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_home)
 public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeView {
@@ -602,13 +603,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
                                 }
                             });
+                            holder.setViewGone(R.id.news_button, !isNewsActive());
                             holder.setOnClickListener(R.id.news_button, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (ClickUtil.isFastDoubleClick()) return;
-                                    Intent intent = new Intent(HomeFragment.this.getActivity(), NewsActivity.class);
-                                    RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
-                                    startActivity(intent);
+                                    if (isNewsActive()) {
+                                        Intent intent = new Intent(HomeFragment.this.getActivity(), NewsActivity.class);
+                                        RxBus.get().post(RxBus.KEY_CLEAR_GUIDANCE, true);
+                                        startActivity(intent);
+                                    }
 
                                 }
                             });

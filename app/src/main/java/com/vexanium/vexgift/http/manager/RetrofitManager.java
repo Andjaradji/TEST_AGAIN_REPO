@@ -4,12 +4,10 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
-import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
-import com.vexanium.vexgift.bean.model.AffiliateEntry;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
@@ -60,12 +58,15 @@ import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.bean.response.WalletResponse;
+import com.vexanium.vexgift.bean.response.WithdrawResponse;
 import com.vexanium.vexgift.http.Api;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.interceptor.RxErrorHandlingCallAdapterFactory;
 import com.vexanium.vexgift.http.services.OtherService;
 import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
+import com.vexanium.vexgift.http.services.WalletService;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 
@@ -73,7 +74,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -111,6 +112,7 @@ public class RetrofitManager {
     private OtherService mOtherService;
     private UserService mUserService;
     private VoucherService mVoucherService;
+    private WalletService mWalletService;
 
     private Interceptor mRewriteCacheControlInterceptor = new Interceptor() {
         @Override
@@ -183,6 +185,7 @@ public class RetrofitManager {
         mOtherService = retrofit.create(OtherService.class);
         mUserService = retrofit.create(UserService.class);
         mVoucherService = retrofit.create(VoucherService.class);
+        mWalletService = retrofit.create(WalletService.class);
     }
 
 
@@ -967,19 +970,16 @@ public class RetrofitManager {
         return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }
 
-    public Observable<HttpResponse<AffiliateEntry>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String keys, String vals) {
+    public Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String vals) {
         Map<String, Object> params = Api.getBasicParam();
 
-        ArrayList<String> objectKey = (ArrayList<String>) JsonUtil.toObject(vals, ArrayList.class);
-        JsonObject objectVal = (JsonObject) JsonUtil.toObject(vals, JsonObject.class);
-
-        for (String set : objectKey) {
-            params.put(set, objectVal.get(set));
-        }
+        Map<String, Object> pVal = (Map<String, Object>) JsonUtil.toObject(vals, HashMap.class);
+        params.putAll(pVal);
 
         params.put("user_id", userId);
+        params.put("affiliate_program_id", affliateProgramId);
 
-        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateEntry>>());
+        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
     }
 
     public Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(int userId, int affliateProgramId) {
@@ -1007,6 +1007,32 @@ public class RetrofitManager {
 
         return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
     }
+
+    public Observable<HttpResponse<WalletResponse>> getWallet(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mWalletService.getWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
+    }
+
+    public Observable<HttpResponse<WalletResponse>> createWallet(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mWalletService.createWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
+    }
+
+    public Observable<HttpResponse<WithdrawResponse>> doWithdraw(int userId, int walletId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("wallet_id", walletId);
+
+        return mWalletService.doWithdraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
+    }
+
 //    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
 //        Map<String, Object> params = Api.getBasicParam();
 //

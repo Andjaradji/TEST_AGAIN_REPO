@@ -1,13 +1,19 @@
 package com.vexanium.vexgift.module.main.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.vexanium.vexgift.R;
@@ -63,11 +69,28 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
         layoutListManager.setItemPrefetchEnabled(false);
 
         userInputBox = findViewById(R.id.ll_user_input_box);
+        mRecyclerview = findViewById(R.id.recylerview);
 
-        mPresenter.getAffiliatePrograms(user.getId());
+        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.collapsingToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        ((AppBarLayout) toolbarLayout.getParent()).addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, UserInputActivity.State state) {
+                if (state == UserInputActivity.State.COLLAPSED) {
+                    findViewById(R.id.voucher_title).setVisibility(View.VISIBLE);
+                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(UserInputActivity.this, R.color.material_black));
+                } else {
+                    findViewById(R.id.voucher_title).setVisibility(View.GONE);
+                    ((ImageView) findViewById(R.id.back_button)).setColorFilter(ContextCompat.getColor(UserInputActivity.this, R.color.material_white));
+                }
+            }
+        });
+
         if (getIntent().hasExtra("id")) {
             id = getIntent().getIntExtra("id", -1);
         }
+
+        mPresenter.getAffiliatePrograms(user.getId());
 
         ViewUtil.setOnClickListener(this, this, R.id.btn_submit);
     }
@@ -110,6 +133,9 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
 
     private void updateView(AffiliateProgram affiliateProgram) {
         findViewById(R.id.send_button).setVisibility(View.GONE);
+
+        ((TextView) findViewById(R.id.tv_toolbar_title)).setText(affiliateProgram.getTitle());
+
         ViewUtil.setText(this, R.id.tv_title, affiliateProgram.getTitle());
         ViewUtil.setText(this, R.id.tv_time, String.format("%s - %s", affiliateProgram.getStrValidFrom(), affiliateProgram.getStrValidUntil()));
         ViewUtil.setImageUrl(this, R.id.iv_image, affiliateProgram.getImage());
@@ -130,13 +156,14 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
         for (int i = 0; i < childCount; i++) {
             if (userInputBox.getChildAt(i).getTag() != null) {
                 String key = userInputBox.getChildAt(i).getTag().toString();
-                String val = ((TextInputEditText) userInputBox.getChildAt(i)).getText().toString();
+                String val = ((TextInputLayout) userInputBox.getChildAt(i)).getEditText().getText().toString();
 
                 vals.put(key, val);
+                ((TextInputLayout) userInputBox.getChildAt(i)).getEditText().setText("");
             }
         }
 
-        mPresenter.submitAffiliateProgramEntry(user.getId(), affiliateProgram.getId(), JsonUtil.toString(vals), JsonUtil.toString(options));
+        mPresenter.submitAffiliateProgramEntry(user.getId(), affiliateProgram.getId(), JsonUtil.toString(vals));
     }
 
     public void setOptionsField(ArrayList<String> opts) {
@@ -151,13 +178,12 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
     }
 
     public void setAffiliateProgramEntry(ArrayList<AffiliateEntry> affiliateEntries) {
-
         if (mAdapter == null) {
             mAdapter = new BaseRecyclerAdapter<AffiliateEntry>(this, affiliateEntries, layoutListManager) {
 
                 @Override
                 public int getItemLayoutId(int viewType) {
-                    return R.layout.item_coupon_list;
+                    return R.layout.affiliate_program_entry_list;
                 }
 
                 @Override
@@ -166,7 +192,8 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
                     JsonObject objectVal = (JsonObject) JsonUtil.toObject(item.getJson(), JsonObject.class);
                     String text = "";
                     for (String set : options) {
-                        text += String.format("%s : %s\n", set, objectVal.get(set));
+                        text += String.format("%s : %s", set, objectVal.get(set));
+                        if (!options.get(options.size() - 1).equalsIgnoreCase(set)) text += "\n";
                     }
 
                     holder.setText(R.id.tv_list, text);
@@ -195,5 +222,38 @@ public class UserInputActivity extends BaseActivity<IMainPresenter> implements I
         } else {
             mAdapter.setData(affiliateEntries);
         }
+    }
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
+    }
+
+    public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+
+        private State mCurrentState = State.IDLE;
+
+        @Override
+        public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+            if (i == 0) {
+                if (mCurrentState != State.EXPANDED) {
+                    onStateChanged(appBarLayout, State.EXPANDED);
+                }
+                mCurrentState = State.EXPANDED;
+            } else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
+                if (mCurrentState != State.COLLAPSED) {
+                    onStateChanged(appBarLayout, State.COLLAPSED);
+                }
+                mCurrentState = State.COLLAPSED;
+            } else {
+                if (mCurrentState != State.IDLE) {
+                    onStateChanged(appBarLayout, State.IDLE);
+                }
+                mCurrentState = State.IDLE;
+            }
+        }
+
+        public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
     }
 }

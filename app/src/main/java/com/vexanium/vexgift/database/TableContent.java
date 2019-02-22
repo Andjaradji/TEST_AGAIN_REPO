@@ -25,15 +25,16 @@ public class TableContent {
     private String luckydraws;
     private String banners;
     private String news;
+    private String wallet;
     private long createdTime;
     private long updatedTime;
 
 
-    @Generated(hash = 94879337)
+    @Generated(hash = 139574318)
     public TableContent(long id, String vouchers, String tokens, String notifs, String myBoxs,
-                        String voucherTypes, String paymentTypes, String memberTypes, String categories,
-                        String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
-                        String banners, String news, long createdTime, long updatedTime) {
+            String voucherTypes, String paymentTypes, String memberTypes, String categories,
+            String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
+            String banners, String news, String wallet, long createdTime, long updatedTime) {
         this.id = id;
         this.vouchers = vouchers;
         this.tokens = tokens;
@@ -49,6 +50,7 @@ public class TableContent {
         this.luckydraws = luckydraws;
         this.banners = banners;
         this.news = news;
+        this.wallet = wallet;
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
     }
@@ -192,5 +194,13 @@ public class TableContent {
 
     public void setNews(String news) {
         this.news = news;
+    }
+
+    public String getWallet() {
+        return this.wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
     }
 }

@@ -70,9 +70,21 @@
         <item name="android:padding">8dp</item>
     </style>
 
-    <style name="AppTheme.ShareButton.noPadding" parent="AppTheme.ShareButton">
-        <item name="android:padding">0dp</item>
+    <style name="register_login_edittext_style">
+
+        <item name="android:paddingBottom">@dimen/input_field_2_padding_vertical</item>
+        <item name="android:paddingLeft">@dimen/input_field_2_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/input_field_2_padding_vertical</item>
+        <item name="android:textColor">@color/material_black_text_color</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="register_login_et_container_style">
 
+        <item name="android:layout_marginBottom">@dimen/padding_button</item>
+        <item name="android:layout_marginLeft">@dimen/interval_big</item>
+        <item name="android:layout_marginRight">@dimen/interval_big</item>
+        <item name="android:background">@drawable/shape_field_input_2</item>
+    </style>
 </resources>
