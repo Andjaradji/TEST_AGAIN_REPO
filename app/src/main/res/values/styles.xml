@@ -70,5 +70,9 @@
         <item name="android:padding">8dp</item>
     </style>
 
+    <style name="AppTheme.ShareButton.noPadding" parent="AppTheme.ShareButton">
+        <item name="android:padding">0dp</item>
+    </style>
+
 
 </resources>
