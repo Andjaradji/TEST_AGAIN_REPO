@@ -69,8 +69,8 @@ public class PointRecordFragment extends BaseFragment {
         dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         mRecycler.addItemDecoration(dividerItemDecoration);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mRecycler.setNestedScrollingEnabled(false);
-        mRecycler.setHasFixedSize(false);
+        //mRecycler.setNestedScrollingEnabled(false);
+        //mRecycler.setHasFixedSize(false);
         mRecycler.getItemAnimator().setAddDuration(250);
         mRecycler.getItemAnimator().setMoveDuration(250);
         mRecycler.getItemAnimator().setChangeDuration(250);

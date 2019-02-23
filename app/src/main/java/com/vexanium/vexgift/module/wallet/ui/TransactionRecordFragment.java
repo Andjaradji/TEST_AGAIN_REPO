@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -69,7 +70,7 @@ public class TransactionRecordFragment extends BaseFragment {
         dividerItemDecoration.setDrawable(getActivity().getResources().getDrawable(R.drawable.shape_divider));
         mRecycler.addItemDecoration(dividerItemDecoration);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mRecycler.setNestedScrollingEnabled(false);
+        //mRecycler.setNestedScrollingEnabled(false);
         mRecycler.getItemAnimator().setAddDuration(250);
         mRecycler.getItemAnimator().setMoveDuration(250);
         mRecycler.getItemAnimator().setChangeDuration(250);

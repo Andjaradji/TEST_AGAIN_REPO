@@ -70,7 +70,7 @@ public class BonusRecordFragment extends BaseFragment {
         mRecycler.addItemDecoration(dividerItemDecoration);
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mRecycler.getItemAnimator().setAddDuration(250);
-        mRecycler.setNestedScrollingEnabled(false);
+        //mRecycler.setNestedScrollingEnabled(false);
         mRecycler.getItemAnimator().setMoveDuration(250);
         mRecycler.getItemAnimator().setChangeDuration(250);
         mRecycler.getItemAnimator().setRemoveDuration(250);

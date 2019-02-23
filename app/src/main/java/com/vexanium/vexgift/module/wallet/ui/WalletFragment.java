@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,7 +17,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -68,7 +71,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private TextView mTvWallet;
     private TextView mTvWalletBonusGen;
     private IconTextTabBarView mTabWallet;
-    private WrapContentViewPager mPagerWallet;
+    private ViewPager mPagerWallet;
 
     private TransactionRecordFragment transactionRecordFragment;
     private BonusRecordFragment bonusRecordFragment;
@@ -76,6 +79,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private Subscription timeSubsription;
 
     private SwipeRefreshLayout mRefreshLayout;
+    private NestedScrollView mNscrollView;
 
     private User user;
     private boolean isAlreadyHaveAddress;
@@ -95,6 +99,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mTvCountdownVp = fragmentRootView.findViewById(R.id.tv_countdown);
         mTabWallet = fragmentRootView.findViewById(R.id.tab_wallet);
         mPagerWallet = fragmentRootView.findViewById(R.id.vp_wallet);
+        mNscrollView = fragmentRootView.findViewById(R.id.nsv_wallet);
 
 
         fragmentRootView.findViewById(R.id.ll_deposit_button).setOnClickListener(this);
@@ -297,6 +302,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         KLog.v("WalletFragment", "onResume: ");
         super.onResume();
         startDateTimer();
+        mNscrollView.scrollTo(0,0);
 //        user = User.getCurrentUser(this);
 //        if (User.getUserAddressStatus() != 1) {
 //            mPresenter.requestGetActAddress(user.getId());
