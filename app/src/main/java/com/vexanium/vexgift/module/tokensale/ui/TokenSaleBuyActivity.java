@@ -26,6 +26,7 @@ import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_buy_token_sale, withLoadingAnim = true)
 public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {
@@ -80,17 +81,17 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 finish();
             }
 
-            String min = String.format("%.010f", tokenSaleOption.getMinPurchase());
-            String max = String.format("%.010f", tokenSaleOption.getMaxPurchase());
+            String min = String.format(Locale.US,"%.010f", tokenSaleOption.getMinPurchase());
+            String max = String.format(Locale.US,"%.010f", tokenSaleOption.getMaxPurchase());
 
-            String amountHeader = String.format("Min = %s, Max = %s", min + " " + tokenSaleOption.getPaymentCoin(), max + " " + tokenSaleOption.getPaymentCoin());
+            String amountHeader = String.format(getString(R.string.token_sale_min_max), min + " " + tokenSaleOption.getPaymentCoin(), max + " " + tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
             ViewUtil.setText(this, R.id.tv_token_title, tokenSale.getTitle());
             String time = String.format("%s - %s", tokenSale.getTimeStampDate(tokenSale.getStartTime()), tokenSale.getTimeStampDate(tokenSale.getEndTime()));
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
-            ViewUtil.setText(this, R.id.tv_payment_title, "Payment By " + tokenSaleOption.getPaymentCoin());
-            String coin = String.format("%.010f", tokenSaleOption.getPricePerCoin());
+            ViewUtil.setText(this, R.id.tv_payment_title, String.format(getString(R.string.token_sale_payment_by),tokenSaleOption.getPaymentCoin()));
+            String coin = String.format(Locale.US,"%.010f", tokenSaleOption.getPricePerCoin());
             String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), coin + " " + tokenSaleOption.getPaymentCoin());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
@@ -151,7 +152,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 //                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
 //                }else
                 if (amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()) {
-                    StaticGroup.showCommonErrorDialog(this, "amount must be or higher than " + tokenSaleOption.getMinPurchase() + " and must be or lower than " + tokenSaleOption.getMaxPurchase());
+                    String errorMinMax = String.format(getString(R.string.token_sale_error_min_max),tokenSaleOption.getMinPurchase()+"",tokenSaleOption.getMaxPurchase()+"");
+                    StaticGroup.showCommonErrorDialog(this, errorMinMax);
                 } else {
                     mPresenter.buyTokenSale(user.getId(), tokenSale.getId(), tokenSaleOption.getId(), amount);
                 }

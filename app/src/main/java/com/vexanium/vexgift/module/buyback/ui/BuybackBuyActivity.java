@@ -27,7 +27,7 @@ import com.vexanium.vexgift.util.ViewUtil;
 
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_buy_token_sale, withLoadingAnim = true)
+@ActivityFragmentInject(contentViewId = R.layout.activity_buyback, withLoadingAnim = true)
 public class BuybackBuyActivity extends BaseActivity<IBuybackPresenter> implements IBuybackView {
 
     User user;

@@ -43,6 +43,7 @@ import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
+import com.vexanium.vexgift.module.register.ui.RegisterPhoneConfirmationActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -65,6 +66,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
     private String refCode = "";
+
+    private static boolean LOGIN_BY_EMAIL = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +114,11 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (!TextUtils.isEmpty(referralCode)) {
             refCode = referralCode;
         }
-
 //        checkAppVersion();
         initialize();
     }
+
+
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
@@ -134,9 +138,14 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                     User.google2faLock(response.user);
 
                     executeMain(false);
-                } else if (response.user != null && !response.user.getEmailConfirmationStatus()) {
+                } else if (response.user != null && !response.user.getEmailConfirmationStatus() && !TextUtils.isEmpty(response.user.getEmail())) {
                     StaticGroup.userSession = response.user.getSessionKey();
                     Intent intent = new Intent(LoginActivity.this, RegisterConfirmationActivity.class);
+                    intent.putExtra("user", JsonUtil.toString(response.user));
+                    startActivity(intent);
+                } else if (response.user != null && !response.user.getPhoneConfirmationStatus() && !TextUtils.isEmpty(response.user.getPhoneNumber())) {
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    Intent intent = new Intent(LoginActivity.this, RegisterPhoneConfirmationActivity.class);
                     intent.putExtra("user", JsonUtil.toString(response.user));
                     startActivity(intent);
                 }
@@ -301,13 +310,17 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
         boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_pass);
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && !Patterns.PHONE.matcher(email).matches()) {
+            ((EditText) findViewById(R.id.et_email)).setError(getString(R.string.error_email_invalid));
             isValid = false;
         }
 
         if (isValid) {
-            user.setEmail(email);
+            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                user.setEmail(email);
+            } else {
+                user.setPhoneNumber(email);
+            }
             user.setPassword(pass);
             mPresenter.requestLogin(user);
         }

@@ -66,7 +66,9 @@
     <string name="merchant_info_desc">复制或扫描代码并可使用礼券。若您遇到问题或可疑活动请通过以下平台通知我们：VexGift 支持社区热线：0812345678 电邮：support@vexgift.com</string>
     <string name="voucher_online_info_title">优惠券使用指导</string>
     <string name="voucher_online_button">使用优惠券</string>
-    <string name="login_email">电邮</string>
+    <string name="login_email">电邮或手机号</string>
+    <string name="error_email_invalid">这不是有效的电子邮件或手机号码</string>
+
     <string name="login_password">密码</string>
     <string name="login_password_forgot"><u>忘记密码？</u></string>
     <string name="login_button_login">登入</string>
@@ -87,13 +89,18 @@
     <string name="register_button_fb_login">用Facebook注册</string>
     <string name="register_button_google_login">用Google注册</string>
     <string name="register_button_or">或使用以下注册：</string>
-    <string name="register_confirmation_text">恭喜您已注册成功！验证码已发给您</string>
+    <string name="register_confirmation_text">恭喜您已注册成功！验证码已发给您 %s</string>
     <string name="register_confirmation_hint">输入验证码</string>
     <string name="register_confirmation_button">确认电邮</string>
+    <string name="register_confirmation_sms_button">确认SMS</string>
     <string name="register_confirmation_resend">重发电邮</string>
+    <string name="register_confirmation_resend_sms">重发SMS</string>
     <string name="register_confirmation_resend_time">重发电邮 %s</string>
+    <string name="register_confirmation_resend_sms_time">重发SMS电邮 %s</string>
     <string name="register_confirmation_resend_success">重发验证邮件</string>
+    <string name="register_confirmation_resend_sms_success">重发SMS验证邮件</string>
     <string name="register_confirmation_success">电邮已验证成功</string>
+    <string name="register_confirmation_sms_success">电邮SMS已验证成功</string>
     <string name="box_title">我的盒</string>
     <string name="box_history_title">我的盒的历史</string>
     <string name="box_notif_see_all">查看全部</string>

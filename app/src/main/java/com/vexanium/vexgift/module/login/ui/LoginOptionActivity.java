@@ -1,4 +1,4 @@
-package com.vexanium.vexgift.module.register.ui;
+package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -36,12 +37,13 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.UserLoginResponse;
-import com.vexanium.vexgift.module.login.ui.GoogleAuthActivity;
-import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
+import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
+import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
-import com.vexanium.vexgift.module.register.presenter.IRegisterPresenter;
-import com.vexanium.vexgift.module.register.presenter.IRegisterPresenterImpl;
-import com.vexanium.vexgift.module.register.view.IRegisterView;
+import com.vexanium.vexgift.module.register.ui.RegisterActivity;
+import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
+import com.vexanium.vexgift.module.register.ui.RegisterPhoneConfirmationActivity;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -51,16 +53,18 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_register, withLoadingAnim = true)
-public class RegisterActivity extends BaseActivity<IRegisterPresenter> implements IRegisterView {
+@ActivityFragmentInject(contentViewId = R.layout.activity_login_option, withLoadingAnim = true)
+public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
+    int currentCountdown = 8;
+    String url;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-
     private String refCode = "";
 
     @Override
@@ -68,100 +72,91 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
+
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+        }
+
     }
 
     @Override
     protected void initView() {
-        mPresenter = new IRegisterPresenterImpl(this);
+        if (getIntent().hasExtra("url")) {
+            url = getIntent().getStringExtra("url");
+            KLog.v("LoginActivity", "initView: getDeeplink " + url);
+            getIntent().removeExtra("url");
+        }
+
+        mPresenter = new ILoginPresenterImpl(this);
 
         fbLoginButton = findViewById(R.id.login_fb_button);
 
-        ViewUtil.setOnClickListener(this, this,
-                R.id.login_fake_fb_button,
-                R.id.register_login_button,
-                R.id.register_button,
-                R.id.login_google_button);
+        findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
+        findViewById(R.id.login_google_button).setOnClickListener(this);
+        findViewById(R.id.login_button).setOnClickListener(this);
+        findViewById(R.id.register_button).setOnClickListener(this);
 
+//        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
+//        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
-        if (!StaticGroup.isReferralActive()) {
-            findViewById(R.id.ll_referral_field).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.ll_referral_field).setVisibility(View.VISIBLE);
-        }
         String referralCode = StaticGroup.checkReferrerData();
         if (!TextUtils.isEmpty(referralCode)) {
             refCode = referralCode;
-            ((EditText) findViewById(R.id.et_referral_code)).setText(refCode);
         }
 
+//        checkAppVersion();
         initialize();
-
     }
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
-        KLog.v("RegisterActivity handleResult : " + JsonUtil.toString(data));
+        KLog.v("LoginActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
             if (data instanceof UserLoginResponse) {
-                StaticGroup.removeReferrerData();
-
                 UserLoginResponse response = (UserLoginResponse) data;
+                if (response.user != null && (response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+                    StaticGroup.removeReferrerData();
 
-                if (response.user != null) {
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    StaticGroup.isPasswordSet = response.isPasswordSet;
+
+                    User.setIsPasswordSet(this.getApplicationContext(), response.isPasswordSet);
                     User.updateCurrentUser(this.getApplicationContext(), response.user);
+
+                    User.google2faLock(response.user);
+
+                    executeMain(false);
+                } else if (response.user != null && !response.user.getEmailConfirmationStatus() && !TextUtils.isEmpty(response.user.getEmail())) {
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    Intent intent = new Intent(LoginOptionActivity.this, RegisterConfirmationActivity.class);
+                    intent.putExtra("user", JsonUtil.toString(response.user));
+                    startActivity(intent);
+                }else if (response.user != null && !response.user.getPhoneConfirmationStatus() && !TextUtils.isEmpty(response.user.getPhoneNumber())) {
+                    StaticGroup.userSession = response.user.getSessionKey();
+                    Intent intent = new Intent(LoginOptionActivity.this, RegisterPhoneConfirmationActivity.class);
+                    intent.putExtra("user", JsonUtil.toString(response.user));
+                    startActivity(intent);
                 }
-
-                executeMain(false);
             }
+
         } else if (errorResponse != null) {
-            KLog.v("RegisterActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
-            if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
-            } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
-                new VexDialog.Builder(RegisterActivity.this)
-                        .optionType(DialogOptionType.OK)
-                        .okText("Login Now")
-                        .title("Register Success")
-                        .content("Your account has been registered. Login now")
-                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                RegisterActivity.this.startActivity(intent);
-                            }
-                        })
-                        .autoDismiss(true)
-                        .show();
-            } else if (errorResponse.getMeta() != null) {
-                StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getStatus());
-            }
-
-        } else {
-            new VexDialog.Builder(RegisterActivity.this)
-                    .optionType(DialogOptionType.OK)
-                    .okText("Login Now")
-                    .title("Register Success")
-                    .content("Your account has been registered. Login now")
-                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            RegisterActivity.this.startActivity(intent);
-                        }
-                    })
-                    .autoDismiss(true)
-                    .show();
+            KLog.v("LoginOptionActivity handleResult error : " + errorResponse.getMeta().getMessage());
+            StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
-            case R.id.register_button:
-                doRegister();
-                break;
             case R.id.login_fake_fb_button:
                 if (StaticGroup.isReferralActive()) {
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
@@ -170,8 +165,6 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
-                    } else if (!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())) {
-                        etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
                     new VexDialog.Builder(this)
@@ -216,8 +209,6 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     etPin.setInputType(InputType.TYPE_CLASS_TEXT);
                     if (!TextUtils.isEmpty(refCode)) {
                         etPin.setText(refCode);
-                    } else if (!TextUtils.isEmpty(((EditText) findViewById(R.id.et_referral_code)).getText().toString())) {
-                        etPin.setText(((EditText) findViewById(R.id.et_referral_code)).getText().toString());
                     }
 
                     new VexDialog.Builder(this)
@@ -254,10 +245,17 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     requestGoogleLogin();
                 }
                 break;
-            case R.id.register_login_button:
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                RegisterActivity.this.startActivity(intent);
+            case R.id.login_button:
+                intent = new Intent(this, LoginActivity.class);
+                LoginOptionActivity.this.startActivity(intent);
+                break;
+            case R.id.register_button:
+                intent = new Intent(this, RegisterActivity.class);
+                LoginOptionActivity.this.startActivity(intent);
+                break;
+            case R.id.login_forgot_button:
+                intent = new Intent(LoginOptionActivity.this, ForgotPasswordActivity.class);
+                LoginOptionActivity.this.startActivity(intent);
                 break;
             default:
         }
@@ -269,8 +267,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SIGN_IN_REQUEST_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleGoogleSignInResult(result);
             hideProgress();
+            handleGoogleSignInResult(result);
         } else if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
@@ -285,10 +283,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     if (user.getGoogleToken() != null && !TextUtils.isEmpty(user.getGoogleToken())) {
 
                         String referralCode = StaticGroup.checkReferrerData();
-                        String rc = refCode;
-                        if (!TextUtils.isEmpty(rc)) {
-                            user.setReferralCode(rc);
-                        } else if (!TextUtils.isEmpty(referralCode)) {
+                        if (!TextUtils.isEmpty(referralCode)) {
                             user.setReferralCode(referralCode);
                         }
 
@@ -299,53 +294,65 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             }
             KLog.v("Google Signin success : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
         } else {
-            KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatus().getStatusMessage());
+            KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
             StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
         }
     }
 
-    public void doRegister() {
+    public void doLogin() {
         User user = new User();
-        String name = ((EditText) findViewById(R.id.et_username)).getText().toString();
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
-        String pass = ((EditText) findViewById(R.id.et_password)).getText().toString();
-        String repass = ((EditText) findViewById(R.id.et_repassword)).getText().toString();
-        String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
+        String pass = ((EditText) findViewById(R.id.et_pass)).getText().toString();
 
-        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_username, R.id.et_email, R.id.et_password, R.id.et_repassword);
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_pass);
 
-        if (isValid) {
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && !Patterns.PHONE.matcher(email).matches()) {
-                ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
-                isValid = false;
-            }
-
-            if (isValid && !repass.equals(pass)) {
-                ((EditText) findViewById(R.id.et_repassword)).setError("Password doesn't matches");
-                isValid = false;
-            }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && !Patterns.PHONE.matcher(email).matches()) {
+            ((EditText) findViewById(R.id.et_email)).setError(getString(R.string.error_email_invalid));
+            isValid = false;
         }
 
         if (isValid) {
-            user.setName(name);
             if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 user.setEmail(email);
             } else {
                 user.setPhoneNumber(email);
             }
             user.setPassword(pass);
-
-            String referralCode = StaticGroup.checkReferrerData();
-            if (!TextUtils.isEmpty(rc)) {
-                user.setReferralCode(rc);
-            } else if (!TextUtils.isEmpty(referralCode)) {
-                user.setReferralCode(referralCode);
-            }
-
-            mPresenter.requestRegister(user);
+            mPresenter.requestLogin(user);
         }
     }
 
+//    private void generateKeyHash() {
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                KLog.v("LoginOptionActivity", "Key hash : %s", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private boolean checkLoginInfo() {
+        User user = User.getCurrentUser(this.getApplicationContext());
+
+        if (user != null) {
+            if (!TextUtils.isEmpty(user.getFacebookAccessToken())) {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                if (accessToken != null) {
+                    Date now = new Date();
+                    if (accessToken.getExpires() != null && accessToken.getExpires().getTime() < now.getTime()) {
+                        AccessToken.refreshCurrentAccessTokenAsync();
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private void executeMain(boolean isAlreadyLogin) {
         User user = User.getCurrentUser(this);
@@ -356,6 +363,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            if (url != null) {
+                intent.putExtra("url", url);
+            }
             startActivity(intent);
         }
 
@@ -364,20 +374,26 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
     private void requestGoogleLogin() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
         showProgress();
+        startActivityForResult(intent, SIGN_IN_REQUEST_CODE);
     }
 
     private void requestFacebookLogin() {
-        KLog.v("RegisterActivity", "request Facebook Login");
+        KLog.v("LoginOptionActivity", "request Facebook Login");
         showProgress();
         fbLoginButton.performClick();
     }
 
     private void initialize() {
-        KLog.v("RegisterActivity", "Initialize");
-        initFacebook();
-        initGoogle();
+        KLog.v("LoginOptionActivity", "Initialize");
+        if (checkLoginInfo()) {
+            executeMain(true);
+        } else {
+//            generateKeyHash();
+
+            initFacebook();
+            initGoogle();
+        }
     }
 
     private void initGoogle() {
@@ -388,7 +404,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                toast("Google Error : " + connectionResult.getErrorMessage());
+//                toast("Google Error : " + connectionResult.getErrorMessage());
             }
         }).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
     }
@@ -399,46 +415,43 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                KLog.v("LoginActivity", "FacebookCallback onSuccess");
+                KLog.v("LoginOptionActivity", "FacebookCallback onSuccess");
                 if (loginResult != null) {
                     final AccessToken accessToken = loginResult.getAccessToken();
                     if (loginResult.getRecentlyDeniedPermissions() != null &&
                             loginResult.getRecentlyDeniedPermissions().size() > 0) {
 
-                        KLog.v("LoginActivity", "access denied");
+                        KLog.v("LoginOptionActivity", "access denied");
                         LoginManager.getInstance().logOut();
                         hideProgress();
 
                         requestFacebookLogin();
                     } else {
 
-                        KLog.v("LoginActivity", "access accept");
+                        KLog.v("LoginOptionActivity", "access accept");
                         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 if (response != null && response.getJSONObject() != null) {
-                                    KLog.v("LoginActivity", "GraphRequest onCompleted : " + response.getRawResponse());
+                                    KLog.v("LoginOptionActivity", "GraphRequest onCompleted : " + response.getRawResponse());
 
                                     JSONObject userInfo = response.getJSONObject();
 
                                     User facebookUserInfo = User.createWithFacebook(userInfo);
 
                                     String referralCode = StaticGroup.checkReferrerData();
-                                    String rc = refCode;
-                                    if (!TextUtils.isEmpty(rc)) {
-                                        facebookUserInfo.setReferralCode(rc);
-                                    } else if (!TextUtils.isEmpty(referralCode)) {
+                                    if (!TextUtils.isEmpty(referralCode)) {
                                         facebookUserInfo.setReferralCode(referralCode);
                                     }
 
-
                                     hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);
+
                                 } else {
                                     hideProgress();
                                     if (response != null && response.getError() != null) {
-                                        KLog.v("LoginActivity", "GraphRequest getError : " + response.getError().toString());
-                                        StaticGroup.showCommonErrorDialog(RegisterActivity.this, response.getError().getErrorCode());
+                                        KLog.v("LoginOptionActivity", "GraphRequest getError : " + response.getError().toString());
+                                        StaticGroup.showCommonErrorDialog(LoginOptionActivity.this, response.getError().getErrorCode());
                                     }
                                 }
                             }
@@ -453,7 +466,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
             @Override
             public void onCancel() {
-                KLog.v("LoginActivity", "FacebookCallback onCancel");
+                KLog.v("LoginOptionActivity", "FacebookCallback onCancel");
                 hideProgress();
             }
 
@@ -461,14 +474,11 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             public void onError(FacebookException error) {
                 hideProgress();
 
-                KLog.v("LoginActivity", "FacebookCallback onError");
+                KLog.v("LoginOptionActivity", "FacebookCallback onError");
                 if (error != null) {
-                    KLog.v("LoginActivity", "FacebookCallback onError : " + error.getMessage());
-                    StaticGroup.showCommonErrorDialog(RegisterActivity.this, error.getMessage());
+                    KLog.v("LoginOptionActivity", "FacebookCallback onError : " + error.getMessage());
                 }
             }
         });
     }
-
-
 }

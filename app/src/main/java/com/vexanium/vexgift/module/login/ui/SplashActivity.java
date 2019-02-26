@@ -66,7 +66,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
         if (isFirstTime) {
             destination = WalkthroughActivity.class;
         } else {
-            destination = LoginActivity.class;
+            destination = LoginOptionActivity.class;
         }
 
         return destination;

@@ -25,6 +25,8 @@
     <color name="vex_orange">#FAA105</color>
     <color name="vex_pink">#DB3069</color>
 
+    <color name="fb_blue">#4267B2</color>
+
     //for pre-lollipop gradient color
     <color name="pre_lollipop_shadow_color">#40000000</color>
 

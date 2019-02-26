@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/material_white"
             android:orientation="vertical">
 
@@ -20,12 +20,36 @@
                 android:layout_height="90dp">
 
                 <ImageView
-                    android:layout_width="108dp"
-                    android:layout_height="26dp"
-                    android:layout_margin="@dimen/interval_big"
-                    android:contentDescription="@string/image_content_description"
-                    android:src="@drawable/vexgift_logo_black" />
+                    android:id="@+id/back_button"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/interval_content"
+                    android:layout_marginStart="@dimen/interval_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_back" />
             </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interval_big"
+                android:tag="black"
+                android:text="Almost There !"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_title"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_medium"
+                android:layout_marginLeft="@dimen/interval_big"
+                android:text="We are excited to see you here"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_medium"
+                android:visibility="visible" />
 
             <LinearLayout
                 style="@style/register_login_et_container_style"
@@ -129,6 +153,7 @@
                 android:layout_marginTop="@dimen/interval_big"
                 android:layout_marginLeft="@dimen/interval_big"
                 android:layout_marginRight="@dimen/interval_big"
+                android:visibility="gone"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -145,6 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_main"
                 android:layout_marginLeft="@dimen/interval_big"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/interval_big"
                 android:background="@color/material_red_4F39"
                 android:orientation="horizontal"

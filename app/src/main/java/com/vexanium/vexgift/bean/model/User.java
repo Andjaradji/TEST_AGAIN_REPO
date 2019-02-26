@@ -57,6 +57,8 @@ public class User implements Serializable {
     private List<String> profileList = new ArrayList<>();
     @JsonProperty("email")
     private String email;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
     @JsonProperty("authenticator_enabled")
     private boolean authenticatorEnable;
     @JsonProperty("referral_code")
@@ -67,6 +69,8 @@ public class User implements Serializable {
     private String emailConfirmationCode;
     @JsonProperty("email_confirmation_status")
     private boolean emailConfirmationStatus;
+    @JsonProperty("phone_number_confirmation_status")
+    private boolean phoneConfirmationStatus;
     @JsonProperty("notification_id")
     private String notificationId;
     @JsonProperty("user_kyc")
@@ -712,6 +716,7 @@ public class User implements Serializable {
         return emailConfirmationStatus;
     }
 
+
     public String getFacebookId() {
         return facebookId;
     }
@@ -750,5 +755,21 @@ public class User implements Serializable {
 
     public void setLoyaltyPoint(int loyaltyPoint) {
         this.loyaltyPoint = loyaltyPoint;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean getPhoneConfirmationStatus() {
+        return phoneConfirmationStatus;
+    }
+
+    public void setPhoneConfirmationStatus(boolean phoneConfirmationStatus) {
+        this.phoneConfirmationStatus = phoneConfirmationStatus;
     }
 }
