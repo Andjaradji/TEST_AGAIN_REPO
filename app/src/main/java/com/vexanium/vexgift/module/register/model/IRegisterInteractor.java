@@ -12,5 +12,9 @@ public interface IRegisterInteractor<T> {
 
     Subscription requestEmailConfirmation(RequestCallback<T> callback, int userId, String code);
 
+    Subscription requestSmsConfirmation(RequestCallback<T> callback, int userId, String code);
+
     Subscription requestResendEmail(RequestCallback<T> callback, int userId);
+
+    Subscription requestResendSms(RequestCallback<T> callback, int userId);
 }

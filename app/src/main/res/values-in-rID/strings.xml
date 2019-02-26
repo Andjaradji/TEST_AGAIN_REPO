@@ -66,8 +66,10 @@
     <string name="merchant_info_desc">Untuk menggunakan voucher ini, salin atau pindah kode ke dalam sistem anda</string>
     <string name="voucher_online_info_title">Petunjuk penggunaan Voucher</string>
     <string name="voucher_online_button">Gunakan Voucher</string>
-    <string name="login_email">Email</string>
+    <string name="login_email">Email atau Nomor Handphone</string>
     <string name="login_password">Kata Sandi</string>
+    <string name="error_email_invalid">Email atau nomor handphone tidak valid</string>
+
     <string name="login_password_forgot"><u>Lupa Katasandi ? </u></string>
     <string name="login_button_login">Login</string>
     <string name="login_dont_have_account">Tidak punya akun?</string>
@@ -91,9 +93,12 @@
     <string name="register_confirmation_hint">Masukan Kode Konfirmasi</string>
     <string name="register_confirmation_button">Konfirmasi Email</string>
     <string name="register_confirmation_resend">Kirim Ulang Email</string>
+    <string name="register_confirmation_resend_sms">Kirim Ulang SMS</string>
     <string name="register_confirmation_resend_time">Kirim Ulang Email %s</string>
     <string name="register_confirmation_resend_success">Konfirmasi Email dikirim kembali</string>
+    <string name="register_confirmation_resend_email_success">Konfirmasi SMS dikirim kembali</string>
     <string name="register_confirmation_success">Konfirmasi Email sukses</string>
+    <string name="register_confirmation_sms_success">Konfirmasi Email sukses</string>
     <string name="box_title">My Box</string>
     <string name="box_history_title">My Box History</string>
     <string name="box_notif_see_all">Lihat semua</string>

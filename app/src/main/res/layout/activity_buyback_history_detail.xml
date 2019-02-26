@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetStart="0dp"
+            android:padding="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <include layout="@layout/content_toolbar_back" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/material_white">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/material_white_dd"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/interval_main"
+                android:paddingEnd="@dimen/interval_main"
+                android:paddingStart="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_small">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/interval_small"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="bold"
+                        android:text="TOKEN #1"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_title" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_title"
+                        android:layout_marginBottom="@dimen/interval_content"
+                        android:layout_marginStart="@dimen/interval_small"
+                        android:tag="bold"
+                        android:text="15/08/2018 01:00"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/interval_small"
+                        android:layout_marginTop="@dimen/interval_main"
+                        android:tag="bold"
+                        android:text="Pending"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_medium" />
+
+                    <TextView
+                        android:id="@+id/tv_deadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_title"
+                        android:layout_marginBottom="@dimen/interval_content"
+                        android:layout_marginStart="@dimen/interval_small"
+                        android:tag="bold"
+                        android:text="15/08/2018 01:00"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/vexpoint_minus"
+                        android:textSize="@dimen/text_tiny" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_payment_amount"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_payment_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_purchased_amount"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_purchased_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_input_distribution_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_small"
+                    android:background="@drawable/shape_ripple_main_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/token_sale_input_distribution_address"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_small" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_distribution_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_distribution_address"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_distribution_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:id="@+id/ll_transfer_to"
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_transfer_to"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_transfer_to"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="@dimen/interval_small"
+                                android:paddingRight="36dp"
+                                android:tag="bold"
+                                android:textColor="@color/material_black_text_color"
+                                android:textSize="@dimen/text_xtiny" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:paddingRight="@dimen/interval_submain"
+                                android:src="@drawable/ic_copy" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="90dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_transfer_deadline"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_transfer_deadline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="@dimen/interval_small"
+                                android:tag="bold"
+                                android:textColor="@color/material_black_text_color"
+                                android:textSize="@dimen/text_xtiny" />
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_token_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:tag="bold"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/token_sale_token_type"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_token_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="354dp"
+                    android:background="@drawable/rect_shadow"
+                    android:orientation="vertical"
+                    android:padding="@dimen/interval_submain">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:text="@string/deposit_description"
+                        android:textColor="@color/material_black_sub_text_color"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/tv_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_xtiny" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/buyback_coin_bought"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_token_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_shadow"
+                        android:orientation="vertical"
+                        android:padding="@dimen/interval_submain">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:text="@string/buyback_coin_total"
+                            android:textSize="@dimen/text_xtiny" />
+
+                        <TextView
+                            android:id="@+id/tv_token_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/interval_small"
+                            android:tag="bold"
+                            android:textColor="@color/material_black_text_color"
+                            android:textSize="@dimen/text_xtiny" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/include_loading_view" />
+
+    <include
+        layout="@layout/content_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </include>
+
+</RelativeLayout>

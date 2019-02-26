@@ -43,8 +43,8 @@
     <dimen name="padding_button">18dp</dimen>
 
     <dimen name="input_field_padding">14dp</dimen>
-    <dimen name="input_field_2_padding_horizontal">16dp</dimen>
-    <dimen name="input_field_2_padding_vertical">20dp</dimen>
+    <dimen name="input_field_2_padding_horizontal">14dp</dimen>
+    <dimen name="input_field_2_padding_vertical">16dp</dimen>
 
     <dimen name="margin_more_list">8dp</dimen>
     <dimen name="margin_more_line">12dp</dimen>

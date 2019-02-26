@@ -10,5 +10,9 @@ public interface IRegisterPresenter extends BasePresenter {
 
     void requestEmailConfirmation(int userId, String code);
 
+    void requestSmsConfirmation(int userId, String code);
+
     void requestResendEmail(int userId);
+
+    void requestResendSMS(int userId);
 }

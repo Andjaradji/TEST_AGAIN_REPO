@@ -314,7 +314,9 @@
             android:name=".module.main.ui.UserInputActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".module.wallet.ui.WalletDepositActivity" />
-        <activity android:name=".module.wallet.ui.WalletWithdrawActivity"></activity>
+        <activity android:name=".module.wallet.ui.WalletWithdrawActivity" />
+        <activity android:name=".module.register.ui.RegisterPhoneConfirmationActivity" />
+        <activity android:name=".module.login.ui.LoginOptionActivity"></activity>
     </application>
 
 </manifest>

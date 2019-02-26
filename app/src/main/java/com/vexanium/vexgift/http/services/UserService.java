@@ -148,6 +148,20 @@ public interface UserService {
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
+    @POST("user/phone-number-confirmation")
+    Observable<HttpResponse<UserLoginResponse>> requestSmsConfirmation(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("user/resend-phone-number-confirmation")
+    Observable<HttpResponse<EmptyResponse>> requestResendSmsConfirmation(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
     @PATCH("user/update-notification-id")
     Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(
             @Header("X-Vexanium-Key") String key,

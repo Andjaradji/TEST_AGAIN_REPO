@@ -242,6 +242,9 @@ public class RetrofitManager {
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
         }
+        if (user.getPhoneNumber() != null) {
+            params.put("phone_number", user.getPhoneNumber());
+        }
         if (user.getPassword() != null) {
             params.put("password", user.getPassword());
         }
@@ -302,6 +305,9 @@ public class RetrofitManager {
         }
         if (user.getEmail() != null) {
             params.put("email", user.getEmail());
+        }
+        if (user.getPhoneNumber() != null) {
+            params.put("phone_number", user.getPhoneNumber());
         }
         if (user.getPassword() != null) {
             params.put("password", user.getPassword());
@@ -719,6 +725,23 @@ public class RetrofitManager {
         params.put("user_id", userId);
 
         return mUserService.requestResendEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+    public Observable<HttpResponse<UserLoginResponse>> requestSmsConfirmation(int userId, String code) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("sms_confirmation_code", code);
+
+        return mUserService.requestSmsConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+    }
+
+    public Observable<HttpResponse<EmptyResponse>> requestResendSms(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mUserService.requestResendSmsConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(String sess, int userId, String notification_id) {

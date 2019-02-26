@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,6 +21,7 @@
             <ImageView
                 android:layout_width="108dp"
                 android:layout_height="26dp"
+                android:layout_centerVertical="true"
                 android:layout_margin="@dimen/interval_big"
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/vexgift_logo_black" />
@@ -30,18 +32,111 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/interval_big"
             android:tag="black"
-            android:text="Crypto Loyalty"
+            android:text="Welcome Back !"
             android:textColor="@color/material_black_text_color"
-            android:textSize="@dimen/text_title" />
+            android:textSize="@dimen/text_title"
+            android:visibility="visible" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/interval_big"
+            android:layout_marginBottom="@dimen/interval_medium"
             android:layout_marginLeft="@dimen/interval_big"
-            android:text="Airdrop, Token Sale etc"
+            android:text="Login to Continue"
             android:textColor="@color/material_black_text_color"
-            android:textSize="@dimen/text_title" />
+            android:textSize="@dimen/text_medium"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/interval_main"
+            android:layout_marginLeft="@dimen/interval_medium"
+            android:layout_marginRight="@dimen/interval_medium">
+
+            <LinearLayout
+                android:id="@+id/ll_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_ripple_transparent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/interval_content"
+                    android:paddingLeft="@dimen/interval_small"
+                    android:paddingRight="@dimen/interval_small"
+                    android:paddingTop="@dimen/interval_content"
+                    android:text="Login with Email"
+                    android:textSize="@dimen/text_xtiny" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_ripple_transparent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/interval_content"
+                    android:paddingLeft="@dimen/interval_small"
+                    android:paddingRight="@dimen/interval_small"
+                    android:paddingTop="@dimen/interval_content"
+                    android:text="Login with Phone Number"
+                    android:textSize="@dimen/text_xtiny" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_phone_number_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_button"
+            android:layout_marginLeft="@dimen/interval_big"
+            android:layout_marginRight="@dimen/interval_big"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/interval_content"
+                android:gravity="center">
+
+                <com.rilixtech.CountryCodePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/interval_content"
+                    app:ccp_hideNameCode="true"
+                    app:ccp_showFullName="false">
+
+                </com.rilixtech.CountryCodePicker>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_field_input_2">
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/register_login_edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_email"
+                    android:inputType="textEmailAddress" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,29 +144,30 @@
             android:layout_marginBottom="@dimen/padding_button"
             android:layout_marginLeft="@dimen/interval_big"
             android:layout_marginRight="@dimen/interval_big"
-            android:background="@drawable/shape_field_input_2">
+            android:background="@drawable/shape_field_input_2"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/et_email"
+                style="@style/register_login_edittext_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_email"
-                android:inputType="textEmailAddress"
-                style="@style/register_login_edittext_style"/>
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout
+            style="@style/register_login_et_container_style"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/register_login_et_container_style">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/et_pass"
+                style="@style/register_login_edittext_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"
-                android:inputType="textPassword"
-                style="@style/register_login_edittext_style" />
+                android:inputType="textPassword" />
         </LinearLayout>
 
         <RelativeLayout
@@ -87,12 +183,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/padding_main"
-                android:layout_marginTop="@dimen/padding_main"
+                android:layout_marginBottom="@dimen/padding_submain"
+                android:layout_marginTop="@dimen/padding_submain"
                 android:tag="bold"
                 android:text="@string/login_button_login"
                 android:textColor="@color/material_white"
-                android:textSize="@dimen/text_small_medium" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <TextView
@@ -109,7 +205,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom"
+            android:gravity="bottom|center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="@dimen/interval_big">
 
@@ -121,25 +217,48 @@
                 android:layout_marginLeft="@dimen/interval_big"
                 android:layout_marginRight="@dimen/interval_big"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_ripple_fb_button"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_google"
+                        android:layout_height="@dimen/icon_google"
+                        android:src="@drawable/fb_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/interval_content"
+                        android:layout_marginStart="@dimen/interval_content"
+                        android:text="Continue with Facebook"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_tiny" />
+                </LinearLayout>
 
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/login_fb_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/login_google_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/interval_big"
+                android:layout_marginBottom="@dimen/interval_main"
                 android:layout_marginLeft="@dimen/interval_big"
                 android:layout_marginRight="@dimen/interval_big"
-                android:background="@color/material_red_4F39"
+                android:background="@drawable/shape_ripple_google_button"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="4dp">
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/icon_google"
@@ -151,16 +270,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/interval_content"
+                    android:layout_marginStart="@dimen/interval_content"
                     android:text="@string/login_button_google_login"
                     android:textColor="@color/material_white"
-                    android:textSize="@dimen/text_small" />
-            </RelativeLayout>
+                    android:textSize="@dimen/text_tiny" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">a
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"

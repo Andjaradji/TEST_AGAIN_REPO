@@ -1486,6 +1486,15 @@ public class StaticGroup {
         }
     }
 
+    public static long getSmsResendCountdown() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("email_resend_countdown") != -1) {
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("email_resend_countdown"));
+        } else {
+            return EMAIL_RESEND_TIME;
+        }
+    }
+
     public static String getStringValFromSettingKey(String key) {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))) {
