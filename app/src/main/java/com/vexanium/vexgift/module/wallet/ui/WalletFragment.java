@@ -8,18 +8,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
@@ -29,22 +23,17 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
-import com.vexanium.vexgift.base.BaseRecyclerAdapter;
-import com.vexanium.vexgift.bean.fixture.WalletToken;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.UserVouchersResponse;
-import com.vexanium.vexgift.bean.response.VexPointRecordResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
+import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
-import com.vexanium.vexgift.widget.CustomViewPager;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
-import com.vexanium.vexgift.widget.WrapContentViewPager;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -83,6 +72,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 
     private User user;
     private boolean isAlreadyHaveAddress;
+    private View fragmentView;
 
 
     public static WalletFragment newInstance() {
@@ -92,6 +82,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     @Override
     protected void initView(View fragmentRootView) {
         user = User.getCurrentUser(this.getContext());
+        mPresenter = new IWalletPresenterImpl(this);
+        fragmentView = fragmentRootView;
 
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_my_wallet));
 
@@ -101,12 +93,11 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mPagerWallet = fragmentRootView.findViewById(R.id.vp_wallet);
         mNscrollView = fragmentRootView.findViewById(R.id.nsv_wallet);
 
-
         fragmentRootView.findViewById(R.id.ll_deposit_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.ll_withdraw_button).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.btn_generate_wallet).setOnClickListener(this);
 
 //        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
-
 
         mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -143,6 +134,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mTabWallet.setViewPager(mPagerWallet);
         setPagerListener();
 
+        mPresenter.requestGetWallet(user.getId());
+
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
         Answers.getInstance().logContentView(new ContentViewEvent()
@@ -162,8 +155,15 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         if (data != null) {
             if (data instanceof WalletResponse) {
-                UserVouchersResponse vouchersResponse = (UserVouchersResponse) data;
-                TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(vouchersResponse));
+                WalletResponse walletResponse = (WalletResponse) data;
+                if (walletResponse != null) {
+                    if (walletResponse.getWallet() != null) {
+                        TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(walletResponse));
+                        updateViewWallet(walletResponse);
+                    } else {
+                        updateViewWallet(walletResponse);
+                    }
+                }
 
             }
 
@@ -176,7 +176,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     public void onClick(View v) {
         super.onClick(v);
         Intent intent;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_deposit_button:
                 intent = new Intent(this.getActivity(), WalletDepositActivity.class);
                 startActivity(intent);
@@ -185,7 +185,25 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_generate_wallet:
+                mPresenter.requestCreateWallet(user.getId());
+                break;
 
+        }
+    }
+
+    private void updateViewWallet(WalletResponse walletResponse) {
+        boolean isWalletExist = (walletResponse != null);
+        if (fragmentView != null) {
+            fragmentView.findViewById(R.id.toolbar_record).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+            fragmentView.findViewById(R.id.vp_wallet).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+            fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+            fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
+            if(isWalletExist){
+                Wallet wallet = walletResponse.getWallet();
+                ViewUtil.setText(fragmentView, R.id.tv_total_wallet, ""+ wallet.getBalance());
+                ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, ""+ wallet.g());
+            }
         }
     }
 
@@ -302,7 +320,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         KLog.v("WalletFragment", "onResume: ");
         super.onResume();
         startDateTimer();
-        mNscrollView.scrollTo(0,0);
+        mNscrollView.scrollTo(0, 0);
 //        user = User.getCurrentUser(this);
 //        if (User.getUserAddressStatus() != 1) {
 //            mPresenter.requestGetActAddress(user.getId());
@@ -338,7 +356,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                         @Override
                         public void call(Object o) {
                             //KLog.v("Date Time called");
-                            if (!StaticGroup.isScreenOn(WalletFragment.this.getActivity() , true)) {
+                            if (!StaticGroup.isScreenOn(WalletFragment.this.getActivity(), true)) {
                                 if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
                                     timeSubsription.unsubscribe();
                                 }
@@ -363,8 +381,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
 //        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
-            nextSnapshoot.add(Calendar.DATE, 1);
-            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+        nextSnapshoot.add(Calendar.DATE, 1);
+        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
 //        }
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);

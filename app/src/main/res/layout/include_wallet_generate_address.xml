@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_below="@id/app_bar"
     android:layout_centerInParent="true"
-    android:visibility="gone"
+    android:visibility="visible"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -51,7 +51,7 @@
         android:textSize="@dimen/text_small" />
 
     <LinearLayout
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_generate_wallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/interval_main"

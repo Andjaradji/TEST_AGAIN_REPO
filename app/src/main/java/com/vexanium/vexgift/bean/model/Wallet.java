@@ -10,7 +10,7 @@ public class Wallet extends BaseType{
     @JsonProperty("user_id")
     private int userId;
     @JsonProperty("balance")
-    private long balanca;
+    private long balance;
     @JsonProperty("address")
     private String address;
 
@@ -34,12 +34,12 @@ public class Wallet extends BaseType{
         this.userId = userId;
     }
 
-    public long getBalanca() {
-        return balanca;
+    public long getBalance() {
+        return balance;
     }
 
-    public void setBalanca(long balanca) {
-        this.balanca = balanca;
+    public void setBalance(long balance) {
+        this.balance = balance;
     }
 
     public String getAddress() {

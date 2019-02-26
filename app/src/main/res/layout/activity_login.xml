@@ -51,8 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_main"
-            android:layout_marginLeft="@dimen/interval_medium"
-            android:layout_marginRight="@dimen/interval_medium">
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main">
 
             <LinearLayout
                 android:id="@+id/ll_email"
@@ -70,6 +70,7 @@
                     android:paddingLeft="@dimen/interval_small"
                     android:paddingRight="@dimen/interval_small"
                     android:paddingTop="@dimen/interval_content"
+                    android:tag="bold"
                     android:text="Login with Email"
                     android:textSize="@dimen/text_xtiny" />
             </LinearLayout>
@@ -113,6 +114,7 @@
 
                 <com.rilixtech.CountryCodePicker
                     android:layout_width="wrap_content"
+                    android:id="@+id/ccp_phone"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/interval_content"
                     app:ccp_hideNameCode="true"
@@ -132,8 +134,8 @@
                     style="@style/register_login_edittext_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_email"
-                    android:inputType="textEmailAddress" />
+                    android:hint="@string/login_phone"
+                    android:inputType="phone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -142,10 +144,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_button"
+            android:id="@+id/ll_email_field"
             android:layout_marginLeft="@dimen/interval_big"
             android:layout_marginRight="@dimen/interval_big"
             android:background="@drawable/shape_field_input_2"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/et_email"

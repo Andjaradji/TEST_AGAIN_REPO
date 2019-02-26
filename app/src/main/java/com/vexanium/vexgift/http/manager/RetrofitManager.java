@@ -731,7 +731,7 @@ public class RetrofitManager {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
-        params.put("sms_confirmation_code", code);
+        params.put("phone_number_confirmation_code", code);
 
         return mUserService.requestSmsConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
