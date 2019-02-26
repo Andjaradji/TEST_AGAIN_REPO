@@ -676,6 +676,12 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_transfer_to">Transfer to</string>
     <string name="token_sale_transfer_deadline">Transfer dealine</string>
     <string name="token_sale_input_distribution_address">INPUT DISTRIBUTION ADDRESS</string>
+    <string name="token_sale_enter_payment_amount">Enter payment amount</string>
+    <string name="token_sale_min_max">Min = %s, Max = %s</string>
+    <string name="token_sale_total_amount">Total amount that you will get</string>
+    <string name="token_sale_payment_by">Payment by %s</string>
+    <string name="token_sale_error_min_max">amount must be or higher than %s and must be or lower than %s</string>
+
     <string name="buy_vex">BUY VEX</string>
 
     <string name="my_wallet_title">MY WALLET</string>

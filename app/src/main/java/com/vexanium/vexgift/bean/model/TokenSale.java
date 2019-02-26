@@ -97,7 +97,7 @@ public class TokenSale implements Serializable {
     }
 
     public int getStartTime() {
-        return 1543986000;
+        return startTime;
     }
 
     public void setStartTime(int startTime) {
@@ -105,7 +105,7 @@ public class TokenSale implements Serializable {
     }
 
     public int getEndTime() {
-        return 1544166000;
+        return endTime;
     }
 
     public void setEndTime(int endTime) {

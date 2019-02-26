@@ -53,7 +53,7 @@
                 android:text="Enter distribution address"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <RelativeLayout
 
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/interval_main"
-                android:text="Enter amount of Vex you want to sell"
+                android:text="@string/token_sale_enter_payment_amount"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_small_medium" />
 
@@ -113,7 +113,6 @@
                     android:layout_marginStart="@dimen/interval_submain"
                     android:layout_toStartOf="@id/btn_scan"
                     android:background="@color/transparent"
-                    android:hint="Vex amount"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -194,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_small"
-                        android:text="Total amount that you will get"
+                        android:text="@string/token_sale_total_amount"
                         android:textSize="@dimen/text_xtiny" />
 
                     <TextView
@@ -203,7 +202,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/interval_small"
                         android:tag="bold"
-                        android:text="1000 VEX"
                         android:textColor="@color/material_black_text_color"
                         android:textSize="@dimen/text_xtiny" />
 
@@ -232,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/interval_submain"
                     android:tag="bold"
-                    android:text="@string/buyback_sell"
+                    android:text="@string/token_sale_buy"
                     android:textAllCaps="true"
                     android:textColor="@color/material_white"
                     android:textSize="@dimen/text_medium" />

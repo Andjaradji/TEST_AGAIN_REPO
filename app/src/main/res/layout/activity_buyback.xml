@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.deposit.ui.DepositListActivity">
+    tools:context=".module.voucher.ui.ReceiveVoucherActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -28,43 +28,220 @@
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
 
-            <include layout="@layout/content_toolbar_token_sale" />
+            <include layout="@layout/content_toolbar_back" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_refresh"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar"
         android:background="@color/material_white">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recylerview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </android.support.v7.widget.RecyclerView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/interval_main"
+                android:text="Enter distribution address"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_small_medium"
+                android:visibility="gone" />
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_small"
+                android:background="@drawable/shape_voucher_availability"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/interval_submain"
+                    android:layout_toStartOf="@id/btn_scan"
+                    android:background="@color/transparent"
+                    android:hint="Your address"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/interval_main"
+                android:text="Enter amount of Vex you want to sell"
+                android:textColor="@color/material_black_text_color"
+                android:textSize="@dimen/text_small_medium" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_small"
+                android:background="@drawable/shape_voucher_availability"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/et_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/interval_submain"
+                    android:layout_toStartOf="@id/btn_scan"
+                    android:background="@color/transparent"
+                    android:hint="Vex amount"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/interval_main"
+                android:paddingStart="@dimen/interval_main">
+
+                <TextView
+                    android:id="@+id/tv_token_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:layout_marginTop="@dimen/interval_main"
+                    android:tag="bold"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_title" />
+
+                <TextView
+                    android:id="@+id/tv_sale_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_content"
+                    android:layout_marginStart="@dimen/interval_small"
+                    android:tag="bold"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_tiny" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/rect_shadow"
+                    android:orientation="vertical"
+                    android:padding="@dimen/interval_submain"
+                    android:paddingRight="@dimen/interval_main">
+
+                    <TextView
+                        android:id="@+id/tv_payment_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_payment_body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:tag="bold"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_xtiny" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/rect_shadow"
+                    android:orientation="vertical"
+                    android:padding="@dimen/interval_submain"
+                    android:paddingRight="@dimen/interval_main">
+
+                    <TextView
+                        android:id="@+id/tv_purchased_total_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:text="Total amount that you will get"
+                        android:textSize="@dimen/text_xtiny" />
+
+                    <TextView
+                        android:id="@+id/tv_purchased_total_body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/interval_small"
+                        android:tag="bold"
+                        android:text="1000 VEX"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_xtiny" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginEnd="@dimen/interval_main"
+                android:layout_marginLeft="@dimen/interval_main"
+                android:layout_marginRight="@dimen/interval_main"
+                android:layout_marginStart="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_small"
+                android:background="@drawable/shape_ripple_main_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_submain"
+                    android:tag="bold"
+                    android:text="@string/buyback_sell"
+                    android:textAllCaps="true"
+                    android:textColor="@color/material_white"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <include layout="@layout/include_loading_view" />
-
-    <include
-        layout="@layout/content_error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </include>
-
-    <ImageView
-        android:id="@+id/iv_coming_soon"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/wallet_soon" />
 
 </RelativeLayout>

@@ -436,8 +436,8 @@
 Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="guidance_send_voucher">Kirim Voucher-mu sebagai hadiah disini</string>
     <string name="buyback_history_title">Riwayat Buyback</string>
-    <string name="buyback_coin_bought">Token Dibeli</string>
-    <string name="buyback_coin_total">Total Token yang akan dibeli</string>
+    <string name="buyback_coin_bought">Sisa token</string>
+    <string name="buyback_coin_total">Total token sale</string>
     <string name="buyback_options">Pilihan Buyback</string>
 
 
@@ -563,6 +563,11 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="token_sale_transfer_to">Transfer ke</string>
     <string name="token_sale_transfer_deadline">Batas waktu transfer</string>
     <string name="token_sale_input_distribution_address">MASUKAN ALAMAT DISTRIBUSI</string>
+    <string name="token_sale_enter_payment_amount">Masukkan jumlah pembayaran</string>
+    <string name="token_sale_min_max">Min = %s, Maks = %s</string>
+    <string name="token_sale_total_amount">Total jumlah yang akan didapatkan</string>
+    <string name="token_sale_payment_by">Pembayaran menggunakan %s</string>
+    <string name="token_sale_error_min_max">pembayaran harus lebih tinggi dari %s atau lebih rendah dari %s</string>
     <string name="buy_vex">BELI VEX</string>
     <string name="my_wallet_title">MY WALLET</string>
     <string name="kyc_choose_method">Pilih cara untuk mengambil gambar</string>
