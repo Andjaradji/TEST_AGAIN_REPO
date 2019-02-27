@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +72,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private User user;
     private boolean isAlreadyHaveAddress;
     private View fragmentView;
+
+    private boolean isComingSoon = true;
 
 
     public static WalletFragment newInstance() {
@@ -195,17 +196,26 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private void updateViewWallet(WalletResponse walletResponse) {
         boolean isWalletExist = (walletResponse != null);
         if (fragmentView != null) {
-            fragmentView.findViewById(R.id.toolbar_record).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
-            fragmentView.findViewById(R.id.vp_wallet).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
-            fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
-            fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
-            if(isWalletExist){
-                Wallet wallet = walletResponse.getWallet();
-                ViewUtil.setText(fragmentView, R.id.tv_total_wallet, ""+ wallet.getBalance());
-                ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, ""+ wallet.getPersonalWalletBalance());
-                ViewUtil.setText(fragmentView, R.id.tv_expense_wallet, ""+ wallet.getExpenseWalletBalance());
-                ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus()+"");
-                ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus()+"");
+            if (isComingSoon) {
+                fragmentView.findViewById(R.id.toolbar_record).setVisibility(View.GONE);
+                fragmentView.findViewById(R.id.vp_wallet).setVisibility(View.GONE);
+                fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(View.GONE);
+                fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(View.GONE);
+                fragmentView.findViewById(R.id.iv_coming_soon).setVisibility(View.VISIBLE);
+            } else {
+                fragmentView.findViewById(R.id.iv_coming_soon).setVisibility(View.GONE);
+                fragmentView.findViewById(R.id.toolbar_record).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+                fragmentView.findViewById(R.id.vp_wallet).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+                fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
+                fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
+                if (isWalletExist) {
+                    Wallet wallet = walletResponse.getWallet();
+                    ViewUtil.setText(fragmentView, R.id.tv_total_wallet, "" + wallet.getBalance());
+                    ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, "" + wallet.getPersonalWalletBalance());
+                    ViewUtil.setText(fragmentView, R.id.tv_expense_wallet, "" + wallet.getExpenseWalletBalance());
+                    ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus() + "");
+                    ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus() + "");
+                }
             }
         }
     }
