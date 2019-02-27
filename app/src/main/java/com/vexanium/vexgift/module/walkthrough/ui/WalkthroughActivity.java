@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseActivity;
-import com.vexanium.vexgift.module.login.ui.LoginActivity;
 import com.vexanium.vexgift.module.login.ui.LoginOptionActivity;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.widget.FadePageTransformer;

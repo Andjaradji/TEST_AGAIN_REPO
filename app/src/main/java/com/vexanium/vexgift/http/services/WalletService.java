@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.http.services;
 
-import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;

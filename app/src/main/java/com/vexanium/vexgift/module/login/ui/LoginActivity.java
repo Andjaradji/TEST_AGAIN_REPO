@@ -64,16 +64,14 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 @ActivityFragmentInject(contentViewId = R.layout.activity_login, withLoadingAnim = true)
 public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
+    private static boolean LOGIN_BY_EMAIL = true;
     int currentCountdown = 8;
     String url;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
     private String refCode = "";
-
     private CountryCodePicker countryCodePicker;
-
-    private static boolean LOGIN_BY_EMAIL = true;
     private User bypassLoginUser;
 
     @Override
@@ -105,7 +103,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             getIntent().removeExtra("url");
         }
         if (getIntent().hasExtra("user")) {
-            KLog.v("LoginActivity","initView: HPtes login bypass");
+            KLog.v("LoginActivity", "initView: HPtes login bypass");
             bypassLoginUser = (User) JsonUtil.toObject(getIntent().getStringExtra("user"), User.class);
             if (bypassLoginUser != null) {
                 mPresenter.requestLogin(bypassLoginUser);

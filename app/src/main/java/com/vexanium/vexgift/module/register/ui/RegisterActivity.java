@@ -61,12 +61,12 @@ import static com.vexanium.vexgift.app.ConstantGroup.SIGN_IN_REQUEST_CODE;
 @ActivityFragmentInject(contentViewId = R.layout.activity_register, withLoadingAnim = true)
 public class RegisterActivity extends BaseActivity<IRegisterPresenter> implements IRegisterView {
 
+    private static boolean LOGIN_BY_EMAIL = true;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
     private CountryCodePicker countryCodePicker;
     private String refCode = "";
-    private static boolean LOGIN_BY_EMAIL = true;
     private User loginUser;
 
     @Override
@@ -128,7 +128,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
-                if(loginUser!=null) {
+                if (loginUser != null) {
                     KLog.v("RegisterActivity", "onClick: HPtes user bypass 0");
                 }
                 new VexDialog.Builder(RegisterActivity.this)
@@ -141,8 +141,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                             public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                if(loginUser!=null) {
-                                    KLog.v("RegisterActivity","onClick: HPtes user bypass 1");
+                                if (loginUser != null) {
+                                    KLog.v("RegisterActivity", "onClick: HPtes user bypass 1");
                                     intent.putExtra("user", JsonUtil.toString(loginUser));
                                 }
                                 RegisterActivity.this.startActivity(intent);

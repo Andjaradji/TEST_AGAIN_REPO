@@ -81,8 +81,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 finish();
             }
 
-            String min = tokenSaleOption.getMinPurchase()+"";
-            String max = tokenSaleOption.getMaxPurchase()+"";
+            String min = tokenSaleOption.getMinPurchase() + "";
+            String max = tokenSaleOption.getMaxPurchase() + "";
 
             String amountHeader = String.format(getString(R.string.token_sale_min_max), min + " " + tokenSaleOption.getPaymentCoin(), max + " " + tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
@@ -90,8 +90,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
             String time = String.format("%s - %s", tokenSale.getTimeStampDate(tokenSale.getStartTime()), tokenSale.getTimeStampDate(tokenSale.getEndTime()));
             ViewUtil.setText(this, R.id.tv_sale_time, time);
 
-            ViewUtil.setText(this, R.id.tv_payment_title, String.format(getString(R.string.token_sale_payment_by),tokenSaleOption.getPaymentCoin()));
-            String coin = String.format(Locale.US,"%.010f", tokenSaleOption.getPricePerCoin());
+            ViewUtil.setText(this, R.id.tv_payment_title, String.format(getString(R.string.token_sale_payment_by), tokenSaleOption.getPaymentCoin()));
+            String coin = String.format(Locale.US, "%.010f", tokenSaleOption.getPricePerCoin());
             String paymentBody = String.format("1 %s = %s", tokenSale.getTokenName(), coin + " " + tokenSaleOption.getPaymentCoin());
             ViewUtil.setText(this, R.id.tv_payment_body, paymentBody);
 
@@ -152,7 +152,7 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
 //                    StaticGroup.showCommonErrorDialog(this, "please input a valid address");
 //                }else
                 if (amount < tokenSaleOption.getMinPurchase() || amount > tokenSaleOption.getMaxPurchase()) {
-                    String errorMinMax = String.format(getString(R.string.token_sale_error_min_max),tokenSaleOption.getMinPurchase()+"",tokenSaleOption.getMaxPurchase()+"");
+                    String errorMinMax = String.format(getString(R.string.token_sale_error_min_max), tokenSaleOption.getMinPurchase() + "", tokenSaleOption.getMaxPurchase() + "");
                     StaticGroup.showCommonErrorDialog(this, errorMinMax);
                 } else {
                     mPresenter.buyTokenSale(user.getId(), tokenSale.getId(), tokenSaleOption.getId(), amount);

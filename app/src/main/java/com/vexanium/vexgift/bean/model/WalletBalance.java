@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WalletBalance extends BaseType{
+public class WalletBalance extends BaseType {
     @JsonProperty("wallet_id")
     private int walletId;
     @JsonProperty("type")

@@ -116,8 +116,8 @@ public class WrapContentViewPager extends ViewPager implements Animation.Animati
     }
 
     /* even user will touch viewPager scope then this method will invoke and it will return false value ...
-    *  so using this method we can avoid touch event of ViewPager.
-    */
+     *  so using this method we can avoid touch event of ViewPager.
+     */
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -129,6 +129,38 @@ public class WrapContentViewPager extends ViewPager implements Animation.Animati
 
     public void setPagingEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * Sets the duration of the animation.
+     *
+     * @param duration Duration in ms
+     */
+    public void setAnimationDuration(long duration) {
+        mAnimDuration = duration;
+    }
+
+    /**
+     * Sets the interpolator used by the animation.
+     *
+     * @param interpolator {@link Interpolator}
+     */
+    public void setAnimationInterpolator(Interpolator interpolator) {
+        mAnimation.setInterpolator(interpolator);
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        mAnimStarted = true;
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        mAnimStarted = false;
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
     }
 
     /**
@@ -166,38 +198,6 @@ public class WrapContentViewPager extends ViewPager implements Animation.Animati
         public boolean willChangeBounds() {
             return true;
         }
-    }
-
-    /**
-     * Sets the duration of the animation.
-     *
-     * @param duration Duration in ms
-     */
-    public void setAnimationDuration(long duration) {
-        mAnimDuration = duration;
-    }
-
-    /**
-     * Sets the interpolator used by the animation.
-     *
-     * @param interpolator {@link Interpolator}
-     */
-    public void setAnimationInterpolator(Interpolator interpolator) {
-        mAnimation.setInterpolator(interpolator);
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-        mAnimStarted = true;
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-        mAnimStarted = false;
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
     }
 }
 

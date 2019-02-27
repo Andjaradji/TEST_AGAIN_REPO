@@ -10,11 +10,11 @@ import android.util.AttributeSet;
  */
 
 public class CustomSeekBar extends AppCompatSeekBar {
+    Drawable mThumb;
+
     public CustomSeekBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-    Drawable mThumb;
 
     @Override
     public void setThumb(Drawable thumb) {

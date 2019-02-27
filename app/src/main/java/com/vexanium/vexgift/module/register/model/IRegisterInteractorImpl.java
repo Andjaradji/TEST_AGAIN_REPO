@@ -73,9 +73,10 @@ public class IRegisterInteractorImpl implements IRegisterInteractor {
                 })
                 .subscribe(new BaseSubscriber<>(callback));
     }
+
     @Override
     public Subscription requestSmsConfirmation(RequestCallback callback, int userId, String code) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).requestSmsConfirmation( userId, code).compose(RxUtil.<UserLoginResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestSmsConfirmation(userId, code).compose(RxUtil.<UserLoginResponse>handleResult())
                 .flatMap(new Func1<UserLoginResponse, Observable<UserLoginResponse>>() {
                     @Override
                     public Observable<UserLoginResponse> call(UserLoginResponse userLoginResponse) {

@@ -32,9 +32,9 @@ public class TableContent {
 
     @Generated(hash = 139574318)
     public TableContent(long id, String vouchers, String tokens, String notifs, String myBoxs,
-            String voucherTypes, String paymentTypes, String memberTypes, String categories,
-            String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
-            String banners, String news, String wallet, long createdTime, long updatedTime) {
+                        String voucherTypes, String paymentTypes, String memberTypes, String categories,
+                        String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
+                        String banners, String news, String wallet, long createdTime, long updatedTime) {
         this.id = id;
         this.vouchers = vouchers;
         this.tokens = tokens;

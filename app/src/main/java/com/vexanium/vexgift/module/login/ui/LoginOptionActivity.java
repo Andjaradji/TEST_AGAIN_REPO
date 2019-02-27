@@ -139,7 +139,7 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
                     Intent intent = new Intent(LoginOptionActivity.this, RegisterConfirmationActivity.class);
                     intent.putExtra("user", JsonUtil.toString(response.user));
                     startActivity(intent);
-                }else if (response.user != null && !response.user.getPhoneConfirmationStatus() && !TextUtils.isEmpty(response.user.getPhoneNumber())) {
+                } else if (response.user != null && !response.user.getPhoneConfirmationStatus() && !TextUtils.isEmpty(response.user.getPhoneNumber())) {
                     StaticGroup.userSession = response.user.getSessionKey();
                     Intent intent = new Intent(LoginOptionActivity.this, RegisterPhoneConfirmationActivity.class);
                     intent.putExtra("user", JsonUtil.toString(response.user));

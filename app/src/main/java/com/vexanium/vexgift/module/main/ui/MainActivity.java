@@ -36,7 +36,6 @@ import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
-import com.vexanium.vexgift.module.wallet.ui.WalletFragmentOld;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.RxBus;

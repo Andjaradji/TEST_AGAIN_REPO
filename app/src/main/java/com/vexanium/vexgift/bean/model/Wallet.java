@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Wallet extends BaseType{
+public class Wallet extends BaseType {
     @JsonProperty("user_id")
     private int userId;
     @JsonProperty("balance")
@@ -82,20 +82,21 @@ public class Wallet extends BaseType{
         this.walletWithdrawals = walletWithdrawals;
     }
 
-    public long getWalletBalance(String type){
-        if(walletBalances!=null && walletBalances.size() > 0){
-            for(WalletBalance walletBalance : walletBalances){
-                if(walletBalance.getType().equalsIgnoreCase(type)) return  walletBalance.getBalance();
+    public long getWalletBalance(String type) {
+        if (walletBalances != null && walletBalances.size() > 0) {
+            for (WalletBalance walletBalance : walletBalances) {
+                if (walletBalance.getType().equalsIgnoreCase(type))
+                    return walletBalance.getBalance();
             }
         }
         return 0;
     }
 
-    public long getPersonalWalletBalance(){
-        return  getWalletBalance("personal");
+    public long getPersonalWalletBalance() {
+        return getWalletBalance("personal");
     }
 
-    public long getExpenseWalletBalance(){
+    public long getExpenseWalletBalance() {
         return getWalletBalance("expense");
     }
 }

@@ -38,7 +38,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
 //        customSeekBar = findViewById(R.id.cs)
 
         walletResponse = TableContentDaoUtil.getInstance().getWallet();
-        if(walletResponse != null && walletResponse.getWallet() != null){
+        if (walletResponse != null && walletResponse.getWallet() != null) {
             Wallet wallet = walletResponse.getWallet();
 
 

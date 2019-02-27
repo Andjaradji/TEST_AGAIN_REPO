@@ -4,6 +4,8 @@ import com.vexanium.vexgift.base.BasePresenter;
 
 public interface IWalletPresenter extends BasePresenter {
     void requestGetWallet(int id);
+
     void requestCreateWallet(int id);
+
     void requestDoWithdraw(int id, int walletId);
 }

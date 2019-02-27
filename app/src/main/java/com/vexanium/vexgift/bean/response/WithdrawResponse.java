@@ -7,7 +7,7 @@ import com.vexanium.vexgift.bean.model.WalletWithdrawal;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WithdrawResponse implements Serializable{
+public class WithdrawResponse implements Serializable {
 
     @JsonProperty("withdrawal")
     private WalletWithdrawal withdrawal;

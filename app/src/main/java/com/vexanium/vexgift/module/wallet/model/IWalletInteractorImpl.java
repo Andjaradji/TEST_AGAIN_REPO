@@ -1,17 +1,12 @@
 package com.vexanium.vexgift.module.wallet.model;
 
 import com.vexanium.vexgift.base.BaseSubscriber;
-import com.vexanium.vexgift.bean.model.VoucherCode;
-import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
 import com.vexanium.vexgift.util.RxUtil;
-
-import java.util.Collections;
-import java.util.Comparator;
 
 import rx.Observable;
 import rx.Subscription;
