@@ -28,6 +28,7 @@ import com.vexanium.vexgift.widget.dialog.DialogOptionType;
 import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_token_sale_history_detail, toolbarTitle = R.string.token_sale_history_title, withLoadingAnim = true)
 public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePresenter> implements ITokenSaleView {
@@ -140,9 +141,8 @@ public class TokenSaleHistoryDetailActivity extends BaseActivity<ITokenSalePrese
 
         ViewUtil.setText(this, R.id.tv_deadline, tokenSaleHistory.getTimeStampDate(tokenSaleHistory.getPaymentDeadline()));
 
-        float amount = tokenSaleHistory.getAmount();
-        String paymentAmount = String.format("%.010f", amount);
-        String purchasedAmount = String.format("%.010f", amount / tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin());
+        String paymentAmount = tokenSaleHistory.getAmount()+"";
+        String purchasedAmount = tokenSaleHistory.getAmount() / tokenSaleHistory.getTokenSalePaymentOption().getPricePerCoin()+"";
 
         ViewUtil.setText(this, R.id.tv_payment_amount, paymentAmount + " " + tokenSaleHistory.getTokenSalePaymentOption().getPaymentCoin());
         ViewUtil.setText(this, R.id.tv_purchased_amount, purchasedAmount + " " + tokenSaleHistory.getTokenSale().getTokenName());
