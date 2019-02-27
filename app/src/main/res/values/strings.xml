@@ -674,7 +674,7 @@ Your expired and used voucher will be shown here</string>
     <string name="token_sale_purchased_amount">Purchased amount</string>
     <string name="token_sale_distribution_address">Distribution address</string>
     <string name="token_sale_transfer_to">Transfer to</string>
-    <string name="token_sale_transfer_deadline">Transfer dealine</string>
+    <string name="token_sale_transfer_deadline">Transfer deadline</string>
     <string name="token_sale_input_distribution_address">INPUT DISTRIBUTION ADDRESS</string>
     <string name="token_sale_enter_payment_amount">Enter payment amount</string>
     <string name="token_sale_min_max">Min = %s, Max = %s</string>

@@ -81,8 +81,8 @@ public class TokenSaleBuyActivity extends BaseActivity<ITokenSalePresenter> impl
                 finish();
             }
 
-            String min = String.format(Locale.US,"%.010f", tokenSaleOption.getMinPurchase());
-            String max = String.format(Locale.US,"%.010f", tokenSaleOption.getMaxPurchase());
+            String min = tokenSaleOption.getMinPurchase()+"";
+            String max = tokenSaleOption.getMaxPurchase()+"";
 
             String amountHeader = String.format(getString(R.string.token_sale_min_max), min + " " + tokenSaleOption.getPaymentCoin(), max + " " + tokenSaleOption.getPaymentCoin());
             etAmount.setHint(amountHeader);
