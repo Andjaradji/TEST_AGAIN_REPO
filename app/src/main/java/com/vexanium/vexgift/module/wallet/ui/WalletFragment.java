@@ -202,7 +202,10 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
             if(isWalletExist){
                 Wallet wallet = walletResponse.getWallet();
                 ViewUtil.setText(fragmentView, R.id.tv_total_wallet, ""+ wallet.getBalance());
-                ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, ""+ wallet.g());
+                ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, ""+ wallet.getPersonalWalletBalance());
+                ViewUtil.setText(fragmentView, R.id.tv_expense_wallet, ""+ wallet.getExpenseWalletBalance());
+                ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus()+"");
+                ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus()+"");
             }
         }
     }

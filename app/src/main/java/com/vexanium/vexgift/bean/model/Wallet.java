@@ -81,4 +81,21 @@ public class Wallet extends BaseType{
     public void setWalletWithdrawals(ArrayList<WalletWithdrawal> walletWithdrawals) {
         this.walletWithdrawals = walletWithdrawals;
     }
+
+    public long getWalletBalance(String type){
+        if(walletBalances!=null && walletBalances.size() > 0){
+            for(WalletBalance walletBalance : walletBalances){
+                if(walletBalance.getType().equalsIgnoreCase(type)) return  walletBalance.getBalance();
+            }
+        }
+        return 0;
+    }
+
+    public long getPersonalWalletBalance(){
+        return  getWalletBalance("personal");
+    }
+
+    public long getExpenseWalletBalance(){
+        return getWalletBalance("expense");
+    }
 }
