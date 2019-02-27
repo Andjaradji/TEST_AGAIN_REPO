@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -27,9 +29,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.rilixtech.CountryCodePicker;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
@@ -60,8 +64,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
     private GoogleApiClient googleApiClient;
-
+    private CountryCodePicker countryCodePicker;
     private String refCode = "";
+    private static boolean LOGIN_BY_EMAIL = true;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +81,15 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         mPresenter = new IRegisterPresenterImpl(this);
 
         fbLoginButton = findViewById(R.id.login_fb_button);
+        countryCodePicker = findViewById(R.id.ccp_phone);
 
         ViewUtil.setOnClickListener(this, this,
                 R.id.login_fake_fb_button,
                 R.id.register_login_button,
                 R.id.register_button,
-                R.id.login_google_button);
-
+                R.id.login_google_button,
+                R.id.ll_phone_number,
+                R.id.ll_email);
 
         if (!StaticGroup.isReferralActive()) {
             findViewById(R.id.ll_referral_field).setVisibility(View.GONE);
@@ -93,6 +101,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             refCode = referralCode;
             ((EditText) findViewById(R.id.et_referral_code)).setText(refCode);
         }
+
+        updateViewRegisterBy();
 
         initialize();
 
@@ -118,6 +128,9 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             } else if (errorResponse.getMeta() != null && errorResponse.getMeta().getStatus() == 200) {
+                if(loginUser!=null) {
+                    KLog.v("RegisterActivity", "onClick: HPtes user bypass 0");
+                }
                 new VexDialog.Builder(RegisterActivity.this)
                         .optionType(DialogOptionType.OK)
                         .okText("Login Now")
@@ -128,6 +141,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                             public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if(loginUser!=null) {
+                                    KLog.v("RegisterActivity","onClick: HPtes user bypass 1");
+                                    intent.putExtra("user", JsonUtil.toString(loginUser));
+                                }
                                 RegisterActivity.this.startActivity(intent);
                             }
                         })
@@ -161,6 +178,14 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         switch (v.getId()) {
             case R.id.register_button:
                 doRegister();
+                break;
+            case R.id.ll_phone_number:
+                LOGIN_BY_EMAIL = false;
+                updateViewRegisterBy();
+                break;
+            case R.id.ll_email:
+                LOGIN_BY_EMAIL = true;
+                updateViewRegisterBy();
                 break;
             case R.id.login_fake_fb_button:
                 if (StaticGroup.isReferralActive()) {
@@ -304,19 +329,38 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
         }
     }
 
+    private void updateViewRegisterBy() {
+        TextView tvEmail = findViewById(R.id.tv_email);
+        TextView tvPhone = findViewById(R.id.tv_phone_number);
+        tvEmail.setTextColor(ContextCompat.getColor(this, !LOGIN_BY_EMAIL ? R.color.material_black_sub_text_color : R.color.material_black_text_color));
+        tvPhone.setTextColor(ContextCompat.getColor(this, LOGIN_BY_EMAIL ? R.color.material_black_sub_text_color : R.color.material_black_text_color));
+
+        App.setTextViewStyle(LOGIN_BY_EMAIL ? App.bold : App.regular, tvEmail);
+        App.setTextViewStyle(!LOGIN_BY_EMAIL ? App.bold : App.regular, tvPhone);
+
+        findViewById(R.id.ll_email_field).setVisibility(LOGIN_BY_EMAIL ? View.VISIBLE : View.GONE);
+        findViewById(R.id.ll_phone_number_field).setVisibility(!LOGIN_BY_EMAIL ? View.VISIBLE : View.GONE);
+    }
+
     public void doRegister() {
         User user = new User();
         String name = ((EditText) findViewById(R.id.et_username)).getText().toString();
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
+        String phone = ((EditText) findViewById(R.id.et_phone)).getText().toString();
         String pass = ((EditText) findViewById(R.id.et_password)).getText().toString();
         String repass = ((EditText) findViewById(R.id.et_repassword)).getText().toString();
         String rc = ((EditText) findViewById(R.id.et_referral_code)).getText().toString();
 
-        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_username, R.id.et_email, R.id.et_password, R.id.et_repassword);
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_username, R.id.et_password, R.id.et_repassword);
 
         if (isValid) {
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && !Patterns.PHONE.matcher(email).matches()) {
-                ((EditText) findViewById(R.id.et_email)).setError("This is not valid email");
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && LOGIN_BY_EMAIL) {
+                ((EditText) findViewById(R.id.et_email)).setError(getString(R.string.error_email_invalid));
+                isValid = false;
+            }
+
+            if (!TextUtils.isDigitsOnly(phone) && !LOGIN_BY_EMAIL) {
+                ((EditText) findViewById(R.id.et_phone)).setError(getString(R.string.error_phone_invalid));
                 isValid = false;
             }
 
@@ -328,10 +372,10 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
 
         if (isValid) {
             user.setName(name);
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (LOGIN_BY_EMAIL) {
                 user.setEmail(email);
             } else {
-                user.setPhoneNumber(email);
+                user.setPhoneNumber(countryCodePicker.getFullNumberWithPlus() + phone);
             }
             user.setPassword(pass);
 
@@ -342,6 +386,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                 user.setReferralCode(referralCode);
             }
 
+            loginUser = user;
             mPresenter.requestRegister(user);
         }
     }

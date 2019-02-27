@@ -54,6 +54,7 @@
                     android:id="@+id/ll_wallet_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
@@ -392,6 +393,7 @@
                     android:id="@+id/toolbar_record"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_below="@id/ll_wallet_main"
                     android:layout_marginTop="@dimen/interval_main"
                     android:orientation="vertical">
@@ -417,6 +419,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vp_wallet"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="400dp"
                     android:layout_below="@id/toolbar_record">
 
@@ -426,7 +429,7 @@
                 <ImageView
                     android:id="@+id/iv_coming_soon"
                     android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
                     android:layout_centerInParent="true"
                     android:scaleType="fitCenter"
                     android:src="@drawable/wallet_soon"

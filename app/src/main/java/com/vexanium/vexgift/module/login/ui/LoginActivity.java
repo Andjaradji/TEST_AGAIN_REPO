@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -28,9 +30,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.rilixtech.CountryCodePicker;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
@@ -67,7 +71,10 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private GoogleApiClient googleApiClient;
     private String refCode = "";
 
+    private CountryCodePicker countryCodePicker;
+
     private static boolean LOGIN_BY_EMAIL = true;
+    private User bypassLoginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,29 +93,40 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS) {
             GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
         }
-
     }
 
     @Override
     protected void initView() {
+        mPresenter = new ILoginPresenterImpl(this);
+
         if (getIntent().hasExtra("url")) {
             url = getIntent().getStringExtra("url");
             KLog.v("LoginActivity", "initView: getDeeplink " + url);
             getIntent().removeExtra("url");
         }
-
-        mPresenter = new ILoginPresenterImpl(this);
+        if (getIntent().hasExtra("user")) {
+            KLog.v("LoginActivity","initView: HPtes login bypass");
+            bypassLoginUser = (User) JsonUtil.toObject(getIntent().getStringExtra("user"), User.class);
+            if (bypassLoginUser != null) {
+                mPresenter.requestLogin(bypassLoginUser);
+            }
+        }
 
         fbLoginButton = findViewById(R.id.login_fb_button);
+        countryCodePicker = findViewById(R.id.ccp_phone);
 
         findViewById(R.id.login_fake_fb_button).setOnClickListener(this);
         findViewById(R.id.login_google_button).setOnClickListener(this);
         findViewById(R.id.login_signup_button).setOnClickListener(this);
         findViewById(R.id.login_forgot_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
+        findViewById(R.id.ll_email).setOnClickListener(this);
+        findViewById(R.id.ll_phone_number).setOnClickListener(this);
 
 //        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
+
+        updateViewLoginBy();
 
         String referralCode = StaticGroup.checkReferrerData();
         if (!TextUtils.isEmpty(referralCode)) {
@@ -117,7 +135,6 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 //        checkAppVersion();
         initialize();
     }
-
 
 
     @Override
@@ -252,9 +269,17 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
             case R.id.login_button:
                 doLogin();
                 break;
+            case R.id.ll_phone_number:
+                LOGIN_BY_EMAIL = false;
+                updateViewLoginBy();
+                break;
+            case R.id.ll_email:
+                LOGIN_BY_EMAIL = true;
+                updateViewLoginBy();
+                break;
             case R.id.login_signup_button:
                 intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginActivity.this.startActivity(intent);
                 break;
             case R.id.login_forgot_button:
@@ -276,6 +301,19 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         } else if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void updateViewLoginBy() {
+        TextView tvEmail = findViewById(R.id.tv_email);
+        TextView tvPhone = findViewById(R.id.tv_phone_number);
+        tvEmail.setTextColor(ContextCompat.getColor(this, !LOGIN_BY_EMAIL ? R.color.material_black_sub_text_color : R.color.material_black_text_color));
+        tvPhone.setTextColor(ContextCompat.getColor(this, LOGIN_BY_EMAIL ? R.color.material_black_sub_text_color : R.color.material_black_text_color));
+
+        App.setTextViewStyle(LOGIN_BY_EMAIL ? App.bold : App.regular, tvEmail);
+        App.setTextViewStyle(!LOGIN_BY_EMAIL ? App.bold : App.regular, tvPhone);
+
+        findViewById(R.id.ll_email_field).setVisibility(LOGIN_BY_EMAIL ? View.VISIBLE : View.GONE);
+        findViewById(R.id.ll_phone_number_field).setVisibility(!LOGIN_BY_EMAIL ? View.VISIBLE : View.GONE);
     }
 
     private void handleGoogleSignInResult(GoogleSignInResult result) {
@@ -306,20 +344,26 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     public void doLogin() {
         User user = new User();
         String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
+        String phone = ((EditText) findViewById(R.id.et_phone)).getText().toString();
         String pass = ((EditText) findViewById(R.id.et_pass)).getText().toString();
 
-        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_email, R.id.et_pass);
+        boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_pass);
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && !Patterns.PHONE.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() && LOGIN_BY_EMAIL) {
             ((EditText) findViewById(R.id.et_email)).setError(getString(R.string.error_email_invalid));
             isValid = false;
         }
 
+        if (!TextUtils.isDigitsOnly(phone) && !LOGIN_BY_EMAIL) {
+            ((EditText) findViewById(R.id.et_phone)).setError(getString(R.string.error_phone_invalid));
+            isValid = false;
+        }
+
         if (isValid) {
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (LOGIN_BY_EMAIL) {
                 user.setEmail(email);
             } else {
-                user.setPhoneNumber(email);
+                user.setPhoneNumber(countryCodePicker.getFullNumberWithPlus() + phone);
             }
             user.setPassword(pass);
             mPresenter.requestLogin(user);

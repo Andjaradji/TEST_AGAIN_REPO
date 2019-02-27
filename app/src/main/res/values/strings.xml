@@ -97,7 +97,8 @@
     <string name="voucher_online_info_desc">To use this voucher, copy the code and use it in %s.\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
     <string name="voucher_3rd_party_info_desc">To use this voucher click claim button and give the code to the merchant\nIf there is any problem or suspicious activity please inform us at \n\nVexGift Support\nphone : 0812345678\nemail : support@vexgift.com</string>
 
-    <string name="login_email">Email or Phone Number</string>
+    <string name="login_email">Email</string>
+    <string name="login_phone">Phone Number</string>
     <string name="login_password">Password</string>
     <string name="login_password_forgot"><u>Forgot password?</u></string>
     <string name="login_button_login">Login</string>
@@ -108,9 +109,10 @@
     <string name="login_button_or">or Login with</string>
 
     <string name="error_email_invalid">This is not valid email or phone number</string>
+    <string name="error_phone_invalid">This is not valid phone number</string>
 
     <string name="register_username">Name</string>
-    <string name="register_email">Email or Phone Number</string>
+    <string name="register_email">Email</string>
     <string name="register_password">Password</string>
     <string name="register_repassword">Re enter password</string>
     <string name="register_referral_code">Referral Code (Optional)</string>
@@ -595,7 +597,7 @@ Your expired and used voucher will be shown here</string>
 
     <string name="guidance_vp_note_1">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
     <string name="guidance_vp_note_2">Maximum Vex Point that you received is 2500 VP</string>
-    <string name="guidance_vp_note_3">Snapshot is run at 12:00 GMT+7 and 00:00 GMT+7</string>
+    <string name="guidance_vp_note_3">Snapshot is run at 00:00 GMT+7</string>
     <string name="guidance_vp_note_4">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
 
     <string name="time_hour_min_sec">%02d HOUR, %02d MIN, %02d SEC</string>

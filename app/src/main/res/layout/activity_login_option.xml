@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_marginBottom="@dimen/interval_big"
-            android:layout_height="90dp">
+            android:layout_height="150dp">
 
             <ImageView
                 android:layout_width="108dp"
@@ -147,7 +147,7 @@
                 android:id="@+id/login_google_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/interval_main"
+                android:layout_marginBottom="@dimen/interval_big"
                 android:layout_marginLeft="@dimen/interval_big"
                 android:layout_marginRight="@dimen/interval_big"
                 android:background="@drawable/shape_ripple_google_button"
