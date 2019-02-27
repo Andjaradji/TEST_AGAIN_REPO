@@ -425,7 +425,7 @@
     <string name="guidance_vp_subtitle_4">Tekan untuk Melihat Detail</string>
     <string name="guidance_vp_note_1">Vex Point yang anda dapatkan tiap harinya adalah 0.5% dari Vex yang ada di wallet anda</string>
     <string name="guidance_vp_note_2">Vex Point yang didapatkan maksimal 2500 VP</string>
-    <string name="guidance_vp_note_3">Snapshoot terjadi pada pukul 12:00 GMT+7 dan 00:00 GMT+7</string>
+    <string name="guidance_vp_note_3">Snapshoot terjadi pada pukul 00:00 GMT+7</string>
     <string name="guidance_vp_note_4">Vex Point yang anda dapatkan tiap harinya adalah 0.5% dari Vex yang ada di wallet anda</string>
     <string name="time_hour_min_sec">%02d JAM, %02d MEN, %02d DET</string>
     <string name="time_day_hour_min">%d HARI, %02d JAM, %02d MEN</string>

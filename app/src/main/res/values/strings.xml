@@ -597,7 +597,7 @@ Your expired and used voucher will be shown here</string>
 
     <string name="guidance_vp_note_1">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
     <string name="guidance_vp_note_2">Maximum Vex Point that you received is 2500 VP</string>
-    <string name="guidance_vp_note_3">Snapshot is run at 12:00 GMT+7 and 00:00 GMT+7</string>
+    <string name="guidance_vp_note_3">Snapshot is run at 00:00 GMT+7</string>
     <string name="guidance_vp_note_4">Vex Point that you get every day is 0.5% from your Vex in your wallet</string>
 
     <string name="time_hour_min_sec">%02d HOUR, %02d MIN, %02d SEC</string>

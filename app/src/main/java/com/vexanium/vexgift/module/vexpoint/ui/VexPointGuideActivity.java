@@ -140,13 +140,13 @@ public class VexPointGuideActivity extends AppCompatActivity {
                 "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic1.webp",
                 getString(R.string.guidance_vp_subtitle_1),
                 getString(R.string.guidance_vp_desc_1),
-                getString(R.string.guidance_vp_note_1)));
+                ""));
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_2),
                 "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic2.webp",
                 getString(R.string.guidance_vp_subtitle_2),
                 getString(R.string.guidance_vp_desc_2),
-                getString(R.string.guidance_vp_note_2)));
+                ""));
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_3),
                 "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic3.webp",
@@ -158,7 +158,7 @@ public class VexPointGuideActivity extends AppCompatActivity {
                 "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic4.webp",
                 getString(R.string.guidance_vp_subtitle_4),
                 getString(R.string.guidance_vp_desc_4),
-                getString(R.string.guidance_vp_note_4)));
+                ""));
 
 
         if (cardList != null) {

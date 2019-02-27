@@ -421,7 +421,7 @@
     <string name="guidance_vp_subtitle_4">点击查看详情</string>
     <string name="guidance_vp_note_1">您每天获得的Vex积分将等于您钱包里Vex的数额的 0.5%。</string>
     <string name="guidance_vp_note_2">您每天可获得的Vex积分顶限为 2500 VP</string>
-    <string name="guidance_vp_note_3">快照将在每天的 12:00 GMT+7 和 00:00 GMT+7 进行</string>
+    <string name="guidance_vp_note_3">快照将在每天的 00:00 GMT+7 进行</string>
     <string name="guidance_vp_note_4">您每天获得的Vex积分将等于您钱包里Vex的数额的 0.5%。</string>
     <string name="time_hour_min_sec">%02d 小时, %02d 分钟, %02d 秒</string>
     <string name="time_day_hour_min">%d 天, %02d 小时, %02d 分钟</string>
