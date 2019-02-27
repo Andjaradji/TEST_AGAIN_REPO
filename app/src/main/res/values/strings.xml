@@ -736,7 +736,9 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_address">Destination address</string>
     <string name="wallet_withdraw_amount">Withdraw amount </string>
     <string name="wallet_withdraw_button">Withdraw</string>
+    <string name="wallet_withdraw">Wallet Withdraw</string>
 
+    <string name="wallet_deposit">Wallet Deposit</string>
     <string name="wallet_deposit_transfer_to">Transfer to this address</string>
     <string name="wallet_deposit_copy_address">copy address</string>
 </resources>

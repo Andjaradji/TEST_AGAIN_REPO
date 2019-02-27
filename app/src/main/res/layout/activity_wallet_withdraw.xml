@@ -90,8 +90,8 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    android:gravity="center"
                     android:background="@drawable/shape_ripple_transparent"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -118,15 +118,16 @@
                 android:background="@drawable/shape_voucher_availability"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_withdraw_amount"
+                <EditText
+                    android:id="@+id/et_withdraw_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:hint="0"
                     android:inputType="numberDecimal"
                     android:lines="1"
                     android:padding="@dimen/interval_main"
                     android:tag="bold"
-                    android:hint="0"
                     android:textAlignment="textStart"
                     android:textSize="@dimen/text_xtiny" />
 
@@ -147,6 +148,7 @@
                     android:gravity="end">
 
                     <LinearLayout
+                        android:id="@+id/btn_20"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_bg_withdraw_percentage"
@@ -167,6 +169,7 @@
                     android:gravity="center">
 
                     <LinearLayout
+                        android:id="@+id/btn_50"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_bg_withdraw_percentage"
@@ -187,6 +190,7 @@
                     android:gravity="start">
 
                     <LinearLayout
+                        android:id="@+id/btn_75"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_bg_withdraw_percentage"
@@ -202,7 +206,7 @@
             </LinearLayout>
 
             <com.vexanium.vexgift.widget.CustomSeekBar
-                android:id="@+id/setting_custom_seekbar"
+                android:id="@+id/cs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_main"

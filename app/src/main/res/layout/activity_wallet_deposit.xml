@@ -50,6 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/interval_big"
                 android:orientation="vertical">
 
                 <ImageView
@@ -61,14 +62,7 @@
                     android:contentDescription="@string/image_content_description"
                     android:scaleType="centerCrop" />
 
-                <TextView
-                    android:id="@+id/tv_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/interval_main"
-                    android:layout_marginTop="@dimen/interval_content"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_small" />
+
             </LinearLayout>
 
             <TextView
@@ -81,7 +75,7 @@
                 android:textSize="@dimen/text_medium" />
 
             <LinearLayout
-                android:id="@+id/btn_copy"
+                android:id="@+id/ll_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
@@ -96,12 +90,13 @@
                     android:tag="bold"
                     android:lines="2"
                     android:textAllCaps="true"
+                    android:id="@+id/tv_code"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_tiny" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_next"
+                android:id="@+id/btn_copy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_main"

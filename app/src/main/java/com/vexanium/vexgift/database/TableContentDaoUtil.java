@@ -19,6 +19,7 @@ import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.util.JsonUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -69,6 +70,14 @@ public class TableContentDaoUtil extends BaseDaoUtil {
 
         return query.list().size() > 0 && query.list().get(0).getLuckydraws() != null ?
                 (LuckyDrawListResponse) JsonUtil.toObject(query.list().get(0).getLuckydraws(), new TypeToken<LuckyDrawListResponse>() {
+                }.getType()) : null;
+    }
+
+    public WalletResponse getWallet() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getWallet() != null ?
+                (WalletResponse) JsonUtil.toObject(query.list().get(0).getWallet(), new TypeToken<WalletResponse>() {
                 }.getType()) : null;
     }
 
@@ -309,6 +318,24 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             tableContent = new TableContent();
             tableContent.setMyBoxs(boxs);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+
+    public void saveWalletsToDb(String wallets) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setWallet(wallets);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setWallet(wallets);
             tableContent.setCreatedTime(System.currentTimeMillis());
             mTableContentDao.insert(tableContent);
         }
