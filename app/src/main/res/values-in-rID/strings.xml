@@ -624,6 +624,8 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="register_excited_to_see_you">Kami senang menyambut anda disini</string>
     <string name="register_confirmation_sms_button">Konfirmasi SMS</string>
     <string name="login_phone">Nomor Hp</string>
+    <string name="register_confirmation_resend_sms_time">Kirim Ulang SMS %s</string>
+    <string name="register_confirmation_resend_sms_success">Konfirmasi SMS dikirim kembali</string>
 
 
 </resources>

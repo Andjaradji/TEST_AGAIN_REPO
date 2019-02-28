@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:tag="bold"
-                android:text="@string/referral_title"
+                android:text="@string/referral_special_event_title"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_big_medium"
                 android:visibility="visible" />
@@ -64,7 +64,7 @@
                 android:paddingBottom="@dimen/interval_content"
                 android:paddingTop="@dimen/interval_content"
                 android:tag="bold"
-                android:text="@string/referral_note"
+                android:text="@string/referral_special_event_note"
                 android:textColor="@color/material_black_sub_text_color"
                 android:textSize="@dimen/text_tiny"
                 android:visibility="visible" />
@@ -202,14 +202,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_big"
                 android:tag="bold"
+                android:visibility="visible"
                 android:text="@string/referral_share_on_sm"
                 android:textColor="@color/material_black_text_color"
                 android:textSize="@dimen/text_big_medium"
                 android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/rl_referral_socmed_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:layout_marginTop="@dimen/interval_main"
                 android:background="@drawable/shape_white_round_rect_with_grey_border">
 
@@ -226,7 +229,7 @@
                     android:paddingTop="@dimen/interval_submain"
                     android:singleLine="true"
                     android:textColor="@color/material_black_3d3d"
-                    android:textSize="@dimen/text_medium" />
+                    android:textSize="@dimen/text_small_medium" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

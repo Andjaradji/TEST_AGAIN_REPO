@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -22,6 +23,7 @@ import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 
 import java.io.Serializable;
 
@@ -82,6 +84,13 @@ public class ReferralSpecialEventActivity extends BaseActivity<IWalletPresenter>
         refGuidanceUrl = StaticGroup.getStringValFromSettingKey("referral_guidance_link");
         if (TextUtils.isEmpty(refGuidanceUrl)) {
             refGuidanceUrl = DEFAULT_REF_GUIDANCE_LINK;
+        }
+
+        if (LocaleUtil.getLanguage(this).equalsIgnoreCase("zh")) {
+            findViewById(R.id.tv_referral_share_on_sm).setVisibility(View.GONE);
+            findViewById(R.id.rl_referral_socmed_share).setVisibility(View.GONE);
+            defaultShareText = "VexGift is a great way to get free vouchers. Check it out here \n";
+            mShareText = defaultShareText + " " + ConstantGroup.CHINA_WEB_LINK + "\nMy code : " + user.getReferralCode();
         }
     }
 

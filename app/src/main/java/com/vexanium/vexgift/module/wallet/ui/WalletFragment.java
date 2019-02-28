@@ -27,6 +27,7 @@ import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
@@ -95,6 +96,9 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         fragmentRootView.findViewById(R.id.ll_deposit_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.ll_withdraw_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.btn_generate_wallet).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.ll_personal_wallet).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.ll_expense_wallet).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.iv_ask).setOnClickListener(this);
 
         mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -163,8 +167,21 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        String deepLinkUrl;
         Intent intent;
         switch (v.getId()) {
+            case R.id.iv_ask:
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_wallet_detail_link");
+                ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
+                break;
+            case R.id.ll_personal_wallet:
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_personal_wallet_link");
+                ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
+                break;
+            case R.id.ll_expense_wallet:
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_expense_wallet_link");
+                ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
+                break;
             case R.id.ll_deposit_button:
                 intent = new Intent(this.getActivity(), WalletDepositActivity.class);
                 startActivity(intent);

@@ -282,6 +282,7 @@
     <string name="exchange_send_voucher_button_generate">生成</string>
     <string name="exchange_send_voucher_button_generate_code">生成代码</string>
     <string name="referral_title">邀请用户可获得 100VP 和免费 2天高级会员</string>
+    <string name="referral_special_event_title">每推薦邀請一位用戶，即能獲得VEX獎勵！</string>
     <string name="appversion_dialog_content">立即更新获得更多更新功能。</string>
     <string name="home_explore_get_button">立即获得</string>
     <string name="dialog_get_now">立即获得</string>
@@ -578,4 +579,21 @@
     <string name="more_change_language">选择语言</string>
     <string name="wallet_deposit">存款</string>
     <string name="wallet_withdraw">提款</string>
+    <string name="login_phone">手机号</string>
+    <string name="login_welcome_back">" 欢迎回来 !"</string>
+    <string name="login_with_email">电邮</string>
+    <string name="login_with_phone_number">手机号</string>
+    <string name="login_to_continue">" 登录继续"</string>
+    <string name="error_phone_invalid">这不是有效的电子邮件</string>
+    <string name="register_with_email">电邮</string>
+    <string name="register_with_phone_number">手机号</string>
+    <string name="register_almost_there">差不多了 !</string>
+    <string name="register_excited_to_see_you">" 我们很高兴见到你"</string>
+    <string name="notif_kyc">" 你还没有填写KYC"</string>
+    <string name="wallet_withdraw_address">目的地址</string>
+    <string name="wallet_withdraw_history">提款历史</string>
+    <string name="wallet_withdraw_amount_error">提款金额不能为0</string>
+    <string name="wallet_referral_counted">進階用戶</string>
+    <string name="wallet_referral_uncounted">一般用戶</string>
+    <string name="wallet_referral_counted_user">位進階用戶</string>
 </resources>

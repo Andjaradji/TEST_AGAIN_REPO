@@ -536,6 +536,9 @@
     <string name="referral_share_on_sm">Share on Social Media</string>
     <string name="referral_code">Referral Code</string>
 
+    <string name="referral_special_event_title">Get VEX Bonus for each referral you invited !</string>
+    <string name="referral_special_event_note">See how ></string>
+
 
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="term_and_condition">TERM &amp; CONDITION</string>
@@ -781,5 +784,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_input_success_text">Your withdraw are successfully inputed, please kindly check your withdraw status in Withdraw History</string>
     <string name="wallet_withdraw_input_success_button">Check It</string>
     <string name="wallet_total_personal_wallet_balance">Total Personal Wallet Balance</string>
+
+    <string name="security_finger_print_button">Fingerprint</string>
 
 </resources>
