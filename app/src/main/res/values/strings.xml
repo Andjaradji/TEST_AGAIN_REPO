@@ -112,7 +112,7 @@
     <string name="login_welcome_back">Welcome Back !</string>
     <string name="login_to_continue">Login to Continue</string>
 
-    <string name="error_email_invalid">This is not valid email or phone number</string>
+    <string name="error_email_invalid">This is not valid email</string>
     <string name="error_phone_invalid">This is not valid phone number</string>
 
     <string name="register_username">Name</string>

@@ -142,7 +142,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if (data != null) {
             if (data instanceof UserLoginResponse) {
                 UserLoginResponse response = (UserLoginResponse) data;
-                if (response.user != null && (response.user.getEmailConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
+                if (response.user != null && (response.user.getEmailConfirmationStatus() ||response.user.getPhoneConfirmationStatus() || (response.user.getFacebookId() != null || response.user.getGoogleToken() != null))) {
                     StaticGroup.removeReferrerData();
 
                     StaticGroup.userSession = response.user.getSessionKey();

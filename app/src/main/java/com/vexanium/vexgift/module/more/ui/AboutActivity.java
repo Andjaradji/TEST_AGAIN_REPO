@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.ConstantGroup;
@@ -56,7 +57,8 @@ public class AboutActivity extends BaseActivity {
         });
         String url = ConstantGroup.WEB_LINK;
         if(LocaleUtil.getLanguage(this).equalsIgnoreCase("zh")){
-            url = "http://www.vexgift.com/lang/ch";
+            url = ConstantGroup.CHINA_WEB_LINK;
+            KLog.v("AboutActivity","initView: HMtes china");
         }
         mWv.loadUrl(url);
     }
