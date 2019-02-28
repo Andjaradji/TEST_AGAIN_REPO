@@ -88,6 +88,14 @@ public class TransactionRecordFragment extends BaseFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mTransactionObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, mTransactionObservable);
+        }
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

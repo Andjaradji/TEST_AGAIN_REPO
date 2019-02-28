@@ -32,6 +32,8 @@ import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
+import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
@@ -155,6 +157,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                     } else {
                         updateViewWallet(walletResponse);
                     }
+                    RxBus.get().post(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, true);
+
                 }
 
             }

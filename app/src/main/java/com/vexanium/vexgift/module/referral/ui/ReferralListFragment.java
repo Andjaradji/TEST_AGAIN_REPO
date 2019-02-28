@@ -76,7 +76,7 @@ public class ReferralListFragment extends BaseFragment<IWalletPresenter> impleme
 
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        mTransactionObservable = RxBus.get().register(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, Boolean.class);
+        mTransactionObservable = RxBus.get().register(RxBus.KEY_WALLET_REFERRAL_RECORD_ADDED, Boolean.class);
         mTransactionObservable.subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean b) {
@@ -101,6 +101,15 @@ public class ReferralListFragment extends BaseFragment<IWalletPresenter> impleme
         super.onViewCreated(view, savedInstanceState);
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mTransactionObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, mTransactionObservable);
+        }
+    }
+
 
     public void getDataFromDb() {
         walletReferralResponse = TableContentDaoUtil.getInstance().getWalletReferral();
@@ -197,9 +206,9 @@ public class ReferralListFragment extends BaseFragment<IWalletPresenter> impleme
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
 
-        if(data != null){
+        if (data != null) {
 
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(getActivity(), errorResponse);
         }
     }
