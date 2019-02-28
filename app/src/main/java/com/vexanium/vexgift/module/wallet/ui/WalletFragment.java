@@ -110,7 +110,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mTabWallet.addTabView(0, -1, transactionRecord);
         mTabWallet.addTabView(1, -1, bonusRecord);
 
-        TextPagerAdapter textPagerAdapter = new TextPagerAdapter(getActivity().getSupportFragmentManager());
+        TextPagerAdapter textPagerAdapter = new TextPagerAdapter(getChildFragmentManager());
         mPagerWallet.setAdapter(textPagerAdapter);
         mPagerWallet.setOffscreenPageLimit(PAGE_COUNT);
         mPagerWallet.setCurrentItem(0, false);
