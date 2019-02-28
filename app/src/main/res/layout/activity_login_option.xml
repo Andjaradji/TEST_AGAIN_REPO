@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/interval_content"
                         android:layout_marginStart="@dimen/interval_content"
-                        android:text="Login"
+                        android:text="@string/login_button_login"
                         android:textColor="@color/material_white"
                         android:textSize="@dimen/text_tiny" />
                 </LinearLayout>
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/interval_content"
                         android:layout_marginStart="@dimen/interval_content"
-                        android:text="Register"
+                        android:text="@string/register_button_register"
                         android:textColor="@color/material_white"
                         android:textSize="@dimen/text_tiny" />
                 </LinearLayout>
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/interval_content"
                         android:layout_marginStart="@dimen/interval_content"
-                        android:text="Continue with Facebook"
+                        android:text="@string/login_button_fb_login"
                         android:textColor="@color/material_white"
                         android:textSize="@dimen/text_tiny" />
                 </LinearLayout>

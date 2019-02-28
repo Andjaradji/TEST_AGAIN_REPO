@@ -124,6 +124,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 //        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
 
+        LOGIN_BY_EMAIL = true;
         updateViewLoginBy();
 
         String referralCode = StaticGroup.checkReferrerData();

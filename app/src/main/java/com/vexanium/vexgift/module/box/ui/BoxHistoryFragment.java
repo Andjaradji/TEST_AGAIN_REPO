@@ -51,7 +51,7 @@ public class BoxHistoryFragment extends BaseFragment {
         mTabBarView.addTabView(0, R.drawable.box_voucher, getString(R.string.shortcut_my_voucher));
         mTabBarView.addTabView(1, R.drawable.box_token, getString(R.string.shortcut_my_token));
 
-        BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
+        BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(boxPagerAdapter);
         mViewPager.setOffscreenPageLimit(PAGE_COUNT);
         mViewPager.setCurrentItem(0, false);

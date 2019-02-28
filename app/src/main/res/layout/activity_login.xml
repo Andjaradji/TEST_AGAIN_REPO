@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/interval_big"
             android:tag="black"
-            android:text="Welcome Back !"
+            android:text="@string/login_welcome_back"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_title"
             android:visibility="visible" />
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/interval_medium"
             android:layout_marginLeft="@dimen/interval_big"
-            android:text="Login to Continue"
+            android:text="@string/login_to_continue"
             android:textColor="@color/material_black_text_color"
             android:textSize="@dimen/text_medium"
             android:visibility="visible" />
@@ -71,7 +71,7 @@
                     android:paddingRight="@dimen/interval_small"
                     android:paddingTop="@dimen/interval_content"
                     android:tag="bold"
-                    android:text="Login with Email"
+                    android:text="@string/login_with_email"
                     android:textSize="@dimen/text_xtiny" />
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                     android:paddingLeft="@dimen/interval_small"
                     android:paddingRight="@dimen/interval_small"
                     android:paddingTop="@dimen/interval_content"
-                    android:text="Login with Phone Number"
+                    android:text="@string/login_with_phone_number"
                     android:textSize="@dimen/text_xtiny" />
             </LinearLayout>
         </LinearLayout>

@@ -46,6 +46,7 @@ import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenter;
 import com.vexanium.vexgift.module.register.presenter.IRegisterPresenterImpl;
 import com.vexanium.vexgift.module.register.view.IRegisterView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -102,9 +103,18 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             ((EditText) findViewById(R.id.et_referral_code)).setText(refCode);
         }
 
+        LOGIN_BY_EMAIL = true;
         updateViewRegisterBy();
 
         initialize();
+
+        findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                finish();
+            }
+        });
 
     }
 

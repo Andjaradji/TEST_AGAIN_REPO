@@ -321,7 +321,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/padding_small"
-                                            android:text="DEPOSIT"
+                                            android:text="@string/wallet_transaction_log_deposit"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/text_small" />
                                     </LinearLayout>
                                 </LinearLayout>
@@ -353,7 +354,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/padding_small"
-                                            android:text="WITHDRAW"
+                                            android:text="@string/wallet_transaction_log_withdraw"
+                                            android:textAllCaps="true"
                                             android:textSize="@dimen/text_small" />
                                     </LinearLayout>
                                 </LinearLayout>

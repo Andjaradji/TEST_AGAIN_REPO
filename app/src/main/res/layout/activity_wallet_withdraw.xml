@@ -221,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="Total Personal Wallet Balance"
+                    android:text="@string/wallet_total_personal_wallet_balance"
                     android:textSize="@dimen/text_tiny" />
 
                 <TextView

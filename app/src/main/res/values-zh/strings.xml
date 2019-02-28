@@ -556,4 +556,26 @@
     <string name="more_guide">新手手册</string>
     <string name="internet_retry">重試</string>
     <string name="internet_exit">離開</string>
+    <string name="wallet_total_wallet">錢包總金額</string>
+    <string name="wallet_personal_wallet">個人錢包金額</string>
+    <string name="wallet_expense_wallet">支付錢包金額</string>
+    <string name="wallet_estimated_vex_bonus">估計VEX獎勵 :</string>
+    <string name="wallet_estimated_deposit_bonus">存款持幣收益 :</string>
+    <string name="wallet_estimated_referral_bonus">推廣持幣收益 :</string>
+    <string name="wallet_note">注意事項：你必須擁有至少100,000 VEX，才能夠參加。</string>
+    <string name="wallet_time_bonus">下一次支付收益 :</string>
+    <string name="wallet_transaction_record">交易紀錄</string>
+    <string name="wallet_bonus_record">收益紀錄</string>
+    <string name="wallet_withdraw_transfer_to">Vex將會被轉帳到以下地址</string>
+    <string name="wallet_withdraw_amount">提出額度</string>
+    <string name="wallet_withdraw_button">提領</string>
+    <string name="wallet_deposit_transfer_to">轉帳到以下地址</string>
+    <string name="wallet_deposit_copy_address">複製地址</string>
+    <string name="wallet_transaction_log_deposit">存款</string>
+    <string name="wallet_transaction_log_withdraw">提款</string>
+    <string name="news_title">新闻</string>
+    <string name="choose_language">改变语言</string>
+    <string name="more_change_language">选择语言</string>
+    <string name="wallet_deposit">存款</string>
+    <string name="wallet_withdraw">提款</string>
 </resources>

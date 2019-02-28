@@ -104,9 +104,13 @@
     <string name="login_button_login">Login</string>
     <string name="login_dont_have_account">Don\'t have an account?</string>
     <string name="login_sign_up_here"><u>Sign up here</u></string>
-    <string name="login_button_fb_login">Login with Facebook</string>
+    <string name="login_button_fb_login">Continue with Facebook</string>
     <string name="login_button_google_login">Login with Google</string>
     <string name="login_button_or">or Login with</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="login_with_phone_number">Login with Phone Number</string>
+    <string name="login_welcome_back">Welcome Back !</string>
+    <string name="login_to_continue">Login to Continue</string>
 
     <string name="error_email_invalid">This is not valid email or phone number</string>
     <string name="error_phone_invalid">This is not valid phone number</string>
@@ -123,6 +127,10 @@
     <string name="register_button_fb_login">Sign Up with Facebook</string>
     <string name="register_button_google_login">Sign Up with Google</string>
     <string name="register_button_or">or Sign Up with</string>
+    <string name="register_with_email">Register with Email</string>
+    <string name="register_with_phone_number">Register with Phone Number</string>
+    <string name="register_almost_there">Almost There !</string>
+    <string name="register_excited_to_see_you">We Are Excited to see you here</string>
 
     <string name="register_confirmation_text">Thanks for signing up!\nWe\'ve sent you a confirmation code to %s</string>
     <string name="register_confirmation_hint">Input confirmation code</string>
@@ -772,5 +780,6 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_input_success_title">Withdraw</string>
     <string name="wallet_withdraw_input_success_text">Your withdraw are successfully inputed, please kindly check your withdraw status in Withdraw History</string>
     <string name="wallet_withdraw_input_success_button">Check It</string>
+    <string name="wallet_total_personal_wallet_balance">Total Personal Wallet Balance</string>
 
 </resources>

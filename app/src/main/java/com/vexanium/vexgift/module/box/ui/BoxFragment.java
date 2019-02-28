@@ -8,12 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
@@ -46,6 +48,7 @@ public class BoxFragment extends BaseFragment {
     private TextView mNotifText;
     private TextView mNotifSeeMore;
     private BoxFragmentChangeListener listener;
+    private BoxPagerAdapter boxPagerAdapter;
 
     public static BoxFragment newInstance() {
         return new BoxFragment();
@@ -68,7 +71,7 @@ public class BoxFragment extends BaseFragment {
         mTabBarView.addTabView(0, R.drawable.box_voucher, getString(R.string.shortcut_my_voucher));
         mTabBarView.addTabView(1, R.drawable.box_token, getString(R.string.shortcut_my_token));
 
-        BoxPagerAdapter boxPagerAdapter = new BoxPagerAdapter(getActivity().getSupportFragmentManager());
+        boxPagerAdapter = new BoxPagerAdapter(getChildFragmentManager());
         mViewPager.setPagingEnabled(true);
         mViewPager.setAdapter(boxPagerAdapter);
         mViewPager.setOffscreenPageLimit(PAGE_COUNT);
@@ -85,6 +88,7 @@ public class BoxFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         RxBus.get().post(RxBus.KEY_MY_BOX_GUIDANCE, view);
+
     }
 
     @Override
