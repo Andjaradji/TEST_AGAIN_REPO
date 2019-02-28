@@ -77,6 +77,6 @@ public class Wallet extends BaseType {
     }
 
     public float getExpenseWalletBalance() {
-        return getWalletBalance("expense");
+        return getWalletBalance("purchasing");
     }
 }
