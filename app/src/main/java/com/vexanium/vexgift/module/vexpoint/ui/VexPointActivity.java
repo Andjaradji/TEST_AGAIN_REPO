@@ -40,6 +40,7 @@ import com.vexanium.vexgift.widget.WrapContentViewPager;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -394,14 +395,16 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
 //        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
-        nextSnapshoot.add(Calendar.DATE, 1);
-        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+//        nextSnapshoot.add(Calendar.DATE, 1);
+//        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
 //        } else {
-//            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
+            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
 //        }
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);
         nextSnapshoot.set(Calendar.MILLISECOND, 0);
+        nextSnapshoot.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
+
 
         long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
 

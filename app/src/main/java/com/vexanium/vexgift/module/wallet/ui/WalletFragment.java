@@ -32,6 +32,7 @@ import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
@@ -39,6 +40,7 @@ import com.vexanium.vexgift.widget.IconTextTabBarView;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -74,6 +76,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private WalletResponse walletResponse;
 
     private boolean isComingSoon = false;
+    private boolean isBonusShown = false;
+    private String guideUrl = "";
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -89,7 +93,17 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_my_wallet));
 
         mGenerateView = fragmentRootView.findViewById(R.id.ll_wallet_address_generate);
-        mTvCountdownBonus = fragmentRootView.findViewById(R.id.tv_countdown);
+
+        isBonusShown = StaticGroup.isWalletBonusShown();
+        if (isBonusShown) {
+            mTvCountdownBonus = fragmentRootView.findViewById(R.id.tv_countdown_temp);
+            fragmentRootView.findViewById(R.id.tv_countdown_temp).setVisibility(View.VISIBLE);
+
+        } else {
+            mTvCountdownBonus = fragmentRootView.findViewById(R.id.tv_countdown);
+            fragmentRootView.findViewById(R.id.tv_countdown_temp).setVisibility(View.GONE);
+        }
+
         mTabWallet = fragmentRootView.findViewById(R.id.tab_wallet);
         mPagerWallet = fragmentRootView.findViewById(R.id.vp_wallet);
         mNscrollView = fragmentRootView.findViewById(R.id.nsv_wallet);
@@ -134,6 +148,22 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 .putContentName("Wallet Fragment View")
                 .putContentType("Wallet")
                 .putContentId("wallet"));
+
+        String lang = LocaleUtil.getLanguage(getContext());
+        switch (lang) {
+            case "id":
+                guideUrl = "ask_wallet_detail_link_id";
+                break;
+
+            case "zh":
+                guideUrl = "ask_wallet_detail_link_zh";
+                break;
+
+            case "en":
+            default:
+                guideUrl = "ask_wallet_detail_link_en";
+                break;
+        }
     }
 
     @Override
@@ -157,9 +187,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                         updateViewWallet(walletResponse);
                     }
                     RxBus.get().post(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, true);
-
                 }
-
             }
 
         } else if (errorResponse != null) {
@@ -174,15 +202,15 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         Intent intent;
         switch (v.getId()) {
             case R.id.iv_ask:
-                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_wallet_detail_link");
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey(guideUrl);
                 ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
                 break;
             case R.id.ll_personal_wallet:
-                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_personal_wallet_link");
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey(guideUrl);
                 ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
                 break;
             case R.id.ll_expense_wallet:
-                deepLinkUrl = StaticGroup.getStringValFromSettingKey("ask_expense_wallet_link");
+                deepLinkUrl = StaticGroup.getStringValFromSettingKey(guideUrl);
                 ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
                 break;
             case R.id.ll_deposit_button:
@@ -222,6 +250,9 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                     ViewUtil.setText(fragmentView, R.id.tv_expense_wallet, "" + wallet.getExpenseWalletBalance());
                     ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus() + "");
                     ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus() + "");
+                    if (isBonusShown) {
+                        ViewUtil.setText(fragmentView, R.id.tv_countdown, walletResponse.getNextBonusPayoutAmount() + "");
+                    }
                 }
             }
         }
@@ -263,6 +294,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 //        if (User.getUserAddressStatus() != 1) {
 //            mPresenter.requestGetActAddress(user.getId());
 //        }
+        mPresenter.requestGetWallet(user.getId());
     }
 
     private void setPagerListener() {
@@ -318,11 +350,12 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
-        nextSnapshoot.add(Calendar.DATE, 1);
-        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+//        nextSnapshoot.add(Calendar.DATE, 1);
+        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);
         nextSnapshoot.set(Calendar.MILLISECOND, 0);
+        nextSnapshoot.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
 
         long remainTime = nextSnapshoot.getTimeInMillis() - now.getTimeInMillis();
 
