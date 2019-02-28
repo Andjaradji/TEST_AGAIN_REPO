@@ -16,6 +16,7 @@ public class TpUtil extends TrayPreferences {
     public static String KEY_IS_VEX_ADD_SET = "key_is_vex_add_set";
     public static String KEY_WALKTHROUGH = "key_walkthrough";
     public static String KEY_GOOGLE2FA = "key_google2fa";
+    public static String KEY_FINGERPRINT_LOCK = "key_fingerprint_lock";
     public static String KEY_GOOGLE2FA_LOCK = "key_google2fa_lock";
     public static String KEY_LAST_ACTIVE_TIME = "key_last_active_time";
     public static String KEY_USER_ADDRESS = "key_user_address";
@@ -79,6 +80,9 @@ public class TpUtil extends TrayPreferences {
 
         put(TpUtil.KEY_USER_VP_RECORD, "");
         remove(TpUtil.KEY_USER_VP_RECORD);
+
+        put(TpUtil.KEY_FINGERPRINT_LOCK,"");
+        remove(TpUtil.KEY_FINGERPRINT_LOCK);
     }
 
 

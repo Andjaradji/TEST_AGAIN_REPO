@@ -460,12 +460,14 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
         if ((User.isLocalSessionEnded() || User.isGoogle2faLocked() || !isAlreadyLogin) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("isAlreadyLogin", isAlreadyLogin);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             if (url != null) {
-                intent.putExtra("url", url);
+                intent.putExtra("u" +
+                        "l", url);
             }
             startActivity(intent);
         }

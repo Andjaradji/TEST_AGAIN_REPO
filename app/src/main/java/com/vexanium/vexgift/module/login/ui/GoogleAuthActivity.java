@@ -1,6 +1,8 @@
 package com.vexanium.vexgift.module.login.ui;
 
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
@@ -8,6 +10,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.dev21.fingerprintassistant.FingerprintAuthListener;
+import com.dev21.fingerprintassistant.FingerprintHelper;
+import com.dev21.fingerprintassistant.FingerprintResultsHandler;
+import com.dev21.fingerprintassistant.ResponseCode;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
@@ -31,9 +37,14 @@ import java.io.Serializable;
 import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_google_auth, withLoadingAnim = true)
-public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView {
+public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView, FingerprintAuthListener {
 
     private User user;
+    private boolean isFingerprintActive = false;
+    FingerprintHelper fingerprintHelper;
+    FingerprintResultsHandler fingerprintResultsHandler;
+
+    VexDialog vexDialog;
 
     @Override
     protected void initView() {
@@ -46,6 +57,19 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
         String account = String.format(getString(R.string.google2fa_account), user.getEmail());
         Spanned text = Html.fromHtml(account);
         ViewUtil.setText(this, R.id.tv_account, text);
+
+        TpUtil tpUtil = new TpUtil(this);
+        isFingerprintActive = tpUtil.getBoolean(TpUtil.KEY_FINGERPRINT_LOCK, false);
+
+        boolean isAlreadyLogin = false;
+        if (getIntent().hasExtra("isAlreadyLogin")) {
+            isAlreadyLogin = getIntent().getBooleanExtra("isAlreadyLogin", false);
+            KLog.v("GoogleAuthActivity", "initView: HMtes isAlreadyLogin " + isAlreadyLogin);
+        }
+
+        if (isAlreadyLogin) {
+            checkFingerprint();
+        }
     }
 
     @Override
@@ -98,6 +122,81 @@ public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> imple
             startActivity(intent);
             finish();
 
+        }
+    }
+
+    @Override
+    public void onAuthentication(int helpCode, CharSequence charSequence, FingerprintManager.AuthenticationResult authenticationResult, int authCode) {
+        switch (authCode) {
+            case ResponseCode.AUTH_ERROR:
+                // Show appropriate message
+                toast("Error");
+                break;
+            case ResponseCode.AUTH_FAILED:
+                // Show appropriate message
+                toast(getString(R.string.premium_purchase_failed));
+                break;
+            case ResponseCode.AUTH_HELP:
+                // Show appropriate message
+                toast("HELP " + helpCode);
+
+                break;
+            case ResponseCode.AUTH_SUCCESS:
+                vexDialog.dismiss();
+                TpUtil tpUtil = new TpUtil(App.getContext());
+                tpUtil.put(TpUtil.KEY_GOOGLE2FA_LOCK, false);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+                toast("Success");
+
+                break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
+    private void checkFingerprint() {
+        if (isFingerprintActive) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                fingerprintHelper = new FingerprintHelper(this, "vexgift-fingerprint-setting");
+                fingerprintHelper.checkAndEnableFingerPrintService();
+                fingerprintResultsHandler = new FingerprintResultsHandler(this);
+                fingerprintResultsHandler.setFingerprintAuthListener(this);
+                fingerprintResultsHandler.startListening(fingerprintHelper.getFingerprintManager(), fingerprintHelper.getCryptoObject());
+
+                showProgress();
+
+                View view = View.inflate(this, R.layout.include_fingerprint_dialog, null);
+                vexDialog = new VexDialog.Builder(GoogleAuthActivity.this)
+                        .optionType(DialogOptionType.OK)
+                        .okText(getString(R.string.cancel))
+                        .title(getString(R.string.security_fingerprint_dialog_title))
+                        .addCustomView(view)
+                        .content(getString(R.string.security_fingerprint_dialog_detail))
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    if (fingerprintResultsHandler != null) {
+                                        fingerprintResultsHandler.stopListening();
+                                    }
+                                }
+                                hideProgress();
+                            }
+                        })
+                        .canceledOnTouchOutside(false)
+                        .cancelable(false)
+                        .autoDismiss(false)
+                        .show();
+            }
         }
     }
 

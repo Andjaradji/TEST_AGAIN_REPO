@@ -132,6 +132,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:25.3.1'   // Version 23+ is required
     implementation 'com.google.zxing:core:3.3.0'
 
+    implementation 'com.github.dev-prajwal21:FingerprintAssistant:1.0'
+
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true;
     }

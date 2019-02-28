@@ -787,4 +787,14 @@ Your expired and used voucher will be shown here</string>
 
     <string name="security_finger_print_button">Fingerprint</string>
 
+    <string name="wallet_withdraw_note_title">Note</string>
+    <string name="wallet_withdraw_note_detail">1. Your Withdraw will be process within 2x24 hours\n2. Wallet deposit will be deposited after 50 blocks confirmation</string>
+
+    <string name="wallet_deposit_note_title">Note</string>
+    <string name="wallet_deposit_note_detail">1. Wallet deposit will be deposited after 50 blocks confirmation</string>
+
+    <string name="security_fingerprint_touch_sensor">Touch Sensor</string>
+    <string name="security_fingerprint_dialog_detail">Confirm fingerprint to continue</string>
+    <string name="security_fingerprint_dialog_title">Vexgift</string>
+
 </resources>

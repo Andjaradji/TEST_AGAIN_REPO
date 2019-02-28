@@ -406,6 +406,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         if ((User.isLocalSessionEnded() || User.isGoogle2faLocked() || !isAlreadyLogin) && user.isAuthenticatorEnable()) {
             Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("isAlreadyLogin", isAlreadyLogin);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

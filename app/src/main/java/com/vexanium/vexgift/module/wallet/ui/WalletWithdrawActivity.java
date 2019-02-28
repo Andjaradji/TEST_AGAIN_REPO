@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -143,6 +144,15 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 }
             }
         });
+
+        String withdrawNoteTitle = StaticGroup.getStringValFromSettingKey("withdraw_note_title");
+        if(!TextUtils.isEmpty(withdrawNoteTitle)){
+            ViewUtil.setText(this, R.id.tv_desc_title, withdrawNoteTitle);
+        }
+        String withdrawNoteDetail = StaticGroup.getStringValFromSettingKey("withdraw_note_detail");
+        if(!TextUtils.isEmpty(withdrawNoteDetail)){
+            ViewUtil.setText(this, R.id.tv_desc, withdrawNoteDetail);
+        }
 
         setEnableWithdrawButton(withdrawAmount > 0);
     }
