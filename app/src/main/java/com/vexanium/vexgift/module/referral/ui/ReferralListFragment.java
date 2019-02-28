@@ -138,6 +138,7 @@ public class ReferralListFragment extends BaseFragment {
                         public void onClick(View view) {
                             if (ClickUtil.isFastDoubleClick()) return;
                             holder.setViewGone(R.id.ll_detail, view.findViewById(R.id.ll_detail).getVisibility() == View.VISIBLE);
+                            holder.getView(R.id.iv_arrow).setRotation(view.findViewById(R.id.ll_detail).getVisibility() == View.VISIBLE ? 270 : 90);
                         }
                     });
 

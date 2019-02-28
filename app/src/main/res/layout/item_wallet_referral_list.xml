@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:paddingBottom="@dimen/interval_content"
-        android:paddingLeft="@dimen/interval_main"
-        android:paddingRight="@dimen/interval_main"
+        android:paddingLeft="@dimen/interval_big"
+        android:paddingRight="@dimen/interval_big"
         android:paddingTop="@dimen/interval_content">
 
         <LinearLayout
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/interval_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_kyc"
             android:orientation="vertical">
@@ -34,7 +35,7 @@
                 android:singleLine="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:textColor="@color/material_black_text_color"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_tiny" />
 
             <TextView
                 android:id="@+id/tv_time"

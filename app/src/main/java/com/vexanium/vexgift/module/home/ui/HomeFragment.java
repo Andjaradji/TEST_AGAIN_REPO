@@ -480,14 +480,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         data.add(new HomeFeedResponse(SHORTCUT_BAR));
         ArrayList<Banner> aboveBanner = new ArrayList<>();
         ArrayList<Banner> belowBanner = new ArrayList<>();
+        ArrayList<BestVoucher> topBanner = new ArrayList<>();
+        topBanner.clear();
+        topBanner.addAll(featuredVoucher);
 
         if (featuredVoucher != null && featuredVoucher.size() > 0) {
             if (bigBanners != null && bigBanners.size() > 0) {
                 for (BigBanner bigBanner : bigBanners) {
-                    featuredVoucher.add(new BestVoucher(BestVoucher.BIG_BANNER, bigBanner));
+                    topBanner.add(new BestVoucher(BestVoucher.BIG_BANNER, bigBanner));
                 }
             }
-            data.add(new HomeFeedResponse(HOT_LIST, featuredVoucher));
+            data.add(new HomeFeedResponse(HOT_LIST, topBanner));
         }
 
         if (banners != null) {
