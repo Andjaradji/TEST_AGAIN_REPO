@@ -128,6 +128,7 @@ public class TransactionRecordFragment extends BaseFragment {
 
                     holder.setText(R.id.tv_item_detail, date);
                     holder.setText(R.id.tv_tx, item.getTxId());
+                    holder.setText(R.id.tv_status, item.getStatus());
                     holder.setOnClickListener(R.id.tv_tx, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
