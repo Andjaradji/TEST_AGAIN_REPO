@@ -19,4 +19,6 @@ public interface IHomeInteractor<T> {
 
     Subscription requestBanner(RequestCallback callback, int id);
 
+    Subscription requestBigBanner(RequestCallback callback, int id);
+
 }

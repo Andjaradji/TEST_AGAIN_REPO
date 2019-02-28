@@ -187,6 +187,9 @@
             android:name=".module.referral.ui.ReferralActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.referral.ui.ReferralSpecialEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.more.ui.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -299,6 +302,9 @@
             android:name=".module.referral.ui.ReferralDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".module.referral.ui.ReferralSpecialEventDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".module.luckydraw.ui.LuckyDrawActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -313,10 +319,21 @@
         <activity
             android:name=".module.main.ui.UserInputActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.wallet.ui.WalletDepositActivity" />
-        <activity android:name=".module.wallet.ui.WalletWithdrawActivity" />
-        <activity android:name=".module.register.ui.RegisterPhoneConfirmationActivity" />
-        <activity android:name=".module.login.ui.LoginOptionActivity"></activity>
+        <activity
+            android:name=".module.wallet.ui.WalletDepositActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.wallet.ui.WalletWithdrawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.register.ui.RegisterPhoneConfirmationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.login.ui.LoginOptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.wallet.ui.WalletWithdrawHistoryActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

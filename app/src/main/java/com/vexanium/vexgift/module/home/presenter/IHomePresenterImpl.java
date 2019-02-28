@@ -87,4 +87,10 @@ public class IHomePresenterImpl extends BasePresenterImpl<IHomeView, Serializabl
         Subscription subscription = mHomeInteractor.requestBanner(this, userId);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void requestBigBanner(int userId) {
+        Subscription subscription = mHomeInteractor.requestBigBanner(this, userId);
+        compositeSubscription.add(subscription);
+    }
 }

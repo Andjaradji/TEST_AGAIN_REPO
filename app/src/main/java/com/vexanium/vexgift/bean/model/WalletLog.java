@@ -3,6 +3,11 @@ package com.vexanium.vexgift.bean.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WalletLog extends BaseType {
     @JsonProperty("wallet_id")
@@ -10,9 +15,9 @@ public class WalletLog extends BaseType {
     @JsonProperty("tx_id")
     private String txId;
     @JsonProperty("block_number")
-    private int blockNumber;
+    private long blockNumber;
     @JsonProperty("amount")
-    private long amount;
+    private float amount;
     @JsonProperty("type")
     private String type;
     @JsonProperty("status")
@@ -34,19 +39,19 @@ public class WalletLog extends BaseType {
         this.txId = txId;
     }
 
-    public int getBlockNumber() {
+    public long getBlockNumber() {
         return blockNumber;
     }
 
-    public void setBlockNumber(int blockNumber) {
+    public void setBlockNumber(long blockNumber) {
         this.blockNumber = blockNumber;
     }
 
-    public long getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -64,5 +69,18 @@ public class WalletLog extends BaseType {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCreatedAtDate() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat dateOutput = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = dateFormat.parse(getCreatedAt());
+            return dateOutput.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return getCreatedAt();
+        }
     }
 }

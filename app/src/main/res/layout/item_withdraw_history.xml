@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_withdraw_history_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_ripple_transparent"
+    android:paddingBottom="@dimen/interval_content"
+    android:paddingLeft="@dimen/interval_main"
+    android:paddingRight="@dimen/interval_main"
+    android:paddingTop="@dimen/interval_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/rect_shadow"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_submain">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_withdraw_history_text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/interval_content">
+
+                <TextView
+                    android:id="@+id/tv_withdraw_history_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="2dp"
+                    android:tag="bold"
+                    android:text="WITHDRAW #3"
+                    android:textColor="@color/material_black"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/tv_withdraw_history_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="10/10/2018"
+                    android:textColor="@color/material_grey_8080"
+                    android:textSize="@dimen/text_xxtiny" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_withdraw_history_right_text_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/interval_small"
+                android:paddingLeft="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_small">
+
+                <TextView
+                    android:id="@+id/tv_withdraw_history_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:tag="bold"
+                    android:text="10000 vex"
+                    android:textAlignment="inherit"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
+
+                <TextView
+                    android:id="@+id/tv_withdraw_history_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:text="Pending"
+                    android:textAlignment="inherit"
+                    android:textColor="@color/material_black_text_color"
+                    android:textSize="@dimen/text_small_medium" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_destination_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_tiny"
+            android:text=""/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

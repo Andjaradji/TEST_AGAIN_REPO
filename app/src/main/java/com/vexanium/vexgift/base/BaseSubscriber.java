@@ -65,8 +65,8 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
                         mRequestCallback.requestError(httpResponse);
                     } else {
-                        KLog.v("HPtes not ApiException");
                         RetrofitException error = (RetrofitException) e;
+                        KLog.v("HPtes not ApiException : " + error.getMessage());
                         HttpResponse response;
                         if (!TextUtils.isEmpty(error.getMessage()) && error.getMessage().equalsIgnoreCase("timeout")) {
                             response = new HttpResponse();

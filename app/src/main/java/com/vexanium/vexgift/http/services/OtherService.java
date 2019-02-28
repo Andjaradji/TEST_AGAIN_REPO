@@ -4,6 +4,7 @@ import com.vexanium.vexgift.bean.model.AffiliateProgram;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
 import com.vexanium.vexgift.bean.response.BannerResponse;
+import com.vexanium.vexgift.bean.response.BigBannerResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
@@ -55,6 +56,13 @@ public interface OtherService {
     @FormUrlEncoded
     @POST("banner")
     Observable<HttpResponse<BannerResponse>> getBanners(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("big-banner")
+    Observable<HttpResponse<BigBannerResponse>> getBigBanners(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

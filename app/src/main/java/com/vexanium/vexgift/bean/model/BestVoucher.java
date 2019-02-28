@@ -7,6 +7,13 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BestVoucher implements Serializable {
+
+    public static final int BEST_VOUCHER = 1;
+    public static final int BIG_BANNER = 2;
+
+    public int type = BEST_VOUCHER;
+    private BigBanner bigBanner;
+
     @JsonProperty("id")
     private int id;
     @JsonProperty("voucher_id")
@@ -56,5 +63,21 @@ public class BestVoucher implements Serializable {
 
     public void setVoucher(Voucher voucher) {
         this.voucher = voucher;
+    }
+
+    public BigBanner getBigBanner() {
+        return bigBanner;
+    }
+
+    public void setBigBanner(BigBanner bigBanner) {
+        this.bigBanner = bigBanner;
+    }
+
+    public BestVoucher(int type, BigBanner bigBanner) {
+        this.type = type;
+        this.bigBanner = bigBanner;
+    }
+
+    public BestVoucher() {
     }
 }

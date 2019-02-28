@@ -19,6 +19,7 @@ import com.vexanium.vexgift.bean.response.UserReferralResponse;
 import com.vexanium.vexgift.bean.response.UserVouchersResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.util.JsonUtil;
 
@@ -78,6 +79,14 @@ public class TableContentDaoUtil extends BaseDaoUtil {
 
         return query.list().size() > 0 && query.list().get(0).getWallet() != null ?
                 (WalletResponse) JsonUtil.toObject(query.list().get(0).getWallet(), new TypeToken<WalletResponse>() {
+                }.getType()) : null;
+    }
+
+    public WalletReferralResponse getWalletReferral() {
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+
+        return query.list().size() > 0 && query.list().get(0).getWalletReferrals() != null ?
+                (WalletReferralResponse) JsonUtil.toObject(query.list().get(0).getWalletReferrals(), new TypeToken<WalletReferralResponse>() {
                 }.getType()) : null;
     }
 
@@ -336,6 +345,23 @@ public class TableContentDaoUtil extends BaseDaoUtil {
         } else {
             tableContent = new TableContent();
             tableContent.setWallet(wallets);
+            tableContent.setCreatedTime(System.currentTimeMillis());
+            mTableContentDao.insert(tableContent);
+        }
+        KLog.v("============== Content Database saved ===============");
+    }
+
+    public void saveWalletReferralsToDb(String wallets) {
+        TableContent tableContent;
+        QueryBuilder<TableContent> query = mTableContentDao.queryBuilder().orderAsc(TableContentDao.Properties.CreatedTime);
+        if (query.list().size() > 0) {
+            tableContent = query.list().get(0);
+            tableContent.setUpdatedTime(System.currentTimeMillis());
+            tableContent.setWalletReferrals(wallets);
+            mTableContentDao.update(tableContent);
+        } else {
+            tableContent = new TableContent();
+            tableContent.setWalletReferrals(wallets);
             tableContent.setCreatedTime(System.currentTimeMillis());
             mTableContentDao.insert(tableContent);
         }

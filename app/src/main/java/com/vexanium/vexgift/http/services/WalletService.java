@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.http.services;
 
 import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;
 
@@ -30,6 +31,14 @@ public interface WalletService {
     @FormUrlEncoded
     @POST("wallet/withdraw")
     Observable<HttpResponse<WithdrawResponse>> doWithdraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
+
+    @FormUrlEncoded
+    @POST("wallet/referral/get-referral")
+    Observable<HttpResponse<WalletReferralResponse>> getWalletReferral(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);

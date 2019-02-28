@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
+import com.vexanium.vexgift.util.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class BasePresenterImpl<T extends BaseView, V> implements BasePresenter, 
     @Override
     public void requestError(HttpResponse response) {
         //KLog.e(msg);
-        KLog.v("HPtes requestError " + response.toString());
+        KLog.v("HPtes requestError " + JsonUtil.toString(response));
         if (response != null && response.getMeta().getError() != null) {
             Map<String, String> notifyInfo = (HashMap) response.getMeta().getError();
             if (notifyInfo != null && !TextUtils.isEmpty(notifyInfo.get("msg")) && mView != null) {

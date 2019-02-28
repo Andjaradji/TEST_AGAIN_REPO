@@ -128,7 +128,6 @@ public class PointRecordFragment extends BaseFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("PointRecordFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

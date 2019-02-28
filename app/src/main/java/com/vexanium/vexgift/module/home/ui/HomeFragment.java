@@ -39,11 +39,13 @@ import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.Banner;
 import com.vexanium.vexgift.bean.model.BestVoucher;
+import com.vexanium.vexgift.bean.model.BigBanner;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Voucher;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.BigBannerResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.HomeFeedResponse;
 import com.vexanium.vexgift.bean.response.HttpResponse;
@@ -115,6 +117,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
     private ArrayList<BestVoucher> featuredVoucherList;
     private ArrayList<BestVoucher> bestVoucherList;
     private ArrayList<Banner> banners;
+    private ArrayList<BigBanner> bigBanners;
     private BaseRecyclerAdapter<BestVoucher> mFeaturedAdapter;
     private User user;
     private Animation mFadeIn;
@@ -182,7 +185,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
             banners = new ArrayList<>();
         }
 
-        loadData(bestVoucherList, featuredVoucherList, banners);
+        loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
         initHomeList();
 
         updateUserInfo(fragmentRootView);
@@ -265,6 +268,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestUserVexPoint(user.getId());
         mPresenter.requestUserPremiumDueDate(user.getId());
         mPresenter.requestBanner(user.getId());
+        mPresenter.requestBigBanner(user.getId());
 
         mVexPointObservable = RxBus.get().register(RxBus.KEY_VEXPOINT_UPDATE, Integer.class);
         mVexPointObservable.subscribe(new Action1<Integer>() {
@@ -299,7 +303,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 KLog.json(JsonUtil.toString(bestVoucherResponse));
                 TableContentDaoUtil.getInstance().saveBestVoucherToDb(JsonUtil.toString(bestVoucherResponse));
                 bestVoucherList = bestVoucherResponse.getBestVouchers();
-                loadData(bestVoucherList, featuredVoucherList, banners);
+                loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
 
                 setAdapterData();
 
@@ -309,7 +313,16 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                 KLog.v("HomeFragment", "handleResult: Load Banners");
                 TableContentDaoUtil.getInstance().saveBannersToDb(JsonUtil.toString(bannerResponse));
                 banners = bannerResponse.getBanners();
-                loadData(bestVoucherList, featuredVoucherList, banners);
+                loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
+
+                setAdapterData();
+            } else if (data instanceof BigBannerResponse) {
+                BigBannerResponse bannerResponse = (BigBannerResponse) data;
+
+                KLog.v("HomeFragment", "handleResult: Load Banners");
+//                TableContentDaoUtil.getInstance().saveBannersToDb(JsonUtil.toString(bannerResponse));
+                bigBanners = bannerResponse.getBigBanners();
+                loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
 
                 setAdapterData();
             } else if (data instanceof FeaturedVoucherResponse) {
@@ -320,14 +333,14 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
 
                 TableContentDaoUtil.getInstance().saveFeaturedVoucherToDb(JsonUtil.toString(bestVoucherResponse));
                 featuredVoucherList = bestVoucherResponse.getFeaturedVoucher();
-                loadData(bestVoucherList, featuredVoucherList, banners);
+                loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
 
                 setAdapterData();
             } else if (data instanceof Kyc) {
                 Kyc kyc = (Kyc) data;
                 user.updateKyc(kyc);
                 User.updateCurrentUser(HomeFragment.this.getActivity(), user);
-                loadData(bestVoucherList, featuredVoucherList, banners);
+                loadData(bestVoucherList, featuredVoucherList, banners, bigBanners);
                 setAdapterData();
             } else if (data instanceof VouchersResponse) {
                 VouchersResponse vouchersResponse = (VouchersResponse) data;
@@ -461,7 +474,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestBanner(user.getId());
     }
 
-    public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher, ArrayList<Banner> banners) {
+    public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher, ArrayList<Banner> banners, ArrayList<BigBanner> bigBanners) {
 
         data = new ArrayList<>();
         data.add(new HomeFeedResponse(SHORTCUT_BAR));
@@ -469,6 +482,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         ArrayList<Banner> belowBanner = new ArrayList<>();
 
         if (featuredVoucher != null && featuredVoucher.size() > 0) {
+            if (bigBanners != null && bigBanners.size() > 0) {
+                for (BigBanner bigBanner : bigBanners) {
+                    featuredVoucher.add(new BestVoucher(BestVoucher.BIG_BANNER, bigBanner));
+                }
+            }
             data.add(new HomeFeedResponse(HOT_LIST, featuredVoucher));
         }
 
@@ -885,53 +903,85 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         });
     }
 
-    public void setFeaturedVoucherList(BaseRecyclerViewHolder holder, ArrayList<BestVoucher> couponList) {
+    public void setFeaturedVoucherList(BaseRecyclerViewHolder holder, final ArrayList<BestVoucher> couponList) {
         DiscreteScrollView discreteScrollView = (DiscreteScrollView) holder.getView(R.id.scrollView);
         IndefinitePagerIndicator pagerIndicator = (IndefinitePagerIndicator) holder.getView(R.id.recyclerview_pager_indicator);
         GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         layoutManager.setItemPrefetchEnabled(false);
         mFeaturedAdapter = new BaseRecyclerAdapter<BestVoucher>(getActivity(), couponList, layoutManager) {
             @Override
+            public int getItemViewType(int position) {
+                if (couponList != null && couponList.size() > 0) {
+                    return couponList.get(position).type;
+                }
+                return 0;
+            }
+
+            @Override
             public int getItemLayoutId(int viewType) {
-                return R.layout.item_hot_list;
+                switch (viewType) {
+                    case BestVoucher.BIG_BANNER:
+                        return R.layout.item_big_banner;
+                    case BestVoucher.BEST_VOUCHER:
+                    default:
+                        return R.layout.item_hot_list;
+                }
             }
 
             @Override
             public void bindData(final BaseRecyclerViewHolder holder, int position, final BestVoucher bestVoucher) {
-                final Voucher item = bestVoucher.getVoucher();
-                holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
-                holder.setText(R.id.tv_coupon_title, item.getTitle());
-                holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
-                holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
-                if (item.isForPremium())
-                    holder.setViewGone(R.id.iv_premium, false);
-                else
-                    holder.setViewGone(R.id.iv_premium, true);
+                switch (getItemViewType(position)) {
+                    case BestVoucher.BEST_VOUCHER:
+                        final Voucher item = bestVoucher.getVoucher();
+                        holder.setImageUrl(R.id.iv_coupon_image, item.getThumbnail(), R.drawable.placeholder);
+                        holder.setText(R.id.tv_coupon_title, item.getTitle());
+                        holder.setText(R.id.tv_coupon_exp, item.getExpiredDate());
+                        holder.setBackground(R.id.ll_qty, item.getPrice() == 0 ? R.drawable.shape_price_free_bg : R.drawable.shape_price_bg);
+                        if (item.isForPremium())
+                            holder.setViewGone(R.id.iv_premium, false);
+                        else
+                            holder.setViewGone(R.id.iv_premium, true);
 
-                if (item.getVoucherTypeId() != 5) {
-                    if (item.getQtyAvailable() == 0) {
-                        holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
-                        holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
-                    } else
-                        holder.setText(R.id.tv_price, item.getPrice() == 0 ?
-                                getString(R.string.free) :
-                                String.format(getString(R.string.vex_point_format), item.getPrice()));
+                        if (item.getVoucherTypeId() != 5) {
+                            if (item.getQtyAvailable() == 0) {
+                                holder.setText(R.id.tv_price, getString(R.string.out_of_stock));
+                                holder.setBackground(R.id.ll_qty, R.drawable.shape_price_out_of_stock_bg);
+                            } else
+                                holder.setText(R.id.tv_price, item.getPrice() == 0 ?
+                                        getString(R.string.free) :
+                                        String.format(getString(R.string.vex_point_format), item.getPrice()));
 
 
-                } else {
-                    holder.setText(R.id.tv_price, getString(R.string.coming_soon));
-                    holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
-                    holder.setViewGone(R.id.tv_coupon_exp, true);
+                        } else {
+                            holder.setText(R.id.tv_price, getString(R.string.coming_soon));
+                            holder.setBackground(R.id.ll_qty, R.drawable.shape_price_coming_soon_bg);
+                            holder.setViewGone(R.id.tv_coupon_exp, true);
+                        }
+
+                        holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (HomeFragment.this.getActivity() != null) {
+                                    StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
+                                }
+                            }
+                        });
+                        break;
+                    case BestVoucher.BIG_BANNER:
+                        final BigBanner bigBanner = bestVoucher.getBigBanner();
+                        if(bigBanner != null) {
+                            holder.setImageUrl(R.id.iv_big_banner, bigBanner.getImage(), R.drawable.placeholder);
+                            holder.setOnClickListener(R.id.rl_bigbanner, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if(ClickUtil.isFastDoubleClick())return;
+                                    ((MainActivity) getActivity()).openDeepLink(bigBanner.getLink());
+                                }
+                            });
+                        }
+                        break;
                 }
 
-                holder.setOnClickListener(R.id.rl_coupon, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (HomeFragment.this.getActivity() != null) {
-                            StaticGroup.goToVoucherDetailActivity(HomeFragment.this.getActivity(), item, holder.getImageView(R.id.iv_coupon_image));
-                        }
-                    }
-                });
             }
         };
         discreteScrollView.setAdapter(mFeaturedAdapter);

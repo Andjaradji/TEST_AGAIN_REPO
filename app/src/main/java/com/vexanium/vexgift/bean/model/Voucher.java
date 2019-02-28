@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class Voucher implements Serializable {
 
     public boolean active = true;
+
+
     @JsonProperty("id")
     private int id;
     @JsonProperty("category_id")
@@ -34,6 +36,7 @@ public class Voucher implements Serializable {
     private VoucherType voucherType;
     @JsonProperty("label")
     private String label;
+
 
     /*
      * Free

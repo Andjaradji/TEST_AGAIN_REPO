@@ -33,6 +33,7 @@ import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
+import com.vexanium.vexgift.module.referral.ui.ReferralSpecialEventActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
@@ -734,6 +735,11 @@ public class MainActivity extends BaseActivity {
                     startActivity(intent);
                 }
 
+            } else if (path.startsWith("ref")) {
+                if (StaticGroup.isReferralSpecialEventBannerActive()) {
+                    intent = new Intent(this, ReferralSpecialEventActivity.class);
+                    startActivity(intent);
+                }
             } else if (path.startsWith("referral")) {
                 if (StaticGroup.isReferralBannerActive()) {
                     intent = new Intent(this, ReferralActivity.class);

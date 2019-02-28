@@ -85,7 +85,6 @@ public class WalletFragmentOld extends BaseFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("NotifFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

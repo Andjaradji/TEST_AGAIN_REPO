@@ -44,7 +44,9 @@ import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterConfirmationActivity;
 import com.vexanium.vexgift.module.register.ui.RegisterPhoneConfirmationActivity;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
 import com.vexanium.vexgift.widget.dialog.DialogOptionType;
@@ -103,6 +105,7 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
         findViewById(R.id.login_google_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.register_button).setOnClickListener(this);
+        findViewById(R.id.iv_language).setOnClickListener(this);
 
 //        ((EditText) findViewById(R.id.et_email)).setText("asd@asd.asd");
 //        ((EditText) findViewById(R.id.et_pass)).setText("asdasd");
@@ -111,6 +114,8 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
         if (!TextUtils.isEmpty(referralCode)) {
             refCode = referralCode;
         }
+
+        initLanguageButton();
 
 //        checkAppVersion();
         initialize();
@@ -157,6 +162,26 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.iv_language:
+                View viewLang = View.inflate(this, R.layout.include_choose_language, null);
+
+                final VexDialog vexDialog = new VexDialog.Builder(this)
+                        .optionType(DialogOptionType.NONE)
+                        .title(getString(R.string.choose_language))
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .addCustomView(viewLang)
+                        .autoDismiss(false)
+                        .canceledOnTouchOutside(true).build();
+
+                initLanguageDialog(vexDialog, viewLang);
+                vexDialog.show();
+
+                break;
             case R.id.login_fake_fb_button:
                 if (StaticGroup.isReferralActive()) {
                     View view = View.inflate(this, R.layout.include_g2fa_get_voucher, null);
@@ -297,6 +322,82 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
             KLog.v("Google Signin error : " + result.getStatus().getStatusCode() + " " + result.getStatus().getStatusMessage());
             StaticGroup.showCommonErrorDialog(this, result.getStatus().getStatusCode());
         }
+    }
+
+    private void initLanguageDialog(final VexDialog vexDialog, View view) {
+        String lang = LocaleUtil.getLanguage(this);
+        ViewUtil.setRoundImageUrl(view, R.id.iv_id, R.drawable.flag_id);
+        ViewUtil.setRoundImageUrl(view, R.id.iv_zh, R.drawable.flag_zh);
+        ViewUtil.setRoundImageUrl(view, R.id.iv_en, R.drawable.flag_en);
+
+
+        switch (lang) {
+            case "id":
+                view.findViewById(R.id.ivSelected_id).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_id).setVisibility(View.GONE);
+                break;
+
+            case "zh":
+                view.findViewById(R.id.ivSelected_zh).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_zh).setVisibility(View.GONE);
+                break;
+
+            case "en":
+            default:
+                view.findViewById(R.id.ivSelected_en).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_en).setVisibility(View.GONE);
+                break;
+        }
+
+        view.findViewById(R.id.rl_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(LoginOptionActivity.this, "id");
+                vexDialog.dismiss();
+                recreate();
+            }
+        });
+        view.findViewById(R.id.rl_en).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(LoginOptionActivity.this, "en");
+                vexDialog.dismiss();
+                recreate();
+
+            }
+        });
+        view.findViewById(R.id.rl_zh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(LoginOptionActivity.this, "zh");
+                vexDialog.dismiss();
+                recreate();
+            }
+        });
+    }
+
+    private void initLanguageButton() {
+        String lang = LocaleUtil.getLanguage(this);
+        int flag = 0;
+        switch (lang) {
+            case "id":
+                flag = R.drawable.flag_id;
+                break;
+
+            case "zh":
+                flag = R.drawable.flag_zh;
+                break;
+
+            case "en":
+            default:
+                flag = R.drawable.flag_en;
+                break;
+        }
+        ViewUtil.setRoundImageUrl(this, R.id.iv_language, flag);
+
     }
 
     public void doLogin() {

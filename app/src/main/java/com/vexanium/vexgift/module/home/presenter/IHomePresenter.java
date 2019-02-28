@@ -17,4 +17,6 @@ public interface IHomePresenter extends BasePresenter {
 
     void requestBanner(int userId);
 
+    void requestBigBanner(int userId);
+
 }

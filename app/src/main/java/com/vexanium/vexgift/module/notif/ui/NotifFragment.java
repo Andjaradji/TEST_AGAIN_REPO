@@ -67,7 +67,6 @@ public class NotifFragment extends BaseFragment<INotifPresenter> implements INot
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("NotifFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

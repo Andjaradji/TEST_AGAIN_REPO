@@ -27,6 +27,7 @@ import com.vexanium.vexgift.module.security.ui.SecurityActivity;
 import com.vexanium.vexgift.module.setting.ui.SettingActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ClickUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -77,6 +78,7 @@ public class MoreFragment extends BaseFragment {
         fragmentRootView.findViewById(R.id.more_youtube).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_instagram).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.more_guide).setOnClickListener(this);
+        fragmentRootView.findViewById(R.id.more_change_language_button).setOnClickListener(this);
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -139,8 +141,6 @@ public class MoreFragment extends BaseFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("NotifFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -229,9 +229,84 @@ public class MoreFragment extends BaseFragment {
             case R.id.more_logout_button:
                 doLogout();
                 break;
+            case R.id.more_change_language_button:
+                View viewLang = View.inflate(getActivity(), R.layout.include_choose_language, null);
+                final VexDialog vexDialog = new VexDialog.Builder(getActivity())
+                        .optionType(DialogOptionType.NONE)
+                        .title(getString(R.string.choose_language))
+                        .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .addCustomView(viewLang)
+                        .autoDismiss(false)
+                        .canceledOnTouchOutside(true).build();
+
+                initLanguageDialog(vexDialog, viewLang);
+                vexDialog.show();
+
+                break;
             default:
                 super.onClick(v);
         }
+    }
+
+    private void initLanguageDialog(final VexDialog vexDialog, View view) {
+        String lang = LocaleUtil.getLanguage(getContext());
+        ViewUtil.setRoundImageUrl(view, R.id.iv_id, R.drawable.flag_id);
+        ViewUtil.setRoundImageUrl(view, R.id.iv_zh, R.drawable.flag_zh);
+        ViewUtil.setRoundImageUrl(view, R.id.iv_en, R.drawable.flag_en);
+
+
+        switch (lang) {
+            case "id":
+                view.findViewById(R.id.ivSelected_id).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_id).setVisibility(View.GONE);
+                break;
+
+            case "zh":
+                view.findViewById(R.id.ivSelected_zh).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_zh).setVisibility(View.GONE);
+                break;
+
+            case "en":
+            default:
+                view.findViewById(R.id.ivSelected_en).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ivUnselected_en).setVisibility(View.GONE);
+                break;
+        }
+
+        view.findViewById(R.id.rl_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(getActivity(), "id");
+                vexDialog.dismiss();
+                getActivity().recreate();
+            }
+        });
+        view.findViewById(R.id.rl_en).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(getActivity(), "en");
+                vexDialog.dismiss();
+                getActivity().recreate();
+
+            }
+        });
+        view.findViewById(R.id.rl_zh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                LocaleUtil.setLocale(getActivity(), "zh");
+                vexDialog.dismiss();
+                getActivity().recreate();
+
+            }
+        });
     }
 
     private void intentToActivity(Class<? extends Activity> activity) {

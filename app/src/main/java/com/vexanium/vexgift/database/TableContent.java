@@ -22,19 +22,21 @@ public class TableContent {
     private String bestVoucher;
     private String featuredVoucher;
     private String referrals;
+    private String walletReferrals;
     private String luckydraws;
     private String banners;
+    private String bigBanners;
     private String news;
     private String wallet;
     private long createdTime;
     private long updatedTime;
 
 
-    @Generated(hash = 139574318)
+    @Generated(hash = 1398052712)
     public TableContent(long id, String vouchers, String tokens, String notifs, String myBoxs,
-                        String voucherTypes, String paymentTypes, String memberTypes, String categories,
-                        String bestVoucher, String featuredVoucher, String referrals, String luckydraws,
-                        String banners, String news, String wallet, long createdTime, long updatedTime) {
+            String voucherTypes, String paymentTypes, String memberTypes, String categories, String bestVoucher,
+            String featuredVoucher, String referrals, String walletReferrals, String luckydraws, String banners,
+            String bigBanners, String news, String wallet, long createdTime, long updatedTime) {
         this.id = id;
         this.vouchers = vouchers;
         this.tokens = tokens;
@@ -47,8 +49,10 @@ public class TableContent {
         this.bestVoucher = bestVoucher;
         this.featuredVoucher = featuredVoucher;
         this.referrals = referrals;
+        this.walletReferrals = walletReferrals;
         this.luckydraws = luckydraws;
         this.banners = banners;
+        this.bigBanners = bigBanners;
         this.news = news;
         this.wallet = wallet;
         this.createdTime = createdTime;
@@ -202,5 +206,21 @@ public class TableContent {
 
     public void setWallet(String wallet) {
         this.wallet = wallet;
+    }
+
+    public String getBigBanners() {
+        return this.bigBanners;
+    }
+
+    public void setBigBanners(String bigBanners) {
+        this.bigBanners = bigBanners;
+    }
+
+    public String getWalletReferrals() {
+        return this.walletReferrals;
+    }
+
+    public void setWalletReferrals(String walletReferrals) {
+        this.walletReferrals = walletReferrals;
     }
 }

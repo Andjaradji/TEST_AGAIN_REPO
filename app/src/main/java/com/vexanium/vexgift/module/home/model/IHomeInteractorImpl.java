@@ -5,6 +5,7 @@ import com.vexanium.vexgift.base.BaseSubscriber;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.BigBannerResponse;
 import com.vexanium.vexgift.bean.response.FeaturedVoucherResponse;
 import com.vexanium.vexgift.bean.response.PremiumDueDateResponse;
 import com.vexanium.vexgift.bean.response.VexPointResponse;
@@ -106,6 +107,20 @@ public class IHomeInteractorImpl implements IHomeInteractor {
                 .flatMap(new Func1<BannerResponse, Observable<BannerResponse>>() {
                     @Override
                     public Observable<BannerResponse> call(BannerResponse bannerResponse) {
+
+                        KLog.json("HPtes", JsonUtil.toString(bannerResponse));
+                        return Observable.just(bannerResponse);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestBigBanner(RequestCallback callback, int id) {
+        return RetrofitManager.getInstance(HostType.COMMON_API).requestBigBanner(id).compose(RxUtil.<BigBannerResponse>handleResult())
+                .flatMap(new Func1<BigBannerResponse, Observable<BigBannerResponse>>() {
+                    @Override
+                    public Observable<BigBannerResponse> call(BigBannerResponse bannerResponse) {
 
                         KLog.json("HPtes", JsonUtil.toString(bannerResponse));
                         return Observable.just(bannerResponse);

@@ -7,5 +7,7 @@ public interface IWalletPresenter extends BasePresenter {
 
     void requestCreateWallet(int id);
 
-    void requestDoWithdraw(int id, int walletId);
+    void requestDoWithdraw(int id, int walletId, float amount, String destinationAddress);
+
+    void requestGetWalletReferral(int userId);
 }

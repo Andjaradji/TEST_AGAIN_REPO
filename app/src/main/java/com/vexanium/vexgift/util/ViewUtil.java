@@ -189,6 +189,30 @@ public class ViewUtil {
                 .into(view);
     }
 
+    public static void setRoundImageUrl(View root, int viewId, int img) {
+        ImageView view = findViewById(root, viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .format(DecodeFormat.PREFER_RGB_565))
+                .apply(new RequestOptions().centerCrop().transform(new RoundedCorners(20)))
+                .load(img)
+                .into(view);
+    }
+
+    public static void setRoundImageUrl(Activity activity, int viewId, int img) {
+        ImageView view = findViewById(activity, viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .format(DecodeFormat.PREFER_RGB_565))
+                .apply(new RequestOptions().centerCrop().transform(new RoundedCorners(20)))
+                .load(img)
+                .into(view);
+    }
+
     public static void setCircleImageUrl(View root, int viewId, String imgUrl, @DrawableRes int errorImage) {
         ImageView view = findViewById(root, viewId);
         Glide.with(App.getContext())
@@ -280,6 +304,30 @@ public class ViewUtil {
                         .transform(new CircleCropTransformation(App.getContext()))
                 )
                 .load(imgUrl)
+                .into(view);
+    }
+
+    public static void setCircleImageUrl(Activity activity, int viewId, @DrawableRes int img) {
+        ImageView view = findViewById(activity, viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .transform(new CircleCropTransformation(App.getContext()))
+                )
+                .load(img)
+                .into(view);
+    }
+
+    public static void setCircleImageUrl(View root, int viewId, @DrawableRes int img) {
+        ImageView view = root.findViewById( viewId);
+        Glide.with(App.getContext())
+                .asBitmap()
+                .apply(RequestOptions
+                        .diskCacheStrategyOf(DiskCacheStrategy.ALL)
+                        .transform(new CircleCropTransformation(App.getContext()))
+                )
+                .load(img)
                 .into(view);
     }
 

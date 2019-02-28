@@ -24,8 +24,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
 
-        versionCode 1042
-        versionName "1.0.4.2"
+        versionCode 1100
+        versionName "1.1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -80,7 +80,7 @@ android {
 }
 
 greendao {
-    schemaVersion 16
+    schemaVersion 18
 }
 
 dependencies {

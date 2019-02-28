@@ -17,7 +17,7 @@ public class WalletRecord implements Serializable {
     @JsonProperty("type")
     private int type;
     @JsonProperty("amount")
-    private int amount;
+    private float amount;
 
     public WalletRecord(String title, String description, int type, int amount) {
         this.title = title;
@@ -58,11 +58,11 @@ public class WalletRecord implements Serializable {
         this.description = description;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 }

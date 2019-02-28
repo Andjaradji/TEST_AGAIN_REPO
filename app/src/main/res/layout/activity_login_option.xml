@@ -15,8 +15,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/interval_big"
-            android:layout_height="150dp">
+            android:layout_height="150dp"
+            android:layout_marginBottom="@dimen/interval_big">
 
             <ImageView
                 android:layout_width="108dp"
@@ -24,6 +24,26 @@
                 android:layout_margin="@dimen/interval_big"
                 android:contentDescription="@string/image_content_description"
                 android:src="@drawable/vexgift_logo_black" />
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/interval_big">
+
+                <ImageView
+                    android:id="@+id/iv_language"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <LinearLayout
+                    android:id="@+id/ad_list_item_fb_frame_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame_ad_item"
+                    android:orientation="horizontal" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <TextView
@@ -66,8 +86,8 @@
                 <LinearLayout
                     android:id="@+id/login_button"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/shape_ripple_login_button"
                     android:gravity="center">
 
@@ -83,13 +103,13 @@
 
                 <View
                     android:layout_width="@dimen/interval_main"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:id="@+id/register_button"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/shape_ripple_login_button"
                     android:gravity="center">
 

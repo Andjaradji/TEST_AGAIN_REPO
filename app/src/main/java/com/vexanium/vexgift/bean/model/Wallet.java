@@ -10,7 +10,7 @@ public class Wallet extends BaseType {
     @JsonProperty("user_id")
     private int userId;
     @JsonProperty("balance")
-    private long balance;
+    private float balance;
     @JsonProperty("address")
     private String address;
 
@@ -34,12 +34,8 @@ public class Wallet extends BaseType {
         this.userId = userId;
     }
 
-    public long getBalance() {
+    public float getBalance() {
         return balance;
-    }
-
-    public void setBalance(long balance) {
-        this.balance = balance;
     }
 
     public String getAddress() {
@@ -54,35 +50,19 @@ public class Wallet extends BaseType {
         return walletBalances;
     }
 
-    public void setWalletBalances(ArrayList<WalletBalance> walletBalances) {
-        this.walletBalances = walletBalances;
-    }
-
     public ArrayList<WalletLog> getWalletLogs() {
         return walletLogs;
-    }
-
-    public void setWalletLogs(ArrayList<WalletLog> walletLogs) {
-        this.walletLogs = walletLogs;
     }
 
     public ArrayList<WalletBonus> getWalletBonuses() {
         return walletBonuses;
     }
 
-    public void setWalletBonuses(ArrayList<WalletBonus> walletBonuses) {
-        this.walletBonuses = walletBonuses;
-    }
-
     public ArrayList<WalletWithdrawal> getWalletWithdrawals() {
         return walletWithdrawals;
     }
 
-    public void setWalletWithdrawals(ArrayList<WalletWithdrawal> walletWithdrawals) {
-        this.walletWithdrawals = walletWithdrawals;
-    }
-
-    public long getWalletBalance(String type) {
+    public float getWalletBalance(String type) {
         if (walletBalances != null && walletBalances.size() > 0) {
             for (WalletBalance walletBalance : walletBalances) {
                 if (walletBalance.getType().equalsIgnoreCase(type))
@@ -92,11 +72,11 @@ public class Wallet extends BaseType {
         return 0;
     }
 
-    public long getPersonalWalletBalance() {
+    public float getPersonalWalletBalance() {
         return getWalletBalance("personal");
     }
 
-    public long getExpenseWalletBalance() {
+    public float getExpenseWalletBalance() {
         return getWalletBalance("expense");
     }
 }

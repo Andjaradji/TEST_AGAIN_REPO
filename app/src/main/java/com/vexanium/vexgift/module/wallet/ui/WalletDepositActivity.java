@@ -22,6 +22,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
+import com.vexanium.vexgift.util.ViewUtil;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -49,8 +50,11 @@ public class WalletDepositActivity extends BaseActivity<IWalletPresenter> implem
 
             findViewById(R.id.iv_qr_code).setOnClickListener(this);
             findViewById(R.id.ll_code).setOnClickListener(this);
+            findViewById(R.id.btn_copy).setOnClickListener(this);
         }
-        findViewById(R.id.back_button).setOnClickListener(this);
+
+        ViewUtil.setOnClickListener(this, this,
+                R.id.btn_copy, R.id.iv_qr_code, R.id.ll_code);
     }
 
     @Override
@@ -59,7 +63,8 @@ public class WalletDepositActivity extends BaseActivity<IWalletPresenter> implem
         switch (v.getId()) {
             case R.id.iv_qr_code:
             case R.id.ll_code:
-                if (walletResponse != null && walletResponse.getWallet() != null && TextUtils.isEmpty(walletResponse.getWallet().getAddress())) {
+            case R.id.btn_copy:
+                if (walletResponse != null && walletResponse.getWallet() != null && !TextUtils.isEmpty(walletResponse.getWallet().getAddress())) {
                     StaticGroup.copyToClipboard(WalletDepositActivity.this, walletResponse.getWallet().getAddress());
                 }
                 break;

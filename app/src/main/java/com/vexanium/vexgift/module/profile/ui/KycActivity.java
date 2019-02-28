@@ -415,7 +415,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
 
         final VexDialog vexDialog = new VexDialog.Builder(this)
                 .optionType(DialogOptionType.NONE)
-                .title("Choose method")
+                .title(getString(R.string.choose_method))
                 .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                     @Override
                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {

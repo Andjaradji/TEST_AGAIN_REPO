@@ -28,7 +28,7 @@
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp">
 
-            <include layout="@layout/content_toolbar_back" />
+            <include layout="@layout/content_toolbar_withdraw" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -43,6 +43,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="@dimen/interval_main">
 
@@ -51,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_main"
                 android:paddingBottom="@dimen/interval_main"
-                android:paddingTop="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_content"
                 android:text="@string/wallet_withdraw_transfer_to"
                 android:textAlignment="textStart"
                 android:textSize="@dimen/text_small_medium" />
@@ -59,23 +61,22 @@
             <RelativeLayout
                 android:id="@+id/ll_receive_text_container"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
                 android:layout_marginBottom="@dimen/interval_main"
                 android:layout_marginTop="@dimen/interval_small"
                 android:background="@drawable/shape_voucher_availability"
                 android:gravity="center">
 
                 <EditText
-                    android:id="@+id/et_code"
+                    android:id="@+id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/interval_submain"
+                    android:padding="@dimen/padding_content"
                     android:layout_toStartOf="@id/btn_scan"
                     android:background="@color/transparent"
                     android:hint="@string/vexpoint_fill_address"
-                    android:maxLines="1"
-                    android:singleLine="true"
+                    android:lines="2"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_small_medium" />
 
@@ -129,7 +130,7 @@
                     android:padding="@dimen/interval_main"
                     android:tag="bold"
                     android:textAlignment="textStart"
-                    android:textSize="@dimen/text_xtiny" />
+                    android:textSize="@dimen/text_small_medium" />
 
             </LinearLayout>
 
@@ -144,11 +145,13 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="end">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <LinearLayout
-                        android:id="@+id/btn_20"
+                        android:id="@+id/btn_25"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_bg_withdraw_percentage"
@@ -162,32 +165,28 @@
                     </LinearLayout>
                 </LinearLayout>
 
+
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:id="@+id/btn_50"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_bg_withdraw_percentage"
                     android:gravity="center">
 
-                    <LinearLayout
-                        android:id="@+id/btn_50"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/shape_bg_withdraw_percentage"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="50%"
-                            android:textSize="@dimen/text_xxtiny" />
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50%"
+                        android:textSize="@dimen/text_xxtiny" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="start">
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <LinearLayout
                         android:id="@+id/btn_75"
@@ -206,7 +205,7 @@
             </LinearLayout>
 
             <com.vexanium.vexgift.widget.CustomSeekBar
-                android:id="@+id/cs"
+                android:id="@+id/cs_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/padding_main"
@@ -214,12 +213,34 @@
                 android:progressDrawable="@drawable/bg_seek_progress"
                 android:thumb="@drawable/bg_seekbar_thumb" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Total Personal Wallet Balance"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/tv_personal_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:tag="hnBold"
+                    android:text="0"
+                    android:textColor="@color/fb_blue"
+                    android:textSize="@dimen/text_tiny" />
+            </RelativeLayout>
+
             <LinearLayout
-                android:id="@+id/btn_copy"
+                android:id="@+id/btn_withdraw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/interval_small"
-                android:layout_marginTop="@dimen/interval_main"
+                android:layout_marginTop="@dimen/interval_big"
                 android:background="@drawable/shape_ripple_main_button"
                 android:gravity="center">
 

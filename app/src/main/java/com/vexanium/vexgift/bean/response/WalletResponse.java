@@ -11,9 +11,9 @@ public class WalletResponse implements Serializable {
     @JsonProperty("wallet")
     private Wallet wallet;
     @JsonProperty("expected_staking_bonus")
-    private long expectedStakingBonus;
+    private float expectedStakingBonus;
     @JsonProperty("expected_referral_bonus")
-    private long expectedReferralBonus;
+    private float expectedReferralBonus;
 
     public Wallet getWallet() {
         return wallet;
@@ -23,19 +23,19 @@ public class WalletResponse implements Serializable {
         this.wallet = wallet;
     }
 
-    public long getExpectedStakingBonus() {
+    public float getExpectedStakingBonus() {
         return expectedStakingBonus;
     }
 
-    public void setExpectedStakingBonus(long expectedStakingBonus) {
+    public void setExpectedStakingBonus(float expectedStakingBonus) {
         this.expectedStakingBonus = expectedStakingBonus;
     }
 
-    public long getExpectedReferralBonus() {
+    public float getExpectedReferralBonus() {
         return expectedReferralBonus;
     }
 
-    public void setExpectedReferralBonus(long expectedReferralBonus) {
+    public void setExpectedReferralBonus(float expectedReferralBonus) {
         this.expectedReferralBonus = expectedReferralBonus;
     }
 }

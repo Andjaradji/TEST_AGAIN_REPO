@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_en"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_en2"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main">
+
+            <ImageView
+                android:id="@+id/iv_en"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/frame_ad_item"
+                android:orientation="horizontal" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_en2"
+            android:text="English (EN)"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@+id/ivSelected_en"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/btn_check_p"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivUnselected_en"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/interval_main"
+            android:src="@drawable/btn_check_n"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_id2"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main">
+
+            <ImageView
+                android:id="@+id/iv_id"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/frame_ad_item"
+                android:orientation="horizontal" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_id2"
+            android:text="Indonesia (ID)"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@+id/ivSelected_id"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/btn_check_p"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivUnselected_id"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/interval_main"
+            android:src="@drawable/btn_check_n"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_zh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_zh2"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main">
+
+            <ImageView
+                android:id="@+id/iv_zh"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/frame_ad_item"
+                android:orientation="horizontal" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_zh2"
+            android:text="Chinese (ZH)"
+            android:textSize="@dimen/text_small_medium" />
+
+        <ImageView
+            android:id="@+id/ivSelected_zh"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/btn_check_p"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivUnselected_zh"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/interval_main"
+            android:src="@drawable/btn_check_n"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+</LinearLayout>

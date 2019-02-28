@@ -26,6 +26,7 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
+import com.vexanium.vexgift.database.TableContent;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
@@ -46,18 +47,16 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 
 
-@ActivityFragmentInject(contentViewId = R.layout.fragment_wallet)
+@ActivityFragmentInject(contentViewId = R.layout.fragment_wallet, withLoadingAnim = true)
 public class WalletFragment extends BaseFragment<IWalletPresenter> implements IWalletView {
 
     private static final int TRANSACTION_RECORD_FRAGMENT = 0;
     private static final int BONUS_RECORD_FRAGMENT = 1;
     private static final int PAGE_COUNT = 2;
 
-    LinearLayout mErrorView, mGenerateView;
-    TextView mTvCountdownVp;
+    LinearLayout mGenerateView;
+    TextView mTvCountdownBonus;
 
-    private TextView mTvWallet;
-    private TextView mTvWalletBonusGen;
     private IconTextTabBarView mTabWallet;
     private ViewPager mPagerWallet;
 
@@ -70,11 +69,10 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     private NestedScrollView mNscrollView;
 
     private User user;
-    private boolean isAlreadyHaveAddress;
     private View fragmentView;
+    private WalletResponse walletResponse;
 
-    private boolean isComingSoon = true;
-
+    private boolean isComingSoon = false;
 
     public static WalletFragment newInstance() {
         return new WalletFragment();
@@ -82,14 +80,15 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 
     @Override
     protected void initView(View fragmentRootView) {
-        user = User.getCurrentUser(this.getContext());
+        user = User.getCurrentUser(getActivity());
         mPresenter = new IWalletPresenterImpl(this);
         fragmentView = fragmentRootView;
+        mPresenter.requestGetWallet(user.getId());
 
         ViewUtil.setText(fragmentRootView, R.id.tv_toolbar_title, getString(R.string.shortcut_my_wallet));
 
         mGenerateView = fragmentRootView.findViewById(R.id.ll_wallet_address_generate);
-        mTvCountdownVp = fragmentRootView.findViewById(R.id.tv_countdown);
+        mTvCountdownBonus = fragmentRootView.findViewById(R.id.tv_countdown);
         mTabWallet = fragmentRootView.findViewById(R.id.tab_wallet);
         mPagerWallet = fragmentRootView.findViewById(R.id.vp_wallet);
         mNscrollView = fragmentRootView.findViewById(R.id.nsv_wallet);
@@ -98,28 +97,13 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         fragmentRootView.findViewById(R.id.ll_withdraw_button).setOnClickListener(this);
         fragmentRootView.findViewById(R.id.btn_generate_wallet).setOnClickListener(this);
 
-//        ImageView mIvComingSoon = fragmentRootView.findViewById(R.id.iv_coming_soon);
-
         mRefreshLayout = fragmentRootView.findViewById(R.id.srl_refresh);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                setRecordlist(FixtureData.tokenList);
+                mPresenter.requestGetWallet(user.getId());
             }
         });
-
-        mRefreshLayout.setEnabled(false);
-
-        //Coming soon view
-//        mIvComingSoon.setVisibility(View.GONE);
-
-//        if (mIvComingSoon.getVisibility() != View.VISIBLE) {
-//            layoutListManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
-//            mRecycler.setLayoutManager(layoutListManager);
-//        }
-
-//        mTvWallet.setText(convertVpFormat(user.getVexPoint()));
-//        mTvWalletBonusGen.setText("");
 
         String transactionRecord = getResources().getString(R.string.wallet_transaction_record);
         String bonusRecord = getResources().getString(R.string.wallet_bonus_record);
@@ -127,15 +111,18 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mTabWallet.addTabView(0, -1, transactionRecord);
         mTabWallet.addTabView(1, -1, bonusRecord);
 
-        VpPagerAdapter vpPagerAdapter = new VpPagerAdapter(getActivity().getSupportFragmentManager());
-        mPagerWallet.setAdapter(vpPagerAdapter);
+        TextPagerAdapter textPagerAdapter = new TextPagerAdapter(getActivity().getSupportFragmentManager());
+        mPagerWallet.setAdapter(textPagerAdapter);
         mPagerWallet.setOffscreenPageLimit(PAGE_COUNT);
         mPagerWallet.setCurrentItem(0, false);
 
         mTabWallet.setViewPager(mPagerWallet);
         setPagerListener();
 
-        mPresenter.requestGetWallet(user.getId());
+        walletResponse = TableContentDaoUtil.getInstance().getWallet();
+        if(walletResponse != null){
+            updateViewWallet(walletResponse);
+        }
 
         App.setTextViewStyle((ViewGroup) fragmentRootView);
 
@@ -148,18 +135,19 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("WalletFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof WalletResponse) {
+                KLog.v("WalletFragment","handleResult: HMtes 2");
                 WalletResponse walletResponse = (WalletResponse) data;
                 if (walletResponse != null) {
                     if (walletResponse.getWallet() != null) {
-                        TableContentDaoUtil.getInstance().saveBoxsToDb(JsonUtil.toString(walletResponse));
+                        TableContentDaoUtil.getInstance().saveWalletsToDb(JsonUtil.toString(walletResponse));
                         updateViewWallet(walletResponse);
                     } else {
                         updateViewWallet(walletResponse);
@@ -194,7 +182,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
     }
 
     private void updateViewWallet(WalletResponse walletResponse) {
-        boolean isWalletExist = (walletResponse != null);
+        boolean isWalletExist = (walletResponse != null && walletResponse.getWallet() != null);
         if (fragmentView != null) {
             if (isComingSoon) {
                 fragmentView.findViewById(R.id.toolbar_record).setVisibility(View.GONE);
@@ -208,7 +196,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 fragmentView.findViewById(R.id.vp_wallet).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
                 fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
                 fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
-                if (isWalletExist) {
+                if (isWalletExist ) {
                     Wallet wallet = walletResponse.getWallet();
                     ViewUtil.setText(fragmentView, R.id.tv_total_wallet, "" + wallet.getBalance());
                     ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, "" + wallet.getPersonalWalletBalance());
@@ -219,85 +207,6 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
             }
         }
     }
-
-    //    private void setRecordlist(ArrayList<WalletToken> dataList) {
-//        mRefreshLayout.setRefreshing(false);
-//        float totalAsset = 0f;
-//        for (WalletToken token : FixtureData.tokenList) {
-//            totalAsset += token.getAmount() * token.getEstPriceInIDR();
-//        }
-//
-//        DecimalFormat df = new DecimalFormat("#,###.##");
-//
-//        mTotalAsset.setText(df.format(totalAsset));
-//
-//        if (mAdapter == null) {
-//            mAdapter = new BaseRecyclerAdapter<WalletToken>(getActivity(), dataList, layoutListManager) {
-//
-//                @Override
-//                public int getItemLayoutId(int viewType) {
-//                    return R.layout.item_wallet_coin_list;
-//                }
-//
-//                @Override
-//                public void bindData(final BaseRecyclerViewHolder holder, final int position, final WalletToken item) {
-//                    holder.setText(R.id.tv_wallet_coin_title, item.getName());
-//                    holder.setImageResource(R.id.iv_icon, item.getResIcon());
-//                    DecimalFormat df = new DecimalFormat("#,###.##");
-//                    holder.setText(R.id.tv_wallet_coin_subtitle, "~" + df.format(item.getEstPriceInIDR()) + " IDR");
-//                    holder.setText(R.id.tv_wallet_coin_amount, df.format(item.getAmount()));
-//                    holder.setOnClickListener(R.id.rl_wallet_coin_item, new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            if (ClickUtil.isFastDoubleClick()) return;
-//                            Intent intent = new Intent(getActivity(), WalletDetailActivity.class);
-//                            intent.putExtra("wallet_token", item);
-//                            startActivity(intent);
-//                        }
-//                    });
-//
-//                }
-//            };
-//            mAdapter.setHasStableIds(true);
-//            mRecycler.setItemAnimator(new DefaultItemAnimator());
-//            if (mRecycler.getItemAnimator() != null)
-//                mRecycler.getItemAnimator().setAddDuration(250);
-//            mRecycler.getItemAnimator().setMoveDuration(250);
-//            mRecycler.getItemAnimator().setChangeDuration(250);
-//            mRecycler.getItemAnimator().setRemoveDuration(250);
-//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-//            mRecycler.setOverScrollMode(View.OVER_SCROLL_NEVER);
-//            mRecycler.setItemViewCacheSize(30);
-//            mRecycler.setAdapter(mAdapter);
-//            mRecycler.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                @Override
-//                public void onGlobalLayout() {
-//                    App.setTextViewStyle(mRecycler);
-//                }
-//            });
-//        } else {
-//            mAdapter.setData(dataList);
-//        }
-//
-//        if (dataList.size() <= 0) {
-//            mErrorView.setVisibility(View.VISIBLE);
-//
-//            mRecycler.setVisibility(View.GONE);
-//        } else {
-//            mErrorView.setVisibility(View.GONE);
-//            mRecycler.setVisibility(View.VISIBLE);
-//
-//        }
-//
-////        if (dataList.size() <= 0) {
-////            mErrorView.setVisibility(View.VISIBLE);
-////            mIvError.setImageResource(R.drawable.wallet_empty);
-////            mTvErrorHead.setVisibility(View.GONE);
-////            mTvErrorBody.setText(getString(R.string.error_wallet_empty_header));
-////            mRecycler.setVisibility(View.GONE);
-////        }
-//    }
 
     @Override
     public void onPause() {
@@ -323,9 +232,6 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         if (timeSubsription != null && !timeSubsription.isUnsubscribed()) {
             timeSubsription.unsubscribe();
         }
-//        if (mVpObservable != null) {
-//            RxBus.get().unregister(RxBus.KEY_VP_RECORD_ADDED, mVpObservable);
-//        }
     }
 
     @Override
@@ -393,10 +299,8 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
-//        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
         nextSnapshoot.add(Calendar.DATE, 1);
         nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
-//        }
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);
         nextSnapshoot.set(Calendar.MILLISECOND, 0);
@@ -409,12 +313,12 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 TimeUnit.MILLISECONDS.toSeconds(remainTime) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainTime)));
 
-        mTvCountdownVp.setText(time);
+        mTvCountdownBonus.setText(time);
     }
 
-    public class VpPagerAdapter extends FragmentStatePagerAdapter {
+    public class TextPagerAdapter extends FragmentStatePagerAdapter {
 
-        VpPagerAdapter(FragmentManager fm) {
+        TextPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

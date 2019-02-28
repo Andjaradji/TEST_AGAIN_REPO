@@ -9,12 +9,14 @@ import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseSchedulerTransformer;
 import com.vexanium.vexgift.bean.model.AffiliateProgram;
+import com.vexanium.vexgift.bean.model.BigBanner;
 import com.vexanium.vexgift.bean.model.Kyc;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.response.AffiliateProgramEntryResponse;
 import com.vexanium.vexgift.bean.response.AffiliateProgramResponse;
 import com.vexanium.vexgift.bean.response.BannerResponse;
 import com.vexanium.vexgift.bean.response.BestVoucherResponse;
+import com.vexanium.vexgift.bean.response.BigBannerResponse;
 import com.vexanium.vexgift.bean.response.BuybackHistoryResponse;
 import com.vexanium.vexgift.bean.response.BuybackPaymentResponse;
 import com.vexanium.vexgift.bean.response.BuybackResponse;
@@ -58,6 +60,7 @@ import com.vexanium.vexgift.bean.response.VoucherCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherGiftCodeResponse;
 import com.vexanium.vexgift.bean.response.VoucherTypeResponse;
 import com.vexanium.vexgift.bean.response.VouchersResponse;
+import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;
 import com.vexanium.vexgift.http.Api;
@@ -441,6 +444,14 @@ public class RetrofitManager {
         params.put("user_id", id);
 
         return mOtherService.getBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BannerResponse>>());
+    }
+
+    public Observable<HttpResponse<BigBannerResponse>> requestBigBanner(int id) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", id);
+
+        return mOtherService.getBigBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BigBannerResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> checkToken(int id, String token) {
@@ -1039,6 +1050,14 @@ public class RetrofitManager {
         return mWalletService.getWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
     }
 
+    public Observable<HttpResponse<WalletReferralResponse>> getWalletReferral(int userId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+
+        return mWalletService.getWalletReferral(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletReferralResponse>>());
+    }
+
     public Observable<HttpResponse<WalletResponse>> createWallet(int userId) {
         Map<String, Object> params = Api.getBasicParam();
 
@@ -1047,11 +1066,13 @@ public class RetrofitManager {
         return mWalletService.createWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
     }
 
-    public Observable<HttpResponse<WithdrawResponse>> doWithdraw(int userId, int walletId) {
+    public Observable<HttpResponse<WithdrawResponse>> doWithdraw(int userId, int walletId, float amount, String destinationAddress) {
         Map<String, Object> params = Api.getBasicParam();
 
         params.put("user_id", userId);
         params.put("wallet_id", walletId);
+        params.put("amount", walletId);
+        params.put("destination_address", destinationAddress);
 
         return mWalletService.doWithdraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
     }

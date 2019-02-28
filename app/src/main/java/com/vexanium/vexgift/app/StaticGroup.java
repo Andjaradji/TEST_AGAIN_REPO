@@ -58,7 +58,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.http.HostType;
 import com.vexanium.vexgift.http.manager.RetrofitManager;
-import com.vexanium.vexgift.module.login.ui.LoginActivity;
+import com.vexanium.vexgift.module.login.ui.LoginOptionActivity;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawDetailActivity;
 import com.vexanium.vexgift.module.main.ui.MainActivity;
 import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
@@ -331,7 +331,7 @@ public class StaticGroup {
 
         clearCookies(context);
 
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, LoginOptionActivity.class);
         intent.putExtra("log_out", true);
         if (code > 0) {
             intent.putExtra("code", code);
@@ -671,6 +671,16 @@ public class StaticGroup {
 
         if (Locale.getDefault() != null && !TextUtils.isEmpty(Locale.getDefault().toString())) {
             ret = Locale.getDefault().toString().contains("in");
+        }
+
+        return ret;
+    }
+
+    public static boolean isInZHLocale() {
+        boolean ret = true;
+
+        if (Locale.getDefault() != null && !TextUtils.isEmpty(Locale.getDefault().toString())) {
+            ret = Locale.getDefault().toString().contains("zh");
         }
 
         return ret;
@@ -1444,6 +1454,15 @@ public class StaticGroup {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_banner_active") != -1) {
             return settingResponse.getSettingValByKey("is_referral_banner_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isReferralSpecialEventBannerActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_special_banner_active") != -1) {
+            return settingResponse.getSettingValByKey("is_referral_special_banner_active") == 1;
         } else {
             return false;
         }

@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.wallet.model;
 
 import com.vexanium.vexgift.base.BaseSubscriber;
+import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;
 import com.vexanium.vexgift.callback.RequestCallback;
@@ -42,12 +43,26 @@ public class IWalletInteractorImpl implements IWalletInteractor {
     }
 
     @Override
-    public Subscription requestDoWithdraw(RequestCallback callback, int id, int walletId) {
+    public Subscription requestDoWithdraw(RequestCallback callback, int id, int walletId, float amount, String destionationAddress) {
 
-        return RetrofitManager.getInstance(HostType.COMMON_API).doWithdraw(id, walletId).compose(RxUtil.<WithdrawResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).doWithdraw(id, walletId, amount, destionationAddress).compose(RxUtil.<WithdrawResponse>handleResult())
                 .flatMap(new Func1<WithdrawResponse, Observable<WithdrawResponse>>() {
                     @Override
                     public Observable<WithdrawResponse> call(WithdrawResponse response) {
+
+                        return Observable.just(response);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+    @Override
+    public Subscription requestGetWalletReferral(RequestCallback callback, int id) {
+
+        return RetrofitManager.getInstance(HostType.COMMON_API).getWalletReferral(id).compose(RxUtil.<WalletReferralResponse>handleResult())
+                .flatMap(new Func1<WalletReferralResponse, Observable<WalletReferralResponse>>() {
+                    @Override
+                    public Observable<WalletReferralResponse> call(WalletReferralResponse response) {
 
                         return Observable.just(response);
                     }

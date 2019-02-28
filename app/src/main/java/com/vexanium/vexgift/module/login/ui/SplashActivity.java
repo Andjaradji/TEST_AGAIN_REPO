@@ -29,6 +29,7 @@ import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.walkthrough.ui.WalkthroughActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -81,6 +82,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         load();
+        LocaleUtil.onAttach(this);
     }
 
     @Override

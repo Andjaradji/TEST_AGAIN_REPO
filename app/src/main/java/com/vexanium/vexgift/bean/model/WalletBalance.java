@@ -10,7 +10,7 @@ public class WalletBalance extends BaseType {
     @JsonProperty("type")
     private String type;
     @JsonProperty("balance")
-    private long balance;
+    private float balance;
 
     public int getWalletId() {
         return walletId;
@@ -28,11 +28,11 @@ public class WalletBalance extends BaseType {
         this.type = type;
     }
 
-    public long getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 }

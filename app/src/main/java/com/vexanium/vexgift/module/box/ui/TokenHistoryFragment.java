@@ -70,7 +70,6 @@ public class TokenHistoryFragment extends BaseFragment<IBoxPresenter> implements
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         KLog.v("VoucherFragment onCreateView");
-        super.onCreateView(inflater, container, savedInstanceState);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
