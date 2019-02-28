@@ -68,7 +68,7 @@
     <string name="voucher_online_button">Gunakan Voucher</string>
     <string name="login_email">Email atau Nomor Handphone</string>
     <string name="login_password">Kata Sandi</string>
-    <string name="error_email_invalid">Email atau nomor handphone tidak valid</string>
+    <string name="error_email_invalid">Email tidak valid</string>
     <string name="error_phone_invalid">Nomor handphone tidak valid</string>
 
     <string name="login_password_forgot"><u>Lupa Katasandi ? </u></string>
@@ -625,6 +625,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="register_confirmation_sms_button">Konfirmasi SMS</string>
     <string name="login_phone">Nomor Hp</string>
     <string name="wallet_total_personal_wallet_balance">Total Saldo Wallet Personal</string>
-
+    <string name="register_confirmation_resend_sms_time">Kirim Ulang SMS %s</string>
+    <string name="register_confirmation_resend_sms_success">Konfirmasi SMS dikirim kembali</string>
 
 </resources>

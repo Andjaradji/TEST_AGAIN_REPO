@@ -17,6 +17,7 @@ import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.bean.model.User;
@@ -114,8 +115,8 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 new VexDialog.Builder(this)
                         .title(getString(R.string.error_internet_header))
                         .content(getString(R.string.error_internet_body))
-                        .positiveText("Retry")
-                        .negativeText("Exit")
+                        .positiveText(getString(R.string.internet_retry))
+                        .negativeText(getString(R.string.internet_exit))
                         .optionType(DialogOptionType.YES_NO)
                         .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                             @Override
@@ -185,7 +186,11 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 @Override
                 public void onClick(View view) {
                     if (ClickUtil.isFastDoubleClick()) return;
-                    StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
+                    if (LocaleUtil.getLanguage(SplashActivity.this).equalsIgnoreCase("zh")) {
+                        StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.CHINA_WEB_LINK);
+                    } else {
+                        StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
+                    }
                 }
             });
 
@@ -226,7 +231,11 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                         if (currentCountdown > 0) {
                             currentCountdown--;
                         } else {
-                            StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
+                            if (LocaleUtil.getLanguage(SplashActivity.this).equalsIgnoreCase("zh")) {
+                                StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.CHINA_WEB_LINK);
+                            } else {
+                                StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
+                            }
                             finish();
                             throw new NullPointerException();
                         }

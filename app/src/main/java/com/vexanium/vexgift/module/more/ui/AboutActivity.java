@@ -8,9 +8,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
+import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.util.LocaleUtil;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_webview, toolbarTitle = R.string.about_us)
 public class AboutActivity extends BaseActivity {
@@ -52,7 +55,12 @@ public class AboutActivity extends BaseActivity {
                 mWv.startAnimation(fadeIn);
             }
         });
-        mWv.loadUrl("http://www.vexgift.com");
+        String url = ConstantGroup.WEB_LINK;
+        if(LocaleUtil.getLanguage(this).equalsIgnoreCase("zh")){
+            url = ConstantGroup.CHINA_WEB_LINK;
+            KLog.v("AboutActivity","initView: HMtes china");
+        }
+        mWv.loadUrl(url);
     }
 
     @Override

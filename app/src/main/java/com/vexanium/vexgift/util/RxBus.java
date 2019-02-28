@@ -21,6 +21,7 @@ public class RxBus {
     public static final String KEY_APP_FINISH = "key_app_finish";
     public static final String KEY_VP_RECORD_ADDED = "key_vp_record_added";
     public static final String KEY_WALLET_TRANSACTION_RECORD_ADDED = "key_wallet_transaction_record_added";
+    public static final String KEY_WALLET_REFERRAL_RECORD_ADDED = "key_wallet_referral_record_added";
     public static final String KEY_WALLET_BONUS_RECORD_ADDED = "key_wallet_bonus_record_added";
     public static final String KEY_VEXPOINT_UPDATE = "key_vp_update";
     public static final String KEY_NOTIF_ADDED = "key_notif_added";

@@ -112,7 +112,7 @@
     <string name="login_welcome_back">Welcome Back !</string>
     <string name="login_to_continue">Login to Continue</string>
 
-    <string name="error_email_invalid">This is not valid email or phone number</string>
+    <string name="error_email_invalid">This is not valid email</string>
     <string name="error_phone_invalid">This is not valid phone number</string>
 
     <string name="register_username">Name</string>
@@ -536,6 +536,9 @@
     <string name="referral_share_on_sm">Share on Social Media</string>
     <string name="referral_code">Referral Code</string>
 
+    <string name="referral_special_event_title">Get VEX Bonus for each referral you invited !</string>
+    <string name="referral_special_event_note">See how ></string>
+
 
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="term_and_condition">TERM &amp; CONDITION</string>
@@ -770,7 +773,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_referral_counted_user">Counted user : </string>
     <string name="wallet_referral_uncounted">Uncounted</string>
     
-    <string name="wallet_referral_total_vex">Total Vex</string>
+    <string name="wallet_referral_total_vex">Total Vex : </string>
 
     <string name="wallet_referral_counted_empty_title">No Counted Referral</string>
     <string name="wallet_referral_counted_empty_text">You have no counted referral at the moment</string>
@@ -781,5 +784,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_input_success_text">Your withdraw are successfully inputed, please kindly check your withdraw status in Withdraw History</string>
     <string name="wallet_withdraw_input_success_button">Check It</string>
     <string name="wallet_total_personal_wallet_balance">Total Personal Wallet Balance</string>
+
+    <string name="security_finger_print_button">Fingerprint</string>
 
 </resources>

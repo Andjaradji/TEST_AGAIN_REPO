@@ -46,6 +46,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
     float withdrawAmount;
     boolean isEditFromSeekbar = false;
     boolean isEditFromButton = false;
+    boolean isOverLimit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,18 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             @Override
             public void afterTextChanged(Editable editable) {
                 isEditFromSeekbar = false;
+                if(!isOverLimit) {
+                    try {
+                        withdrawAmount = Float.valueOf(etAmount.getText().toString());
+                    } catch (Exception e) {
+                        withdrawAmount = 0;
+                    }
+                    if (withdrawAmount > personalBalance) {
+                        withdrawAmount = personalBalance;
+                        isOverLimit = true;
+                        etAmount.setText(withdrawAmount + "");
+                    }
+                }
             }
         });
 

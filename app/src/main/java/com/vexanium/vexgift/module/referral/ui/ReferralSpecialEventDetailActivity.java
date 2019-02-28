@@ -28,6 +28,7 @@ import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.io.Serializable;
@@ -117,6 +118,7 @@ public class ReferralSpecialEventDetailActivity extends BaseActivity<IWalletPres
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof WalletReferralResponse) {
                 WalletReferralResponse walletReferralResponse = (WalletReferralResponse) data;
@@ -125,7 +127,11 @@ public class ReferralSpecialEventDetailActivity extends BaseActivity<IWalletPres
                 int referralsCount = walletReferralResponse.getReferralsCount();
                 int countedCount = walletReferralResponse.getCountedReferralsCount();
                 mTvInvitedCount.setText(String.valueOf(referralsCount));
-                mTvCounted.setText(String.valueOf(countedCount));
+                String countedUser = getString(R.string.wallet_referral_counted_user) + " " + String.valueOf(countedCount);
+                mTvCounted.setText(countedUser);
+
+                RxBus.get().post(RxBus.KEY_WALLET_REFERRAL_RECORD_ADDED, true);
+
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);

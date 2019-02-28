@@ -90,6 +90,14 @@ public class BonusRecordFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mBonusObservable != null) {
+            RxBus.get().unregister(RxBus.KEY_WALLET_TRANSACTION_RECORD_ADDED, mBonusObservable);
+        }
+    }
+
     public void getDataFromDb() {
         walletResponse = TableContentDaoUtil.getInstance().getWallet();
         if (walletResponse != null && walletResponse.getWallet() != null) {

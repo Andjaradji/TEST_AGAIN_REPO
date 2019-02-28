@@ -51,8 +51,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/include_loading_view" />
-
     <include
         layout="@layout/content_error_view"
         android:layout_width="match_parent"
@@ -60,5 +58,6 @@
 
     </include>
 
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>
