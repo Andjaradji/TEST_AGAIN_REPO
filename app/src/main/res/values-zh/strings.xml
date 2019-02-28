@@ -578,4 +578,5 @@
     <string name="more_change_language">选择语言</string>
     <string name="wallet_deposit">存款</string>
     <string name="wallet_withdraw">提款</string>
+    <string name="wallet_total_personal_wallet_balance">個人錢包金額</string>
 </resources>
