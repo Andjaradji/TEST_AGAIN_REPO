@@ -51,21 +51,58 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_indicator"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:ellipsize="marquee"
             android:gravity="right|center_vertical"
-            android:marqueeRepeatLimit="1"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="15dp"
-            android:singleLine="true"
-            android:textColor="@color/vexpoint_plus"
-            android:textSize="@dimen/text_small_medium" />
+            android:orientation="vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginBottom="2dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:textColor="@color/material_black"
+                android:textSize="@dimen/text_small_medium"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:textColor="@color/material_black"
+                android:textSize="@dimen/text_xxtiny"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_indicator"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_weight="3"-->
+            <!--android:ellipsize="marquee"-->
+            <!--android:gravity="right|center_vertical"-->
+            <!--android:marqueeRepeatLimit="1"-->
+            <!--android:paddingBottom="15dp"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/vexpoint_plus"-->
+            <!--android:textSize="@dimen/text_small_medium" />-->
 
     </LinearLayout>
 
