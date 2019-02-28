@@ -466,8 +466,7 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             if (url != null) {
-                intent.putExtra("u" +
-                        "l", url);
+                intent.putExtra("url", url);
             }
             startActivity(intent);
         }
