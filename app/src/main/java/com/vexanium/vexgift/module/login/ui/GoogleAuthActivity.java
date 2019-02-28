@@ -39,12 +39,11 @@ import static com.vexanium.vexgift.app.ConstantGroup.SUPPORT_EMAIL;
 @ActivityFragmentInject(contentViewId = R.layout.activity_google_auth, withLoadingAnim = true)
 public class GoogleAuthActivity extends BaseActivity<IGoogleAuthPresenter> implements IGoogleAuthView, FingerprintAuthListener {
 
-    private User user;
-    private boolean isFingerprintActive = false;
     FingerprintHelper fingerprintHelper;
     FingerprintResultsHandler fingerprintResultsHandler;
-
     VexDialog vexDialog;
+    private User user;
+    private boolean isFingerprintActive = false;
 
     @Override
     protected void initView() {

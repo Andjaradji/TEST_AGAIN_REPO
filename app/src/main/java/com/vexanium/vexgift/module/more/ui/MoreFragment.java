@@ -192,11 +192,11 @@ public class MoreFragment extends BaseFragment {
                 StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
                 break;
             case R.id.more_problem_button:
-                if(LocaleUtil.getLanguage(getActivity()).equalsIgnoreCase("zh")) {
-                subject = String.format(Locale.getDefault(), "[PROBLEM] #%04d", user.getId());
+                if (LocaleUtil.getLanguage(getActivity()).equalsIgnoreCase("zh")) {
+                    subject = String.format(Locale.getDefault(), "[PROBLEM] #%04d", user.getId());
                     message = "Hi Vexgift Support!\nI've problem with...";
                     StaticGroup.shareWithEmail(this.getActivity(), SUPPORT_EMAIL, subject, message);
-                }else {
+                } else {
                     intentToActivity(SupportActivity.class);
                 }
                 break;

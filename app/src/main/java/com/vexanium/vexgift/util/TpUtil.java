@@ -81,7 +81,7 @@ public class TpUtil extends TrayPreferences {
         put(TpUtil.KEY_USER_VP_RECORD, "");
         remove(TpUtil.KEY_USER_VP_RECORD);
 
-        put(TpUtil.KEY_FINGERPRINT_LOCK,"");
+        put(TpUtil.KEY_FINGERPRINT_LOCK, "");
         remove(TpUtil.KEY_FINGERPRINT_LOCK);
     }
 

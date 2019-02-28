@@ -126,7 +126,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             @Override
             public void afterTextChanged(Editable editable) {
                 isEditFromSeekbar = false;
-                if(!isOverLimit) {
+                if (!isOverLimit) {
                     try {
                         withdrawAmount = Float.valueOf(etAmount.getText().toString());
                     } catch (Exception e) {
@@ -138,7 +138,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                         etAmount.setText(withdrawAmount + "");
 
                     }
-                }else{
+                } else {
                     isOverLimit = false;
 
                 }
@@ -146,11 +146,11 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         });
 
         String withdrawNoteTitle = StaticGroup.getStringValFromSettingKey("withdraw_note_title");
-        if(!TextUtils.isEmpty(withdrawNoteTitle)){
+        if (!TextUtils.isEmpty(withdrawNoteTitle)) {
             ViewUtil.setText(this, R.id.tv_desc_title, withdrawNoteTitle);
         }
         String withdrawNoteDetail = StaticGroup.getStringValFromSettingKey("withdraw_note_detail");
-        if(!TextUtils.isEmpty(withdrawNoteDetail)){
+        if (!TextUtils.isEmpty(withdrawNoteDetail)) {
             ViewUtil.setText(this, R.id.tv_desc, withdrawNoteDetail);
         }
 

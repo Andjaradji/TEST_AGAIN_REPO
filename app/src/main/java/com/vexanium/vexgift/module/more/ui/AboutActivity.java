@@ -56,9 +56,9 @@ public class AboutActivity extends BaseActivity {
             }
         });
         String url = ConstantGroup.WEB_LINK;
-        if(LocaleUtil.getLanguage(this).equalsIgnoreCase("zh")){
+        if (LocaleUtil.getLanguage(this).equalsIgnoreCase("zh")) {
             url = ConstantGroup.CHINA_WEB_LINK;
-            KLog.v("AboutActivity","initView: HMtes china");
+            KLog.v("AboutActivity", "initView: HMtes china");
         }
         mWv.loadUrl(url);
     }

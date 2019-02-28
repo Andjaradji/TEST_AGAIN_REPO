@@ -29,11 +29,11 @@ import rx.functions.Action1;
 public class SecurityActivity extends BaseActivity {
     Boolean isGoogle2faEnable;
     boolean isFingerprintEnable;
+    FingerprintHelper fingerPrintHelper;
     private Observable<Boolean> mNotifObservable;
     private Observable<Boolean> mGoogle2faObservable;
     private View notifView;
     private User user;
-    FingerprintHelper fingerPrintHelper;
 
     public static MoreFragment newInstance() {
         return new MoreFragment();
