@@ -27,6 +27,7 @@ import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ViewUtil;
 import com.vexanium.vexgift.widget.CustomSeekBar;
 import com.vexanium.vexgift.widget.dialog.DialogAction;
@@ -35,7 +36,7 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 
-@ActivityFragmentInject(contentViewId = R.layout.activity_wallet_withdraw, toolbarTitle = R.string.wallet_withdraw)
+@ActivityFragmentInject(contentViewId = R.layout.activity_wallet_withdraw, toolbarTitle = R.string.wallet_withdraw, withLoadingAnim = true)
 public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> implements IWalletView {
 
     public static int step = 0;
@@ -217,7 +218,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 new VexDialog.Builder(this)
                         .optionType(DialogOptionType.YES_NO)
                         .title(getString(R.string.wallet_withdraw_input_success_title))
-                        .content(getString(R.string.wallet_referral_uncounted_empty_text))
+                        .content(getString(R.string.wallet_withdraw_input_success_text))
                         .positiveText(getString(R.string.wallet_withdraw_input_success_button))
                         .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                             @Override
@@ -241,14 +242,33 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
     }
 
     private void doWithdraw() {
-        String destinationAddress = ((TextView) findViewById(R.id.et_address)).getText().toString();
+        final String destinationAddress = ((TextView) findViewById(R.id.et_address)).getText().toString();
         boolean isValid = ViewUtil.validateEmpty(this, getString(R.string.validate_empty_field), R.id.et_address);
+        try {
+            withdrawAmount = Float.valueOf(etAmount.getText().toString());
+        } catch (Exception e) {
+            withdrawAmount = 0;
+        }
         if (withdrawAmount <= 0) {
             ((EditText) findViewById(R.id.et_withdraw_amount)).setError(getString(R.string.wallet_withdraw_amount_error));
             isValid = false;
         }
         if (walletResponse != null && walletResponse.getWallet() != null && user != null && isValid) {
-            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), withdrawAmount, destinationAddress);
+            String content = String.format(getString(R.string.wallet_withdraw_dialog_detail),withdrawAmount+"");
+            new VexDialog.Builder(this)
+                    .optionType(DialogOptionType.YES_NO)
+                    .title(getString(R.string.wallet_withdraw_dialog_title))
+                    .content(content)
+                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            if(ClickUtil.isFastDoubleClick())return;
+                            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), withdrawAmount, destinationAddress);
+
+                        }
+                    })
+                    .autoDismiss(true)
+                    .show();
         }
     }
 

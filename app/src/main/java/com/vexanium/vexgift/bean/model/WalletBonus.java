@@ -12,12 +12,10 @@ import java.util.TimeZone;
 public class WalletBonus extends BaseType {
     @JsonProperty("wallet_id")
     private int walletId;
-    @JsonProperty("amount")
+    @JsonProperty("bonus")
     private float amount;
     @JsonProperty("type")
     private String type;
-    @JsonProperty("status")
-    private String status;
 
     public int getWalletId() {
         return walletId;
@@ -41,14 +39,6 @@ public class WalletBonus extends BaseType {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getCreatedAtDate() {

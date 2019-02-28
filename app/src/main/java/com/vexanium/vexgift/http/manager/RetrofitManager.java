@@ -1070,7 +1070,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
         params.put("wallet_id", walletId);
-        params.put("amount", walletId);
+        params.put("amount", amount);
         params.put("destination_address", destinationAddress);
 
         return mWalletService.doWithdraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());

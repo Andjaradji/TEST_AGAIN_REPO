@@ -21,6 +21,7 @@ import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.model.WalletWithdrawal;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
@@ -43,6 +44,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
     LinearLayout mErrorView;
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
+    WalletResponse walletResponse;
     private ArrayList<WalletWithdrawal> walletWithdrawals;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
@@ -78,7 +80,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
         layoutListManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         layoutListManager.setItemPrefetchEnabled(false);
 
-        setTokenSaleHistoryList();
+        setWithdrawHistoryList();
 
         if (getIntent().hasExtra("id")) {
             int id = getIntent().getIntExtra("id", 0);
@@ -95,6 +97,17 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
 
     }
 
+    public void getDataFromDb() {
+        walletResponse = TableContentDaoUtil.getInstance().getWallet();
+        if (walletResponse != null && walletResponse.getWallet() != null) {
+            Wallet wallet = walletResponse.getWallet();
+            if (wallet.getWalletWithdrawals() != null) {
+                walletWithdrawals = wallet.getWalletWithdrawals();
+                setWithdrawHistoryList();
+            }
+        }
+    }
+
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         mRefreshLayout.setRefreshing(false);
@@ -104,6 +117,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                 if (walletResponse != null) {
                     if (walletResponse.getWallet() != null) {
                         TableContentDaoUtil.getInstance().saveWalletsToDb(JsonUtil.toString(walletResponse));
+                        getDataFromDb();
                     }
                 }
 
@@ -114,7 +128,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
         }
     }
 
-    public void setTokenSaleHistoryList() {
+    public void setWithdrawHistoryList() {
         if (mAdapter == null) {
             mAdapter = new BaseRecyclerAdapter<WalletWithdrawal>(this, walletWithdrawals, layoutListManager) {
 
@@ -127,10 +141,15 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                 public void bindData(final BaseRecyclerViewHolder holder, final int position, final WalletWithdrawal item) {
 
 
-                    holder.setText(R.id.tv_token_sale_history_title, "WITHDRAW #" + item.getId());
+                    holder.setText(R.id.tv_withdraw_history_title, "WITHDRAW #" + item.getId());
 
 
-                    holder.setText(R.id.tv_token_sale_history_subtitle, item.getCreatedAtDate());
+                    holder.setText(R.id.tv_withdraw_history_subtitle, item.getCreatedAtDate());
+
+                    if (item.getDestinationAddress() != null) {
+                        holder.setText(R.id.tv_destination_address, item.getDestinationAddress());
+                    }
+                    holder.setText(R.id.tv_withdraw_history_amount, item.getAmount() + " VEX");
 
                     if (item.getStatus().equalsIgnoreCase("pending")) {
                         holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.material_black_text_color));

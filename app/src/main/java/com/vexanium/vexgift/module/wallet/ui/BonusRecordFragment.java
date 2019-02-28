@@ -122,16 +122,11 @@ public class BonusRecordFragment extends BaseFragment {
                     holder.setText(R.id.tv_item_name, item.getType());
 
                     String date = item.getCreatedAtDate() + Html.fromHtml("&nbsp;");
-
                     holder.setText(R.id.tv_item_detail, date);
 
-                    if (item.getStatus().equalsIgnoreCase("deposit")) {
-                        holder.setText(R.id.tv_indicator, "+ " + item.getAmount());
-                        holder.setTextColor(R.id.tv_tx, getContext().getResources().getColor(R.color.vexpoint_plus));
-                    } else {
-                        holder.setText(R.id.tv_indicator, "- " + item.getAmount());
-                        holder.setTextColor(R.id.tv_tx, getContext().getResources().getColor(R.color.vexpoint_minus));
-                    }
+                    holder.setText(R.id.tv_indicator, "+ " + item.getAmount());
+                    holder.setTextColor(R.id.tv_indicator, getContext().getResources().getColor(R.color.vexpoint_plus));
+
                 }
             };
 
