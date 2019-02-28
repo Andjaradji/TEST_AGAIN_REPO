@@ -398,7 +398,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
 //        nextSnapshoot.add(Calendar.DATE, 1);
 //        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
 //        } else {
-            nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
+        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
 //        }
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);

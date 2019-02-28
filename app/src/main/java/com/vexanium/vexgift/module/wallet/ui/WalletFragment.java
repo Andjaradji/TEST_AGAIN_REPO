@@ -251,7 +251,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                     ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus() + "");
                     ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus() + "");
                     if (isBonusShown) {
-                        ViewUtil.setText(fragmentView, R.id.tv_countdown, walletResponse.getNextBonusPayoutAmount() + "");
+                        ViewUtil.setText(fragmentView, R.id.tv_countdown, walletResponse.getNextBonusPayoutAmount() + " VEX");
                     }
                 }
             }
