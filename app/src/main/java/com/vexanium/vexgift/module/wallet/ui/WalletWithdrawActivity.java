@@ -135,7 +135,11 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                         withdrawAmount = personalBalance;
                         isOverLimit = true;
                         etAmount.setText(withdrawAmount + "");
+
                     }
+                }else{
+                    isOverLimit = false;
+
                 }
             }
         });
