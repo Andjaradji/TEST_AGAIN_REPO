@@ -595,5 +595,8 @@
     <string name="wallet_withdraw_amount_error">提款金额不能为0</string>
     <string name="wallet_referral_counted">進階用戶</string>
     <string name="wallet_referral_uncounted">一般用戶</string>
-    <string name="wallet_referral_counted_user">位進階用戶</string>
+    <string name="wallet_referral_counted_user">位進階用戶 : </string>
+    <string name="wallet_total_personal_wallet_balance">個人錢包總金額</string>
+    <string name="wallet_referral_total_vex">Vex 總量 : </string>
+
 </resources>

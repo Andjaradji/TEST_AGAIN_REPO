@@ -117,6 +117,7 @@ public class ReferralSpecialEventDetailActivity extends BaseActivity<IWalletPres
 
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
+        mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof WalletReferralResponse) {
                 WalletReferralResponse walletReferralResponse = (WalletReferralResponse) data;
@@ -125,7 +126,8 @@ public class ReferralSpecialEventDetailActivity extends BaseActivity<IWalletPres
                 int referralsCount = walletReferralResponse.getReferralsCount();
                 int countedCount = walletReferralResponse.getCountedReferralsCount();
                 mTvInvitedCount.setText(String.valueOf(referralsCount));
-                mTvCounted.setText(String.valueOf(countedCount));
+                String countedUser = getString(R.string.wallet_referral_counted_user) + " " + String.valueOf(countedCount);
+                mTvCounted.setText(countedUser);
             }
         } else if (errorResponse != null) {
             StaticGroup.showCommonErrorDialog(this, errorResponse);

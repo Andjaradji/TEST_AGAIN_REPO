@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,25 +20,30 @@ import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
 import com.vexanium.vexgift.bean.model.ReferralSpecialEvent;
+import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.vexpoint.ui.adapter.VexPointAdapter;
+import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
+import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.RxBus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import rx.Observable;
 import rx.functions.Action1;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_vexpoint)
-public class ReferralListFragment extends BaseFragment {
+public class ReferralListFragment extends BaseFragment<IWalletPresenter> implements IWalletView {
 
     LinearLayout mErrorView;
     ImageView mIvError;
@@ -125,9 +131,11 @@ public class ReferralListFragment extends BaseFragment {
 
                     holder.setText(R.id.tv_referral_user, String.format("%s (%s)", item.getName(), !TextUtils.isEmpty(item.getEmail()) ? item.getEmail() : item.getPhoneNumber()));
 
-//                    String date = item.getCreatedAtDate() + Html.fromHtml("&nbsp;");
-//
-//                    holder.setText(R.id.tv_time, date);
+                    String date = item.getCreatedAtDate() + Html.fromHtml("&nbsp;");
+
+                    holder.setText(R.id.tv_time, date);
+
+                    holder.getTextView(R.id.tv_referral_user).setSelected(true);
                     holder.setImageResource(R.id.iv_kyc, isCounted ? R.drawable.ic_checked_green : R.drawable.ic_unchecked_green);
 
                     holder.setOnClickListener(R.id.ll_referral_root, new View.OnClickListener() {
@@ -183,6 +191,16 @@ public class ReferralListFragment extends BaseFragment {
             mErrorView.setVisibility(View.GONE);
 
             mRecyclerview.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+
+        if(data != null){
+
+        }else if(errorResponse != null){
+            StaticGroup.showCommonErrorDialog(getActivity(), errorResponse);
         }
     }
 }

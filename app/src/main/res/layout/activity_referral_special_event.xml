@@ -64,7 +64,7 @@
                 android:paddingBottom="@dimen/interval_content"
                 android:paddingTop="@dimen/interval_content"
                 android:tag="bold"
-                android:text="@string/referral_special_event_note"
+                android:text="@string/referral_note"
                 android:textColor="@color/material_black_sub_text_color"
                 android:textSize="@dimen/text_tiny"
                 android:visibility="visible" />

@@ -187,7 +187,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                 public void onClick(View view) {
                     if (ClickUtil.isFastDoubleClick()) return;
                     if (LocaleUtil.getLanguage(SplashActivity.this).equalsIgnoreCase("zh")) {
-                        StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.WEB_LINK);
+                        StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.CHINA_WEB_LINK);
                     } else {
                         StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
                     }
@@ -232,7 +232,7 @@ public class SplashActivity extends BaseActivity<ILoginPresenter> implements ILo
                             currentCountdown--;
                         } else {
                             if (LocaleUtil.getLanguage(SplashActivity.this).equalsIgnoreCase("zh")) {
-                                StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.WEB_LINK);
+                                StaticGroup.openAndroidBrowser(SplashActivity.this, ConstantGroup.CHINA_WEB_LINK);
                             } else {
                                 StaticGroup.openVexgiftGooglePlay(SplashActivity.this);
                             }

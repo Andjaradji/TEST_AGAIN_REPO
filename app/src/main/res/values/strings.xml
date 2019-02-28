@@ -773,7 +773,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_referral_counted_user">Counted user : </string>
     <string name="wallet_referral_uncounted">Uncounted</string>
     
-    <string name="wallet_referral_total_vex">Total Vex</string>
+    <string name="wallet_referral_total_vex">Total Vex : </string>
 
     <string name="wallet_referral_counted_empty_title">No Counted Referral</string>
     <string name="wallet_referral_counted_empty_text">You have no counted referral at the moment</string>
