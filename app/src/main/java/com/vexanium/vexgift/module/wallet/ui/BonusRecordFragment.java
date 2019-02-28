@@ -43,13 +43,12 @@ public class BonusRecordFragment extends BaseFragment {
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
     ArrayList<WalletBonus> dataList = new ArrayList<>();
+    WalletResponse walletResponse;
     private BaseRecyclerAdapter<WalletBonus> mBonusLogAdapter;
-
     private RecyclerView mRecyclerview;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
     private Observable<Boolean> mBonusObservable;
-    WalletResponse walletResponse;
 
     public static BonusRecordFragment newInstance() {
         return new BonusRecordFragment();

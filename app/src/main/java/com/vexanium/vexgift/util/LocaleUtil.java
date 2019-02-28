@@ -31,7 +31,7 @@ public class LocaleUtil {
     public static Context setLocale(Context context, String language) {
         persist(context, language);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Build.VERSION.SDK_INT < Build.VERSION_CODES.O ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return updateResources(context, language);
         }
 

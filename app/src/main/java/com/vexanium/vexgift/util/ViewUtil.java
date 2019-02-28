@@ -320,7 +320,7 @@ public class ViewUtil {
     }
 
     public static void setCircleImageUrl(View root, int viewId, @DrawableRes int img) {
-        ImageView view = root.findViewById( viewId);
+        ImageView view = root.findViewById(viewId);
         Glide.with(App.getContext())
                 .asBitmap()
                 .apply(RequestOptions

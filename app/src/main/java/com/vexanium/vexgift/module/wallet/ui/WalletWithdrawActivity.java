@@ -37,17 +37,15 @@ import java.io.Serializable;
 @ActivityFragmentInject(contentViewId = R.layout.activity_wallet_withdraw, toolbarTitle = R.string.wallet_withdraw)
 public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> implements IWalletView {
 
+    public static int step = 0;
     User user;
     CustomSeekBar customSeekBar;
     WalletResponse walletResponse;
-
     EditText etAmount;
     float personalBalance;
     float withdrawAmount;
     boolean isEditFromSeekbar = false;
     boolean isEditFromButton = false;
-
-    public static int step = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

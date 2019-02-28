@@ -43,14 +43,12 @@ public class ReferralListFragment extends BaseFragment {
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
     ArrayList<ReferralSpecialEvent> dataList = new ArrayList<>();
+    WalletReferralResponse walletReferralResponse;
     private BaseRecyclerAdapter<ReferralSpecialEvent> mTransactionLogAdapter;
-
     private RecyclerView mRecyclerview;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
     private Observable<Boolean> mTransactionObservable;
-    WalletReferralResponse walletReferralResponse;
-
     private boolean isCounted;
 
     public static ReferralListFragment newInstance(boolean isCounted) {

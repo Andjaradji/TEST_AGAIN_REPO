@@ -1,9 +1,7 @@
 package com.vexanium.vexgift.module.wallet.ui;
 
-import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -23,20 +20,14 @@ import com.vexanium.vexgift.base.BaseActivity;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
 import com.vexanium.vexgift.base.BaseRecyclerViewHolder;
 import com.vexanium.vexgift.base.BaseSpacesItemDecoration;
-import com.vexanium.vexgift.bean.model.TokenSaleHistory;
 import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.WalletWithdrawal;
 import com.vexanium.vexgift.bean.response.HttpResponse;
-import com.vexanium.vexgift.bean.response.TokenSaleHistoryResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
-import com.vexanium.vexgift.module.tokensale.presenter.ITokenSalePresenterImpl;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryActivity;
-import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryDetailActivity;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
-import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 
@@ -72,7 +63,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
         mIvError = findViewById(R.id.iv_error_view);
         mTvErrorHead = findViewById(R.id.tv_error_head);
         mTvErrorBody = findViewById(R.id.tv_error_body);
-        
+
         walletWithdrawals = new ArrayList<>();
 
         mRefreshLayout = findViewById(R.id.srl_refresh);

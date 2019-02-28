@@ -25,6 +25,14 @@ public class BestVoucher implements Serializable {
     @JsonProperty("voucher")
     private Voucher voucher;
 
+    public BestVoucher(int type, BigBanner bigBanner) {
+        this.type = type;
+        this.bigBanner = bigBanner;
+    }
+
+    public BestVoucher() {
+    }
+
     public int getId() {
         return id;
     }
@@ -71,13 +79,5 @@ public class BestVoucher implements Serializable {
 
     public void setBigBanner(BigBanner bigBanner) {
         this.bigBanner = bigBanner;
-    }
-
-    public BestVoucher(int type, BigBanner bigBanner) {
-        this.type = type;
-        this.bigBanner = bigBanner;
-    }
-
-    public BestVoucher() {
     }
 }

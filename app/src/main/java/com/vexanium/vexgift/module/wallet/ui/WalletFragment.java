@@ -26,7 +26,6 @@ import com.vexanium.vexgift.bean.model.User;
 import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
-import com.vexanium.vexgift.database.TableContent;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
@@ -120,7 +119,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         setPagerListener();
 
         walletResponse = TableContentDaoUtil.getInstance().getWallet();
-        if(walletResponse != null){
+        if (walletResponse != null) {
             updateViewWallet(walletResponse);
         }
 
@@ -143,7 +142,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
         mRefreshLayout.setRefreshing(false);
         if (data != null) {
             if (data instanceof WalletResponse) {
-                KLog.v("WalletFragment","handleResult: HMtes 2");
+                KLog.v("WalletFragment", "handleResult: HMtes 2");
                 WalletResponse walletResponse = (WalletResponse) data;
                 if (walletResponse != null) {
                     if (walletResponse.getWallet() != null) {
@@ -196,7 +195,7 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 fragmentView.findViewById(R.id.vp_wallet).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
                 fragmentView.findViewById(R.id.ll_wallet_main).setVisibility(isWalletExist ? View.VISIBLE : View.GONE);
                 fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
-                if (isWalletExist ) {
+                if (isWalletExist) {
                     Wallet wallet = walletResponse.getWallet();
                     ViewUtil.setText(fragmentView, R.id.tv_total_wallet, "" + wallet.getBalance());
                     ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, "" + wallet.getPersonalWalletBalance());

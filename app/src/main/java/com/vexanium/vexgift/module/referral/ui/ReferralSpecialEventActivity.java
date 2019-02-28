@@ -3,10 +3,6 @@ package com.vexanium.vexgift.module.referral.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.StaticGroup;
@@ -25,10 +20,8 @@ import com.vexanium.vexgift.bean.response.WalletReferralResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
-import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
 import com.vexanium.vexgift.util.JsonUtil;
-import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.io.Serializable;
 
@@ -40,13 +33,11 @@ public class ReferralSpecialEventActivity extends BaseActivity<IWalletPresenter>
 
     TextView mTvInvitedCount, mTvInviteLink, mTvReferralCode, mTvReferralTitle;
     ImageView mIvCopy, mIvCodeCopy, mIvWhatsapp, mIvTelegram, mIvLine, mIvTwitter, mIvFb, mIvShare;
-
-    private SwipeRefreshLayout mRefreshLayout;
-
     String mPlaystoreLink;
     String mShareText;
     String refGuidanceUrl = "";
     User user;
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     protected void initView() {

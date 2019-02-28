@@ -31,17 +31,17 @@ public class WalletReferralResponse implements Serializable {
         this.uncountedReferrals = uncountedReferrals;
     }
 
-    public int getCountedReferralsCount(){
-        if(countedReferrals != null) return countedReferrals.size();
+    public int getCountedReferralsCount() {
+        if (countedReferrals != null) return countedReferrals.size();
         return 0;
     }
 
-    public int getUncountedReferralsCount(){
-        if(uncountedReferrals != null) return uncountedReferrals.size();
+    public int getUncountedReferralsCount() {
+        if (uncountedReferrals != null) return uncountedReferrals.size();
         return 0;
     }
 
-    public int getReferralsCount(){
-        return  getCountedReferralsCount() + getUncountedReferralsCount();
+    public int getReferralsCount() {
+        return getCountedReferralsCount() + getUncountedReferralsCount();
     }
 }

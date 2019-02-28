@@ -17,7 +17,6 @@ import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.database.DaoMaster;
 import com.vexanium.vexgift.database.DaoSession;
 import com.vexanium.vexgift.database.DatabaseUpgradeHelper;
-import com.vexanium.vexgift.util.LocaleUtil;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;

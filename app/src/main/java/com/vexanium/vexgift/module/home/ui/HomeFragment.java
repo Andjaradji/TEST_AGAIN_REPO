@@ -972,12 +972,12 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                         break;
                     case BestVoucher.BIG_BANNER:
                         final BigBanner bigBanner = bestVoucher.getBigBanner();
-                        if(bigBanner != null) {
+                        if (bigBanner != null) {
                             holder.setImageUrl(R.id.iv_big_banner, bigBanner.getImage(), R.drawable.placeholder);
                             holder.setOnClickListener(R.id.rl_bigbanner, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(ClickUtil.isFastDoubleClick())return;
+                                    if (ClickUtil.isFastDoubleClick()) return;
                                     ((MainActivity) getActivity()).openDeepLink(bigBanner.getLink());
                                 }
                             });

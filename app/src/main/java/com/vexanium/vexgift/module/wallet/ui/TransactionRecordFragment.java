@@ -46,13 +46,12 @@ public class TransactionRecordFragment extends BaseFragment {
     ImageView mIvError;
     TextView mTvErrorHead, mTvErrorBody;
     ArrayList<WalletLog> dataList = new ArrayList<>();
+    WalletResponse walletResponse;
     private BaseRecyclerAdapter<WalletLog> mTransactionLogAdapter;
-
     private RecyclerView mRecyclerview;
     private LinearLayoutManager linearLayoutManager;
     private VexPointAdapter mAdapter;
     private Observable<Boolean> mTransactionObservable;
-    WalletResponse walletResponse;
 
     public static TransactionRecordFragment newInstance() {
         return new TransactionRecordFragment();
