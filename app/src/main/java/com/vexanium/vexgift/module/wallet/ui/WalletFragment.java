@@ -350,7 +350,10 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
 
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
-//        nextSnapshoot.add(Calendar.DATE, 1);
+        if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
+            nextSnapshoot.add(Calendar.DATE, 1);
+//        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
+        }
         nextSnapshoot.set(Calendar.HOUR_OF_DAY, 12);
         nextSnapshoot.set(Calendar.MINUTE, 0);
         nextSnapshoot.set(Calendar.SECOND, 0);
