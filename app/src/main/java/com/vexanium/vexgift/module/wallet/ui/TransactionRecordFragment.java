@@ -138,7 +138,7 @@ public class TransactionRecordFragment extends BaseFragment {
                         }
                     });
 
-                    if (item.getType().equalsIgnoreCase("deposit")) {
+                    if (item.getType().equalsIgnoreCase("deposit") || item.getType().equalsIgnoreCase("bonus")) {
                         holder.setText(R.id.tv_indicator, "+ " + item.getAmount());
                         holder.setTextColor(R.id.tv_indicator, getContext().getResources().getColor(R.color.vexpoint_plus));
                     } else {
