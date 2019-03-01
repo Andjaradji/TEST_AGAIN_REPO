@@ -43,9 +43,11 @@
             android:id="@+id/ivSelected_en"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main"
             android:src="@drawable/btn_check_p"
             android:visibility="gone" />
 
@@ -53,8 +55,10 @@
             android:id="@+id/ivUnselected_en"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/interval_main"
             android:layout_marginRight="@dimen/interval_main"
             android:src="@drawable/btn_check_n"
             android:visibility="visible" />
@@ -99,9 +103,11 @@
             android:id="@+id/ivSelected_id"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main"
             android:src="@drawable/btn_check_p"
             android:visibility="gone" />
 
@@ -111,7 +117,7 @@
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/interval_main"
+            android:layout_marginRight="10dp"
             android:src="@drawable/btn_check_n"
             android:visibility="visible" />
     </RelativeLayout>
@@ -155,9 +161,11 @@
             android:id="@+id/ivSelected_zh"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="@dimen/interval_main"
+            android:layout_marginRight="@dimen/interval_main"
             android:src="@drawable/btn_check_p"
             android:visibility="gone" />
 

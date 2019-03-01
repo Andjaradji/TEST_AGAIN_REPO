@@ -254,7 +254,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             isValid = false;
         }
         if (walletResponse != null && walletResponse.getWallet() != null && user != null && isValid) {
-            String content = String.format(getString(R.string.wallet_withdraw_dialog_detail),withdrawAmount+"");
+            String content = String.format(getString(R.string.wallet_withdraw_dialog_detail), withdrawAmount + "");
             new VexDialog.Builder(this)
                     .optionType(DialogOptionType.YES_NO)
                     .title(getString(R.string.wallet_withdraw_dialog_title))
@@ -262,7 +262,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                            if(ClickUtil.isFastDoubleClick())return;
+                            if (ClickUtil.isFastDoubleClick()) return;
                             mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), withdrawAmount, destinationAddress);
 
                         }

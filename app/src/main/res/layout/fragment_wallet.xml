@@ -130,6 +130,7 @@
                                         android:layout_height="11dp"
                                         android:contentDescription="@string/image_content_description"
                                         android:paddingLeft="4dp"
+                                        android:visibility="gone"
                                         android:src="@drawable/ic_ask_me" />
                                 </LinearLayout>
 
@@ -167,6 +168,7 @@
 
                                     <ImageView
                                         android:layout_width="18dp"
+                                        android:visibility="gone"
                                         android:layout_height="11dp"
                                         android:contentDescription="@string/image_content_description"
                                         android:paddingLeft="4dp"
@@ -366,6 +368,7 @@
                     </android.support.v7.widget.CardView>
 
                     <LinearLayout
+                        android:id="@+id/ll_payout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/wallet_box"
@@ -373,6 +376,7 @@
                         android:gravity="center">
 
                         <TextView
+                            android:id="@+id/tv_payout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/interval_content"
@@ -389,6 +393,19 @@
                             android:textColor="@color/material_black_text_color"
                             android:textSize="@dimen/text_xtiny" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_countdown_temp"
+                        android:layout_width="match_parent"
+                        android:textAlignment="center"
+                        android:layout_marginTop="@dimen/interval_small"
+                        android:layout_height="wrap_content"
+                        android:tag="bold"
+                        android:visibility="gone"
+                        android:layout_below="@id/ll_payout"
+                        android:textColor="@color/material_black_text_color"
+                        android:textSize="@dimen/text_xtiny" />
+
                 </RelativeLayout>
 
                 <LinearLayout

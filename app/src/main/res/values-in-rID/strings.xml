@@ -374,7 +374,7 @@
     <string name="captcha_dialog_content">Mohon masukan captcha untuk mendapatkan voucher</string>
     <string name="google2fa_dialog_desc">Masukan Google Authenticator PIN</string>
     <string name="google2fa_dialog_field">PIN Google Authenticator</string>
-    <string name="vp_time_snapshoot">SNAPSHOOT SELANJUTNYA SETELAH :</string>
+    <string name="vp_time_snapshoot">SNAPSHOOT SELANJUTNYA :</string>
     <string name="addnewpas_password">Kata sandi</string>
     <string name="addnewpass_repassword">Masukan ulang kata sandi</string>
     <string name="exchange_receive_voucher">DAPATKAN VOUCHER</string>
@@ -425,7 +425,7 @@
     <string name="guidance_vp_subtitle_4">Tekan untuk Melihat Detail</string>
     <string name="guidance_vp_note_1">Vex Point yang anda dapatkan tiap harinya adalah 0.5% dari Vex yang ada di wallet anda</string>
     <string name="guidance_vp_note_2">Vex Point yang didapatkan maksimal 2500 VP</string>
-    <string name="guidance_vp_note_3">Snapshoot terjadi pada pukul 00:00 GMT+7</string>
+    <string name="guidance_vp_note_3">Snapshoot terjadi pada pukul 12:00 GMT+7</string>
     <string name="guidance_vp_note_4">Vex Point yang anda dapatkan tiap harinya adalah 0.5% dari Vex yang ada di wallet anda</string>
     <string name="time_hour_min_sec">%02d JAM, %02d MEN, %02d DET</string>
     <string name="time_day_hour_min">%d HARI, %02d JAM, %02d MEN</string>
@@ -584,7 +584,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="wallet_estimated_deposit_bonus">Bonus Deposit Staking:</string>
     <string name="wallet_estimated_referral_bonus">Bonus Referral Staking:</string>
     <string name="wallet_note">peringatan: anda harus memiliki minimal 100.000 VEX untuk berpartisipasi</string>
-    <string name="wallet_time_bonus">PEMBAYARAN BONUS BERIKUTNYA:</string>
+    <string name="wallet_time_bonus">BONUS BERIKUTNYA:</string>
     <string name="wallet_transaction_record">Riwayat Transaksi</string>
     <string name="wallet_bonus_record">Riwayat Bonus</string>
     <string name="wallet_withdraw_transfer_to">Vex akan dikirim ke alamat dibawah ini</string>

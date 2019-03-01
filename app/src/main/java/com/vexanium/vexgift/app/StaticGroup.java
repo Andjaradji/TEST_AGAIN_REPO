@@ -1514,6 +1514,15 @@ public class StaticGroup {
         }
     }
 
+    public static boolean isWalletBonusShown() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_bonus_shown") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_bonus_shown") == 1;
+        } else {
+            return false;
+        }
+    }
+
     public static String getStringValFromSettingKey(String key) {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && !TextUtils.isEmpty(settingResponse.getSettingStringValByKey(key))) {
