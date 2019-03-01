@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+import com.crashlytics.android.answers.CustomEvent;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.socks.library.KLog;
@@ -24,6 +27,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
 import com.vexanium.vexgift.bean.response.WithdrawResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
+import com.vexanium.vexgift.module.tokensale.ui.TokenSaleHistoryActivity;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
@@ -98,6 +102,14 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             });
         }
 
+        if (getIntent().hasExtra("history")) {
+            boolean isGoToHistory = getIntent().getBooleanExtra("history", true);
+            if (isGoToHistory ) {
+                Intent intent = new Intent(this, WalletWithdrawHistoryActivity.class);
+                startActivity(intent);
+            }
+        }
+
 
         etAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -156,6 +168,11 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         }
 
         setEnableWithdrawButton(withdrawAmount > 0);
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Wallet Withdraw View")
+                .putContentType("Wallet")
+                .putContentId("wallet withdraw"));
     }
 
     @Override
@@ -182,12 +199,18 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 break;
             case R.id.btn_25:
                 updateSeekbar(25);
+                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                .putCustomAttribute("percentage",25));
                 break;
             case R.id.btn_50:
                 updateSeekbar(50);
+                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                        .putCustomAttribute("percentage",50));
                 break;
             case R.id.btn_75:
                 updateSeekbar(75);
+                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                        .putCustomAttribute("percentage",75));
                 break;
             case R.id.btn_scan:
                 IntentIntegrator integrator = new IntentIntegrator(this);

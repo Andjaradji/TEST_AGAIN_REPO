@@ -32,11 +32,14 @@ import com.vexanium.vexgift.module.home.ui.HomeFragment;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
+import com.vexanium.vexgift.module.premium.ui.PremiumMemberActivity;
 import com.vexanium.vexgift.module.referral.ui.ReferralActivity;
 import com.vexanium.vexgift.module.referral.ui.ReferralSpecialEventActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherWebViewActivity;
+import com.vexanium.vexgift.module.wallet.ui.WalletDepositActivity;
 import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
+import com.vexanium.vexgift.module.wallet.ui.WalletWithdrawActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -687,6 +690,35 @@ public class MainActivity extends BaseActivity {
             } else if (path.startsWith("notif")) {
                 gotoPage(NOTIF_FRAGMENT);
 
+            } else if (path.startsWith("premium")) {
+                gotoPage(MORE_FRAGMENT);
+                intent = new Intent(this, PremiumMemberActivity.class);
+                startActivity(intent);
+
+            } else if (path.startsWith("wallet-withdraw-history")) {
+                gotoPage(WALLET_FRAGMENT);
+                intent = new Intent(this, WalletWithdrawActivity.class);
+                intent.putExtra("history", true);
+                startActivity(intent);
+
+            } else if (path.startsWith("wallet-withdraw")) {
+                gotoPage(WALLET_FRAGMENT);
+                intent = new Intent(this, WalletWithdrawActivity.class);
+                startActivity(intent);
+
+            } else if (path.startsWith("wallet")) {
+                gotoPage(WALLET_FRAGMENT);
+
+            } else if (path.startsWith("staking-referral")) {
+                if (StaticGroup.isReferralSpecialEventBannerActive()) {
+                    intent = new Intent(this, ReferralSpecialEventActivity.class);
+                    startActivity(intent);
+                }
+            } else if (path.startsWith("staking-deposit")) {
+                gotoPage(WALLET_FRAGMENT);
+                intent = new Intent(this, WalletDepositActivity.class);
+                startActivity(intent);
+
             } else if (path.startsWith("deposit")) {
                 if (StaticGroup.isDepositAvailable()) {
                     String sId = uri.getQueryParameter("id");
@@ -735,11 +767,6 @@ public class MainActivity extends BaseActivity {
                     startActivity(intent);
                 }
 
-            } else if (path.startsWith("ref")) {
-                if (StaticGroup.isReferralSpecialEventBannerActive()) {
-                    intent = new Intent(this, ReferralSpecialEventActivity.class);
-                    startActivity(intent);
-                }
             } else if (path.startsWith("referral")) {
                 if (StaticGroup.isReferralBannerActive()) {
                     intent = new Intent(this, ReferralActivity.class);

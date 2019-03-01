@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
@@ -64,6 +66,10 @@ public class WalletDepositActivity extends BaseActivity<IWalletPresenter> implem
         if (!TextUtils.isEmpty(withdrawNoteDetail)) {
             ViewUtil.setText(this, R.id.tv_desc, withdrawNoteDetail);
         }
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("Wallet Deposit View")
+                .putContentType("Wallet")
+                .putContentId("wallet deposit"));
     }
 
     @Override

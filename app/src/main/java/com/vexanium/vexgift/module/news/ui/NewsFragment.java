@@ -13,11 +13,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.socks.library.KLog;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseWebChromeClient;
+import com.vexanium.vexgift.bean.model.User;
 
 @ActivityFragmentInject(contentViewId = R.layout.fragment_news)
 public class NewsFragment extends BaseFragment {
@@ -29,6 +32,7 @@ public class NewsFragment extends BaseFragment {
     private String url;
     private String javascript;
     private SwipeRefreshLayout mRefreshLayout;
+    private User user;
 
 
     public static NewsFragment newInstance(String url, String javascript) {
@@ -42,6 +46,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void initView(View fragmentRootView) {
+        user = User.getCurrentUser(getContext());
         mWebView = fragmentRootView.findViewById(R.id.webview);
         mLoadingContainer = fragmentRootView.findViewById(R.id.av_indicator_container);
 
@@ -107,6 +112,12 @@ public class NewsFragment extends BaseFragment {
         });
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(url);
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName("News Fragment View")
+                .putContentType("News")
+                .putContentId(url)
+                .putCustomAttribute("reader", user.getId()));
     }
 
     @Override
