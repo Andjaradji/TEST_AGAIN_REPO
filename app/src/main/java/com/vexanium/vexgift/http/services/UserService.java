@@ -203,5 +203,12 @@ public interface UserService {
             @Header("Cache-Control") String cacheControl,
             @FieldMap Map<String, Object> params);
 
+    @FormUrlEncoded
+    @POST("/user/update-profile")
+    Observable<HttpResponse<EmptyResponse>> updateUserProfile(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @FieldMap Map<String, Object> params);
+
 
 }

@@ -1,7 +1,9 @@
 package com.vexanium.vexgift.module.profile.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -129,6 +131,21 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                user = User.getCurrentUser(this);
+                setUserData(user);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
+    }
+
+    @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("MyProfileActivity handleResult : " + JsonUtil.toString(data));
         if (data != null) {
@@ -171,6 +188,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
     }
 
     private void setUserData(User user) {
+        ViewUtil.setText(this, R.id.tv_username, user.getName());
         ViewUtil.setText(this, R.id.tv_email, user.getEmail());
     }
 
@@ -182,6 +200,15 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         ViewUtil.setImageUrl(this, R.id.iv_document_front, kycContent.getIdImageFront(), R.drawable.placeholder);
         ViewUtil.setImageUrl(this, R.id.iv_document_back, kycContent.getIdImageBack(), R.drawable.placeholder);
         ViewUtil.setImageUrl(this, R.id.iv_document_selfie, kycContent.getIdImageSelfie(), R.drawable.placeholder);
+
+        findViewById(R.id.tv_edit_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ClickUtil.isFastDoubleClick()) return;
+                Intent intent = new Intent(MyProfileActivity.this, EditProfileActivity.class);
+                startActivityForResult(intent,1);
+            }
+        });
     }
 
     private void setKycInfo(int status) {

@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -314,8 +315,8 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                 if (userLuckyDrawLists != null && userLuckyDrawLists.size() > 0) {
                     for (UserLuckyDraw userLuckyDraw : userLuckyDrawLists) {
                         for (int i = 0; i < tempLuckyDraws.size(); i++) {
-
-                            if (tempLuckyDraws.get(i).getId() == userLuckyDraw.getLuckyDrawId()) {
+                            Log.e("luckydrawed",i +". "+tempLuckyDraws.get(i)+ " "+tempLuckyDraws.size());
+                            if (tempLuckyDraws.get(i) != null && tempLuckyDraws.get(i).getId() == userLuckyDraw.getLuckyDrawId()) {
                                 int userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal();
                                 if (userPurchased < 0) {
                                     userPurchased = 1;

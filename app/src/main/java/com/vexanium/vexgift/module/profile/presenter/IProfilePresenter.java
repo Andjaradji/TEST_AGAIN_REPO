@@ -11,4 +11,6 @@ public interface IProfilePresenter extends BasePresenter {
     void changePass(int id, String oldPass, String newPass);
 
     void getCountries();
+
+    void updateUserProfile(int id, String username);
 }

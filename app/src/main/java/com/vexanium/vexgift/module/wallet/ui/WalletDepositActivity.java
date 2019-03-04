@@ -58,11 +58,11 @@ public class WalletDepositActivity extends BaseActivity<IWalletPresenter> implem
         ViewUtil.setOnClickListener(this, this,
                 R.id.btn_copy, R.id.iv_qr_code, R.id.ll_code);
 
-        String withdrawNoteTitle = StaticGroup.getStringValFromSettingKey("withdraw_note_title");
+        String withdrawNoteTitle = StaticGroup.getStringValFromSettingKey("deposit_note_title");
         if (!TextUtils.isEmpty(withdrawNoteTitle)) {
             ViewUtil.setText(this, R.id.tv_desc_title, withdrawNoteTitle);
         }
-        String withdrawNoteDetail = StaticGroup.getStringValFromSettingKey("withdraw_note_detail");
+        String withdrawNoteDetail = StaticGroup.getStringValFromSettingKey("deposit_note_detail");
         if (!TextUtils.isEmpty(withdrawNoteDetail)) {
             ViewUtil.setText(this, R.id.tv_desc, withdrawNoteDetail);
         }

@@ -70,6 +70,7 @@ import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
 import com.vexanium.vexgift.http.services.WalletService;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 
 import java.io.File;
@@ -1075,6 +1076,16 @@ public class RetrofitManager {
 
         return mWalletService.doWithdraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
     }
+
+    public Observable<HttpResponse<EmptyResponse>> updateUserProfile(int userId, String userName) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("name", userName);
+
+        return mUserService.updateUserProfile(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
 
 //    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
 //        Map<String, Object> params = Api.getBasicParam();
