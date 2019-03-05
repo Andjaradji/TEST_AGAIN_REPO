@@ -234,6 +234,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> updateUserProfile(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 

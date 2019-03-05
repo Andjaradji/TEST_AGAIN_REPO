@@ -1088,7 +1088,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("name", userName);
 
-        return mUserService.updateUserProfile(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.updateUserProfile(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
 
