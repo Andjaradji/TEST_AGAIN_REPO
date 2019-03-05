@@ -52,7 +52,7 @@ public class BasePresenterImpl<T extends BaseView, V> implements BasePresenter, 
         if (response != null && response.getMeta().getError() != null) {
             Map<String, String> notifyInfo = (HashMap) response.getMeta().getError();
             if (notifyInfo != null && !TextUtils.isEmpty(notifyInfo.get("msg")) && mView != null) {
-                mView.toast(notifyInfo.get("msg"));
+//                mView.toast(notifyInfo.get("msg"));
             }
         }
         if (mView != null) {

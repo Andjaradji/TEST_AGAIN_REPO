@@ -42,6 +42,7 @@ import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenter;
 import com.vexanium.vexgift.module.profile.presenter.IProfilePresenterImpl;
 import com.vexanium.vexgift.module.profile.view.IProfileView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.ImagePathMarshmallow;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -255,11 +256,12 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
             new VexDialog.Builder(KycActivity.this)
                     .optionType(DialogOptionType.OK)
                     .okText("OK")
-                    .title("Submit Success")
-                    .content("Your KYC submission has been submit. Please wait, our Team will review your submission")
+                    .title(getString(R.string.myprofile_submit_success_dialog_title))
+                    .content(getString(R.string.myprofile_submit_success_dialog_text))
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                            if(ClickUtil.isFastDoubleClick())return;
                             finish();
                         }
                     })

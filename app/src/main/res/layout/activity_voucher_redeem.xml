@@ -656,6 +656,7 @@
                     android:layout_margin="@dimen/interval_submain"
                     android:tag="bold"
                     android:text="@string/coupon_archive"
+                    android:textAlignment="center"
                     android:textColor="@color/vex_orange"
                     android:textSize="@dimen/text_title" />
             </LinearLayout>

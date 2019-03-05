@@ -359,17 +359,17 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         } else if (errorResponse != null) {
             if (errorResponse.getMeta() != null) {
                 if (errorResponse.getMeta().isRequestError()) {
-                    if (!errorResponse.getMeta().getMessage().contains("KYC"))
-                        if (getActivity() != null)
-                            StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
+//                    if (!errorResponse.getMeta().getMessage().contains("KYC"))
+//                        if (getActivity() != null)
+//                            StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse.getMeta().getMessage());
                 } else {
                     if (getActivity() != null)
                         StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), errorResponse);
                 }
             } else {
                 if (NetworkUtil.isOnline(getActivity())) {
-                    if (getActivity() != null)
-                        StaticGroup.showCommonErrorDialog(getActivity(), 0);
+//                    if (getActivity() != null)
+//                        StaticGroup.showCommonErrorDialog(getActivity(), 0);
                 } else {
                     if (mAdapter.getItemCount() > 0) {
                         StaticGroup.showCommonErrorDialog(HomeFragment.this.getActivity(), getString(R.string.error_internet_header), getString(R.string.error_internet_body));

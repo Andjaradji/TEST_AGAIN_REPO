@@ -328,6 +328,9 @@
     <string name="myprofile_submit">Submit</string>
     <string name="myprofile_view">View My Submission</string>
 
+    <string name="myprofile_submit_success_dialog_title">Submit Success</string>
+    <string name="myprofile_submit_success_dialog_text">Your KYC submission has been submit. Please wait, our Team will review your submission</string>
+
     <string name="term_agree">I have read &amp; agree to the terms of use</string>
 
     <string name="change_password_toolbar_title">Change Password</string>
