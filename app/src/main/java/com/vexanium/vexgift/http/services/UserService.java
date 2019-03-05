@@ -34,12 +34,14 @@ public interface UserService {
     @POST("user/auth")
     Observable<HttpResponse<UserLoginResponse>> requestLogin(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user")
     Observable<HttpResponse<EmptyResponse>> requestRegister(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -47,31 +49,37 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestChangePassword(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user/reset-password")
     Observable<HttpResponse<EmptyResponse>> requestResetPassword(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user/reset-password/validate-code")
     Observable<HttpResponse<ResetPasswordCodeResponse>> requestResetPasswordCodeValidation(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
     @POST("user/reset-password/validate-token")
     Observable<HttpResponse<EmptyResponse>> requestResetPasswordTokenValidation(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
 //    @POST("user/password")
 //    Observable<HttpResponse<EmptyResponse>> requestChangePassword(
 //            @Header("X-Vexanium-Key") String key,
 //            @Header("Cache-Control") String cacheControl,
+//    @Header("locale")
+//    String locale,
 //            @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -79,6 +87,7 @@ public interface UserService {
     Observable<HttpResponse<Google2faResponse>> requestGoogleAuthCode(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -86,6 +95,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> checkGoogleAuthToken(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -93,6 +103,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestGoogleAuthEnable(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -100,6 +111,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestGoogleAuthDisable(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @Multipart
@@ -107,6 +119,7 @@ public interface UserService {
     Observable<HttpResponse<Kyc>> submitKyc(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @PartMap Map<String, Object> params,
             @Part MultipartBody.Part frontImage,
             @Part MultipartBody.Part backImage,
@@ -117,6 +130,7 @@ public interface UserService {
     Observable<HttpResponse<Kyc>> requestKyc(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -124,6 +138,7 @@ public interface UserService {
     Observable<HttpResponse<UserAddressResponse>> getActAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -131,6 +146,7 @@ public interface UserService {
     Observable<HttpResponse<UserAddressResponse>> setActAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -138,6 +154,7 @@ public interface UserService {
     Observable<HttpResponse<UserLoginResponse>> requestEmailConfirmation(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -145,6 +162,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestResendEmailConfirmation(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -152,6 +170,7 @@ public interface UserService {
     Observable<HttpResponse<UserLoginResponse>> requestSmsConfirmation(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -159,6 +178,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestResendSmsConfirmation(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -166,6 +186,7 @@ public interface UserService {
     Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -173,6 +194,7 @@ public interface UserService {
     Observable<HttpResponse<VexPointRecordResponse>> getVexPointLog(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -180,6 +202,7 @@ public interface UserService {
     Observable<HttpResponse<VexPointRecordResponse>> getVexPointLogTypes(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -187,6 +210,7 @@ public interface UserService {
     Observable<HttpResponse<UserReferralResponse>> getUserReferrals(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -194,6 +218,7 @@ public interface UserService {
     Observable<HttpResponse<NotificationResponse>> getUserNotification(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -201,6 +226,7 @@ public interface UserService {
     Observable<HttpResponse<VexPointResponse>> getUserVexPoint(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 

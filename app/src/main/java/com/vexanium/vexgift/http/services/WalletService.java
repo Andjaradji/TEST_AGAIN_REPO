@@ -19,6 +19,7 @@ public interface WalletService {
     Observable<HttpResponse<WalletResponse>> getWallet(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -26,6 +27,7 @@ public interface WalletService {
     Observable<HttpResponse<WalletResponse>> createWallet(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -33,6 +35,7 @@ public interface WalletService {
     Observable<HttpResponse<WithdrawResponse>> doWithdraw(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 
@@ -41,5 +44,6 @@ public interface WalletService {
     Observable<HttpResponse<WalletReferralResponse>> getWalletReferral(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 }

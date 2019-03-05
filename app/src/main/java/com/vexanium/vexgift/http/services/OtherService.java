@@ -51,6 +51,7 @@ public interface OtherService {
     Observable<HttpResponse<SettingResponse>> getSettings(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -58,6 +59,7 @@ public interface OtherService {
     Observable<HttpResponse<BannerResponse>> getBanners(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -65,12 +67,14 @@ public interface OtherService {
     Observable<HttpResponse<BigBannerResponse>> getBigBanners(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @GET("setting/app-status")
     Observable<HttpResponse<SettingResponse>> getAppStatus(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @QueryMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -78,6 +82,7 @@ public interface OtherService {
     Observable<HttpResponse<ExchangeResponse>> getExchangeList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -85,6 +90,7 @@ public interface OtherService {
     Observable<HttpResponse<VouchersResponse>> getNotifList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -92,6 +98,7 @@ public interface OtherService {
     Observable<HttpResponse<PremiumListResponse>> getPremiumList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -99,6 +106,7 @@ public interface OtherService {
     Observable<HttpResponse<PremiumPurchaseResponse>> purcasePremiumMember(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -106,6 +114,7 @@ public interface OtherService {
     Observable<HttpResponse<PremiumHistoryResponse>> getPremiumHistoryList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -113,11 +122,13 @@ public interface OtherService {
     Observable<HttpResponse<PremiumDueDateResponse>> getPremiumDueDate(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @GET("country")
     Observable<HttpResponse<CountriesResponse>> getCountries(
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @QueryMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -125,6 +136,7 @@ public interface OtherService {
     Observable<HttpResponse<DepositListResponse>> getDeposits(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -132,6 +144,7 @@ public interface OtherService {
     Observable<HttpResponse<UserDepositResponse>> getDepositHistory(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -139,6 +152,7 @@ public interface OtherService {
     Observable<HttpResponse<UserDepositSingleResponse>> requestDeposit(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -146,6 +160,7 @@ public interface OtherService {
     Observable<HttpResponse<VexVaultResponse>> getTokenFreeze(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -153,6 +168,7 @@ public interface OtherService {
     Observable<HttpResponse<TokenSaleResponse>> getTokenSales(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -160,6 +176,7 @@ public interface OtherService {
     Observable<HttpResponse<TokenSaleHistoryResponse>> getTokenSaleHistories(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -167,6 +184,7 @@ public interface OtherService {
     Observable<HttpResponse<TokenSalePaymentResponse>> buyTokenSales(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -174,6 +192,7 @@ public interface OtherService {
     Observable<HttpResponse<EmptyResponse>> updateDistributionAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -181,6 +200,7 @@ public interface OtherService {
     Observable<HttpResponse<TokenSaleHistoryDetailResponse>> getTokenSalePayment(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -188,6 +208,7 @@ public interface OtherService {
     Observable<HttpResponse<LuckyDrawListResponse>> getLuckyDrawList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -195,6 +216,7 @@ public interface OtherService {
     Observable<HttpResponse<LuckyDrawResponse>> getLuckyDraw(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -202,6 +224,7 @@ public interface OtherService {
     Observable<HttpResponse<UserLuckyDrawListResponse>> getUserLuckyDrawList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -209,6 +232,7 @@ public interface OtherService {
     Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -216,6 +240,7 @@ public interface OtherService {
     Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -223,6 +248,7 @@ public interface OtherService {
     Observable<HttpResponse<BuybackHistoryResponse>> getBuybackHistories(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -230,6 +256,7 @@ public interface OtherService {
     Observable<HttpResponse<BuybackPaymentResponse>> doBuyback(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -237,6 +264,7 @@ public interface OtherService {
     Observable<HttpResponse<BuybackResponse>> getBuyback(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -244,6 +272,7 @@ public interface OtherService {
     Observable<HttpResponse<EmptyResponse>> updateBuybackDistributionAddress(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -251,6 +280,7 @@ public interface OtherService {
     Observable<HttpResponse<DigifinexReferralResponse>> submitDigifinexEmailReferred(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -258,6 +288,7 @@ public interface OtherService {
     Observable<HttpResponse<DigifinexReferralListResponse>> getUserDigifinexEmailReferred(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -265,6 +296,7 @@ public interface OtherService {
     Observable<HttpResponse<NewsResponse>> getNews(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -272,6 +304,7 @@ public interface OtherService {
     Observable<HttpResponse<UserInputDataResponse>> requestUserInput(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -279,6 +312,7 @@ public interface OtherService {
     Observable<HttpResponse<UserInputDataResponse>> getUserInputData(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -286,6 +320,7 @@ public interface OtherService {
     Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -293,6 +328,7 @@ public interface OtherService {
     Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -300,6 +336,7 @@ public interface OtherService {
     Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -307,6 +344,7 @@ public interface OtherService {
     Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 }

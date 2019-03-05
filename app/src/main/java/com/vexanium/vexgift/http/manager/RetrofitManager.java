@@ -70,6 +70,7 @@ import com.vexanium.vexgift.http.services.UserService;
 import com.vexanium.vexgift.http.services.VoucherService;
 import com.vexanium.vexgift.http.services.WalletService;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 
 import java.io.File;
@@ -227,6 +228,11 @@ public class RetrofitManager {
     }
 
     @NonNull
+    private String getLocale() {
+        return LocaleUtil.getLanguage(App.getContext());
+    }
+
+    @NonNull
     private String getApiKey() {
         return StaticGroup.getUserSession();
     }
@@ -285,7 +291,7 @@ public class RetrofitManager {
         KLog.json(params.toString());
         KLog.v("--------------------------------------------Response Login Param End----------------------------------------------------");
 
-        return mUserService.requestLogin(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+        return mUserService.requestLogin(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestRegister(User user) {
@@ -350,7 +356,7 @@ public class RetrofitManager {
         KLog.json(params.toString());
         KLog.v("--------------------------------------------Response Register Param End----------------------------------------------------");
 
-        return mUserService.requestRegister(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestRegister(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<Google2faResponse>> requestGoogle2faCode(int id) {
@@ -358,7 +364,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
+        return mUserService.requestGoogleAuthCode(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<Google2faResponse>>());
     }
 
     public Observable<HttpResponse<ExchangeResponse>> requestExchangeList(int id) {
@@ -366,7 +372,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mOtherService.getExchangeList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<ExchangeResponse>>());
+        return mOtherService.getExchangeList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<ExchangeResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResetPass(String email) {
@@ -374,7 +380,7 @@ public class RetrofitManager {
 
         params.put("email", email);
 
-        return mUserService.requestResetPassword(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestResetPassword(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<ResetPasswordCodeResponse>> requestResetPassCodeValidation(String email, String code) {
@@ -383,7 +389,7 @@ public class RetrofitManager {
         params.put("email", email);
         params.put("reset_password_code", code);
 
-        return mUserService.requestResetPasswordCodeValidation(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<ResetPasswordCodeResponse>>());
+        return mUserService.requestResetPasswordCodeValidation(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<ResetPasswordCodeResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResetPassTokenValidation(String email, String token, String password, String confirmPassword) {
@@ -394,7 +400,7 @@ public class RetrofitManager {
         params.put("new_password", password);
         params.put("new_password_confirmation", confirmPassword);
 
-        return mUserService.requestResetPasswordTokenValidation(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestResetPasswordTokenValidation(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestChangePass(int id, String oldpass, String pass) {
@@ -405,7 +411,7 @@ public class RetrofitManager {
         if (!TextUtils.isEmpty(oldpass))
             params.put("old_password", oldpass);
 
-        return mUserService.requestChangePassword(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestChangePassword(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestGoogle2faUpdateState(int id, String authCode, String token, boolean isSetToEnable) {
@@ -416,9 +422,9 @@ public class RetrofitManager {
         params.put("token", token);
 
         if (isSetToEnable)
-            return mUserService.requestGoogleAuthEnable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+            return mUserService.requestGoogleAuthEnable(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
         else
-            return mUserService.requestGoogleAuthDisable(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+            return mUserService.requestGoogleAuthDisable(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<Kyc>> requestKyc(int id) {
@@ -426,7 +432,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mUserService.requestKyc(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        return mUserService.requestKyc(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
     public Observable<HttpResponse<VexPointResponse>> requestVexPoint(int id) {
@@ -434,7 +440,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mUserService.getUserVexPoint(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointResponse>>());
+        return mUserService.getUserVexPoint(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointResponse>>());
     }
 
     public Observable<HttpResponse<BannerResponse>> requestBanner(int id) {
@@ -442,7 +448,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mOtherService.getBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BannerResponse>>());
+        return mOtherService.getBanners(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BannerResponse>>());
     }
 
     public Observable<HttpResponse<BigBannerResponse>> requestBigBanner(int id) {
@@ -450,7 +456,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mOtherService.getBigBanners(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BigBannerResponse>>());
+        return mOtherService.getBigBanners(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BigBannerResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> checkToken(int id, String token) {
@@ -463,7 +469,7 @@ public class RetrofitManager {
         KLog.json(params.toString());
         KLog.v("--------------------------------------------Response checkToken Param End----------------------------------------------------");
 
-        return mUserService.checkGoogleAuthToken(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.checkGoogleAuthToken(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<Kyc>> submitKyc(Kyc kyc) {
@@ -509,7 +515,7 @@ public class RetrofitManager {
         KLog.json(params.toString());
         KLog.v("--------------------------------------------Response submitKyc Param End----------------------------------------------------");
 
-        return mUserService.submitKyc(getApiKey(), getCacheControl(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
+        return mUserService.submitKyc(getApiKey(), getCacheControl(), getLocale(), params, frontBody, backBody, selfieBody).compose(new BaseSchedulerTransformer<HttpResponse<Kyc>>());
     }
 
     public Observable<HttpResponse<UserAddressResponse>> requestGetActAddress(int id) {
@@ -517,7 +523,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mUserService.getActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
+        return mUserService.getActAddress(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
     public Observable<HttpResponse<SettingResponse>> requestSettings(int id) {
@@ -525,13 +531,13 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mOtherService.getSettings(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
+        return mOtherService.getSettings(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
     }
 
     public Observable<HttpResponse<SettingResponse>> requestAppStatus() {
         Map<String, Object> params = Api.getBasicParam();
 
-        return mOtherService.getAppStatus(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
+        return mOtherService.getAppStatus(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<SettingResponse>>());
     }
 
     public Observable<HttpResponse<UserAddressResponse>> requestSetActAddress(int id, String token, String actAddress) {
@@ -541,7 +547,7 @@ public class RetrofitManager {
         params.put("token", token);
         params.put("act_address", actAddress);
 
-        return mUserService.setActAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
+        return mUserService.setActAddress(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserAddressResponse>>());
     }
 
     public Observable<HttpResponse<PaymentTypeResponse>> requestPaymentTypes(int id) {
@@ -550,7 +556,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getPaymentTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PaymentTypeResponse>>());
+        return mVoucherService.getPaymentTypes(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<PaymentTypeResponse>>());
     }
 
     public Observable<HttpResponse<MemberTypeResponse>> requestMemberTypes(int id) {
@@ -559,7 +565,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getMemberTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<MemberTypeResponse>>());
+        return mVoucherService.getMemberTypes(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<MemberTypeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherTypeResponse>> requestVoucherTypes(int id) {
@@ -568,7 +574,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getVoucherTypes(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherTypeResponse>>());
+        return mVoucherService.getVoucherTypes(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherTypeResponse>>());
     }
 
     public Observable<HttpResponse<CategoryResponse>> requestCategories(int id) {
@@ -577,7 +583,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getCategories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CategoryResponse>>());
+        return mVoucherService.getCategories(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<CategoryResponse>>());
     }
 
     public Observable<HttpResponse<VouchersResponse>> requestVoucherList(int id, int voucherType) {
@@ -589,7 +595,7 @@ public class RetrofitManager {
             params.put("voucher_type_id", voucherType);
         }
 
-        return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
+        return mVoucherService.getVoucherList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VouchersResponse>>());
     }
 
     public Observable<HttpResponse<BestVoucherResponse>> requestBestVoucherList(int id) {
@@ -598,7 +604,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getBestVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BestVoucherResponse>>());
+        return mVoucherService.getBestVoucherList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BestVoucherResponse>>());
     }
 
     public Observable<HttpResponse<FeaturedVoucherResponse>> requestFeaturedVoucherList(int id) {
@@ -607,7 +613,7 @@ public class RetrofitManager {
         params.put("user_id", id);
         params.put("limit", 50);
 
-        return mVoucherService.getFeaturedVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<FeaturedVoucherResponse>>());
+        return mVoucherService.getFeaturedVoucherList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<FeaturedVoucherResponse>>());
     }
 
     public Observable<HttpResponse<UserVouchersResponse>> requestUserVoucherList(int id) {
@@ -615,7 +621,7 @@ public class RetrofitManager {
 
         params.put("user_id", id);
 
-        return mVoucherService.getUserVoucherList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserVouchersResponse>>());
+        return mVoucherService.getUserVoucherList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserVouchersResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestBuyVoucher(int userId, int voucherId, String token) {
@@ -625,7 +631,7 @@ public class RetrofitManager {
         params.put("voucher_id", voucherId);
         params.put("token", token);
 
-        return mVoucherService.requestBuyVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mVoucherService.requestBuyVoucher(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(int userId, int voucherCodeId, String vendorCode, String voucherCode, int voucherId, String address) {
@@ -644,7 +650,7 @@ public class RetrofitManager {
             params.put("address", address);
 
 
-        return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+        return mVoucherService.requestRedeemVoucher(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherCodeResponse>> requestDeactivateVoucher(int userId, int voucherCodeId) {
@@ -653,7 +659,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
 
-        return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+        return mVoucherService.requestDeactivateVoucher(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherCodeResponse>> requestArchiveVoucher(int userId, int voucherCodeId) {
@@ -662,7 +668,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("voucher_code_id", voucherCodeId);
 
-        return mVoucherService.requestArchiveVoucher(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+        return mVoucherService.requestArchiveVoucher(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherGiftCodeResponse>> requestGetGiftCode(int userId, int voucherCodeId, String token) {
@@ -672,7 +678,7 @@ public class RetrofitManager {
         params.put("voucher_code_id", voucherCodeId);
         params.put("token", token);
 
-        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherGiftCodeResponse>>());
+        return mVoucherService.requestGetGiftCode(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherGiftCodeResponse>>());
     }
 
     public Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(int userId, int voucherCodeId, String voucherGiftCode) {
@@ -682,7 +688,7 @@ public class RetrofitManager {
         params.put("voucher_code_id", voucherCodeId);
         params.put("voucher_gift_code", voucherGiftCode);
 
-        return mVoucherService.requestClaimGiftCode(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
+        return mVoucherService.requestClaimGiftCode(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VoucherCodeResponse>>());
     }
 
     public Observable<HttpResponse<PremiumListResponse>> requestPremiumList(int userId) {
@@ -690,7 +696,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getPremiumList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumListResponse>>());
+        return mOtherService.getPremiumList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumListResponse>>());
     }
 
     public Observable<HttpResponse<PremiumPurchaseResponse>> purchasePremium(int userId, int duration, int price, String currency) {
@@ -701,7 +707,7 @@ public class RetrofitManager {
         params.put("price", price);
         params.put("currency", currency);
 
-        return mOtherService.purcasePremiumMember(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumPurchaseResponse>>());
+        return mOtherService.purcasePremiumMember(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumPurchaseResponse>>());
     }
 
     public Observable<HttpResponse<PremiumHistoryResponse>> requestUserPremiumHistory(int userId) {
@@ -709,7 +715,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getPremiumHistoryList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumHistoryResponse>>());
+        return mOtherService.getPremiumHistoryList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumHistoryResponse>>());
     }
 
     public Observable<HttpResponse<PremiumDueDateResponse>> requestUserPremiumDueDate(int userId) {
@@ -717,7 +723,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getPremiumDueDate(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumDueDateResponse>>());
+        return mOtherService.getPremiumDueDate(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<PremiumDueDateResponse>>());
     }
 
     public Observable<HttpResponse<UserLoginResponse>> requestEmailConfirmation(int userId, String code) {
@@ -726,7 +732,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("email_confirmation_code", code);
 
-        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+        return mUserService.requestEmailConfirmation(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResendEmail(int userId) {
@@ -734,7 +740,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mUserService.requestResendEmailConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestResendEmailConfirmation(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<UserLoginResponse>> requestSmsConfirmation(int userId, String code) {
@@ -743,7 +749,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("phone_number_confirmation_code", code);
 
-        return mUserService.requestSmsConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
+        return mUserService.requestSmsConfirmation(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLoginResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestResendSms(int userId) {
@@ -751,7 +757,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mUserService.requestResendSmsConfirmation(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestResendSmsConfirmation(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateNotificationId(String sess, int userId, String notification_id) {
@@ -760,7 +766,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("notification_id", notification_id);
 
-        return mUserService.requestUpdateNotificationId(sess, getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mUserService.requestUpdateNotificationId(sess, getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<VexPointRecordResponse>> requesVpLog(int userId) {
@@ -768,7 +774,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mUserService.getVexPointLog(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointRecordResponse>>());
+        return mUserService.getVexPointLog(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexPointRecordResponse>>());
     }
 
     public Observable<HttpResponse<UserReferralResponse>> requestUserReferrals(int userId) {
@@ -776,7 +782,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mUserService.getUserReferrals(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserReferralResponse>>());
+        return mUserService.getUserReferrals(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserReferralResponse>>());
     }
 
     public Observable<HttpResponse<NotificationResponse>> requestUserNotification(int userId) {
@@ -784,13 +790,13 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mUserService.getUserNotification(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NotificationResponse>>());
+        return mUserService.getUserNotification(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<NotificationResponse>>());
     }
 
     public Observable<HttpResponse<CountriesResponse>> requestCountryList() {
         Map<String, Object> params = Api.getBasicParam();
 
-        return mOtherService.getCountries(getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
+        return mOtherService.getCountries(getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<CountriesResponse>>());
     }
 
     public Observable<HttpResponse<DepositListResponse>> requestDepositList(int userId) {
@@ -798,7 +804,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getDeposits(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DepositListResponse>>());
+        return mOtherService.getDeposits(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<DepositListResponse>>());
     }
 
     public Observable<HttpResponse<UserDepositResponse>> requestUserDepositList(int userId) {
@@ -806,7 +812,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getDepositHistory(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositResponse>>());
+        return mOtherService.getDepositHistory(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositResponse>>());
     }
 
     public Observable<HttpResponse<VexVaultResponse>> requestTokenFreeze(int userId) {
@@ -815,7 +821,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("limit", 100);
 
-        return mOtherService.getTokenFreeze(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexVaultResponse>>());
+        return mOtherService.getTokenFreeze(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<VexVaultResponse>>());
     }
 
     public Observable<HttpResponse<UserDepositSingleResponse>> requestDeposit(int userId, int depositId, int depositOptionId) {
@@ -825,7 +831,7 @@ public class RetrofitManager {
         params.put("deposit_id", depositId);
         params.put("deposit_option_id", depositOptionId);
 
-        return mOtherService.requestDeposit(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
+        return mOtherService.requestDeposit(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserDepositSingleResponse>>());
     }
 
     public Observable<HttpResponse<BuybackPaymentResponse>> requestDoBuyback(int userId, int buyBackId, int buyBackOptionId, float amount) {
@@ -836,7 +842,7 @@ public class RetrofitManager {
         params.put("buy_back_option_id", buyBackOptionId);
         params.put("amount", amount);
 
-        return mOtherService.doBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackPaymentResponse>>());
+        return mOtherService.doBuyback(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackPaymentResponse>>());
     }
 
     public Observable<HttpResponse<BuybackResponse>> requestBuybackList(int userId) {
@@ -844,7 +850,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getBuyback(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackResponse>>());
+        return mOtherService.getBuyback(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateBuybackDistributionAddress(int userId, int buybackPaymentId, String address) {
@@ -854,7 +860,7 @@ public class RetrofitManager {
         params.put("user_buy_back_id", buybackPaymentId);
         params.put("distribution_address", address);
 
-        return mOtherService.updateBuybackDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mOtherService.updateBuybackDistributionAddress(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<BuybackHistoryResponse>> requestBuybackHistoryList(int userId) {
@@ -862,7 +868,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getBuybackHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackHistoryResponse>>());
+        return mOtherService.getBuybackHistories(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<BuybackHistoryResponse>>());
     }
 
     public Observable<HttpResponse<TokenSaleResponse>> requestTokenSaleList(int userId) {
@@ -870,7 +876,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getTokenSales(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleResponse>>());
+        return mOtherService.getTokenSales(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleResponse>>());
     }
 
     public Observable<HttpResponse<TokenSaleHistoryResponse>> requestTokenSaleHistoryList(int userId) {
@@ -878,7 +884,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getTokenSaleHistories(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryResponse>>());
+        return mOtherService.getTokenSaleHistories(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryResponse>>());
     }
 
 
@@ -890,7 +896,7 @@ public class RetrofitManager {
         params.put("token_sale_payment_option_id", tokenSalePaymentOptionId);
         params.put("amount", amount);
 
-        return mOtherService.buyTokenSales(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSalePaymentResponse>>());
+        return mOtherService.buyTokenSales(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSalePaymentResponse>>());
     }
 
     public Observable<HttpResponse<TokenSaleHistoryDetailResponse>> requestTokenSalePayment(int userId, int tokenSalePaymentId) {
@@ -899,7 +905,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("token_sale_payment_id", tokenSalePaymentId);
 
-        return mOtherService.getTokenSalePayment(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryDetailResponse>>());
+        return mOtherService.getTokenSalePayment(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<TokenSaleHistoryDetailResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> requestUpdateDistributionAddress(int userId, int tokenSalePaymentId, String address) {
@@ -909,7 +915,7 @@ public class RetrofitManager {
         params.put("token_sale_payment_id", tokenSalePaymentId);
         params.put("distribution_address", address);
 
-        return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mOtherService.updateDistributionAddress(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<LuckyDrawListResponse>> requestLuckyDrawList(int userId, int limit, int offset, int luckyDrawCategoryId, int memberTypeId, int paymentTypeId) {
@@ -937,7 +943,7 @@ public class RetrofitManager {
             params.put("payment_type_id", paymentTypeId);
         }
 
-        return mOtherService.getLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawListResponse>>());
+        return mOtherService.getLuckyDrawList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawListResponse>>());
     }
 
     public Observable<HttpResponse<LuckyDrawResponse>> requestLuckyDraw(int userId, int luckyDrawId) {
@@ -946,7 +952,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("luck_draw_id", luckyDrawId);
 
-        return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
+        return mOtherService.getLuckyDraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<LuckyDrawResponse>>());
     }
 
     public Observable<HttpResponse<NewsResponse>> requestNews(int userId) {
@@ -954,7 +960,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getNews(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
+        return mOtherService.getNews(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<NewsResponse>>());
     }
 
     public Observable<HttpResponse<UserInputDataResponse>> requestInput(int userId, String input) {
@@ -963,7 +969,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("digifinex_email", input);
 
-        return mOtherService.requestUserInput(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+        return mOtherService.requestUserInput(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
     }
 
     public Observable<HttpResponse<UserInputDataResponse>> getUserInputData(int userId) {
@@ -971,7 +977,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getUserInputData(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
+        return mOtherService.getUserInputData(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserInputDataResponse>>());
     }
 
     public Observable<HttpResponse<UserLuckyDrawListResponse>> requestUserLuckyDrawList(int userId) {
@@ -979,7 +985,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getUserLuckyDrawList(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawListResponse>>());
+        return mOtherService.getUserLuckyDrawList(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawListResponse>>());
     }
 
     public Observable<HttpResponse<EmptyResponse>> buyLuckyDraw(int userId, int luckyDrawId, int amount, String token) {
@@ -990,7 +996,7 @@ public class RetrofitManager {
         params.put("amount", amount);
         params.put("token", token);
 
-        return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+        return mOtherService.buyLuckyDraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
     }
 
     public Observable<HttpResponse<UserLuckyDrawResponse>> setUserLuckyDrawAddress(int userId, int userLuckyDrawId, String address) {
@@ -1000,7 +1006,7 @@ public class RetrofitManager {
         params.put("user_luck_draw_id", userLuckyDrawId);
         params.put("address", address);
 
-        return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
+        return mOtherService.setUserLuckyDrawAddress(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<UserLuckyDrawResponse>>());
     }
 
     public Observable<HttpResponse<AffiliateProgramEntryResponse>> submitAffiliateProgramEntry(int userId, int affliateProgramId, String vals) {
@@ -1012,7 +1018,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("affiliate_program_id", affliateProgramId);
 
-        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
+        return mOtherService.submitAffiliateProgramEntry(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
     }
 
     public Observable<HttpResponse<AffiliateProgramEntryResponse>> getAffiliateProgramEntries(int userId, int affliateProgramId) {
@@ -1021,7 +1027,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("affiliate_program_id", affliateProgramId);
 
-        return mOtherService.getAffiliateProgramEntries(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
+        return mOtherService.getAffiliateProgramEntries(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramEntryResponse>>());
     }
 
     public Observable<HttpResponse<AffiliateProgram>> getAffiliateProgram(int userId, int affliateProgramId) {
@@ -1030,7 +1036,7 @@ public class RetrofitManager {
         params.put("user_id", userId);
         params.put("affiliate_program_id", affliateProgramId);
 
-        return mOtherService.getAffiliateProgram(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgram>>());
+        return mOtherService.getAffiliateProgram(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgram>>());
     }
 
     public Observable<HttpResponse<AffiliateProgramResponse>> getAffiliatePrograms(int userId) {
@@ -1038,7 +1044,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
+        return mOtherService.getAffiliatePrograms(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<AffiliateProgramResponse>>());
     }
 
     public Observable<HttpResponse<WalletResponse>> getWallet(int userId) {
@@ -1046,7 +1052,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mWalletService.getWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
+        return mWalletService.getWallet(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
     }
 
     public Observable<HttpResponse<WalletReferralResponse>> getWalletReferral(int userId) {
@@ -1054,7 +1060,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mWalletService.getWalletReferral(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletReferralResponse>>());
+        return mWalletService.getWalletReferral(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletReferralResponse>>());
     }
 
     public Observable<HttpResponse<WalletResponse>> createWallet(int userId) {
@@ -1062,7 +1068,7 @@ public class RetrofitManager {
 
         params.put("user_id", userId);
 
-        return mWalletService.createWallet(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
+        return mWalletService.createWallet(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WalletResponse>>());
     }
 
     public Observable<HttpResponse<WithdrawResponse>> doWithdraw(int userId, int walletId, float amount, String destinationAddress) {
@@ -1073,7 +1079,7 @@ public class RetrofitManager {
         params.put("amount", amount);
         params.put("destination_address", destinationAddress);
 
-        return mWalletService.doWithdraw(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
+        return mWalletService.doWithdraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
     }
 
 //    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
@@ -1082,7 +1088,7 @@ public class RetrofitManager {
 //        params.put("user_id", userId);
 //        params.put("digifinex_email",address);
 //
-//        return mOtherService.submitDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralResponse>>());
+//        return mOtherService.submitDigifinexEmailReferred(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralResponse>>());
 //    }
 //
 //    public Observable<HttpResponse<DigifinexReferralListResponse>> getDigifinexEmailReferralList(int userId) {
@@ -1090,7 +1096,7 @@ public class RetrofitManager {
 //
 //        params.put("user_id", userId);
 //
-//        return mOtherService.getUserDigifinexEmailReferred(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralListResponse>>());
+//        return mOtherService.getUserDigifinexEmailReferred(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<DigifinexReferralListResponse>>());
 //    }
 
 }

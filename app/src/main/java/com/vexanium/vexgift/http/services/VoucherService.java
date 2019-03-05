@@ -27,6 +27,7 @@ public interface VoucherService {
     Observable<HttpResponse<MemberTypeResponse>> getMemberTypes(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -34,6 +35,7 @@ public interface VoucherService {
     Observable<HttpResponse<PaymentTypeResponse>> getPaymentTypes(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -41,6 +43,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherTypeResponse>> getVoucherTypes(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -48,6 +51,7 @@ public interface VoucherService {
     Observable<HttpResponse<CategoryResponse>> getCategories(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -55,6 +59,7 @@ public interface VoucherService {
     Observable<HttpResponse<VouchersResponse>> getVoucherList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -62,6 +67,7 @@ public interface VoucherService {
     Observable<HttpResponse<BestVoucherResponse>> getBestVoucherList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -69,6 +75,7 @@ public interface VoucherService {
     Observable<HttpResponse<FeaturedVoucherResponse>> getFeaturedVoucherList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -76,6 +83,7 @@ public interface VoucherService {
     Observable<HttpResponse<UserVouchersResponse>> getUserVoucherList(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -83,6 +91,7 @@ public interface VoucherService {
     Observable<HttpResponse<EmptyResponse>> requestBuyVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -90,6 +99,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherCodeResponse>> requestRedeemVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -97,6 +107,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherCodeResponse>> requestDeactivateVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -104,6 +115,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherCodeResponse>> requestArchiveVoucher(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
@@ -111,6 +123,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherGiftCodeResponse>> requestGetGiftCode(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 
@@ -119,6 +132,7 @@ public interface VoucherService {
     Observable<HttpResponse<VoucherCodeResponse>> requestClaimGiftCode(
             @Header("X-Vexanium-Key") String key,
             @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
 
 }
