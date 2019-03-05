@@ -42,8 +42,49 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/interval_main">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_myprofile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/myprofile_name"
+                android:inputType="text"
+                android:textSize="@dimen/text_small_medium" />
+
+            <LinearLayout
+                android:id="@id/white_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/more_padding_horizontal"
+                android:paddingRight="@dimen/more_padding_horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/interval_main"
+                    android:layout_marginTop="@dimen/interval_small"
+                    android:background="@drawable/shape_ripple_main_button"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/interval_submain"
+                        android:tag="bold"
+                        android:text="@string/editprofile_save"
+                        android:textAllCaps="true"
+                        android:textColor="@color/material_white"
+                        android:textSize="@dimen/text_medium" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

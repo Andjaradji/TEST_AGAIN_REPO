@@ -306,6 +306,7 @@
     <string name="myprofile_act_address">Vex Address (from Kcash/Achain Wallet)</string>
 
     <string name="myprofile_name">Name</string>
+    <string name="myprofile_edit">Edit</string>
     <string name="myprofile_name_desc">Your name here</string>
     <string name="myprofile_lastname">Last Name</string>
     <string name="myprofile_lastname_desc">Your last name here</string>
@@ -330,6 +331,11 @@
 
     <string name="myprofile_submit_success_dialog_title">Submit Success</string>
     <string name="myprofile_submit_success_dialog_text">Your KYC submission has been submit. Please wait, our Team will review your submission</string>
+    <string name="editprofile_save">Save Changes</string>
+    <string name="editprofile_save_error_length">Name length must be between 0 to 25 characters.</string>
+    <string name="editprofile_success_title">Success</string>
+    <string name="editprofile_success_body">Saved changes successfully.</string>
+
 
     <string name="term_agree">I have read &amp; agree to the terms of use</string>
 

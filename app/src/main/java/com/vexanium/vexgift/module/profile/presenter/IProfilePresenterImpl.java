@@ -71,4 +71,10 @@ public class IProfilePresenterImpl extends BasePresenterImpl<IProfileView, Seria
         Subscription subscription = mInteractor.getCountries(this);
         compositeSubscription.add(subscription);
     }
+
+    @Override
+    public void updateUserProfile(int id, String username) {
+        Subscription subscription = mInteractor.updateUserProfile(this, id, username);
+        compositeSubscription.add(subscription);
+    }
 }

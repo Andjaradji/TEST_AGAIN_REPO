@@ -13,4 +13,6 @@ public interface IProfileInteractor<T> {
     Subscription changePassword(RequestCallback<T> callback, int id, String password, String newPassword);
 
     Subscription getCountries(RequestCallback<T> callback);
+
+    Subscription updateUserProfile(RequestCallback<T> callback, int id, String name);
 }

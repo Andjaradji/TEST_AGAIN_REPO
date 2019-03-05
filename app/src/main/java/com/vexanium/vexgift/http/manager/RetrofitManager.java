@@ -1082,6 +1082,16 @@ public class RetrofitManager {
         return mWalletService.doWithdraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
     }
 
+    public Observable<HttpResponse<EmptyResponse>> updateUserProfile(int userId, String userName) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("name", userName);
+
+        return mUserService.updateUserProfile(getApiKey(), getCacheControl(), params).compose(new BaseSchedulerTransformer<HttpResponse<EmptyResponse>>());
+    }
+
+
 //    public Observable<HttpResponse<DigifinexReferralResponse>> setDigifinexEmailReferral(int userId, String address) {
 //        Map<String, Object> params = Api.getBasicParam();
 //
