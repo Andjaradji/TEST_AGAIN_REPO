@@ -482,7 +482,7 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
 
     private void requestFacebookLogin() {
         KLog.v("LoginOptionActivity", "request Facebook Login");
-        showProgress();
+//        showProgress();
         fbLoginButton.performClick();
     }
 
@@ -546,7 +546,7 @@ public class LoginOptionActivity extends BaseActivity<ILoginPresenter> implement
                                         facebookUserInfo.setReferralCode(referralCode);
                                     }
 
-                                    hideProgress();
+//                                    hideProgress();
                                     mPresenter.requestLogin(facebookUserInfo);
 
                                 } else {

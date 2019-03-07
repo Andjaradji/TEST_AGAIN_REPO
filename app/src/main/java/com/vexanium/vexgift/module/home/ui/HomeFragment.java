@@ -32,6 +32,7 @@ import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.base.BaseRecyclerAdapter;
@@ -69,6 +70,7 @@ import com.vexanium.vexgift.module.vexpoint.ui.VexPointActivity;
 import com.vexanium.vexgift.module.voucher.ui.VoucherActivity;
 import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
+import com.vexanium.vexgift.util.LocaleUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
 import com.vexanium.vexgift.util.NetworkUtil;
 import com.vexanium.vexgift.util.RxBus;
@@ -438,7 +440,11 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
                                     public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                                         if (ClickUtil.isFastDoubleClick()) return;
                                         dialog.dismiss();
-                                        StaticGroup.openVexgiftGooglePlay(HomeFragment.this.getActivity());
+                                        if (LocaleUtil.getLanguage(HomeFragment.this.getContext()).equalsIgnoreCase("zh")) {
+                                            StaticGroup.openAndroidBrowser(HomeFragment.this.getActivity(), ConstantGroup.CHINA_WEB_LINK);
+                                        } else {
+                                            StaticGroup.openVexgiftGooglePlay(HomeFragment.this.getActivity());
+                                        }
                                     }
                                 })
                                 .onNegative(new VexDialog.MaterialDialogButtonCallback() {
