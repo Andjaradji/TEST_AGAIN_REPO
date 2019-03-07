@@ -119,6 +119,7 @@
     <string name="register_email">Email</string>
     <string name="register_password">Password</string>
     <string name="register_repassword">Re enter password</string>
+    <string name="register_repassword_not_match">Password doesn\'t matches</string>
     <string name="register_referral_code">Referral Code (Optional)</string>
     <string name="register_phone">Phone Number</string>
     <string name="register_button_register">Register</string>
@@ -756,6 +757,8 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_transfer_to">Vex will be transferred to below address</string>
     <string name="wallet_withdraw_address">Destination address</string>
     <string name="wallet_withdraw_amount">Withdraw amount </string>
+    <string name="wallet_withdraw_fee_amount">Withdraw fee</string>
+    <string name="wallet_withdraw_total_amount">Withdraw total</string>
     <string name="wallet_withdraw_button">Withdraw</string>
     <string name="wallet_withdraw">Wallet Withdraw</string>
     <string name="wallet_withdraw_history">Withdraw History</string>
@@ -795,6 +798,8 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_total_personal_wallet_balance">Total Personal Wallet Balance</string>
     <string name="wallet_withdraw_dialog_title">Withdraw</string>
     <string name="wallet_withdraw_dialog_detail">Are you sure withdraw %s VEX from your personal wallet?</string>
+    <string name="wallet_withdraw_minimum_amount_dialog_title">Withdraw Minimum</string>
+    <string name="wallet_withdraw_minimum_amount_dialog_text">Withdraw failed, Minimum withdraw amount is </string>
 
     <string name="security_finger_print_button">Fingerprint</string>
 
@@ -807,5 +812,7 @@ Your expired and used voucher will be shown here</string>
     <string name="security_fingerprint_touch_sensor">Touch Sensor</string>
     <string name="security_fingerprint_dialog_detail">Confirm fingerprint to continue</string>
     <string name="security_fingerprint_dialog_title">Vexgift</string>
+
+    <string name="scan_vex_address_promt">Scan a Vex Address</string>
 
 </resources>
