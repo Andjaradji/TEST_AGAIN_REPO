@@ -569,6 +569,7 @@
     <string name="wallet_bonus_record">收益紀錄</string>
     <string name="wallet_withdraw_transfer_to">Vex將會被轉帳到以下地址</string>
     <string name="wallet_withdraw_amount">提出額度</string>
+    <string name="wallet_withdraw_fee_amount">提領费</string>
     <string name="wallet_withdraw_button">提領</string>
     <string name="wallet_deposit_transfer_to">轉帳到以下地址</string>
     <string name="wallet_deposit_copy_address">複製地址</string>

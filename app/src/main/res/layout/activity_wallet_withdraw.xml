@@ -72,11 +72,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/padding_content"
                     android:layout_toStartOf="@id/btn_scan"
                     android:background="@color/transparent"
                     android:hint="@string/vexpoint_fill_address"
                     android:lines="2"
+                    android:padding="@dimen/padding_content"
                     android:textColor="@color/material_black_text_color"
                     android:textSize="@dimen/text_small_medium" />
 
@@ -126,6 +126,61 @@
                     android:background="@color/transparent"
                     android:hint="0"
                     android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:padding="@dimen/interval_main"
+                    android:tag="bold"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/text_small_medium" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/interval_main"
+                    android:paddingTop="@dimen/interval_main"
+                    android:text="@string/wallet_withdraw_fee_amount"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/text_small_medium" />
+                <TextView
+                    android:id="@+id/tv_withdraw_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/interval_main"
+                    android:paddingTop="@dimen/interval_main"
+                    android:textColor="@color/material_black_text_color"
+                    android:text="0"
+                    android:textSize="@dimen/text_small_medium" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_content"
+                android:paddingBottom="@dimen/interval_main"
+                android:paddingTop="@dimen/interval_main"
+                android:text="@string/wallet_withdraw_total_amount"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text_small_medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_voucher_availability"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/et_withdraw_total_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:enabled="false"
+                    android:hint="0"
+                    android:inputType="none"
                     android:lines="1"
                     android:padding="@dimen/interval_main"
                     android:tag="bold"
@@ -257,9 +312,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_main"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_desc_title"
                     android:layout_width="wrap_content"
@@ -284,6 +340,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/include_loading_view"/>
+    <include layout="@layout/include_loading_view" />
 
 </RelativeLayout>

@@ -1414,6 +1414,24 @@ public class StaticGroup {
         }
     }
 
+    public static long getMinimumWithdrawAmount(){
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_minimum_amount") != -1) {
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_minimum_amount"));
+        } else {
+            return 0;
+        }
+    }
+
+    public static long getWithdrawFee(){
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_fee") != -1) {
+            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_fee"));
+        } else {
+            return 0;
+        }
+    }
+
     public static long getPremiumMemberPaymentDuration() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("premium_member_payment_duration") != -1) {

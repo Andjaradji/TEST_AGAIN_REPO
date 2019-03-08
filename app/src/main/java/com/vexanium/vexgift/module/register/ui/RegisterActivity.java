@@ -375,7 +375,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
             }
 
             if (isValid && !repass.equals(pass)) {
-                ((EditText) findViewById(R.id.et_repassword)).setError("Password doesn't matches");
+                ((EditText) findViewById(R.id.et_repassword)).setError(getString(R.string.register_repassword_not_match));
                 isValid = false;
             }
         }
