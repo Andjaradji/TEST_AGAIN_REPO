@@ -739,8 +739,8 @@ public class MainActivity extends BaseActivity<ILoginPresenter> implements ILogi
 
             } else if (path.startsWith("staking-referral")) {
 //                if (StaticGroup.isReferralSpecialEventBannerActive()) {
-                    intent = new Intent(this, ReferralSpecialEventActivity.class);
-                    startActivity(intent);
+                intent = new Intent(this, ReferralSpecialEventActivity.class);
+                startActivity(intent);
 //                }
             } else if (path.startsWith("staking-deposit")) {
                 gotoPage(WALLET_FRAGMENT);

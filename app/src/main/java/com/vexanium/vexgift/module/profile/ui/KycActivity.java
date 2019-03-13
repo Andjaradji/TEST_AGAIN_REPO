@@ -261,7 +261,7 @@ public class KycActivity extends BaseActivity<IProfilePresenter> implements IPro
                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                            if(ClickUtil.isFastDoubleClick())return;
+                            if (ClickUtil.isFastDoubleClick()) return;
                             finish();
                         }
                     })

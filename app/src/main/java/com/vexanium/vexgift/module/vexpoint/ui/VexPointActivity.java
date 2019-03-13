@@ -395,7 +395,7 @@ public class VexPointActivity extends BaseActivity<IVexpointPresenter> implement
         Calendar now = Calendar.getInstance();
         Calendar nextSnapshoot = Calendar.getInstance();
         if (now.get(Calendar.HOUR_OF_DAY) >= 12) {
-        nextSnapshoot.add(Calendar.DATE, 1);
+            nextSnapshoot.add(Calendar.DATE, 1);
 //        nextSnapshoot.set(Calendar.HOUR_OF_DAY, 0);
         }
 //        else {

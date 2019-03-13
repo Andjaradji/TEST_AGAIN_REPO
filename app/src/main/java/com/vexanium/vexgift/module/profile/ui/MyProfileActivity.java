@@ -135,7 +135,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 user = User.getCurrentUser(this);
                 setUserData(user);
             }
@@ -206,7 +206,7 @@ public class MyProfileActivity extends BaseActivity<IProfilePresenter> implement
             public void onClick(View view) {
                 if (ClickUtil.isFastDoubleClick()) return;
                 Intent intent = new Intent(MyProfileActivity.this, EditProfileActivity.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
             }
         });
     }

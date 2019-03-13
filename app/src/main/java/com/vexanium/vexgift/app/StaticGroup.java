@@ -1414,7 +1414,7 @@ public class StaticGroup {
         }
     }
 
-    public static float getMinimumWithdrawAmount(){
+    public static float getMinimumWithdrawAmount() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_minimum_amount") != -1) {
             return settingResponse.getSettingFloatValByKey("withdraw_minimum_amount");
@@ -1423,7 +1423,7 @@ public class StaticGroup {
         }
     }
 
-    public static float getWithdrawFee(){
+    public static float getWithdrawFee() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_fee") != -1) {
             return settingResponse.getSettingFloatValByKey("withdraw_fee");

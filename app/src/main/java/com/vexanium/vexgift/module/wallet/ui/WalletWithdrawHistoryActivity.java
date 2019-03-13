@@ -1,6 +1,5 @@
 package com.vexanium.vexgift.module.wallet.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -127,8 +126,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                         getDataFromDb();
                     }
                 }
-            }
-            else if(data instanceof WithdrawCancelResponse){
+            } else if (data instanceof WithdrawCancelResponse) {
                 mPresenter.requestGetWallet(user.getId());
             }
 
@@ -190,7 +188,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                                     .onPositive(new VexDialog.MaterialDialogButtonCallback() {
                                         @Override
                                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
-                                            if(ClickUtil.isFastDoubleClick())return;
+                                            if (ClickUtil.isFastDoubleClick()) return;
                                             mPresenter.requestCancelWithdraw(user.getId(), item.getId());
                                         }
                                     })

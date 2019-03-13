@@ -315,7 +315,7 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
                 if (userLuckyDrawLists != null && userLuckyDrawLists.size() > 0) {
                     for (UserLuckyDraw userLuckyDraw : userLuckyDrawLists) {
                         for (int i = 0; i < tempLuckyDraws.size(); i++) {
-                            Log.e("luckydrawed",i +". "+tempLuckyDraws.get(i)+ " "+tempLuckyDraws.size());
+                            Log.e("luckydrawed", i + ". " + tempLuckyDraws.get(i) + " " + tempLuckyDraws.size());
                             if (tempLuckyDraws.get(i) != null && tempLuckyDraws.get(i).getId() == userLuckyDraw.getLuckyDrawId()) {
                                 int userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal();
                                 if (userPurchased < 0) {

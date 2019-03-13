@@ -138,7 +138,7 @@ public class TransactionRecordFragment extends BaseFragment {
                         }
                     });
 
-                    if (item.getType().equalsIgnoreCase("deposit") || item.getType().equalsIgnoreCase("bonus")||
+                    if (item.getType().equalsIgnoreCase("deposit") || item.getType().equalsIgnoreCase("bonus") ||
                             item.getType().equalsIgnoreCase("存款") || item.getType().equalsIgnoreCase("收益")) {
                         holder.setText(R.id.tv_indicator, "+ " + item.getAmount());
                         holder.setTextColor(R.id.tv_indicator, getContext().getResources().getColor(R.color.vexpoint_plus));
