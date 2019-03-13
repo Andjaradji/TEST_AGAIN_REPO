@@ -23,12 +23,19 @@ import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseActivity;
+import com.vexanium.vexgift.bean.model.User;
+import com.vexanium.vexgift.bean.response.HttpResponse;
+import com.vexanium.vexgift.bean.response.SettingResponse;
+import com.vexanium.vexgift.database.TablePrefDaoUtil;
 import com.vexanium.vexgift.module.box.ui.BoxBaseFragment;
 import com.vexanium.vexgift.module.box.ui.BoxHistoryFragment;
 import com.vexanium.vexgift.module.buyback.ui.BuybackActivity;
 import com.vexanium.vexgift.module.deposit.ui.DepositActivity;
 import com.vexanium.vexgift.module.deposit.ui.TokenFreezeActivity;
 import com.vexanium.vexgift.module.home.ui.HomeFragment;
+import com.vexanium.vexgift.module.login.presenter.ILoginPresenter;
+import com.vexanium.vexgift.module.login.presenter.ILoginPresenterImpl;
+import com.vexanium.vexgift.module.login.view.ILoginView;
 import com.vexanium.vexgift.module.luckydraw.ui.LuckyDrawActivity;
 import com.vexanium.vexgift.module.more.ui.MoreFragment;
 import com.vexanium.vexgift.module.notif.ui.NotifFragment;
@@ -42,6 +49,7 @@ import com.vexanium.vexgift.module.wallet.ui.WalletFragment;
 import com.vexanium.vexgift.module.wallet.ui.WalletWithdrawActivity;
 import com.vexanium.vexgift.util.AnimUtil;
 import com.vexanium.vexgift.util.ColorUtil;
+import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.RxBus;
 import com.vexanium.vexgift.util.TpUtil;
 import com.vexanium.vexgift.util.ViewUtil;
@@ -57,13 +65,15 @@ import com.vexanium.vexgift.widget.guideview.bubbletooltip.BubbleToolTip;
 import com.vexanium.vexgift.widget.guideview.handguide.HandGuide;
 import com.vexanium.vexgift.widget.guideview.nextbutton.NextButton;
 
+import java.io.Serializable;
+
 import rx.Observable;
 import rx.functions.Action1;
 
 import static android.view.View.VISIBLE;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
     public static final int HOME_FRAGMENT = 0;
     public static final int BOX_FRAGMENT = 1;
     public static final int WALLET_FRAGMENT = 2;
@@ -86,6 +96,7 @@ public class MainActivity extends BaseActivity {
     private Observable<Boolean> mClearGuidanceObservable;
     private View boxFragmentView;
     private CountDownTimer animationCountDownTimer;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +117,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mPresenter = new ILoginPresenterImpl(this);
+        user = User.getCurrentUser(this);
+        mPresenter.requestSetting(user.getId());
+
         mVoucherGuidanceObservable = RxBus.get().register(RxBus.KEY_TOKEN_VOUCHER_GUIDANCE, View.class);
         mVoucherGuidanceObservable.subscribe(new Action1<View>() {
             @Override
@@ -167,6 +182,19 @@ public class MainActivity extends BaseActivity {
             RxBus.get().unregister(RxBus.KEY_MY_BOX_GUIDANCE, mMyBoxGuidanceObservable);
         }
 
+    }
+
+    @Override
+    public void handleResult(Serializable data, HttpResponse errorResponse) {
+        if (data != null) {
+            if (data instanceof SettingResponse) {
+                SettingResponse settingResponse = (SettingResponse) data;
+//                if (checkLoginInfo()) {
+                TablePrefDaoUtil.getInstance().saveSettingToDb(JsonUtil.toString(settingResponse));
+//                }
+//                findViewById(R.id.splash_container).setVisibility(View.GONE);
+            }
+        }
     }
 
     public void setToolbar() {
@@ -710,10 +738,10 @@ public class MainActivity extends BaseActivity {
                 gotoPage(WALLET_FRAGMENT);
 
             } else if (path.startsWith("staking-referral")) {
-                if (StaticGroup.isReferralSpecialEventBannerActive()) {
+//                if (StaticGroup.isReferralSpecialEventBannerActive()) {
                     intent = new Intent(this, ReferralSpecialEventActivity.class);
                     startActivity(intent);
-                }
+//                }
             } else if (path.startsWith("staking-deposit")) {
                 gotoPage(WALLET_FRAGMENT);
                 intent = new Intent(this, WalletDepositActivity.class);

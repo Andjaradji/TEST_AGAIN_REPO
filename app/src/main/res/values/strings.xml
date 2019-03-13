@@ -557,6 +557,7 @@
 
     <string name="free">Free</string>
     <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
     <string name="ok" translatable="false">Ok</string>
     <string name="vex_point_format" translatable="false">%d VP</string>
     <string name="out_of_stock">Out of stock</string>
@@ -757,7 +758,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_transfer_to">Vex will be transferred to below address</string>
     <string name="wallet_withdraw_address">Destination address</string>
     <string name="wallet_withdraw_amount">Withdraw amount </string>
-    <string name="wallet_withdraw_fee_amount">Withdraw fee</string>
+    <string name="wallet_withdraw_fee_amount">+ Withdraw fee</string>
     <string name="wallet_withdraw_total_amount">Withdraw total</string>
     <string name="wallet_withdraw_button">Withdraw</string>
     <string name="wallet_withdraw">Wallet Withdraw</string>
@@ -800,6 +801,9 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_withdraw_dialog_detail">Are you sure withdraw %s VEX from your personal wallet?</string>
     <string name="wallet_withdraw_minimum_amount_dialog_title">Withdraw Minimum</string>
     <string name="wallet_withdraw_minimum_amount_dialog_text">Withdraw failed, Minimum withdraw amount is </string>
+    <string name="wallet_withdraw_cancel">Cancel Withdraw</string>
+    <string name="wallet_withdraw_cancel_dialog_title">Cancel Withdraw</string>
+    <string name="wallet_withdraw_cancel_dialog_text">Are you sure to cancel this withdraw?</string>
 
     <string name="security_finger_print_button">Fingerprint</string>
 

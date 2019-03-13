@@ -1082,6 +1082,15 @@ public class RetrofitManager {
         return mWalletService.doWithdraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
     }
 
+    public Observable<HttpResponse<WithdrawResponse>> cancelWithdraw(int userId, int withdrawId) {
+        Map<String, Object> params = Api.getBasicParam();
+
+        params.put("user_id", userId);
+        params.put("wallet_withdrawal_id", withdrawId);
+
+        return mWalletService.cancelWithdraw(getApiKey(), getCacheControl(), getLocale(), params).compose(new BaseSchedulerTransformer<HttpResponse<WithdrawResponse>>());
+    }
+
     public Observable<HttpResponse<EmptyResponse>> updateUserProfile(int userId, String userName) {
         Map<String, Object> params = Api.getBasicParam();
 

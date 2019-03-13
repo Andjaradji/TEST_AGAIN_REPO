@@ -1414,19 +1414,19 @@ public class StaticGroup {
         }
     }
 
-    public static long getMinimumWithdrawAmount(){
+    public static float getMinimumWithdrawAmount(){
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_minimum_amount") != -1) {
-            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_minimum_amount"));
+            return settingResponse.getSettingFloatValByKey("withdraw_minimum_amount");
         } else {
             return 0;
         }
     }
 
-    public static long getWithdrawFee(){
+    public static float getWithdrawFee(){
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_fee") != -1) {
-            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_fee"));
+            return settingResponse.getSettingFloatValByKey("withdraw_fee");
         } else {
             return 0;
         }

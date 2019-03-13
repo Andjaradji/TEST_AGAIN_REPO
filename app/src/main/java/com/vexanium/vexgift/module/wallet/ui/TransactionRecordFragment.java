@@ -105,8 +105,8 @@ public class TransactionRecordFragment extends BaseFragment {
         walletResponse = TableContentDaoUtil.getInstance().getWallet();
         if (walletResponse != null && walletResponse.getWallet() != null) {
             Wallet wallet = walletResponse.getWallet();
-            if (wallet.getWalletLogs() != null) {
-                dataList = wallet.getWalletLogs();
+            if (wallet.getWalletLogsWithoutCancelStatus() != null) {
+                dataList = wallet.getWalletLogsWithoutCancelStatus();
                 initTransactionLog();
             }
         }
@@ -138,7 +138,8 @@ public class TransactionRecordFragment extends BaseFragment {
                         }
                     });
 
-                    if (item.getType().equalsIgnoreCase("deposit") || item.getType().equalsIgnoreCase("bonus")) {
+                    if (item.getType().equalsIgnoreCase("deposit") || item.getType().equalsIgnoreCase("bonus")||
+                            item.getType().equalsIgnoreCase("存款") || item.getType().equalsIgnoreCase("收益")) {
                         holder.setText(R.id.tv_indicator, "+ " + item.getAmount());
                         holder.setTextColor(R.id.tv_indicator, getContext().getResources().getColor(R.color.vexpoint_plus));
                     } else {

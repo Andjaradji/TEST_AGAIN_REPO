@@ -248,6 +248,7 @@
     <string name="premium_buy_cancel_button">取消</string>
     <string name="premium_already_in_progress_cancel">取消</string>
     <string name="cancel">取消</string>
+    <string name="yes">好</string>
     <string name="captcha_validation_message">验证码不对</string>
     <string name="filter_category">类别</string>
     <string name="change_password_title">却换密码</string>
@@ -569,7 +570,7 @@
     <string name="wallet_bonus_record">收益紀錄</string>
     <string name="wallet_withdraw_transfer_to">Vex將會被轉帳到以下地址</string>
     <string name="wallet_withdraw_amount">提出額度</string>
-    <string name="wallet_withdraw_fee_amount">提領费</string>
+    <string name="wallet_withdraw_fee_amount">+ 提領费</string>
     <string name="wallet_withdraw_button">提領</string>
     <string name="wallet_deposit_transfer_to">轉帳到以下地址</string>
     <string name="wallet_deposit_copy_address">複製地址</string>

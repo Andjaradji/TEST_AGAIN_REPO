@@ -65,6 +65,12 @@ public class IWalletPresenterImpl extends BasePresenterImpl<IWalletView, Seriali
     }
 
     @Override
+    public void requestCancelWithdraw(int id, int walletWithdrawId) {
+        Subscription subscription = mInteractor.requestCancelWithdraw(this, id, walletWithdrawId);
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
     public void requestGetWalletReferral(int userId) {
         Subscription subscription = mInteractor.requestGetWalletReferral(this, userId);
         compositeSubscription.add(subscription);

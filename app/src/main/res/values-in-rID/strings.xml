@@ -248,6 +248,7 @@
     <string name="premium_buy_cancel_button">Batalkan</string>
     <string name="premium_already_in_progress_cancel">Batalkan</string>
     <string name="cancel">Batalkan</string>
+    <string name="yes">Ya</string>
     <string name="captcha_validation_message">Kode captcha salah</string>
     <string name="filter_category">Kategori</string>
     <string name="change_password_title">Ubah Password</string>
@@ -590,7 +591,7 @@ Voucher kadaluarsa dan voucher yang telah digunakan ada disini</string>
     <string name="wallet_withdraw_transfer_to">Vex akan dikirim ke alamat dibawah ini</string>
     <string name="wallet_withdraw_address">Alamat distribusi</string>
     <string name="wallet_withdraw_amount">Jumlah Withdraw</string>
-    <string name="wallet_withdraw_fee_amount">Biaya Withdraw</string>
+    <string name="wallet_withdraw_fee_amount">+ Biaya Withdraw</string>
     <string name="wallet_withdraw_total_amount">Total Withdraw</string>
     <string name="wallet_withdraw_button">Withdraw</string>
     <string name="wallet_withdraw">Wallet Withdraw</string>
