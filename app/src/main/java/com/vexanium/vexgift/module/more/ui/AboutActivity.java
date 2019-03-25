@@ -1,9 +1,14 @@
 package com.vexanium.vexgift.module.more.ui;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -53,6 +58,19 @@ public class AboutActivity extends BaseActivity {
             public void onPageFinished(WebView view, String url) {
                 mWv.setVisibility(View.VISIBLE);
                 mWv.startAnimation(fadeIn);
+            }
+        });
+        mWv.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                KLog.v("AboutActivity","onDownloadStart: HPMtes "+url);
+                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                downloadManager.enqueue(request);
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
             }
         });
         String url = ConstantGroup.WEB_LINK;

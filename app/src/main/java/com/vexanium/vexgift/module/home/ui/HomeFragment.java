@@ -478,6 +478,7 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         mPresenter.requestUserVexPoint(user.getId());
         mPresenter.requestUserPremiumDueDate(user.getId());
         mPresenter.requestBanner(user.getId());
+        mPresenter.requestBigBanner(user.getId());
     }
 
     public void loadData(ArrayList<BestVoucher> bestVouchers, ArrayList<BestVoucher> featuredVoucher, ArrayList<Banner> banners, ArrayList<BigBanner> bigBanners) {
@@ -490,14 +491,15 @@ public class HomeFragment extends BaseFragment<IHomePresenter> implements IHomeV
         topBanner.clear();
         topBanner.addAll(featuredVoucher);
 
-        if (featuredVoucher != null && featuredVoucher.size() > 0) {
+//        if (featuredVoucher != null && featuredVoucher.size() > 0) {
             if (bigBanners != null && bigBanners.size() > 0) {
                 for (BigBanner bigBanner : bigBanners) {
                     topBanner.add(new BestVoucher(BestVoucher.BIG_BANNER, bigBanner));
                 }
+
+                data.add(new HomeFeedResponse(HOT_LIST, topBanner));
             }
-            data.add(new HomeFeedResponse(HOT_LIST, topBanner));
-        }
+//        }
 
         if (banners != null) {
             for (Banner banner : banners) {

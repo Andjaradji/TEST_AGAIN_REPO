@@ -1,9 +1,12 @@
 package com.vexanium.vexgift.module.more.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -43,6 +46,15 @@ public class TermActivity extends BaseActivity {
 
         mLoadingContainer.setVisibility(View.VISIBLE);
         mWvTerm.setVisibility(View.GONE);
+        mWvTerm.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         mWvTerm.getSettings().setSupportZoom(true);
         mWvTerm.setWebViewClient(new WebViewClient() {

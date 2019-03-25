@@ -806,7 +806,7 @@ public class StaticGroup {
             PackageManager packageManager = context.getPackageManager();
             Intent fakeIntent = new Intent();
             fakeIntent.setAction("android.intent.action.VIEW");
-            fakeIntent.setData(Uri.parse("http://www.google.com"));
+            fakeIntent.setData(Uri.parse(url));
 
             ResolveInfo selectedBrowserInfo = packageManager.resolveActivity(fakeIntent, PackageManager.MATCH_DEFAULT_ONLY);
 
@@ -825,6 +825,7 @@ public class StaticGroup {
                     browserList.add("com.UCMobile.intl");
                     browserList.add("com.android.chrome");
                     browserList.add("com.android.browser");
+                    browserList.add("org.mozilla.firefox");
                     browserList.add("com.opera.browser");
 
                     outerLoop:

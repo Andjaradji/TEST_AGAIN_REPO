@@ -166,6 +166,7 @@ public class MainActivity extends BaseActivity<ILoginPresenter> implements ILogi
             getIntent().removeExtra("url");
             openDeepLink(url);
         }
+        mPresenter.requestSetting(user.getId());
         handlePushAction();
     }
 

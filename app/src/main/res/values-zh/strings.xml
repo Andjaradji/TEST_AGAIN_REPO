@@ -601,4 +601,6 @@
     <string name="wallet_total_personal_wallet_balance">個人錢包總金額</string>
     <string name="wallet_referral_total_vex">Vex 總量 : </string>
 
+    <string name="wallet_withdraw_minimum_amount_dialog_text">提款失败，最低提款金额为</string>
+
 </resources>

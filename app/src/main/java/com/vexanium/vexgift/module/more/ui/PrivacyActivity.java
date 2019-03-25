@@ -1,9 +1,12 @@
 package com.vexanium.vexgift.module.more.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -50,6 +53,15 @@ public class PrivacyActivity extends BaseActivity {
             public void onPageFinished(WebView view, String url) {
                 mWvPrivacy.setVisibility(View.VISIBLE);
                 mWvPrivacy.startAnimation(fadeIn);
+            }
+        });
+        mWvPrivacy.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
         mWvPrivacy.loadUrl("http://www.vexgift.com/privacy");

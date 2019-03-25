@@ -119,15 +119,31 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
 
         minimumWithdrawPrompt = StaticGroup.getStringValFromSettingKey("wallet_withdraw_prompt");
         if(TextUtils.isEmpty(minimumWithdrawPrompt)){
-            minimumWithdrawPrompt = "Minimum Withdraw amount is";
+            minimumWithdrawPrompt = "Your personal wallet amount is below the minimum withdraw amount.\nMinimum Withdraw amount is";
         }
-        customSeekBar.setOnTouchListener(new View.OnTouchListener() {
+        etAmount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    if(ClickUtil.isFastDoubleClick()) return true;
                     toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
                     return true;
                 }else {
+                    if(ClickUtil.isFastDoubleClick()) return false;
+                    return false;
+                }
+            }
+        });
+        customSeekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    if(ClickUtil.isFastDoubleClick()) return true;
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                    return true;
+                }else {
+                    if(ClickUtil.isFastDoubleClick()) return false;
                     return false;
                 }
             }
@@ -142,11 +158,11 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         }
 
         if (personalBalance <= minimumWithdraw) {
-            etAmount.setEnabled(false);
+//            etAmount.setEnabled(false);
             etTotal.setEnabled(false);
 //            customSeekBar.setEnabled(false);
         } else {
-            etAmount.setEnabled(true);
+//            etAmount.setEnabled(true);
             etTotal.setEnabled(false);
 //            customSeekBar.setEnabled(true);
         }
@@ -243,19 +259,31 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 startActivity(intent);
                 break;
             case R.id.btn_25:
-                updateSeekbar(25);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 25));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(25);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 25));
+                }
                 break;
             case R.id.btn_50:
-                updateSeekbar(50);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 50));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(50);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 50));
+                }
                 break;
             case R.id.btn_75:
-                updateSeekbar(75);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 75));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(75);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 75));
+                }
                 break;
             case R.id.btn_scan:
                 IntentIntegrator integrator = new IntentIntegrator(this);
