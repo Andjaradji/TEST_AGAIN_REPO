@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import com.vexanium.vexgift.widget.IconTextTabBarView;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -164,6 +166,9 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 guideUrl = "ask_wallet_detail_link_en";
                 break;
         }
+
+        fragmentRootView.findViewById(R.id.ll_deposit_button).setVisibility(StaticGroup.isDepositActive()? View.VISIBLE: View.GONE);
+        fragmentRootView.findViewById(R.id.ll_withdraw_button).setVisibility(StaticGroup.isWithdrawActive()? View.VISIBLE: View.GONE);
     }
 
     @Override
@@ -214,12 +219,16 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
                 break;
             case R.id.ll_deposit_button:
-                intent = new Intent(this.getActivity(), WalletDepositActivity.class);
-                startActivity(intent);
+                if(StaticGroup.isDepositAvailable()) {
+                    intent = new Intent(this.getActivity(), WalletDepositActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_withdraw_button:
-                intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
-                startActivity(intent);
+                if(StaticGroup.isWithdrawActive()) {
+                    intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.btn_generate_wallet:
                 mPresenter.requestCreateWallet(user.getId());
@@ -245,9 +254,26 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 fragmentView.findViewById(R.id.ll_wallet_address_generate).setVisibility(!isWalletExist ? View.VISIBLE : View.GONE);
                 if (isWalletExist) {
                     Wallet wallet = walletResponse.getWallet();
-                    ViewUtil.setText(fragmentView, R.id.tv_total_wallet, "" + wallet.getBalance());
-                    ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, "" + wallet.getPersonalWalletBalance());
+
+                    StringBuilder sb = new StringBuilder();
+                    Formatter formatter = new Formatter(sb);
+                    formatter.format("%.4f", wallet.getBalance());
+                    ViewUtil.setText(fragmentView, R.id.tv_total_wallet, formatter.toString());
+                    if (wallet.getBalance() > 1000000) {
+                        ((TextView) fragmentView.findViewById(R.id.tv_total_wallet)).setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_medium));
+                    }
+
+                    StringBuilder sb1 = new StringBuilder();
+                    Formatter formatter1 = new Formatter(sb1);
+                    formatter1.format("%.4f", wallet.getPersonalWalletBalance());
+                    ViewUtil.setText(fragmentView, R.id.tv_personal_wallet, "" + formatter1.toString());
+
+
+//                    StringBuilder sb2 = new StringBuilder();
+//                    Formatter formatter2 = new Formatter(sb2);
+//                    formatter.format("%.4f", wallet.getExpenseWalletBalance());
                     ViewUtil.setText(fragmentView, R.id.tv_expense_wallet, "" + wallet.getExpenseWalletBalance());
+
                     ViewUtil.setText(fragmentView, R.id.tv_deposit_bonus, walletResponse.getExpectedStakingBonus() + "");
                     ViewUtil.setText(fragmentView, R.id.tv_referral_bonus, walletResponse.getExpectedReferralBonus() + "");
                     if (isBonusShown) {

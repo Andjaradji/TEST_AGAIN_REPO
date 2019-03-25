@@ -806,7 +806,7 @@ public class StaticGroup {
             PackageManager packageManager = context.getPackageManager();
             Intent fakeIntent = new Intent();
             fakeIntent.setAction("android.intent.action.VIEW");
-            fakeIntent.setData(Uri.parse("http://www.google.com"));
+            fakeIntent.setData(Uri.parse(url));
 
             ResolveInfo selectedBrowserInfo = packageManager.resolveActivity(fakeIntent, PackageManager.MATCH_DEFAULT_ONLY);
 
@@ -825,6 +825,7 @@ public class StaticGroup {
                     browserList.add("com.UCMobile.intl");
                     browserList.add("com.android.chrome");
                     browserList.add("com.android.browser");
+                    browserList.add("org.mozilla.firefox");
                     browserList.add("com.opera.browser");
 
                     outerLoop:
@@ -1414,19 +1415,19 @@ public class StaticGroup {
         }
     }
 
-    public static long getMinimumWithdrawAmount(){
+    public static float getMinimumWithdrawAmount() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_minimum_amount") != -1) {
-            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_minimum_amount"));
+            return settingResponse.getSettingFloatValByKey("withdraw_minimum_amount");
         } else {
             return 0;
         }
     }
 
-    public static long getWithdrawFee(){
+    public static float getWithdrawFee() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("withdraw_fee") != -1) {
-            return TimeUnit.SECONDS.toMillis(settingResponse.getSettingValByKey("withdraw_fee"));
+            return settingResponse.getSettingFloatValByKey("withdraw_fee");
         } else {
             return 0;
         }
@@ -1467,6 +1468,35 @@ public class StaticGroup {
             return false;
         }
     }
+
+    public static boolean isWithdrawActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_withdraw_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_withdraw_active") == 1;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean isDepositActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_deposit_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_deposit_active") == 1;
+        } else {
+            return true;
+        }
+    }
+
+
+    public static boolean isWithdrawCancelActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_withdraw_cancel_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_withdraw_cancel_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
 
     public static boolean isReferralBannerActive() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();

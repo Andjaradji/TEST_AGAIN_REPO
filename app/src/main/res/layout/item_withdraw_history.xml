@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="140dp"
         android:layout_marginEnd="2dp"
         android:background="@drawable/rect_shadow"
         android:orientation="vertical"
@@ -96,6 +96,27 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_tiny"
             android:text=""/>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:id="@+id/ll_cancel_withdraw_button"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/interval_content"
+            android:layout_marginLeft="@dimen/interval_content"
+            android:background="@drawable/shape_ripple_transparent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/vexpoint_minus"
+                android:text="@string/wallet_withdraw_cancel"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_tiny"
+                android:paddingTop="@dimen/padding_submain"
+                android:paddingBottom="@dimen/padding_submain"
+                android:paddingLeft="@dimen/padding_medium"
+                android:paddingRight="@dimen/padding_medium"/>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -46,4 +46,12 @@ public interface WalletService {
             @Header("Cache-Control") String cacheControl,
             @Header("locale") String locale,
             @FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("wallet/cancel-withdraw")
+    Observable<HttpResponse<WithdrawResponse>> cancelWithdraw(
+            @Header("X-Vexanium-Key") String key,
+            @Header("Cache-Control") String cacheControl,
+            @Header("locale") String locale,
+            @FieldMap Map<String, Object> params);
 }

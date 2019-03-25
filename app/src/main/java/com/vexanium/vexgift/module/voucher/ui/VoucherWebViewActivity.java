@@ -1,12 +1,16 @@
 package com.vexanium.vexgift.module.voucher.ui;
 
 import android.annotation.TargetApi;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -69,6 +73,19 @@ public class VoucherWebViewActivity extends BaseActivity {
         mWebChromeClient = new BaseWebChromeClient(this);
         mWebView.setWebChromeClient(mWebChromeClient);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                KLog.v("AboutActivity","onDownloadStart: HPMtes "+url);
+                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                downloadManager.enqueue(request);
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
+            }
+        });
 
         showProgress();
         KLog.v("VoucherWebViewActivity", "initView: HPtes url " + url);

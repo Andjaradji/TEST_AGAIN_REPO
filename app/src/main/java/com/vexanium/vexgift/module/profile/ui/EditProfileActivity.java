@@ -29,17 +29,16 @@ import com.vexanium.vexgift.widget.dialog.VexDialog;
 import java.io.Serializable;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_edit_profile, toolbarTitle = R.string.edit_profile_toolbar_title)
-public class EditProfileActivity extends BaseActivity<IProfilePresenter> implements IProfileView, OnClickListener{
+public class EditProfileActivity extends BaseActivity<IProfilePresenter> implements IProfileView, OnClickListener {
 
+    TextInputEditText etName;
+    String currentEtName;
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    TextInputEditText etName;
-    String currentEtName;
 
     @Override
     protected void initView() {
@@ -48,7 +47,7 @@ public class EditProfileActivity extends BaseActivity<IProfilePresenter> impleme
 
         etName = findViewById(R.id.et_myprofile_name);
 
-        if(user.getName() != null){
+        if (user.getName() != null) {
             etName.setText(user.getName());
         }
 
@@ -69,17 +68,17 @@ public class EditProfileActivity extends BaseActivity<IProfilePresenter> impleme
             }
         });
 
-        ViewUtil.setOnClickListener(this, this,R.id.btn_save);
+        ViewUtil.setOnClickListener(this, this, R.id.btn_save);
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_save:
-                if(currentEtName.length() > 0 && currentEtName.length() <= 25){
-                    mPresenter.updateUserProfile(user.getId(),currentEtName);
-                }else{
+                if (currentEtName.length() > 0 && currentEtName.length() <= 25) {
+                    mPresenter.updateUserProfile(user.getId(), currentEtName);
+                } else {
                     StaticGroup.showCommonErrorDialog(this, getString(R.string.editprofile_save_error_length));
                 }
                 break;
@@ -89,14 +88,14 @@ public class EditProfileActivity extends BaseActivity<IProfilePresenter> impleme
     @Override
     public void handleResult(Serializable data, HttpResponse errorResponse) {
         KLog.v("EditProfileActivity handleResult : " + JsonUtil.toString(data));
-        if(data != null){
+        if (data != null) {
 
-        }else if(errorResponse != null){
+        } else if (errorResponse != null) {
             KLog.v("EditProfileActivity handleResult error " + errorResponse.getMeta().getStatus() + " : " + errorResponse.getMeta().getMessage());
             if (errorResponse.getMeta() != null && errorResponse.getMeta().isRequestError()) {
                 StaticGroup.showCommonErrorDialog(this, errorResponse.getMeta().getMessage());
             }
-        }else{
+        } else {
             user.setName(currentEtName);
             User.updateCurrentUser(this, user);
             new VexDialog.Builder(this)
@@ -110,7 +109,7 @@ public class EditProfileActivity extends BaseActivity<IProfilePresenter> impleme
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                             dialog.dismiss();
                             Intent intent = new Intent();
-                            setResult(Activity.RESULT_OK,intent);
+                            setResult(Activity.RESULT_OK, intent);
                             finish();
                         }
                     })

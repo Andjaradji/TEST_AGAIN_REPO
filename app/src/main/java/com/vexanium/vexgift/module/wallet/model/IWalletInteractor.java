@@ -11,6 +11,8 @@ public interface IWalletInteractor<T> {
 
     Subscription requestDoWithdraw(RequestCallback<T> callback, int id, int walletId, float amount, String destinationAddress);
 
+    Subscription requestCancelWithdraw(RequestCallback<T> callback, int id, int walletWithdrawId);
+
     Subscription requestGetWalletReferral(RequestCallback<T> callback, int id);
 
 }

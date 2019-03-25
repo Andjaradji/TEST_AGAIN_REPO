@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -47,15 +48,16 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
     CustomSeekBar customSeekBar;
     WalletResponse walletResponse;
     EditText etAmount, etTotal;
+
     float personalBalance;
     float withdrawAmount;
     float totalAmount;
     boolean isEditFromSeekbar = false;
     boolean isEditFromButton = false;
     boolean isOverLimit = false;
-
     float minimumWithdraw = 0;
     float withdrawFee = 0;
+    String minimumWithdrawPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
 
         minimumWithdraw = (float) StaticGroup.getMinimumWithdrawAmount();
         withdrawFee = (float) StaticGroup.getWithdrawFee();
+        ((TextView) findViewById(R.id.tv_withdraw_fee)).setText(withdrawFee + " VEX");
+
         etAmount = findViewById(R.id.et_withdraw_amount);
         etTotal = findViewById(R.id.et_withdraw_total_amount);
         customSeekBar = findViewById(R.id.cs_amount);
@@ -79,7 +83,10 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         walletResponse = TableContentDaoUtil.getInstance().getWallet();
         if (walletResponse != null && walletResponse.getWallet() != null) {
             Wallet wallet = walletResponse.getWallet();
-            personalBalance = wallet.getPersonalWalletBalance();//13631.31946f;
+
+            personalBalance = wallet.getPersonalWalletBalance();
+//            personalBalance = 13631.31946f;
+
             ViewUtil.setText(this, R.id.tv_personal_balance, personalBalance + "");
             customSeekBar.setMax(100);
             customSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -89,8 +96,8 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                     KLog.v("HMtes " + (step++) + " seekbar progress=[" + progress + "] amount=[" + amount + "] fromUser=[" + fromUser + "]  fromButton=[" + isEditFromButton + "]");
                     if (fromUser || isEditFromButton) {
                         etAmount.setText(amount + "");
-                        totalAmount = amount - withdrawFee;
-                        if(totalAmount < 0) totalAmount = 0;
+                        totalAmount = amount + withdrawFee;
+                        if (totalAmount < 0) totalAmount = 0;
                         etTotal.setText(totalAmount + "");
                         isEditFromSeekbar = true;
                         isEditFromButton = false;
@@ -110,12 +117,54 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             });
         }
 
+        minimumWithdrawPrompt = StaticGroup.getStringValFromSettingKey("wallet_withdraw_prompt");
+        if(TextUtils.isEmpty(minimumWithdrawPrompt)){
+            minimumWithdrawPrompt = "Your personal wallet amount is below the minimum withdraw amount.\nMinimum Withdraw amount is";
+        }
+        etAmount.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    if(ClickUtil.isFastDoubleClick()) return true;
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                    return true;
+                }else {
+                    if(ClickUtil.isFastDoubleClick()) return false;
+                    return false;
+                }
+            }
+        });
+        customSeekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    if(ClickUtil.isFastDoubleClick()) return true;
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                    return true;
+                }else {
+                    if(ClickUtil.isFastDoubleClick()) return false;
+                    return false;
+                }
+            }
+        });
+
         if (getIntent().hasExtra("history")) {
             boolean isGoToHistory = getIntent().getBooleanExtra("history", true);
             if (isGoToHistory) {
                 Intent intent = new Intent(this, WalletWithdrawHistoryActivity.class);
                 startActivity(intent);
             }
+        }
+
+        if (personalBalance <= minimumWithdraw) {
+//            etAmount.setEnabled(false);
+            etTotal.setEnabled(false);
+//            customSeekBar.setEnabled(false);
+        } else {
+//            etAmount.setEnabled(true);
+            etTotal.setEnabled(false);
+//            customSeekBar.setEnabled(true);
         }
 
         etAmount.addTextChangedListener(new TextWatcher() {
@@ -138,6 +187,9 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                     KLog.v("HMtes " + (step++) + " ET changed " + charSequence.toString() + "  percentage=[" + percentage + "] withdrawAmount=[" + withdrawAmount + "] edit");
 
                     customSeekBar.setProgress(percentage);
+                    totalAmount = withdrawAmount + withdrawFee;
+                    if (totalAmount < 0) totalAmount = 0;
+                    etTotal.setText(totalAmount + "");
 
                     setEnableWithdrawButton(withdrawAmount > 0);
                 }
@@ -156,8 +208,8 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                         withdrawAmount = personalBalance;
                         isOverLimit = true;
                         etAmount.setText(withdrawAmount + "");
-                        totalAmount = withdrawAmount - withdrawFee;
-                        if(totalAmount < 0) totalAmount = 0;
+                        totalAmount = withdrawAmount + withdrawFee;
+                        if (totalAmount < 0) totalAmount = 0;
                         etTotal.setText(totalAmount + "");
 
                     }
@@ -207,19 +259,31 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 startActivity(intent);
                 break;
             case R.id.btn_25:
-                updateSeekbar(25);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 25));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(25);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 25));
+                }
                 break;
             case R.id.btn_50:
-                updateSeekbar(50);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 50));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(50);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 50));
+                }
                 break;
             case R.id.btn_75:
-                updateSeekbar(75);
-                Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
-                        .putCustomAttribute("percentage", 75));
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                }else {
+                    updateSeekbar(75);
+                    Answers.getInstance().logCustom(new CustomEvent("click button withdraw amount")
+                            .putCustomAttribute("percentage", 75));
+                }
                 break;
             case R.id.btn_scan:
                 IntentIntegrator integrator = new IntentIntegrator(this);
@@ -235,7 +299,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                 if (withdrawAmount > minimumWithdraw) {
                     doWithdraw();
                 } else {
-                    String minWithdraw = getString(R.string.wallet_withdraw_minimum_amount_dialog_text) +" "+ minimumWithdraw + " VEX";
+                    String minWithdraw = getString(R.string.wallet_withdraw_minimum_amount_dialog_text) + " " + minimumWithdraw + " VEX";
                     new VexDialog.Builder(this)
                             .optionType(DialogOptionType.OK)
                             .title(getString(R.string.wallet_withdraw_minimum_amount_dialog_title))
@@ -292,7 +356,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             isValid = false;
         }
         if (walletResponse != null && walletResponse.getWallet() != null && user != null && isValid) {
-            String content = String.format(getString(R.string.wallet_withdraw_dialog_detail), " "+totalAmount + "");
+            String content = String.format(getString(R.string.wallet_withdraw_dialog_detail), " " + totalAmount);
             new VexDialog.Builder(this)
                     .optionType(DialogOptionType.YES_NO)
                     .title(getString(R.string.wallet_withdraw_dialog_title))
@@ -301,7 +365,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), withdrawAmount, destinationAddress);
+                            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), totalAmount, destinationAddress);
 
                         }
                     })
@@ -319,8 +383,8 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         KLog.v("HMtes " + (step++) + " updateSeekbar progress pb[" + personalBalance + "] * pro[" + progress + "] / 100 = [" + withdrawAmount + "]");
 
         etAmount.setText(withdrawAmount + "");
-        totalAmount = withdrawAmount - withdrawFee;
-        if(totalAmount < 0) totalAmount = 0;
+        totalAmount = withdrawAmount + withdrawFee;
+        if (totalAmount < 0) totalAmount = 0;
         etTotal.setText(totalAmount + "");
 
     }

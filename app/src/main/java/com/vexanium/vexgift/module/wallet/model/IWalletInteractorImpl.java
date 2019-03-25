@@ -57,6 +57,21 @@ public class IWalletInteractorImpl implements IWalletInteractor {
     }
 
     @Override
+    public Subscription requestCancelWithdraw(RequestCallback callback, int id, int walletWithdrawId) {
+
+        return RetrofitManager.getInstance(HostType.COMMON_API).cancelWithdraw(id, walletWithdrawId).compose(RxUtil.<WithdrawResponse>handleResult())
+                .flatMap(new Func1<WithdrawResponse, Observable<WithdrawResponse>>() {
+                    @Override
+                    public Observable<WithdrawResponse> call(WithdrawResponse response) {
+
+                        return Observable.just(response);
+                    }
+                })
+                .subscribe(new BaseSubscriber<>(callback));
+    }
+
+
+    @Override
     public Subscription requestGetWalletReferral(RequestCallback callback, int id) {
 
         return RetrofitManager.getInstance(HostType.COMMON_API).getWalletReferral(id).compose(RxUtil.<WalletReferralResponse>handleResult())

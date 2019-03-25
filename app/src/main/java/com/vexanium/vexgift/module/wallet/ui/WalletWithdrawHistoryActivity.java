@@ -1,6 +1,7 @@
 package com.vexanium.vexgift.module.wallet.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,12 +26,17 @@ import com.vexanium.vexgift.bean.model.Wallet;
 import com.vexanium.vexgift.bean.model.WalletWithdrawal;
 import com.vexanium.vexgift.bean.response.HttpResponse;
 import com.vexanium.vexgift.bean.response.WalletResponse;
+import com.vexanium.vexgift.bean.response.WithdrawCancelResponse;
 import com.vexanium.vexgift.database.TableContentDaoUtil;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenter;
 import com.vexanium.vexgift.module.wallet.presenter.IWalletPresenterImpl;
 import com.vexanium.vexgift.module.wallet.view.IWalletView;
+import com.vexanium.vexgift.util.ClickUtil;
 import com.vexanium.vexgift.util.JsonUtil;
 import com.vexanium.vexgift.util.MeasureUtil;
+import com.vexanium.vexgift.widget.dialog.DialogAction;
+import com.vexanium.vexgift.widget.dialog.DialogOptionType;
+import com.vexanium.vexgift.widget.dialog.VexDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,6 +54,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
     private ArrayList<WalletWithdrawal> walletWithdrawals;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
+    private boolean isWalletWithdrawCancelActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,8 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
     protected void initView() {
         user = User.getCurrentUser(this);
         mPresenter = new IWalletPresenterImpl(this);
+
+        isWalletWithdrawCancelActive = StaticGroup.isWithdrawCancelActive();
 
         mErrorView = findViewById(R.id.ll_error_view);
         mIvError = findViewById(R.id.iv_error_view);
@@ -120,7 +129,8 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                         getDataFromDb();
                     }
                 }
-
+            } else if (data instanceof WithdrawCancelResponse) {
+                mPresenter.requestGetWallet(user.getId());
             }
 
         } else if (errorResponse != null) {
@@ -151,20 +161,52 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                     }
                     holder.setText(R.id.tv_withdraw_history_amount, item.getAmount() + " VEX");
 
-                    if (item.getStatus().equalsIgnoreCase("pending")) {
+                    int status = -1;
+
+                    if (item.getStatus().equalsIgnoreCase("pending") || item.getStatus().equalsIgnoreCase("pending") || item.getStatus().equalsIgnoreCase("审核中")) {
                         holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.material_black_text_color));
-                        holder.setText(R.id.tv_withdraw_history_status, getText(R.string.premium_purchase_pending));
-                    } else if (item.getStatus().equalsIgnoreCase("success")) {
-                        holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.vexpoint_plus));
-                        holder.setText(R.id.tv_withdraw_history_status, getText(R.string.premium_purchase_success));
+                        holder.setText(R.id.tv_withdraw_history_status, item.getStatus());
+                        status = 0;
+                    } else if (item.getStatus().equalsIgnoreCase("success") || item.getStatus().equalsIgnoreCase("berhasil") || item.getStatus().equalsIgnoreCase("成功")) {
+                        holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.material_black_text_color));
+                        holder.setText(R.id.tv_withdraw_history_status, item.getStatus());
+                        status = 1;
 
                     } else {
-                        holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.vexpoint_minus));
-                        holder.setText(R.id.tv_withdraw_history_status, getText(R.string.premium_purchase_failed));
+                        holder.setTextColor(R.id.tv_withdraw_history_status, getResources().getColor(R.color.material_black_text_color));
+                        holder.setText(R.id.tv_withdraw_history_status, item.getStatus());
+                        status = 2;
                     }
 
-                    App.setTextViewStyle((ViewGroup) holder.getView(R.id.rl_withdraw_history_item));
+                    if(!isWalletWithdrawCancelActive){
+                        holder.setViewGone(R.id.ll_cancel_withdraw_button, true);
+                    }else{
+                        holder.setViewGone(R.id.ll_cancel_withdraw_button, status != 0);
+                    }
+                    holder.setOnClickListener(R.id.ll_cancel_withdraw_button, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (ClickUtil.isFastDoubleClick()) return;
+                            new VexDialog.Builder(WalletWithdrawHistoryActivity.this)
+                                    .optionType(DialogOptionType.YES_NO)
+                                    .title(getString(R.string.wallet_withdraw_cancel_dialog_title))
+                                    .content(getString(R.string.wallet_withdraw_cancel_dialog_text))
+                                    .positiveText(getString(R.string.yes))
+                                    .onPositive(new VexDialog.MaterialDialogButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
+                                            if (ClickUtil.isFastDoubleClick()) return;
+                                            mPresenter.requestCancelWithdraw(user.getId(), item.getId());
+                                        }
+                                    })
+                                    .negativeText(getString(R.string.cancel))
+                                    .autoDismiss(true)
+                                    .show();
 
+                        }
+                    });
+
+                    App.setTextViewStyle((ViewGroup) holder.getView(R.id.rl_withdraw_history_item));
                 }
             };
             mAdapter.setHasStableIds(true);

@@ -74,7 +74,7 @@ public class IProfileInteractorImpl implements IProfileInteractor {
 
     @Override
     public Subscription updateUserProfile(RequestCallback callback, int id, String name) {
-        return RetrofitManager.getInstance(HostType.COMMON_API).updateUserProfile(id,name).compose(RxUtil.<EmptyResponse>handleResult())
+        return RetrofitManager.getInstance(HostType.COMMON_API).updateUserProfile(id, name).compose(RxUtil.<EmptyResponse>handleResult())
                 .flatMap(new Func1<EmptyResponse, Observable<EmptyResponse>>() {
                     @Override
                     public Observable<EmptyResponse> call(EmptyResponse emptyResponse) {
