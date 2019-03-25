@@ -54,6 +54,7 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
     private ArrayList<WalletWithdrawal> walletWithdrawals;
     private SwipeRefreshLayout mRefreshLayout;
     private User user;
+    private boolean isWalletWithdrawCancelActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
     protected void initView() {
         user = User.getCurrentUser(this);
         mPresenter = new IWalletPresenterImpl(this);
+
+        isWalletWithdrawCancelActive = StaticGroup.isWithdrawCancelActive();
 
         mErrorView = findViewById(R.id.ll_error_view);
         mIvError = findViewById(R.id.iv_error_view);
@@ -175,7 +178,11 @@ public class WalletWithdrawHistoryActivity extends BaseActivity<IWalletPresenter
                         status = 2;
                     }
 
-                    holder.setViewGone(R.id.ll_cancel_withdraw_button, status != 0);
+                    if(!isWalletWithdrawCancelActive){
+                        holder.setViewGone(R.id.ll_cancel_withdraw_button, true);
+                    }else{
+                        holder.setViewGone(R.id.ll_cancel_withdraw_button, status != 0);
+                    }
                     holder.setOnClickListener(R.id.ll_cancel_withdraw_button, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

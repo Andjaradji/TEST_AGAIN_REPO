@@ -66,7 +66,7 @@
     <string name="merchant_info_desc">Untuk menggunakan voucher ini, salin atau pindah kode ke dalam sistem anda</string>
     <string name="voucher_online_info_title">Petunjuk penggunaan Voucher</string>
     <string name="voucher_online_button">Gunakan Voucher</string>
-    <string name="login_email">Email atau Nomor Handphone</string>
+    <string name="login_email">Email</string>
     <string name="login_password">Kata Sandi</string>
     <string name="error_email_invalid">Email tidak valid</string>
     <string name="error_phone_invalid">Nomor handphone tidak valid</string>

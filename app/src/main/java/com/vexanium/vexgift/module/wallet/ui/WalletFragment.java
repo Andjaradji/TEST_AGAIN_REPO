@@ -166,6 +166,9 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 guideUrl = "ask_wallet_detail_link_en";
                 break;
         }
+
+        fragmentRootView.findViewById(R.id.ll_deposit_button).setVisibility(StaticGroup.isDepositActive()? View.VISIBLE: View.GONE);
+        fragmentRootView.findViewById(R.id.ll_withdraw_button).setVisibility(StaticGroup.isWithdrawActive()? View.VISIBLE: View.GONE);
     }
 
     @Override
@@ -216,12 +219,16 @@ public class WalletFragment extends BaseFragment<IWalletPresenter> implements IW
                 ((MainActivity) getActivity()).openDeepLink(deepLinkUrl);
                 break;
             case R.id.ll_deposit_button:
-                intent = new Intent(this.getActivity(), WalletDepositActivity.class);
-                startActivity(intent);
+                if(StaticGroup.isDepositAvailable()) {
+                    intent = new Intent(this.getActivity(), WalletDepositActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_withdraw_button:
-                intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
-                startActivity(intent);
+                if(StaticGroup.isWithdrawActive()) {
+                    intent = new Intent(this.getActivity(), WalletWithdrawActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.btn_generate_wallet:
                 mPresenter.requestCreateWallet(user.getId());

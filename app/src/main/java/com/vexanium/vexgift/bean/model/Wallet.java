@@ -56,6 +56,7 @@ public class Wallet extends BaseType {
 
     public ArrayList<WalletLog> getWalletLogsWithoutCancelStatus() {
         ArrayList<WalletLog> logs = new ArrayList<>();
+        if(walletLogs == null) return logs;
         for (WalletLog log : walletLogs) {
             if (!log.getStatus().equalsIgnoreCase("cancelled")) {
                 logs.add(log);

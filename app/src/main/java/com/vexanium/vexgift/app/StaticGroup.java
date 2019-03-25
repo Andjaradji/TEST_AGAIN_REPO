@@ -1468,6 +1468,35 @@ public class StaticGroup {
         }
     }
 
+    public static boolean isWithdrawActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_withdraw_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_withdraw_active") == 1;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean isDepositActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_deposit_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_deposit_active") == 1;
+        } else {
+            return true;
+        }
+    }
+
+
+    public static boolean isWithdrawCancelActive() {
+        SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
+        if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_wallet_withdraw_cancel_active") != -1) {
+            return settingResponse.getSettingValByKey("is_wallet_withdraw_cancel_active") == 1;
+        } else {
+            return false;
+        }
+    }
+
+
     public static boolean isReferralBannerActive() {
         SettingResponse settingResponse = TablePrefDaoUtil.getInstance().getSettings();
         if (settingResponse != null && settingResponse.getSettings() != null && settingResponse.getSettingValByKey("is_referral_banner_active") != -1) {

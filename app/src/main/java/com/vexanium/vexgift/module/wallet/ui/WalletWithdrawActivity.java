@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -47,15 +48,16 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
     CustomSeekBar customSeekBar;
     WalletResponse walletResponse;
     EditText etAmount, etTotal;
+
     float personalBalance;
     float withdrawAmount;
     float totalAmount;
     boolean isEditFromSeekbar = false;
     boolean isEditFromButton = false;
     boolean isOverLimit = false;
-
     float minimumWithdraw = 0;
     float withdrawFee = 0;
+    String minimumWithdrawPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,6 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         if (walletResponse != null && walletResponse.getWallet() != null) {
             Wallet wallet = walletResponse.getWallet();
 
-            // TODO: 12/03/19 remove testing code 
             personalBalance = wallet.getPersonalWalletBalance();
 //            personalBalance = 13631.31946f;
 
@@ -116,6 +117,22 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
             });
         }
 
+        minimumWithdrawPrompt = StaticGroup.getStringValFromSettingKey("wallet_withdraw_prompt");
+        if(TextUtils.isEmpty(minimumWithdrawPrompt)){
+            minimumWithdrawPrompt = "Minimum Withdraw amount is";
+        }
+        customSeekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (personalBalance <= minimumWithdraw && minimumWithdraw != 0) {
+                    toast(minimumWithdrawPrompt+" "+minimumWithdraw+" VEX");
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        });
+
         if (getIntent().hasExtra("history")) {
             boolean isGoToHistory = getIntent().getBooleanExtra("history", true);
             if (isGoToHistory) {
@@ -127,11 +144,11 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
         if (personalBalance <= minimumWithdraw) {
             etAmount.setEnabled(false);
             etTotal.setEnabled(false);
-            customSeekBar.setEnabled(false);
+//            customSeekBar.setEnabled(false);
         } else {
             etAmount.setEnabled(true);
             etTotal.setEnabled(false);
-            customSeekBar.setEnabled(true);
+//            customSeekBar.setEnabled(true);
         }
 
         etAmount.addTextChangedListener(new TextWatcher() {
@@ -320,7 +337,7 @@ public class WalletWithdrawActivity extends BaseActivity<IWalletPresenter> imple
                         @Override
                         public void onClick(@NonNull VexDialog dialog, @NonNull DialogAction which) {
                             if (ClickUtil.isFastDoubleClick()) return;
-                            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), withdrawAmount, destinationAddress);
+                            mPresenter.requestDoWithdraw(user.getId(), walletResponse.getWallet().getId(), totalAmount, destinationAddress);
 
                         }
                     })
