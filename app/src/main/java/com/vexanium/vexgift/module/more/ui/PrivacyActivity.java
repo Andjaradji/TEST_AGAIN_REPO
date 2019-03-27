@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.base.BaseActivity;
 
 @ActivityFragmentInject(contentViewId = R.layout.activity_webview, toolbarTitle = R.string.privacy_policy)
@@ -64,7 +65,7 @@ public class PrivacyActivity extends BaseActivity {
                 startActivity(i);
             }
         });
-        mWvPrivacy.loadUrl("http://www.vexgift.com/privacy");
+        mWvPrivacy.loadUrl(ConstantGroup.BASE_WEB_LINK+"privacy");
     }
 
     @Override

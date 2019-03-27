@@ -26,6 +26,8 @@ import com.vexanium.vexgift.util.TpUtil;
 
 import java.util.ArrayList;
 
+import static com.vexanium.vexgift.http.Api.STATIC_CDN_HOST;
+
 public class VexPointGuideActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
@@ -137,25 +139,25 @@ public class VexPointGuideActivity extends AppCompatActivity {
         ArrayList<InviteCardResponse.InviteCard> cardList = new ArrayList<>();
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_1),
-                "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic1.webp",
+                STATIC_CDN_HOST+"guide/pic1.webp",
                 getString(R.string.guidance_vp_subtitle_1),
                 getString(R.string.guidance_vp_desc_1),
                 ""));
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_2),
-                "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic2.webp",
+                STATIC_CDN_HOST+"guide/pic2.webp",
                 getString(R.string.guidance_vp_subtitle_2),
                 getString(R.string.guidance_vp_desc_2),
                 ""));
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_3),
-                "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic3.webp",
+                STATIC_CDN_HOST+"guide/pic3.webp",
                 getString(R.string.guidance_vp_subtitle_3),
                 getString(R.string.guidance_vp_desc_3),
                 getString(R.string.guidance_vp_note_3)));
         cardList.add(new InviteCardResponse.InviteCard(
                 getString(R.string.guidance_vp_title_4),
-                "https://s3-ap-southeast-1.amazonaws.com/vexgift/guide/pic4.webp",
+                STATIC_CDN_HOST+"guide/pic4.webp",
                 getString(R.string.guidance_vp_subtitle_4),
                 getString(R.string.guidance_vp_desc_4),
                 ""));

@@ -602,5 +602,6 @@
     <string name="wallet_referral_total_vex">Vex 總量 : </string>
 
     <string name="wallet_withdraw_minimum_amount_dialog_text">提款失败，最低提款金额为</string>
+    <string name="wallet_withdraw_input_success_text">您的提款已成功入会，请在提款历史记录中检查您的提款状态</string>
 
 </resources>

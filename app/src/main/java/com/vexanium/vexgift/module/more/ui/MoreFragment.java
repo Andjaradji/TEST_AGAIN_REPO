@@ -17,6 +17,7 @@ import com.vexanium.vexgift.BuildConfig;
 import com.vexanium.vexgift.R;
 import com.vexanium.vexgift.annotation.ActivityFragmentInject;
 import com.vexanium.vexgift.app.App;
+import com.vexanium.vexgift.app.ConstantGroup;
 import com.vexanium.vexgift.app.StaticGroup;
 import com.vexanium.vexgift.base.BaseFragment;
 import com.vexanium.vexgift.bean.model.User;
@@ -222,9 +223,11 @@ public class MoreFragment extends BaseFragment {
                 intentToActivity(FaqActivity.class);
                 break;
             case R.id.more_guide:
-                String url = "http://www.vexgift.com/guide/en";
+                String url = ConstantGroup.BASE_WEB_LINK + "guide/en";
                 if (StaticGroup.isInIDLocale()) {
-                    url = "http://www.vexgift.com/guide/id";
+                    url = ConstantGroup.BASE_WEB_LINK + "guide/id";
+                } else if (StaticGroup.isInZHLocale()) {
+                    url = "https://blog.vexanium.com/vexgift-guideline-vexgift-%E6%96%B9%E9%92%88.html";
                 }
                 ((MainActivity) getActivity()).openDeepLink("in.app.web?t=" + Uri.encode("Vexgift Guide", "UTF-8") + "&l=" + Uri.encode(url, "UTF-8"));
 
