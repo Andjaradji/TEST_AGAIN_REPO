@@ -309,50 +309,10 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 
                 mPresenter.requestUserLuckyDrawList(user.getId());
             } else if (data instanceof UserLuckyDrawListResponse) {
-                UserLuckyDrawListResponse userLuckyDrawListResponse = (UserLuckyDrawListResponse) data;
-                ArrayList<UserLuckyDraw> userLuckyDrawLists = userLuckyDrawListResponse.getUserLuckyDraws();
-
-                if (userLuckyDrawLists != null && userLuckyDrawLists.size() > 0) {
-                    for (UserLuckyDraw userLuckyDraw : userLuckyDrawLists) {
-                        for (int i = 0; i < tempLuckyDraws.size(); i++) {
-                            Log.e("luckydrawed", i + ". " + tempLuckyDraws.get(i) + " " + tempLuckyDraws.size());
-                            if (tempLuckyDraws.get(i) != null && tempLuckyDraws.get(i).getId() == userLuckyDraw.getLuckyDrawId()) {
-                                int userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal();
-                                if (userPurchased < 0) {
-                                    userPurchased = 1;
-                                } else {
-                                    userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal() + 1;
-                                }
-
-                                tempLuckyDraws.get(i).setUserPurchasedTotal(userPurchased);
-                                break;
-                            } else {
-                                //tempLuckyDraws.get(i).setUserPurchasedTotal(0);
-                            }
-                        }
-                    }
-                } else {
-//                    for (int i = 0; i < tempLuckyDraws.size(); i++) {
-//                        tempLuckyDraws.get(i).setUserPurchasedTotal(0);
-//                    }
-                }
-
-                completedLuckyDraws = new ArrayList<>();
-                luckyDraws = new ArrayList<>();
-
-                for (LuckyDraw luckyDraw : tempLuckyDraws) {
-                    if (luckyDraw.getLuckyDrawWinners() != null && luckyDraw.getLuckyDrawWinners().size() > 0) {
-                        completedLuckyDraws.add(luckyDraw);
-                    } else {
-                        luckyDraws.add(luckyDraw);
-                    }
-                }
-                setLuckyDrawList(luckyDraws);
-
-                mAdapter.notifyDataSetChanged();
-                sortFilterCondition = new SortFilterCondition();
+                updateUserLuckyDrawData((UserLuckyDrawListResponse)data);
             }
         } else if (errorResponse != null) {
+            Log.v("ayam","yep error1 "+errorResponse.getMeta().getMessage()+ " "+User.getCurrentUser(this).getSessionKey());
             StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
@@ -399,6 +359,56 @@ public class LuckyDrawActivity extends BaseActivity<ILuckyDrawPresenter> impleme
 
     private void updateData() {
         mPresenter.requestAllLuckyDrawList(user.getId());
+    }
+
+    private void updateUserLuckyDrawData(UserLuckyDrawListResponse userLuckyDrawListResponse){
+
+        ArrayList<UserLuckyDraw> userLuckyDrawLists = userLuckyDrawListResponse.getUserLuckyDraws();
+
+        if (userLuckyDrawLists != null && userLuckyDrawLists.size() > 0) {
+            for (UserLuckyDraw userLuckyDraw : userLuckyDrawLists) {
+                for (int i = 0; i < tempLuckyDraws.size(); i++) {
+
+                    if (tempLuckyDraws.get(i) != null && tempLuckyDraws.get(i).getId() == userLuckyDraw.getLuckyDrawId()) {
+                        int userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal();
+                        if (userPurchased < 0) {
+                            userPurchased = 1;
+                        } else {
+                            userPurchased = tempLuckyDraws.get(i).getUserPurchasedTotal() + 1;
+                        }
+
+                        tempLuckyDraws.get(i).setUserPurchasedTotal(userPurchased);
+                        break;
+                    } else {
+                        //tempLuckyDraws.get(i).setUserPurchasedTotal(0);
+                    }
+                }
+            }
+        } else {
+//                    for (int i = 0; i < tempLuckyDraws.size(); i++) {
+//                        tempLuckyDraws.get(i).setUserPurchasedTotal(0);
+//                    }
+        }
+
+        completedLuckyDraws = new ArrayList<>();
+        luckyDraws = new ArrayList<>();
+
+        for (int i = 0; i < tempLuckyDraws.size() ; i++) {
+            if(tempLuckyDraws.get(i)!=null) {
+                LuckyDraw luckyDraw = tempLuckyDraws.get(i);
+                if (luckyDraw.getLuckyDrawWinners() != null && luckyDraw.getLuckyDrawWinners().size() > 0) {
+                    completedLuckyDraws.add(luckyDraw);
+                } else {
+                    luckyDraws.add(luckyDraw);
+                }
+            }
+        }
+
+        setLuckyDrawList(luckyDraws);
+
+        mAdapter.notifyDataSetChanged();
+        sortFilterCondition = new SortFilterCondition();
+
     }
 
     private void setFilterItem(@IdRes int tagview, @IdRes int rootView, final String listType) {

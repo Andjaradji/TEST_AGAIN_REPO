@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -312,6 +313,7 @@ public class LuckyDrawWinnerActivity extends BaseActivity<ILuckyDrawPresenter> i
 
             }
         } else if (errorResponse != null) {
+            Log.v("ayam","yep error "+errorResponse);
             StaticGroup.showCommonErrorDialog(this, errorResponse);
         }
     }
