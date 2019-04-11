@@ -73,6 +73,21 @@
     <string name="coupon_send_voucher">Send Voucher as a Gift</string>
     <string name="coupon_archive">Mark Voucher as Used</string>
     <string name="coupon_archive_dialog">You will mark this voucher as used. Please make sure you have copy voucher code. This action cannot be undone</string>
+
+    <!--String Resources added for the VoucherRedeemActivity.java-->
+    <string name="coupon_redeem_notification_title">Get Voucher</string>
+    <string name="coupon_redeem_notification_positive">Redeem</string>
+    <string name="coupon_redeem_notification_negative">Cancel</string>
+    <string name="coupon_redeem_notification_content">You will redeem this voucher.</string>
+
+    <string name="coupon_redeem_deactivated_title">Confirmation</string>
+    <string name="coupon_redeem_deactivated_positive">Deactivated</string>
+    <string name="coupon_redeem_deactivated_negative">Cancel</string>
+    <string name="coupon_redeem_deactivated_content">You will deactive this voucher. Please make sure you have copy voucher code. This action cannot be undone</string>
+
+    <!--String Resources added for the VoucherDetailActivity.java line 109-->
+    <string name="voucher_timestamp_remarks">Available until </string>
+
     <string name="coupon_deactivated_voucher">Use Voucher</string>
     <string name="voucher_availability">%d out of %d</string>
     <string name="voucher_minimum_lp">Loyalty Point Required : %d</string>
@@ -785,7 +800,7 @@ Your expired and used voucher will be shown here</string>
     <string name="wallet_referral_counted">Counted</string>
     <string name="wallet_referral_counted_user">Counted user : </string>
     <string name="wallet_referral_uncounted">Uncounted</string>
-    
+
     <string name="wallet_referral_total_vex">Total Vex : </string>
 
     <string name="wallet_referral_counted_empty_title">No Counted Referral</string>
