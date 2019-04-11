@@ -1,0 +1,38 @@
+ALGORITMA 
+Soal 1:
+def printChessBoard(x,y):
+    for i in range (y):
+
+
+Soal 2:
+def bubbleSort(arr):
+    new_list= arr
+    length =  len(new_list)
+    for i in range (length):
+        for j in range (length - i -1):
+            if new_list[j] > new_list[j+1]:
+                less = new_list[j+1]
+                new_list[j+1] = new_list[j]
+                new_list[j]= less
+    return new_list
+	
+
+Soal 3:
+def checkPair(thelist):
+    dup_list = []
+    new_list = sorted(set(thelist))
+    for i in range(len(new_list)):
+        if (thelist.count(new_list[i]) > 1 ):
+            dup_list.append(new_list[i])
+    for x in thelist:
+        if x in dup_list:
+            thelist.remove(x)
+    return thelist
+	
+
+QUERY
+Soal 1:
+SELECT category_name FROM category
+SELECT parent_category_id FROM category
+
+Soal 2:
